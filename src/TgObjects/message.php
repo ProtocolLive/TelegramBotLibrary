@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.03.06.00
+//2022.03.08.00
 
 /**
  * @link https://core.telegram.org/bots/api#formatting-options
@@ -22,7 +22,7 @@ enum TgParseMode:string{
 }
 
 abstract class TgMessage{
-  public readonly int $Id;
+  public readonly int $MessageId;
   public readonly TgUser|TgChat $User;
   public readonly TgChat $Chat;
   public readonly int $Date;
@@ -35,7 +35,7 @@ abstract class TgMessage{
   //The bot 777000 is used to forward messages from channels to groups
   //The bot 1087968824 is used for admins post as the group and for migrate events
   protected function __construct(array $Data){
-    $this->Id = $Data['message_id'];
+    $this->MessageId = $Data['message_id'];
     if($Data['from']['id'] === 777000): //Telegram
       $this->User = new TgChat($Data['sender_chat']);
       $this->ChatFrom = new TgChat($Data['forward_from_chat']);
