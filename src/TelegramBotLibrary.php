@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.03.07.00
+//2022.03.08.00
 
 require(__DIR__ . '/requires.php');
 
@@ -60,7 +60,9 @@ class TelegramBotLibrary extends TblBasics{
    */
   public function ChatGet(int $Chat):TgChat|null{
     $temp = $this->ServerMethod('getChat?chat_id=' . $Chat, false);
-    if($temp !== null):
+    if($temp === null):
+      return null;
+    else:
       return new TgChat($temp);
     endif;
   }
