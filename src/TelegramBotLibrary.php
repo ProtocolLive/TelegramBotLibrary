@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.03.08.00
+//2022.03.08.01
 
 require(__DIR__ . '/requires.php');
 
@@ -50,6 +50,9 @@ class TelegramBotLibrary extends TblBasics{
     endif;
     if(isset($update['message']['photo'])):
       return new TgPhoto($update['message']);
+    endif;
+    if(isset($update['message']['document'])):
+      return new TgDocument($update['message']);
     endif;
   }
 
