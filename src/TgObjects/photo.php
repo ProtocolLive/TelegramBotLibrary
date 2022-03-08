@@ -1,13 +1,12 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.03.07.00
+//2022.03.08.00
 
-class TgPhoto extends TgMessage{
+class TgPhoto extends TgMedia{
   public array $Files;
   public readonly string|null $Caption;
   public array $Entities = [];
-  public readonly string|null $MediaGroup;
 
   public function __construct(array $Data){
     parent::__construct($Data);
@@ -20,7 +19,6 @@ class TgPhoto extends TgMessage{
         $this->Entities[] = new TgEntity($entity);
       endforeach;
     endif;
-    $this->MediaGroup = $Data['media_group_id'] ?? null;
   }
 }
 
