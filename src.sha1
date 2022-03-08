@@ -7,7 +7,7 @@ cde84350f3e12288cbc6c8ee7f1183bc5b2d5a89  src/TelegramBotLibrary.php
 08880c9edf3d72b27ae64cb7f7c532ef647d1b95  src/TgObjects/document.php
 11e043fc5968461fc0dffec8b3b033e63585406c  src/TgObjects/entity.php
 bab67f6f9212cae6cbd108a942b82ea18697e9ed  src/TgObjects/media.php
-66f912d637841d7f2c07b61bda284b14d607e9ca  src/TgObjects/message.php
+d92956e9c7d4839d6dc2f61110d9babed1c0beb8  src/TgObjects/message.php
 b7af15ee3621aeb75eac2679dfad7e391f27edcf  src/TgObjects/photo.php
 beae29f507423b06e0537c9d25f9ad83e5b17e97  src/TgObjects/text.php
 f0c34158e0c153dd3eba1ed3a3852c5adb41e61f  src/TgObjects/user.php

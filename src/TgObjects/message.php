@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.03.08.00
+//2022.03.08.01
 
 /**
  * @link https://core.telegram.org/bots/api#formatting-options
@@ -27,7 +27,7 @@ abstract class TgMessage{
   public readonly TgChat $Chat;
   public readonly int $Date;
   public readonly bool $Protected;
-  public readonly TgChat|null $ChatFrom;
+  public readonly TgUser|TgChat|null $ForwardFrom;
   public readonly int|null $ForwardId;
   public readonly bool|null $ForwardAuto;
   public readonly int|null $ForwardDate;
@@ -38,25 +38,27 @@ abstract class TgMessage{
     $this->MessageId = $Data['message_id'];
     if($Data['from']['id'] === 777000): //Telegram
       $this->User = new TgChat($Data['sender_chat']);
-      $this->ChatFrom = new TgChat($Data['forward_from_chat']);
+      $this->ForwardFrom = new TgChat($Data['forward_from_chat']);
       $this->ForwardId = $Data['forward_from_message_id'];
       $this->ForwardAuto = $Data['is_automatic_forward'];
-      $this->ForwardDate = $Data['forward_date'];
     elseif($Data['from']['id'] === 1087968824): //GroupAnonymousBot
       $this->User = new TgChat($Data['sender_chat']);
-      $this->ChatFrom = null;
+      $this->ForwardFrom = null;
       $this->ForwardId = null;
       $this->ForwardAuto = null;
-      $this->ForwardDate = null;
     else:
       $this->User = new TgUser($Data['from']);
-      $this->ChatFrom = null;
+      if(isset($Data['forward_from'])):
+        $this->ForwardFrom = new TgUser($Data['forward_from']);
+      else:
+        $this->ForwardFrom = null;
+      endif;
       $this->ForwardId = null;
       $this->ForwardAuto = null;
-      $this->ForwardDate = null;
     endif;
     $this->Chat = new TgChat($Data['chat']);
     $this->Date = $Data['date'];
+    $this->ForwardDate = $Data['forward_date'] ?? null;
     $this->Protected = $Data['has_protected_content'] ?? false;
   }
 }
