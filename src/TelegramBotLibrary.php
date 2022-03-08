@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.03.08.01
+//2022.03.08.02
 
 require(__DIR__ . '/requires.php');
 
@@ -132,8 +132,7 @@ class TelegramBotLibrary extends TblBasics{
     $param['chat_id'] = $Chat;
     $param['user_id'] = $User;
     $param['only_if_banned'] = $OnlyIfBanned;
-    $temp = $this->ServerMethod('unbanChatMember?' . http_build_query($param), false);
-    return $temp;
+    return $this->ServerMethod('unbanChatMember?' . http_build_query($param), false);
   }
 
   /**
