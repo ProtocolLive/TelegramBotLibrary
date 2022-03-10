@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.03.10.00
+//2022.03.10.01
 
 require(__DIR__ . '/requires.php');
 
@@ -87,6 +87,24 @@ class TelegramBotLibrary extends TblBasics{
     $param['user_id'] = $User;
     $temp = $this->ServerMethod('getChatMember?' . http_build_query($param), false);
     return new TgMember($temp);
+  }
+
+  /**
+   * Use this method to get a list of administrators in a chat. On success, returns an Array of ChatMember objects that contains information about all chat administrators except other bots. If the chat is a group or a supergroup and no administrators were appointed, only the creator will be returned.
+   * @param int $Chat Unique identifier for the target chat
+   * @link https://core.telegram.org/bots/api#getchatadministrators
+   */
+  public function ChatAdmGet(int $Chat):array|null{
+    $temp = $this->ServerMethod('getChatAdministrators?chat_id=' . $Chat, false);
+    if($temp === null):
+      return null;
+    else:
+      $return = [];
+      foreach($temp as $user):
+        $return[] = new TgMember($user);
+      endforeach;
+      return $return;
+    endif;
   }
 
   /**
