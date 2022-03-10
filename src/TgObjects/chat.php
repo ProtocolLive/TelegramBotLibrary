@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.03.10.01
+//2022.03.10.02
 
 enum TgChatType:string{
   case Private = 'private';
@@ -55,7 +55,7 @@ class TgMember{
     elseif($this->Status === TgMemberStatus::Creator):
       $this->In = true;
     endif;
-    $this->Anonymous = $Data['is_anonymous'];
+    $this->Anonymous = $Data['is_anonymous'] ?? false;
     $this->Title = $Data['custom_title'] ?? null;
     $this->Expires = $Data['until_date'] ?? null;
     if($this->Status === TgMemberStatus::Creator):
