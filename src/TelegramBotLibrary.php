@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.03.11.00
+//2022.03.11.01
 
 require(__DIR__ . '/requires.php');
 
@@ -351,5 +351,78 @@ class TelegramBotLibrary extends TblBasics{
    */
   public function SendAction(int $Chat, TgChatAction $Action):bool|null{
     return $this->ServerMethod('sendChatAction?chat_id=' . $Chat . '&action=' . $Action->value);
+  }
+
+  /**
+   * Use this method to send text messages. On success, the sent Message is returned.
+   * @param int $Chat Unique identifier for the target chat
+   * @param string $Text Text of the message to be sent, 1-4096 characters after entities parsing
+   * @param TgParseMode $ParseMode Mode for parsing entities in the message text.
+   * @param array $Entities A list of special entities that appear in message text, which can be specified instead of parse_mode
+   * @param bool $DisablePreview Disables link previews for links in this message
+   * @param bool $DisableNotification Sends the message silently. Users will receive a notification with no sound.
+   * @param bool $Protect Protects the contents of the sent message from forwarding and saving
+   * @param int $RepliedMsg If the message is a reply, ID of the original message
+   * @param bool $SendWithoutRepliedMsg Pass True, if the message should be sent even if the specified replied-to message is not found
+   * @param array TblMarkup Additional interface options. A object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
+   * @link https://core.telegram.org/bots/api#sendmessage
+   */
+  public function SendText(
+    int $Chat,
+    string $Text,
+    TgParseMode $ParseMode = TgParseMode::Html,
+    array $Entities = null,
+    bool $DisablePreview = false,
+    bool $DisableNotification = false,
+    bool $Protect = false,
+    int $RepliedMsg = null,
+    bool $SendWithoutRepliedMsg = false,
+    TblMarkup $Markup = null
+  ):TgMessage|null{
+    $param['chat_id'] = $Chat;
+    $param['text'] = $Text;
+    $param['parse_mode'] = $ParseMode->value;
+    if($Entities !== null):
+      $entities = [];
+      /** @var TgEntity $ent */
+      foreach($Entities as $ent):
+        $temp = [];
+        $temp['type'] = $ent->Type->value;
+        $temp['offset'] = $ent->Offset;
+        $temp['length'] = $ent->Length;
+        if($ent->Url !== null):
+          $temp['url'] = $ent->Url;
+        elseif($ent->User !== null):
+          $temp['user'] = $ent->User;
+        elseif($ent->Language !== null):
+          $temp['language'] = $ent->Language;
+        endif;
+      endforeach;
+      $param['entities'] = json_encode($entities);
+    endif;
+    if($DisablePreview):
+      $param['disable_web_page_preview'] = true;
+    endif;
+    if($DisableNotification):
+      $param['disable_notification'] = true;
+    endif;
+    if($Protect):
+      $param['protect_content'] = true;
+    endif;
+    if($RepliedMsg !== null):
+      $param['reply_to_message_id'] = $RepliedMsg;
+    endif;
+    if($SendWithoutRepliedMsg):
+      $param['allow_sending_without_reply'] = true;
+    endif;
+    if($Markup !== null):
+      $param['reply_markup'] = $Markup->Get();
+    endif;
+    $temp = $this->ServerMethod('sendMessage?' . http_build_query($param));
+    if($temp !== null):
+      return new TgMessage($temp);
+    else:
+      return null;
+    endif;
   }
 }
