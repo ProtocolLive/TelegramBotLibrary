@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.03.10.01
+//2022.03.10.02
 
 require(__DIR__ . '/requires.php');
 
@@ -62,7 +62,7 @@ class TelegramBotLibrary extends TblBasics{
    * @link https://core.telegram.org/bots/api#getchat
    */
   public function ChatGet(int $Chat):TgChat|null{
-    $temp = $this->ServerMethod('getChat?chat_id=' . $Chat, false);
+    $temp = $this->ServerMethod('getChat?chat_id=' . $Chat);
     if($temp === null):
       return null;
     else:
@@ -72,20 +72,23 @@ class TelegramBotLibrary extends TblBasics{
 
   /**
    * Use this method to get the number of members in a chat. Returns Int on success.
+   * @param int $Chat Unique identifier for the target
    * @link https://core.telegram.org/bots/api#getchatmembercount
    */
   public function ChatCount(int $Chat):int|null{
-    return $this->ServerMethod('getChatMemberCount?chat_id=' . $Chat, false);
+    return $this->ServerMethod('getChatMemberCount?chat_id=' . $Chat);
   }
 
   /**
-   * Return the chat member info
+   * Use this method to get information about a member of a chat. Returns a ChatMember object on success.
+   * @param int $Chat Unique identifier for the target chat
+   * @param int $User Unique identifier of the target user
    * @link https://core.telegram.org/bots/api#getchatmember
    */
   public function ChatMember(int $Chat, int $User):TgMember{
     $param['chat_id'] = $Chat;
     $param['user_id'] = $User;
-    $temp = $this->ServerMethod('getChatMember?' . http_build_query($param), false);
+    $temp = $this->ServerMethod('getChatMember?' . http_build_query($param));
     return new TgMember($temp);
   }
 
@@ -95,7 +98,7 @@ class TelegramBotLibrary extends TblBasics{
    * @link https://core.telegram.org/bots/api#getchatadministrators
    */
   public function ChatAdmGet(int $Chat):array|null{
-    $temp = $this->ServerMethod('getChatAdministrators?chat_id=' . $Chat, false);
+    $temp = $this->ServerMethod('getChatAdministrators?chat_id=' . $Chat);
     if($temp === null):
       return null;
     else:
@@ -122,7 +125,7 @@ class TelegramBotLibrary extends TblBasics{
     $param['chat_id'] = $Chat;
     $param['user_id'] = $User;
     $param['custom_title'] = $Title;
-    return $this->ServerMethod('setChatAdministratorCustomTitle?' . http_build_query($param), false);
+    return $this->ServerMethod('setChatAdministratorCustomTitle?' . http_build_query($param));
   }
 
   /**
@@ -143,7 +146,7 @@ class TelegramBotLibrary extends TblBasics{
     $param['user_id'] = $User;
     $param['until_date'] = $Date;
     $param['revoke_messages'] = $DelMsg;
-    return $this->ServerMethod('banChatMember?' . http_build_query($param), false);
+    return $this->ServerMethod('banChatMember?' . http_build_query($param));
   }
 
   /**
@@ -161,7 +164,7 @@ class TelegramBotLibrary extends TblBasics{
     $param['chat_id'] = $Chat;
     $param['user_id'] = $User;
     $param['only_if_banned'] = $OnlyIfBanned;
-    return $this->ServerMethod('unbanChatMember?' . http_build_query($param), false);
+    return $this->ServerMethod('unbanChatMember?' . http_build_query($param));
   }
 
   /**
@@ -231,7 +234,7 @@ class TelegramBotLibrary extends TblBasics{
     else:
       $temp = '?' . http_build_query($param);
     endif;
-    return $this->ServerMethod('getMyCommands' . $temp, false);
+    return $this->ServerMethod('getMyCommands' . $temp);
   }
 
   /**
@@ -286,7 +289,7 @@ class TelegramBotLibrary extends TblBasics{
    * @link https://core.telegram.org/bots/api#getme
    */
   public function MeGet():TgUser|null{
-    $temp = $this->ServerMethod('getMe', false);
+    $temp = $this->ServerMethod('getMe');
     if($temp === null):
       return null;
     else:
