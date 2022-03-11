@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.03.10.05
+//2022.03.10.06
 
 enum TgChatType:string{
   case Private = 'private';
@@ -122,24 +122,45 @@ enum TgMemberStatus:string{
  * @link https://core.telegram.org/bots/api#chatmemberadministrator
  */
 class TgAdminPerm{
+  const Array = [
+    'Manage' => 'can_manage_chat',
+    'Message' => 'can_post_messages',
+    'Edit' => 'can_edit_messages',
+    'Delete' => 'can_delete_messages',
+    'Invite' => 'can_invite_users',
+    'Restrict' => 'can_restrict_members',
+    'Promote' => 'can_promote_members',
+    'Voice' => 'can_manage_voice_chats',
+    'Info' => 'can_change_info',
+    'Pin' => 'can_pin_messages'
+  ];
+
   /**
    * @param bool $Manage If the administrator can access the chat event log, chat statistics, message statistics in channels, see channel members, see anonymous administrators in supergroups and ignore slow mode. Implied by any other administrator privilege
+   * @param bool $Message If the administrator can post in the channel; channels only
    * @param bool $Edited If the bot is allowed to edit administrator privileges of that user
+   * @param bool $Edit If the administrator can edit messages of other users and can pin messages; channels only
    * @param bool $Delete If the administrator can delete messages of other users
    * @param bool $Invite If the user is allowed to invite new users to the chat
    * @param bool $Restrict If the administrator can restrict, ban or unban chat members
    * @param bool $Promote If the administrator can add new administrators with a subset of their own privileges or demote administrators that he has promoted, directly or indirectly (promoted by administrators that were appointed by the user)
    * @param bool $Voice If the administrator can manage voice chats
+   * @param bool $Info If the administrator can change chat title, photo and other settings
+   * @param bool $Pin If the administrator can pin messages, supergroups only
    * @link https://core.telegram.org/bots/api#chatmemberadministrator
    */
   public function __construct(
     public bool $Manage = false,
-    public bool $Edited = false,
+    public bool $Message = false,
+    public bool $Edited = true,
+    public bool $Edit = false,
     public bool $Delete = false,
     public bool $Invite = false,
     public bool $Restrict = false,
     public bool $Promote = false,
-    public bool $Voice = false
+    public bool $Voice = false,
+    public bool $Info = false,
+    public bool $Pin = false
   ){}
 }
 
@@ -147,6 +168,17 @@ class TgAdminPerm{
  * @link https://core.telegram.org/bots/api#chatpermissions
  */
 class TgMemberPerm{
+  const Array = [
+    'Message' => 'can_send_messages',
+    'Media' => 'can_send_media_messages',
+    'Poll' => 'can_send_polls',
+    'Media2' => 'can_send_other_messages',
+    'Preview' => 'can_add_web_page_previews',
+    'Info' => 'can_change_info',
+    'Invite' => 'can_invite_users',
+    'Pin' => 'can_pin_messages'
+  ];
+
   /**
    * Describes actions that a non-administrator user is allowed to take in a chat.
    * @param bool $Message If the user is allowed to send text messages, contacts, locations and venues
