@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.03.10.02
+//2022.03.10.03
 
 require(__DIR__ . '/requires.php');
 
@@ -108,6 +108,53 @@ class TelegramBotLibrary extends TblBasics{
       endforeach;
       return $return;
     endif;
+  }
+
+  /**
+   * Use this method to restrict a user in a supergroup. The bot must be an administrator in the supergroup for this to work and must have the appropriate administrator rights. Pass True for all permissions to lift restrictions from a user. Returns True on success.
+   * @param int $Chat Unique identifier for the target
+   * @param int $User Unique identifier of the target user
+   * @param TgMemberPerm $Perms A object for new user permissions
+   * @param int $Period Date when restrictions will be lifted for the user, unix time. If user is restricted for more than 366 days or less than 30 seconds from the current time, they are considered to be restricted forever
+   * @link https://core.telegram.org/bots/api#restrictchatmember
+   */
+  public function ChatMemberPerm(
+    int $Chat,
+    int $User,
+    TgMemberPerm $Perms,
+    int $Period = null
+  ):bool|null{
+    $param['chat_id'] = $Chat;
+    $param['user_id'] = $User;
+    foreach(TgMemberPerm::Array as $class => $json):
+      $temp[$json] = $Perms->$class;
+    endforeach;
+    $param['permissions'] = json_encode($temp);
+    $param['until_date'] = $Period;
+    return $this->ServerMethod('restrictChatMember?' . http_build_query($param));
+  }
+
+  /**
+   * Use this method to promote or demote a user in a supergroup or a channel. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Pass False for all boolean parameters to demote a user. Returns True on success.
+   * @param int $Chat Unique identifier for the target
+   * @param int $User Unique identifier of the target user
+   * @param TgAdminPerm $Perms
+   * @param bool $Anonymous If the administrator's presence in the chat is hidden
+   * @link https://core.telegram.org/bots/api#promotechatmember
+   */
+  public function ChatAdminPerm(
+    int $Chat,
+    int $User,
+    TgAdminPerm $Perms,
+    bool $Anonymous = false
+  ):bool|null{
+    $param['chat_id'] = $Chat;
+    $param['user_id'] = $User;
+    foreach(TgAdminPerm::Array as $class => $json):
+      $param[$json] = $Perms->$class ? 'true' : 'false';
+    endforeach;
+    $param['is_anonymous'] = $Anonymous ? 'true' : 'false';
+    return $this->ServerMethod('promoteChatMember?' . http_build_query($param));
   }
 
   /**
