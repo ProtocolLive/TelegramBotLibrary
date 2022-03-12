@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.03.12.00
+//2022.03.12.01
 
 require(__DIR__ . '/requires.php');
 
@@ -464,6 +464,56 @@ class TelegramBotLibrary extends TblBasics{
       return new TgMessage($temp);
     else:
       return null;
+    endif;
+  }
+
+  /**
+   * Use this method to edit text and game messages. On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned.
+   * @param int $Chat Required if inline_message_id is not specified. Unique identifier for the target chat
+   * @param int $Id Required if inline_message_id is not specified. Identifier of the message to edit
+   * @param string $Text New text of the message, 1-4096 characters after entities parsing
+   * @param string $InlineId Required if chat_id and message_id are not specified. Identifier of the inline message
+   * @param TgParseMode $ParseMode Mode for parsing entities in the message text.
+   * @param array $Entities A list of special entities that appear in message text, which can be specified instead of parse_mode
+   * @param bool $DisablePreview Disables link previews for links in this message
+   * @param TblMarkup $Markup A object for an inline keyboard.
+   * @link https://core.telegram.org/bots/api#editmessagetext
+   */
+  public function EditText(
+    int $Chat = null,
+    int $Id = null,
+    string $Text,
+    string $InlineId = null,
+    TgParseMode $ParseMode = TgParseMode::Html,
+    array $Entities = null,
+    bool $DisablePreview = false,
+    TblMarkup $Markup = null
+  ):TgMessage|bool|null{
+    if($Chat !== null):
+      $param['chat_id'] = $Chat;
+    endif;
+    if($Id !== null):
+      $param['message_id'] = $Id;
+    endif;
+    $param['text'] = $Text;
+    if($InlineId !== null):
+      $param['inline_message_id'] = $InlineId;
+    endif;
+    $param['parse_mode'] = $ParseMode->value;
+    if($Entities !== null):
+      $param['entities'] = TblEntities::ToJson($Entities);
+    endif;
+    if($DisablePreview):
+      $param['disable_web_page_preview'] = 'true';
+    endif;
+    if($Markup !== null):
+      $param['reply_markup'] = $Markup->Get();
+    endif;
+    $temp = $this->ServerMethod('editMessageText?' . http_build_query($param));
+    if(get_class($temp) === 'TgMessage'):
+      return new TgMessage($temp);
+    else:
+      return $temp;
     endif;
   }
 }
