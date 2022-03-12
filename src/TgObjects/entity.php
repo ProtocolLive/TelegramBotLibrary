@@ -16,9 +16,21 @@ enum TgEntityType:string{
   case Underline = 'underline';
   case Strike = 'strikethrough';
   case Spoiler = 'spoiler';
+  /**
+   * Monowidth string
+   */
   case Code = 'code';
+  /**
+   * Monowidth block
+   */
   case Pre = 'pre';
+  /**
+   * For clickable text URLs
+   */
   case Link = 'text_link';
+  /**
+   * For users without usernames
+   */
   case MentionText = 'text_mention';
 }
 
