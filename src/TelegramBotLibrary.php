@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.03.13.00
+//2022.03.13.01
 
 require(__DIR__ . '/requires.php');
 
@@ -57,8 +57,9 @@ class TelegramBotLibrary extends TblBasics{
   }
 
   /**
-   * Use this method to get up to date information about the chat (current name of the user for one-on-one conversations, current username of a user, group or channel, etc.). Returns a Chat object on success.
+   * Use this method to get up to date information about the chat (current name of the user for one-on-one conversations, current username of a user, group or channel, etc.).
    * @param int $Chat Unique identifier for the target chat
+   * @return TgChat|null Returns a Chat object on success.
    * @link https://core.telegram.org/bots/api#getchat
    */
   public function ChatGet(int $Chat):TgChat|null{
@@ -71,8 +72,9 @@ class TelegramBotLibrary extends TblBasics{
   }
 
   /**
-   * Use this method to get the number of members in a chat. Returns Int on success.
+   * Use this method to get the number of members in a chat.
    * @param int $Chat Unique identifier for the target
+   * @param int|null Returns Int on success.
    * @link https://core.telegram.org/bots/api#getchatmembercount
    */
   public function ChatCount(int $Chat):int|null{
@@ -80,12 +82,13 @@ class TelegramBotLibrary extends TblBasics{
   }
 
   /**
-   * Use this method to get information about a member of a chat. Returns a ChatMember object on success.
+   * Use this method to get information about a member of a chat.
    * @param int $Chat Unique identifier for the target chat
    * @param int $User Unique identifier of the target user
+   * @return TgMember|null Returns a ChatMember object on success.
    * @link https://core.telegram.org/bots/api#getchatmember
    */
-  public function ChatMember(int $Chat, int $User):TgMember{
+  public function ChatMember(int $Chat, int $User):TgMember|null{
     $param['chat_id'] = $Chat;
     $param['user_id'] = $User;
     $temp = $this->ServerMethod('getChatMember?' . http_build_query($param));
@@ -93,8 +96,9 @@ class TelegramBotLibrary extends TblBasics{
   }
 
   /**
-   * Use this method to get a list of administrators in a chat. On success, returns an Array of ChatMember objects that contains information about all chat administrators except other bots. If the chat is a group or a supergroup and no administrators were appointed, only the creator will be returned.
+   * Use this method to get a list of administrators in a chat. On success, returns an Array of ChatMember objects that contains information about all chat administrators except other bots.
    * @param int $Chat Unique identifier for the target chat
+   * @return array|null If the chat is a group or a supergroup and no administrators were appointed, only the creator will be returned.
    * @link https://core.telegram.org/bots/api#getchatadministrators
    */
   public function ChatAdmGet(int $Chat):array|null{
@@ -111,11 +115,12 @@ class TelegramBotLibrary extends TblBasics{
   }
 
   /**
-   * Use this method to restrict a user in a supergroup. The bot must be an administrator in the supergroup for this to work and must have the appropriate administrator rights. Pass True for all permissions to lift restrictions from a user. Returns True on success.
+   * Use this method to restrict a user in a supergroup. The bot must be an administrator in the supergroup for this to work and must have the appropriate administrator rights. Pass True for all permissions to lift restrictions from a user.
    * @param int $Chat Unique identifier for the target
    * @param int $User Unique identifier of the target user
    * @param TgMemberPerm $Perms A object for new user permissions
    * @param int $Period Date when restrictions will be lifted for the user, unix time. If user is restricted for more than 366 days or less than 30 seconds from the current time, they are considered to be restricted forever
+   * @return bool|null Returns True on success.
    * @link https://core.telegram.org/bots/api#restrictchatmember
    */
   public function ChatMemberPerm(
@@ -135,11 +140,12 @@ class TelegramBotLibrary extends TblBasics{
   }
 
   /**
-   * Use this method to promote or demote a user in a supergroup or a channel. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Pass False for all boolean parameters to demote a user. Returns True on success.
+   * Use this method to promote or demote a user in a supergroup or a channel. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Pass False for all boolean parameters to demote a user.
    * @param int $Chat Unique identifier for the target
    * @param int $User Unique identifier of the target user
    * @param TgAdminPerm $Perms
    * @param bool $Anonymous If the administrator's presence in the chat is hidden
+   * @return bool|null Returns True on success.
    * @link https://core.telegram.org/bots/api#promotechatmember
    */
   public function ChatAdminPerm(
@@ -158,10 +164,11 @@ class TelegramBotLibrary extends TblBasics{
   }
 
   /**
-   * Use this method to set a custom title for an administrator in a supergroup promoted by the bot. Returns True on success.
+   * Use this method to set a custom title for an administrator in a supergroup promoted by the bot.
    * @param int $Chat Unique identifier for the target chat
    * @param int $User Unique identifier of the target user
    * @param string $Title New custom title for the administrator; 0-16 characters, emoji are not allowed
+   * @return bool|null Returns True on success.
    * @link https://core.telegram.org/bots/api#setchatadministratorcustomtitle
    */
   public function ChatAdmTitleSet(
@@ -176,11 +183,12 @@ class TelegramBotLibrary extends TblBasics{
   }
 
   /**
-   * Use this method to ban a user in a group, a supergroup or a channel. In the case of supergroups and channels, the user will not be able to return to the chat on their own using invite links, etc., unless unbanned first. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns True on success.
+   * Use this method to ban a user in a group, a supergroup or a channel. In the case of supergroups and channels, the user will not be able to return to the chat on their own using invite links, etc., unless unbanned first. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights.
    * @param int $Chat Unique identifier for the target group or username of the target supergroup or channel
    * @param int $User Unique identifier of the target user
    * @param int $Date Date when the user will be unbanned, unix time. If user is banned for more than 366 days or less than 30 seconds from the current time they are considered to be banned forever. Applied for supergroups and channels only.
    * @param bool $DelMsg Pass True to delete all messages from the chat for the user that is being removed. If False, the user will be able to see messages in the group that were sent before the user was removed. Always True for supergroups and channels.
+   * @return bool|null Returns True on success.
    * @link https://core.telegram.org/bots/api#banchatmember
    */
   public function ChatBan(
@@ -197,10 +205,11 @@ class TelegramBotLibrary extends TblBasics{
   }
 
   /**
-   * Use this method to unban a previously banned user in a supergroup or channel. The user will not return to the group or channel automatically, but will be able to join via link, etc. The bot must be an administrator for this to work. By default, this method guarantees that after the call the user is not a member of the chat, but will be able to join it. So if the user is a member of the chat they will also be removed from the chat. If you don't want this, use the parameter only_if_banned. Returns True on success.
+   * Use this method to unban a previously banned user in a supergroup or channel. The user will not return to the group or channel automatically, but will be able to join via link, etc. The bot must be an administrator for this to work. By default, this method guarantees that after the call the user is not a member of the chat, but will be able to join it. So if the user is a member of the chat they will also be removed from the chat. If you don't want this, use the parameter only_if_banned.
    * @param int $Chat Unique identifier for the target group or username of the target supergroup or channel
    * @param int $User Unique identifier of the target user
    * @param bool $OnlyIfBanned Do nothing if the user is not banned
+   * @return bool|null Returns True on success.
    * @link https://core.telegram.org/bots/api#unbanchatmember
    */
   public function ChatUnban(
@@ -215,12 +224,13 @@ class TelegramBotLibrary extends TblBasics{
   }
 
   /**
-   * Use this method to forward messages of any kind. Service messages can't be forwarded. On success, the sent Message is returned.
+   * Use this method to forward messages of any kind. Service messages can't be forwarded.
    * @param int $To Unique identifier for the target chat or username of the target channel
    * @param int $From Unique identifier for the chat where the original message was sent
    * @param int $Id Message identifier in the chat specified in from_chat_id
    * @param bool $DisableNotification Sends the message silently. Users will receive a notification with no sound.
    * @param bool $Protect Protects the contents of the forwarded message from forwarding and saving
+   * @return TgMessage|null On success, the sent Message is returned.
    * @link https://core.telegram.org/bots/api#forwardmessage
    */
   public function Forward(
@@ -248,11 +258,12 @@ class TelegramBotLibrary extends TblBasics{
   }
 
   /**
-   * Use this method to get the current list of the bot's commands for the given scope and user language. Returns Array of BotCommand on success. If commands aren't set, an empty list is returned.
+   * Use this method to get the current list of the bot's commands for the given scope and user language.
    * @param TgCmdScope $Scope A JSON-serialized object, describing scope of users. Defaults to TgCmdScope::Default.
    * @param string $Language A two-letter ISO 639-1 language code or an empty string
    * @param int $Chat Unique identifier for the target chat. Only for TgCmdScope::Chat, TgCmdScope::GroupsAdmins or TgCmdScope::Member
    * @param int $User Unique identifier of the target user. Only for TgCmdScope::Member
+   * @return array|null Returns Array of BotCommand on success. If commands aren't set, an empty list is returned.
    * @link https://core.telegram.org/bots/api#getmycommands
    */
   public function CmdGet(
@@ -285,10 +296,11 @@ class TelegramBotLibrary extends TblBasics{
   }
 
   /**
-   * Use this method to change the list of the bot's commands. See https://core.telegram.org/bots#commands for more details about bot commands. Returns True on success.
+   * Use this method to change the list of the bot's commands. See https://core.telegram.org/bots#commands for more details about bot commands.
    * @param array $Commands A JSON-serialized list of bot commands to be set as the list of the bot's commands. At most 100 commands can be specified.
    * @param TgCmdScope $Scope A JSON-serialized object, describing scope of users for which the commands are relevant. Defaults to TgCmdScope::Default
    * @param string $Language A two-letter ISO 639-1 language code. If empty, commands will be applied to all users from the given scope, for whose language there are no dedicated commands
+   * @return bool|null Returns True on success.
    * @link https://core.telegram.org/bots/api#setmycommands
    */
   public function CmdSet(
@@ -307,9 +319,10 @@ class TelegramBotLibrary extends TblBasics{
   }
 
   /**
-   * Use this method to delete the list of the bot's commands for the given scope and user language. After deletion, higher level commands will be shown to affected users. Returns True on success.
+   * Use this method to delete the list of the bot's commands for the given scope and user language. After deletion, higher level commands will be shown to affected users.
    * @param TgCmdScope $Scope A JSON-serialized object, describing scope of users for which the commands are relevant. Defaults to BotCommandScopeDefault.
    * @param string $Language A two-letter ISO 639-1 language code. If empty, commands will be applied to all users from the given scope, for whose language there are no dedicated commands
+   * @return bool|null Returns True on success.
    * @link https://core.telegram.org/bots/api#deletemycommands
    */
   public function CmdDel(
@@ -332,7 +345,8 @@ class TelegramBotLibrary extends TblBasics{
   }
 
   /**
-   * A simple method for testing your bot's authentication token. Requires no parameters. Returns basic information about the bot in form of a User object.
+   * A simple method for testing your bot's authentication token. Requires no parameters.
+   * @return TgUser|null Returns basic information about the bot in form of a User object.
    * @link https://core.telegram.org/bots/api#getme
    */
   public function MeGet():TgUser|null{
@@ -345,8 +359,9 @@ class TelegramBotLibrary extends TblBasics{
   }
 
   /**
-   * Use this method when you need to tell the user that something is happening on the bot's side. The status is set for 5 seconds or less (when a message arrives from your bot, Telegram clients clear its typing status). Returns True on success.
+   * Use this method when you need to tell the user that something is happening on the bot's side. The status is set for 5 seconds or less (when a message arrives from your bot, Telegram clients clear its typing status).
    * Example: The ImageBot needs some time to process a request and upload the image. Instead of sending a text message along the lines of “Retrieving image, please wait…”, the bot may use sendChatAction with action = upload_photo. The user will see a “sending photo” status for the bot.
+   * @return bool|null Returns True on success.
    * @link https://core.telegram.org/bots/api#sendchataction
    */
   public function SendAction(int $Chat, TgChatAction $Action):bool|null{
@@ -354,7 +369,7 @@ class TelegramBotLibrary extends TblBasics{
   }
 
   /**
-   * Use this method to copy messages of any kind. Service messages and invoice messages can't be copied. The method is analogous to the method forwardMessage, but the copied message doesn't have a link to the original message. Returns the MessageId of the sent message on success.
+   * Use this method to copy messages of any kind. Service messages and invoice messages can't be copied. The method is analogous to the method forwardMessage, but the copied message doesn't have a link to the original message.
    * @param int $From
    * @param int $Id Message identifier in the chat specified in $From
    * @param int $To Unique identifier for the target chat
@@ -366,6 +381,7 @@ class TelegramBotLibrary extends TblBasics{
    * @param int $RepliedMsg If the message is a reply, ID of the original message
    * @param bool $SendWithoutRepliedMsg Pass True, if the message should be sent even if the specified replied-to message is not found
    * @param TblMarkup $Markup Additional interface options. A object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
+   * @return int|null Returns the MessageId of the sent message on success.
    * @link https://core.telegram.org/bots/api#copymessage
    */
   public function Copy(
@@ -410,7 +426,7 @@ class TelegramBotLibrary extends TblBasics{
   }
 
   /**
-   * Use this method to send text messages. On success, the sent Message is returned.
+   * Use this method to send text messages.
    * @param int $Chat Unique identifier for the target chat
    * @param string $Text Text of the message to be sent, 1-4096 characters after entities parsing
    * @param TgParseMode $ParseMode Mode for parsing entities in the message text.
@@ -421,6 +437,7 @@ class TelegramBotLibrary extends TblBasics{
    * @param int $RepliedMsg If the message is a reply, ID of the original message
    * @param bool $SendWithoutRepliedMsg Pass True, if the message should be sent even if the specified replied-to message is not found
    * @param array TblMarkup Additional interface options. A object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
+   * @return TgMessage|null On success, the sent Message is returned.
    * @link https://core.telegram.org/bots/api#sendmessage
    */
   public function SendText(
@@ -579,6 +596,8 @@ class TelegramBotLibrary extends TblBasics{
     endif;
   }
 
+  /**
+   * Use this method to edit text and game messages.
    * @param int $Chat Required if inline_message_id is not specified. Unique identifier for the target chat
    * @param int $Id Required if inline_message_id is not specified. Identifier of the message to edit
    * @param string $Text New text of the message, 1-4096 characters after entities parsing
@@ -588,6 +607,7 @@ class TelegramBotLibrary extends TblBasics{
    * @param bool $DisablePreview Disables link previews for links in this message
    * @param TblMarkup $Markup A object for an inline keyboard.
    * @link https://core.telegram.org/bots/api#editmessagetext
+   * @return TgMessage|bool|null On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned.
    */
   public function EditText(
     int $Chat = null,
