@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.03.12.00
+//2022.03.14.00
 
 abstract class TblMarkup{
   protected array $Markup;
@@ -202,12 +202,12 @@ class TblMarkupForceReply extends TblMarkup{
     string $Placeholder = null,
     bool $Selective = false
   ){
-    $this->Markup['force_reply'] = 'true';
+    $this->Markup['force_reply'] = true;
     if($Placeholder !== null):
       $this->Markup['input_field_placeholder'] = $Placeholder;
     endif;
     if($Selective):
-      $this->Markup['selective'] = 'true';
+      $this->Markup['selective'] = true;
     endif;
   }
 }
