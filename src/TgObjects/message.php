@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.03.11.00
+//2022.03.14.00
 
 /**
  * @link https://core.telegram.org/bots/api#formatting-options
@@ -38,7 +38,7 @@ enum TgChatAction:string{
   case VideoNoteRecord = 'record_video_note';
 }
 
-abstract class TgMessage{
+class TgMessage{
   public readonly int $MessageId;
   public readonly TgUser|TgChat $User;
   public readonly TgChat $Chat;
