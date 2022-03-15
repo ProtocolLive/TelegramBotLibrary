@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.03.14.00
+//2022.03.14.01
 
 /**
  * @link https://core.telegram.org/bots/api#formatting-options
@@ -51,7 +51,7 @@ class TgMessage{
 
   //The bot 777000 is used to forward messages from channels to groups
   //The bot 1087968824 is used for admins post as the group and for migrate events
-  protected function __construct(array $Data){
+  public function __construct(array $Data){
     $this->MessageId = $Data['message_id'];
     if($Data['from']['id'] === 777000): //Telegram
       $this->User = new TgChat($Data['sender_chat']);
