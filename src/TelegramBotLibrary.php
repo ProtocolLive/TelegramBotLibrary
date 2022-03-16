@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.03.16.00
+//2022.03.16.01
 
 require(__DIR__ . '/requires.php');
 
@@ -643,6 +643,35 @@ class TelegramBotLibrary extends TblBasics{
       return new TgMessage($temp);
     else:
       return $temp;
+    endif;
+  }
+
+  /**
+   * Use this method to edit only the reply markup of messages.
+   * @param int $Chat Required if inline_message_id is not specified. Unique identifier for the target chat.
+   * @param int $Id Required if inline_message_id is not specified. Identifier of the message to edit
+   * @param string $IdInline Required if chat_id and message_id are not specified. Identifier of the inline message
+   * @param TblMarkup $Markup A object for an inline keyboard.
+   * @return TgMessage|bool On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned.
+   */
+  public function EditMarkup(
+    int $Chat = null,
+    int $Id = null,
+    string $IdInline = null,
+    TblMarkup $Markup = null
+  ):TgText|bool{
+    $param['chat_id'] = $Chat;
+    $param['message_id'] = $Id;
+    $param['inline_message_id'] = $IdInline;
+    if($Markup !== null):
+      $param['reply_markup'] = $Markup->Get();
+    endif;
+    $return = $this->ServerMethod('editMessageReplyMarkup?' . http_build_query($param));
+    if($return === null
+    or $return === true):
+      return $return;
+    else:
+      return new TgText($return);
     endif;
   }
 }
