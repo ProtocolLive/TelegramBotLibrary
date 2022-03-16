@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.03.16.01
+//2022.03.16.02
 
 require(__DIR__ . '/requires.php');
 
@@ -638,11 +638,12 @@ class TelegramBotLibrary extends TblBasics{
     if($Markup !== null):
       $param['reply_markup'] = $Markup->Get();
     endif;
-    $temp = $this->ServerMethod('editMessageText?' . http_build_query($param));
-    if(get_class($temp) === 'TgMessage'):
-      return new TgMessage($temp);
+    $return = $this->ServerMethod('editMessageText?' . http_build_query($param));
+    if($return === null
+    or $return === true):
+      return $return;
     else:
-      return $temp;
+      return new TgText($return);
     endif;
   }
 
