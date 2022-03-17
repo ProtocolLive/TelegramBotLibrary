@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.03.16.02
+//2022.03.17.00
 
 require(__DIR__ . '/requires.php');
 
@@ -510,7 +510,7 @@ class TelegramBotLibrary extends TblBasics{
    * @param int $RepliedMsg If the message is a reply, ID of the original message
    * @param bool $SendWithoutRepliedMsg Pass True, if the message should be sent even if the specified replied-to message is not found
    * @param TblMarkup $Markup Additional interface options. A object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
-   * @return TgMessage|null On success, the sent Message is returned.
+   * @return TgPhoto|null On success, the sent Message is returned.
    * @link https://core.telegram.org/bots/api#sendphoto
    */
   public function SendPhoto(
@@ -524,7 +524,7 @@ class TelegramBotLibrary extends TblBasics{
     int $RepliedMsg = null,
     bool $SendWithoutRepliedMsg = false,
     TblMarkup $Markup = null
-  ):TgMessage|null{
+  ):TgPhoto|null{
     if($Caption !== null
     and strlen($Caption) > TgLimits::Caption):
       $this->Error = TblError::LimitPhotoCaption;
@@ -582,7 +582,7 @@ class TelegramBotLibrary extends TblBasics{
         $this->ErrorStr = $temp['description'];
         return null;
       else:
-        return new TgMessage($temp);
+        return new TgPhoto($temp);
       endif;
     else:
       $param['photo'] = $Photo;
@@ -590,7 +590,7 @@ class TelegramBotLibrary extends TblBasics{
       if($temp === null):
         return null;
       else:
-        return new TgMessage($temp);
+        return new TgPhoto($temp);
       endif;
     endif;
   }
