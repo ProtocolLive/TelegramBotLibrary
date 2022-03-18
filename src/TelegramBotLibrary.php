@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.03.18.04
+//2022.03.18.05
 
 require(__DIR__ . '/requires.php');
 
@@ -275,7 +275,7 @@ class TelegramBotLibrary extends TblBasics{
     if($Scope !== null):
       $param['scope']['type'] = $Scope->value;
       if($Scope === TgCmdScope::Chat
-      or $Scope === TgCmdScope::GroupsAdmins
+      or $Scope === TgCmdScope::GroupAdmins
       or $Scope === TgCmdScope::Member):
         $param['scope']['chat_id'] = $Chat;
       endif;
@@ -314,7 +314,7 @@ class TelegramBotLibrary extends TblBasics{
     if($Scope !== null):
       $param['scope']['type'] = $Scope->value;
       if($Scope === TgCmdScope::Chat
-      or $Scope === TgCmdScope::GroupsAdmins
+      or $Scope === TgCmdScope::GroupAdmins
       or $Scope === TgCmdScope::Member):
         $param['scope']['chat_id'] = $Chat;
       endif;
@@ -346,7 +346,7 @@ class TelegramBotLibrary extends TblBasics{
     if($Scope !== null):
       $param['scope']['type'] = $Scope->value;
       if($Scope === TgCmdScope::Chat
-      or $Scope === TgCmdScope::GroupsAdmins
+      or $Scope === TgCmdScope::GroupAdmins
       or $Scope === TgCmdScope::Member):
         $param['scope']['chat_id'] = $Chat;
       endif;
