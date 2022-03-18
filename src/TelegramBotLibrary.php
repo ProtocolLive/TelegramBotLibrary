@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.03.18.03
+//2022.03.18.04
 
 require(__DIR__ . '/requires.php');
 
@@ -282,6 +282,7 @@ class TelegramBotLibrary extends TblBasics{
       if($Scope === TgCmdScope::Member):
         $param['scope']['user_id'] = $User;
       endif;
+      $param['scope'] = json_encode($param['scope']);
     endif;
     if($Language !== null):
       $param['language_code'] = $Language;
@@ -320,6 +321,7 @@ class TelegramBotLibrary extends TblBasics{
       if($Scope === TgCmdScope::Member):
         $param['scope']['user_id'] = $User;
       endif;
+      $param['scope'] = json_encode($param['scope']);
     endif;
     if($Language !== null):
       $param['language_code'] = $Language;
@@ -351,6 +353,7 @@ class TelegramBotLibrary extends TblBasics{
       if($Scope === TgCmdScope::Member):
         $param['scope']['user_id'] = $User;
       endif;
+      $param['scope'] = json_encode($param['scope']);
     endif;
     if($Language !== null):
       $param['language_code'] = $Language;
