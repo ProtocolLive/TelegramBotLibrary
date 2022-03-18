@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.03.18.00
+//2022.03.18.01
 
 require(__DIR__ . '/requires.php');
 
@@ -689,5 +689,21 @@ class TelegramBotLibrary extends TblBasics{
       return null;
     endif;
     return new TgFile($return);
+  }
+
+  /**
+   * @param string $Id The file Id or IdUnique
+   * @param string $Dir Destination directory
+   * @return bool|null
+   */
+  public function FileDownload(string $Id, string $Dir):bool|null{
+    $info = $this->FileInfo($Id);
+    if($info === null):
+      return null;
+    endif;
+    $file = $this->BotData->UrlFiles . '/' . $info->Path;
+    $file = file_get_contents($file);
+    file_put_contents($Dir . '/' . basename($info->Path), $file);
+    return true;
   }
 }
