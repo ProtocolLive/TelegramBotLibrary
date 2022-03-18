@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.03.17.00
+//2022.03.18.00
 
 require(__DIR__ . '/requires.php');
 
@@ -674,5 +674,20 @@ class TelegramBotLibrary extends TblBasics{
     else:
       return new TgText($return);
     endif;
+  }
+
+  /**
+   * Use this method to get basic info about a file and prepare it for downloading. For the moment, bots can download files of up to 20MB in size. It is guaranteed that the link will be valid for at least 1 hour. When the link expires, a new one can be requested by calling getFile again.
+   * Note: This function may not preserve the original file name and MIME type. You should save the file's MIME type and name (if available) when the File object is received.
+   * @param string $Id File identifier to get info about
+   * @return TgFile|null On success, a File object is returned
+   * @link https://core.telegram.org/bots/api#getfile
+   */
+  public function FileInfo(string $Id):TgFile|null{
+    $return = $this->ServerMethod('getFile?file_id=' . $Id);
+    if($return === null):
+      return null;
+    endif;
+    return new TgFile($return);
   }
 }
