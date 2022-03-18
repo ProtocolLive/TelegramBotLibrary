@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.03.18.05
+//2022.03.18.06
 
 require(__DIR__ . '/requires.php');
 
@@ -310,7 +310,7 @@ class TelegramBotLibrary extends TblBasics{
     int $Chat = null,
     int $User = null
   ):bool|null{
-    $param['commands'] = json_encode($Commands);
+    $param['commands'] = TblCommand::ToJson($Commands);
     if($Scope !== null):
       $param['scope']['type'] = $Scope->value;
       if($Scope === TgCmdScope::Chat
