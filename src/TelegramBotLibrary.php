@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.03.18.02
+//2022.03.18.03
 
 require(__DIR__ . '/requires.php');
 
@@ -336,11 +336,21 @@ class TelegramBotLibrary extends TblBasics{
    */
   public function CmdDel(
     TgCmdScope $Scope = null,
-    string $Language = null
+    string $Language = null,
+    int $Chat = null,
+    int $User = null
   ):bool|null{
     $param = [];
     if($Scope !== null):
-      $param['scope'] = $Scope->value;
+      $param['scope']['type'] = $Scope->value;
+      if($Scope === TgCmdScope::Chat
+      or $Scope === TgCmdScope::GroupsAdmins
+      or $Scope === TgCmdScope::Member):
+        $param['scope']['chat_id'] = $Chat;
+      endif;
+      if($Scope === TgCmdScope::Member):
+        $param['scope']['user_id'] = $User;
+      endif;
     endif;
     if($Language !== null):
       $param['language_code'] = $Language;
