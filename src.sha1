@@ -1,7 +1,7 @@
-31f7a7b46a3fef13935176f0347b4ecdb626bcef  src/TblObjects/cmd.php
+fb8bb4b6b54c82bd6ad7deea2ff972652cad480a  src/TblObjects/cmd.php
 a257671e857e71a09469e17fcde671054612428e  src/TblObjects/data.php
 8956b9ce0e5da85c8385a0c6f02be27e239e51b6  src/TblObjects/entity.php
-5d05778655a7eab4401e6f00122fa05c0032ab85  src/TblObjects/markup.php
+0d66e7752c1f2dd0c33a31012ac4f6b95d73aa63  src/TblObjects/markup.php
 11cbf2a6230075b83bc8360b09d8840779c92a95  src/TblObjects/webhook.php
 234338426f445a032d1b7c496ee4f5865d604af6  src/TelegramBotLibrary.php
 15cfb9406fdb04ef137f089d6c04b089cecf5a56  src/TgObjects/callback.php
