@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.03.14.00
+//2022.03.27.00
 
 abstract class TblMarkup{
   protected array $Markup;
@@ -116,7 +116,7 @@ class TblMarkupInline extends TblMarkup{
   }
 }
 
-class TblMarkupReply extends TblMarkup{
+class TblMarkupRequest extends TblMarkup{
   private array $Pointer;
 
   /**
@@ -154,7 +154,7 @@ class TblMarkupReply extends TblMarkup{
    * @param string $Text Text of the button. If none of the optional fields are used, it will be sent as a message when the button is pressed
    * @param bool $Contact If True, the user's phone number will be sent as a contact when the button is pressed. Available in private chats only
    * @param bool $Location If True, the user's current location will be sent when the button is pressed. Available in private chats only
-   * @param bool|TgPollType $Poll If specified, the user will be asked to create a poll and send it to the bot when the button is pressed. Available in private chats only. If quiz is passed, the user will be allowed to create only polls in the quiz mode. If regular is passed, only regular polls will be allowed. Otherwise, the user will be allowed to create a poll of any type.
+   * @param bool|TgPollType $Poll If specified, the user will be asked to create a poll and send it to the bot when the button is pressed. Available in private chats only. If TgPollType::Quiz is passed, the user will be allowed to create only polls in the quiz mode. If TgPollType::Regular is passed, only regular polls will be allowed. With true, the user will be allowed to create a poll of any type.
    * @link https://core.telegram.org/bots/api#keyboardbutton
    */
   public function Button(
