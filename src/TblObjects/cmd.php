@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.03.18.00
+//2022.03.20.00
 
 class TblCmd extends TgMessage{
   public readonly string $Command;
@@ -68,5 +68,13 @@ class TblCommand{
       ];
     endforeach;
     return json_encode($return);
+  }
+
+  static public function ToObject(array $Data):array{
+    $return = [];
+    foreach($Data as $cmd):
+      $return[] = new TblCommand($cmd['command'], $cmd['description']);
+    endforeach;
+    return $return;
   }
 }
