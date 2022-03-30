@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.03.18.01
+//2022.03.30.00
 
 enum TblError{
   case Custom;
@@ -32,12 +32,13 @@ class TblDebug{
 }
 
 class TgLimits{
+  const CallbackAnswer = 200;
   const CallbackData = 64;
   const Caption = 1024;
-  const Text = 4096;
-  const MediaGroup = 10;
   const Command = 32;
   const CmdDescription = 256;
+  const MediaGroup = 10;
+  const Text = 4096;
 }
 
 /**
