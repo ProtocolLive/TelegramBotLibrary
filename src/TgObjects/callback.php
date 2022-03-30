@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.03.16.00
+//2022.03.30.00
 
 class TgCallback{
   public readonly int $Id;
@@ -9,7 +9,7 @@ class TgCallback{
   public readonly TgMessage $Message;
   public readonly string $ChatInstance;
   public readonly string $Data;
-  public readonly string $Parameter;
+  public readonly string|null $Parameter;
 
   public function __construct(array $Data){
     $this->Id = $Data['id'];
