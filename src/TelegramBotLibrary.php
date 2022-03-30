@@ -296,7 +296,7 @@ class TelegramBotLibrary extends TblBasics{
   }
 
   /**
-   * Use this method to change the list of the bot's commands. See https://core.telegram.org/bots#commands for more details about bot commands.
+   * Use this method to change the list of the bot's commands.
    * @param array $Commands A JSON-serialized list of bot commands to be set as the list of the bot's commands. At most 100 commands can be specified.
    * @param TgCmdScope $Scope A JSON-serialized object, describing scope of users for which the commands are relevant. Defaults to TgCmdScope::Default
    * @param string $Language A two-letter ISO 639-1 language code. If empty, commands will be applied to all users from the given scope, for whose language there are no dedicated commands
@@ -628,8 +628,8 @@ class TelegramBotLibrary extends TblBasics{
    * @param array $Entities A list of special entities that appear in message text, which can be specified instead of parse_mode
    * @param bool $DisablePreview Disables link previews for links in this message
    * @param TblMarkup $Markup A object for an inline keyboard.
-   * @link https://core.telegram.org/bots/api#editmessagetext
    * @return TgMessage|bool|null On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned.
+   * @link https://core.telegram.org/bots/api#editmessagetext
    */
   public function EditText(
     int $Chat = null,
@@ -677,6 +677,7 @@ class TelegramBotLibrary extends TblBasics{
    * @param string $IdInline Required if chat_id and message_id are not specified. Identifier of the inline message
    * @param TblMarkup $Markup A object for an inline keyboard.
    * @return TgMessage|bool On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned.
+   * @link https://core.telegram.org/bots/api#editmessagereplymarkup
    */
   public function EditMarkup(
     int $Chat = null,
