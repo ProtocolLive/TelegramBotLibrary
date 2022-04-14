@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.03.30.00
+//2022.04.14.00
 
 require(__DIR__ . '/requires.php');
 
@@ -763,5 +763,33 @@ class TelegramBotLibrary extends TblBasics{
       $param['cache_time'] = $Cache;
     endif;
     return $this->ServerMethod('answerCallbackQuery?' . http_build_query($param));
+  }
+
+  /**
+   * Use this method to get a list of profile pictures for a user.
+   * @param int $User Unique identifier of the target user
+   * @param int $Offset Sequential number of the first photo to be returned. By default, all photos are returned.
+   * @param int $Limit Limits the number of photos to be retrieved. Values between 1-100 are accepted. Defaults to 100.
+   * @return mixed Returns a UserProfilePhotos object.
+   * @link https://core.telegram.org/bots/api#getuserprofilephotos
+   */
+  public function AvatarGet(
+    int $User,
+    int $Offset = null,
+    int $Limit = 100
+  ):TgProfilePhoto|null{
+    $param['user_id'] = $User;
+    if($Offset !== null):
+      $param['offset'] = $Offset;
+    endif;
+    if($Limit > 0 and $Limit < 100):
+      $param['limit'] = $Limit;
+    endif;
+    $return = $this->ServerMethod('getUserProfilePhotos?' . http_build_query($param));
+    if($return === null):
+      return null;
+    else:
+      return new TgProfilePhoto($return);
+    endif;
   }
 }

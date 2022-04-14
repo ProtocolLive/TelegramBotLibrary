@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.03.08.00
+//2022.04.14.00
 
 class TgPhoto extends TgMedia{
   public array $Files;
@@ -38,5 +38,24 @@ class TgPhotoSize{
     $this->Size = $Data['file_size'];
     $this->Width = $Data['width'];
     $this->Height = $Data['height'];
+  }
+}
+
+/**
+ * @link https://core.telegram.org/bots/api#userprofilephotos
+ */
+class TgProfilePhoto{
+  public readonly int $Count;
+  public array $Photos = [];
+
+  public function __construct(array $Data){
+    $this->Count = $Data['total_count'];
+    foreach($Data['photos'] as $photo1):
+      $Photo = [];
+      foreach($photo1 as $photo2):
+        $Photo[] = new TgPhotoSize($photo2);
+      endforeach;
+      $this->Photos[] = $Photo;
+    endforeach;
   }
 }
