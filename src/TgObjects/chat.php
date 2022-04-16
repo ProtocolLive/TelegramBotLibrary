@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.04.16.01
+//2022.04.16.02
 //API 6.0
 
 enum TgChatType:string{
@@ -60,28 +60,11 @@ class TgMember{
     $this->Title = $Data['custom_title'] ?? null;
     $this->Expires = $Data['until_date'] ?? null;
     if($this->Status === TgMemberStatus::Creator):
-      $this->AdminPerms = new TgPermAdmin(true, false, true, true, true, true, true);
-      $this->MemberPerms = new TgPermMember(true, true, true,true, true, true, true, true);
+      $this->AdminPerms = new TgPermAdmin(null, true, false, true, true, true, true, true);
+      $this->MemberPerms = new TgPermMember(null, true, true, true,true, true, true, true, true);
     else:
-      $this->AdminPerms = new TgPermAdmin(
-        $Data['can_manage_chat'] ?? false,
-        $Data['can_be_edited'] ?? false,
-        $Data['can_delete_messages'] ?? false,
-        $Data['can_invite_users'] ?? false,
-        $Data['can_restrict_members'] ?? false,
-        $Data['can_promote_members'] ?? false,
-        $Data['can_manage_video_chats'] ?? false
-      );
-      $this->MemberPerms = new TgPermMember(
-        $Data['can_send_messages'] ?? false,
-        $Data['can_send_media_messages'] ?? false,
-        $Data['can_send_polls'] ?? false,
-        $Data['can_send_other_messages'] ?? false,
-        $Data['can_add_web_page_previews'] ?? false,
-        $Data['can_change_info'] ?? false,
-        $Data['can_invite_users'] ?? false,
-        $Data['can_pin_messages'] ?? false
-      );
+      $this->AdminPerms = new TgPermAdmin($Data);
+      $this->MemberPerms = new TgPermMember($Data);
     endif;
   }
 }
@@ -151,6 +134,7 @@ class TgPermAdmin{
    * @link https://core.telegram.org/bots/api#chatmemberadministrator
    */
   public function __construct(
+    array $Data = null,
     public bool $Manage = false,
     public bool $Message = false,
     public bool $Edited = true,
@@ -162,7 +146,13 @@ class TgPermAdmin{
     public bool $Video = false,
     public bool $Info = false,
     public bool $Pin = false
-  ){}
+  ){
+    if($Data !== null):
+      foreach(self::Array as $perm => $vector):
+        $this->$perm = $Data[$vector] ?? false;
+      endforeach;
+    endif;
+  }
 }
 
 /**
@@ -193,6 +183,7 @@ class TgPermMember{
    * @link https://core.telegram.org/bots/api#chatpermissions
    */
   public function __construct(
+    array $Data = null,
     public bool $Message = false,
     public bool $Media = false,
     public bool $Poll = false,
@@ -201,5 +192,11 @@ class TgPermMember{
     public bool $Info = false,
     public bool $Invite = false,
     public bool $Pin = false
-  ){}
+  ){
+    if($Data !== null):
+      foreach(self::Array as $perm => $vector):
+        $this->$perm = $Data[$vector] ?? false;
+      endforeach;
+    endif;
+  }
 }

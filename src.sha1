@@ -3,9 +3,9 @@ a257671e857e71a09469e17fcde671054612428e  src/TblObjects/data.php
 8956b9ce0e5da85c8385a0c6f02be27e239e51b6  src/TblObjects/entity.php
 0d66e7752c1f2dd0c33a31012ac4f6b95d73aa63  src/TblObjects/markup.php
 11cbf2a6230075b83bc8360b09d8840779c92a95  src/TblObjects/webhook.php
-38c6ab582b57676135b3c4cb2fb168ed337a8900  src/TelegramBotLibrary.php
+37b704409e093fef96f39059f85ecb12e4effbbd  src/TelegramBotLibrary.php
 9e6e8f9dce5671864b2bf4241cdd02d4003554a4  src/TgObjects/callback.php
-93ce69ba41d56756aa3c29738dd83dbc06d432b4  src/TgObjects/chat.php
+14cb87797180d9b196bff21b72481776023e33ad  src/TgObjects/chat.php
 52d12d38b36a0cfc37b504e4ce7014139489c4f8  src/TgObjects/cmd.php
 08880c9edf3d72b27ae64cb7f7c532ef647d1b95  src/TgObjects/document.php
 050d41239cb44bb81cde9f52c0854a939cc569ce  src/TgObjects/entity.php
@@ -19,5 +19,5 @@ beae29f507423b06e0537c9d25f9ad83e5b17e97  src/TgObjects/text.php
 f0c34158e0c153dd3eba1ed3a3852c5adb41e61f  src/TgObjects/user.php
 1879fbf65c72e86058a553b86e2f95ddc2fd6d71  src/basics.php
 6690a7e2bedd3f6da6cc44bc0b086b25e8707c8b  src/cacert.pem
-f160e9d92d202236e5029737aefca835ab20c435  src/constants.php
+a44bd5ae616d887205099a01c33150f3c0fdfc35  src/constants.php
 e202ac4dad85e16ae7c19fc91931510a5025e6b1  src/requires.php
