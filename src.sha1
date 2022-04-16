@@ -17,7 +17,7 @@ f1cc6e49088a72876eda9c5ff75fe89e7f5f4605  src/TgObjects/message.php
 ad06c7c5396ec6a958041bd67a2360d9ec9f14e7  src/TgObjects/poll.php
 beae29f507423b06e0537c9d25f9ad83e5b17e97  src/TgObjects/text.php
 f0c34158e0c153dd3eba1ed3a3852c5adb41e61f  src/TgObjects/user.php
-1879fbf65c72e86058a553b86e2f95ddc2fd6d71  src/basics.php
+2315c101c889287e6a0aaae5d4cd202119a4bd2d  src/basics.php
 6690a7e2bedd3f6da6cc44bc0b086b25e8707c8b  src/cacert.pem
 a44bd5ae616d887205099a01c33150f3c0fdfc35  src/constants.php
 e202ac4dad85e16ae7c19fc91931510a5025e6b1  src/requires.php

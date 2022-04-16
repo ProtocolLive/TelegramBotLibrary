@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.03.30.00
+//2022.04.16.00
 
 abstract class TblBasics{
   protected TblData $BotData;
@@ -33,12 +33,12 @@ abstract class TblBasics{
       $this->DebugLog(TblLog::Response, json_encode($temp, JSON_PRETTY_PRINT));
     endif;
     if($temp['ok'] === false):
-      $temp = TgErrors::Search($temp['description']);
-      if($this->Error === false):
+      $this->ErrorStr = $temp['description'];
+      $search = TgErrors::Search($temp['description']);
+      if($search === false):
         $this->Error = TblError::Custom;
-        $this->ErrorStr = $temp['description'];
       else:
-        $this->Error = $temp;
+        $this->Error = $search;
       endif;
       return null;
     else:
