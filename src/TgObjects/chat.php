@@ -1,7 +1,8 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.03.10.06
+//2022.04.16.00
+//API 6.0
 
 enum TgChatType:string{
   case Private = 'private';
@@ -69,7 +70,7 @@ class TgMember{
         $Data['can_invite_users'] ?? false,
         $Data['can_restrict_members'] ?? false,
         $Data['can_promote_members'] ?? false,
-        $Data['can_manage_voice_chats'] ?? false
+        $Data['can_manage_video_chats'] ?? false
       );
       $this->MemberPerms = new TgMemberPerm(
         $Data['can_send_messages'] ?? false,
@@ -130,7 +131,7 @@ class TgAdminPerm{
     'Invite' => 'can_invite_users',
     'Restrict' => 'can_restrict_members',
     'Promote' => 'can_promote_members',
-    'Voice' => 'can_manage_voice_chats',
+    'Video' => 'can_manage_video_chats',
     'Info' => 'can_change_info',
     'Pin' => 'can_pin_messages'
   ];
@@ -144,7 +145,7 @@ class TgAdminPerm{
    * @param bool $Invite If the user is allowed to invite new users to the chat
    * @param bool $Restrict If the administrator can restrict, ban or unban chat members
    * @param bool $Promote If the administrator can add new administrators with a subset of their own privileges or demote administrators that he has promoted, directly or indirectly (promoted by administrators that were appointed by the user)
-   * @param bool $Voice If the administrator can manage voice chats
+   * @param bool $Video If the administrator can manage video chats
    * @param bool $Info If the administrator can change chat title, photo and other settings
    * @param bool $Pin If the administrator can pin messages, supergroups only
    * @link https://core.telegram.org/bots/api#chatmemberadministrator
@@ -158,7 +159,7 @@ class TgAdminPerm{
     public bool $Invite = false,
     public bool $Restrict = false,
     public bool $Promote = false,
-    public bool $Voice = false,
+    public bool $Video = false,
     public bool $Info = false,
     public bool $Pin = false
   ){}
