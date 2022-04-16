@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.04.16.02
+//2022.04.16.03
 
 require(__DIR__ . '/requires.php');
 
@@ -834,5 +834,55 @@ class TelegramBotLibrary extends TblBasics{
     else:
       return new TgProfilePhoto($return);
     endif;
+  }
+
+  /**
+   * Use this method to get the current value of the bot's menu button in a private chat, or the default menu button.
+   * @param int $User Unique identifier for the target private chat. If not specified, default bot's menu button will be returned
+   * @return TgMenuButton|null Returns TgMenuButton on success.
+   * @link https://core.telegram.org/bots/api#getchatmenubutton
+   */
+  public function MenuButtonGet(int $User = null):TgMenuButton|null{
+    if($User === null):
+      $param = '';
+    else:
+      $param = '?chat_id=' . $User;
+    endif;
+    $return = $this->ServerMethod('getChatMenuButton' . $param);
+    return TgMenuButton::tryFrom($return['type'] ?? 0);
+  }
+
+  /**
+   * Use this method to change the bot's menu button in a private chat, or the default menu button.
+   * @param TgMenuButton $Type A type for the new bot's menu button. Defaults to TgMenuButton::Default
+   * @param int $User Unique identifier for the target private chat. If not specified, default bot's menu button will be changed
+   * @param string $Text Text on the button
+   * @param string $Url URL of the Web App that will be launched when the user presses the button. The Web App will be able to send an arbitrary message on behalf of the user using the method answerWebAppQuery. An HTTPS URL of a Web App to be opened with additional data as specified in Initializing Web Apps
+   * @return bool|null Returns True on success.
+   * @link https://core.telegram.org/bots/api#setchatmenubutton
+   */
+  public function MenuButtonSet(
+    TgMenuButton $Type = null,
+    int $User = null,
+    string $Text = null,
+    string $Url = null
+  ):bool|null{
+    if($User !== null):
+      $param['chat_id'] = $User;
+    endif;
+    if($Type === TgMenuButton::WebApp):
+      $button['text'] = $Text;
+      $button['web_app'] = ['url' => $Url];
+    endif;
+    if($Type !== null):
+      $button['type'] = $Type->value;
+      $param['menu_button'] = json_encode($button);
+    endif;
+    if(isset($param)):
+      $param = '?' . http_build_query($param);
+    else:
+      $param = '';
+    endif;
+    return $this->ServerMethod('setChatMenuButton' . $param);
   }
 }

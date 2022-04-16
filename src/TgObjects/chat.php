@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.04.16.02
+//2022.04.16.03
 //API 6.0
 
 enum TgChatType:string{
@@ -199,4 +199,10 @@ class TgPermMember{
       endforeach;
     endif;
   }
+}
+
+enum TgMenuButton:string{
+  case Default = 'default';
+  case Commands = 'commands';
+  case WebApp = 'web_app';
 }
