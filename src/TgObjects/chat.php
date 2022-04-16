@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.04.16.00
+//2022.04.16.01
 //API 6.0
 
 enum TgChatType:string{
@@ -37,8 +37,8 @@ class TgMember{
   public readonly TgUser $Member;
   public readonly bool $In;
   public readonly TgMemberStatus $Status;
-  public readonly TgAdminPerm $AdminPerms;
-  public readonly TgMemberPerm $MemberPerms;
+  public readonly TgPermAdmin $AdminPerms;
+  public readonly TgPermMember $MemberPerms;
   public readonly bool $Anonymous;
   public readonly string|null $Title;
   public readonly int|null $Expires;
@@ -60,10 +60,10 @@ class TgMember{
     $this->Title = $Data['custom_title'] ?? null;
     $this->Expires = $Data['until_date'] ?? null;
     if($this->Status === TgMemberStatus::Creator):
-      $this->AdminPerms = new TgAdminPerm(true, false, true, true, true, true, true);
-      $this->MemberPerms = new TgMemberPerm(true, true, true,true, true, true, true, true);
+      $this->AdminPerms = new TgPermAdmin(true, false, true, true, true, true, true);
+      $this->MemberPerms = new TgPermMember(true, true, true,true, true, true, true, true);
     else:
-      $this->AdminPerms = new TgAdminPerm(
+      $this->AdminPerms = new TgPermAdmin(
         $Data['can_manage_chat'] ?? false,
         $Data['can_be_edited'] ?? false,
         $Data['can_delete_messages'] ?? false,
@@ -72,7 +72,7 @@ class TgMember{
         $Data['can_promote_members'] ?? false,
         $Data['can_manage_video_chats'] ?? false
       );
-      $this->MemberPerms = new TgMemberPerm(
+      $this->MemberPerms = new TgPermMember(
         $Data['can_send_messages'] ?? false,
         $Data['can_send_media_messages'] ?? false,
         $Data['can_send_polls'] ?? false,
@@ -122,7 +122,7 @@ enum TgMemberStatus:string{
 /**
  * @link https://core.telegram.org/bots/api#chatmemberadministrator
  */
-class TgAdminPerm{
+class TgPermAdmin{
   const Array = [
     'Manage' => 'can_manage_chat',
     'Message' => 'can_post_messages',
@@ -168,7 +168,7 @@ class TgAdminPerm{
 /**
  * @link https://core.telegram.org/bots/api#chatpermissions
  */
-class TgMemberPerm{
+class TgPermMember{
   const Array = [
     'Message' => 'can_send_messages',
     'Media' => 'can_send_media_messages',
