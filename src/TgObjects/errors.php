@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.04.16.00
+//2022.04.16.01
 
 enum TgError{
   case Blocked;
@@ -9,6 +9,7 @@ enum TgError{
   case FileId;
   case Url;
   case PermAdminManage;
+  case WebAppHttps;
 }
 
 class TgErrors{
@@ -21,6 +22,13 @@ class TgErrors{
   ];
 
   static public function Search(string $Description):TgError|false{
-    return self::Errors[$Description] ?? false;
+    if(isset(self::Errors[$Description])):
+      return self::Errors[$Description];
+    endif;
+    if(strpos($Description, 'Bad Request: menu button web app URL ') === 0
+    and strpos($Description, ' is invalid: Only HTTPS links are allowed') !== false):
+      return TgError::WebAppHttps;
+    endif;
+    return false;
   }
 }
