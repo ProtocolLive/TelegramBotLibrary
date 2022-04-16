@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.04.16.00
+//2022.04.16.01
 
 require(__DIR__ . '/requires.php');
 
@@ -110,6 +110,28 @@ class TelegramBotLibrary extends TblBasics{
         $return[] = new TgMember($user);
       endforeach;
       return $return;
+    endif;
+  }
+
+  /**
+   * Use this method to get the current default administrator rights of the bot.
+   * @param DefaultPerms $Type Pass Channels to get default administrator rights of the bot in channels. Otherwise, default administrator rights of the bot for groups and supergroups will be returned.
+   * @return mixed Returns TgPermAdmin on success.
+   * @link https://core.telegram.org/bots/api#getmydefaultadministratorrights
+   */
+  public function DefaultPermGet(
+    DefaultPerms $Type = DefaultPerms::Groups
+  ):TgPermAdmin|null{
+    if($Type === DefaultPerms::Channels):
+      $param = '?for_channels=true';
+    else:
+      $param = '';
+    endif;
+    $return = $this->ServerMethod('getMyDefaultAdministratorRights' . $param);
+    if($return === null):
+      return null;
+    else:
+      return new TgPermAdmin($return);
     endif;
   }
 

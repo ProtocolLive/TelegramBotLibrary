@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.03.30.00
+//2022.04.16.00
 
 enum TblError{
   case Custom;
@@ -58,4 +58,9 @@ enum TgUpdateType:string{
   case ChatMe = 'my_chat_member';
   case Chat = 'chat_member';
   case ChatJoinRequest = 'chat_join_request';
+}
+
+enum DefaultPerms{
+  case Groups;
+  case Channels;
 }
