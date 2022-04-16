@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.04.16.01
+//2022.04.16.02
 
 require(__DIR__ . '/requires.php');
 
@@ -133,6 +133,27 @@ class TelegramBotLibrary extends TblBasics{
     else:
       return new TgPermAdmin($return);
     endif;
+  }
+
+  /**
+   * Use this method to change the default administrator rights requested by the bot when it's added as an administrator to groups or channels. These rights will be suggested to users, but they are are free to modify the list before adding the bot.
+   * @param TgPermAdmin $Perms An object describing new default administrator rights. If not specified, the default administrator rights will be cleared.
+   * @param DefaultPerms $Type Pass Channels to change the default administrator rights of the bot in channels. Otherwise, the default administrator rights of the bot for groups and supergroups will be changed.
+   * @return bool|null Returns True on success.
+   * @link https://core.telegram.org/bots/api#setmydefaultadministratorrights
+   */
+  public function DefaultPermSet(
+    TgPermAdmin $Perms,
+    DefaultPerms $Type = DefaultPerms::Groups
+  ):bool|null{
+    foreach(TgPermAdmin::Array as $class => $json):
+      $perms[$json] = $Perms->$class ? true : false;
+    endforeach;
+    $param['rights'] = json_encode($perms);
+    if($Type === DefaultPerms::Channels):
+      $param['for_channels'] = 'true';
+    endif;
+    return $this->ServerMethod('setMyDefaultAdministratorRights?' . http_build_query($param));
   }
 
   /**
