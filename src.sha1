@@ -3,13 +3,13 @@ a257671e857e71a09469e17fcde671054612428e  src/TblObjects/data.php
 8956b9ce0e5da85c8385a0c6f02be27e239e51b6  src/TblObjects/entity.php
 0d66e7752c1f2dd0c33a31012ac4f6b95d73aa63  src/TblObjects/markup.php
 11cbf2a6230075b83bc8360b09d8840779c92a95  src/TblObjects/webhook.php
-37b704409e093fef96f39059f85ecb12e4effbbd  src/TelegramBotLibrary.php
+5660f1e148bdc9c2598afbe8028726433adb7aa6  src/TelegramBotLibrary.php
 9e6e8f9dce5671864b2bf4241cdd02d4003554a4  src/TgObjects/callback.php
 14cb87797180d9b196bff21b72481776023e33ad  src/TgObjects/chat.php
 52d12d38b36a0cfc37b504e4ce7014139489c4f8  src/TgObjects/cmd.php
 08880c9edf3d72b27ae64cb7f7c532ef647d1b95  src/TgObjects/document.php
 050d41239cb44bb81cde9f52c0854a939cc569ce  src/TgObjects/entity.php
-50d7eb8216f9b7694877fe15ded79bd78c3d1300  src/TgObjects/errors.php
+f40c8e14048d1f984019d672e6833f5023055e00  src/TgObjects/errors.php
 abb9af0d61c6b0b0dbe357bd5988e229ad4a126c  src/TgObjects/file.php
 bab67f6f9212cae6cbd108a942b82ea18697e9ed  src/TgObjects/media.php
 f1cc6e49088a72876eda9c5ff75fe89e7f5f4605  src/TgObjects/message.php
