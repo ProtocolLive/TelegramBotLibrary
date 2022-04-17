@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.04.16.03
+//2022.04.17.00
 
 require(__DIR__ . '/requires.php');
 
@@ -485,7 +485,7 @@ class TelegramBotLibrary extends TblBasics{
       $param['allow_sending_without_reply'] = true;
     endif;
     if($Markup !== null):
-      $param['reply_markup'] = $Markup->Get();
+      $param['reply_markup'] = $Markup->ToJson();
     endif;
     return $this->ServerMethod('copyMessage?' . http_build_query($param));
   }
@@ -539,7 +539,7 @@ class TelegramBotLibrary extends TblBasics{
       $param['allow_sending_without_reply'] = true;
     endif;
     if($Markup !== null):
-      $param['reply_markup'] = $Markup->Get();
+      $param['reply_markup'] = $Markup->ToJson();
     endif;
     $temp = $this->ServerMethod('sendMessage?' . http_build_query($param));
     if($temp !== null):
@@ -617,7 +617,7 @@ class TelegramBotLibrary extends TblBasics{
       $param['allow_sending_without_reply'] = 'true';
     endif;
     if($Markup !== null):
-      $param['reply_markup'] = $Markup->Get();
+      $param['reply_markup'] = $Markup->ToJson();
     endif;
     if(is_file($Photo)):
       $url = $this->BotData->UrlFiles . '/sendPhoto?' . http_build_query($param);
@@ -702,7 +702,7 @@ class TelegramBotLibrary extends TblBasics{
       $param['disable_web_page_preview'] = 'true';
     endif;
     if($Markup !== null):
-      $param['reply_markup'] = $Markup->Get();
+      $param['reply_markup'] = $Markup->ToJson();
     endif;
     $return = $this->ServerMethod('editMessageText?' . http_build_query($param));
     if($return === null
@@ -732,7 +732,7 @@ class TelegramBotLibrary extends TblBasics{
     $param['message_id'] = $Id;
     $param['inline_message_id'] = $IdInline;
     if($Markup !== null):
-      $param['reply_markup'] = $Markup->Get();
+      $param['reply_markup'] = $Markup->ToJson();
     endif;
     $return = $this->ServerMethod('editMessageReplyMarkup?' . http_build_query($param));
     if($return === null

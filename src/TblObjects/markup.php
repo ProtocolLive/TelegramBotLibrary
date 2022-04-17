@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.04.17.00
+//2022.04.17.01
 //API 6.0
 
 abstract class TblMarkup{
@@ -10,7 +10,7 @@ abstract class TblMarkup{
   /**
    * Get the markup object in json format
    */
-  public function Get():string{
+  public function ToJson():string{
     return json_encode($this->Markup);
   }
 }
