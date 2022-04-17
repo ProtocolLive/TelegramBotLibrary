@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.04.17.00
+//2022.04.17.01
 
 require(__DIR__ . '/requires.php');
 
@@ -52,6 +52,8 @@ class TelegramBotLibrary extends TblBasics{
       return new TgDocument($update['message']);
     elseif(isset($update['callback_query'])):
       return new TgCallback($update['callback_query']);
+    elseif(isset($update['inline_query'])):
+      return new TgInlineQuery($update['inline_query']);
     endif;
   }
 
