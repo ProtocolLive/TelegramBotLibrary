@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.04.16.03
+//2022.04.17.00
 //API 6.0
 
 enum TgChatType:string{
@@ -9,6 +9,7 @@ enum TgChatType:string{
   case Group = 'group';
   case GroupSuper = 'supergroup';
   case Channel = 'channel';
+  case InlineQuery = 'sender';
 }
 
 /**
