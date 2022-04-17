@@ -1,7 +1,8 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.03.27.00
+//2022.04.17.00
+//API 6.0
 
 abstract class TblMarkup{
   protected array $Markup;
@@ -114,6 +115,23 @@ class TblMarkupInline extends TblMarkup{
       $this->Pointer[$Line][$Column]['switch_inline_query'] = $QueryOtherChat;
     endif;
   }
+
+  /**
+   * The described Web App will be launched when the button is pressed. The Web App will be able to send a “web_app_data” service message. Available in private chats only. This option will only work in Telegram versions released after 16 April, 2022. Older clients will display unsupported message.
+   * @param string $Text Text of the button. If none of the optional fields are used, it will be sent as a message when the button is pressed
+   * @param string $Url An HTTPS URL of a Web App to be opened with additional data as specified in Initializing Web Apps.
+   * @link https://core.telegram.org/bots/api#keyboardbutton
+   * @link https://core.telegram.org/bots/api#webappinfo
+   */
+  public function ButtonWebapp(
+    int $Line,
+    int $Column,
+    string $Text,
+    string $Url
+  ):void{
+    $this->Pointer[$Line][$Column]['text'] = $Text;
+    $this->Pointer[$Line][$Column]['web_app']['url'] = $Url;
+  }
 }
 
 class TblMarkupRequest extends TblMarkup{
@@ -177,6 +195,23 @@ class TblMarkupRequest extends TblMarkup{
     elseif($Poll !== null):
       $this->Pointer[$Line][$Column]['request_poll']['type'] = $Poll->value;
     endif;
+  }
+
+  /**
+   * The described Web App will be launched when the button is pressed. The Web App will be able to send a “web_app_data” service message. Available in private chats only. This option will only work in Telegram versions released after 16 April, 2022. Older clients will display unsupported message.
+   * @param string $Text Text of the button. If none of the optional fields are used, it will be sent as a message when the button is pressed
+   * @param string $Url An HTTPS URL of a Web App to be opened with additional data as specified in Initializing Web Apps.
+   * @link https://core.telegram.org/bots/api#keyboardbutton
+   * @link https://core.telegram.org/bots/api#webappinfo
+   */
+  public function ButtonWebapp(
+    int $Line,
+    int $Column,
+    string $Text,
+    string $Url
+  ):void{
+    $this->Pointer[$Line][$Column]['text'] = $Text;
+    $this->Pointer[$Line][$Column]['web_app']['url'] = $Url;
   }
 }
 
