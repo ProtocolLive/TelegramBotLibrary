@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.04.17.00
+//2022.04.19.00
 
 abstract class TblInlineQuery{}
 
@@ -46,9 +46,7 @@ class TblInlineQueryPhoto extends TblInlineQuery{
       $param['photo_file_id'] = $this->FileId;
     else:
       $param['photo_url'] = $this->Url;
-      if($param['thumb_url'] !== null):
-        $param['thumb_url'] = $this->Thumb;
-      endif;
+      $param['thumb_url'] = $this->Thumb;
       if($this->Width !== null):
         $param['photo_width'] = $this->Width;
       endif;
