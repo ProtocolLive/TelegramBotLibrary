@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.04.19.01
+//2022.04.19.02
 
 abstract class TblInlineQuery{}
 
@@ -23,7 +23,7 @@ class TblInlineQueryArticle extends TblInlineQuery{
   public function __construct(
     public string $Id,
     public string $Title,
-    public TblInlineQueryContent|null $Message = null,
+    public TblInlineQueryContent $Message,
     public TblMarkup|null $Markup = null,
     public string|null $Url = null,
     public bool|null $UrlHide = false,
