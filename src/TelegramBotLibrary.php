@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.04.17.01
+//2022.04.17.02
 
 require(__DIR__ . '/requires.php');
 
@@ -886,5 +886,49 @@ class TelegramBotLibrary extends TblBasics{
       $param = '';
     endif;
     return $this->ServerMethod('setChatMenuButton' . $param);
+  }
+
+  /**
+   * Use this method to send answers to an inline query. No more than 50 results per query are allowed.
+   * @param string $Id Unique identifier for the answered query
+   * @param array $Results An array of results for the inline query
+   * @param int $Cache The maximum amount of time in seconds that the result of the inline query may be cached on the server. Defaults to 300.
+   * @param bool $Personal Pass True, if results may be cached on the server side only for the user that sent the query. By default, results may be returned to any user who sends the same query
+   * @param string $NextOffset Pass the offset that a client should send in the next query with the same text to receive more results. Pass an empty string if there are no more results or if you don't support pagination. Offset length can't exceed 64 bytes.
+   * @param string $SwitchPm If passed, clients will display a button with specified text that switches the user to a private chat with the bot and sends the bot a start message with the parameter switch_pm_parameter
+   * @param string $SwitchPmParam Deep-linking parameter for the /start message sent to the bot when user presses the switch button. 1-64 characters, only A-Z, a-z, 0-9, _ and - are allowed. Example: An inline bot that sends YouTube videos can ask the user to connect the bot to their YouTube account to adapt search results accordingly. To do this, it displays a 'Connect your YouTube account' button above the results, or even before showing any. The user presses the button, switches to a private chat with the bot and, in doing so, passes a start parameter that instructs the bot to return an OAuth link. Once done, the bot can offer a switch_inline button so that the user can easily return to the chat where they wanted to use the bot's inline capabilities.
+   * @return bool|null On success, True is returned
+   * @link https://core.telegram.org/bots/api#answerinlinequery
+   */
+  public function InlineQueryAnswer(
+    string $Id,
+    array $Results,
+    int $Cache = null,
+    bool $Personal = false,
+    string $NextOffset = null,
+    string $SwitchPm = null,
+    string $SwitchPmParam = null
+  ){
+    $param['inline_query_id'] = $Id;
+    foreach($Results as $result):
+      $param['results'][] = $result->ToArray();
+    endforeach;
+    $param['results'] = json_encode($param['results'], JSON_UNESCAPED_SLASHES);
+    if($Cache !== null):
+      $param['cache_time'] = $Cache;
+    endif;
+    if($Personal):
+      $param['is_personal'] = 'true';
+    endif;
+    if($NextOffset !== null):
+      $param['next_offset'] = $NextOffset;
+    endif;
+    if($SwitchPm !== null):
+      $param['switch_pm_text'] = $SwitchPm;
+    endif;
+    if($SwitchPmParam !== null):
+      $param['switch_pm_parameter'] = $SwitchPmParam;
+    endif;
+    return $this->ServerMethod('answerInlineQuery?' . http_build_query($param));
   }
 }
