@@ -1,13 +1,14 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.04.17.01
+//2022.04.19.00
 
 enum TgError{
   case Blocked;
   case CallbackQueryOld;
   case FileId;
   case InlineQueryClosing;
+  case InlineQueryMessage;
   case InlineQueryResult;
   case InlineQueryStringEnd;
   case InlineQueryThumbEmpty;
@@ -34,7 +35,8 @@ class TgErrors{
     'Bad Request: can\'t parse JSON encoded inline query results: Closing \'\"\' not found' => TgError::InlineQueryClosing,
     'Bad Request: can\'t parse JSON encoded inline query results: Expected string end' => TgError::InlineQueryStringEnd,
     'Bad Request: PHOTO_THUMB_URL_EMPTY' => TgError::InlineQueryThumbEmpty,
-    'Bad Request: wrong remote file identifier specified: Wrong string length' => TgError::UrlShort
+    'Bad Request: wrong remote file identifier specified: Wrong string length' => TgError::UrlShort,
+    'Bad Request: can\'t parse inline query result: Can\'t find field \"message_text\"' => TgError::InlineQueryMessage
   ];
 
   static public function Search(string $Description):TgError|false{
