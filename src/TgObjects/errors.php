@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.04.19.00
+//2022.04.20.00
 
 enum TgError{
   case Blocked;
@@ -14,6 +14,7 @@ enum TgError{
   case InlineQueryThumbEmpty;
   case InlineQueryThumbMiss;
   case InlineQueryThumbType;
+  case InvoiceLabel;
   case UrlFailed;
   case UrlInvalid;
   case UrlShort;
@@ -36,7 +37,8 @@ class TgErrors{
     'Bad Request: can\'t parse JSON encoded inline query results: Expected string end' => TgError::InlineQueryStringEnd,
     'Bad Request: PHOTO_THUMB_URL_EMPTY' => TgError::InlineQueryThumbEmpty,
     'Bad Request: wrong remote file identifier specified: Wrong string length' => TgError::UrlShort,
-    'Bad Request: can\'t parse inline query result: Can\'t find field \"message_text\"' => TgError::InlineQueryMessage
+    'Bad Request: can\'t parse inline query result: Can\'t find field \"message_text\"' => TgError::InlineQueryMessage,
+    'Bad Request: can\'t parse labeled price: Can\'t find field \"label\"' => TgError::InvoiceLabel
   ];
 
   static public function Search(string $Description):TgError|false{
