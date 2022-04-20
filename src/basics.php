@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.04.20.00
+//2022.04.20.01
 
 abstract class TblBasics{
   protected TblData $BotData;
@@ -59,7 +59,7 @@ abstract class TblBasics{
     elseif($Type === TblLog::Response):
       $log .= 'Send response';
     endif;
-    $log .= "\n" . $Msg;
+    $log .= "\n" . $Msg . "\n";
     if($Type === TblLog::Error):
       error_log($log);
     else:
