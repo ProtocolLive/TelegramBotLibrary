@@ -2,7 +2,7 @@ fb8bb4b6b54c82bd6ad7deea2ff972652cad480a  src/TblObjects/cmd.php
 a257671e857e71a09469e17fcde671054612428e  src/TblObjects/data.php
 8956b9ce0e5da85c8385a0c6f02be27e239e51b6  src/TblObjects/entity.php
 829161b53ef9a320a06a535d343b3aa363574056  src/TblObjects/inline.php
-70c3d05b679751835e7a53c17072eeb91296c0e4  src/TblObjects/invoice.php
+c26c56d3679b6a03dfdf86885aadb9c9430fc706  src/TblObjects/invoice.php
 05fd6be90c7d316101f0abcf10c3e4dc09e2a639  src/TblObjects/markup.php
 7347367a03f6398adfa58198e889894f042b236c  src/TblObjects/webhook.php
 3229244e0a0faf3aecfab5898e70c7ffc201bba3  src/TelegramBotLibrary.php
@@ -23,5 +23,5 @@ beae29f507423b06e0537c9d25f9ad83e5b17e97  src/TgObjects/text.php
 f0c34158e0c153dd3eba1ed3a3852c5adb41e61f  src/TgObjects/user.php
 a9c6d7bad397b234b0fe9c13b1eea4a4742c5b6b  src/basics.php
 6690a7e2bedd3f6da6cc44bc0b086b25e8707c8b  src/cacert.pem
-a44bd5ae616d887205099a01c33150f3c0fdfc35  src/constants.php
+6d40ac76dc26a95e05af7499fb6435570b834a7b  src/constants.php
 679fe463400f817ff33a1f072c5ea2f78da90019  src/requires.php

@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.04.16.00
+//2022.04.20.00
 
 enum TblError{
   case Custom;
@@ -13,6 +13,11 @@ enum TblError{
   case LimitCommand;
   case LimitCmdDescription;
   case NoEvent;
+}
+
+class TblException{
+  const InvoicePriceLow = 0;
+  const InvoicePriceHigh = 1;
 }
 
 enum TblLog{
