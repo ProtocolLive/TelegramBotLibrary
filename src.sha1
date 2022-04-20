@@ -11,10 +11,10 @@ a257671e857e71a09469e17fcde671054612428e  src/TblObjects/data.php
 52d12d38b36a0cfc37b504e4ce7014139489c4f8  src/TgObjects/cmd.php
 08880c9edf3d72b27ae64cb7f7c532ef647d1b95  src/TgObjects/document.php
 050d41239cb44bb81cde9f52c0854a939cc569ce  src/TgObjects/entity.php
-24ba766ca32482f01ad87d8c915bd4971a01466d  src/TgObjects/errors.php
+f18ea6fbc8cb0b4f2f7f5ba8a7ccfd393db7629b  src/TgObjects/errors.php
 abb9af0d61c6b0b0dbe357bd5988e229ad4a126c  src/TgObjects/file.php
 73f3ba246df083a7cb2089f803f67f19354e4243  src/TgObjects/inline.php
-6c232a73818ca5e60d5e405645c58fad7b487950  src/TgObjects/invoice.php
+90e82afcb2966606e44eb4fe4756c96924fd94cd  src/TgObjects/invoice.php
 bab67f6f9212cae6cbd108a942b82ea18697e9ed  src/TgObjects/media.php
 f1cc6e49088a72876eda9c5ff75fe89e7f5f4605  src/TgObjects/message.php
 671da5d3daa755c8328d4532956f86d0dceb1672  src/TgObjects/photo.php
