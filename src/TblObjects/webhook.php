@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.03.07.00
+//2022.04.20.00
 
 class TblWebhook extends TblBasics{
   public function __construct(TblData $BotData){
@@ -35,7 +35,7 @@ class TblWebhook extends TblBasics{
       );
       $param['allowed_updates'] = json_encode($Updates);
     endif;
-    return $this->ServerMethod('setWebhook?' . http_build_query($param));
+    return $this->ServerMethod('setWebhook', $param);
   }
 
   /**
@@ -50,10 +50,10 @@ class TblWebhook extends TblBasics{
    * @link https://core.telegram.org/bots/api#deletewebhook
    */
   public function Del(bool $Drop = false):bool{
-    $temp = 'deleteWebhook';
+    $param = [];
     if($Drop):
-      $temp .= '?drop_pending_updates=true';
+      $param['drop_pending_updates'] = true;
     endif;
-    return $this->ServerMethod($temp);
+    return $this->ServerMethod('deleteWebhook', $param);
   }
 }
