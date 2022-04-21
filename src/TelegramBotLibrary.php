@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.04.20.03
+//2022.04.21.00
 
 require(__DIR__ . '/requires.php');
 
@@ -626,44 +626,15 @@ class TelegramBotLibrary extends TblBasics{
       $param['reply_markup'] = $Markup->ToJson();
     endif;
     if(is_file($Photo)):
-      $url = $this->BotData->UrlFiles . '/sendPhoto?' . http_build_query($param);
-      $curl = curl_init($url);
-      curl_setopt($curl, CURLOPT_CAINFO, __DIR__ . '/cacert.pem');
-      curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-      curl_setopt($curl, CURLOPT_POST, true);
-      curl_setopt($curl, CURLOPT_POSTFIELDS, [
-        'photo' => new CurlFile($Photo)
-      ]);
-      curl_setopt($curl, CURLOPT_INFILESIZE, filesize($Photo));
-      $temp = curl_exec($curl);
-      if($temp === false):
-        $this->DebugLog(
-          TblLog::Error,
-          'cURL error #' . curl_errno($curl) . ' ' . curl_error($curl)
-        );
-        $this->Error = TblError::Curl;
-        return null;
-      endif;
-      $temp = json_decode($temp, true);
-      if(($this->BotData->Debug & TblDebug::Send) === TblDebug::Send):
-        $this->DebugLog(TblLog::Send, $url . http_build_query($param));
-        $this->DebugLog(TblLog::Send, json_encode($temp, JSON_PRETTY_PRINT));
-      endif;
-      if($temp['ok'] === false):
-        $this->Error = TblError::Custom;
-        $this->ErrorStr = $temp['description'];
-        return null;
-      else:
-        return new TgPhoto($temp);
-      endif;
+      $param['photo'] = new CurlFile($Photo);
     else:
       $param['photo'] = $Photo;
-      $temp = $this->ServerMethod('sendPhoto', $param);
-      if($temp === null):
-        return null;
-      else:
-        return new TgPhoto($temp);
-      endif;
+    endif;
+    $temp = $this->ServerMethod('sendPhoto', $param);
+    if($temp === null):
+      return null;
+    else:
+      return new TgPhoto($temp);
     endif;
   }
 
