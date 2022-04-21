@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.04.20.01
+//2022.04.20.02
 
 require(__DIR__ . '/requires.php');
 
@@ -62,6 +62,8 @@ class TelegramBotLibrary extends TblBasics{
       return new TgInvoice($update['invoice']);
     elseif(isset($update['pre_checkout_query'])):
       return new TgInvoiceCheckout($update['pre_checkout_query']);
+    elseif(isset($update['shipping_query'])):
+      return new TgInvoiceShipping($update['shipping_query']);
     endif;
   }
 

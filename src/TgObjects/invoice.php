@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.04.20.01
+//2022.04.20.02
 
 enum TgInvoiceCurrencies:string{
   case AED = 'AED';
@@ -128,6 +128,23 @@ class TgInvoiceCheckout{
     $this->Currency = TgInvoiceCurrencies::tryFrom($Data['currency']);
     $this->Amount = $Data['total_amount'];
     $this->Payload = $Data['invoice_payload'];
+  }
+}
+
+/**
+ * @link https://core.telegram.org/bots/api#shippingquery
+ */
+class TgInvoiceShipping{
+  public readonly string $Id;
+  public readonly TgUser $User;
+  public readonly string $Payload;
+  public readonly TgInvoiceOrderAddress $Address;
+
+  public function __construct(array $Data){
+    $this->Id = $Data['id'];
+    $this->User = new TgUser($Data['from']);
+    $this->Payload = $Data['invoice_payload'];
+    $this->Address = new TgInvoiceOrderAddress($Data['shipping_address']);
   }
 }
 
