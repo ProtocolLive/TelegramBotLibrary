@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.04.20.02
+//2022.04.20.03
 
 require(__DIR__ . '/requires.php');
 
@@ -828,6 +828,49 @@ class TelegramBotLibrary extends TblBasics{
       $param['error_message'] = $ErrorMsg;
     endif;
     return $this->ServerMethod('answerPreCheckoutQuery', $param);
+  }
+
+  /**
+   * If you sent an invoice requesting a shipping address and the parameter is_flexible was specified, the Bot API will send an Update with a shipping_query field to the bot. Use this method to reply to shipping queries.
+   * @param string $Id Unique identifier for the query to be answered
+   * @param bool $Confirm Specify True if delivery to the specified address is possible and False if there are any problems (for example, if delivery to the specified address is not possible)
+   * @param array $Options Required if ok is True. A JSON-serialized array of available shipping options.
+   * @param string $Error Required if ok is False. Error message in human readable form that explains why it is impossible to complete the order (e.g. "Sorry, delivery to your desired address is unavailable'). Telegram will display this message to the user.
+   * @return bool|null On success, True is returned.
+   * @link https://core.telegram.org/bots/api#answershippingquery
+   */
+  public function SendShipping(
+    string $Id,
+    bool $Confirm,
+    array $Options = null,
+    string $Error = null
+  ):bool|null{
+    $param['shipping_query_id'] = $Id;
+    $param['ok'] = $Confirm;
+    if($Confirm):
+      /**
+       * @var TblInvoiceShippingOption $option
+       * @var TblInvoiceProduct $price
+      */
+      foreach($Options as $option):
+        $prices = [];
+        foreach($option->Prices as $price):
+          $prices[] = [
+            'label' => $price->Name,
+            'amount' => $price->Price
+          ];
+        endforeach;
+        $param['shipping_options'][] = [
+          'id' => $option->Id,
+          'title' => $option->Title,
+          'prices' => $prices
+        ];
+      endforeach;
+      $param['shipping_options'] = json_encode($param['shipping_options']);
+    else:
+      $param['error_message'] = $Error;
+    endif;
+    return $this->ServerMethod('answerShippingQuery', $param);
   }
 
   /**
