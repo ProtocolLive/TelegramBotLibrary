@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.04.20.01
+//2022.04.20.02
 
 abstract class TblBasics{
   protected TblData $BotData;
@@ -22,6 +22,8 @@ abstract class TblBasics{
     curl_setopt($curl, CURLOPT_USERAGENT, 'Protocol SimpleTelegramBot');
     curl_setopt($curl, CURLOPT_CAINFO, __DIR__ . '/cacert.pem');
     curl_setopt($curl, CURLOPT_POSTFIELDS, $Params);
+    curl_setopt($curl, CURLOPT_VERBOSE, true);
+    curl_setopt($curl, CURLOPT_STDERR, fopen(DirToken . '/logs/curl.log', 'w'));
     $temp = curl_exec($curl);
     if($temp === false):
       $this->DebugLog(
