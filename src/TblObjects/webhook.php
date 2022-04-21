@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.04.21.00
+//2022.04.21.01
 
 class TblWebhook extends TblBasics{
   public function __construct(TblData $BotData){
@@ -33,12 +33,10 @@ class TblWebhook extends TblBasics{
       $param['max_connections'] = $MaxConnections;
     endif;
     if($Updates !== null):
-      $Updates = array_map(function ($update){
-          return TgUpdateType::tryFrom($update);
-        },
-        $Updates
-      );
-      $param['allowed_updates'] = json_encode($Updates);
+      foreach($Updates as $update):
+        $param['allowed_updates'][] = $update->value;
+      endforeach;
+      $param['allowed_updates'] = json_encode($param['allowed_updates']);
     endif;
     if($Certificate !== null):
       $param['certificate'] = new CurlFile($Certificate);
