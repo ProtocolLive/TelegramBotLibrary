@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.04.21.00
+//2022.04.21.01
 
 require(__DIR__ . '/requires.php');
 
@@ -52,6 +52,14 @@ class TelegramBotLibrary extends TblBasics{
       return new TgDocument($update['message']);
     elseif(isset($update['message']['successful_payment'])):
       return new TgInvoiceDone($update['message']);
+    elseif(isset($update['message']['left_chat_member'])):
+      return new TgMemberLeft($update['message']);
+    elseif(isset($update['message']['new_chat_member'])):
+      return new TgMemberNew($update['message']);
+    elseif(isset($update['message']['migrate_to_chat_id'])):
+      return new TgChatMigrateTo($update['message']);
+    elseif(isset($update['message']['migrate_from_chat_id'])):
+      return new TgChatMigrateFrom($update['message']);
     elseif(isset($update['callback_query'])):
       return new TgCallback($update['callback_query']);
     elseif(isset($update['inline_query'])):
@@ -64,6 +72,10 @@ class TelegramBotLibrary extends TblBasics{
       return new TgInvoiceCheckout($update['pre_checkout_query']);
     elseif(isset($update['shipping_query'])):
       return new TgInvoiceShipping($update['shipping_query']);
+    elseif(isset($update['my_chat_member'])):
+      return new TgGroupStatusMy($update['my_chat_member']);
+    elseif(isset($update['chat_member'])):
+      return new TgGroupStatus($update['chat_member']);
     endif;
   }
 
