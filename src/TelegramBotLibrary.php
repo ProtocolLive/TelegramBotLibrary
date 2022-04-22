@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.04.22.01
+//2022.04.22.02
 
 require(__DIR__ . '/requires.php');
 
@@ -97,7 +97,7 @@ class TelegramBotLibrary extends TblBasics{
    */
   public function ChatGet(int $Chat):TgChat|null{
     $param['chat_id'] = $Chat;
-    $temp = $this->ServerMethod('getChat', $param);
+    $temp = $this->ServerMethod(TgMethods::Chat, $param);
     if($temp === null):
       return null;
     else:
@@ -113,7 +113,7 @@ class TelegramBotLibrary extends TblBasics{
    */
   public function ChatCount(int $Chat):int|null{
     $param['chat_id'] = $Chat;
-    return $this->ServerMethod('getChatMemberCount', $param);
+    return $this->ServerMethod(TgMethods::ChatMemberCount, $param);
   }
 
   /**
@@ -126,7 +126,7 @@ class TelegramBotLibrary extends TblBasics{
   public function ChatMember(int $Chat, int $User):TgMember|null{
     $param['chat_id'] = $Chat;
     $param['user_id'] = $User;
-    $temp = $this->ServerMethod('getChatMember', $param);
+    $temp = $this->ServerMethod(TgMethods::ChatMember, $param);
     return new TgMember($temp);
   }
 
@@ -138,7 +138,7 @@ class TelegramBotLibrary extends TblBasics{
    */
   public function ChatAdmGet(int $Chat):array|null{
     $param['chat_id'] = $Chat;
-    $temp = $this->ServerMethod('getChatAdministrators', $param);
+    $temp = $this->ServerMethod(TgMethods::ChatAdms, $param);
     if($temp === null):
       return null;
     else:
@@ -163,7 +163,7 @@ class TelegramBotLibrary extends TblBasics{
     if($Type === DefaultPerms::Channels):
       $param['for_channels'] = 'true';
     endif;
-    $return = $this->ServerMethod('getMyDefaultAdministratorRights', $param);
+    $return = $this->ServerMethod(TgMethods::MyDefaultPermAdmGet, $param);
     if($return === null):
       return null;
     else:
@@ -189,7 +189,7 @@ class TelegramBotLibrary extends TblBasics{
     if($Type === DefaultPerms::Channels):
       $param['for_channels'] = 'true';
     endif;
-    return $this->ServerMethod('setMyDefaultAdministratorRights', $param);
+    return $this->ServerMethod(TgMethods::MyDefaultPermAdmSet, $param);
   }
 
   /**
@@ -214,7 +214,7 @@ class TelegramBotLibrary extends TblBasics{
     endforeach;
     $param['permissions'] = json_encode($param['permissions']);
     $param['until_date'] = $Period;
-    return $this->ServerMethod('restrictChatMember', $param);
+    return $this->ServerMethod(TgMethods::ChatMemberPerm, $param);
   }
 
   /**
@@ -238,7 +238,7 @@ class TelegramBotLibrary extends TblBasics{
       $param[$json] = $Perms->$class ? 'true' : 'false';
     endforeach;
     $param['is_anonymous'] = $Anonymous ? 'true' : 'false';
-    return $this->ServerMethod('promoteChatMember', $param);
+    return $this->ServerMethod(TgMethods::ChatMemberPromote, $param);
   }
 
   /**
@@ -257,7 +257,7 @@ class TelegramBotLibrary extends TblBasics{
     $param['chat_id'] = $Chat;
     $param['user_id'] = $User;
     $param['custom_title'] = $Title;
-    return $this->ServerMethod('setChatAdministratorCustomTitle', $param);
+    return $this->ServerMethod(TgMethods::ChatAdmTitle, $param);
   }
 
   /**
@@ -279,7 +279,7 @@ class TelegramBotLibrary extends TblBasics{
     $param['user_id'] = $User;
     $param['until_date'] = $Date;
     $param['revoke_messages'] = $DelMsg;
-    return $this->ServerMethod('banChatMember', $param);
+    return $this->ServerMethod(TgMethods::ChatMemberBan, $param);
   }
 
   /**
@@ -298,7 +298,7 @@ class TelegramBotLibrary extends TblBasics{
     $param['chat_id'] = $Chat;
     $param['user_id'] = $User;
     $param['only_if_banned'] = $OnlyIfBanned;
-    return $this->ServerMethod('unbanChatMember', $param);
+    return $this->ServerMethod(TgMethods::ChatMemberBanUndo, $param);
   }
 
   /**
@@ -327,7 +327,7 @@ class TelegramBotLibrary extends TblBasics{
     if($Protect):
       $param['protect_content'] = true;
     endif;
-    $temp = $this->ServerMethod('forwardMessage', $param);
+    $temp = $this->ServerMethod(TgMethods::MessageForward, $param);
     if($temp === null):
       return null;
     else:
@@ -366,7 +366,7 @@ class TelegramBotLibrary extends TblBasics{
     if($Language !== null):
       $param['language_code'] = $Language;
     endif;
-    return $this->ServerMethod('getMyCommands', $param);
+    return $this->ServerMethod(TgMethods::CommandsGet, $param);
   }
 
   /**
@@ -400,7 +400,7 @@ class TelegramBotLibrary extends TblBasics{
     if($Language !== null):
       $param['language_code'] = $Language;
     endif;
-    return $this->ServerMethod('setMyCommands', $param);
+    return $this->ServerMethod(TgMethods::CommandsSet, $param);
   }
 
   /**
@@ -432,7 +432,7 @@ class TelegramBotLibrary extends TblBasics{
     if($Language !== null):
       $param['language_code'] = $Language;
     endif;
-    return $this->ServerMethod('deleteMyCommands', $param);
+    return $this->ServerMethod(TgMethods::CommandsDel, $param);
   }
 
   /**
@@ -441,7 +441,7 @@ class TelegramBotLibrary extends TblBasics{
    * @link https://core.telegram.org/bots/api#getme
    */
   public function MeGet():TgUser|null{
-    $temp = $this->ServerMethod('getMe');
+    $temp = $this->ServerMethod(TgMethods::MyGet);
     if($temp === null):
       return null;
     else:
@@ -458,7 +458,7 @@ class TelegramBotLibrary extends TblBasics{
   public function SendAction(int $Chat, TgChatAction $Action):bool|null{
     $param['chat_id'] = $Chat;
     $param['action'] = $Action->value;
-    return $this->ServerMethod('sendChatAction', $param);
+    return $this->ServerMethod(TgMethods::ChatAction, $param);
   }
 
   /**
@@ -515,7 +515,7 @@ class TelegramBotLibrary extends TblBasics{
     if($Markup !== null):
       $param['reply_markup'] = $Markup->ToJson();
     endif;
-    return $this->ServerMethod('copyMessage', $param);
+    return $this->ServerMethod(TgMethods::MessageCopy, $param);
   }
 
   /**
@@ -571,7 +571,7 @@ class TelegramBotLibrary extends TblBasics{
     if($Markup !== null):
       $param['reply_markup'] = $Markup->ToJson();
     endif;
-    $temp = $this->ServerMethod('sendMessage', $param);
+    $temp = $this->ServerMethod(TgMethods::SendText, $param);
     if($temp !== null):
       return new TgMessage($temp);
     else:
@@ -584,7 +584,7 @@ class TelegramBotLibrary extends TblBasics{
    * @param int $Chat Unique identifier for the target chat
    * @param string $Photo Photo to send. Pass a file_id as String to send a photo that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a photo from the Internet, or upload a new photo using multipart/form-data. The photo must be at most 10 MB in size. The photo's width and height must not exceed 10000 in total. Width and height ratio must be at most 20.
    * There are three ways to send files (photos, stickers, audio, media, etc.):
-   * 1) If the file is already stored somewhere on the Telegram servers, you don't need to reupload it: each file object has a file_id field, simply pass this file_id as a parameter instead of uploading. There are no limits for files sent this way.
+   * 1) If the file is already stored somewhere on the Telegram servers, you don't need to re-upload it: each file object has a file_id field, simply pass this file_id as a parameter instead of uploading. There are no limits for files sent this way.
    * 2) Provide Telegram with an HTTP URL for the file to be sent. Telegram will download and send the file. 5 MB max size for photos and 20 MB max for other types of content.
    * 3) Post the file using multipart/form-data in the usual way that files are uploaded via the browser. 10 MB max size for photos, 50 MB for other files.
    * 
@@ -654,7 +654,7 @@ class TelegramBotLibrary extends TblBasics{
     else:
       $param['photo'] = $Photo;
     endif;
-    $temp = $this->ServerMethod('sendPhoto', $param);
+    $temp = $this->ServerMethod(TgMethods::SendPhoto, $param);
     if($temp === null):
       return null;
     else:
@@ -668,7 +668,7 @@ class TelegramBotLibrary extends TblBasics{
    * @param string $Title Product name, 1-32 characters
    * @param string $Description Product description, 1-255 characters
    * @param string $Payload Bot-defined invoice payload, 1-128 bytes. This will not be displayed to the user, use for your internal processes.
-   * @param string $Token Payments provider token, obtained via Botfather
+   * @param string $Token Payments provider token, obtained via BotFather
    * @param TgInvoiceCurrencies $Currency Three-letter ISO 4217 currency code
    * @param array $Prices Price breakdown, a list of components (e.g. product price, tax, discount, delivery cost, delivery tax, bonus, etc.)
    * @param int $TipMax The maximum accepted amount for tips in the smallest units of the currency (integer, not float/double). For example, for a maximum tip of US$ 1.45 pass max_tip_amount = 145. See the exp parameter in currencies.json, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies). Defaults to 0
@@ -796,7 +796,7 @@ class TelegramBotLibrary extends TblBasics{
     if($Markup !== null):
       $param['reply_markup'] = $Markup->ToJson();
     endif;
-    $return = $this->ServerMethod('sendInvoice', $param);
+    $return = $this->ServerMethod(TgMethods::SendInvoice, $param);
     if($return === null):
       return null;
     else:
@@ -822,7 +822,7 @@ class TelegramBotLibrary extends TblBasics{
     if($Confirm === false):
       $param['error_message'] = $ErrorMsg;
     endif;
-    return $this->ServerMethod('answerPreCheckoutQuery', $param);
+    return $this->ServerMethod(TgMethods::SendCheckout, $param);
   }
 
   /**
@@ -865,7 +865,7 @@ class TelegramBotLibrary extends TblBasics{
     else:
       $param['error_message'] = $Error;
     endif;
-    return $this->ServerMethod('answerShippingQuery', $param);
+    return $this->ServerMethod(TgMethods::SendShipping, $param);
   }
 
   /**
@@ -911,7 +911,7 @@ class TelegramBotLibrary extends TblBasics{
     if($Markup !== null):
       $param['reply_markup'] = $Markup->ToJson();
     endif;
-    $return = $this->ServerMethod('editMessageText', $param);
+    $return = $this->ServerMethod(TgMethods::EditText, $param);
     if($return === null
     or $return === true):
       return $return;
@@ -941,7 +941,7 @@ class TelegramBotLibrary extends TblBasics{
     if($Markup !== null):
       $param['reply_markup'] = $Markup->ToJson();
     endif;
-    $return = $this->ServerMethod('editMessageReplyMarkup', $param);
+    $return = $this->ServerMethod(TgMethods::EditMarkup, $param);
     if($return === null
     or $return === true):
       return $return;
@@ -959,7 +959,7 @@ class TelegramBotLibrary extends TblBasics{
    */
   public function FileInfo(string $Id):TgFile|null{
     $param['file_id'] = $Id;
-    $return = $this->ServerMethod('getFile', $param);
+    $return = $this->ServerMethod(TgMethods::FileGet, $param);
     if($return === null):
       return null;
     endif;
@@ -984,11 +984,11 @@ class TelegramBotLibrary extends TblBasics{
 
   /**
    * Use this method to send answers to callback queries sent from inline keyboards. The answer will be displayed to the user as a notification at the top of the chat screen or as an alert.
-   * Alternatively, the user can be redirected to the specified Game URL. For this option to work, you must first create a game for your bot via @Botfather and accept the terms. Otherwise, you may use links like t.me/your_bot?start=XXXX that open your bot with a parameter.
+   * Alternatively, the user can be redirected to the specified Game URL. For this option to work, you must first create a game for your bot via @BotFather and accept the terms. Otherwise, you may use links like t.me/your_bot?start=XXXX that open your bot with a parameter.
    * @param string $Id Unique identifier for the query to be answered
    * @param string $Text Text of the notification. If not specified, nothing will be shown to the user, 0-200 characters
    * @param bool $Alert If True, an alert will be shown by the client instead of a notification at the top of the chat screen. Defaults to false.
-   * @param string $Url URL that will be opened by the user's client. If you have created a Game and accepted the conditions via @Botfather, specify the URL that opens your game — note that this will only work if the query comes from a callback_game button. Otherwise, you may use links like t.me/your_bot?start=XXXX that open your bot with a parameter.
+   * @param string $Url URL that will be opened by the user's client. If you have created a Game and accepted the conditions via @BotFather, specify the URL that opens your game — note that this will only work if the query comes from a callback_game button. Otherwise, you may use links like t.me/your_bot?start=XXXX that open your bot with a parameter.
    * @param int $Cache The maximum amount of time in seconds that the result of the callback query may be cached client-side. Telegram apps will support caching starting in version 3.14. Defaults to 0.
    * @return bool|null On success, True is returned.
    * @link https://core.telegram.org/bots/api#answercallbackquery
@@ -1013,7 +1013,7 @@ class TelegramBotLibrary extends TblBasics{
     if($Cache !== null):
       $param['cache_time'] = $Cache;
     endif;
-    return $this->ServerMethod('answerCallbackQuery', $param);
+    return $this->ServerMethod(TgMethods::CallbackAnswer, $param);
   }
 
   /**
@@ -1036,7 +1036,7 @@ class TelegramBotLibrary extends TblBasics{
     if($Limit > 0 and $Limit < 100):
       $param['limit'] = $Limit;
     endif;
-    $return = $this->ServerMethod('getUserProfilePhotos', $param);
+    $return = $this->ServerMethod(TgMethods::UserPhotos, $param);
     if($return === null):
       return null;
     else:
@@ -1055,7 +1055,7 @@ class TelegramBotLibrary extends TblBasics{
     if($User !== null):
       $param['chat_id='] = $User;
     endif;
-    $return = $this->ServerMethod('getChatMenuButton', $param);
+    $return = $this->ServerMethod(TgMethods::ChatMenuButtonGet, $param);
     return TgMenuButton::tryFrom($return['type'] ?? 0);
   }
 
@@ -1086,7 +1086,7 @@ class TelegramBotLibrary extends TblBasics{
       $param['menu_button']['type'] = $Type->value;
       $param['menu_button'] = json_encode($param['menu_button']);
     endif;
-    return $this->ServerMethod('setChatMenuButton', $param);
+    return $this->ServerMethod(TgMethods::ChatMenuButtonSet, $param);
   }
 
   /**
@@ -1130,6 +1130,6 @@ class TelegramBotLibrary extends TblBasics{
     if($SwitchPmParam !== null):
       $param['switch_pm_parameter'] = $SwitchPmParam;
     endif;
-    return $this->ServerMethod('answerInlineQuery', $param);
+    return $this->ServerMethod(TgMethods::InlineQueryAnswer, $param);
   }
 }
