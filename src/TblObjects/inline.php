@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.04.19.02
+//2022.04.21.00
 
 abstract class TblInlineQuery{}
 
@@ -139,7 +139,9 @@ class TblInlineQueryPhoto extends TblInlineQuery{
   }
 }
 
-abstract class TblInlineQueryContent{}
+abstract class TblInlineQueryContent{
+  abstract public function ToArray();
+}
 
 class TblInlineQueryContentText extends TblInlineQueryContent{
   public function __construct(
