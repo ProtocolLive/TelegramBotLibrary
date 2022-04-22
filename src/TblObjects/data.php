@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.04.22.00
+//2022.04.22.01
 
 class TblData{
   public readonly string $UrlApi;
@@ -15,12 +15,13 @@ class TblData{
     int $Debug = TblDebug::None,
     bool $TestServer = false
   ){
-    $this->UrlApi = 'https://api.telegram.org/bot' . $Token;
-    $this->UrlFiles = 'https://api.telegram.org/file/bot' . $Token;
     if($TestServer):
-      $this->UrlApi .= '/test';
-      $this->UrlFiles .= '/test';
+      $temp = '/test';
+    else:
+      $temp = '';
     endif;
+    $this->UrlApi = 'https://api.telegram.org/bot' . $Token . $temp;
+    $this->UrlFiles = 'https://api.telegram.org/file/bot' . $Token . $temp;
     $this->DirLogs = $DirLogs;
     $this->Debug = $Debug;
   }
