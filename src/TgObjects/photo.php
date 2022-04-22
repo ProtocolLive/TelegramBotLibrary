@@ -1,15 +1,49 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.04.14.00
+//2022.04.22.00
 
+/**
+ * @link https://core.telegram.org/bots/api#message
+ */
 class TgPhoto extends TgMedia{
   public array $Files;
   public readonly string|null $Caption;
   public array $Entities = [];
 
+  /**
+   * @link https://core.telegram.org/bots/api#message
+   */
   public function __construct(array $Data){
     parent::__construct($Data);
+    foreach($Data['photo'] as $file):
+      $this->Files[] = new TgPhotoSize($file);
+    endforeach;
+    $this->Caption = $Data['caption'] ?? null;
+    if(isset($Data['caption_entities'])):
+      foreach($Data['caption_entities'] as $entity):
+        $this->Entities[] = new TgEntity($entity);
+      endforeach;
+    endif;
+  }
+}
+
+/**
+ * @link https://core.telegram.org/bots/api#message
+ */
+class TgPhotoEdited extends TgMedia{
+  public readonly int $DateEdited;
+  public array $Files;
+  public readonly string|null $Caption;
+  public array $Entities = [];
+
+  /**
+   * New version of a message that is known to the bot and was edited
+   * @link https://core.telegram.org/bots/api#message
+   */
+  public function __construct(array $Data){
+    parent::__construct($Data);
+    $this->DateEdited = $Data['edit_date'];
     foreach($Data['photo'] as $file):
       $this->Files[] = new TgPhotoSize($file);
     endforeach;
