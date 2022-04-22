@@ -22,7 +22,7 @@ f1cc6e49088a72876eda9c5ff75fe89e7f5f4605  src/TgObjects/message.php
 647879e2bfe5396a0b8cf345e65815d0b1524ddf  src/TgObjects/poll.php
 f2e4fa5a851aacb7c440cddbe4c7c4c8f1a83426  src/TgObjects/text.php
 f0c34158e0c153dd3eba1ed3a3852c5adb41e61f  src/TgObjects/user.php
-2b46cb4a313260a4c11751141bad5164ea622c34  src/basics.php
+b38d992db57b69ceab777bacbed97a69e594a205  src/basics.php
 6690a7e2bedd3f6da6cc44bc0b086b25e8707c8b  src/cacert.pem
-6d40ac76dc26a95e05af7499fb6435570b834a7b  src/constants.php
+73375323598be9380bcaa3ffe168edbcafabf0f5  src/constants.php
 10da074cbe58000f44188bafb02e3fff4605d174  src/requires.php
