@@ -1,12 +1,13 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.04.22.02
+//2022.04.22.03
 
 abstract class TblBasics{
   protected TblData $BotData;
   public TblError|TgError|null $Error = null;
   public string|null $ErrorStr = null;
+  public readonly bool $TestServer;
 
   protected function ServerMethod(
     TgMethods $Method,
@@ -17,7 +18,12 @@ abstract class TblBasics{
       $log .= 'Params: ' . json_encode($Params, JSON_PRETTY_PRINT);
       $this->DebugLog(TblLog::Send, $log);
     endif;
-    $curl = curl_init($this->BotData->UrlApi . '/' . $Method->value);
+    $curl = $this->BotData->UrlApi . '/';
+    if($this->TestServer):
+      $curl .= '/test';
+    endif;
+    $curl .= '/' . $Method->value;
+    $curl = curl_init($curl);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($curl, CURLOPT_USERAGENT, 'Protocol SimpleTelegramBot');
     curl_setopt($curl, CURLOPT_CAINFO, __DIR__ . '/cacert.pem');

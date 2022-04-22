@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.04.22.02
+//2022.04.22.03
 
 require(__DIR__ . '/requires.php');
 
@@ -19,13 +19,14 @@ class TelegramBotLibrary extends TblBasics{
     file_put_contents($file, $archive);
   }
 
-  public function __construct(TblData $BotData){
+  public function __construct(TblData $BotData, bool $TestServer = false){
     if(extension_loaded('openssl') === false):
       trigger_error($this->Errors[TblError::NoSsl], E_USER_ERROR);
     elseif(extension_loaded('curl') === false):
       trigger_error($this->Errors[TblError::NoCurl], E_USER_ERROR);
     endif;
     $this->BotData = $BotData;
+    $this->TestServer = $TestServer;
     $_SERVER['HTTP_USER_AGENT'] ??= 'Protocol TelegramBotLibrary';
   }
 
