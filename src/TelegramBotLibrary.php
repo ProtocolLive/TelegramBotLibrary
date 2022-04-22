@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.04.21.02
+//2022.04.21.03
 
 require(__DIR__ . '/requires.php');
 
@@ -60,6 +60,8 @@ class TelegramBotLibrary extends TblBasics{
       return new TgChatMigrateTo($update['message']);
     elseif(isset($update['message']['migrate_from_chat_id'])):
       return new TgChatMigrateFrom($update['message']);
+    elseif(isset($update['message']['message_auto_delete_timer_changed'])):
+      return new TgChatAutoDel($update['message']);
     elseif(isset($update['callback_query'])):
       return new TgCallback($update['callback_query']);
     elseif(isset($update['inline_query'])):
