@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.04.21.01
+//2022.04.21.02
 
 require(__DIR__ . '/requires.php');
 
@@ -526,7 +526,7 @@ class TelegramBotLibrary extends TblBasics{
   public function SendText(
     int $Chat,
     string $Text,
-    TgParseMode $ParseMode = TgParseMode::Html,
+    TgParseMode $ParseMode = null,
     array $Entities = null,
     bool $DisablePreview = false,
     bool $DisableNotification = false,
@@ -537,7 +537,9 @@ class TelegramBotLibrary extends TblBasics{
   ):TgMessage|null{
     $param['chat_id'] = $Chat;
     $param['text'] = $Text;
-    $param['parse_mode'] = $ParseMode->value;
+    if($ParseMode !== null):
+      $param['parse_mode'] = $ParseMode->value;
+    endif;
     if($Entities !== null):
       $param['entities'] = TblEntities::ToJson($Entities);
     endif;
