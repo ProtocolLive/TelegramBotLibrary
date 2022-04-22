@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.04.22.00
+//2022.04.22.01
 
 enum TgMethods:string{
   case CallbackAnswer = 'answerCallbackQuery';
@@ -35,4 +35,7 @@ enum TgMethods:string{
   case SendShipping = 'answerShippingQuery';
   case SendText = 'sendMessage';
   case UserPhotos = 'getUserProfilePhotos';
+  case WebhookSet = 'setWebhook';
+  case WebhookGet = 'getWebhookInfo';
+  case WebhookDel = 'deleteWebhook';
 }
