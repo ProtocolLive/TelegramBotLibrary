@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.04.22.01
+//2022.04.23.00
 
 enum TgMethods:string{
   case CallbackAnswer = 'answerCallbackQuery';
@@ -20,20 +20,20 @@ enum TgMethods:string{
   case CommandsDel = 'deleteMyCommands';
   case CommandsGet = 'getMyCommands';
   case CommandsSet = 'setMyCommands';
-  case EditMarkup = 'editMessageReplyMarkup';
-  case EditText = 'editMessageText';
   case FileGet = 'getFile';
   case InlineQueryAnswer = 'answerInlineQuery';
+  case InvoiceCheckoutSend = 'answerPreCheckoutQuery';
+  case InvoiceSend = 'sendInvoice';
+  case InvoiceShippingSend = 'answerShippingQuery';
+  case MarkupEdit = 'editMessageReplyMarkup';
   case MessageCopy = 'copyMessage';
   case MessageForward = 'forwardMessage';
   case MyDefaultPermAdmGet = 'getMyDefaultAdministratorRights';
   case MyDefaultPermAdmSet = 'setMyDefaultAdministratorRights';
   case MyGet = 'getMe';
-  case SendCheckout = 'answerPreCheckoutQuery';
-  case SendInvoice = 'sendInvoice';
-  case SendPhoto = 'sendPhoto';
-  case SendShipping = 'answerShippingQuery';
-  case SendText = 'sendMessage';
+  case PhotoSend = 'sendPhoto';
+  case TextEdit = 'editMessageText';
+  case TextSend = 'sendMessage';
   case UserPhotos = 'getUserProfilePhotos';
   case WebhookSet = 'setWebhook';
   case WebhookGet = 'getWebhookInfo';
