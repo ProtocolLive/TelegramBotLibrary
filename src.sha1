@@ -5,7 +5,7 @@ fb8bb4b6b54c82bd6ad7deea2ff972652cad480a  src/TblObjects/cmd.php
 eb1c657c14733772d9226d4d3300e6abe9ff3f21  src/TblObjects/invoice.php
 05fd6be90c7d316101f0abcf10c3e4dc09e2a639  src/TblObjects/markup.php
 ba3c12e8ffd46a0df5b153343f14e01951d6bcce  src/TblObjects/webhook.php
-332d342b728668320367606c0a7e47a09409abd2  src/TelegramBotLibrary.php
+ded38320ad4b9c190354107516e83f2ae7ca633b  src/TelegramBotLibrary.php
 9e6e8f9dce5671864b2bf4241cdd02d4003554a4  src/TgObjects/callback.php
 09a90e25d097b35e72e95bcc0e914fcd899c1c94  src/TgObjects/chat.php
 52d12d38b36a0cfc37b504e4ce7014139489c4f8  src/TgObjects/cmd.php
@@ -15,15 +15,16 @@ f18ea6fbc8cb0b4f2f7f5ba8a7ccfd393db7629b  src/TgObjects/errors.php
 abb9af0d61c6b0b0dbe357bd5988e229ad4a126c  src/TgObjects/file.php
 73f3ba246df083a7cb2089f803f67f19354e4243  src/TgObjects/inline.php
 ff31f419ee36300d75eb4ccdd862a6c3982de59e  src/TgObjects/invoice.php
+28254408433cb27843f455bf6eec20cf29336bef  src/TgObjects/location.php
 bab67f6f9212cae6cbd108a942b82ea18697e9ed  src/TgObjects/media.php
 f1cc6e49088a72876eda9c5ff75fe89e7f5f4605  src/TgObjects/message.php
 c0a2b63c73386210a9e6caa224fb8aa6ed4f5eee  src/TgObjects/methods.php
 605b8c4b8388dd74ed5e8264db748d769c3a4cc4  src/TgObjects/photo.php
 647879e2bfe5396a0b8cf345e65815d0b1524ddf  src/TgObjects/poll.php
-f2e4fa5a851aacb7c440cddbe4c7c4c8f1a83426  src/TgObjects/text.php
+d51897c0cecb958f152bb92367f913100999a4d5  src/TgObjects/text.php
 f0c34158e0c153dd3eba1ed3a3852c5adb41e61f  src/TgObjects/user.php
 b51f43f5a9d24f6d7dc708225a52943d2000fa26  src/TgObjects/video.php
 a213c25a933a41c2ff44b928aecf694b4713113c  src/basics.php
 6690a7e2bedd3f6da6cc44bc0b086b25e8707c8b  src/cacert.pem
 73375323598be9380bcaa3ffe168edbcafabf0f5  src/constants.php
-ffcb08e19eaafe863bccb1a74e323a16d91b690c  src/requires.php
+9f612050481779a354c44c1ab9007ff8b139ab6d  src/requires.php
