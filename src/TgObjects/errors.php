@@ -1,9 +1,10 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.04.20.01
+//2022.04.24.00
 
 enum TgError{
+  case BotBot;
   case Blocked;
   case CallbackQueryOld;
   case ChatNotFound;
@@ -40,7 +41,8 @@ class TgErrors{
     'Bad Request: wrong remote file identifier specified: Wrong string length' => TgError::UrlShort,
     'Bad Request: can\'t parse inline query result: Can\'t find field \"message_text\"' => TgError::InlineQueryMessage,
     'Bad Request: can\'t parse labeled price: Can\'t find field \"label\"' => TgError::InvoiceLabel,
-    'Bad Request: chat not found' => TgError::ChatNotFound
+    'Bad Request: chat not found' => TgError::ChatNotFound,
+    'Forbidden: bot can\'t send messages to bots' => TgError::BotBot
   ];
 
   static public function Search(string $Description):TgError|false{

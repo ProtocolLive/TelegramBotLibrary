@@ -11,7 +11,7 @@ ba3c12e8ffd46a0df5b153343f14e01951d6bcce  src/TblObjects/webhook.php
 52d12d38b36a0cfc37b504e4ce7014139489c4f8  src/TgObjects/cmd.php
 af8d9d144bc9852fe8741b5c1b48a31a16ddff56  src/TgObjects/document.php
 050d41239cb44bb81cde9f52c0854a939cc569ce  src/TgObjects/entity.php
-f18ea6fbc8cb0b4f2f7f5ba8a7ccfd393db7629b  src/TgObjects/errors.php
+7ad35f233e1edc32be6248b0b6b5942f43cfb791  src/TgObjects/errors.php
 abb9af0d61c6b0b0dbe357bd5988e229ad4a126c  src/TgObjects/file.php
 73f3ba246df083a7cb2089f803f67f19354e4243  src/TgObjects/inline.php
 12f331c8dd92c55b9e267225eb29d5a317b0c4ab  src/TgObjects/invoice.php
