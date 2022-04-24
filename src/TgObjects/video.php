@@ -1,11 +1,12 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.04.24.00
+//2022.04.24.01
 
-class TgVideo extends TgMessage{
-  public readonly string $FileId;
-  public readonly string $FileIdUnique;
+class TgVideo{
+  public readonly TgMessage $Message;
+  public readonly string $Id;
+  public readonly string $IdUnique;
   public readonly TgPhotoSize $Thumb;
   public readonly int $Width;
   public readonly int $Height;
@@ -14,7 +15,7 @@ class TgVideo extends TgMessage{
   public readonly string $Mime;
 
   public function __construct(array $Data){
-    parent::__construct($Data);
+    $this->Message = new TgMessage($Data);
     $this->FileId = $Data['video']['file_id'];
     $this->FileIdUnique = $Data['video']['file_unique_id'];
     $this->Thumb = new TgPhotoSize($Data['video']['thumb']);

@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.04.20.02
+//2022.04.24.00
 
 enum TgInvoiceCurrencies:string{
   case AED = 'AED';
@@ -90,11 +90,12 @@ enum TgInvoiceCurrencies:string{
   case ZAR = 'ZAR';
 }
 
-class TgInvoice extends TgMessage{
+class TgInvoice{
+  public readonly TgMessage $Message;
   public readonly TgInvoiceData $Data;
 
   public function __construct(array $Data){
-    parent::__construct($Data);
+    $this->Message = new TgMessage($Data);
     $this->Data = new TgInvoiceData($Data);
   }
 }
@@ -151,7 +152,8 @@ class TgInvoiceShipping{
 /**
  * @link https://core.telegram.org/bots/api#successfulpayment
  */
-class TgInvoiceDone extends TgMessage{
+class TgInvoiceDone{
+  public readonly TgMessage $Message;
   public readonly TgInvoiceCurrencies $Currency;
   public readonly Int $Amount;
   public readonly string $Payload;
@@ -163,7 +165,7 @@ class TgInvoiceDone extends TgMessage{
    * @link https://core.telegram.org/bots/api#successfulpayment
    */
   public function __construct(array $Data){
-    parent::__construct($Data);
+    $this->Message = new TgMessage($Data);
     $this->Currency = TgInvoiceCurrencies::tryFrom($Data['successful_payment']['currency']);
     $this->Amount = $Data['successful_payment']['total_amount'];
     $this->Payload = $Data['successful_payment']['invoice_payload'];

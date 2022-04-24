@@ -1,15 +1,16 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.04.24.00
+//2022.04.24.01
 
-class TgLocation extends TgMessage{
+class TgLocation{
+  public readonly TgMessage $Message;
   public readonly float $Latitude;
   public readonly float $Longitude;
   public readonly int|null $LiveTime;
 
   public function __construct(array $Data){
-    parent::__construct($Data);
+    $this->Message = new TgMessage($Data);
     $this->Latitude = $Data['location']['latitude'];
     $this->Longitude = $Data['location']['longitude'];
     $this->LiveTime = $Data['location']['live_period'] ?? null;

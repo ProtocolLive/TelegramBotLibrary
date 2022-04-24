@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.04.22.00
+//2022.04.24.00
 
 enum TgPollType:string{
   case Regular = 'regular';
@@ -13,6 +13,7 @@ enum TgPollType:string{
  * @link https://core.telegram.org/bots/api#poll
  */
 class TgPoll{
+  public readonly TgMessage|null $Message;
   public readonly string $PollId;
   public readonly TgPollType $Type;
   public readonly string $Question;
@@ -31,6 +32,11 @@ class TgPoll{
    * @link https://core.telegram.org/bots/api#poll
    */
   public function __construct(array $Data){
+    if(isset($Data['poll'])):
+      $this->Message = new TgMessage($Data);
+    else:
+      $this->Message = null;
+    endif;
     $this->PollId = $Data['id'];
     $this->Type = TgPollType::tryFrom($Data['type']);
     $this->Question = $Data['question'];
@@ -46,23 +52,6 @@ class TgPoll{
     foreach($Data['explanation_entities'] as $entity):
       $this->ExplanationEntities[] = new TgEntity($entity);
     endforeach;
-  }
-}
-
-/**
- * When the poll is created, its comes in a message
- * @link https://core.telegram.org/bots/api#poll
- */
-class TgPoolMessage extends TgMessage{
-  public readonly TgPoll $Poll;
-
-  /**
-   * When the poll is created, its comes in a message
-   * @link https://core.telegram.org/bots/api#poll
-   */
-  public function __construct(array $Data){
-    parent::__construct($Data);
-    $this->Poll = new TgPoll($Data['poll']);
   }
 }
 

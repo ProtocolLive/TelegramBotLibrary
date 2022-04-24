@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.04.21.01
+//2022.04.24.00
 //API 6.0
 
 enum TgChatType:string{
@@ -208,21 +208,23 @@ class TgPermMember{
   }
 }
 
-class TgMemberLeft extends TgMessage{
+class TgMemberLeft{
+  public readonly TgMessage $Message;
   public readonly TgUser $Member;
 
   public function __construct(array $Data){
-    parent::__construct($Data);
+    $this->Message = new TgMessage($Data);
     $this->Member = new TgUser($Data['left_chat_member']);
   }
 }
 
-class TgMemberNew extends TgMessage{
+class TgMemberNew{
+  public readonly TgMessage $Message;
   public readonly TgUser $Member;
   public readonly TgPermAdmin $Perms;
 
   public function __construct(array $Data){
-    parent::__construct($Data);
+    $this->Message = new TgMessage($Data);
     $this->Member = new TgUser($Data['new_chat_member']);
     $this->Perms = new TgPermAdmin($Data['new_chat_member']);
   }
@@ -337,7 +339,8 @@ class TgChatMigrateFrom{
 /**
  * @link https://core.telegram.org/bots/api#message
  */
-class TgChatAutoDel extends TgMessage{
+class TgChatAutoDel{
+  public readonly TgMessage $Message;
   public readonly int $Time;
 
   /**
@@ -346,7 +349,7 @@ class TgChatAutoDel extends TgMessage{
    * @link https://core.telegram.org/bots/api#messageautodeletetimerchanged
    */
   public function __construct(array $Data){
-    parent::__construct($Data);
+    $this->Message = new TgMessage($Data);
     $this->Time = $Data['message_auto_delete_timer_changed']['message_auto_delete_time'];
   }
 }
