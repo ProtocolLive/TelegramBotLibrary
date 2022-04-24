@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.04.24.05
+//2022.04.24.06
 
 require(__DIR__ . '/requires.php');
 
@@ -1061,7 +1061,7 @@ class TelegramBotLibrary extends TblBasics{
     array $Entities = null,
     bool $DisablePreview = false,
     TblMarkup $Markup = null
-  ):TgMessage|bool|null{
+  ):TgText|bool|null{
     if($Chat !== null):
       $param['chat_id'] = $Chat;
     endif;
