@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.04.22.01
+//2022.04.26.00
 
 enum TblError{
   case Custom;
@@ -51,19 +51,20 @@ class TgLimits{
  * https://core.telegram.org/bots/api#update
  */
 enum TgUpdateType:string{
-  case Message = 'message';
-  case MessageEdit = 'edited_message';
+  case Callback = 'callback_query';
   case ChannelPost = 'channel_post';
   case ChannelPostEdit = 'edited_channel_post';
-  case InlineQuery = 'inline_query';
-  case InlineQueryChosen = 'chosen_inline_result';
-  case Callback = 'callback_query';
-  case CheckoutPre = 'pre_checkout_query';
-  case Poll = 'poll';
-  case PollAnswer = 'poll_answer';
-  case ChatMe = 'my_chat_member';
+  case ChatMy = 'my_chat_member';
   case Chat = 'chat_member';
   case ChatJoinRequest = 'chat_join_request';
+  case InlineQuery = 'inline_query';
+  case InlineQueryChosen = 'chosen_inline_result';
+  case InvoiceShipping = 'shipping_query';
+  case InvoiceCheckout = 'pre_checkout_query';
+  case Message = 'message';
+  case MessageEdit = 'edited_message';
+  case Poll = 'poll';
+  case PollAnswer = 'poll_answer';
 }
 
 enum DefaultPerms{
