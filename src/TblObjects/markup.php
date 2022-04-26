@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.04.17.01
+//2022.04.26.00
 //API 6.0
 
 abstract class TblMarkup{
@@ -131,6 +131,25 @@ class TblMarkupInline extends TblMarkup{
   ):void{
     $this->Pointer[$Line][$Column]['text'] = $Text;
     $this->Pointer[$Line][$Column]['web_app']['url'] = $Url;
+  }
+
+  /**
+   * To send a Pay button. NOTE: This type of button must always be the first button in the first row and can only be used in invoice messages.
+   * @return bool
+   * @link https://core.telegram.org/bots/api#inlinekeyboardbutton
+   */
+  public function ButtonPay(
+    int $Line,
+    int $Column,
+    string $Text
+  ):bool{
+    if($Line === 0 and $Column === 0):
+      $this->Pointer[$Line][$Column]['text'] = $Text;
+      $this->Pointer[$Line][$Column]['pay'] = true;
+      return true;
+    else:
+      return false;
+    endif;
   }
 }
 
