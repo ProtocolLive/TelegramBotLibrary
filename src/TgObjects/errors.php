@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.04.24.00
+//2022.04.27.00
 
 enum TgError{
   case BotBot;
@@ -9,6 +9,7 @@ enum TgError{
   case CallbackQueryOld;
   case ChatNotFound;
   case FileId;
+  case Html;
   case InlineQueryClosing;
   case InlineQueryMessage;
   case InlineQueryResult;
@@ -52,6 +53,9 @@ class TgErrors{
     if(strpos($Description, 'Bad Request: menu button web app URL ') === 0
     and strpos($Description, ' is invalid: Only HTTPS links are allowed') !== false):
       return TgError::WebAppHttps;
+    endif;
+    if(strpos($Description, 'Bad Request: can\'t parse entities: Unsupported start tag ') === 0):
+      return TgError::Html;
     endif;
     return false;
   }
