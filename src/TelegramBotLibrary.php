@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.04.30.00
+//2022.04.30.01
 
 require(__DIR__ . '/requires.php');
 
@@ -806,6 +806,25 @@ class TelegramBotLibrary extends TblBasics{
     endif;
   }
 
+  public function MyCmdAdd(
+    array $Commands,
+    TgCmdScope $Scope = null,
+    string $Language = null,
+    int $Chat = null,
+    int $User = null
+  ):bool|null{
+    return $this->MyCmdSet(
+      array_merge(
+        $this->MyCmdGet($Scope, $Language, $Chat, $User),
+        TblCommand::ToObject($Commands)
+      ),
+      $Scope,
+      $Language,
+      $Chat,
+      $User
+    );
+  }
+
   /**
    * Use this method to delete the list of the bot's commands for the given scope and user language. After deletion, higher level commands will be shown to affected users.
    * @param TgCmdScope $Scope A JSON-serialized object, describing scope of users for which the commands are relevant. Defaults to BotCommandScopeDefault.
@@ -813,7 +832,7 @@ class TelegramBotLibrary extends TblBasics{
    * @return bool|null Returns True on success.
    * @link https://core.telegram.org/bots/api#deletemycommands
    */
-  public function MyCmdDel(
+  public function MyCmdClear(
     TgCmdScope $Scope = null,
     string $Language = null,
     int $Chat = null,
@@ -836,6 +855,32 @@ class TelegramBotLibrary extends TblBasics{
       $param['language_code'] = $Language;
     endif;
     return $this->ServerMethod(TgMethods::CommandsDel, $param);
+  }
+
+  public function MyCmdDel(
+    array $Commands,
+    TgCmdScope $Scope = null,
+    string $Language = null,
+    int $Chat = null,
+    int $User = null
+  ){
+    if(is_string($Commands)):
+      $Commands = [$Commands];
+    endif;
+    $cmds = $this->MyCmdGet($Scope, $Language, $Chat, $User);
+    foreach($Commands as $cmd):
+      $index = array_search($cmd, array_column($cmds, 'command'));
+      if($index !== false):
+        unset($cmds[$index]);
+      endif;
+    endforeach;
+    return $this->MyCmdSet(
+      TblCommand::ToObject($cmds),
+      $Scope,
+      $Language,
+      $Chat,
+      $User
+    );
   }
 
   /**
