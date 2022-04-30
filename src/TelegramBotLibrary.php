@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.04.30.01
+//2022.04.30.02
 
 require(__DIR__ . '/requires.php');
 
@@ -815,8 +815,10 @@ class TelegramBotLibrary extends TblBasics{
   ):bool|null{
     return $this->MyCmdSet(
       array_merge(
-        $this->MyCmdGet($Scope, $Language, $Chat, $User),
-        TblCommand::ToObject($Commands)
+        TblCommand::ToObject(
+          $this->MyCmdGet($Scope, $Language, $Chat, $User)
+        ),
+        $Commands
       ),
       $Scope,
       $Language,
@@ -872,6 +874,7 @@ class TelegramBotLibrary extends TblBasics{
       $index = array_search($cmd, array_column($cmds, 'command'));
       if($index !== false):
         unset($cmds[$index]);
+        $cmds = array_values($cmds);
       endif;
     endforeach;
     return $this->MyCmdSet(
