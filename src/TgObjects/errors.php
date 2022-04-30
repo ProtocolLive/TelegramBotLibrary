@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.04.27.00
+//2022.04.30.00
 
 enum TgError{
   case BotBot;
@@ -10,6 +10,7 @@ enum TgError{
   case ChatNotFound;
   case FileId;
   case Html;
+  case InlineId;
   case InlineQueryClosing;
   case InlineQueryMessage;
   case InlineQueryResult;
@@ -43,7 +44,8 @@ class TgErrors{
     'Bad Request: can\'t parse inline query result: Can\'t find field \"message_text\"' => TgError::InlineQueryMessage,
     'Bad Request: can\'t parse labeled price: Can\'t find field \"label\"' => TgError::InvoiceLabel,
     'Bad Request: chat not found' => TgError::ChatNotFound,
-    'Forbidden: bot can\'t send messages to bots' => TgError::BotBot
+    'Forbidden: bot can\'t send messages to bots' => TgError::BotBot,
+    'Bad Request: invalid inline message identifier specified' => TgError::InlineId
   ];
 
   static public function Search(string $Description):TgError|false{
