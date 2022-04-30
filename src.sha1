@@ -25,6 +25,6 @@ f0c34158e0c153dd3eba1ed3a3852c5adb41e61f  src/TgObjects/user.php
 9678b02662d494c3065d98f7a625c8ede6b3f4cd  src/TgObjects/video.php
 58f64084f8992fbc155fb8bc20d6298c0577393e  src/TgObjects/voice.php
 17877a399498b1036c19eabca88d651a6cca9c75  src/basics.php
-6690a7e2bedd3f6da6cc44bc0b086b25e8707c8b  src/cacert.pem
+45bb287f6463b6ffbba91bfbece28e02e1c8b07b  src/cacert.pem
 88389a7eccee1ab02f9861a3829e76b69f6f1b40  src/constants.php
 27601256740ce65149250376aaff02e984610a79  src/requires.php
