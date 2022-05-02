@@ -1,11 +1,12 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.04.26.00
+//2022.05.01.00
 //API 6.0
 
 abstract class TblMarkup{
   protected array $Markup;
+  protected array $Pointer;
 
   /**
    * Get the markup object in json format
@@ -13,10 +14,16 @@ abstract class TblMarkup{
   public function ToJson():string{
     return json_encode($this->Markup);
   }
+
+  public function ButtonGet(
+    int $Line,
+    int $Col
+  ):array{
+    return $this->Pointer[$Line][$Col];
+  }
 }
 
 class TblMarkupInline extends TblMarkup{
-  private array $Pointer;
   /**
    * This object represents an inline keyboard that appears right next to the message it belongs to.
    * @link https://core.telegram.org/bots/api#inlinekeyboardmarkup
@@ -154,8 +161,6 @@ class TblMarkupInline extends TblMarkup{
 }
 
 class TblMarkupRequest extends TblMarkup{
-  private array $Pointer;
-
   /**
    * This object represents an inline keyboard that appears right next to the message it belongs to.
    * @param bool $OneTime Requests clients to hide the keyboard as soon as it's been used. The keyboard will still be available, but clients will automatically display the usual letter-keyboard in the chat – the user can press a special button in the input field to see the custom keyboard again. Defaults to false.
