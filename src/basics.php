@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.04.30.00
+//2022.05.02.00
 
 abstract class TblBasics{
   protected TblData $BotData;
@@ -13,7 +13,7 @@ abstract class TblBasics{
     array $Params = null
   ):mixed{
     $curl = $this->BotData->UrlApi . '/' . $Method->value;
-    if(($this->BotData->Debug & TblDebug::Send) === TblDebug::Send):
+    if($this->BotData->Debug & TblDebug::Send):
       $log = 'Url: ' . $curl . '<br>';
       $log .= 'Params: ' . json_encode($Params, JSON_PRETTY_PRINT);
       $this->DebugLog(TblLog::Send, $log);
@@ -23,7 +23,7 @@ abstract class TblBasics{
     curl_setopt($curl, CURLOPT_USERAGENT, 'Protocol SimpleTelegramBot');
     curl_setopt($curl, CURLOPT_CAINFO, __DIR__ . '/cacert.pem');
     curl_setopt($curl, CURLOPT_POSTFIELDS, $Params);
-    if(($this->BotData->Debug & TblDebug::Curl) === TblDebug::Curl):
+    if($this->BotData->Debug & TblDebug::Curl):
       curl_setopt($curl, CURLOPT_VERBOSE, true);
       curl_setopt($curl, CURLOPT_STDERR, fopen($this->BotData->DirLogs . '/curl.log', 'a'));
     endif;
@@ -37,7 +37,7 @@ abstract class TblBasics{
       return null;
     endif;
     $temp = json_decode($temp, true);
-    if(($this->BotData->Debug & TblDebug::Response) === TblDebug::Response):
+    if($this->BotData->Debug & TblDebug::Response):
       $this->DebugLog(TblLog::Response, json_encode($temp, JSON_PRETTY_PRINT));
     endif;
     if($temp['ok'] === false):

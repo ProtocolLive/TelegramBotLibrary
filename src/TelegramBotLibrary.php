@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.05.01.00
+//2022.05.02.01
 
 require(__DIR__ . '/requires.php');
 
@@ -37,7 +37,7 @@ class TelegramBotLibrary extends TblBasics{
     endif;
     $update = json_decode($update, true);
     $this->Archive($update);
-    if(($this->BotData->Debug & TblDebug::Webhook) === TblDebug::Webhook):
+    if($this->BotData->Debug & TblDebug::Webhook):
       $this->DebugLog(TblLog::Webhook, json_encode($update, JSON_PRETTY_PRINT));
     endif;
     if(isset($update['message']['entities'][0])
