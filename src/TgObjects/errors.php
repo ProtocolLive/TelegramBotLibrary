@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.05.01.00
+//2022.05.03.00
 
 enum TgError{
   case BotBot;
@@ -19,6 +19,7 @@ enum TgError{
   case InlineQueryThumbEmpty;
   case InlineQueryThumbMiss;
   case InlineQueryThumbType;
+  case InlineKeyboardNone;
   case InvoiceLabel;
   case UrlFailed;
   case UrlInvalid;
@@ -47,7 +48,8 @@ class TgErrors{
     'Bad Request: chat not found' => TgError::ChatNotFound,
     'Forbidden: bot can\'t send messages to bots' => TgError::BotBot,
     'Bad Request: invalid inline message identifier specified' => TgError::InlineId,
-    'Bad Request: message is not modified: specified new message content and reply markup are exactly the same as a current content and reply markup of the message' => TgError::EditSame
+    'Bad Request: message is not modified: specified new message content and reply markup are exactly the same as a current content and reply markup of the message' => TgError::EditSame,
+    'Bad Request: inline keyboard expected' => TgError::InlineKeyboardNone
   ];
 
   static public function Search(string $Description):TgError|false{
