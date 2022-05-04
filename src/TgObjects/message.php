@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.04.24.00
+//2022.05.03.00
 
 /**
  * @link https://core.telegram.org/bots/api#formatting-options
@@ -48,6 +48,7 @@ class TgMessage{
   public readonly int|null $ForwardId;
   public readonly bool|null $ForwardAuto;
   public readonly int|null $ForwardDate;
+  public readonly TgText|TgPhoto|null $Reply;
 
   //The bot 777000 is used to forward messages from channels to groups
   //The bot 1087968824 is used for admins post as the group and for migrate events
@@ -77,5 +78,16 @@ class TgMessage{
     $this->Date = $Data['date'];
     $this->ForwardDate = $Data['forward_date'] ?? null;
     $this->Protected = $Data['has_protected_content'] ?? false;
+    if(isset($Data['reply_to_message']) === false):
+      $this->Reply = null;
+    else:
+      if(isset($Data['reply_to_message']['text'])):
+        $this->Reply = new TgText($Data['reply_to_message']);
+      elseif(isset($Data['reply_to_message']['photo'])):
+        $this->Reply = new TgPhoto($Data['reply_to_message']);
+      else:
+        $this->Reply = null;
+      endif;
+    endif;
   }
 }

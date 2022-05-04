@@ -11,12 +11,12 @@ ba3c12e8ffd46a0df5b153343f14e01951d6bcce  src/TblObjects/webhook.php
 52d12d38b36a0cfc37b504e4ce7014139489c4f8  src/TgObjects/cmd.php
 af8d9d144bc9852fe8741b5c1b48a31a16ddff56  src/TgObjects/document.php
 050d41239cb44bb81cde9f52c0854a939cc569ce  src/TgObjects/entity.php
-ccf599e41118ca97eb14c5a0c9a0a4d9e4cf8083  src/TgObjects/errors.php
+0df374e566f5e86352de6bca3f7eb9c3d76e1cd4  src/TgObjects/errors.php
 abb9af0d61c6b0b0dbe357bd5988e229ad4a126c  src/TgObjects/file.php
 73f3ba246df083a7cb2089f803f67f19354e4243  src/TgObjects/inline.php
 12f331c8dd92c55b9e267225eb29d5a317b0c4ab  src/TgObjects/invoice.php
 46b3971da4e5060b428482689ee5ac1c72f75a2e  src/TgObjects/location.php
-9f08a1903e37429aeb4d812071dd7b3829f9ab33  src/TgObjects/message.php
+699713d898ba35f00153941d8a4a800bb0e6deac  src/TgObjects/message.php
 c0a2b63c73386210a9e6caa224fb8aa6ed4f5eee  src/TgObjects/methods.php
 587e1097c39301dd7be5843242fb189872054299  src/TgObjects/photo.php
 92cefdf76aabba8a18c67808c48414cdd05dea16  src/TgObjects/poll.php
