@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.05.02.01
+//2022.05.06.00
 
 require(__DIR__ . '/requires.php');
 
@@ -44,6 +44,10 @@ class TelegramBotLibrary extends TblBasics{
     and $update['message']['entities'][0]['type'] === TgEntityType::Command->value
     and $update['message']['entities'][0]['offset'] === 0):
       return new TblCmd($update['message']);
+    elseif(isset($update['channel_post']['entities'][0])
+    and $update['channel_post']['entities'][0]['type'] === TgEntityType::Command->value
+    and $update['channel_post']['entities'][0]['offset'] === 0):
+      return new TblCmd($update['channel_post']);
     elseif(isset($update['message']['text'])):
       return new TgText($update['message']);
     elseif(isset($update['message']['photo'])):
