@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.05.03.00
+//2022.05.06.00
 
 /**
  * @link https://core.telegram.org/bots/api#formatting-options
@@ -54,18 +54,22 @@ class TgMessage{
   //The bot 1087968824 is used for admins post as the group and for migrate events
   public function __construct(array $Data){
     $this->Id = $Data['message_id'];
-    if($Data['from']['id'] === 777000): //Telegram
+    if(($Data['from']['id'] ?? 0) === 777000): //Telegram
       $this->User = new TgChat($Data['sender_chat']);
       $this->ForwardFrom = new TgChat($Data['forward_from_chat']);
       $this->ForwardId = $Data['forward_from_message_id'];
       $this->ForwardAuto = $Data['is_automatic_forward'];
-    elseif($Data['from']['id'] === 1087968824): //GroupAnonymousBot
+    elseif(($Data['from']['id'] ?? 0) === 1087968824): //GroupAnonymousBot
       $this->User = new TgChat($Data['sender_chat']);
       $this->ForwardFrom = null;
       $this->ForwardId = null;
       $this->ForwardAuto = null;
     else:
-      $this->User = new TgUser($Data['from']);
+      if(isset($Data['from'])):
+        $this->User = new TgUser($Data['from']);
+      else:
+        $this->User = new TgChat($Data['sender_chat']);
+      endif;
       if(isset($Data['forward_from'])):
         $this->ForwardFrom = new TgUser($Data['forward_from']);
       else:
