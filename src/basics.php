@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.05.02.00
+//2022.05.15.00
 
 abstract class TblBasics{
   protected TblData $BotData;
@@ -64,12 +64,12 @@ abstract class TblBasics{
     elseif($Type === TblLog::Response):
       $log .= 'Send response';
     endif;
-    $log .= "\n" . $Msg . "\n";
+    $log .= PHP_EOL . $Msg . PHP_EOL;
     if($Type === TblLog::Error):
       error_log($log);
     else:
       $file = $this->BotData->DirLogs . '/class.log';
-      $log .= "\n";
+      $log .= PHP_EOL;
       if(is_file($file) === false):
         $this->DirCreate(dirname($file));
       endif;
