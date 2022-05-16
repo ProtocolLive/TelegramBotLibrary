@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.04.24.00
+//2022.05.15.00
 //API 6.0
 
 enum TgChatType:string{
@@ -351,5 +351,19 @@ class TgChatAutoDel{
   public function __construct(array $Data){
     $this->Message = new TgMessage($Data);
     $this->Time = $Data['message_auto_delete_timer_changed']['message_auto_delete_time'];
+  }
+}
+
+class TgChatTitle{
+  public readonly TgMessage $Message;
+  public readonly string $Title;
+
+  /**
+   * A chat title was changed to this value
+   * @link https://core.telegram.org/bots/api#message
+   */
+  public function __construct(array $Data){
+    $this->Message = new TgMessage($Data);
+    $this->Title = $Data['new_chat_title'];
   }
 }
