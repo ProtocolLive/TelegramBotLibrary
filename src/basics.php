@@ -1,12 +1,53 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.05.19.00
+//2022.05.19.01
 
 abstract class TblBasics{
   protected TblData $BotData;
   public TblError|TgError|null $Error = null;
   public string|null $ErrorStr = null;
+
+  private function Curl(string $Url, array $Params):CurlHandle|false{
+    $curl = curl_init($Url);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($curl, CURLOPT_USERAGENT, 'Protocol TelegramBotLibrary');
+    curl_setopt($curl, CURLOPT_CAINFO, __DIR__ . '/cacert.pem');
+    curl_setopt($curl, CURLOPT_POSTFIELDS, $Params);
+    if($this->BotData->Debug & TblDebug::Curl):
+      curl_setopt($curl, CURLOPT_VERBOSE, true);
+      curl_setopt($curl, CURLOPT_STDERR, fopen($this->BotData->DirLogs . '/curl.log', 'a'));
+    endif;
+    return $curl;
+  }
+
+  private function CurlResponse(CurlHandle $Curl, mixed $Response):array|null{
+    if($Response === false):
+      $this->DebugLog(
+        TblLog::Error,
+        'cURL error #' . curl_errno($Curl) . ' ' . curl_error($Curl)
+      );
+      $this->Error = TblError::Curl;
+      return null;
+    endif;
+    $Response = json_decode($Response, true);
+    if($this->BotData->Debug & TblDebug::Response):
+      $this->DebugLog(TblLog::Response, json_encode($Response, JSON_PRETTY_PRINT));
+    endif;
+    if($Response['ok'] === false):
+      $this->ErrorStr = $Response['description'];
+      $search = TgErrors::Search($Response['description']);
+      if($search === false):
+        $this->Error = TblError::Custom;
+      else:
+        $this->Error = $search;
+      endif;
+      return null;
+    else:
+      $this->ErrorStr = $Response['description'] ?? null;
+      return $Response['result'];
+    endif;
+  }
 
   protected function ServerMethod(
     TgMethods $Method,
@@ -18,41 +59,45 @@ abstract class TblBasics{
       $log .= 'Params: ' . json_encode($Params, JSON_PRETTY_PRINT);
       $this->DebugLog(TblLog::Send, $log);
     endif;
-    $curl = curl_init($curl);
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($curl, CURLOPT_USERAGENT, 'Protocol TelegramBotLibrary');
-    curl_setopt($curl, CURLOPT_CAINFO, __DIR__ . '/cacert.pem');
-    curl_setopt($curl, CURLOPT_POSTFIELDS, $Params);
-    if($this->BotData->Debug & TblDebug::Curl):
-      curl_setopt($curl, CURLOPT_VERBOSE, true);
-      curl_setopt($curl, CURLOPT_STDERR, fopen($this->BotData->DirLogs . '/curl.log', 'a'));
-    endif;
-    $temp = curl_exec($curl);
-    if($temp === false):
-      $this->DebugLog(
-        TblLog::Error,
-        'cURL error #' . curl_errno($curl) . ' ' . curl_error($curl)
-      );
-      $this->Error = TblError::Curl;
-      return null;
-    endif;
-    $temp = json_decode($temp, true);
-    if($this->BotData->Debug & TblDebug::Response):
-      $this->DebugLog(TblLog::Response, json_encode($temp, JSON_PRETTY_PRINT));
-    endif;
-    if($temp['ok'] === false):
-      $this->ErrorStr = $temp['description'];
-      $search = TgErrors::Search($temp['description']);
-      if($search === false):
-        $this->Error = TblError::Custom;
-      else:
-        $this->Error = $search;
+    $curl = $this->Curl($curl, $Params);
+    return $this->CurlResponse($curl, curl_exec($curl));
+
+  }
+
+  /**
+   * Use the cURL multi resource to send many messages at once. All messages have to use the same method.
+   * @param array $ParamGroups Array with array os parameters
+   */
+  protected function ServerMethodMulti(
+    TgMethods $Method,
+    array $ParamGroups = null
+  ):array{
+    $mh = curl_multi_init();
+    $calls = [];
+    foreach($ParamGroups as $id => $Params):
+      $curl = $this->BotData->UrlApi . '/' . $Method->value;
+      if($this->BotData->Debug & TblDebug::Send):
+        $log = 'Url: ' . $curl . '<br>';
+        $log .= 'Params: ' . json_encode($Params, JSON_PRETTY_PRINT);
+        $this->DebugLog(TblLog::Send, $log);
       endif;
-      return null;
-    else:
-      $this->ErrorStr = $temp['description'] ?? null;
-      return $temp['result'];
-    endif;
+      $calls[$id] = $this->Curl($curl, $Params);
+      curl_multi_add_handle($mh, $calls[$id]);
+    endforeach;
+    do{
+      curl_multi_exec($mh, $active);
+      curl_multi_select($mh);
+    }while($active);
+    $return = [];
+    foreach($ParamGroups as $id => $Params):
+      $temp = $this->CurlResponse($calls[$id], curl_multi_getcontent($calls[$id]));
+      if($this->Error === null):
+        $return[] = $temp;
+      else:
+        $return[] = [$this->Error, $this->ErrorStr];
+      endif;
+    endforeach;
+    return $return;
   }
 
   protected function DebugLog(TblLog $Type, string $Msg):void{

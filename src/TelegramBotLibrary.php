@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.05.15.00
+//2022.05.19.00
 
 require(__DIR__ . '/requires.php');
 
@@ -1152,8 +1152,8 @@ class TelegramBotLibrary extends TblBasics{
   }
 
   /**
-   * Use this method to send text messages.
-   * @param int $Chat Unique identifier for the target chat
+   * Use this method to send text messages for one or multiple chats. The Telegram API have some limits, but don't have a official docs for this.
+   * @param int|array $Chat Unique identifier for the target chats
    * @param string $Text Text of the message to be sent, 1-4096 characters after entities parsing
    * @param TgParseMode $ParseMode Mode for parsing entities in the message text.
    * @param array $Entities A list of special entities that appear in message text, which can be specified instead of parse_mode
@@ -1167,7 +1167,7 @@ class TelegramBotLibrary extends TblBasics{
    * @link https://core.telegram.org/bots/api#sendmessage
    */
   public function TextSend(
-    int $Chat,
+    int|array $Chat,
     string $Text,
     TgParseMode $ParseMode = null,
     array $Entities = null,
@@ -1177,8 +1177,7 @@ class TelegramBotLibrary extends TblBasics{
     int $RepliedMsg = null,
     bool $SendWithoutRepliedMsg = false,
     TblMarkup $Markup = null
-  ):TgMessage|null{
-    $param['chat_id'] = $Chat;
+  ):TgMessage|array|null{
     $param['text'] = $Text;
     if($ParseMode !== null):
       $param['parse_mode'] = $ParseMode->value;
@@ -1204,11 +1203,27 @@ class TelegramBotLibrary extends TblBasics{
     if($Markup !== null):
       $param['reply_markup'] = $Markup->ToJson();
     endif;
-    $temp = $this->ServerMethod(TgMethods::TextSend, $param);
-    if($temp !== null):
-      return new TgMessage($temp);
+    if(is_array($Chat)):
+      $group = [];
+      foreach($Chat as $chat):
+        $param['chat_id'] = $chat;
+        $group[] = $param;
+      endforeach;
+      $return = $this->ServerMethodMulti(TgMethods::TextSend, $group);
+      foreach($return as &$temp):
+        if(is_array($temp) === false):
+          $temp = new TgMessage($temp);
+        endif;
+      endforeach;
+      return $return;
     else:
-      return null;
+      $param['chat_id'] = $Chat;
+      $temp = $this->ServerMethod(TgMethods::TextSend, $param);
+      if($temp !== null):
+        return new TgMessage($temp);
+      else:
+        return null;
+      endif;
     endif;
   }
 }
