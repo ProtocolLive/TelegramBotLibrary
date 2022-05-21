@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.05.19.00
+//2022.05.21.00
 
 require(__DIR__ . '/requires.php');
 
@@ -1152,7 +1152,7 @@ class TelegramBotLibrary extends TblBasics{
   }
 
   /**
-   * Use this method to send text messages for one or multiple chats. The Telegram API have some limits, but don't have a official docs for this.
+   * Use this method with TextSendMulti
    * @param int|array $Chat Unique identifier for the target chats
    * @param string $Text Text of the message to be sent, 1-4096 characters after entities parsing
    * @param TgParseMode $ParseMode Mode for parsing entities in the message text.
@@ -1166,8 +1166,8 @@ class TelegramBotLibrary extends TblBasics{
    * @return TgMessage|null On success, the sent Message is returned.
    * @link https://core.telegram.org/bots/api#sendmessage
    */
-  public function TextSend(
-    int|array $Chat,
+  public function TextSendArgs(
+    int $Chat,
     string $Text,
     TgParseMode $ParseMode = null,
     array $Entities = null,
@@ -1176,8 +1176,9 @@ class TelegramBotLibrary extends TblBasics{
     bool $Protect = false,
     int $RepliedMsg = null,
     bool $SendWithoutRepliedMsg = false,
-    TblMarkup $Markup = null
-  ):TgMessage|array|null{
+    TblMarkup $Markup = null,
+  ):array{
+    $param['chat_id'] = $Chat;
     $param['text'] = $Text;
     if($ParseMode !== null):
       $param['parse_mode'] = $ParseMode->value;
@@ -1203,27 +1204,60 @@ class TelegramBotLibrary extends TblBasics{
     if($Markup !== null):
       $param['reply_markup'] = $Markup->ToJson();
     endif;
-    if(is_array($Chat)):
-      $group = [];
-      foreach($Chat as $chat):
-        $param['chat_id'] = $chat;
-        $group[] = $param;
-      endforeach;
-      $return = $this->ServerMethodMulti(TgMethods::TextSend, $group);
-      foreach($return as &$temp):
-        if(is_array($temp) === false):
-          $temp = new TgMessage($temp);
-        endif;
-      endforeach;
-      return $return;
+    return $param;
+  }
+
+  /**
+   * Use this method to send text messages for one or multiple chats. The Telegram API have some limits, but don't have a official docs for this.
+   * @param int|array $Chat Unique identifier for the target chats
+   * @param string $Text Text of the message to be sent, 1-4096 characters after entities parsing
+   * @param TgParseMode $ParseMode Mode for parsing entities in the message text.
+   * @param array $Entities A list of special entities that appear in message text, which can be specified instead of parse_mode
+   * @param bool $DisablePreview Disables link previews for links in this message
+   * @param bool $DisableNotification Sends the message silently. Users will receive a notification with no sound.
+   * @param bool $Protect Protects the contents of the sent message from forwarding and saving
+   * @param int $RepliedMsg If the message is a reply, ID of the original message
+   * @param bool $SendWithoutRepliedMsg Pass True, if the message should be sent even if the specified replied-to message is not found
+   * @param array TblMarkup Additional interface options. A object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
+   * @return TgMessage|null On success, the sent Message is returned.
+   * @link https://core.telegram.org/bots/api#sendmessage
+   */
+  public function TextSend(
+    int $Chat,
+    string $Text,
+    TgParseMode $ParseMode = null,
+    array $Entities = null,
+    bool $DisablePreview = false,
+    bool $DisableNotification = false,
+    bool $Protect = false,
+    int $RepliedMsg = null,
+    bool $SendWithoutRepliedMsg = false,
+    TblMarkup $Markup = null
+  ):TgMessage|array|null{
+    $param = $this->TextSendArgs(
+      $Chat,
+      $Text,
+      $ParseMode,
+      $Entities,
+      $DisablePreview,
+      $DisableNotification,
+      $Protect,
+      $RepliedMsg,
+      $SendWithoutRepliedMsg,
+      $Markup
+    );
+    $temp = $this->ServerMethod(TgMethods::TextSend, $param);
+    if($temp !== null):
+      return new TgMessage($temp);
     else:
-      $param['chat_id'] = $Chat;
-      $temp = $this->ServerMethod(TgMethods::TextSend, $param);
-      if($temp !== null):
-        return new TgMessage($temp);
-      else:
-        return null;
-      endif;
+      return null;
     endif;
+  }
+
+  /**
+   * Send text to many chats at once. Carefully with server limits
+   */
+  public function TextSendMulti(array $Params):array{
+    return $this->ServerMethodMulti(TgMethods::TextSend, $Params);
   }
 }
