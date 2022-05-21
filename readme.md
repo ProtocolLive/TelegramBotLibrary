@@ -13,6 +13,11 @@ Updated with Telegram Bot API 6.0 (2022-04-16)
 - Extension OpenSSL;
 - Extension cURL;
 
-## See more
+## Installation
 
-[GithubDeploy](https://github.com/ProtocolLive/GithubDeploy)
+- By [downloading](https://github.com/ProtocolLive/TelegramBotLibrary/archive/refs/heads/main.zip) the project;
+- By Composer:
+
+```
+php composer.phar require protocollive/telegrambotlibrary
+```
