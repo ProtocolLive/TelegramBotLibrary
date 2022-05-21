@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.05.19.01
+//2022.05.21.00
 
 abstract class TblBasics{
   protected TblData $BotData;
@@ -70,7 +70,7 @@ abstract class TblBasics{
    */
   protected function ServerMethodMulti(
     TgMethods $Method,
-    array $ParamGroups = null
+    array $ParamGroups
   ):array{
     $mh = curl_multi_init();
     $calls = [];
