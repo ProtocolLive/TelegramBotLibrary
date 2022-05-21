@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.05.15.00
+//2022.05.21.00
 
 enum TgError{
   case BotBot;
@@ -23,10 +23,11 @@ enum TgError{
   case InlineQueryThumbType;
   case InlineKeyboardNone;
   case InvoiceLabel;
+  case PermAdminManage;
+  case TooMany;
   case UrlFailed;
   case UrlInvalid;
   case UrlShort;
-  case PermAdminManage;
   case WebAppHttps;
 }
 
@@ -66,6 +67,9 @@ class TgErrors{
     endif;
     if(strpos($Description, 'Bad Request: can\'t parse entities: Unsupported start tag ') === 0):
       return TgError::Html;
+    endif;
+    if(strpos($Description, 'Too Many Requests: retry after ') === 0):
+      return TgError::TooMany;
     endif;
     return false;
   }
