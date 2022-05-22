@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.05.21.00
+//2022.05.22.00
 
 abstract class TblBasics{
   protected TblData $BotData;
@@ -94,7 +94,7 @@ abstract class TblBasics{
       if($this->Error === null):
         $return[] = $temp;
       else:
-        $return[] = [$this->Error, $this->ErrorStr];
+        $return[] = ['Error' => $this->Error, $this->ErrorStr];
       endif;
     endforeach;
     return $return;
