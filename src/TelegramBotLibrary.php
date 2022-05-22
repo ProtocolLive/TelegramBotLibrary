@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.05.21.00
+//2022.05.22.00
 
 require(__DIR__ . '/requires.php');
 
@@ -1258,6 +1258,12 @@ class TelegramBotLibrary extends TblBasics{
    * Send text to many chats at once. Carefully with server limits
    */
   public function TextSendMulti(array $Params):array{
-    return $this->ServerMethodMulti(TgMethods::TextSend, $Params);
+    $return = $this->ServerMethodMulti(TgMethods::TextSend, $Params);
+    foreach($return as &$answer):
+      if(isset($answer['Error']) === false):
+        $answer = new TgMessage($answer);
+      endif;
+    endforeach;
+    return $return;
   }
 }
