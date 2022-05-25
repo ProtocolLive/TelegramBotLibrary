@@ -1255,7 +1255,8 @@ class TelegramBotLibrary extends TblBasics{
   }
 
   /**
-   * Send text to many chats at once. Carefully with server limits
+   * Send text to many chats at once. Carefully with server limits.
+   * @link https://core.telegram.org/bots/faq#my-bot-is-hitting-limits-how-do-i-avoid-this
    */
   public function TextSendMulti(array $Params):array{
     $return = $this->ServerMethodMulti(TgMethods::TextSend, $Params);
