@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.05.22.00
+//2022.05.28.00
 
 require(__DIR__ . '/requires.php');
 
@@ -1262,7 +1262,7 @@ class TelegramBotLibrary extends TblBasics{
     $return = $this->ServerMethodMulti(TgMethods::TextSend, $Params);
     foreach($return as &$answer):
       if(isset($answer['Error']) === false):
-        $answer = new TgMessage($answer);
+        $answer = new TgText($answer);
       endif;
     endforeach;
     return $return;

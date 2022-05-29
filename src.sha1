@@ -5,7 +5,7 @@
 eb1c657c14733772d9226d4d3300e6abe9ff3f21  src/TblObjects/invoice.php
 9f964a079383b5192d8650a66f3c2b5b78403558  src/TblObjects/markup.php
 ba3c12e8ffd46a0df5b153343f14e01951d6bcce  src/TblObjects/webhook.php
-535951ba3559daefb1fad0fbe384787c37475841  src/TelegramBotLibrary.php
+74711bb7385185bc9ab014f8ee401c9505c8bc3e  src/TelegramBotLibrary.php
 9e6e8f9dce5671864b2bf4241cdd02d4003554a4  src/TgObjects/callback.php
 1d0fec6f67ffb9074df092faf14a516f874dd457  src/TgObjects/chat.php
 52d12d38b36a0cfc37b504e4ce7014139489c4f8  src/TgObjects/cmd.php
