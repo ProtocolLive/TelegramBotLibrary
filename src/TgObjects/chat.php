@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.05.15.00
+//2022.06.05.00
 //API 6.0
 
 enum TgChatType:string{
@@ -299,7 +299,7 @@ class TgGroupStatus{
 class TgChatMigrateTo{
   public readonly TgUser $Admin;
   public readonly TgChat $Group;
-  public readonly TgChat $Date;
+  public readonly int $Date;
   public readonly int $IdNew;
 
   /**
@@ -321,7 +321,7 @@ class TgChatMigrateTo{
 class TgChatMigrateFrom{
   public readonly TgUser $Admin;
   public readonly TgChat $Group;
-  public readonly TgChat $Date;
+  public readonly int $Date;
   public readonly int $IdNew;
 
   /**
