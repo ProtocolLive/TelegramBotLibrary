@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.05.21.00
+//2022.06.18.00
 
 enum TgError{
   case BotBot;
@@ -24,6 +24,7 @@ enum TgError{
   case InlineKeyboardNone;
   case InvoiceLabel;
   case PermAdminManage;
+  case TextButtonNo;
   case TooMany;
   case UrlFailed;
   case UrlInvalid;
@@ -54,7 +55,8 @@ class TgErrors{
     'Bad Request: message is not modified: specified new message content and reply markup are exactly the same as a current content and reply markup of the message' => TgError::EditSame,
     'Bad Request: inline keyboard expected' => TgError::InlineKeyboardNone,
     'Bad Request: the message can\'t be forwarded' => TgError::ForwardCant,
-    'Bad Request: message to copy not found' => TgError::CopyNotFound
+    'Bad Request: message to copy not found' => TgError::CopyNotFound,
+    'Bad Request: can\'t parse inline keyboard button: Text buttons are unallowed in the inline keyboard' => TgError::TextButtonNo
   ];
 
   static public function Search(string $Description):TgError|false{

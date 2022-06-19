@@ -11,7 +11,7 @@ a3f9ed032fa007d445969235e282e6127d0de293  src/TelegramBotLibrary.php
 52d12d38b36a0cfc37b504e4ce7014139489c4f8  src/TgObjects/cmd.php
 af8d9d144bc9852fe8741b5c1b48a31a16ddff56  src/TgObjects/document.php
 050d41239cb44bb81cde9f52c0854a939cc569ce  src/TgObjects/entity.php
-1378c85cf152b7769dc07c5151ebc20af16cc272  src/TgObjects/errors.php
+e0ac8ea83dceb1b7f9388f2bf172ffc1597461f4  src/TgObjects/errors.php
 abb9af0d61c6b0b0dbe357bd5988e229ad4a126c  src/TgObjects/file.php
 73f3ba246df083a7cb2089f803f67f19354e4243  src/TgObjects/inline.php
 12f331c8dd92c55b9e267225eb29d5a317b0c4ab  src/TgObjects/invoice.php
