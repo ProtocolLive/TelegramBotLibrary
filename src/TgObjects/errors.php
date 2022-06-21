@@ -1,7 +1,8 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.06.18.00
+//2022.06.21.00
+//API 6.1
 
 enum TgError{
   case BotBot;
@@ -23,7 +24,9 @@ enum TgError{
   case InlineQueryThumbType;
   case InlineKeyboardNone;
   case InvoiceLabel;
+  case InvoiceLimits;
   case PermAdminManage;
+  case SomethingMissing;
   case TextButtonNo;
   case TooMany;
   case UrlFailed;
@@ -56,7 +59,9 @@ class TgErrors{
     'Bad Request: inline keyboard expected' => TgError::InlineKeyboardNone,
     'Bad Request: the message can\'t be forwarded' => TgError::ForwardCant,
     'Bad Request: message to copy not found' => TgError::CopyNotFound,
-    'Bad Request: can\'t parse inline keyboard button: Text buttons are unallowed in the inline keyboard' => TgError::TextButtonNo
+    'Bad Request: can\'t parse inline keyboard button: Text buttons are unallowed in the inline keyboard' => TgError::TextButtonNo,
+    'Bad Request: CURRENCY_TOTAL_AMOUNT_INVALID' => TgError::InvoiceLimits,
+    'Bad Request: there must be at least one price' => TgError::SomethingMissing
   ];
 
   static public function Search(string $Description):TgError|false{

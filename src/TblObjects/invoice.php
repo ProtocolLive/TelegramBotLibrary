@@ -1,31 +1,46 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.04.20.01
+//2022.06.21.00
 
-class TblInvoiceProduct{
-  /**
-   * Throws an error if price is out of the range
-   */
-  public function __construct(
-    public readonly string $Name,
-    public readonly int $Price,
+class TblInvoicePrices implements JsonSerializable{
+  private array $Prices = [];
+  public TblError|null $Error = null;
+
+  public function Add(
+    string $Name,
+    int $Price,
     bool $IgnoreLimit = false
-  ){
+  ):bool{
     if($IgnoreLimit === false):
       $CurrenciesJson = file_get_contents('https://core.telegram.org/bots/payments/currencies.json');
       if($CurrenciesJson !== false):
         $CurrenciesJson = json_decode($CurrenciesJson, true);
         if($Price > 0):
-          if($Price < $CurrenciesJson[DefaultCurrency->value]['min_amount']):
-            throw new Exception('Price too low', TblException::InvoicePriceLow);
+          if($Price <= $CurrenciesJson[DefaultCurrency->value]['min_amount']):
+            $this->Error = TblError::InvoicePriceLow;
+            return false;
           endif;
           if($Price > $CurrenciesJson[DefaultCurrency->value]['max_amount']):
-            throw new Exception('Price too high', TblException::InvoicePriceHigh);
+            $this->Error = TblError::InvoicePriceHigh;
+            return false;
           endif;
         endif;
       endif;
     endif;
+    $this->Prices[] = [
+      'label' => $Name,
+      'amount' => $Price
+    ];
+    return true;
+  }
+
+  public function Count():int{
+    return count($this->Prices);
+  }
+
+  public function jsonSerialize():array{
+    return $this->Prices;
   }
 }
 

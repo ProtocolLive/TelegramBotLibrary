@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.06.21.00
+//2022.06.21.01
 //API 6.1
 
 enum TblError{
@@ -15,11 +15,9 @@ enum TblError{
   case LimitCmdDescription;
   case NoEvent;
   case TokenWebhook;
-}
-
-class TblException{
-  const InvoicePriceLow = 0;
-  const InvoicePriceHigh = 1;
+  case InvoicePriceEmpty;
+  case InvoicePriceHigh;
+  case InvoicePriceLow;
 }
 
 enum TblLog{

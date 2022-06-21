@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.06.21.02
+//2022.06.21.03
 //API 6.1
 
 require(__DIR__ . '/requires.php');
@@ -470,7 +470,7 @@ class TelegramBotLibrary extends TblBasics{
    * @param string $Payload Bot-defined invoice payload, 1-128 bytes. This will not be displayed to the user, use for your internal processes.
    * @param string $Token Payments provider token, obtained via BotFather
    * @param TgInvoiceCurrencies $Currency Three-letter ISO 4217 currency code
-   * @param array $Prices Price breakdown, a list of components (e.g. product price, tax, discount, delivery cost, delivery tax, bonus, etc.)
+   * @param TblInvoicePrices $Prices Price breakdown, a list of components (e.g. product price, tax, discount, delivery cost, delivery tax, bonus, etc.)
    * @param int $TipMax The maximum accepted amount for tips in the smallest units of the currency (integer, not float/double). For example, for a maximum tip of US$ 1.45 pass max_tip_amount = 145. See the exp parameter in currencies.json, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies). Defaults to 0
    * @param array $TipSuggested A array of suggested amounts of tips in the smallest units of the currency (integer, not float/double). At most 4 suggested tip amounts can be specified. The suggested tip amounts must be positive, passed in a strictly increased order and must not exceed max_tip_amount.
    * @param string $ProviderData A JSON-serialized data about the invoice, which will be shared with the payment provider. A detailed description of required fields should be provided by the payment provider.
@@ -494,7 +494,7 @@ class TelegramBotLibrary extends TblBasics{
     string $Payload,
     string $Token,
     TgInvoiceCurrencies $Currency,
-    array $Prices,
+    TblInvoicePrices $Prices,
     int $TipMax = null,
     array $TipSuggested = null,
     string $ProviderData = null,
@@ -510,18 +510,16 @@ class TelegramBotLibrary extends TblBasics{
     bool $ProviderEmail = false,
     bool $PriceWithShipping = false
   ):string|null{
+    if($Prices->Count() === 0):
+      $this->Error = TblError::InvoicePriceEmpty;
+      return null;
+    endif;
     $param['title'] = $Title;
     $param['description'] = $Description;
     $param['payload'] = $Payload;
     $param['provider_token'] = $Token;
     $param['currency'] = $Currency->value;
-    foreach($Prices as $price):
-      $param['prices'][] = [
-        'label' => $price->Name,
-        'amount' => $price->Price
-      ];
-    endforeach;
-    $param['prices'] = json_encode($param['prices']);
+    $param['prices'] = json_encode($Prices);
     if($TipMax !== null):
       $param['max_tip_amount'] = $TipMax;
     endif;
@@ -575,7 +573,7 @@ class TelegramBotLibrary extends TblBasics{
    * @param string $Payload Bot-defined invoice payload, 1-128 bytes. This will not be displayed to the user, use for your internal processes.
    * @param string $Token Payments provider token, obtained via BotFather
    * @param TgInvoiceCurrencies $Currency Three-letter ISO 4217 currency code
-   * @param array $Prices Price breakdown, a list of components (e.g. product price, tax, discount, delivery cost, delivery tax, bonus, etc.)
+   * @param TblInvoicePrices $Prices Price breakdown, a list of components (e.g. product price, tax, discount, delivery cost, delivery tax, bonus, etc.)
    * @param int $TipMax The maximum accepted amount for tips in the smallest units of the currency (integer, not float/double). For example, for a maximum tip of US$ 1.45 pass max_tip_amount = 145. See the exp parameter in currencies.json, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies). Defaults to 0
    * @param array $TipSuggested A array of suggested amounts of tips in the smallest units of the currency (integer, not float/double). At most 4 suggested tip amounts can be specified. The suggested tip amounts must be positive, passed in a strictly increased order and must not exceed max_tip_amount.
    * @param string $StartParam Unique deep-linking parameter. If left empty, forwarded copies of the sent message will have a Pay button, allowing multiple users to pay directly from the forwarded message, using the same invoice. If non-empty, forwarded copies of the sent message will have a URL button with a deep link to the bot (instead of a Pay button), with the value used as the start parameter
@@ -606,7 +604,7 @@ class TelegramBotLibrary extends TblBasics{
     string $Payload,
     string $Token,
     TgInvoiceCurrencies $Currency,
-    array $Prices,
+    TblInvoicePrices $Prices,
     int $TipMax = null,
     array $TipSuggested = null,
     string $StartParam = null,
@@ -634,13 +632,7 @@ class TelegramBotLibrary extends TblBasics{
     $param['payload'] = $Payload;
     $param['provider_token'] = $Token;
     $param['currency'] = $Currency->value;
-    foreach($Prices as $price):
-      $param['prices'][] = [
-        'label' => $price->Name,
-        'amount' => $price->Price
-      ];
-    endforeach;
-    $param['prices'] = json_encode($param['prices']);
+    $param['prices'] = json_encode($Prices);
     if($TipMax !== null):
       $param['max_tip_amount'] = $TipMax;
     endif;
