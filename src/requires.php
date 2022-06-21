@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.05.30.00
+//2022.06.21.00
 
 require(__DIR__ . '/basics.php');
 
@@ -27,6 +27,7 @@ require(__DIR__ . '/TgObjects/webapp.php');
 
 require(__DIR__ . '/TblObjects/cmd.php');
 require(__DIR__ . '/TblObjects/data.php');
+require(__DIR__ . '/TblObjects/errors.php');
 require(__DIR__ . '/TblObjects/inline.php');
 require(__DIR__ . '/TblObjects/invoice.php');
 require(__DIR__ . '/TblObjects/markup.php');
