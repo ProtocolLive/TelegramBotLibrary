@@ -1,23 +1,23 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.06.21.01
+//2022.06.21.02
 //API 6.1
 
 enum TblError{
-  case Custom;
-  case NoSsl;
-  case NoCurl;
   case Curl;
-  case LimitCallbackData;
-  case LimitPhotoCaption;
-  case LimitCommand;
-  case LimitCmdDescription;
-  case NoEvent;
-  case TokenWebhook;
+  case Custom;
   case InvoicePriceEmpty;
   case InvoicePriceHigh;
   case InvoicePriceLow;
+  case LimitCallbackData;
+  case LimitCmdDescription;
+  case LimitCommand;
+  case LimitPhotoCaption;
+  case NoCurl;
+  case NoEvent;
+  case NoSsl;
+  case TokenWebhook;
 }
 
 enum TblLog{
