@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.06.21.00
+//2022.06.21.01
 //API 6.1
 
 require(__DIR__ . '/requires.php');
@@ -502,7 +502,7 @@ class TelegramBotLibrary extends TblBasics{
     string $Payload,
     string $Token,
     TgInvoiceCurrencies $Currency,
-    array $Products,
+    array $Prices,
     int $TipMax = null,
     array $TipSuggested = null,
     string $StartParam = null,
@@ -530,10 +530,10 @@ class TelegramBotLibrary extends TblBasics{
     $param['payload'] = $Payload;
     $param['provider_token'] = $Token;
     $param['currency'] = $Currency->value;
-    foreach($Products as $product):
+    foreach($Prices as $price):
       $param['prices'][] = [
-        'label' => $product->Name,
-        'amount' => $product->Price
+        'label' => $price->Name,
+        'amount' => $price->Price
       ];
     endforeach;
     $param['prices'] = json_encode($param['prices']);
