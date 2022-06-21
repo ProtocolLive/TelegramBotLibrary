@@ -1,7 +1,8 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.04.23.00
+//2022.06.21.00
+//API 6.1
 
 enum TgMethods:string{
   case CallbackAnswer = 'answerCallbackQuery';
@@ -23,6 +24,7 @@ enum TgMethods:string{
   case FileGet = 'getFile';
   case InlineQueryAnswer = 'answerInlineQuery';
   case InvoiceCheckoutSend = 'answerPreCheckoutQuery';
+  case InvoiceLink = 'createInvoiceLink';
   case InvoiceSend = 'sendInvoice';
   case InvoiceShippingSend = 'answerShippingQuery';
   case MarkupEdit = 'editMessageReplyMarkup';

@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.06.21.01
+//2022.06.21.02
 //API 6.1
 
 require(__DIR__ . '/requires.php');
@@ -461,6 +461,110 @@ class TelegramBotLibrary extends TblBasics{
       $param['error_message'] = $ErrorMsg;
     endif;
     return $this->ServerMethod(TgMethods::InvoiceCheckoutSend, $param);
+  }
+
+  /**
+   * Use this method to create a link for an invoice.
+   * @param string $Title Product name, 1-32 characters
+   * @param string $Description Product description, 1-255 characters
+   * @param string $Payload Bot-defined invoice payload, 1-128 bytes. This will not be displayed to the user, use for your internal processes.
+   * @param string $Token Payments provider token, obtained via BotFather
+   * @param TgInvoiceCurrencies $Currency Three-letter ISO 4217 currency code
+   * @param array $Prices Price breakdown, a list of components (e.g. product price, tax, discount, delivery cost, delivery tax, bonus, etc.)
+   * @param int $TipMax The maximum accepted amount for tips in the smallest units of the currency (integer, not float/double). For example, for a maximum tip of US$ 1.45 pass max_tip_amount = 145. See the exp parameter in currencies.json, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies). Defaults to 0
+   * @param array $TipSuggested A array of suggested amounts of tips in the smallest units of the currency (integer, not float/double). At most 4 suggested tip amounts can be specified. The suggested tip amounts must be positive, passed in a strictly increased order and must not exceed max_tip_amount.
+   * @param string $ProviderData A JSON-serialized data about the invoice, which will be shared with the payment provider. A detailed description of required fields should be provided by the payment provider.
+   * @param string $Photo URL of the product photo for the invoice. Can be a photo of the goods or a marketing image for a service. People like it better when they see what they are paying for.
+   * @param int $PhotoSize Photo size
+   * @param int $PhotoWidth Photo width
+   * @param int $PhotoHeight Photo height
+   * @param bool $NeedName Pass True, if you require the user's full name to complete the order
+   * @param bool $NeedPhone Pass True, if you require the user's phone number to complete the order
+   * @param bool $NeedEmail Pass True, if you require the user's email address to complete the order
+   * @param bool $NeedAddress Pass True, if you require the user's shipping address to complete the order
+   * @param bool $ProviderPhone Pass True, if user's phone number should be sent to provider
+   * @param bool $ProviderEmail Pass True, if user's email address should be sent to provider
+   * @param bool $PriceWithShipping Pass True, if the final price depends on the shipping method
+   * @return string Returns the created invoice link as String on success.
+   * @link https://core.telegram.org/bots/api#createinvoicelink
+   */
+  public function InvoiceLink(
+    string $Title,
+    string $Description,
+    string $Payload,
+    string $Token,
+    TgInvoiceCurrencies $Currency,
+    array $Prices,
+    int $TipMax = null,
+    array $TipSuggested = null,
+    string $ProviderData = null,
+    string $Photo = null,
+    int $PhotoSize = null,
+    int $PhotoWidth = null,
+    int $PhotoHeight = null,
+    bool $NeedName = false,
+    bool $NeedPhone = false,
+    bool $NeedEmail = false,
+    bool $NeedAddress = false,
+    bool $ProviderPhone = false,
+    bool $ProviderEmail = false,
+    bool $PriceWithShipping = false
+  ):string|null{
+    $param['title'] = $Title;
+    $param['description'] = $Description;
+    $param['payload'] = $Payload;
+    $param['provider_token'] = $Token;
+    $param['currency'] = $Currency->value;
+    foreach($Prices as $price):
+      $param['prices'][] = [
+        'label' => $price->Name,
+        'amount' => $price->Price
+      ];
+    endforeach;
+    $param['prices'] = json_encode($param['prices']);
+    if($TipMax !== null):
+      $param['max_tip_amount'] = $TipMax;
+    endif;
+    if($TipSuggested !== null):
+      $param['suggested_tip_amounts'] = $TipSuggested;
+    endif;
+    if($ProviderData !== null):
+      $param['provider_data'] = $ProviderData;
+    endif;
+    if($Photo !== null):
+      $param['photo_url'] = $Photo;
+    endif;
+    if($PhotoSize !== null):
+      $param['photo_size'] = $PhotoSize;
+    endif;
+    if($PhotoWidth !== null):
+      $param['photo_width'] = $PhotoWidth;
+    endif;
+    if($PhotoHeight !== null):
+      $param['photo_height'] = $PhotoHeight;
+    endif;
+    if($NeedName):
+      $param['need_name'] = 'true';
+    endif;
+    if($NeedPhone):
+      $param['need_phone_number'] = 'true';
+    endif;
+    if($NeedEmail):
+      $param['need_email'] = 'true';
+    endif;
+    if($NeedAddress):
+      $param['need_shipping_address'] = 'true';
+    endif;
+    if($ProviderPhone):
+      $param['send_phone_number_to_provider'] = 'true';
+    endif;
+    if($ProviderEmail):
+      $param['send_email_to_provider'] = 'true';
+    endif;
+    if($PriceWithShipping):
+      $param['is_flexible'] = 'true';
+    endif;
+    return $this->ServerMethod(TgMethods::InvoiceLink, $param);
   }
 
   /**
