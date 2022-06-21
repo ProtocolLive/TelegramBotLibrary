@@ -1,7 +1,8 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.06.07.00
+//2022.06.21.00
+//API 6.2
 
 abstract class TblBasics{
   protected TblData $BotData;
@@ -24,7 +25,7 @@ abstract class TblBasics{
   private function CurlResponse(
     CurlHandle $Curl,
     mixed $Response
-  ):array|bool|null{
+  ):mixed{
     if($Response === false):
       $this->DebugLog(
         TblLog::Error,
@@ -64,7 +65,6 @@ abstract class TblBasics{
     endif;
     $curl = $this->Curl($curl, $Params);
     return $this->CurlResponse($curl, curl_exec($curl));
-
   }
 
   /**
