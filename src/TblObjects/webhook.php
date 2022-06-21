@@ -1,7 +1,8 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.04.22.01
+//2022.06.21.00
+//API 6.1
 
 class TblWebhook extends TblBasics{
   public function __construct(TblData $BotData){
@@ -15,6 +16,7 @@ class TblWebhook extends TblBasics{
    * @param int $MaxConnections Maximum allowed number of simultaneous HTTPS connections to the webhook for update delivery, 1-100. Defaults to 40. Use lower values to limit the load on your bot's server, and higher values to increase your bot's throughput.
    * @param array $Updates A list of the update types you want your bot to receive. For example, specify [“message”, “edited_channel_post”, “callback_query”] to only receive updates of these types. See Update for a complete list of available update types. Specify an empty list to receive all update types except chat_member (default). If not specified, the previous setting will be used. Please note that this parameter doesn't affect updates created before the call to the setWebhook, so unwanted updates may be received for a short period of time.
    * @param string $Certificate Upload your public key certificate so that the root certificate in use can be checked. See our self-signed guide for details.
+   * @param string $TokenWebhook A secret token to be sent in a header “X-Telegram-Bot-Api-Secret-Token” in every webhook request, 1-256 characters. Only characters A-Z, a-z, 0-9, _ and - are allowed. The header is useful to ensure that the request comes from a webhook set by you.
    * @return bool|null Returns True on success.
    * @link https://core.telegram.org/bots/api#setwebhook
    */
@@ -23,7 +25,8 @@ class TblWebhook extends TblBasics{
     string $ServerIp = null,
     int $MaxConnections = null,
     array $Updates = null,
-    string $Certificate = null
+    string $Certificate = null,
+    string $TokenWebhook = null
   ):bool|null{
     $param['url'] = $Url;
     if($ServerIp !== null):
@@ -40,6 +43,9 @@ class TblWebhook extends TblBasics{
     endif;
     if($Certificate !== null):
       $param['certificate'] = new CurlFile($Certificate);
+    endif;
+    if($TokenWebhook !== null):
+      $param['secret_token'] = $TokenWebhook;
     endif;
     return $this->ServerMethod(TgMethods::WebhookSet, $param);
   }

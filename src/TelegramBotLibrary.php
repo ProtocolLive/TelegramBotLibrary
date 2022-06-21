@@ -1,7 +1,8 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.06.02.00
+//2022.06.21.00
+//API 6.1
 
 require(__DIR__ . '/requires.php');
 
@@ -30,6 +31,11 @@ class TelegramBotLibrary extends TblBasics{
   }
 
   public function WebhookGet():object|null{
+    if($this->BotData->TokenWebhook !== null
+    and $_SERVER['HTTP_X_TELEGRAM_BOT_API_SECRET_TOKEN'] !== TokenWebhook):
+      $this->Error = TblError::TokenWebhook;
+      return null;
+    endif;
     $update = file_get_contents('php://input');
     if($update === ''):
       $this->Error = TblError::NoEvent;
