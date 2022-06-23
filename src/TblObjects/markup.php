@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.06.21.00
+//2022.06.23.00
 //API 6.0
 
 abstract class TblMarkup{
@@ -69,7 +69,7 @@ class TblMarkupInline extends TblMarkup{
     string $ForwardText = null,
     string $BotName = null
   ):TblError|null{
-    if(substr($Url, 0, 4) !== 'https'):
+    if(substr($Url, 0, 5) !== 'https'):
       return TblError::InlineButtonLoginSsl;
     endif;
     $this->Pointer[$Line][$Column]['text'] = $Text;
