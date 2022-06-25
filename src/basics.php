@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.06.21.00
+//2022.06.25.00
 //API 6.2
 
 abstract class TblBasics{
@@ -59,7 +59,7 @@ abstract class TblBasics{
   ):mixed{
     $curl = $this->BotData->UrlApi . '/' . $Method->value;
     if($this->BotData->Debug & TblDebug::Send):
-      $log = 'Url: ' . $curl . '<br>';
+      $log = 'Url: ' . $curl . PHP_EOL;
       $log .= 'Params: ' . json_encode($Params, JSON_PRETTY_PRINT);
       $this->DebugLog(TblLog::Send, $log);
     endif;
@@ -80,7 +80,7 @@ abstract class TblBasics{
     foreach($ParamGroups as $id => $Params):
       $curl = $this->BotData->UrlApi . '/' . $Method->value;
       if($this->BotData->Debug & TblDebug::Send):
-        $log = 'Url: ' . $curl . '<br>';
+        $log = 'Url: ' . $curl . PHP_EOL;
         $log .= 'Params: ' . json_encode($Params, JSON_PRETTY_PRINT);
         $this->DebugLog(TblLog::Send, $log);
       endif;
