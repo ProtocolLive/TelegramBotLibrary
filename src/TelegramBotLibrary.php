@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.06.25.00
+//2022.06.25.01
 //API 6.1
 
 require(__DIR__ . '/requires.php');
@@ -835,7 +835,7 @@ class TelegramBotLibrary extends TblBasics{
    * @param int $Id Message identifier in the chat specified in $From
    * @param int $To Unique identifier for the target chat
    * @param string $Caption New caption for media, 0-1024 characters after entities parsing. If not specified, the original caption is kept
-   * @param array $Entities A list of special entities that appear in the new caption, which can be specified instead of parse_mode
+   * @param TblEntities $Entities A list of special entities that appear in the new caption, which can be specified instead of parse_mode
    * @param TgParseMode $ParseMode Mode for parsing entities in the new caption.
    * @param bool $DisableNotification Sends the message silently. Users will receive a notification with no sound.
    * @param bool $Protect Protects the contents of the sent message from forwarding and saving
@@ -850,7 +850,7 @@ class TelegramBotLibrary extends TblBasics{
     int $Id,
     int $To,
     string $Caption = null,
-    array $Entities = null,
+    TblEntities $Entities = null,
     TgParseMode $ParseMode = TgParseMode::Html,
     bool $DisableNotification = false,
     bool $Protect = false,
@@ -866,7 +866,7 @@ class TelegramBotLibrary extends TblBasics{
     endif;
     $param['parse_mode'] = $ParseMode->value;
     if($Entities !== null):
-      $param['caption_entities'] = TblEntities::ToJson($Entities);
+      $param['caption_entities'] = json_encode($Entities);
     endif;
     if($DisableNotification):
       $param['disable_notification'] = true;
@@ -1145,7 +1145,7 @@ class TelegramBotLibrary extends TblBasics{
    * - Other configurations may work but we can't guarantee that they will.
    * @param string $Caption Photo caption (may also be used when resending photos by file_id), 0-1024 characters after entities parsing
    * @param TgParseMode $ParseMode Mode for parsing entities in the photo caption. See formatting options for more details.
-   * @param array $Entities A list of special entities that appear in the caption, which can be specified instead of parse_mode
+   * @param TblEntities $Entities A list of special entities that appear in the caption, which can be specified instead of parse_mode
    * @param bool $DisableNotification Sends the message silently. Users will receive a notification with no sound.
    * @param bool $Protect Protects the contents of the sent message from forwarding and saving
    * @param int $RepliedMsg If the message is a reply, ID of the original message
@@ -1159,7 +1159,7 @@ class TelegramBotLibrary extends TblBasics{
     string $Photo,
     string $Caption = null,
     TgParseMode $ParseMode = TgParseMode::Html,
-    array $Entities = null,
+    TblEntities $Entities = null,
     bool $DisableNotification = false,
     bool $Protect = false,
     int $RepliedMsg = null,
@@ -1177,7 +1177,7 @@ class TelegramBotLibrary extends TblBasics{
       $param['parse_mode'] = $ParseMode->value;
     endif;
     if($Entities !== null):
-      $param['caption_entities'] = TblEntities::ToJson($Entities);
+      $param['caption_entities'] = json_encode($Entities);
     endif;
     if($DisableNotification):
       $param['disable_notification'] = 'true';
@@ -1228,7 +1228,7 @@ class TelegramBotLibrary extends TblBasics{
    * - Other configurations may work but we can't guarantee that they will.
    * @param string $Caption Photo caption (may also be used when resending photos by file_id), 0-1024 characters after entities parsing
    * @param TgParseMode $ParseMode Mode for parsing entities in the photo caption. See formatting options for more details.
-   * @param array $Entities A list of special entities that appear in the caption, which can be specified instead of parse_mode
+   * @param TblEntities $Entities A list of special entities that appear in the caption, which can be specified instead of parse_mode
    * @param bool $DisableNotification Sends the message silently. Users will receive a notification with no sound.
    * @param bool $Protect Protects the contents of the sent message from forwarding and saving
    * @param int $RepliedMsg If the message is a reply, ID of the original message
@@ -1242,7 +1242,7 @@ class TelegramBotLibrary extends TblBasics{
     string $Photo,
     string $Caption = null,
     TgParseMode $ParseMode = TgParseMode::Html,
-    array $Entities = null,
+    TblEntities $Entities = null,
     bool $DisableNotification = false,
     bool $Protect = false,
     int $RepliedMsg = null,
@@ -1260,7 +1260,7 @@ class TelegramBotLibrary extends TblBasics{
       $param['parse_mode'] = $ParseMode->value;
     endif;
     if($Entities !== null):
-      $param['caption_entities'] = TblEntities::ToJson($Entities);
+      $param['caption_entities'] = json_encode($Entities);
     endif;
     if($DisableNotification):
       $param['disable_notification'] = 'true';
@@ -1306,7 +1306,7 @@ class TelegramBotLibrary extends TblBasics{
    * @param string $Text New text of the message, 1-4096 characters after entities parsing
    * @param string $InlineId Required if chat_id and message_id are not specified. Identifier of the inline message
    * @param TgParseMode $ParseMode Mode for parsing entities in the message text.
-   * @param array $Entities A list of special entities that appear in message text, which can be specified instead of parse_mode
+   * @param TblEntities $Entities A list of special entities that appear in message text, which can be specified instead of parse_mode
    * @param bool $DisablePreview Disables link previews for links in this message
    * @param TblMarkup $Markup A object for an inline keyboard.
    * @return TgMessage|bool|null On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned.
@@ -1318,7 +1318,7 @@ class TelegramBotLibrary extends TblBasics{
     string $Text,
     string $InlineId = null,
     TgParseMode $ParseMode = TgParseMode::Html,
-    array $Entities = null,
+    TblEntities $Entities = null,
     bool $DisablePreview = false,
     TblMarkup $Markup = null
   ):TgText|bool|null{
@@ -1334,7 +1334,7 @@ class TelegramBotLibrary extends TblBasics{
     endif;
     $param['parse_mode'] = $ParseMode->value;
     if($Entities !== null):
-      $param['entities'] = TblEntities::ToJson($Entities);
+      $param['entities'] = json_encode($Entities);
     endif;
     if($DisablePreview):
       $param['disable_web_page_preview'] = 'true';
@@ -1356,7 +1356,7 @@ class TelegramBotLibrary extends TblBasics{
    * @param int|array $Chat Unique identifier for the target chats
    * @param string $Text Text of the message to be sent, 1-4096 characters after entities parsing
    * @param TgParseMode $ParseMode Mode for parsing entities in the message text.
-   * @param array $Entities A list of special entities that appear in message text, which can be specified instead of parse_mode
+   * @param TblEntities $Entities A list of special entities that appear in message text, which can be specified instead of parse_mode
    * @param bool $DisablePreview Disables link previews for links in this message
    * @param bool $DisableNotification Sends the message silently. Users will receive a notification with no sound.
    * @param bool $Protect Protects the contents of the sent message from forwarding and saving
@@ -1370,7 +1370,7 @@ class TelegramBotLibrary extends TblBasics{
     int $Chat,
     string $Text,
     TgParseMode $ParseMode = null,
-    array $Entities = null,
+    TblEntities $Entities = null,
     bool $DisablePreview = false,
     bool $DisableNotification = false,
     bool $Protect = false,
@@ -1384,7 +1384,7 @@ class TelegramBotLibrary extends TblBasics{
       $param['parse_mode'] = $ParseMode->value;
     endif;
     if($Entities !== null):
-      $param['entities'] = TblEntities::ToJson($Entities);
+      $param['entities'] = json_encode($Entities);
     endif;
     if($DisablePreview):
       $param['disable_web_page_preview'] = true;
@@ -1412,7 +1412,7 @@ class TelegramBotLibrary extends TblBasics{
    * @param int|array $Chat Unique identifier for the target chats
    * @param string $Text Text of the message to be sent, 1-4096 characters after entities parsing
    * @param TgParseMode $ParseMode Mode for parsing entities in the message text.
-   * @param array $Entities A list of special entities that appear in message text, which can be specified instead of parse_mode
+   * @param TblEntities $Entities A list of special entities that appear in message text, which can be specified instead of parse_mode
    * @param bool $DisablePreview Disables link previews for links in this message
    * @param bool $DisableNotification Sends the message silently. Users will receive a notification with no sound.
    * @param bool $Protect Protects the contents of the sent message from forwarding and saving
@@ -1426,7 +1426,7 @@ class TelegramBotLibrary extends TblBasics{
     int $Chat,
     string $Text,
     TgParseMode $ParseMode = null,
-    array $Entities = null,
+    TblEntities $Entities = null,
     bool $DisablePreview = false,
     bool $DisableNotification = false,
     bool $Protect = false,
