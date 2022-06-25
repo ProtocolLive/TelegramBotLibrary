@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.06.25.00
+//2022.06.25.01
 //API 6.2
 
 abstract class TblBasics{
@@ -61,6 +61,7 @@ abstract class TblBasics{
     if($this->BotData->Debug & TblDebug::Send):
       $log = 'Url: ' . $curl . PHP_EOL;
       $log .= 'Params: ' . json_encode($Params, JSON_PRETTY_PRINT);
+      $log = str_replace('<', '&lt;', $log);
       $this->DebugLog(TblLog::Send, $log);
     endif;
     $curl = $this->Curl($curl, $Params);
