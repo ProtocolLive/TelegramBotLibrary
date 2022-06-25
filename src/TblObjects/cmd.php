@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.03.24.00
+//2022.06.25.00
 
 class TblCmd{
   public readonly TgMessage $Message;
@@ -34,6 +34,15 @@ class TblCmd{
       $this->Target = substr($this->Command, $pos + 1);
       $this->Command = substr($this->Command, 0, $pos);
     endif;
+  }
+}
+
+class TblCmdEdited extends TblCmd{
+  public readonly int $DateEdited;
+
+  public function __construct(array $Data){
+    parent::__construct($Data);
+    $this->DateEdited = $Data['edit_date'];
   }
 }
 
