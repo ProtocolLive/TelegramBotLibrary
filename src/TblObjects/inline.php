@@ -1,9 +1,11 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.04.21.00
+//2022.07.17.00
 
-abstract class TblInlineQuery{}
+abstract class TblInlineQuery{
+  abstract public function ToArray();
+}
 
 class TblInlineQueryArticle extends TblInlineQuery{
   /**
@@ -127,7 +129,7 @@ class TblInlineQueryPhoto extends TblInlineQuery{
       $param['parse_mode'] = $this->ParseMode->value;
     endif;
     if($this->Entities !== null):
-      $param['caption_entities'] = TblEntities::ToJson($this->Entities);
+      $param['caption_entities'] = json_encode($this->Entities);
     endif;
     if($this->Markup !== null):
       $param['reply_markup'] = $this->Markup->ToJson();
@@ -157,7 +159,7 @@ class TblInlineQueryContentText extends TblInlineQueryContent{
       $param['parse_mode'] = $this->ParseMode->value;
     endif;
     if($this->Entities !== null):
-      $param['entities'] = TblEntities::ToJson($this->Entities);
+      $param['entities'] = json_encode($this->Entities);
     endif;
     if($this->DisablePreview):
       $param['disable_web_page_preview'] = 'true';
