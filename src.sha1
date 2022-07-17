@@ -2,8 +2,8 @@ f26a0bdc88e3fda4adb4da7d90fdcf003577eaeb  src/TblObjects/cmd.php
 dec7d2e818ef7848ff3cc5c644b090170d804b0d  src/TblObjects/data.php
 05d4b389f9ea1cc88363dd4afce5f1f0abd4f273  src/TblObjects/entity.php
 50b452355585e85f71d87260cb6de20b7fb08cdc  src/TblObjects/errors.php
-18e4bcaafc19ac3acac716a9fa7f8d28a572dc3d  src/TblObjects/inline.php
-c568555de5825143d2ab0597b4e6f17c9869c68f  src/TblObjects/invoice.php
+0538fe310c04dec70b2439cd31b1ff76edb03db8  src/TblObjects/inline.php
+ccd28061d31376138fe3380e9fde6118d92492c0  src/TblObjects/invoice.php
 7d62be1a9cc0ffea92c0e0ae8b71d77cfec02d1c  src/TblObjects/markup.php
 acc89ea8812cd0b30cbea21cd4cccc319e762703  src/TblObjects/webhook.php
 9e6e8f9dce5671864b2bf4241cdd02d4003554a4  src/TgObjects/callback.php
@@ -28,5 +28,5 @@ c5daf33e1cb4899c6aa810053327740e59ab6b6d  src/TgObjects/message.php
 b2dbe1958aba536d5dc2fd25e330bd952d854250  src/basics.php
 8e0bff004ea42da0dfa0c0a4c104f8fd2a075e7a  src/cacert.pem
 7ffb4338779c618150e7ef3051e9e5bd4d31f5aa  src/constants.php
-cdafc47e0d8f09e9af2fc035ba8c2b52ed7a91e5  src/index.php
+cf331b330e498403e360fdb8a77adde2150ccf66  src/index.php
 7d32e545c38bb758ab78659acbf572d7e8a14913  src/requires.php

@@ -1,9 +1,9 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.06.21.00
+//2022.07.17.00
 
-class TblInvoicePrices implements JsonSerializable{
+class TblInvoicePrices{
   private array $Prices = [];
   public TblError|null $Error = null;
 
@@ -39,22 +39,44 @@ class TblInvoicePrices implements JsonSerializable{
     return count($this->Prices);
   }
 
-  public function jsonSerialize():array{
+  public function ToJson():string{
+    return json_encode($this->Prices);
+  }
+
+  public function ToArray():array{
     return $this->Prices;
+  }
+}
+
+class TblInvoiceShippingOptions{
+  private array $Options;
+
+  public function Add(
+    TblInvoiceShippingOption $Option
+  ):void{
+    $this->Options[] = [
+      'id' => $Option->Id,
+      'title' => $Option->Name,
+      'prices' => $Option->Prices->ToArray()
+    ];
+  }
+
+  public function ToJson():string{
+    return json_encode($this->Options);
   }
 }
 
 /**
  * This object represents one shipping option.
  * @param string $Id Shipping option identifier
- * @param string $Title Option title
+ * @param string $Name Option title
  * @param array $Prices List of price portions, in TblInvoiceProduct format
  * @link https://core.telegram.org/bots/api#shippingoption
  */
 class TblInvoiceShippingOption{
   public function __construct(
     public readonly string $Id,
-    public readonly string $Title,
-    public readonly array $Prices
+    public readonly string $Name,
+    public readonly TblInvoicePrices $Prices
   ){}
 }
