@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.06.25.01
+//2022.07.17.00
 //API 6.2
 
 abstract class TblBasics{
@@ -24,9 +24,9 @@ abstract class TblBasics{
 
   private function CurlResponse(
     CurlHandle $Curl,
-    mixed $Response
   ):mixed{
-    if($Response === false):
+    $response = curl_multi_getcontent($Curl);
+    if($response === false):
       $this->DebugLog(
         TblLog::Error,
         'cURL error #' . curl_errno($Curl) . ' ' . curl_error($Curl)
@@ -34,13 +34,13 @@ abstract class TblBasics{
       $this->Error = TblError::Curl;
       return null;
     endif;
-    $Response = json_decode($Response, true);
+    $response = json_decode($response, true);
     if($this->BotData->Debug & TblDebug::Response):
-      $this->DebugLog(TblLog::Response, json_encode($Response, JSON_PRETTY_PRINT));
+      $this->DebugLog(TblLog::Response, json_encode($response, JSON_PRETTY_PRINT));
     endif;
-    if($Response['ok'] === false):
-      $this->ErrorStr = $Response['description'];
-      $search = TgErrors::Search($Response['description']);
+    if($response['ok'] === false):
+      $this->ErrorStr = $response['description'];
+      $search = TgErrors::Search($response['description']);
       if($search === false):
         $this->Error = TblError::Custom;
       else:
@@ -48,8 +48,8 @@ abstract class TblBasics{
       endif;
       return null;
     else:
-      $this->ErrorStr = $Response['description'] ?? null;
-      return $Response['result'];
+      $this->ErrorStr = $response['description'] ?? null;
+      return $response['result'];
     endif;
   }
 
@@ -94,11 +94,11 @@ abstract class TblBasics{
     }while($active);
     $return = [];
     foreach($ParamGroups as $id => $Params):
-      $temp = $this->CurlResponse($calls[$id], curl_multi_getcontent($calls[$id]));
+      $temp = $this->CurlResponse($calls[$id]);
       if($this->Error === null):
-        $return[] = $temp;
+        $return[$id] = $temp;
       else:
-        $return[] = ['Error' => $this->Error, $this->ErrorStr];
+        $return[$id] = ['Error' => $this->Error, $this->ErrorStr];
       endif;
     endforeach;
     return $return;

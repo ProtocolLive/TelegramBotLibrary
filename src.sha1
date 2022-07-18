@@ -25,7 +25,7 @@ c5daf33e1cb4899c6aa810053327740e59ab6b6d  src/TgObjects/message.php
 9678b02662d494c3065d98f7a625c8ede6b3f4cd  src/TgObjects/video.php
 58f64084f8992fbc155fb8bc20d6298c0577393e  src/TgObjects/voice.php
 60018facaaad99c7fbfcf6b42227a33451ce9112  src/TgObjects/webapp.php
-b2dbe1958aba536d5dc2fd25e330bd952d854250  src/basics.php
+016ac6e15c66569ce8247336766b1fcc29ab00a2  src/basics.php
 8e0bff004ea42da0dfa0c0a4c104f8fd2a075e7a  src/cacert.pem
 7ffb4338779c618150e7ef3051e9e5bd4d31f5aa  src/constants.php
 cf331b330e498403e360fdb8a77adde2150ccf66  src/index.php
