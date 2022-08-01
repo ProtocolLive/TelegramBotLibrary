@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.07.17.00
+//2022.08.01.00
 //API 6.1
 
 require(__DIR__ . '/requires.php');
@@ -1418,7 +1418,7 @@ class TelegramBotLibrary extends TblBasics{
     int $RepliedMsg = null,
     bool $SendWithoutRepliedMsg = false,
     TblMarkup $Markup = null
-  ):TgMessage|array|null{
+  ):TgText|array|null{
     $param = $this->TextSendArgs(
       $Chat,
       $Text,
@@ -1433,7 +1433,7 @@ class TelegramBotLibrary extends TblBasics{
     );
     $temp = $this->ServerMethod(TgMethods::TextSend, $param);
     if($temp !== null):
-      return new TgMessage($temp);
+      return new TgText($temp);
     else:
       return null;
     endif;
