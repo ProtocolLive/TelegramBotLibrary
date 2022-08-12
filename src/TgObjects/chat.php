@@ -1,8 +1,8 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.06.05.00
-//API 6.0
+//2022.08.12.00
+//API 6.2
 
 enum TgChatType:string{
   case Private = 'private';
@@ -60,6 +60,7 @@ class TgChat{
   public readonly TgChatType $Type;
   public readonly string|null $NameLast;
   public readonly string|null $Nick;
+  public readonly bool|null $RestrictedVoice;
 
   public function __construct(array $Data){
     $this->Id = $Data['id'];
@@ -67,6 +68,7 @@ class TgChat{
     $this->Type = TgChatType::tryFrom($Data['type']);
     $this->NameLast = $Data['last_name'] ?? null;
     $this->Nick = $Data['username'] ?? null;
+    $this->RestrictedVoice = $Data['has_restricted_voice_and_video_messages'] ?? false;
   }
 }
 
