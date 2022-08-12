@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.08.12.00
+//2022.08.12.01
 //API 6.2
 
 enum TgChatType:string{
@@ -223,12 +223,10 @@ class TgMemberLeft{
 class TgMemberNew{
   public readonly TgMessage $Message;
   public readonly TgUser $Member;
-  public readonly TgPermAdmin $Perms;
 
   public function __construct(array $Data){
     $this->Message = new TgMessage($Data);
     $this->Member = new TgUser($Data['new_chat_member']);
-    $this->Perms = new TgPermAdmin($Data['new_chat_member']);
   }
 }
 
