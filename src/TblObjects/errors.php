@@ -1,12 +1,14 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.07.13.01
+//2022.08.12.00
 //API 6.1
 
 enum TblError{
   case Curl;
   case Custom;
+  case ExtensionCurl;
+  case ExtensionOpenssl;
   case InlineButtonLoginSsl;
   case InvoicePriceEmpty;
   case InvoicePriceHigh;
@@ -19,5 +21,18 @@ enum TblError{
   case TokenWebhook;
 }
 
-class TblException extends Exception{}
+class TblException extends DomainException{
+  /**
+   * @param TblError $code [optional] The Exception code.
+   * @param string $message [optional] The Exception message to throw.
+   * @param null|Throwable $previous [optional] The previous throwable used for the exception chaining.
+   * @return void
+   */
+  public function __construct(
+    protected $code = null,
+    protected $message = null,
+    protected Throwable|null $previous = null
+  ){}
+}
+
 class TblExtensionException extends TblException{}
