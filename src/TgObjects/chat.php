@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.08.12.03
+//2022.08.12.04
 //API 6.2
 
 enum TgChatType:string{
@@ -55,11 +55,29 @@ enum TgMenuButton:string{
  * @link https://core.telegram.org/bots/api#chat
  */
 class TgChat{
+  /**
+   * Unique identifier for this chat. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+   */
   public readonly int $Id;
+  /**
+   * First name of the other party in a private chat or title, for supergroups, channels and group chats
+   */
   public readonly string $Name;
+  /**
+   * Type of chat, can be either “private”, “group”, “supergroup” or “channel”
+   */
   public readonly TgChatType $Type;
+  /**
+   * Last name of the other party in a private chat
+   */
   public readonly string|null $NameLast;
+  /**
+   * Username, for private chats, supergroups and channels if available
+   */
   public readonly string|null $Nick;
+  /**
+   * If the privacy settings of the other party restrict sending voice and video note messages in the private chat. Returned only in getChat.
+   */
   public readonly bool|null $RestrictedVoice;
 
   public function __construct(array $Data){
@@ -76,13 +94,39 @@ class TgChat{
  * @link https://core.telegram.org/bots/api#chatmember
  */
 class TgMember{
+  /**
+   * Information about the user
+   */
   public readonly TgUser $Member;
+  /**
+   * If the user is a member of the chat at the moment of the request
+   * @link https://core.telegram.org/bots/api#chatmemberrestricted
+   */
   public readonly bool $In;
+  /**
+   * The member's status in the chat.
+   */
   public readonly TgMemberStatus $Status;
+  /**
+   * @link https://core.telegram.org/bots/api#chatmemberadministrator
+   */
   public readonly TgPermAdmin $AdminPerms;
+  /**
+   * @link https://core.telegram.org/bots/api#chatmemberrestricted
+   */
   public readonly TgPermMember $MemberPerms;
+  /**
+   * If the user's presence in the chat is hidden
+   */
   public readonly bool $Anonymous;
+  /**
+   * Custom title for this user
+   */
   public readonly string|null $Title;
+  /**
+   * Date when restrictions will be lifted for this user; unix time. If 0, then the user is banned forever
+   * @link https://core.telegram.org/bots/api#chatmemberbanned
+   */
   public readonly int|null $Expires;
 
   public function __construct(array $Data){
@@ -210,6 +254,10 @@ class TgPermMember{
   }
 }
 
+/**
+ * Represents a chat member that isn't currently a member of the chat, but may join it themselves.
+ * https://core.telegram.org/bots/api#chatmemberleft
+ */
 class TgMemberLeft{
   public readonly TgMessage $Message;
   public readonly TgUser $Member;
@@ -235,10 +283,25 @@ class TgMemberNew{
  * @link https://core.telegram.org/bots/api#chatmemberupdated
  */
 class TgGroupStatusMy{
+  /**
+   * Performer of the action, which resulted in the change
+   */
   public readonly TgUser $User;
+  /**
+   * Chat the user belongs to
+   */
   public readonly TgChat $Group;
+  /**
+   * Date the change was done in Unix time
+   */
   public readonly int $Date;
+  /**
+   * Previous information about the chat member
+   */
   public readonly TgMemberStatus $StatusOld;
+  /**
+   * New information about the chat member
+   */
   public readonly TgMemberStatus $StatusNew;
   public readonly TgPermAdmin|null $Perms;
 
@@ -257,6 +320,7 @@ class TgGroupStatusMy{
     else:
       $this->Perms = null;
     endif;
+  }
 }
 
 /**
