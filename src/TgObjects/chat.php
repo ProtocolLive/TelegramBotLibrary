@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.08.12.02
+//2022.08.12.03
 //API 6.2
 
 enum TgChatType:string{
@@ -240,6 +240,7 @@ class TgGroupStatusMy{
   public readonly int $Date;
   public readonly TgMemberStatus $StatusOld;
   public readonly TgMemberStatus $StatusNew;
+  public readonly TgPermAdmin|null $Perms;
 
   /**
    * The bot's chat member status was updated in a chat. For private chats, this update is received only when the bot is blocked or unblocked by the user.
@@ -251,7 +252,11 @@ class TgGroupStatusMy{
     $this->Date = $Data['date'];
     $this->StatusOld = TgMemberStatus::tryFrom($Data['old_chat_member']['status']);
     $this->StatusNew = TgMemberStatus::tryFrom($Data['new_chat_member']['status']);
-  }
+    if($this->StatusNew === TgMemberStatus::Adm):
+      $this->Perms = new TgPermAdmin($Data['new_chat_member']);
+    else:
+      $this->Perms = null;
+    endif;
 }
 
 /**
