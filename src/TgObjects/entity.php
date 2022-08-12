@@ -1,13 +1,15 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.03.06.00
+//2022.08.12.00
+//API 6.2
 
 enum TgEntityType:string{
   case Mention = 'mention';
   case Hashtag = 'hashtag';
   case Cashtag = 'cashtag';
   case Command = 'bot_command';
+  case CustomEmoji = 'custom_emoji';
   case Url = 'url';
   case Email = 'email';
   case Phone = 'phone_number';
@@ -44,6 +46,7 @@ class TgEntity{
   public readonly string|null $Url;
   public readonly TgUser|int|null $User;
   public readonly string|null $Language;
+  public readonly string|null $CustomEmoji;
   
   /**
    * @param TgEntityType $Type Type of the entity
@@ -81,6 +84,7 @@ class TgEntity{
         $this->User = null;
       endif;
       $this->Language = $Data['language'] ?? null;
+      $this->CustomEmoji = $Data['custom_emoji_id'] ?? null;
     endif;
   }
 }
