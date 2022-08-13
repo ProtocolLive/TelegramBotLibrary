@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.08.13.00
+//2022.08.13.01
 //API 6.2
 
 enum TgStickerType:string{
@@ -88,9 +88,11 @@ final class TgSticker{
     endif;
     $this->Emoji = $Data['emoji'] ?? null;
     $this->SetName = $Data['set_name'] ?? null;
-    //if(isset($Data['premium_animation'])):
-      //$this->PremiumAnimation = $Data['premium_animation'] ?? null;
-    //endif;
+    if(isset($Data['premium_animation'])):
+      $this->PremiumAnimation = new TgFile($Data['premium_animation']);
+    else:
+      $this->PremiumAnimation = null;
+    endif;
     //$this->Mask = $Data['mask_position'] ?? null;
     $this->CustomEmojiId = $Data['custom_emoji_id'] ?? null;
     $this->FileSize = $Data['file_size'] ?? null;
