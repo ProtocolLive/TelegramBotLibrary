@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.08.12.00
+//2022.08.13.00
 //API 6.2
 
 enum TgStickerType:string{
@@ -15,19 +15,61 @@ enum TgStickerType:string{
  * @link https://core.telegram.org/bots/api#sticker
  */
 final class TgSticker{
+  /**
+   * Identifier for this file, which can be used to download or reuse the file
+   */
   public readonly string $Id;
+  /**
+   * Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file.
+   */
   public readonly string $IdUnique;
+  /**
+   * Type of the sticker, currently one of “regular”, “mask”, “custom_emoji”. The type of the sticker is independent from its format, which is determined by the fields is_animated and is_video.
+   */
   public readonly string $Type;
+  /**
+   * Sticker width
+   */
   public readonly int $Width;
+  /**
+   * Sticker height
+   */
   public readonly int $Height;
+  /**
+   * If the sticker is animated
+   */
   public readonly bool $Animated;
+  /**
+   * If the sticker is a video sticker
+   */
   public readonly bool $Video;
+  /**
+   * Sticker thumbnail in the .WEBP or .JPG format
+   */
   public readonly TgPhotoSize|null $Thumb;
+  /**
+   * Emoji associated with the sticker
+   */
   public readonly string|null $Emoji;
+  /**
+   * Name of the sticker set to which the sticker belongs
+   */
   public readonly string|null $SetName;
+  /**
+   * For premium regular stickers, premium animation for the sticker
+   */
   public readonly TgFile|null $PremiumAnimation;
+  /**
+   * For mask stickers, the position where the mask should be placed
+   */
   //public readonly string|null $Mask;
+  /**
+   * For custom emoji stickers, unique identifier of the custom emoji
+   */
   public readonly string|null $CustomEmojiId;
+  /**
+   * File size in bytes
+   */
   public readonly int|null $FileSize;
 
   /**
