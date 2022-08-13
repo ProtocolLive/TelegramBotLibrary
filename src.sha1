@@ -20,7 +20,7 @@ c5daf33e1cb4899c6aa810053327740e59ab6b6d  src/TgObjects/message.php
 5dcf92d103da5ad3064b4aff7baa3d36f4fbabab  src/TgObjects/methods.php
 587e1097c39301dd7be5843242fb189872054299  src/TgObjects/photo.php
 92cefdf76aabba8a18c67808c48414cdd05dea16  src/TgObjects/poll.php
-24c4862e1967645702f13d05b76da8c550d6e6bb  src/TgObjects/sticker.php
+faa012dd88fd73676f5bb8c4f715b6bdc4019af9  src/TgObjects/sticker.php
 85620bdb6dfcd48599aaf67b9b79cf89f8be3cdc  src/TgObjects/text.php
 703c160dbb66f26aa76cb813f84c30e5aca271ea  src/TgObjects/user.php
 9678b02662d494c3065d98f7a625c8ede6b3f4cd  src/TgObjects/video.php
