@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.08.14.00
+//2022.08.14.01
 //API 6.2
 
 require(__DIR__ . '/requires.php');
@@ -1232,7 +1232,7 @@ class TelegramBotLibrary extends TblBasics{
    * @param int $RepliedMsg If the message is a reply, ID of the original message
    * @param bool $SendWithoutRepliedMsg Pass True, if the message should be sent even if the specified replied-to message is not found
    * @param TblMarkup $Markup Additional interface options. A object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
-   * @return TgPhoto|null On success, the sent Message is returned.
+   * @return array Prepared parameters for the PhotoSendMulti method
    * @link https://core.telegram.org/bots/api#sendphoto
    */
   public function PhotoSendArgs(
@@ -1285,7 +1285,8 @@ class TelegramBotLibrary extends TblBasics{
 
   /**
    * Send photo to many chats at once. Carefully with server limits.
-   * @link https://core.telegram.org/bots/faq#my-bot-is-hitting-limits-how-do-i-avoid-this
+   * https://core.telegram.org/bots/faq#my-bot-is-hitting-limits-how-do-i-avoid-this
+   * @return TgPhoto[]
    */
   public function PhotoSendMulti(array $Params):array{
     $return = $this->ServerMethodMulti(TgMethods::PhotoSend, $Params);
@@ -1361,7 +1362,7 @@ class TelegramBotLibrary extends TblBasics{
    * @param int $RepliedMsg If the message is a reply, ID of the original message
    * @param bool $SendWithoutRepliedMsg Pass True, if the message should be sent even if the specified replied-to message is not found
    * @param array TblMarkup Additional interface options. A object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
-   * @return TgMessage|null On success, the sent Message is returned.
+   * @return array Prepared parameters for the TextSendMulti method
    * @link https://core.telegram.org/bots/api#sendmessage
    */
   public function TextSendArgs(
@@ -1454,7 +1455,8 @@ class TelegramBotLibrary extends TblBasics{
 
   /**
    * Send text to many chats at once. Carefully with server limits.
-   * @link https://core.telegram.org/bots/faq#my-bot-is-hitting-limits-how-do-i-avoid-this
+   * https://core.telegram.org/bots/faq#my-bot-is-hitting-limits-how-do-i-avoid-this
+   * @return TgText[]
    */
   public function TextSendMulti(array $Params):array{
     $return = $this->ServerMethodMulti(TgMethods::TextSend, $Params);
