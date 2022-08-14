@@ -1,13 +1,11 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.07.17.00
+//2022.08.14.00
 //API 6.2
 
 abstract class TblBasics{
   protected TblData $BotData;
-  public TblError|TgError|null $Error = null;
-  public string|null $ErrorStr = null;
 
   private function Curl(string $Url, array $Params = null):CurlHandle|false{
     $curl = curl_init($Url);
