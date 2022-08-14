@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.08.14.01
+//2022.08.14.02
 //API 6.2
 
 require(__DIR__ . '/requires.php');
@@ -33,16 +33,17 @@ class TelegramBotLibrary extends TblBasics{
     $_SERVER['HTTP_USER_AGENT'] ??= 'Protocol TelegramBotLibrary';
   }
 
-  public function WebhookGet():object|null{
+  /**
+   * @throws TblException
+   */
+  public function WebhookGet():object{
     if($this->BotData->TokenWebhook !== null
     and $_SERVER['HTTP_X_TELEGRAM_BOT_API_SECRET_TOKEN'] !== $this->BotData->TokenWebhook):
-      $this->Error = TblError::TokenWebhook;
-      return null;
+      throw new TblException(TblError::TokenWebhook);
     endif;
     $update = file_get_contents('php://input');
     if($update === ''):
-      $this->Error = TblError::NoEvent;
-      return null;
+      throw new TblException(TblError::NoEvent);
     endif;
     $update = json_decode($update, true);
     $this->Archive($update);
@@ -125,14 +126,15 @@ class TelegramBotLibrary extends TblBasics{
    * @param int $User Unique identifier of the target user
    * @param int $Offset Sequential number of the first photo to be returned. By default, all photos are returned.
    * @param int $Limit Limits the number of photos to be retrieved. Values between 1-100 are accepted. Defaults to 100.
-   * @return mixed Returns a UserProfilePhotos object.
+   * @return TgProfilePhoto
+   * @throws TblException
    * @link https://core.telegram.org/bots/api#getuserprofilephotos
    */
   public function AvatarGet(
     int $User,
     int $Offset = null,
     int $Limit = 100
-  ):TgProfilePhoto|null{
+  ):TgProfilePhoto{
     $param['user_id'] = $User;
     if($Offset !== null):
       $param['offset'] = $Offset;
@@ -141,11 +143,7 @@ class TelegramBotLibrary extends TblBasics{
       $param['limit'] = $Limit;
     endif;
     $return = $this->ServerMethod(TgMethods::UserPhotos, $param);
-    if($return === null):
-      return null;
-    else:
-      return new TgProfilePhoto($return);
-    endif;
+    return new TgProfilePhoto($return);
   }
 
   /**
@@ -156,7 +154,8 @@ class TelegramBotLibrary extends TblBasics{
    * @param bool $Alert If True, an alert will be shown by the client instead of a notification at the top of the chat screen. Defaults to false.
    * @param string $Url URL that will be opened by the user's client. If you have created a Game and accepted the conditions via @BotFather, specify the URL that opens your game — note that this will only work if the query comes from a callback_game button. Otherwise, you may use links like t.me/your_bot?start=XXXX that open your bot with a parameter.
    * @param int $Cache The maximum amount of time in seconds that the result of the callback query may be cached client-side. Telegram apps will support caching starting in version 3.14. Defaults to 0.
-   * @return bool|null On success, True is returned.
+   * @return bool On success, True is returned.
+   * @throws TblException
    * @link https://core.telegram.org/bots/api#answercallbackquery
    */
   public function CallbackAnswer(
@@ -165,7 +164,7 @@ class TelegramBotLibrary extends TblBasics{
     bool $Alert = false,
     string $Url = null,
     int $Cache = null
-  ):bool|null{
+  ):bool{
     $param['callback_query_id'] = $Id;
     if($Text !== null):
       $param['text'] = $Text;
@@ -185,36 +184,34 @@ class TelegramBotLibrary extends TblBasics{
   /**
    * Use this method when you need to tell the user that something is happening on the bot's side. The status is set for 5 seconds or less (when a message arrives from your bot, Telegram clients clear its typing status).
    * Example: The ImageBot needs some time to process a request and upload the image. Instead of sending a text message along the lines of “Retrieving image, please wait…”, the bot may use sendChatAction with action = upload_photo. The user will see a “sending photo” status for the bot.
-   * @return bool|null Returns True on success.
+   * @return bool Returns True on success.
+   * @throws TblException
    * @link https://core.telegram.org/bots/api#sendchataction
    */
   public function ChatActionSend(
     int $Chat,
     TgChatAction $Action
-  ):bool|null{
+  ):bool{
     $param['chat_id'] = $Chat;
     $param['action'] = $Action->value;
     return $this->ServerMethod(TgMethods::ChatAction, $param);
   }
 
-  /**
+  /** MUDAR
    * Use this method to get a list of administrators in a chat. On success, returns an Array of ChatMember objects that contains information about all chat administrators except other bots.
    * @param int $Chat Unique identifier for the target chat
-   * @return array|null If the chat is a group or a supergroup and no administrators were appointed, only the creator will be returned.
+   * @return array If the chat is a group or a supergroup and no administrators were appointed, only the creator will be returned.
+   * @throws TblException
    * @link https://core.telegram.org/bots/api#getchatadministrators
    */
   public function ChatAdmGet(int $Chat):array|null{
     $param['chat_id'] = $Chat;
     $temp = $this->ServerMethod(TgMethods::ChatAdms, $param);
-    if($temp === null):
-      return null;
-    else:
-      $return = [];
-      foreach($temp as $user):
-        $return[] = new TgMember($user);
-      endforeach;
-      return $return;
-    endif;
+    $return = [];
+    foreach($temp as $user):
+      $return[] = new TgMember($user);
+    endforeach;
+    return $return;
   }
 
   /**
@@ -223,7 +220,8 @@ class TelegramBotLibrary extends TblBasics{
    * @param int $User Unique identifier of the target user
    * @param TgPermAdmin $Perms
    * @param bool $Anonymous If the administrator's presence in the chat is hidden
-   * @return bool|null Returns True on success.
+   * @return bool Returns True on success.
+   * @throws TblException
    * @link https://core.telegram.org/bots/api#promotechatmember
    */
   public function ChatAdminPerm(
@@ -231,7 +229,7 @@ class TelegramBotLibrary extends TblBasics{
     int $User,
     TgPermAdmin $Perms,
     bool $Anonymous = false
-  ):bool|null{
+  ):bool{
     $param['chat_id'] = $Chat;
     $param['user_id'] = $User;
     foreach(TgPermAdmin::Array as $class => $json):
@@ -246,14 +244,15 @@ class TelegramBotLibrary extends TblBasics{
    * @param int $Chat Unique identifier for the target chat
    * @param int $User Unique identifier of the target user
    * @param string $Title New custom title for the administrator; 0-16 characters, emoji are not allowed
-   * @return bool|null Returns True on success.
+   * @return bool Returns True on success.
+   * @throws TblException
    * @link https://core.telegram.org/bots/api#setchatadministratorcustomtitle
    */
   public function ChatAdminTitleSet(
     int $Chat,
     int $User,
     string $Title
-  ):bool|null{
+  ):bool{
     $param['chat_id'] = $Chat;
     $param['user_id'] = $User;
     $param['custom_title'] = $Title;
@@ -266,7 +265,8 @@ class TelegramBotLibrary extends TblBasics{
    * @param int $User Unique identifier of the target user
    * @param int $Date Date when the user will be unbanned, unix time. If user is banned for more than 366 days or less than 30 seconds from the current time they are considered to be banned forever. Applied for supergroups and channels only.
    * @param bool $DelMsg Pass True to delete all messages from the chat for the user that is being removed. If False, the user will be able to see messages in the group that were sent before the user was removed. Always True for supergroups and channels.
-   * @return bool|null Returns True on success.
+   * @return bool Returns True on success.
+   * @throws TblException
    * @link https://core.telegram.org/bots/api#banchatmember
    */
   public function ChatBan(
@@ -274,7 +274,7 @@ class TelegramBotLibrary extends TblBasics{
     int $User,
     int $Date,
     bool $DelMsg = false
-  ):bool|null{
+  ):bool{
     $param['chat_id'] = $Chat;
     $param['user_id'] = $User;
     $param['until_date'] = $Date;
@@ -287,14 +287,15 @@ class TelegramBotLibrary extends TblBasics{
    * @param int $Chat Unique identifier for the target group or username of the target supergroup or channel
    * @param int $User Unique identifier of the target user
    * @param bool $OnlyIfBanned Do nothing if the user is not banned
-   * @return bool|null Returns True on success.
+   * @return bool Returns True on success.
+   * @throws TblException
    * @link https://core.telegram.org/bots/api#unbanchatmember
    */
   public function ChatBanUndo(
     int $Chat,
     int $User,
     bool $OnlyIfBanned = true
-  ):bool|null{
+  ):bool{
     $param['chat_id'] = $Chat;
     $param['user_id'] = $User;
     $param['only_if_banned'] = $OnlyIfBanned;
@@ -304,10 +305,11 @@ class TelegramBotLibrary extends TblBasics{
   /**
    * Use this method to get the number of members in a chat.
    * @param int $Chat Unique identifier for the target
-   * @param int|null Returns Int on success.
+   * @param int Returns Int on success.
+   * @throws TblException
    * @link https://core.telegram.org/bots/api#getchatmembercount
    */
-  public function ChatCount(int $Chat):int|null{
+  public function ChatCount(int $Chat):int{
     $param['chat_id'] = $Chat;
     return $this->ServerMethod(TgMethods::ChatMemberCount, $param);
   }
@@ -315,30 +317,28 @@ class TelegramBotLibrary extends TblBasics{
   /**
    * Use this method to get up to date information about the chat (current name of the user for one-on-one conversations, current username of a user, group or channel, etc.).
    * @param int $Chat Unique identifier for the target chat
-   * @return TgChat|null Returns a Chat object on success.
+   * @return TgChat Returns a Chat object on success.
+   * @throws TblException
    * @link https://core.telegram.org/bots/api#getchat
    */
   public function ChatGet(int $Chat):TgChat|null{
     $param['chat_id'] = $Chat;
     $temp = $this->ServerMethod(TgMethods::Chat, $param);
-    if($temp === null):
-      return null;
-    else:
-      return new TgChat($temp);
-    endif;
+    return new TgChat($temp);
   }
 
   /**
    * Use this method to get information about a member of a chat.
    * @param int $Chat Unique identifier for the target chat
    * @param int $User Unique identifier of the target user
-   * @return TgMember|null Returns a ChatMember object on success.
+   * @return TgMember Returns a ChatMember object on success.
+   * @throws TblException
    * @link https://core.telegram.org/bots/api#getchatmember
    */
   public function ChatMember(
     int $Chat,
     int $User
-  ):TgMember|null{
+  ):TgMember{
     $param['chat_id'] = $Chat;
     $param['user_id'] = $User;
     $temp = $this->ServerMethod(TgMethods::ChatMember, $param);
@@ -352,6 +352,7 @@ class TelegramBotLibrary extends TblBasics{
    * @param TgPermMember $Perms A object for new user permissions
    * @param int $Period Date when restrictions will be lifted for the user, unix time. If user is restricted for more than 366 days or less than 30 seconds from the current time, they are considered to be restricted forever
    * @return bool|null Returns True on success.
+   * @throws TblException
    * @link https://core.telegram.org/bots/api#restrictchatmember
    */
   public function ChatMemberPerm(
@@ -359,7 +360,7 @@ class TelegramBotLibrary extends TblBasics{
     int $User,
     TgPermMember $Perms,
     int $Period = null
-  ):bool|null{
+  ):bool{
     $param['chat_id'] = $Chat;
     $param['user_id'] = $User;
     foreach(TgPermMember::Array as $class => $json):
@@ -374,11 +375,12 @@ class TelegramBotLibrary extends TblBasics{
    * Use this method to get information about custom emoji stickers by their identifiers.
    * @param string[] List of custom emoji identifiers. At most 200 custom emoji identifiers can be specified.
    * @return array Returns an Array of Sticker objects.
+   * @throws TblException
    * @link https://core.telegram.org/bots/api#getcustomemojistickers
    */
   public function CustomEmojiGet(
     array $Ids
-  ):array|null{
+  ):array{
     $param['custom_emoji_ids'] = json_encode($Ids);
     return $this->ServerMethod(TgMethods::CustomEmojiGet, $param);
   }
@@ -386,16 +388,14 @@ class TelegramBotLibrary extends TblBasics{
   /**
    * @param string $Id The file Id or IdUnique
    * @param string $Dir Destination directory
-   * @return bool|null
+   * @return bool
+   * @throws TblException
    */
   public function FileDownload(
     string $Id,
     string $Dir
-  ):bool|null{
+  ):bool{
     $info = $this->FileInfo($Id);
-    if($info === null):
-      return null;
-    endif;
     $file = $this->BotData->UrlFiles . '/' . $info->Path;
     $file = file_get_contents($file);
     file_put_contents($Dir . '/' . basename($info->Path), $file);
@@ -406,15 +406,13 @@ class TelegramBotLibrary extends TblBasics{
    * Use this method to get basic info about a file and prepare it for downloading. For the moment, bots can download files of up to 20MB in size. It is guaranteed that the link will be valid for at least 1 hour. When the link expires, a new one can be requested by calling getFile again.
    * Note: This function may not preserve the original file name and MIME type. You should save the file's MIME type and name (if available) when the File object is received.
    * @param string $Id File identifier to get info about
-   * @return TgFile|null On success, a File object is returned
+   * @return TgFile On success, a File object is returned
+   * @throws TblException
    * @link https://core.telegram.org/bots/api#getfile
    */
-  public function FileInfo(string $Id):TgFile|null{
+  public function FileInfo(string $Id):TgFile{
     $param['file_id'] = $Id;
     $return = $this->ServerMethod(TgMethods::FileGet, $param);
-    if($return === null):
-      return null;
-    endif;
     return new TgFile($return);
   }
 
@@ -427,7 +425,8 @@ class TelegramBotLibrary extends TblBasics{
    * @param string $NextOffset Pass the offset that a client should send in the next query with the same text to receive more results. Pass an empty string if there are no more results or if you don't support pagination. Offset length can't exceed 64 bytes.
    * @param string $SwitchPm If passed, clients will display a button with specified text that switches the user to a private chat with the bot and sends the bot a start message with the parameter switch_pm_parameter
    * @param string $SwitchPmParam Deep-linking parameter for the /start message sent to the bot when user presses the switch button. 1-64 characters, only A-Z, a-z, 0-9, _ and - are allowed. Example: An inline bot that sends YouTube videos can ask the user to connect the bot to their YouTube account to adapt search results accordingly. To do this, it displays a 'Connect your YouTube account' button above the results, or even before showing any. The user presses the button, switches to a private chat with the bot and, in doing so, passes a start parameter that instructs the bot to return an OAuth link. Once done, the bot can offer a switch_inline button so that the user can easily return to the chat where they wanted to use the bot's inline capabilities.
-   * @return bool|null On success, True is returned
+   * @return bool On success, True is returned
+   * @throws TblException
    * @link https://core.telegram.org/bots/api#answerinlinequery
    */
   public function InlineQueryAnswer(
@@ -468,13 +467,14 @@ class TelegramBotLibrary extends TblBasics{
    * @param bool $Confirm Specify True if everything is alright (goods are available, etc.) and the bot is ready to proceed with the order. Use False if there are any problems.
    * @param string $ErrorMsg Required if $Confirm is False. Error message in human readable form that explains the reason for failure to proceed with the checkout (e.g. "Sorry, somebody just bought the last of our amazing black T-shirts while you were busy filling out your payment details. Please choose a different color or garment!"). Telegram will display this message to the user.
    * @return bool On success, True is returned.
+   * @throws TblException
    * @link https://core.telegram.org/bots/api#answerprecheckoutquery
    */
   public function InvoiceCheckoutSend(
     string $Id,
     bool $Confirm,
     string $ErrorMsg = null
-  ):bool|null{
+  ):bool{
     $param['pre_checkout_query_id'] = $Id;
     $param['ok'] = $Confirm;
     if($Confirm === false):
@@ -506,6 +506,7 @@ class TelegramBotLibrary extends TblBasics{
    * @param bool $ProviderEmail Pass True, if user's email address should be sent to provider
    * @param bool $PriceWithShipping Pass True, if the final price depends on the shipping method
    * @return string Returns the created invoice link as String on success.
+   * @throws TblException
    * @link https://core.telegram.org/bots/api#createinvoicelink
    */
   public function InvoiceLink(
@@ -529,10 +530,9 @@ class TelegramBotLibrary extends TblBasics{
     bool $ProviderPhone = false,
     bool $ProviderEmail = false,
     bool $PriceWithShipping = false
-  ):string|null{
+  ):string{
     if($Prices->Count() === 0):
-      $this->Error = TblError::InvoicePriceEmpty;
-      return null;
+      throw new TblException(TblError::InvoicePriceEmpty);
     endif;
     $param['title'] = $Title;
     $param['description'] = $Description;
@@ -614,7 +614,8 @@ class TelegramBotLibrary extends TblBasics{
    * @param int $RepliedMsg If the message is a reply, ID of the original message
    * @param bool $SendWithoutRepliedMsg Pass True, if the message should be sent even if the specified replied-to message is not found
    * @param TblMarkup $Markup A object for an inline keyboard. If empty, one 'Pay total price' button will be shown. If not empty, the first button must be a Pay button.
-   * @return TgMessage|null
+   * @return TgMessage
+   * @throws TblException
    * @link https://core.telegram.org/bots/api#sendinvoice
    */
   public function InvoiceSend(
@@ -645,7 +646,7 @@ class TelegramBotLibrary extends TblBasics{
     int $RepliedMsg = null,
     bool $SendWithoutRepliedMsg = false,
     TblMarkup $Markup = null
-  ):TgMessage|null{
+  ):TgMessage{
     $param['chat_id'] = $Chat;
     $param['title'] = $Title;
     $param['description'] = $Description;
@@ -714,11 +715,7 @@ class TelegramBotLibrary extends TblBasics{
       $param['reply_markup'] = $Markup->ToJson();
     endif;
     $return = $this->ServerMethod(TgMethods::InvoiceSend, $param);
-    if($return === null):
-      return null;
-    else:
-      return new TgMessage($return);
-    endif;
+    return new TgMessage($return);
   }
 
   /**
@@ -727,7 +724,8 @@ class TelegramBotLibrary extends TblBasics{
    * @param bool $Confirm Specify True if delivery to the specified address is possible and False if there are any problems (for example, if delivery to the specified address is not possible)
    * @param TblInvoiceShippingOptions $Options Required if ok is True. A JSON-serialized array of available shipping options.
    * @param string $Error Required if ok is False. Error message in human readable form that explains why it is impossible to complete the order (e.g. "Sorry, delivery to your desired address is unavailable'). Telegram will display this message to the user.
-   * @return bool|null On success, True is returned.
+   * @return bool On success, True is returned.
+   * @throws TblException
    * @link https://core.telegram.org/bots/api#answershippingquery
    */
   public function InvoiceShippingSend(
@@ -735,7 +733,7 @@ class TelegramBotLibrary extends TblBasics{
     bool $Confirm,
     TblInvoiceShippingOptions $Options = null,
     string $Error = null
-  ):bool|null{
+  ):bool{
     $param['shipping_query_id'] = $Id;
     $param['ok'] = $Confirm;
     if($Confirm):
@@ -753,6 +751,7 @@ class TelegramBotLibrary extends TblBasics{
    * @param string $IdInline Required if chat_id and message_id are not specified. Identifier of the inline message
    * @param TblMarkup $Markup A object for an inline keyboard.
    * @return TgMessage|bool On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned.
+   * @throws TblException
    * @link https://core.telegram.org/bots/api#editmessagereplymarkup
    */
   public function MarkupEdit(
@@ -760,7 +759,7 @@ class TelegramBotLibrary extends TblBasics{
     int $Id = null,
     string $IdInline = null,
     TblMarkup $Markup = null
-  ):TgText|bool|null{
+  ):TgText|bool{
     if($Chat !== null):
       $param['chat_id'] = $Chat;
     endif;
@@ -774,8 +773,7 @@ class TelegramBotLibrary extends TblBasics{
       $param['reply_markup'] = $Markup->ToJson();
     endif;
     $return = $this->ServerMethod(TgMethods::MarkupEdit, $param);
-    if($return === null
-    or $return === true):
+    if($return === true):
       return $return;
     else:
       return new TgText($return);
@@ -785,16 +783,19 @@ class TelegramBotLibrary extends TblBasics{
   /**
    * Use this method to get the current value of the bot's menu button in a private chat, or the default menu button.
    * @param int $User Unique identifier for the target private chat. If not specified, default bot's menu button will be returned
-   * @return TgMenuButton|null Returns TgMenuButton on success.
+   * @return TgMenuButton Returns TgMenuButton on success.
+   * @throws TblException
    * @link https://core.telegram.org/bots/api#getchatmenubutton
    */
-  public function MenuButtonGet(int $User = null):TgMenuButton|null{
+  public function MenuButtonGet(
+    int $User = null
+  ):TgMenuButton{
     $param = [];
     if($User !== null):
       $param['chat_id='] = $User;
     endif;
     $return = $this->ServerMethod(TgMethods::ChatMenuButtonGet, $param);
-    return TgMenuButton::tryFrom($return['type'] ?? 0);
+    return TgMenuButton::from($return['type']);
   }
 
   /**
@@ -803,7 +804,8 @@ class TelegramBotLibrary extends TblBasics{
    * @param int $User Unique identifier for the target private chat. If not specified, default bot's menu button will be changed
    * @param string $Text Text on the button
    * @param string $Url URL of the Web App that will be launched when the user presses the button. The Web App will be able to send an arbitrary message on behalf of the user using the method answerWebAppQuery. An HTTPS URL of a Web App to be opened with additional data as specified in Initializing Web Apps
-   * @return bool|null Returns True on success.
+   * @return bool Returns True on success.
+   * @throws TblException
    * @link https://core.telegram.org/bots/api#setchatmenubutton
    */
   public function MenuButtonSet(
@@ -811,7 +813,7 @@ class TelegramBotLibrary extends TblBasics{
     int $User = null,
     string $Text = null,
     string $Url = null
-  ):bool|null{
+  ):bool{
     $param = [];
     if($User !== null):
       $param['chat_id'] = $User;
@@ -840,7 +842,8 @@ class TelegramBotLibrary extends TblBasics{
    * @param int $RepliedMsg If the message is a reply, ID of the original message
    * @param bool $SendWithoutRepliedMsg Pass True, if the message should be sent even if the specified replied-to message is not found
    * @param TblMarkup $Markup Additional interface options. A object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
-   * @return int|null Returns the MessageId of the sent message on success.
+   * @return int Returns the MessageId of the sent message on success.
+   * @throws TblException
    * @link https://core.telegram.org/bots/api#copymessage
    */
   public function MessageCopy(
@@ -855,7 +858,7 @@ class TelegramBotLibrary extends TblBasics{
     int $RepliedMsg = null,
     bool $SendWithoutRepliedMsg = false,
     TblMarkup $Markup = null
-  ):int|null{
+  ):int{
     $param['chat_id'] = $To;
     $param['from_chat_id'] = $From;
     $param['message_id'] = $Id;
@@ -891,7 +894,8 @@ class TelegramBotLibrary extends TblBasics{
    * @param int $Id Message identifier in the chat specified in from_chat_id
    * @param bool $DisableNotification Sends the message silently. Users will receive a notification with no sound.
    * @param bool $Protect Protects the contents of the forwarded message from forwarding and saving
-   * @return TgMessage|null On success, the sent Message is returned.
+   * @return TgMessage On success, the sent Message is returned.
+   * @throws TblException
    * @link https://core.telegram.org/bots/api#forwardmessage
    */
   public function MessageForward(
@@ -900,7 +904,7 @@ class TelegramBotLibrary extends TblBasics{
     int $Id,
     bool $DisableNotification = false,
     bool $Protect = false
-  ):TgMessage|null{
+  ):TgMessage{
     $param['chat_id'] = $To;
     $param['from_chat_id'] = $From;
     $param['message_id'] = $Id;
@@ -910,21 +914,20 @@ class TelegramBotLibrary extends TblBasics{
     if($Protect):
       $param['protect_content'] = true;
     endif;
-    $temp = $this->ServerMethod(TgMethods::MessageForward, $param);
-    if($temp === null):
-      return null;
-    else:
-      return new TgMessage($temp);
-    endif;
+    $return = $this->ServerMethod(TgMethods::MessageForward, $param);
+    return $return;
   }
 
+  /**
+   * @throws TblException
+   */
   public function MyCmdAdd(
     array $Commands,
     TgCmdScope $Scope = null,
     string $Language = null,
     int $Chat = null,
     int $User = null
-  ):bool|null{
+  ):bool{
     return $this->MyCmdSet(
       array_merge(
         TblCommand::ToObject(
@@ -943,7 +946,8 @@ class TelegramBotLibrary extends TblBasics{
    * Use this method to delete the list of the bot's commands for the given scope and user language. After deletion, higher level commands will be shown to affected users.
    * @param TgCmdScope $Scope A JSON-serialized object, describing scope of users for which the commands are relevant. Defaults to BotCommandScopeDefault.
    * @param string $Language A two-letter ISO 639-1 language code. If empty, commands will be applied to all users from the given scope, for whose language there are no dedicated commands
-   * @return bool|null Returns True on success.
+   * @return bool Returns True on success.
+   * @throws TblException
    * @link https://core.telegram.org/bots/api#deletemycommands
    */
   public function MyCmdClear(
@@ -951,7 +955,7 @@ class TelegramBotLibrary extends TblBasics{
     string $Language = null,
     int $Chat = null,
     int $User = null
-  ):bool|null{
+  ):bool{
     $param = [];
     if($Scope !== null):
       $param['scope']['type'] = $Scope->value;
@@ -971,13 +975,16 @@ class TelegramBotLibrary extends TblBasics{
     return $this->ServerMethod(TgMethods::CommandsDel, $param);
   }
 
+  /**
+   * @throws TblException
+   */
   public function MyCmdDel(
     array $Commands,
     TgCmdScope $Scope = null,
     string $Language = null,
     int $Chat = null,
     int $User = null
-  ){
+  ):bool{
     if(is_string($Commands)):
       $Commands = [$Commands];
     endif;
@@ -1004,7 +1011,8 @@ class TelegramBotLibrary extends TblBasics{
    * @param string $Language A two-letter ISO 639-1 language code or an empty string
    * @param int $Chat Unique identifier for the target chat. Only for TgCmdScope::Chat, TgCmdScope::GroupsAdmins or TgCmdScope::Member
    * @param int $User Unique identifier of the target user. Only for TgCmdScope::Member
-   * @return array|null Returns Array of BotCommand on success. If commands aren't set, an empty list is returned.
+   * @return array Returns Array of BotCommand on success. If commands aren't set, an empty list is returned.
+   * @throws TblException
    * @link https://core.telegram.org/bots/api#getmycommands
    */
   public function MyCmdGet(
@@ -1012,7 +1020,7 @@ class TelegramBotLibrary extends TblBasics{
     string $Language = null,
     int $Chat = null,
     int $User = null
-  ):array|null{
+  ):array{
     $param = [];
     if($Scope !== null):
       $param['scope']['type'] = $Scope->value;
@@ -1037,7 +1045,8 @@ class TelegramBotLibrary extends TblBasics{
    * @param array $Commands A JSON-serialized list of bot commands to be set as the list of the bot's commands. At most 100 commands can be specified.
    * @param TgCmdScope $Scope A JSON-serialized object, describing scope of users for which the commands are relevant. Defaults to TgCmdScope::Default
    * @param string $Language A two-letter ISO 639-1 language code. If empty, commands will be applied to all users from the given scope, for whose language there are no dedicated commands
-   * @return bool|null Returns True on success.
+   * @return bool Returns True on success.
+   * @throws TblException
    * @link https://core.telegram.org/bots/api#setmycommands
    */
   public function MyCmdSet(
@@ -1046,7 +1055,7 @@ class TelegramBotLibrary extends TblBasics{
     string $Language = null,
     int $Chat = null,
     int $User = null
-  ):bool|null{
+  ):bool{
     $param['commands'] = TblCommand::ToJson($Commands);
     if($Scope !== null):
       $param['scope']['type'] = $Scope->value;
@@ -1068,50 +1077,45 @@ class TelegramBotLibrary extends TblBasics{
 
   /**
    * A simple method for testing your bot's authentication token. Requires no parameters.
-   * @return TgUser|null Returns basic information about the bot in form of a User object.
+   * @return TgUser Returns basic information about the bot in form of a User object.
+   * @throws TblException
    * @link https://core.telegram.org/bots/api#getme
    */
-  public function MyGet():TgUser|null{
-    $temp = $this->ServerMethod(TgMethods::MyGet);
-    if($temp === null):
-      return null;
-    else:
-      return new TgUser($temp);
-    endif;
+  public function MyGet():TgUser{
+    $return = $this->ServerMethod(TgMethods::MyGet);
+    return new TgUser($return);
   }
 
   /**
    * Use this method to get the current default administrator rights of the bot.
    * @param DefaultPerms $Type Pass Channels to get default administrator rights of the bot in channels. Otherwise, default administrator rights of the bot for groups and supergroups will be returned.
    * @return mixed Returns TgPermAdmin on success.
+   * @throws TblException
    * @link https://core.telegram.org/bots/api#getmydefaultadministratorrights
    */
   public function MyPermDefaultGet(
     DefaultPerms $Type = DefaultPerms::Groups
-  ):TgPermAdmin|null{
+  ):TgPermAdmin{
     $param = [];
     if($Type === DefaultPerms::Channels):
       $param['for_channels'] = 'true';
     endif;
     $return = $this->ServerMethod(TgMethods::MyDefaultPermAdmGet, $param);
-    if($return === null):
-      return null;
-    else:
-      return new TgPermAdmin($return);
-    endif;
+    return new TgPermAdmin($return);
   }
 
   /**
    * Use this method to change the default administrator rights requested by the bot when it's added as an administrator to groups or channels. These rights will be suggested to users, but they are are free to modify the list before adding the bot.
    * @param TgPermAdmin $Perms An object describing new default administrator rights. If not specified, the default administrator rights will be cleared.
    * @param DefaultPerms $Type Pass Channels to change the default administrator rights of the bot in channels. Otherwise, the default administrator rights of the bot for groups and supergroups will be changed.
-   * @return bool|null Returns True on success.
+   * @return bool Returns True on success.
+   * @throws TblException
    * @link https://core.telegram.org/bots/api#setmydefaultadministratorrights
    */
   public function MyPermDefaultSet(
     TgPermAdmin $Perms,
     DefaultPerms $Type = DefaultPerms::Groups
-  ):bool|null{
+  ):bool{
     foreach(TgPermAdmin::Array as $class => $json):
       $param['rights'][$json] = $Perms->$class;
     endforeach;
@@ -1150,6 +1154,7 @@ class TelegramBotLibrary extends TblBasics{
    * @param bool $SendWithoutRepliedMsg Pass True, if the message should be sent even if the specified replied-to message is not found
    * @param TblMarkup $Markup Additional interface options. A object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
    * @return TgPhoto|null On success, the sent Message is returned.
+   * @throws TblException
    * @link https://core.telegram.org/bots/api#sendphoto
    */
   public function PhotoSend(
@@ -1163,11 +1168,10 @@ class TelegramBotLibrary extends TblBasics{
     int $RepliedMsg = null,
     bool $SendWithoutRepliedMsg = false,
     TblMarkup $Markup = null
-  ):TgPhoto|null{
+  ):TgPhoto{
     if($Caption !== null
     and strlen($Caption) > TgLimits::Caption):
-      $this->Error = TblError::LimitPhotoCaption;
-      return null;
+      throw new TblException(TblError::LimitPhotoCaption);
     endif;
     $param['chat_id'] = $Chat;
     if($Caption !== null):
@@ -1197,12 +1201,8 @@ class TelegramBotLibrary extends TblBasics{
     else:
       $param['photo'] = $Photo;
     endif;
-    $temp = $this->ServerMethod(TgMethods::PhotoSend, $param);
-    if($temp === null):
-      return null;
-    else:
-      return new TgPhoto($temp);
-    endif;
+    $return = $this->ServerMethod(TgMethods::PhotoSend, $param);
+    return new TgPhoto($return);
   }
 
   /**
@@ -1233,6 +1233,7 @@ class TelegramBotLibrary extends TblBasics{
    * @param bool $SendWithoutRepliedMsg Pass True, if the message should be sent even if the specified replied-to message is not found
    * @param TblMarkup $Markup Additional interface options. A object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
    * @return array Prepared parameters for the PhotoSendMulti method
+   * @throws TblException
    * @link https://core.telegram.org/bots/api#sendphoto
    */
   public function PhotoSendArgs(
@@ -1249,8 +1250,7 @@ class TelegramBotLibrary extends TblBasics{
   ):array{
     if($Caption !== null
     and strlen($Caption) > TgLimits::Caption):
-      $this->Error = TblError::LimitPhotoCaption;
-      return null;
+      throw new TblException(TblError::LimitPhotoCaption);
     endif;
     $param['chat_id'] = $Chat;
     if($Caption !== null):
@@ -1308,7 +1308,8 @@ class TelegramBotLibrary extends TblBasics{
    * @param TblEntities $Entities A list of special entities that appear in message text, which can be specified instead of parse_mode
    * @param bool $DisablePreview Disables link previews for links in this message
    * @param TblMarkup $Markup A object for an inline keyboard.
-   * @return TgMessage|bool|null On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned.
+   * @return TgMessage|bool On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned.
+   * @throws TblException
    * @link https://core.telegram.org/bots/api#editmessagetext
    */
   public function TextEdit(
@@ -1320,7 +1321,7 @@ class TelegramBotLibrary extends TblBasics{
     TblEntities $Entities = null,
     bool $DisablePreview = false,
     TblMarkup $Markup = null
-  ):TgText|bool|null{
+  ):TgText|bool{
     if($Chat !== null):
       $param['chat_id'] = $Chat;
     endif;
@@ -1342,8 +1343,7 @@ class TelegramBotLibrary extends TblBasics{
       $param['reply_markup'] = $Markup->ToJson();
     endif;
     $return = $this->ServerMethod(TgMethods::TextEdit, $param);
-    if($return === null
-    or $return === true):
+    if($return === true):
       return $return;
     else:
       return new TgText($return);
@@ -1418,7 +1418,8 @@ class TelegramBotLibrary extends TblBasics{
    * @param int $RepliedMsg If the message is a reply, ID of the original message
    * @param bool $SendWithoutRepliedMsg Pass True, if the message should be sent even if the specified replied-to message is not found
    * @param array TblMarkup Additional interface options. A object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
-   * @return TgMessage|null On success, the sent Message is returned.
+   * @return TgMessage On success, the sent Message is returned.
+   * @throws TblException
    * @link https://core.telegram.org/bots/api#sendmessage
    */
   public function TextSend(
@@ -1432,7 +1433,7 @@ class TelegramBotLibrary extends TblBasics{
     int $RepliedMsg = null,
     bool $SendWithoutRepliedMsg = false,
     TblMarkup $Markup = null
-  ):TgText|array|null{
+  ):TgText{
     $param = $this->TextSendArgs(
       $Chat,
       $Text,
@@ -1445,23 +1446,19 @@ class TelegramBotLibrary extends TblBasics{
       $SendWithoutRepliedMsg,
       $Markup
     );
-    $temp = $this->ServerMethod(TgMethods::TextSend, $param);
-    if($temp !== null):
-      return new TgText($temp);
-    else:
-      return null;
-    endif;
+    $return = $this->ServerMethod(TgMethods::TextSend, $param);
+    return new TgText($return);
   }
 
   /**
    * Send text to many chats at once. Carefully with server limits.
    * https://core.telegram.org/bots/faq#my-bot-is-hitting-limits-how-do-i-avoid-this
-   * @return TgText[]
+   * @return TgText[]|TblException[]
    */
   public function TextSendMulti(array $Params):array{
     $return = $this->ServerMethodMulti(TgMethods::TextSend, $Params);
     foreach($return as &$answer):
-      if(isset($answer['Error']) === false):
+      if(is_object($answer) === false):
         $answer = new TgText($answer);
       endif;
     endforeach;

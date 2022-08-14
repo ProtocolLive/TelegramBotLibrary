@@ -1,13 +1,16 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.08.14.00
+//2022.08.14.01
 //API 6.2
 
 abstract class TblBasics{
   protected TblData $BotData;
 
-  private function Curl(string $Url, array $Params = null):CurlHandle|false{
+  private function Curl(
+    string $Url,
+    array $Params = null
+  ):CurlHandle{
     $curl = curl_init($Url);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($curl, CURLOPT_USERAGENT, 'Protocol TelegramBotLibrary');
@@ -25,32 +28,29 @@ abstract class TblBasics{
   ):mixed{
     $response = curl_multi_getcontent($Curl);
     if($response === false):
-      $this->DebugLog(
-        TblLog::Error,
-        'cURL error #' . curl_errno($Curl) . ' ' . curl_error($Curl)
-      );
-      $this->Error = TblError::Curl;
-      return null;
+      $temp = 'cURL error #' . curl_errno($Curl) . ' ' . curl_error($Curl);
+      $this->DebugLog(TblLog::Error, $temp);
+      return new TblException(TblError::Curl, $temp);
     endif;
     $response = json_decode($response, true);
     if($this->BotData->Debug & TblDebug::Response):
       $this->DebugLog(TblLog::Response, json_encode($response, JSON_PRETTY_PRINT));
     endif;
     if($response['ok'] === false):
-      $this->ErrorStr = $response['description'];
       $search = TgErrors::Search($response['description']);
       if($search === false):
-        $this->Error = TblError::Custom;
+        return new TblException(TblError::Custom, $response['description']);
       else:
-        $this->Error = $search;
+        return new TblException($search, $response['description']);
       endif;
-      return null;
     else:
-      $this->ErrorStr = $response['description'] ?? null;
       return $response['result'];
     endif;
   }
 
+  /**
+   * @throws TblException
+   */
   protected function ServerMethod(
     TgMethods $Method,
     array $Params = null
@@ -63,7 +63,13 @@ abstract class TblBasics{
       $this->DebugLog(TblLog::Send, $log);
     endif;
     $curl = $this->Curl($curl, $Params);
-    return $this->CurlResponse($curl, curl_exec($curl));
+    curl_exec($curl);
+    $return = $this->CurlResponse($curl);
+    if(get_class($return) === TblException::class):
+      throw $return;
+    else:
+      return $return;
+    endif;
   }
 
   /**
@@ -92,12 +98,7 @@ abstract class TblBasics{
     }while($active);
     $return = [];
     foreach($ParamGroups as $id => $Params):
-      $temp = $this->CurlResponse($calls[$id]);
-      if($this->Error === null):
-        $return[$id] = $temp;
-      else:
-        $return[$id] = ['Error' => $this->Error, $this->ErrorStr];
-      endif;
+      $return[$id] = $this->CurlResponse($calls[$id]);
     endforeach;
     return $return;
   }
