@@ -1,7 +1,7 @@
 f26a0bdc88e3fda4adb4da7d90fdcf003577eaeb  src/TblObjects/cmd.php
 dec7d2e818ef7848ff3cc5c644b090170d804b0d  src/TblObjects/data.php
 05d4b389f9ea1cc88363dd4afce5f1f0abd4f273  src/TblObjects/entity.php
-38b053ba4351bf9b2b9ce837b6ecb8b0c5f9f267  src/TblObjects/errors.php
+514b46fb050707c7ef3b68867ac1a027d2d4f4f3  src/TblObjects/errors.php
 0538fe310c04dec70b2439cd31b1ff76edb03db8  src/TblObjects/inline.php
 ccd28061d31376138fe3380e9fde6118d92492c0  src/TblObjects/invoice.php
 7d62be1a9cc0ffea92c0e0ae8b71d77cfec02d1c  src/TblObjects/markup.php
@@ -19,15 +19,15 @@ abb9af0d61c6b0b0dbe357bd5988e229ad4a126c  src/TgObjects/file.php
 c5daf33e1cb4899c6aa810053327740e59ab6b6d  src/TgObjects/message.php
 5dcf92d103da5ad3064b4aff7baa3d36f4fbabab  src/TgObjects/methods.php
 587e1097c39301dd7be5843242fb189872054299  src/TgObjects/photo.php
-92cefdf76aabba8a18c67808c48414cdd05dea16  src/TgObjects/poll.php
+38db3067eac8cb928e594d75c537ea7aed737322  src/TgObjects/poll.php
 faa012dd88fd73676f5bb8c4f715b6bdc4019af9  src/TgObjects/sticker.php
 85620bdb6dfcd48599aaf67b9b79cf89f8be3cdc  src/TgObjects/text.php
 703c160dbb66f26aa76cb813f84c30e5aca271ea  src/TgObjects/user.php
 9678b02662d494c3065d98f7a625c8ede6b3f4cd  src/TgObjects/video.php
 58f64084f8992fbc155fb8bc20d6298c0577393e  src/TgObjects/voice.php
 60018facaaad99c7fbfcf6b42227a33451ce9112  src/TgObjects/webapp.php
-016ac6e15c66569ce8247336766b1fcc29ab00a2  src/basics.php
+180f7a91b766bdb13838e81e4b453059ea495b60  src/basics.php
 8e0bff004ea42da0dfa0c0a4c104f8fd2a075e7a  src/cacert.pem
 7ffb4338779c618150e7ef3051e9e5bd4d31f5aa  src/constants.php
-177e79565f8878815c760c6e1339fa5213746344  src/index.php
+607ae6fd7f9cfb2b0c567b133e02548505f4de69  src/index.php
 7d32e545c38bb758ab78659acbf572d7e8a14913  src/requires.php

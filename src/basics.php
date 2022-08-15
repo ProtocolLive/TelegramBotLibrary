@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.08.14.01
+//2022.08.15.00
 //API 6.2
 
 abstract class TblBasics{
@@ -65,7 +65,7 @@ abstract class TblBasics{
     $curl = $this->Curl($curl, $Params);
     curl_exec($curl);
     $return = $this->CurlResponse($curl);
-    if(get_class($return) === TblException::class):
+    if(is_object($return)):
       throw $return;
     else:
       return $return;
