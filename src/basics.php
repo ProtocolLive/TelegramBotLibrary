@@ -1,8 +1,9 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.08.15.00
-//API 6.2
+//2022.08.18.00
+
+use ProtocolLive\TelegramBotLibrary\TgObjects\{TgMethods, TgErrors};
 
 abstract class TblBasics{
   protected TblData $BotData;

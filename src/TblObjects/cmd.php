@@ -1,7 +1,9 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.06.25.00
+//2022.08.18.00
+
+use ProtocolLive\TelegramBotLibrary\TgObjects\{TgMessage, TgEntity};
 
 class TblCmd{
   public readonly TgMessage $Message;
