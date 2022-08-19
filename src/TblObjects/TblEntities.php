@@ -1,9 +1,12 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.06.25.00
+//2022.08.19.00
 
-class TblEntities implements JsonSerializable{
+namespace ProtocolLive\TelegramBotLibrary\TblObjects;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgEntityType;
+
+class TblEntities implements \JsonSerializable{
   private array $Entities = [];
 
   public function Add(

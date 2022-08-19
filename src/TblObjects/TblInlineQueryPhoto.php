@@ -1,71 +1,10 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.07.17.00
+//2022.08.19.00
 
-abstract class TblInlineQuery{
-  abstract public function ToArray();
-}
-
-class TblInlineQueryArticle extends TblInlineQuery{
-  /**
-   * Represents a link to an article or web page.
-   * @param string $Id Unique identifier for this result, 1-64 Bytes
-   * @param string $Title Title of the result
-   * @param TblInlineQueryContent $Message Content of the message to be sent
-   * @param TblMarkup $Markup Inline keyboard attached to the message
-   * @param string $Url URL of the result
-   * @param bool $UrlHide Pass True, if you don't want the URL to be shown in the message
-   * @param string $Description Short description of the result
-   * @param string $Thumb Url of the thumbnail for the result
-   * @param int $ThumbWidth Thumbnail width
-   * @param int $ThumbHeight Thumbnail height
-   * @link https://core.telegram.org/bots/api#inlinequeryresultarticle
-   */
-  public function __construct(
-    public string $Id,
-    public string $Title,
-    public TblInlineQueryContent $Message,
-    public TblMarkup|null $Markup = null,
-    public string|null $Url = null,
-    public bool|null $UrlHide = false,
-    public string|null $Description = null,
-    public string|null $Thumb = null,
-    public int|null $ThumbWidth = null,
-    public int|null $ThumbHeight = null
-  ){}
-
-  public function ToArray():array{
-    $param['type'] = 'article';
-    $param['id'] = $this->Id;
-    $param['title'] = $this->Title;
-    if($this->Message !== null):
-      $param['input_message_content'] = $this->Message->ToArray();
-    endif;
-    if($this->Markup !== null):
-      $param['reply_markup'] = $this->Markup->ToJson();
-    endif;
-    if($this->Url !== null):
-      $param['url'] = $this->Url;
-    endif;
-    if($this->UrlHide):
-      $param['hide_url'] = 'true';
-    endif;
-    if($this->Description !== null):
-      $param['description'] = $this->Description;
-    endif;
-    if($this->Thumb !== null):
-      $param['thumb_url'] = $this->Thumb;
-    endif;
-    if($this->ThumbWidth !== null):
-      $param['thumb_width'] = $this->ThumbWidth;
-    endif;
-    if($this->ThumbHeight !== null):
-      $param['thumb_height'] = $this->ThumbHeight;
-    endif;
-    return $param;
-  }
-}
+namespace ProtocolLive\TelegramBotLibrary\TblObjects;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgParseMode;
 
 class TblInlineQueryPhoto extends TblInlineQuery{
   /**
@@ -136,33 +75,6 @@ class TblInlineQueryPhoto extends TblInlineQuery{
     endif;
     if($this->Message !== null):
       $param['input_message_content'] = $this->Message->ToArray();
-    endif;
-    return $param;
-  }
-}
-
-abstract class TblInlineQueryContent{
-  abstract public function ToArray();
-}
-
-class TblInlineQueryContentText extends TblInlineQueryContent{
-  public function __construct(
-    public string $Text,
-    public TgParseMode|null $ParseMode = null,
-    public array|null $Entities = null,
-    public bool $DisablePreview = false
-  ){}
-
-  public function ToArray():array{
-    $param['message_text'] = $this->Text;
-    if($this->ParseMode !== null):
-      $param['parse_mode'] = $this->ParseMode->value;
-    endif;
-    if($this->Entities !== null):
-      $param['entities'] = json_encode($this->Entities);
-    endif;
-    if($this->DisablePreview):
-      $param['disable_web_page_preview'] = 'true';
     endif;
     return $param;
   }

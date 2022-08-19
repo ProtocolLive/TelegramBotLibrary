@@ -1,7 +1,9 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.07.17.00
+//2022.08.19.00
+
+namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 
 class TblInvoicePrices{
   private array $Prices = [];
@@ -46,37 +48,4 @@ class TblInvoicePrices{
   public function ToArray():array{
     return $this->Prices;
   }
-}
-
-class TblInvoiceShippingOptions{
-  private array $Options;
-
-  public function Add(
-    TblInvoiceShippingOption $Option
-  ):void{
-    $this->Options[] = [
-      'id' => $Option->Id,
-      'title' => $Option->Name,
-      'prices' => $Option->Prices->ToArray()
-    ];
-  }
-
-  public function ToJson():string{
-    return json_encode($this->Options);
-  }
-}
-
-/**
- * This object represents one shipping option.
- * @param string $Id Shipping option identifier
- * @param string $Name Option title
- * @param array $Prices List of price portions, in TblInvoiceProduct format
- * @link https://core.telegram.org/bots/api#shippingoption
- */
-class TblInvoiceShippingOption{
-  public function __construct(
-    public readonly string $Id,
-    public readonly string $Name,
-    public readonly TblInvoicePrices $Prices
-  ){}
 }

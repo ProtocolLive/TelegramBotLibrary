@@ -1,9 +1,11 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.08.18.00
+//2022.08.19.00
 
+namespace ProtocolLive\TelegramBotLibrary;
 use ProtocolLive\TelegramBotLibrary\TgObjects\{TgMethods, TgErrors};
+use ProtocolLive\TelegramBotLibrary\TblObjects\{TblDebug, TblData, TblError, TblLog, TblException};
 
 abstract class TblBasics{
   protected TblData $BotData;
@@ -11,7 +13,7 @@ abstract class TblBasics{
   private function Curl(
     string $Url,
     array $Params = null
-  ):CurlHandle{
+  ):\CurlHandle{
     $curl = curl_init($Url);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($curl, CURLOPT_USERAGENT, 'Protocol TelegramBotLibrary');
@@ -25,7 +27,7 @@ abstract class TblBasics{
   }
 
   private function CurlResponse(
-    CurlHandle $Curl,
+    \CurlHandle $Curl,
   ):mixed{
     $response = curl_multi_getcontent($Curl);
     if($response === false):

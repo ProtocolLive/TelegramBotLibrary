@@ -1,12 +1,16 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.08.18.00
+//2022.08.19.00
 
 require(__DIR__ . '/requires.php');
 
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
-  TgChatMigrateFrom, TgChatMigrateTo, TgDocument, TgEntityType, TgInvoiceDone, TgMemberLeft, TgMemberNew, TgMenuButton, TgPhoto, TgText, TgChatAutoDel, TgPoll, TgVideo, TgLocation, TgVoice, TgChatTitle, TgWebappData, TgCallback, TgInlineQuery, TgInlineQueryFeedback, TgInvoice, TgInvoiceCheckout, TgInvoiceShipping, TgGroupStatusMy, TgGroupStatus, TgPhotoEdited, TgTextEdited, TgLocationEdited, TgDocumentEdited, TgMethods, TgProfilePhoto, TgChatAction, TgMember, TgPermAdmin, TgChat, TgPermMember, TgFile, TgInvoiceCurrencies, TgMessage, TgParseMode, TgCmdScope, TgUser
+  TgChatMigrateFrom, TgChatMigrateTo, TgDocument, TgEntityType, TgInvoiceDone, TgMemberLeft, TgMemberNew, TgMenuButton, TgPhoto, TgText, TgChatAutoDel, TgPoll, TgVideo, TgLocation, TgVoice, TgChatTitle, TgWebappData, TgCallback, TgInlineQuery, TgInlineQueryFeedback, TgInvoice, TgInvoiceCheckout, TgInvoiceShipping, TgGroupStatusMy, TgGroupStatus, TgPhotoEdited, TgTextEdited, TgLocationEdited, TgDocumentEdited, TgMethods, TgProfilePhoto, TgChatAction, TgMember, TgPermAdmin, TgChat, TgPermMember, TgFile, TgInvoiceCurrencies, TgMessage, TgParseMode, TgCmdScope, TgUser, TgLimits
+};
+use ProtocolLive\TelegramBotLibrary\TblBasics;
+use ProtocolLive\TelegramBotLibrary\TblObjects\{
+  TblData, TblException, TblError, TblDebug, TblLog, TblCmd, TblCmdEdited, TblInvoicePrices, TblMarkup, TblInvoiceShippingOptions, TblEntities, TblCommand
 };
 
 class TelegramBotLibrary extends TblBasics{
