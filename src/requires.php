@@ -69,6 +69,7 @@ require(__DIR__ . '/TblObjects/TblCmdEdited.php');
 require(__DIR__ . '/TblObjects/TblCommand.php');
 require(__DIR__ . '/TblObjects/TblData.php');
 require(__DIR__ . '/TblObjects/TblDebug.php');
+require(__DIR__ . '/TblObjects/TblDefaultPerms.php');
 require(__DIR__ . '/TblObjects/TblEntities.php');
 require(__DIR__ . '/TblObjects/TblError.php');
 require(__DIR__ . '/TblObjects/TblException.php');
@@ -88,5 +89,3 @@ require(__DIR__ . '/TblObjects/TblMarkupKeyboard.php');
 require(__DIR__ . '/TblObjects/TblMarkupRemove.php');
 require(__DIR__ . '/TblObjects/TblMarkupRequest.php');
 require(__DIR__ . '/TblObjects/TblWebhook.php');
-
-require(__DIR__ . '/constants.php');
