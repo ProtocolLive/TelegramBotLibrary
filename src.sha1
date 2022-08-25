@@ -1,8 +1,10 @@
+c76df619b6f31f6a2e00bdc52b9ea30ef58803ab  src/TblBasics.php
 64c01edaea5ad682a66668e26dbf3187dcda76b0  src/TblObjects/TblCmd.php
 d9dc26a37198ced0d00a592258f28882772e9211  src/TblObjects/TblCmdEdited.php
 65284abb0ceedf76072bd3d01b9c50ead5366366  src/TblObjects/TblCommand.php
 b5c4406405512a0e57e21f73d24c80ce76083d2a  src/TblObjects/TblData.php
 6c9d3d527897809abb961fa4661c4b45bb24eb9e  src/TblObjects/TblDebug.php
+51923fbf1fbdf2e77f72b3a8a61ca5b83257c0a3  src/TblObjects/TblDefaultPerms.php
 da9cf1885bf2913a859b5300e3e7aa744cc5968a  src/TblObjects/TblEntities.php
 17fec4f1e0509b4ca8c357a9714484fee6ab5333  src/TblObjects/TblError.php
 b8c863371a67ce15a676c93727125d9486c89073  src/TblObjects/TblException.php
@@ -22,6 +24,7 @@ d71afaa7cf56621cbe9aecc5c4a5068a9f25278e  src/TblObjects/TblLog.php
 3928807918109ec54dbc880c88d47fd9dc6f18cb  src/TblObjects/TblMarkupRemove.php
 33510905e9f7086e7e2ab225b237830b66270de5  src/TblObjects/TblMarkupRequest.php
 946f8c46dd39c2cb8eaf7f38aa79660561199ae9  src/TblObjects/TblWebhook.php
+49faf7148fc9fc4eddcd8761ceaf64082be929b3  src/TelegramBotLibrary.php
 16d738be178a94838a2f10a4aea32182f71672bf  src/TgObjects/TgCallback.php
 922195cfb7864a8b2f80aa499d9c8627e381e6d7  src/TgObjects/TgChat.php
 909fc0329d8b49bc389487274a7f3b480e82a06c  src/TgObjects/TgChatAction.php
@@ -80,8 +83,5 @@ aaeeaa72d49d455b435bd29b6a21fd2947956704  src/TgObjects/TgUpdateType.php
 17499e683302bfba3db77d8930f83f26ae8508cb  src/TgObjects/TgVideo.php
 070b780fcceb4259bc91b5df0848a5b44e7e24f1  src/TgObjects/TgVoice.php
 482e7c844cd3164990d26986f5b86a12ccb614ba  src/TgObjects/TgWebappData.php
-c76df619b6f31f6a2e00bdc52b9ea30ef58803ab  src/basics.php
 8e0bff004ea42da0dfa0c0a4c104f8fd2a075e7a  src/cacert.pem
-5a80fefeaba29eff1c8d8cb090e13a8f4a706d49  src/constants.php
-5ff9993295d973711a770591cb47b5eb19620482  src/index.php
-c4d059eec2d3894459351b524156ba7923e07bbf  src/requires.php
+a0417cbf548829dec669fe45bd600f306f9d575c  src/requires.php
