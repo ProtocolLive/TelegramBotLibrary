@@ -24,7 +24,7 @@ d71afaa7cf56621cbe9aecc5c4a5068a9f25278e  src/TblObjects/TblLog.php
 3928807918109ec54dbc880c88d47fd9dc6f18cb  src/TblObjects/TblMarkupRemove.php
 33510905e9f7086e7e2ab225b237830b66270de5  src/TblObjects/TblMarkupRequest.php
 946f8c46dd39c2cb8eaf7f38aa79660561199ae9  src/TblObjects/TblWebhook.php
-49faf7148fc9fc4eddcd8761ceaf64082be929b3  src/TelegramBotLibrary.php
+4b6fb5d99d8662b36279290fadeaf40efa7df319  src/TelegramBotLibrary.php
 16d738be178a94838a2f10a4aea32182f71672bf  src/TgObjects/TgCallback.php
 922195cfb7864a8b2f80aa499d9c8627e381e6d7  src/TgObjects/TgChat.php
 909fc0329d8b49bc389487274a7f3b480e82a06c  src/TgObjects/TgChatAction.php
