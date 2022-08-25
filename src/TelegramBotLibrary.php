@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.08.25.00
+//2022.08.25.01
 
 namespace ProtocolLive\TelegramBotLibrary;
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
@@ -49,7 +49,7 @@ class TelegramBotLibrary extends TblBasics{
     endif;
     $update = file_get_contents('php://input');
     if($update === ''):
-      throw new TblException(TblError::NoEvent);
+      throw new TblException(TblError::NoEvent, 'No event found');
     endif;
     $update = json_decode($update, true);
     $this->Archive($update);
