@@ -1,16 +1,15 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.08.19.00
+//2022.08.25.00
 
-require(__DIR__ . '/requires.php');
-
+namespace ProtocolLive\TelegramBotLibrary;
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgChatMigrateFrom, TgChatMigrateTo, TgDocument, TgEntityType, TgInvoiceDone, TgMemberLeft, TgMemberNew, TgMenuButton, TgPhoto, TgText, TgChatAutoDel, TgPoll, TgVideo, TgLocation, TgVoice, TgChatTitle, TgWebappData, TgCallback, TgInlineQuery, TgInlineQueryFeedback, TgInvoice, TgInvoiceCheckout, TgInvoiceShipping, TgGroupStatusMy, TgGroupStatus, TgPhotoEdited, TgTextEdited, TgLocationEdited, TgDocumentEdited, TgMethods, TgProfilePhoto, TgChatAction, TgMember, TgPermAdmin, TgChat, TgPermMember, TgFile, TgInvoiceCurrencies, TgMessage, TgParseMode, TgCmdScope, TgUser, TgLimits
 };
 use ProtocolLive\TelegramBotLibrary\TblBasics;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
-  TblData, TblException, TblError, TblDebug, TblLog, TblCmd, TblCmdEdited, TblInvoicePrices, TblMarkup, TblInvoiceShippingOptions, TblEntities, TblCommand
+  TblData, TblException, TblError, TblDebug, TblLog, TblCmd, TblCmdEdited, TblInvoicePrices, TblMarkup, TblInvoiceShippingOptions, TblEntities, TblCommand, TblDefaultPerms
 };
 
 class TelegramBotLibrary extends TblBasics{
@@ -1095,16 +1094,16 @@ class TelegramBotLibrary extends TblBasics{
 
   /**
    * Use this method to get the current default administrator rights of the bot.
-   * @param DefaultPerms $Type Pass Channels to get default administrator rights of the bot in channels. Otherwise, default administrator rights of the bot for groups and supergroups will be returned.
+   * @param TblDefaultPerms $Type Pass Channels to get default administrator rights of the bot in channels. Otherwise, default administrator rights of the bot for groups and supergroups will be returned.
    * @return mixed Returns TgPermAdmin on success.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#getmydefaultadministratorrights
    */
   public function MyPermDefaultGet(
-    DefaultPerms $Type = DefaultPerms::Groups
+    TblDefaultPerms $Type = TblDefaultPerms::Groups
   ):TgPermAdmin{
     $param = [];
-    if($Type === DefaultPerms::Channels):
+    if($Type === TblDefaultPerms::Channels):
       $param['for_channels'] = 'true';
     endif;
     $return = $this->ServerMethod(TgMethods::MyDefaultPermAdmGet, $param);
@@ -1114,20 +1113,20 @@ class TelegramBotLibrary extends TblBasics{
   /**
    * Use this method to change the default administrator rights requested by the bot when it's added as an administrator to groups or channels. These rights will be suggested to users, but they are are free to modify the list before adding the bot.
    * @param TgPermAdmin $Perms An object describing new default administrator rights. If not specified, the default administrator rights will be cleared.
-   * @param DefaultPerms $Type Pass Channels to change the default administrator rights of the bot in channels. Otherwise, the default administrator rights of the bot for groups and supergroups will be changed.
+   * @param TblDefaultPerms $Type Pass Channels to change the default administrator rights of the bot in channels. Otherwise, the default administrator rights of the bot for groups and supergroups will be changed.
    * @return bool Returns True on success.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#setmydefaultadministratorrights
    */
   public function MyPermDefaultSet(
     TgPermAdmin $Perms,
-    DefaultPerms $Type = DefaultPerms::Groups
+    TblDefaultPerms $Type = TblDefaultPerms::Groups
   ):bool{
     foreach(TgPermAdmin::Array as $class => $json):
       $param['rights'][$json] = $Perms->$class;
     endforeach;
     $param['rights'] = json_encode($param['rights']);
-    if($Type === DefaultPerms::Channels):
+    if($Type === TblDefaultPerms::Channels):
       $param['for_channels'] = 'true';
     endif;
     return $this->ServerMethod(TgMethods::MyDefaultPermAdmSet, $param);
@@ -1204,7 +1203,7 @@ class TelegramBotLibrary extends TblBasics{
       $param['reply_markup'] = $Markup->ToJson();
     endif;
     if(is_file($Photo)):
-      $param['photo'] = new CurlFile($Photo);
+      $param['photo'] = new \CurlFile($Photo);
     else:
       $param['photo'] = $Photo;
     endif;
@@ -1283,7 +1282,7 @@ class TelegramBotLibrary extends TblBasics{
       $param['reply_markup'] = $Markup->ToJson();
     endif;
     if(is_file($Photo)):
-      $param['photo'] = new CurlFile($Photo);
+      $param['photo'] = new \CurlFile($Photo);
     else:
       $param['photo'] = $Photo;
     endif;
