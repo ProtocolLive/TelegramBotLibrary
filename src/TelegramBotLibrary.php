@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.08.28.00
+//2022.08.28.01
 
 namespace ProtocolLive\TelegramBotLibrary;
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
@@ -45,10 +45,11 @@ class TelegramBotLibrary extends TblBasics{
   public function WebhookGet():object{
     if($this->BotData->TokenWebhook !== null
     and $_SERVER['HTTP_X_TELEGRAM_BOT_API_SECRET_TOKEN'] !== $this->BotData->TokenWebhook):
-      throw new TblException(TblError::TokenWebhook);
+      throw new TblException(TblError::TokenWebhook, 'Wrong webhook token');
     endif;
     $update = file_get_contents('php://input');
     if($update === ''):
+      $this->Log(TblLog::Webhook, 'No event found');
       throw new TblException(TblError::NoEvent, 'No event found');
     endif;
     $update = json_decode($update, true);
