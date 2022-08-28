@@ -1,11 +1,12 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.08.19.00
+//2022.08.28.00
 
 namespace ProtocolLive\TelegramBotLibrary;
+use \CurlHandle;
+use ProtocolLive\TelegramBotLibrary\TblObjects\{TblData, TblError, TblLog, TblException};
 use ProtocolLive\TelegramBotLibrary\TgObjects\{TgMethods, TgErrors};
-use ProtocolLive\TelegramBotLibrary\TblObjects\{TblDebug, TblData, TblError, TblLog, TblException};
 
 abstract class TblBasics{
   protected TblData $BotData;
@@ -13,13 +14,13 @@ abstract class TblBasics{
   private function Curl(
     string $Url,
     array $Params = null
-  ):\CurlHandle{
+  ):CurlHandle{
     $curl = curl_init($Url);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($curl, CURLOPT_USERAGENT, 'Protocol TelegramBotLibrary');
     curl_setopt($curl, CURLOPT_CAINFO, __DIR__ . '/cacert.pem');
     curl_setopt($curl, CURLOPT_POSTFIELDS, $Params);
-    if($this->BotData->Debug & TblDebug::Curl):
+    if($this->BotData->Log & TblLog::Curl):
       curl_setopt($curl, CURLOPT_VERBOSE, true);
       curl_setopt($curl, CURLOPT_STDERR, fopen($this->BotData->DirLogs . '/curl.log', 'a'));
     endif;
@@ -32,12 +33,12 @@ abstract class TblBasics{
     $response = curl_multi_getcontent($Curl);
     if($response === false):
       $temp = 'cURL error #' . curl_errno($Curl) . ' ' . curl_error($Curl);
-      $this->DebugLog(TblLog::Error, $temp);
+      $this->Log(TblLog::Curl, $temp);
       return new TblException(TblError::Curl, $temp);
     endif;
     $response = json_decode($response, true);
-    if($this->BotData->Debug & TblDebug::Response):
-      $this->DebugLog(TblLog::Response, json_encode($response, JSON_PRETTY_PRINT));
+    if($this->BotData->Log & TblLog::Response):
+      $this->Log(TblLog::Response, json_encode($response, JSON_PRETTY_PRINT));
     endif;
     if($response['ok'] === false):
       $search = TgErrors::Search($response['description']);
@@ -59,11 +60,11 @@ abstract class TblBasics{
     array $Params = null
   ):mixed{
     $curl = $this->BotData->UrlApi . '/' . $Method->value;
-    if($this->BotData->Debug & TblDebug::Send):
+    if($this->BotData->Log & TblLog::Send):
       $log = 'Url: ' . $curl . PHP_EOL;
       $log .= 'Params: ' . json_encode($Params, JSON_PRETTY_PRINT);
       $log = str_replace('<', '&lt;', $log);
-      $this->DebugLog(TblLog::Send, $log);
+      $this->Log(TblLog::Send, $log);
     endif;
     $curl = $this->Curl($curl, $Params);
     curl_exec($curl);
@@ -87,10 +88,10 @@ abstract class TblBasics{
     $calls = [];
     foreach($ParamGroups as $id => $Params):
       $curl = $this->BotData->UrlApi . '/' . $Method->value;
-      if($this->BotData->Debug & TblDebug::Send):
+      if($this->BotData->Log & TblLog::Send):
         $log = 'Url: ' . $curl . PHP_EOL;
         $log .= 'Params: ' . json_encode($Params, JSON_PRETTY_PRINT);
-        $this->DebugLog(TblLog::Send, $log);
+        $this->Log(TblLog::Send, $log);
       endif;
       $calls[$id] = $this->Curl($curl, $Params);
       curl_multi_add_handle($mh, $calls[$id]);
@@ -106,26 +107,22 @@ abstract class TblBasics{
     return $return;
   }
 
-  protected function DebugLog(TblLog $Type, string $Msg):void{
-    $log = date('Y-m-d H:i:s') . ' - ';
-    if($Type === TblLog::Webhook):
-      $log .= 'Webhook';
-    elseif($Type === TblLog::Send):
-      $log .= 'Send';
+  protected function Log(
+    int $Type,
+    string $Msg
+  ):void{
+    $log = date('Y-m-d H:i:s') . PHP_EOL;
+    $log .= $Msg . PHP_EOL;
+    if($Type === TblLog::Send):
+      $file = 'send';
     elseif($Type === TblLog::Response):
-      $log .= 'Send response';
+      $file = 'send';
+    elseif($Type === TblLog::Webhook):
+      $file = 'webhook';
     endif;
-    $log .= PHP_EOL . $Msg . PHP_EOL;
-    if($Type === TblLog::Error):
-      error_log($log);
-    else:
-      $file = $this->BotData->DirLogs . '/class.log';
-      $log .= PHP_EOL;
-      if(is_file($file) === false):
-        $this->DirCreate(dirname($file));
-      endif;
-      file_put_contents($file, $log, FILE_APPEND);
-    endif;
+    $file = $this->BotData->DirLogs . '/' . $file . '.log';
+    $this->DirCreate(dirname($file));
+    file_put_contents($file, $log, FILE_APPEND);
   }
 
   protected function DirCreate(

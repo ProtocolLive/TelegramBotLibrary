@@ -1,14 +1,14 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.08.19.00
+//2022.08.28.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 
 class TblData{
   public readonly string $UrlApi;
   public readonly string $UrlFiles;
-  public readonly int $Debug;
+  public readonly int $Log;
   public readonly string $DirLogs;
   public readonly string|null $TokenWebhook;
 
@@ -16,7 +16,7 @@ class TblData{
     string $Token,
     string $DirLogs,
     string $TokenWebhook = null,
-    int $Debug = TblDebug::None,
+    int $Log = TblLog::None,
     bool $TestServer = false
   ){
     if($TestServer):
@@ -27,7 +27,7 @@ class TblData{
     $this->UrlApi = 'https://api.telegram.org/bot' . $Token . $temp;
     $this->UrlFiles = 'https://api.telegram.org/file/bot' . $Token . $temp;
     $this->DirLogs = $DirLogs;
-    $this->Debug = $Debug;
+    $this->Log = $Log;
     $this->TokenWebhook = $TokenWebhook;
   }
 }

@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.08.25.01
+//2022.08.28.00
 
 namespace ProtocolLive\TelegramBotLibrary;
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
@@ -9,7 +9,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 };
 use ProtocolLive\TelegramBotLibrary\TblBasics;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
-  TblData, TblException, TblError, TblDebug, TblLog, TblCmd, TblCmdEdited, TblInvoicePrices, TblMarkup, TblInvoiceShippingOptions, TblEntities, TblCommand, TblDefaultPerms
+  TblData, TblException, TblError, TblLog, TblCmd, TblCmdEdited, TblInvoicePrices, TblMarkup, TblInvoiceShippingOptions, TblEntities, TblCommand, TblDefaultPerms
 };
 
 class TelegramBotLibrary extends TblBasics{
@@ -53,8 +53,8 @@ class TelegramBotLibrary extends TblBasics{
     endif;
     $update = json_decode($update, true);
     $this->Archive($update);
-    if($this->BotData->Debug & TblDebug::Webhook):
-      $this->DebugLog(TblLog::Webhook, json_encode($update, JSON_PRETTY_PRINT));
+    if($this->BotData->Log & TblLog::Webhook):
+      $this->Log(TblLog::Webhook, json_encode($update, JSON_PRETTY_PRINT));
     endif;
     if(isset($update['message']['entities'][0])
     and $update['message']['entities'][0]['type'] === TgEntityType::Command->value
