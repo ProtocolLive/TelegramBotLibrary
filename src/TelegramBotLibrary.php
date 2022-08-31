@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.08.28.01
+//2022.08.31.00
 
 namespace ProtocolLive\TelegramBotLibrary;
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
@@ -9,7 +9,9 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 };
 use ProtocolLive\TelegramBotLibrary\TblBasics;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
-  TblData, TblException, TblError, TblLog, TblCmd, TblCmdEdited, TblInvoicePrices, TblMarkup, TblInvoiceShippingOptions, TblEntities, TblCommand, TblDefaultPerms
+  TblData, TblException, TblError, TblLog, TblCmd, TblCmdEdited,
+  TblInvoicePrices, TblMarkup, TblInvoiceShippingOptions, TblEntities, TblCommand, TblDefaultPerms,
+  TblCommands
 };
 
 class TelegramBotLibrary extends TblBasics{
@@ -929,19 +931,16 @@ class TelegramBotLibrary extends TblBasics{
    * @throws TblException
    */
   public function MyCmdAdd(
-    array $Commands,
+    TblCommands $Commands,
     TgCmdScope $Scope = null,
     string $Language = null,
     int $Chat = null,
     int $User = null
   ):bool{
+    $cmds = $this->MyCmdGet($Scope, $Language, $Chat, $User);
+    $cmds->Merge($Commands);
     return $this->MyCmdSet(
-      array_merge(
-        TblCommand::ToObject(
-          $this->MyCmdGet($Scope, $Language, $Chat, $User)
-        ),
-        $Commands
-      ),
+      $cmds,
       $Scope,
       $Language,
       $Chat,
@@ -983,42 +982,11 @@ class TelegramBotLibrary extends TblBasics{
   }
 
   /**
-   * @throws TblException
-   */
-  public function MyCmdDel(
-    array $Commands,
-    TgCmdScope $Scope = null,
-    string $Language = null,
-    int $Chat = null,
-    int $User = null
-  ):bool{
-    if(is_string($Commands)):
-      $Commands = [$Commands];
-    endif;
-    $cmds = $this->MyCmdGet($Scope, $Language, $Chat, $User);
-    foreach($Commands as $cmd):
-      $index = array_search($cmd, array_column($cmds, 'command'));
-      if($index !== false):
-        unset($cmds[$index]);
-        $cmds = array_values($cmds);
-      endif;
-    endforeach;
-    return $this->MyCmdSet(
-      TblCommand::ToObject($cmds),
-      $Scope,
-      $Language,
-      $Chat,
-      $User
-    );
-  }
-
-  /**
    * Use this method to get the current list of the bot's commands for the given scope and user language.
    * @param TgCmdScope $Scope A JSON-serialized object, describing scope of users. Defaults to TgCmdScope::Default.
    * @param string $Language A two-letter ISO 639-1 language code or an empty string
    * @param int $Chat Unique identifier for the target chat. Only for TgCmdScope::Chat, TgCmdScope::GroupsAdmins or TgCmdScope::Member
    * @param int $User Unique identifier of the target user. Only for TgCmdScope::Member
-   * @return array Returns Array of BotCommand on success. If commands aren't set, an empty list is returned.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#getmycommands
    */
@@ -1027,7 +995,7 @@ class TelegramBotLibrary extends TblBasics{
     string $Language = null,
     int $Chat = null,
     int $User = null
-  ):array{
+  ):TblCommands{
     $param = [];
     if($Scope !== null):
       $param['scope']['type'] = $Scope->value;
@@ -1044,12 +1012,17 @@ class TelegramBotLibrary extends TblBasics{
     if($Language !== null):
       $param['language_code'] = $Language;
     endif;
-    return $this->ServerMethod(TgMethods::CommandsGet, $param);
+    $return = $this->ServerMethod(TgMethods::CommandsGet, $param);
+    if($return === []):
+      return new TblCommands;
+    else:
+      return new TblCommands($return);
+    endif;
   }
 
   /**
    * Use this method to change the list of the bot's commands.
-   * @param array $Commands A JSON-serialized list of bot commands to be set as the list of the bot's commands. At most 100 commands can be specified.
+   * @param TblCommands $Commands A JSON-serialized list of bot commands to be set as the list of the bot's commands. At most 100 commands can be specified.
    * @param TgCmdScope $Scope A JSON-serialized object, describing scope of users for which the commands are relevant. Defaults to TgCmdScope::Default
    * @param string $Language A two-letter ISO 639-1 language code. If empty, commands will be applied to all users from the given scope, for whose language there are no dedicated commands
    * @return bool Returns True on success.
@@ -1057,13 +1030,13 @@ class TelegramBotLibrary extends TblBasics{
    * @link https://core.telegram.org/bots/api#setmycommands
    */
   public function MyCmdSet(
-    array $Commands,
+    TblCommands $Commands,
     TgCmdScope $Scope = null,
     string $Language = null,
     int $Chat = null,
     int $User = null
   ):bool{
-    $param['commands'] = TblCommand::ToJson($Commands);
+    $param['commands'] = $Commands->ToJson();
     if($Scope !== null):
       $param['scope']['type'] = $Scope->value;
       if($Scope === TgCmdScope::Chat
