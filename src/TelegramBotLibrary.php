@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.08.31.00
+//2022.08.31.01
 
 namespace ProtocolLive\TelegramBotLibrary;
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
@@ -925,27 +925,6 @@ class TelegramBotLibrary extends TblBasics{
     endif;
     $return = $this->ServerMethod(TgMethods::MessageForward, $param);
     return $return;
-  }
-
-  /**
-   * @throws TblException
-   */
-  public function MyCmdAdd(
-    TblCommands $Commands,
-    TgCmdScope $Scope = null,
-    string $Language = null,
-    int $Chat = null,
-    int $User = null
-  ):bool{
-    $cmds = $this->MyCmdGet($Scope, $Language, $Chat, $User);
-    $cmds->Merge($Commands);
-    return $this->MyCmdSet(
-      $cmds,
-      $Scope,
-      $Language,
-      $Chat,
-      $User
-    );
   }
 
   /**
