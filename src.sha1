@@ -1,12 +1,11 @@
-c76df619b6f31f6a2e00bdc52b9ea30ef58803ab  src/TblBasics.php
+3febedf50c00d61119e50928ebe3f9c0687ec89c  src/TblBasics.php
 64c01edaea5ad682a66668e26dbf3187dcda76b0  src/TblObjects/TblCmd.php
 d9dc26a37198ced0d00a592258f28882772e9211  src/TblObjects/TblCmdEdited.php
-65284abb0ceedf76072bd3d01b9c50ead5366366  src/TblObjects/TblCommand.php
-b5c4406405512a0e57e21f73d24c80ce76083d2a  src/TblObjects/TblData.php
-6c9d3d527897809abb961fa4661c4b45bb24eb9e  src/TblObjects/TblDebug.php
+da581f808c83dc7c640f45c4791b0938bc7dad2b  src/TblObjects/TblCommands.php
+a8e377ccd1e1506988a3bd7ad15e501771a2cf5d  src/TblObjects/TblData.php
 51923fbf1fbdf2e77f72b3a8a61ca5b83257c0a3  src/TblObjects/TblDefaultPerms.php
 da9cf1885bf2913a859b5300e3e7aa744cc5968a  src/TblObjects/TblEntities.php
-17fec4f1e0509b4ca8c357a9714484fee6ab5333  src/TblObjects/TblError.php
+65ad1580b3a2a07c45ca1502e005c1e9508e9249  src/TblObjects/TblError.php
 b8c863371a67ce15a676c93727125d9486c89073  src/TblObjects/TblException.php
 69aa3af7b0618a59db16d20590721f71902aa2ef  src/TblObjects/TblInlineQuery.php
 ea0f8986fdb43ec61197fcac35885e87cfc8cb91  src/TblObjects/TblInlineQueryArticle.php
@@ -16,7 +15,7 @@ da6f38935c1e6e784d90efd233924aba42bcf54d  src/TblObjects/TblInlineQueryPhoto.php
 ca49e2f394602a8cfe71491fad257ea84254331a  src/TblObjects/TblInvoicePrices.php
 4aa43d75d5cf6e367372aa0a0f5a71d151ad07a6  src/TblObjects/TblInvoiceShippingOption.php
 df90c43034e036da9be1874151e779c23c5a614d  src/TblObjects/TblInvoiceShippingOptions.php
-d71afaa7cf56621cbe9aecc5c4a5068a9f25278e  src/TblObjects/TblLog.php
+f0eb92c0cf1a00c0eefb2cf91ee38df577af57ad  src/TblObjects/TblLog.php
 6f4859b9c7e03567250abf35d2a865586971a6ef  src/TblObjects/TblMarkup.php
 28db183e9d31b74d7b7bdd48c21970cd628d55d6  src/TblObjects/TblMarkupForceReply.php
 29be2e4f8ff596702e486cc33e1e085292f94564  src/TblObjects/TblMarkupInline.php
@@ -24,7 +23,7 @@ d71afaa7cf56621cbe9aecc5c4a5068a9f25278e  src/TblObjects/TblLog.php
 3928807918109ec54dbc880c88d47fd9dc6f18cb  src/TblObjects/TblMarkupRemove.php
 33510905e9f7086e7e2ab225b237830b66270de5  src/TblObjects/TblMarkupRequest.php
 3e7036b264d005123aa70731cb9b8707f33bb0e2  src/TblObjects/TblWebhook.php
-4b6fb5d99d8662b36279290fadeaf40efa7df319  src/TelegramBotLibrary.php
+f17ec13b80766ae5c447db52d9d01f871e7d4eb3  src/TelegramBotLibrary.php
 16d738be178a94838a2f10a4aea32182f71672bf  src/TgObjects/TgCallback.php
 922195cfb7864a8b2f80aa499d9c8627e381e6d7  src/TgObjects/TgChat.php
 909fc0329d8b49bc389487274a7f3b480e82a06c  src/TgObjects/TgChatAction.php
@@ -53,7 +52,7 @@ fd8ffcd71866a9a96e729ae66baca42e814056d9  src/TgObjects/TgInvoiceCheckout.php
 7c1cce92add31bb187e6158b988b4952142b4c12  src/TgObjects/TgInvoiceOrderAddress.php
 a8290de9acfcee4fc35ea5103b40be47dfed7ec4  src/TgObjects/TgInvoiceOrderInfo.php
 f5d005f4f9a65b2d1e6e8747b113ab6f4ed2eeb6  src/TgObjects/TgInvoiceShipping.php
-11f639d32f7e9d25f076b95aeb688f4a1bb00e60  src/TgObjects/TgLimits.php
+c0f1e13d6bc08a71d9673a2e1cc650523d7818c5  src/TgObjects/TgLimits.php
 994d3ec8cb7696d1fefdf7d60c7c35ad8b9141d6  src/TgObjects/TgLocation.php
 276fdf93456a4f810c08dae6d1feeecd8ebc0c01  src/TgObjects/TgLocationEdited.php
 d2a9737c9ac871b043df327b88fd9164cf453a69  src/TgObjects/TgMask.php
@@ -84,4 +83,3 @@ aaeeaa72d49d455b435bd29b6a21fd2947956704  src/TgObjects/TgUpdateType.php
 070b780fcceb4259bc91b5df0848a5b44e7e24f1  src/TgObjects/TgVoice.php
 482e7c844cd3164990d26986f5b86a12ccb614ba  src/TgObjects/TgWebappData.php
 b7948fba84120feccd5596908a8dc53d275698c5  src/cacert.pem
-a0417cbf548829dec669fe45bd600f306f9d575c  src/requires.php
