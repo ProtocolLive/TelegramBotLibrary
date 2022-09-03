@@ -1,32 +1,19 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.09.03.00
+//2022.09.03.01
 
 namespace ProtocolLive\TelegramBotLibrary;
-use ProtocolLive\TelegramBotLibrary\TgObjects\{
-  TgChatMigrateFrom, TgChatMigrateTo, TgDocument, TgEntityType, TgInvoiceDone, TgMemberLeft, TgMemberNew, TgMenuButton, TgPhoto, TgText, TgChatAutoDel, TgPoll, TgVideo, TgLocation, TgVoice, TgChatTitle, TgWebappData, TgCallback, TgInlineQuery, TgInlineQueryFeedback, TgInvoice, TgInvoiceCheckout, TgInvoiceShipping, TgGroupStatusMy, TgGroupStatus, TgPhotoEdited, TgTextEdited, TgLocationEdited, TgDocumentEdited, TgMethods, TgProfilePhoto, TgChatAction, TgMember, TgPermAdmin, TgChat, TgPermMember, TgFile, TgInvoiceCurrencies, TgMessage, TgParseMode, TgCmdScope, TgUser, TgLimits
-};
 use ProtocolLive\TelegramBotLibrary\TblBasics;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
   TblData, TblException, TblError, TblLog, TblCmd, TblCmdEdited, TblInvoicePrices,
   TblMarkup, TblInvoiceShippingOptions, TblEntities, TblDefaultPerms, TblCommands
 };
+use ProtocolLive\TelegramBotLibrary\TgObjects\{
+  TgChatMigrateFrom, TgChatMigrateTo, TgDocument, TgEntityType, TgInvoiceDone, TgMemberLeft, TgMemberNew, TgMenuButton, TgPhoto, TgText, TgChatAutoDel, TgPoll, TgVideo, TgLocation, TgVoice, TgChatTitle, TgWebappData, TgCallback, TgInlineQuery, TgInlineQueryFeedback, TgInvoice, TgInvoiceCheckout, TgInvoiceShipping, TgGroupStatusMy, TgGroupStatus, TgPhotoEdited, TgTextEdited, TgLocationEdited, TgDocumentEdited, TgMethods, TgProfilePhoto, TgChatAction, TgMember, TgPermAdmin, TgChat, TgPermMember, TgFile, TgInvoiceCurrencies, TgMessage, TgParseMode, TgCmdScope, TgUser, TgLimits
+};
 
 class TelegramBotLibrary extends TblBasics{
-  private function Archive(array $New){
-    $file = $this->BotData->DirLogs . '/archive.json';
-    if(is_file($file)):
-      $archive = file_get_contents($file);
-    else:
-      $archive = '[]';
-    endif;
-    $archive = json_decode($archive, true);
-    $archive[] = $New;
-    $archive = json_encode($archive);
-    file_put_contents($file, $archive);
-  }
-
   /**
    * @throws TblException
    */
@@ -40,93 +27,17 @@ class TelegramBotLibrary extends TblBasics{
     $_SERVER['HTTP_USER_AGENT'] ??= 'Protocol TelegramBotLibrary';
   }
 
-  /**
-   * @throws TblException
-   */
-  public function WebhookGet():object{
-    if($this->BotData->TokenWebhook !== null
-    and $_SERVER['HTTP_X_TELEGRAM_BOT_API_SECRET_TOKEN'] !== $this->BotData->TokenWebhook):
-      throw new TblException(TblError::TokenWebhook, 'Wrong webhook token');
+  private function Archive(array $New){
+    $file = $this->BotData->DirLogs . '/archive.json';
+    if(is_file($file)):
+      $archive = file_get_contents($file);
+    else:
+      $archive = '[]';
     endif;
-    $update = file_get_contents('php://input');
-    if($update === ''):
-      $this->Log(TblLog::Webhook, 'No event found');
-      throw new TblException(TblError::NoEvent, 'No event found');
-    endif;
-    $update = json_decode($update, true);
-    $this->Archive($update);
-    if($this->BotData->Log & TblLog::Webhook):
-      $this->Log(TblLog::Webhook, json_encode($update, JSON_PRETTY_PRINT));
-    endif;
-    if(isset($update['message']['entities'][0])
-    and $update['message']['entities'][0]['type'] === TgEntityType::Command->value
-    and $update['message']['entities'][0]['offset'] === 0):
-      return new TblCmd($update['message']);
-    elseif(isset($update['edited_message']['entities'][0])
-    and $update['edited_message']['entities'][0]['type'] === TgEntityType::Command->value
-    and $update['edited_message']['entities'][0]['offset'] === 0):
-      return new TblCmdEdited($update['edited_message']);
-    elseif(isset($update['channel_post']['entities'][0])
-    and $update['channel_post']['entities'][0]['type'] === TgEntityType::Command->value
-    and $update['channel_post']['entities'][0]['offset'] === 0):
-      return new TblCmd($update['channel_post']);
-    elseif(isset($update['message']['text'])):
-      return new TgText($update['message']);
-    elseif(isset($update['message']['photo'])):
-      return new TgPhoto($update['message']);
-    elseif(isset($update['message']['document'])):
-      return new TgDocument($update['message']);
-    elseif(isset($update['message']['successful_payment'])):
-      return new TgInvoiceDone($update['message']);
-    elseif(isset($update['message']['left_chat_member'])):
-      return new TgMemberLeft($update['message']);
-    elseif(isset($update['message']['new_chat_member'])):
-      return new TgMemberNew($update['message']);
-    elseif(isset($update['message']['migrate_to_chat_id'])):
-      return new TgChatMigrateTo($update['message']);
-    elseif(isset($update['message']['migrate_from_chat_id'])):
-      return new TgChatMigrateFrom($update['message']);
-    elseif(isset($update['message']['message_auto_delete_timer_changed'])):
-      return new TgChatAutoDel($update['message']);
-    elseif(isset($update['message']['poll'])):
-      return new TgPoll($update['message']);
-    elseif(isset($update['message']['video'])):
-      return new TgVideo($update['message']);
-    elseif(isset($update['message']['location'])):
-      return new TgLocation($update['message']);
-    elseif(isset($update['message']['voice'])):
-      return new TgVoice($update['message']);
-    elseif(isset($update['message']['new_chat_title'])):
-      return new TgChatTitle($update['message']);
-    elseif(isset($update['message']['web_app_data'])):
-      return new TgWebappData($update['message']);
-    elseif(isset($update['callback_query'])):
-      return new TgCallback($update['callback_query']);
-    elseif(isset($update['inline_query'])):
-      return new TgInlineQuery($update['inline_query']);
-    elseif(isset($update['chosen_inline_result'])):
-      return new TgInlineQueryFeedback($update['chosen_inline_result']);
-    elseif(isset($update['invoice'])):
-      return new TgInvoice($update['invoice']);
-    elseif(isset($update['pre_checkout_query'])):
-      return new TgInvoiceCheckout($update['pre_checkout_query']);
-    elseif(isset($update['shipping_query'])):
-      return new TgInvoiceShipping($update['shipping_query']);
-    elseif(isset($update['my_chat_member'])):
-      return new TgGroupStatusMy($update['my_chat_member']);
-    elseif(isset($update['chat_member'])):
-      return new TgGroupStatus($update['chat_member']);
-    elseif(isset($update['edited_message']['photo'])):
-      return new TgPhotoEdited($update['edited_message']);
-    elseif(isset($update['edited_message']['text'])):
-      return new TgTextEdited($update['edited_message']);
-    elseif(isset($update['edited_message']['location'])):
-      return new TgLocationEdited($update['edited_message']);
-    elseif(isset($update['edited_message']['document'])):
-      return new TgDocumentEdited($update['edited_message']);
-    elseif(isset($update['poll'])):
-      return new TgPoll($update['poll']);
-    endif;
+    $archive = json_decode($archive, true);
+    $archive[] = $New;
+    $archive = json_encode($archive);
+    file_put_contents($file, $archive);
   }
 
   /**
@@ -1309,6 +1220,50 @@ class TelegramBotLibrary extends TblBasics{
   }
 
   /**
+   * Use this method to send text messages for one or multiple chats. The Telegram API have some limits, but don't have a official docs for this.
+   * @param int|array $Chat Unique identifier for the target chats
+   * @param string $Text Text of the message to be sent, 1-4096 characters after entities parsing
+   * @param TgParseMode $ParseMode Mode for parsing entities in the message text.
+   * @param TblEntities $Entities A list of special entities that appear in message text, which can be specified instead of parse_mode
+   * @param bool $DisablePreview Disables link previews for links in this message
+   * @param bool $DisableNotification Sends the message silently. Users will receive a notification with no sound.
+   * @param bool $Protect Protects the contents of the sent message from forwarding and saving
+   * @param int $RepliedMsg If the message is a reply, ID of the original message
+   * @param bool $SendWithoutRepliedMsg Pass True, if the message should be sent even if the specified replied-to message is not found
+   * @param array TblMarkup Additional interface options. A object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
+   * @return TgMessage On success, the sent Message is returned.
+   * @throws TblException
+   * @link https://core.telegram.org/bots/api#sendmessage
+   */
+  public function TextSend(
+    int $Chat,
+    string $Text,
+    TgParseMode $ParseMode = null,
+    TblEntities $Entities = null,
+    bool $DisablePreview = false,
+    bool $DisableNotification = false,
+    bool $Protect = false,
+    int $RepliedMsg = null,
+    bool $SendWithoutRepliedMsg = false,
+    TblMarkup $Markup = null
+  ):TgText{
+    $param = $this->TextSendArgs(
+      $Chat,
+      $Text,
+      $ParseMode,
+      $Entities,
+      $DisablePreview,
+      $DisableNotification,
+      $Protect,
+      $RepliedMsg,
+      $SendWithoutRepliedMsg,
+      $Markup
+    );
+    $return = $this->ServerMethod(TgMethods::TextSend, $param);
+    return new TgText($return);
+  }
+
+  /**
    * Use this method with TextSendMulti
    * @param int|array $Chat Unique identifier for the target chats
    * @param string $Text Text of the message to be sent, 1-4096 characters after entities parsing
@@ -1365,50 +1320,6 @@ class TelegramBotLibrary extends TblBasics{
   }
 
   /**
-   * Use this method to send text messages for one or multiple chats. The Telegram API have some limits, but don't have a official docs for this.
-   * @param int|array $Chat Unique identifier for the target chats
-   * @param string $Text Text of the message to be sent, 1-4096 characters after entities parsing
-   * @param TgParseMode $ParseMode Mode for parsing entities in the message text.
-   * @param TblEntities $Entities A list of special entities that appear in message text, which can be specified instead of parse_mode
-   * @param bool $DisablePreview Disables link previews for links in this message
-   * @param bool $DisableNotification Sends the message silently. Users will receive a notification with no sound.
-   * @param bool $Protect Protects the contents of the sent message from forwarding and saving
-   * @param int $RepliedMsg If the message is a reply, ID of the original message
-   * @param bool $SendWithoutRepliedMsg Pass True, if the message should be sent even if the specified replied-to message is not found
-   * @param array TblMarkup Additional interface options. A object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
-   * @return TgMessage On success, the sent Message is returned.
-   * @throws TblException
-   * @link https://core.telegram.org/bots/api#sendmessage
-   */
-  public function TextSend(
-    int $Chat,
-    string $Text,
-    TgParseMode $ParseMode = null,
-    TblEntities $Entities = null,
-    bool $DisablePreview = false,
-    bool $DisableNotification = false,
-    bool $Protect = false,
-    int $RepliedMsg = null,
-    bool $SendWithoutRepliedMsg = false,
-    TblMarkup $Markup = null
-  ):TgText{
-    $param = $this->TextSendArgs(
-      $Chat,
-      $Text,
-      $ParseMode,
-      $Entities,
-      $DisablePreview,
-      $DisableNotification,
-      $Protect,
-      $RepliedMsg,
-      $SendWithoutRepliedMsg,
-      $Markup
-    );
-    $return = $this->ServerMethod(TgMethods::TextSend, $param);
-    return new TgText($return);
-  }
-
-  /**
    * Send text to many chats at once. Carefully with server limits.
    * https://core.telegram.org/bots/faq#my-bot-is-hitting-limits-how-do-i-avoid-this
    * @return TgText[]|TblException[]
@@ -1421,5 +1332,94 @@ class TelegramBotLibrary extends TblBasics{
       endif;
     endforeach;
     return $return;
+  }
+
+  /**
+   * @throws TblException
+   */
+  public function WebhookGet():object{
+    if($this->BotData->TokenWebhook !== null
+    and $_SERVER['HTTP_X_TELEGRAM_BOT_API_SECRET_TOKEN'] !== $this->BotData->TokenWebhook):
+      throw new TblException(TblError::TokenWebhook, 'Wrong webhook token');
+    endif;
+    $update = file_get_contents('php://input');
+    if($update === ''):
+      $this->Log(TblLog::Webhook, 'No event found');
+      throw new TblException(TblError::NoEvent, 'No event found');
+    endif;
+    $update = json_decode($update, true);
+    $this->Archive($update);
+    if($this->BotData->Log & TblLog::Webhook):
+      $this->Log(TblLog::Webhook, json_encode($update, JSON_PRETTY_PRINT));
+    endif;
+    if(isset($update['message']['entities'][0])
+    and $update['message']['entities'][0]['type'] === TgEntityType::Command->value
+    and $update['message']['entities'][0]['offset'] === 0):
+      return new TblCmd($update['message']);
+    elseif(isset($update['edited_message']['entities'][0])
+    and $update['edited_message']['entities'][0]['type'] === TgEntityType::Command->value
+    and $update['edited_message']['entities'][0]['offset'] === 0):
+      return new TblCmdEdited($update['edited_message']);
+    elseif(isset($update['channel_post']['entities'][0])
+    and $update['channel_post']['entities'][0]['type'] === TgEntityType::Command->value
+    and $update['channel_post']['entities'][0]['offset'] === 0):
+      return new TblCmd($update['channel_post']);
+    elseif(isset($update['message']['text'])):
+      return new TgText($update['message']);
+    elseif(isset($update['message']['photo'])):
+      return new TgPhoto($update['message']);
+    elseif(isset($update['message']['document'])):
+      return new TgDocument($update['message']);
+    elseif(isset($update['message']['successful_payment'])):
+      return new TgInvoiceDone($update['message']);
+    elseif(isset($update['message']['left_chat_member'])):
+      return new TgMemberLeft($update['message']);
+    elseif(isset($update['message']['new_chat_member'])):
+      return new TgMemberNew($update['message']);
+    elseif(isset($update['message']['migrate_to_chat_id'])):
+      return new TgChatMigrateTo($update['message']);
+    elseif(isset($update['message']['migrate_from_chat_id'])):
+      return new TgChatMigrateFrom($update['message']);
+    elseif(isset($update['message']['message_auto_delete_timer_changed'])):
+      return new TgChatAutoDel($update['message']);
+    elseif(isset($update['message']['poll'])):
+      return new TgPoll($update['message']);
+    elseif(isset($update['message']['video'])):
+      return new TgVideo($update['message']);
+    elseif(isset($update['message']['location'])):
+      return new TgLocation($update['message']);
+    elseif(isset($update['message']['voice'])):
+      return new TgVoice($update['message']);
+    elseif(isset($update['message']['new_chat_title'])):
+      return new TgChatTitle($update['message']);
+    elseif(isset($update['message']['web_app_data'])):
+      return new TgWebappData($update['message']);
+    elseif(isset($update['callback_query'])):
+      return new TgCallback($update['callback_query']);
+    elseif(isset($update['inline_query'])):
+      return new TgInlineQuery($update['inline_query']);
+    elseif(isset($update['chosen_inline_result'])):
+      return new TgInlineQueryFeedback($update['chosen_inline_result']);
+    elseif(isset($update['invoice'])):
+      return new TgInvoice($update['invoice']);
+    elseif(isset($update['pre_checkout_query'])):
+      return new TgInvoiceCheckout($update['pre_checkout_query']);
+    elseif(isset($update['shipping_query'])):
+      return new TgInvoiceShipping($update['shipping_query']);
+    elseif(isset($update['my_chat_member'])):
+      return new TgGroupStatusMy($update['my_chat_member']);
+    elseif(isset($update['chat_member'])):
+      return new TgGroupStatus($update['chat_member']);
+    elseif(isset($update['edited_message']['photo'])):
+      return new TgPhotoEdited($update['edited_message']);
+    elseif(isset($update['edited_message']['text'])):
+      return new TgTextEdited($update['edited_message']);
+    elseif(isset($update['edited_message']['location'])):
+      return new TgLocationEdited($update['edited_message']);
+    elseif(isset($update['edited_message']['document'])):
+      return new TgDocumentEdited($update['edited_message']);
+    elseif(isset($update['poll'])):
+      return new TgPoll($update['poll']);
+    endif;
   }
 }
