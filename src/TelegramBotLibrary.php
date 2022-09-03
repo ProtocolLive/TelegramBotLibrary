@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.08.31.01
+//2022.09.03.00
 
 namespace ProtocolLive\TelegramBotLibrary;
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
@@ -9,9 +9,8 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 };
 use ProtocolLive\TelegramBotLibrary\TblBasics;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
-  TblData, TblException, TblError, TblLog, TblCmd, TblCmdEdited,
-  TblInvoicePrices, TblMarkup, TblInvoiceShippingOptions, TblEntities, TblCommand, TblDefaultPerms,
-  TblCommands
+  TblData, TblException, TblError, TblLog, TblCmd, TblCmdEdited, TblInvoicePrices,
+  TblMarkup, TblInvoiceShippingOptions, TblEntities, TblDefaultPerms, TblCommands
 };
 
 class TelegramBotLibrary extends TblBasics{
