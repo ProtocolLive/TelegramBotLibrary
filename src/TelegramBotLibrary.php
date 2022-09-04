@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.09.03.01
+//2022.09.04.00
 
 namespace ProtocolLive\TelegramBotLibrary;
 use ProtocolLive\TelegramBotLibrary\TblBasics;
@@ -306,19 +306,14 @@ class TelegramBotLibrary extends TblBasics{
 
   /**
    * @param string $Id The file Id or IdUnique
-   * @param string $Dir Destination directory
-   * @return bool
+   * @return string
    * @throws TblException
    */
-  public function FileDownload(
+  public function FileGet(
     string $Id,
-    string $Dir
-  ):bool{
+  ):string{
     $info = $this->FileInfo($Id);
-    $file = $this->BotData->UrlFiles . '/' . $info->Path;
-    $file = file_get_contents($file);
-    file_put_contents($Dir . '/' . basename($info->Path), $file);
-    return true;
+    return $this->BotData->UrlFiles . '/' . $info->Path;
   }
 
   /**
