@@ -23,7 +23,7 @@ f0eb92c0cf1a00c0eefb2cf91ee38df577af57ad  src/TblObjects/TblLog.php
 3928807918109ec54dbc880c88d47fd9dc6f18cb  src/TblObjects/TblMarkupRemove.php
 33510905e9f7086e7e2ab225b237830b66270de5  src/TblObjects/TblMarkupRequest.php
 3e7036b264d005123aa70731cb9b8707f33bb0e2  src/TblObjects/TblWebhook.php
-f17ec13b80766ae5c447db52d9d01f871e7d4eb3  src/TelegramBotLibrary.php
+6ae9de7a33646983e55a135cf21ee252a78eca48  src/TelegramBotLibrary.php
 16d738be178a94838a2f10a4aea32182f71672bf  src/TgObjects/TgCallback.php
 922195cfb7864a8b2f80aa499d9c8627e381e6d7  src/TgObjects/TgChat.php
 909fc0329d8b49bc389487274a7f3b480e82a06c  src/TgObjects/TgChatAction.php
