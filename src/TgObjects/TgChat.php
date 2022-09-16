@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.09.16.00
+//2022.09.16.01
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -38,6 +38,8 @@ class TgChat{
    */
   public readonly bool|null $RestrictedForward;
 
+  public readonly TgChatPhoto|null $Photo;
+
   public function __construct(array $Data){
     $this->Id = $Data['id'];
     $this->Name = $Data['title'] ?? $Data['first_name'];
@@ -46,5 +48,10 @@ class TgChat{
     $this->Nick = $Data['username'] ?? null;
     $this->RestrictedVoice = $Data['has_restricted_voice_and_video_messages'] ?? false;
     $this->RestrictedForward = $Data['has_private_forwards'] ?? false;
+    if(isset($Data['photo'])):
+      $this->Photo = new TgChatPhoto($Data['photo']);
+    else:
+      $this->Photo = null;
+    endif;
   }
 }
