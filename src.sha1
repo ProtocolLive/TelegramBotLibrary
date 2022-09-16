@@ -4,7 +4,7 @@ d9dc26a37198ced0d00a592258f28882772e9211  src/TblObjects/TblCmdEdited.php
 da581f808c83dc7c640f45c4791b0938bc7dad2b  src/TblObjects/TblCommands.php
 a8e377ccd1e1506988a3bd7ad15e501771a2cf5d  src/TblObjects/TblData.php
 51923fbf1fbdf2e77f72b3a8a61ca5b83257c0a3  src/TblObjects/TblDefaultPerms.php
-da9cf1885bf2913a859b5300e3e7aa744cc5968a  src/TblObjects/TblEntities.php
+5ec80a567926cfae420c9e3b02584940180c9c27  src/TblObjects/TblEntities.php
 65ad1580b3a2a07c45ca1502e005c1e9508e9249  src/TblObjects/TblError.php
 b8c863371a67ce15a676c93727125d9486c89073  src/TblObjects/TblException.php
 69aa3af7b0618a59db16d20590721f71902aa2ef  src/TblObjects/TblInlineQuery.php
@@ -38,8 +38,8 @@ b7b8d0134559b222e42e4786cff2197dd4e585ea  src/TgObjects/TgDocument.php
 76da41f54c280d6b10caf9594746be012e36e10a  src/TgObjects/TgDocumentEdited.php
 287ed76aa23a235b832aeb2c6d6a37d863568f60  src/TgObjects/TgEntity.php
 65c3ac9ca951a5dd9c6069326615949ec27c2fc1  src/TgObjects/TgEntityType.php
-709810b28631335e9564be47ee6e0be9d6dfde68  src/TgObjects/TgError.php
-d86e0d0b2f5031b5a27de052b40a9931e70613cf  src/TgObjects/TgErrors.php
+77b97856724dbf930125055b1c8c4004b38d3564  src/TgObjects/TgError.php
+f044b71473d859e78b7a36359541d3cf0e96725a  src/TgObjects/TgErrors.php
 e05ef33fee1eac3b8f9719f679486bd1b2c1598d  src/TgObjects/TgFile.php
 639ff40077c490a0b7e63c14ce44589265d0139a  src/TgObjects/TgGroupStatus.php
 813de63b1b04e7af3770b2caad0d41773e2301ff  src/TgObjects/TgGroupStatusMy.php
