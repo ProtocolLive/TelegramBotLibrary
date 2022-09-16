@@ -25,11 +25,12 @@ f0eb92c0cf1a00c0eefb2cf91ee38df577af57ad  src/TblObjects/TblLog.php
 3e7036b264d005123aa70731cb9b8707f33bb0e2  src/TblObjects/TblWebhook.php
 6ae9de7a33646983e55a135cf21ee252a78eca48  src/TelegramBotLibrary.php
 16d738be178a94838a2f10a4aea32182f71672bf  src/TgObjects/TgCallback.php
-922195cfb7864a8b2f80aa499d9c8627e381e6d7  src/TgObjects/TgChat.php
+a34a000a5d2bde6d09648657565b72a3e1aee942  src/TgObjects/TgChat.php
 909fc0329d8b49bc389487274a7f3b480e82a06c  src/TgObjects/TgChatAction.php
 1ff88dd50561326780712c0833472a1785667bac  src/TgObjects/TgChatAutoDel.php
 dd4d0c1092ac38e2fddc8cded052504e1f8ef89f  src/TgObjects/TgChatMigrateFrom.php
 4f4cc51168897c87829351b71e9d90a8c61e0b41  src/TgObjects/TgChatMigrateTo.php
+bfb2e5d4c758f3408c135ba2fa42c8fd5a3f067f  src/TgObjects/TgChatPhoto.php
 0422859422c8af8d2c01a3d0c857ff92b3a8cc7a  src/TgObjects/TgChatTitle.php
 80edd5673d76656ad682abcb750de8b5084ba129  src/TgObjects/TgChatType.php
 8f0568fcf616bbe29cbef0446dfdff785d2440c8  src/TgObjects/TgCmdScope.php
@@ -72,7 +73,7 @@ c49c8f63fa644a1d31a6d276cd3f361ba04e662e  src/TgObjects/TgPermMember.php
 2fa8fd215c33bae189e78579472fb2124c3cf2c3  src/TgObjects/TgPoll.php
 fb6ae91f78cb6a93363b9f72604d4839556184e4  src/TgObjects/TgPollOption.php
 b9d8542726d773847af3d5df0dfc062ba31c3e09  src/TgObjects/TgPollType.php
-5d5fae1646510844ba6b3e11be7db51b055d5584  src/TgObjects/TgProfilePhoto.php
+01404aa57ceee1df47cbb3f42a0b77626f5458c5  src/TgObjects/TgProfilePhoto.php
 d327ae486b63f08219ee76db926233609d8cfb3e  src/TgObjects/TgSticker.php
 6ec940d12da129f5962d2f855c6dde534d64dab3  src/TgObjects/TgStickerType.php
 aeef915403a0ad556202af99ff8fba4b861d2325  src/TgObjects/TgText.php
