@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.08.19.00
+//2022.09.16.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgEntityType;
@@ -23,7 +23,7 @@ class TblEntities implements \JsonSerializable{
     if($Type === TgEntityType::Link):
       $temp['url'] = $Url;
     elseif($Type === TgEntityType::MentionText):
-      $temp['user'] = $User;
+      $temp['user'] = ['id' => $User];
     elseif($Type === TgEntityType::Pre):
       $temp['language'] = $Language;
     endif;
