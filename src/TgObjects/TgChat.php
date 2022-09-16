@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.08.18.00
+//2022.09.16.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -33,6 +33,10 @@ class TgChat{
    * If the privacy settings of the other party restrict sending voice and video note messages in the private chat. Returned only in getChat.
    */
   public readonly bool|null $RestrictedVoice;
+  /**
+   * If privacy settings of the other party in the private chat allows to use tg://user?id=<user_id> links only in chats with the user.
+   */
+  public readonly bool|null $RestrictedForward;
 
   public function __construct(array $Data){
     $this->Id = $Data['id'];
@@ -41,5 +45,6 @@ class TgChat{
     $this->NameLast = $Data['last_name'] ?? null;
     $this->Nick = $Data['username'] ?? null;
     $this->RestrictedVoice = $Data['has_restricted_voice_and_video_messages'] ?? false;
+    $this->RestrictedForward = $Data['has_private_forwards'] ?? false;
   }
 }
