@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.09.16.00
+//2022.09.16.01
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -48,6 +48,10 @@ class TgErrors{
     endif;
     if(strpos($Description, 'Too Many Requests: retry after ') === 0):
       return TgError::TooMany;
+    endif;
+    if(strpos($Description, 'Bad Request: entity beginning at UTF-16 offset ') === 0
+    and strpos($Description, 'ends after the end of the text at UTF-16 offset ') !== false):
+      return TgError::EntityParse;
     endif;
     return false;
   }
