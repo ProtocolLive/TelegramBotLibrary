@@ -65,9 +65,12 @@ d2a9737c9ac871b043df327b88fd9164cf453a69  src/TgObjects/TgMask.php
 c114acf3205c9edcbfd201bd6bc195034815cc31  src/TgObjects/TgMessage.php
 c74119df8e8e71236d468c67b300ae56334e0346  src/TgObjects/TgMethods.php
 194f24b56ae46c6455ea11ff959da4ccb199eca3  src/TgObjects/TgParseMode.php
-aa6f1dad199414431fe19ab647d0ef83771d6845  src/TgObjects/TgPassport.php
-9be3b77275f0f90a4114a4959d5f372074ec6e66  src/TgObjects/TgPassportData.php
+9a1e3bd0c6af311e12c7348351d0694f742c7e24  src/TgObjects/TgPassport.php
+bdd1df3eb0ea9ce356851a55ec06a07bcfcff7b2  src/TgObjects/TgPassportDataAddress.php
+c7bd294892e4eb95c3d4049dd59ec0fa9955341d  src/TgObjects/TgPassportDataDriver.php
+81dcd84d5507dcffe31a67e728291072660f3312  src/TgObjects/TgPassportDataPersonal.php
 3690887b6330af47ad4d1204326d5c86f5709e18  src/TgObjects/TgPassportDataType.php
+71e517429857d2586b615e7326f566a6b5af8d40  src/TgObjects/TgPassportFile.php
 b8d45f590fc2a465477aa470359a88ab38475b37  src/TgObjects/TgPermAdmin.php
 c49c8f63fa644a1d31a6d276cd3f361ba04e662e  src/TgObjects/TgPermMember.php
 54c6fb718e7f8fd1b954b6da3913112b7256cd8b  src/TgObjects/TgPhoto.php
