@@ -12,7 +12,7 @@ ea0f8986fdb43ec61197fcac35885e87cfc8cb91  src/TblObjects/TblInlineQueryArticle.p
 afc69ee379ab9737678dc2ae9e7529e70d81fc3c  src/TblObjects/TblInlineQueryContent.php
 d2f248e768b81632faaaec47db20030f67795747  src/TblObjects/TblInlineQueryContentText.php
 da6f38935c1e6e784d90efd233924aba42bcf54d  src/TblObjects/TblInlineQueryPhoto.php
-ca49e2f394602a8cfe71491fad257ea84254331a  src/TblObjects/TblInvoicePrices.php
+585ad3e3382e5b45e8960506b12b481391170948  src/TblObjects/TblInvoicePrices.php
 4aa43d75d5cf6e367372aa0a0f5a71d151ad07a6  src/TblObjects/TblInvoiceShippingOption.php
 df90c43034e036da9be1874151e779c23c5a614d  src/TblObjects/TblInvoiceShippingOptions.php
 f0eb92c0cf1a00c0eefb2cf91ee38df577af57ad  src/TblObjects/TblLog.php
@@ -23,7 +23,7 @@ f0eb92c0cf1a00c0eefb2cf91ee38df577af57ad  src/TblObjects/TblLog.php
 3928807918109ec54dbc880c88d47fd9dc6f18cb  src/TblObjects/TblMarkupRemove.php
 33510905e9f7086e7e2ab225b237830b66270de5  src/TblObjects/TblMarkupRequest.php
 3e7036b264d005123aa70731cb9b8707f33bb0e2  src/TblObjects/TblWebhook.php
-7885ed6dbab1dd307ae222e1ae45f78e3c1e189f  src/TelegramBotLibrary.php
+1ecbbab9974887d214878d0d4ee600109fd083d6  src/TelegramBotLibrary.php
 16d738be178a94838a2f10a4aea32182f71672bf  src/TgObjects/TgCallback.php
 a34a000a5d2bde6d09648657565b72a3e1aee942  src/TgObjects/TgChat.php
 909fc0329d8b49bc389487274a7f3b480e82a06c  src/TgObjects/TgChatAction.php
