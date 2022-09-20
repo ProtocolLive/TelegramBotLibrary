@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.09.17.00
+//2022.09.20.00
 
 namespace ProtocolLive\TelegramBotLibrary;
 use ProtocolLive\TelegramBotLibrary\TblBasics;
@@ -567,7 +567,7 @@ class TelegramBotLibrary extends TblBasics{
     $param['payload'] = $Payload;
     $param['provider_token'] = $Token;
     $param['currency'] = $Currency->value;
-    $param['prices'] = json_encode($Prices);
+    $param['prices'] = $Prices->ToJson();
     if($TipMax !== null):
       $param['max_tip_amount'] = $TipMax;
     endif;
