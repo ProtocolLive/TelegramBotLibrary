@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.09.16.01
+//2022.09.20.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -35,7 +35,7 @@ class TgErrors{
     'Bad Request: can\'t parse MessageEntity: Field "user" must be of type Object' => TgError::UserObject
   ];
 
-  static public function Search(string $Description):TgError|false{
+  public static function Search(string $Description):TgError|false{
     if(isset(self::Errors[$Description])):
       return self::Errors[$Description];
     endif;
