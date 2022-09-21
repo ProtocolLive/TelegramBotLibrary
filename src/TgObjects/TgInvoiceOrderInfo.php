@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.09.21.00
+//2022.09.21.01
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -10,8 +10,8 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
  */
 class TgInvoiceOrderInfo{
   public readonly string|null $Name;
-  public readonly string $Phone;
-  public readonly string $Email;
+  public readonly string|null $Phone;
+  public readonly string|null $Email;
   public readonly TgInvoiceOrderAddress|null $Address;
 
   /**
@@ -23,8 +23,16 @@ class TgInvoiceOrderInfo{
     else:
       $this->Name = null;
     endif;
-    $this->Phone = $Data['phone_number'];
-    $this->Email = $Data['email'];
+    if(isset($Data['phone_number'])):
+      $this->Phone = $Data['phone_number'];
+    else:
+      $this->Phone = null;
+    endif;
+    if(isset($Data['email'])):
+      $this->Email = $Data['email'];
+    else:
+      $this->Email = null;
+    endif;
     if(isset($Data['shipping_address'])):
       $this->Address = new TgInvoiceOrderAddress($Data['shipping_address']);
     else:
