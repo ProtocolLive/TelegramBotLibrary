@@ -46,7 +46,7 @@ e05ef33fee1eac3b8f9719f679486bd1b2c1598d  src/TgObjects/TgFile.php
 4e16cfb3752bcdb6bc8064b3e534966888a8e114  src/TgObjects/TgInlineQuery.php
 3830ed44f7f78e5e3ae2b599ed7d84c766d6cbd6  src/TgObjects/TgInlineQueryFeedback.php
 f76efb88494acdf8d699bd3729891078373b786d  src/TgObjects/TgInvoice.php
-fd8ffcd71866a9a96e729ae66baca42e814056d9  src/TgObjects/TgInvoiceCheckout.php
+fc660a1f8f56f8132cd17f4a92735a845d831f9f  src/TgObjects/TgInvoiceCheckout.php
 9e76eb47643f158b469b3acb0ed44e1f959a6d26  src/TgObjects/TgInvoiceCurrencies.php
 2e297f7c6fed0e1c34275f1befe614935c95a292  src/TgObjects/TgInvoiceData.php
 68988d0c8c7de86fafb4b4a4a81e12e482e7b27a  src/TgObjects/TgInvoiceDone.php
