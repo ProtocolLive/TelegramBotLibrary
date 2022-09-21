@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.09.21.01
+//2022.09.21.02
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -11,7 +11,7 @@ class TgInvoiceCheckout{
   public readonly TgInvoiceCurrencies $Currency;
   public readonly Int $Amount;
   public readonly string $Payload;
-  public readonly TgInvoiceOrderInfo $OrderInfo;
+  public readonly TgInvoiceOrderInfo|null $OrderInfo;
 
   public function __construct(array $Data){
     $this->Id = $Data['id'];
@@ -19,6 +19,10 @@ class TgInvoiceCheckout{
     $this->Currency = TgInvoiceCurrencies::tryFrom($Data['currency']);
     $this->Amount = $Data['total_amount'];
     $this->Payload = $Data['invoice_payload'];
-    $this->OrderInfo = new TgInvoiceOrderInfo($Data['order_info']);
+    if(isset($Data['order_info'])):
+      $this->OrderInfo = new TgInvoiceOrderInfo($Data['order_info']);
+    else:
+      $this->OrderInfo = null;
+    endif;
   }
 }
