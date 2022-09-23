@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.09.20.00
+//2022.09.23.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -32,7 +32,8 @@ class TgErrors{
     'Bad Request: can\'t parse inline keyboard button: Text buttons are unallowed in the inline keyboard' => TgError::TextButtonNo,
     'Bad Request: CURRENCY_TOTAL_AMOUNT_INVALID' => TgError::InvoiceLimits,
     'Bad Request: there must be at least one price' => TgError::SomethingMissing,
-    'Bad Request: can\'t parse MessageEntity: Field "user" must be of type Object' => TgError::UserObject
+    'Bad Request: can\'t parse MessageEntity: Field "user" must be of type Object' => TgError::UserObject,
+    'Bad Request: user not found' => TgError::UserNotFound
   ];
 
   public static function Search(string $Description):TgError|false{

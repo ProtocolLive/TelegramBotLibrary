@@ -38,8 +38,8 @@ b7b8d0134559b222e42e4786cff2197dd4e585ea  src/TgObjects/TgDocument.php
 76da41f54c280d6b10caf9594746be012e36e10a  src/TgObjects/TgDocumentEdited.php
 287ed76aa23a235b832aeb2c6d6a37d863568f60  src/TgObjects/TgEntity.php
 65c3ac9ca951a5dd9c6069326615949ec27c2fc1  src/TgObjects/TgEntityType.php
-d0a7e3ab76aebe269e20a3aaf098be5917e096cc  src/TgObjects/TgError.php
-dcfb4cc9f94b2638515cbf032fd8e288c56feed8  src/TgObjects/TgErrors.php
+6e884c1d6d3697af9dd6de515f5e9ad7a7aa85bd  src/TgObjects/TgError.php
+69f55826d96e6a2b3b6772126569e2b3da589ac5  src/TgObjects/TgErrors.php
 e05ef33fee1eac3b8f9719f679486bd1b2c1598d  src/TgObjects/TgFile.php
 639ff40077c490a0b7e63c14ce44589265d0139a  src/TgObjects/TgGroupStatus.php
 813de63b1b04e7af3770b2caad0d41773e2301ff  src/TgObjects/TgGroupStatusMy.php
