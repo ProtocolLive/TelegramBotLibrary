@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.09.20.00
+//2022.09.24.00
 
 namespace ProtocolLive\TelegramBotLibrary;
 use ProtocolLive\TelegramBotLibrary\TblBasics;
@@ -10,7 +10,12 @@ use ProtocolLive\TelegramBotLibrary\TblObjects\{
   TblMarkup, TblInvoiceShippingOptions, TblEntities, TblDefaultPerms, TblCommands
 };
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
-  TgChatMigrateFrom, TgChatMigrateTo, TgDocument, TgEntityType, TgInvoiceDone, TgMemberLeft, TgMemberNew, TgMenuButton, TgPhoto, TgText, TgChatAutoDel, TgPoll, TgVideo, TgLocation, TgVoice, TgChatTitle, TgWebappData, TgCallback, TgInlineQuery, TgInlineQueryFeedback, TgInvoice, TgInvoiceCheckout, TgInvoiceShipping, TgGroupStatusMy, TgGroupStatus, TgPhotoEdited, TgTextEdited, TgLocationEdited, TgDocumentEdited, TgMethods, TgProfilePhoto, TgChatAction, TgMember, TgPermAdmin, TgChat, TgPermMember, TgFile, TgInvoiceCurrencies, TgMessage, TgParseMode, TgCmdScope, TgUser, TgLimits, TgPassport
+  TgChatMigrateFrom, TgChatMigrateTo, TgDocument, TgEntityType, TgInvoiceDone, TgMemberLeft, TgMemberNew,
+  TgMenuButton, TgPhoto, TgText, TgChatAutoDel, TgPoll, TgVideo, TgLocation, TgVoice, TgChatTitle, TgWebappData,
+  TgCallback, TgInlineQuery, TgInlineQueryFeedback, TgInvoice, TgInvoiceCheckout, TgInvoiceShipping, TgGroupStatusMy,
+  TgGroupStatus, TgPhotoEdited, TgTextEdited, TgLocationEdited, TgDocumentEdited, TgMethods, TgProfilePhoto,
+  TgChatAction, TgMember, TgPermAdmin, TgChat, TgPermMember, TgFile, TgInvoiceCurrencies, TgMessage, TgParseMode,
+  TgCmdScope, TgUser, TgLimits, TgPassport, TgChatRequest
 };
 
 class TelegramBotLibrary extends TblBasics{
@@ -1417,6 +1422,8 @@ class TelegramBotLibrary extends TblBasics{
       return new TgDocumentEdited($update['edited_message']);
     elseif(isset($update['poll'])):
       return new TgPoll($update['poll']);
+    elseif(isset($update['chat_join_request'])):
+      return new TgChatRequest($update['chat_join_request']);
     endif;
   }
 }
