@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.09.24.01
+//2022.09.24.02
 
 namespace ProtocolLive\TelegramBotLibrary;
 use ProtocolLive\TelegramBotLibrary\TblBasics;
@@ -307,6 +307,82 @@ class TelegramBotLibrary extends TblBasics{
   ):array{
     $param['custom_emoji_ids'] = json_encode($Ids);
     return $this->ServerMethod(TgMethods::CustomEmojiGet, $param);
+  }
+
+  private function DetectReturn(array $Data):object{
+    if(isset($Data['message']['entities'][0])
+    and $Data['message']['entities'][0]['type'] === TgEntityType::Command->value
+    and $Data['message']['entities'][0]['offset'] === 0):
+      return new TblCmd($Data['message']);
+    elseif(isset($Data['edited_message']['entities'][0])
+    and $Data['edited_message']['entities'][0]['type'] === TgEntityType::Command->value
+    and $Data['edited_message']['entities'][0]['offset'] === 0):
+      return new TblCmdEdited($Data['edited_message']);
+    elseif(isset($Data['channel_post']['entities'][0])
+    and $Data['channel_post']['entities'][0]['type'] === TgEntityType::Command->value
+    and $Data['channel_post']['entities'][0]['offset'] === 0):
+      return new TblCmd($Data['channel_post']);
+    elseif(isset($Data['message']['text'])):
+      return new TgText($Data['message']);
+    elseif(isset($Data['message']['photo'])):
+      return new TgPhoto($Data['message']);
+    elseif(isset($Data['message']['document'])):
+      return new TgDocument($Data['message']);
+    elseif(isset($Data['message']['successful_payment'])):
+      return new TgInvoiceDone($Data['message']);
+    elseif(isset($Data['message']['left_chat_member'])):
+      return new TgMemberLeft($Data['message']);
+    elseif(isset($Data['message']['new_chat_member'])):
+      return new TgMemberNew($Data['message']);
+    elseif(isset($Data['message']['migrate_to_chat_id'])):
+      return new TgChatMigrateTo($Data['message']);
+    elseif(isset($Data['message']['migrate_from_chat_id'])):
+      return new TgChatMigrateFrom($Data['message']);
+    elseif(isset($Data['message']['message_auto_delete_timer_changed'])):
+      return new TgChatAutoDel($Data['message']);
+    elseif(isset($Data['message']['poll'])):
+      return new TgPoll($Data['message']);
+    elseif(isset($Data['message']['video'])):
+      return new TgVideo($Data['message']);
+    elseif(isset($Data['message']['location'])):
+      return new TgLocation($Data['message']);
+    elseif(isset($Data['message']['voice'])):
+      return new TgVoice($Data['message']);
+    elseif(isset($Data['message']['new_chat_title'])):
+      return new TgChatTitle($Data['message']);
+    elseif(isset($Data['message']['web_app_data'])):
+      return new TgWebappData($Data['message']);
+    elseif(isset($Data['message']['passport_data'])):
+      return new TgPassport($Data['message']);
+    elseif(isset($Data['callback_query'])):
+      return new TgCallback($Data['callback_query']);
+    elseif(isset($Data['inline_query'])):
+      return new TgInlineQuery($Data['inline_query']);
+    elseif(isset($Data['chosen_inline_result'])):
+      return new TgInlineQueryFeedback($Data['chosen_inline_result']);
+    elseif(isset($Data['invoice'])):
+      return new TgInvoice($Data['invoice']);
+    elseif(isset($Data['pre_checkout_query'])):
+      return new TgInvoiceCheckout($Data['pre_checkout_query']);
+    elseif(isset($Data['shipping_query'])):
+      return new TgInvoiceShipping($Data['shipping_query']);
+    elseif(isset($Data['my_chat_member'])):
+      return new TgGroupStatusMy($Data['my_chat_member']);
+    elseif(isset($Data['chat_member'])):
+      return new TgGroupStatus($Data['chat_member']);
+    elseif(isset($Data['edited_message']['photo'])):
+      return new TgPhotoEdited($Data['edited_message']);
+    elseif(isset($Data['edited_message']['text'])):
+      return new TgTextEdited($Data['edited_message']);
+    elseif(isset($Data['edited_message']['location'])):
+      return new TgLocationEdited($Data['edited_message']);
+    elseif(isset($Data['edited_message']['document'])):
+      return new TgDocumentEdited($Data['edited_message']);
+    elseif(isset($Data['poll'])):
+      return new TgPoll($Data['poll']);
+    elseif(isset($Data['chat_join_request'])):
+      return new TgChatRequest($Data['chat_join_request']);
+    endif;
   }
 
   /**
@@ -813,7 +889,7 @@ class TelegramBotLibrary extends TblBasics{
    * @param int $Id Message identifier in the chat specified in from_chat_id
    * @param bool $DisableNotification Sends the message silently. Users will receive a notification with no sound.
    * @param bool $Protect Protects the contents of the forwarded message from forwarding and saving
-   * @return TgMessage On success, the sent Message is returned.
+   * @return object On success, the sent Message is returned.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#forwardmessage
    */
@@ -823,7 +899,7 @@ class TelegramBotLibrary extends TblBasics{
     int $Id,
     bool $DisableNotification = false,
     bool $Protect = false
-  ):TgMessage{
+  ):object{
     $param['chat_id'] = $To;
     $param['from_chat_id'] = $From;
     $param['message_id'] = $Id;
@@ -834,7 +910,7 @@ class TelegramBotLibrary extends TblBasics{
       $param['protect_content'] = true;
     endif;
     $return = $this->ServerMethod(TgMethods::MessageForward, $param);
-    return $return;
+    return $this->DetectReturn(['message' => $return]);
   }
 
   /**
@@ -1352,78 +1428,6 @@ class TelegramBotLibrary extends TblBasics{
     if($this->BotData->Log & TblLog::Webhook):
       $this->Log(TblLog::Webhook, json_encode($update, JSON_PRETTY_PRINT));
     endif;
-    if(isset($update['message']['entities'][0])
-    and $update['message']['entities'][0]['type'] === TgEntityType::Command->value
-    and $update['message']['entities'][0]['offset'] === 0):
-      return new TblCmd($update['message']);
-    elseif(isset($update['edited_message']['entities'][0])
-    and $update['edited_message']['entities'][0]['type'] === TgEntityType::Command->value
-    and $update['edited_message']['entities'][0]['offset'] === 0):
-      return new TblCmdEdited($update['edited_message']);
-    elseif(isset($update['channel_post']['entities'][0])
-    and $update['channel_post']['entities'][0]['type'] === TgEntityType::Command->value
-    and $update['channel_post']['entities'][0]['offset'] === 0):
-      return new TblCmd($update['channel_post']);
-    elseif(isset($update['message']['text'])):
-      return new TgText($update['message']);
-    elseif(isset($update['message']['photo'])):
-      return new TgPhoto($update['message']);
-    elseif(isset($update['message']['document'])):
-      return new TgDocument($update['message']);
-    elseif(isset($update['message']['successful_payment'])):
-      return new TgInvoiceDone($update['message']);
-    elseif(isset($update['message']['left_chat_member'])):
-      return new TgMemberLeft($update['message']);
-    elseif(isset($update['message']['new_chat_member'])):
-      return new TgMemberNew($update['message']);
-    elseif(isset($update['message']['migrate_to_chat_id'])):
-      return new TgChatMigrateTo($update['message']);
-    elseif(isset($update['message']['migrate_from_chat_id'])):
-      return new TgChatMigrateFrom($update['message']);
-    elseif(isset($update['message']['message_auto_delete_timer_changed'])):
-      return new TgChatAutoDel($update['message']);
-    elseif(isset($update['message']['poll'])):
-      return new TgPoll($update['message']);
-    elseif(isset($update['message']['video'])):
-      return new TgVideo($update['message']);
-    elseif(isset($update['message']['location'])):
-      return new TgLocation($update['message']);
-    elseif(isset($update['message']['voice'])):
-      return new TgVoice($update['message']);
-    elseif(isset($update['message']['new_chat_title'])):
-      return new TgChatTitle($update['message']);
-    elseif(isset($update['message']['web_app_data'])):
-      return new TgWebappData($update['message']);
-    elseif(isset($update['message']['passport_data'])):
-      return new TgPassport($update['message']);
-    elseif(isset($update['callback_query'])):
-      return new TgCallback($update['callback_query']);
-    elseif(isset($update['inline_query'])):
-      return new TgInlineQuery($update['inline_query']);
-    elseif(isset($update['chosen_inline_result'])):
-      return new TgInlineQueryFeedback($update['chosen_inline_result']);
-    elseif(isset($update['invoice'])):
-      return new TgInvoice($update['invoice']);
-    elseif(isset($update['pre_checkout_query'])):
-      return new TgInvoiceCheckout($update['pre_checkout_query']);
-    elseif(isset($update['shipping_query'])):
-      return new TgInvoiceShipping($update['shipping_query']);
-    elseif(isset($update['my_chat_member'])):
-      return new TgGroupStatusMy($update['my_chat_member']);
-    elseif(isset($update['chat_member'])):
-      return new TgGroupStatus($update['chat_member']);
-    elseif(isset($update['edited_message']['photo'])):
-      return new TgPhotoEdited($update['edited_message']);
-    elseif(isset($update['edited_message']['text'])):
-      return new TgTextEdited($update['edited_message']);
-    elseif(isset($update['edited_message']['location'])):
-      return new TgLocationEdited($update['edited_message']);
-    elseif(isset($update['edited_message']['document'])):
-      return new TgDocumentEdited($update['edited_message']);
-    elseif(isset($update['poll'])):
-      return new TgPoll($update['poll']);
-    elseif(isset($update['chat_join_request'])):
-      return new TgChatRequest($update['chat_join_request']);
-    endif;
+    return $this->DetectReturn($update);
   }
 }
