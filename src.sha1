@@ -23,14 +23,16 @@ f0eb92c0cf1a00c0eefb2cf91ee38df577af57ad  src/TblObjects/TblLog.php
 3928807918109ec54dbc880c88d47fd9dc6f18cb  src/TblObjects/TblMarkupRemove.php
 33510905e9f7086e7e2ab225b237830b66270de5  src/TblObjects/TblMarkupRequest.php
 3e7036b264d005123aa70731cb9b8707f33bb0e2  src/TblObjects/TblWebhook.php
-1ecbbab9974887d214878d0d4ee600109fd083d6  src/TelegramBotLibrary.php
+0f1d2f456c3a9dc5ad5b32660ad7a0da1aa12f40  src/TelegramBotLibrary.php
 16d738be178a94838a2f10a4aea32182f71672bf  src/TgObjects/TgCallback.php
 a34a000a5d2bde6d09648657565b72a3e1aee942  src/TgObjects/TgChat.php
 909fc0329d8b49bc389487274a7f3b480e82a06c  src/TgObjects/TgChatAction.php
 1ff88dd50561326780712c0833472a1785667bac  src/TgObjects/TgChatAutoDel.php
+c8557a9f15251997f9abb3071cce140a93e357d0  src/TgObjects/TgChatInviteLink.php
 dd4d0c1092ac38e2fddc8cded052504e1f8ef89f  src/TgObjects/TgChatMigrateFrom.php
 4f4cc51168897c87829351b71e9d90a8c61e0b41  src/TgObjects/TgChatMigrateTo.php
 bfb2e5d4c758f3408c135ba2fa42c8fd5a3f067f  src/TgObjects/TgChatPhoto.php
+dd96d4aa28e5cc01c1865782e30c3dd62e4ee837  src/TgObjects/TgChatRequest.php
 0422859422c8af8d2c01a3d0c857ff92b3a8cc7a  src/TgObjects/TgChatTitle.php
 80edd5673d76656ad682abcb750de8b5084ba129  src/TgObjects/TgChatType.php
 8f0568fcf616bbe29cbef0446dfdff785d2440c8  src/TgObjects/TgCmdScope.php
