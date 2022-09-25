@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.08.28.00
+//2022.09.25.00
 
 namespace ProtocolLive\TelegramBotLibrary;
 use \CurlHandle;
@@ -31,11 +31,6 @@ abstract class TblBasics{
     \CurlHandle $Curl,
   ):mixed{
     $response = curl_multi_getcontent($Curl);
-    if($response === false):
-      $temp = 'cURL error #' . curl_errno($Curl) . ' ' . curl_error($Curl);
-      $this->Log(TblLog::Curl, $temp);
-      return new TblException(TblError::Curl, $temp);
-    endif;
     $response = json_decode($response, true);
     if($this->BotData->Log & TblLog::Response):
       $this->Log(TblLog::Response, json_encode($response, JSON_PRETTY_PRINT));
@@ -67,7 +62,12 @@ abstract class TblBasics{
       $this->Log(TblLog::Send, $log);
     endif;
     $curl = $this->Curl($curl, $Params);
-    curl_exec($curl);
+    $return = curl_exec($curl);
+    if($return === false):
+      $temp = 'cURL error #' . curl_errno($curl) . ' ' . curl_error($curl);
+      $this->Log(TblLog::Curl, $temp);
+      throw new TblException(TblError::Curl, $temp);
+    endif;
     $return = $this->CurlResponse($curl);
     if(is_object($return)):
       throw $return;
@@ -119,6 +119,8 @@ abstract class TblBasics{
       $file = 'send';
     elseif($Type === TblLog::Webhook):
       $file = 'webhook';
+    elseif($Type === TblLog::Curl):
+      $file = 'curl';
     endif;
     $file = $this->BotData->DirLogs . '/' . $file . '.log';
     $this->DirCreate(dirname($file));
