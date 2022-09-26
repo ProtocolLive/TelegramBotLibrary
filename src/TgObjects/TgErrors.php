@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.09.23.00
+//2022.09.26.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -33,7 +33,8 @@ class TgErrors{
     'Bad Request: CURRENCY_TOTAL_AMOUNT_INVALID' => TgError::InvoiceLimits,
     'Bad Request: there must be at least one price' => TgError::SomethingMissing,
     'Bad Request: can\'t parse MessageEntity: Field "user" must be of type Object' => TgError::UserObject,
-    'Bad Request: user not found' => TgError::UserNotFound
+    'Bad Request: user not found' => TgError::UserNotFound,
+    'Forbidden: bot is not a member of the channel chat' => TgError::NotMember
   ];
 
   public static function Search(string $Description):TgError|false{
