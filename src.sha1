@@ -4,7 +4,7 @@ d9dc26a37198ced0d00a592258f28882772e9211  src/TblObjects/TblCmdEdited.php
 da581f808c83dc7c640f45c4791b0938bc7dad2b  src/TblObjects/TblCommands.php
 a8e377ccd1e1506988a3bd7ad15e501771a2cf5d  src/TblObjects/TblData.php
 51923fbf1fbdf2e77f72b3a8a61ca5b83257c0a3  src/TblObjects/TblDefaultPerms.php
-5ec80a567926cfae420c9e3b02584940180c9c27  src/TblObjects/TblEntities.php
+bed28375188f7fb310d03c324b075007f1ba8762  src/TblObjects/TblEntities.php
 65ad1580b3a2a07c45ca1502e005c1e9508e9249  src/TblObjects/TblError.php
 b8c863371a67ce15a676c93727125d9486c89073  src/TblObjects/TblException.php
 69aa3af7b0618a59db16d20590721f71902aa2ef  src/TblObjects/TblInlineQuery.php
