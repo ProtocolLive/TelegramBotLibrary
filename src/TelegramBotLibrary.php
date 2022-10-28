@@ -1,22 +1,66 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.10.28.00
+//2022.10.28.01
 
 namespace ProtocolLive\TelegramBotLibrary;
-use ProtocolLive\TelegramBotLibrary\TblBasics;
-use ProtocolLive\TelegramBotLibrary\TblObjects\{
-  TblData, TblException, TblError, TblLog, TblCmd, TblCmdEdited, TblInvoicePrices,
-  TblMarkup, TblInvoiceShippingOptions, TblEntities, TblDefaultPerms, TblCommands
-};
-use ProtocolLive\TelegramBotLibrary\TgObjects\{
-  TgChatMigrateFrom, TgChatMigrateTo, TgDocument, TgEntityType, TgInvoiceDone, TgMemberLeft, TgMemberNew,
-  TgMenuButton, TgPhoto, TgText, TgChatAutoDel, TgPoll, TgVideo, TgLocation, TgVoice, TgChatTitle, TgWebappData,
-  TgCallback, TgInlineQuery, TgInlineQueryFeedback, TgInvoice, TgInvoiceCheckout, TgInvoiceShipping, TgGroupStatusMy,
-  TgGroupStatus, TgPhotoEdited, TgTextEdited, TgLocationEdited, TgDocumentEdited, TgMethods, TgProfilePhoto,
-  TgChatAction, TgMember, TgPermAdmin, TgChat, TgPermMember, TgFile, TgInvoiceCurrencies, TgMessage, TgParseMode,
-  TgCmdScope, TgUser, TgLimits, TgPassport, TgChatRequest
-};
+use ProtocolLive\TelegramBotLibrary\TblObjects\TblCmd;
+use ProtocolLive\TelegramBotLibrary\TblObjects\TblCmdEdited;
+use ProtocolLive\TelegramBotLibrary\TblObjects\TblCommands;
+use ProtocolLive\TelegramBotLibrary\TblObjects\TblData;
+use ProtocolLive\TelegramBotLibrary\TblObjects\TblDefaultPerms;
+use ProtocolLive\TelegramBotLibrary\TblObjects\TblEntities;
+use ProtocolLive\TelegramBotLibrary\TblObjects\TblError;
+use ProtocolLive\TelegramBotLibrary\TblObjects\TblException;
+use ProtocolLive\TelegramBotLibrary\TblObjects\TblInvoicePrices;
+use ProtocolLive\TelegramBotLibrary\TblObjects\TblInvoiceShippingOptions;
+use ProtocolLive\TelegramBotLibrary\TblObjects\TblLog;
+use ProtocolLive\TelegramBotLibrary\TblObjects\TblMarkup;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgCallback;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgChat;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgChatAction;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgChatAutoDel;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgChatMigrateFrom;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgChatMigrateTo;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgChatRequest;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgChatTitle;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgCmdScope;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgDocument;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgDocumentEdited;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgEntityType;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgFile;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgGroupStatus;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgGroupStatusMy;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgInlineQuery;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgInlineQueryFeedback;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgInvoice;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgInvoiceCheckout;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgInvoiceCurrencies;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgInvoiceDone;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgInvoiceShipping;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgLimits;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgLocation;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgLocationEdited;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgMember;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgMemberLeft;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgMemberNew;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgMenuButton;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgMessage;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgMethods;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgParseMode;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgPassport;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgPermAdmin;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgPermMember;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgPhoto;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgPhotoEdited;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgPoll;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgProfilePhoto;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgText;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgTextEdited;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgUser;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgVideo;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgVoice;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgWebappData;
 
 class TelegramBotLibrary extends TblBasics{
   /**
