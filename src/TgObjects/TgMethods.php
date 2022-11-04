@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.08.18.00
+//2022.11.04.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -23,6 +23,7 @@ enum TgMethods:string{
   case CommandsGet = 'getMyCommands';
   case CommandsSet = 'setMyCommands';
   case CustomEmojiGet = 'getCustomEmojiStickers';
+  case DocumentSend = 'sendDocument';
   case FileGet = 'getFile';
   case InlineQueryAnswer = 'answerInlineQuery';
   case InvoiceCheckoutSend = 'answerPreCheckoutQuery';

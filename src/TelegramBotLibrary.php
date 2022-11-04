@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.11.04.00
+//2022.11.04.01
 
 namespace ProtocolLive\TelegramBotLibrary;
 use ProtocolLive\TelegramBotLibrary\TblObjects\TblCmd;
@@ -351,6 +351,79 @@ class TelegramBotLibrary extends TblBasics{
   ):array{
     $param['custom_emoji_ids'] = json_encode($Ids);
     return $this->ServerMethod(TgMethods::CustomEmojiGet, $param);
+  }
+
+  /**
+   * Use this method to send general files. Bots can currently send files of any type of up to 50 MB in size, this limit may be changed in the future.
+   * @param int $Chat Unique identifier for the target chat
+   * @param string $File File to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data.
+   * @param string $Thumb Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file
+   * @param string $Caption Document caption (may also be used when resending documents by file_id), 0-1024 characters after entities parsing
+   * @param TgParseMode $ParseMode Mode for parsing entities in the document caption. See formatting options for more details.
+   * @param TblEntities $Entities A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
+   * @param bool $DisableDetection Disables automatic server-side content type detection for files uploaded using multipart/form-data
+   * @param bool $DisableNotification Sends the message silently. Users will receive a notification with no sound.
+   * @param bool $Protect Protects the contents of the sent message from forwarding and saving
+   * @param int $RepliedMsg If the message is a reply, ID of the original message
+   * @param bool $SendWithoutRepliedMsg Pass True, if the message should be sent even if the specified replied-to message is not found
+   * @param TblMarkup $Markup Additional interface options. A object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
+   * @return TgDocument On success, the sent Message is returned.
+   * @link https://core.telegram.org/bots/api#senddocument
+   */
+  public function DocumentSend(
+    int $Chat,
+    string $File,
+    string $Thumb = null,
+    string $Caption = null,
+    TgParseMode $ParseMode = TgParseMode::Html,
+    TblEntities $Entities = null,
+    bool $DisableDetection = false,
+    bool $DisableNotification = false,
+    bool $Protect = false,
+    int $RepliedMsg = null,
+    bool $SendWithoutRepliedMsg = false,
+    TblMarkup $Markup = null
+  ):TgDocument{
+    $param['chat_id'] = $Chat;
+    if(is_file($File)):
+      $param['document'] = new \CurlFile($File);
+    else:
+      $param['document'] = $File;
+    endif;
+    if($Thumb !== null):
+      if(is_file($Thumb)):
+        $param['thumb'] = new \CurlFile($File);
+      else:
+        $param['thumb'] = $Thumb;
+      endif;
+    endif;
+    if($Caption !== null):
+      $param['caption'] = $Caption;
+      $param['parse_mode'] = $ParseMode->value;
+    endif;
+    if($Entities !== null):
+      $param['caption_entities'] = json_encode($Entities);
+    endif;
+    if($DisableDetection):
+      $param['disable_content_type_detection'] = 'true';
+    endif;
+    if($DisableNotification):
+      $param['disable_notification'] = 'true';
+    endif;
+    if($Protect):
+      $param['protect_content'] = 'true';
+    endif;
+    if($RepliedMsg !== null):
+      $param['reply_to_message_id'] = $RepliedMsg;
+    endif;
+    if($SendWithoutRepliedMsg):
+      $param['allow_sending_without_reply'] = 'true';
+    endif;
+    if($Markup !== null):
+      $param['reply_markup'] = $Markup->ToJson();
+    endif;
+    $return = $this->ServerMethod(TgMethods::DocumentSend, $param);
+    return new TgDocument($return);
   }
 
   private function DetectReturn(array $Data):object{
