@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.08.18.00
+//2022.11.04.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -13,6 +13,7 @@ class TgDocument{
   public readonly string $Mime;
   public readonly int $Size;
   public readonly string|null $MediaGroup;
+  public readonly string|null $Caption;
 
   public function __construct(array $Data){
     $this->Message = new TgMessage($Data);
@@ -22,5 +23,6 @@ class TgDocument{
     $this->Mime = $Data['document']['mime_type'];
     $this->Size = $Data['document']['file_size'];
     $this->MediaGroup = $Data['media_group_id'] ?? null;
+    $this->Caption = $Data['caption'] ?? null;
   }
 }
