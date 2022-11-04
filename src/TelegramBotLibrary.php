@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.10.28.02
+//2022.11.04.00
 
 namespace ProtocolLive\TelegramBotLibrary;
 use ProtocolLive\TelegramBotLibrary\TblObjects\TblCmd;
@@ -929,7 +929,8 @@ class TelegramBotLibrary extends TblBasics{
     if($Markup !== null):
       $param['reply_markup'] = $Markup->ToJson();
     endif;
-    return $this->ServerMethod(TgMethods::MessageCopy, $param);
+    $return = $this->ServerMethod(TgMethods::MessageCopy, $param);
+    return $return['message_id'];
   }
 
   /**
