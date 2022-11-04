@@ -1,7 +1,7 @@
 324008a1768dd39c08c2d8ef8a5977f46c5b812b  TblBasics.php
 64c01edaea5ad682a66668e26dbf3187dcda76b0  TblObjects\TblCmd.php
 d9dc26a37198ced0d00a592258f28882772e9211  TblObjects\TblCmdEdited.php
-da581f808c83dc7c640f45c4791b0938bc7dad2b  TblObjects\TblCommands.php
+117467f009fbb0e85d261b8b34475faab25cfe1a  TblObjects\TblCommands.php
 a8e377ccd1e1506988a3bd7ad15e501771a2cf5d  TblObjects\TblData.php
 51923fbf1fbdf2e77f72b3a8a61ca5b83257c0a3  TblObjects\TblDefaultPerms.php
 bed28375188f7fb310d03c324b075007f1ba8762  TblObjects\TblEntities.php
