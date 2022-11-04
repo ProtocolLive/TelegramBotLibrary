@@ -23,7 +23,7 @@ f0eb92c0cf1a00c0eefb2cf91ee38df577af57ad  TblObjects\TblLog.php
 3928807918109ec54dbc880c88d47fd9dc6f18cb  TblObjects\TblMarkupRemove.php
 33510905e9f7086e7e2ab225b237830b66270de5  TblObjects\TblMarkupRequest.php
 3e7036b264d005123aa70731cb9b8707f33bb0e2  TblObjects\TblWebhook.php
-69900d54ef312063d7345f5b227de074f12795ba  TelegramBotLibrary.php
+e21bafdcb5bccfc638309a6ee5b0e96d49e8734e  TelegramBotLibrary.php
 16d738be178a94838a2f10a4aea32182f71672bf  TgObjects\TgCallback.php
 a34a000a5d2bde6d09648657565b72a3e1aee942  TgObjects\TgChat.php
 909fc0329d8b49bc389487274a7f3b480e82a06c  TgObjects\TgChatAction.php
@@ -36,7 +36,7 @@ dd96d4aa28e5cc01c1865782e30c3dd62e4ee837  TgObjects\TgChatRequest.php
 0422859422c8af8d2c01a3d0c857ff92b3a8cc7a  TgObjects\TgChatTitle.php
 80edd5673d76656ad682abcb750de8b5084ba129  TgObjects\TgChatType.php
 8f0568fcf616bbe29cbef0446dfdff785d2440c8  TgObjects\TgCmdScope.php
-b7b8d0134559b222e42e4786cff2197dd4e585ea  TgObjects\TgDocument.php
+bf59340b91948a3c909180285b1fa5edeaa9b9c6  TgObjects\TgDocument.php
 76da41f54c280d6b10caf9594746be012e36e10a  TgObjects\TgDocumentEdited.php
 287ed76aa23a235b832aeb2c6d6a37d863568f60  TgObjects\TgEntity.php
 65c3ac9ca951a5dd9c6069326615949ec27c2fc1  TgObjects\TgEntityType.php
@@ -65,7 +65,7 @@ d2a9737c9ac871b043df327b88fd9164cf453a69  TgObjects\TgMask.php
 623934ec9442a7e58702e32740a6ac38b10bd8c9  TgObjects\TgMemberStatus.php
 56decac2789e4c87d1cad4abae9b295d0e95ec0b  TgObjects\TgMenuButton.php
 c114acf3205c9edcbfd201bd6bc195034815cc31  TgObjects\TgMessage.php
-c74119df8e8e71236d468c67b300ae56334e0346  TgObjects\TgMethods.php
+5bbf6ac53411779c28a7da9c0fc6176fa0203107  TgObjects\TgMethods.php
 194f24b56ae46c6455ea11ff959da4ccb199eca3  TgObjects\TgParseMode.php
 9a1e3bd0c6af311e12c7348351d0694f742c7e24  TgObjects\TgPassport.php
 bdd1df3eb0ea9ce356851a55ec06a07bcfcff7b2  TgObjects\TgPassportDataAddress.php
