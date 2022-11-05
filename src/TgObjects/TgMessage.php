@@ -1,22 +1,58 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.11.05.01
+//2022.11.05.02
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 class TgMessage{
+  /**
+   * Unique message identifier inside this chat
+   */
   public readonly int $Id;
+  /**
+   * Sender of the message; empty for messages sent to channels. For backward compatibility, the field contains a fake sender user in non-channel chats, if the message was sent on behalf of a chat.
+   */
   public readonly TgUser|TgChat $User;
+  /**
+   * Sender of the message, sent on behalf of a chat. For example, the channel itself for channel posts, the supergroup itself for messages from anonymous group administrators, the linked channel for messages automatically forwarded to the discussion group. For backward compatibility, the field from contains a fake sender user in non-channel chats, if the message was sent on behalf of a chat.
+   */
   public readonly TgChat $Chat;
+  /**
+   * Date the message was sent in Unix time
+   */
   public readonly int $Date;
+  /**
+   * If the message can't be forwarded
+   */
   public readonly bool $Protected;
+  /**
+   * For messages forwarded from channels or from anonymous administrators, information about the original sender chat
+   */
   public readonly TgUser|TgChat|null $ForwardFrom;
+  /**
+   * For messages forwarded from channels, identifier of the original message in the channel
+   */
   public readonly int|null $ForwardId;
+  /**
+   * If the message is a channel post that was automatically forwarded to the connected discussion group
+   */
   public readonly bool|null $ForwardAuto;
+  /**
+   * For forwarded messages, date the original message was sent in Unix time
+   */
   public readonly int|null $ForwardDate;
+  /**
+   * For replies, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
+   */
   public readonly TgText|TgPhoto|TgDocument|null $Reply;
+  /**
+   * If the message is sent to a forum topic
+   */
   public readonly bool $Topic;
+  /**
+   * Unique identifier of a message thread to which the message belongs; for supergroups only
+   */
   public readonly int|null $TopicId;
 
   //The bot 777000 is used to forward messages from channels to groups
