@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.08.18.00
+//2022.11.05.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -15,7 +15,7 @@ class TgMessage{
   public readonly int|null $ForwardId;
   public readonly bool|null $ForwardAuto;
   public readonly int|null $ForwardDate;
-  public readonly TgText|TgPhoto|null $Reply;
+  public readonly TgText|TgPhoto|TgDocument|null $Reply;
 
   //The bot 777000 is used to forward messages from channels to groups
   //The bot 1087968824 is used for admins post as the group and for migrate events
@@ -56,6 +56,8 @@ class TgMessage{
         $this->Reply = new TgText($Data['reply_to_message']);
       elseif(isset($Data['reply_to_message']['photo'])):
         $this->Reply = new TgPhoto($Data['reply_to_message']);
+      elseif(isset($Data['reply_to_message']['document'])):
+        $this->Reply = new TgDocument($Data['reply_to_message']);
       else:
         $this->Reply = null;
       endif;
