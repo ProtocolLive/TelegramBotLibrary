@@ -1,16 +1,18 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.11.05.01
+//2022.11.05.02
 
 namespace ProtocolLive\TelegramBotLibrary\TblTraits;
 
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgChat;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgChatAction;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgChatType;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgMember;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgMethods;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgPermAdmin;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgPermMember;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgUser;
 
 trait TblChatTrait{
   /**
@@ -153,10 +155,16 @@ trait TblChatTrait{
    * @throws TblException
    * @link https://core.telegram.org/bots/api#getchat
    */
-  public function ChatGet(int $Chat):TgChat|null{
+  public function ChatGet(
+    int $Chat
+  ):TgChat|TgUser|null{
     $param['chat_id'] = $Chat;
     $temp = $this->ServerMethod(TgMethods::Chat, $param);
-    return new TgChat($temp);
+    if($temp['type'] === TgChatType::Private->value):
+      return new TgUser($temp);
+    else:
+      return new TgChat($temp);
+    endif;
   }
 
   /**
