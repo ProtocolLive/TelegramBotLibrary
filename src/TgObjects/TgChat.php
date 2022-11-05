@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.11.05.01
+//2022.11.05.02
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -58,9 +58,9 @@ class TgChat{
     $this->RestrictedForward = $Data['has_private_forwards'] ?? false;
     $this->Forum = $Data['is_forum'] ?? false;
     if(isset($Data['active_usernames'])):
-      $this->Nicks = null;
-    else:
       $this->Nicks = json_decode($Data['active_usernames'], true);
+    else:
+      $this->Nicks = null;
     endif;
     if(isset($Data['photo'])):
       $this->Photo = new TgChatPhoto($Data['photo']);
