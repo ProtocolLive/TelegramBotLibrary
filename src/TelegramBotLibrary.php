@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.11.05.06
+//2022.11.05.07
 
 namespace ProtocolLive\TelegramBotLibrary;
 use ProtocolLive\TelegramBotLibrary\TblObjects\TblCmd;
@@ -187,6 +187,7 @@ class TelegramBotLibrary extends TblBasics{
   public function DocumentSend(
     int $Chat,
     string $File,
+    int $Thread = null,
     string $Thumb = null,
     string $Caption = null,
     TgParseMode $ParseMode = TgParseMode::Html,
@@ -203,6 +204,9 @@ class TelegramBotLibrary extends TblBasics{
       $param['document'] = new \CurlFile($File);
     else:
       $param['document'] = $File;
+    endif;
+    if($Thread !== null):
+      $param['message_thread_id'] = $Thread;
     endif;
     if($Thumb !== null):
       if(is_file($Thumb)):
