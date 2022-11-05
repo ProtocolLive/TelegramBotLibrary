@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.11.05.00
+//2022.11.05.01
 
 namespace ProtocolLive\TelegramBotLibrary;
 use ProtocolLive\TelegramBotLibrary\TblObjects\TblCmd;
@@ -12,6 +12,7 @@ use ProtocolLive\TelegramBotLibrary\TblObjects\TblDefaultPerms;
 use ProtocolLive\TelegramBotLibrary\TblObjects\TblEntities;
 use ProtocolLive\TelegramBotLibrary\TblObjects\TblError;
 use ProtocolLive\TelegramBotLibrary\TblObjects\TblException;
+use ProtocolLive\TelegramBotLibrary\TblObjects\TblForumTrait;
 use ProtocolLive\TelegramBotLibrary\TblObjects\TblInvoicePrices;
 use ProtocolLive\TelegramBotLibrary\TblObjects\TblInvoiceShippingOptions;
 use ProtocolLive\TelegramBotLibrary\TblObjects\TblLog;
@@ -66,6 +67,8 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\TgVoice;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgWebappData;
 
 class TelegramBotLibrary extends TblBasics{
+  use TblForumTrait;
+
   /**
    * @throws TblException
    */

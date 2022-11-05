@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.11.04.00
+//2022.11.05.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -25,6 +25,13 @@ enum TgMethods:string{
   case CustomEmojiGet = 'getCustomEmojiStickers';
   case DocumentSend = 'sendDocument';
   case FileGet = 'getFile';
+  case ForumClose = 'closeForumTopic';
+  case ForumCreate = 'createForumTopic';
+  case ForumDel = 'deleteForumTopic';
+  case ForumEdit = 'editForumTopic';
+  case ForumReopen = 'reopenForumTopic';
+  case ForumStickers = 'getForumTopicIconStickers';
+  case ForumUnpin = 'unpinAllForumTopicMessages';
   case InlineQueryAnswer = 'answerInlineQuery';
   case InvoiceCheckoutSend = 'answerPreCheckoutQuery';
   case InvoiceLink = 'createInvoiceLink';
