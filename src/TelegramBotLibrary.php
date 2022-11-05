@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.11.04.01
+//2022.11.05.00
 
 namespace ProtocolLive\TelegramBotLibrary;
 use ProtocolLive\TelegramBotLibrary\TblObjects\TblCmd;
@@ -29,6 +29,9 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\TgDocument;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgDocumentEdited;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgEntityType;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgFile;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgForumClosed;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgForumCreated;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgForumReopened;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgGroupStatus;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgGroupStatusMy;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgInlineQuery;
@@ -464,6 +467,12 @@ class TelegramBotLibrary extends TblBasics{
       return new TgInlineQuery($Data['inline_query']);
     elseif(isset($Data['message']['document'])):
       return new TgDocument($Data['message']);
+    elseif(isset($Data['message']['forum_topic_closed'])):
+      return new TgForumClosed($Data['message']);
+    elseif(isset($Data['message']['forum_topic_created'])):
+      return new TgForumCreated($Data['message']);
+    elseif(isset($Data['message']['forum_topic_reopened'])):
+      return new TgForumReopened($Data['message']);
     elseif(isset($Data['message']['invoice'])):
       return new TgInvoice($Data['message']);
     elseif(isset($Data['message']['left_chat_member'])):
