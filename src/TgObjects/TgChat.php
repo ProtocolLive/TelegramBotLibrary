@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.11.05.00
+//2022.11.05.01
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -43,6 +43,10 @@ class TgChat{
    * If the supergroup chat is a forum (has topics enabled)
    */
   public readonly bool $Forum;
+  /**
+   * If non-empty, the list of all active chat usernames; for private chats, supergroups and channels. Returned only in getChat.
+   */
+  public readonly array|null $Nicks;
 
   public function __construct(array $Data){
     $this->Id = $Data['id'];
@@ -53,6 +57,11 @@ class TgChat{
     $this->RestrictedVoice = $Data['has_restricted_voice_and_video_messages'] ?? false;
     $this->RestrictedForward = $Data['has_private_forwards'] ?? false;
     $this->Forum = $Data['is_forum'] ?? false;
+    if(isset($Data['active_usernames'])):
+      $this->Nicks = null;
+    else:
+      $this->Nicks = json_decode($Data['active_usernames'], true);
+    endif;
     if(isset($Data['photo'])):
       $this->Photo = new TgChatPhoto($Data['photo']);
     else:
