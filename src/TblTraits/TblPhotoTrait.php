@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.11.05.00
+//2022.11.05.01
 
 namespace ProtocolLive\TelegramBotLibrary\TblTraits;
 
@@ -34,6 +34,7 @@ trait TblPhotoTrait{
    * Sending by URL
    * - When sending by URL the target file must have the correct MIME type (e.g., audio/mpeg for sendAudio, etc.).
    * - Other configurations may work but we can't guarantee that they will.
+   * @param int $Thread Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
    * @param string $Caption Photo caption (may also be used when resending photos by file_id), 0-1024 characters after entities parsing
    * @param TgParseMode $ParseMode Mode for parsing entities in the photo caption. See formatting options for more details.
    * @param TblEntities $Entities A list of special entities that appear in the caption, which can be specified instead of parse_mode
@@ -49,6 +50,7 @@ trait TblPhotoTrait{
   public function PhotoSend(
     int $Chat,
     string $Photo,
+    int $Thread = null,
     string $Caption = null,
     TgParseMode $ParseMode = TgParseMode::Html,
     TblEntities $Entities = null,
@@ -58,38 +60,19 @@ trait TblPhotoTrait{
     bool $SendWithoutRepliedMsg = false,
     TblMarkup $Markup = null
   ):TgPhoto{
-    if($Caption !== null
-    and strlen($Caption) > TgLimits::Caption):
-      throw new TblException(TblError::LimitPhotoCaption);
-    endif;
-    $param['chat_id'] = $Chat;
-    if($Caption !== null):
-      $param['caption'] = $Caption;
-      $param['parse_mode'] = $ParseMode->value;
-    endif;
-    if($Entities !== null):
-      $param['caption_entities'] = json_encode($Entities);
-    endif;
-    if($DisableNotification):
-      $param['disable_notification'] = 'true';
-    endif;
-    if($Protect):
-      $param['protect_content'] = 'true';
-    endif;
-    if($RepliedMsg !== null):
-      $param['reply_to_message_id'] = $RepliedMsg;
-    endif;
-    if($SendWithoutRepliedMsg):
-      $param['allow_sending_without_reply'] = 'true';
-    endif;
-    if($Markup !== null):
-      $param['reply_markup'] = $Markup->ToJson();
-    endif;
-    if(is_file($Photo)):
-      $param['photo'] = new \CurlFile($Photo);
-    else:
-      $param['photo'] = $Photo;
-    endif;
+    $param = $this->PhotoSendArgs(
+      $Chat,
+      $Photo,
+      $Thread,
+      $Caption,
+      $ParseMode,
+      $Entities,
+      $DisableNotification,
+      $Protect,
+      $RepliedMsg,
+      $SendWithoutRepliedMsg,
+      $Markup
+    );
     $return = $this->ServerMethod(TgMethods::PhotoSend, $param);
     return new TgPhoto($return);
   }
@@ -113,6 +96,7 @@ trait TblPhotoTrait{
    * Sending by URL
    * - When sending by URL the target file must have the correct MIME type (e.g., audio/mpeg for sendAudio, etc.).
    * - Other configurations may work but we can't guarantee that they will.
+   * @param int $Thread Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
    * @param string $Caption Photo caption (may also be used when resending photos by file_id), 0-1024 characters after entities parsing
    * @param TgParseMode $ParseMode Mode for parsing entities in the photo caption. See formatting options for more details.
    * @param TblEntities $Entities A list of special entities that appear in the caption, which can be specified instead of parse_mode
@@ -128,6 +112,7 @@ trait TblPhotoTrait{
   public function PhotoSendArgs(
     int $Chat,
     string $Photo,
+    int $Thread = null,
     string $Caption = null,
     TgParseMode $ParseMode = TgParseMode::Html,
     TblEntities $Entities = null,
@@ -142,6 +127,9 @@ trait TblPhotoTrait{
       throw new TblException(TblError::LimitPhotoCaption);
     endif;
     $param['chat_id'] = $Chat;
+    if($Thread !== null):
+      $param['message_thread_id'] = $Thread;
+    endif;
     if($Caption !== null):
       $param['caption'] = $Caption;
       $param['parse_mode'] = $ParseMode->value;
