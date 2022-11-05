@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.08.18.00
+//2022.11.05.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -17,7 +17,8 @@ class TgPermMember{
     'Preview' => 'can_add_web_page_previews',
     'Info' => 'can_change_info',
     'Invite' => 'can_invite_users',
-    'Pin' => 'can_pin_messages'
+    'Pin' => 'can_pin_messages',
+    'Forum' => 'can_manage_topics'
   ];
 
   /**
@@ -30,6 +31,7 @@ class TgPermMember{
    * @param bool $Info If the user is allowed to change the chat title, photo and other settings. Ignored in public supergroups
    * @param bool $Invite If the user is allowed to invite new users to the chat
    * @param bool $Pin If the user is allowed to pin messages. Ignored in public supergroups
+   * @param bool $Forum If the user is allowed to create, rename, close, and reopen forum topics; supergroups only
    * @link https://core.telegram.org/bots/api#chatpermissions
    */
   public function __construct(
@@ -41,7 +43,8 @@ class TgPermMember{
     public bool $Preview = false,
     public bool $Info = false,
     public bool $Invite = false,
-    public bool $Pin = false
+    public bool $Pin = false,
+    public bool $Forum = false
   ){
     if($Data !== null):
       foreach(self::Array as $perm => $vector):
