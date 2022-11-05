@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.11.05.00
+//2022.11.05.01
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -20,7 +20,7 @@ class TgPermAdmin{
     'Video' => 'can_manage_video_chats',
     'Info' => 'can_change_info',
     'Pin' => 'can_pin_messages',
-    'Forum' => 'can_manage_topics'
+    'Topics' => 'can_manage_topics'
   ];
 
   /**
@@ -35,7 +35,7 @@ class TgPermAdmin{
    * @param bool $Video If the administrator can manage video chats
    * @param bool $Info If the administrator can change chat title, photo and other settings
    * @param bool $Pin If the administrator can pin messages, supergroups only
-   * @param bool $Forum If the user is allowed to create, rename, close, and reopen forum topics; supergroups only
+   * @param bool $Topics If the user is allowed to create, rename, close, and reopen forum topics; supergroups only
    * @link https://core.telegram.org/bots/api#chatmemberadministrator
    */
   public function __construct(
@@ -51,7 +51,7 @@ class TgPermAdmin{
     public bool $Video = false,
     public bool $Info = false,
     public bool $Pin = false,
-    public bool $Forum = false
+    public bool $Topics = false
   ){
     if($Data !== null):
       foreach(self::Array as $perm => $vector):
