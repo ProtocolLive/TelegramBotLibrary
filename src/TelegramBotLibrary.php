@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.11.05.07
+//2022.11.05.08
 
 namespace ProtocolLive\TelegramBotLibrary;
 use ProtocolLive\TelegramBotLibrary\TblObjects\TblCmd;
@@ -493,6 +493,7 @@ class TelegramBotLibrary extends TblBasics{
    * @param int $From
    * @param int $Id Message identifier in the chat specified in $From
    * @param int $To Unique identifier for the target chat
+   * @param int $Thread Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
    * @param string $Caption New caption for media, 0-1024 characters after entities parsing. If not specified, the original caption is kept
    * @param TblEntities $Entities A list of special entities that appear in the new caption, which can be specified instead of parse_mode
    * @param TgParseMode $ParseMode Mode for parsing entities in the new caption.
@@ -509,6 +510,7 @@ class TelegramBotLibrary extends TblBasics{
     int $From,
     int $Id,
     int $To,
+    int $Thread = null,
     string $Caption = null,
     TblEntities $Entities = null,
     TgParseMode $ParseMode = TgParseMode::Html,
@@ -521,6 +523,9 @@ class TelegramBotLibrary extends TblBasics{
     $param['chat_id'] = $To;
     $param['from_chat_id'] = $From;
     $param['message_id'] = $Id;
+    if($Thread !== null):
+      $param['message_thread_id'] = $Thread;
+    endif;
     if($Caption !== null):
       $param['caption'] = $Caption;
     endif;
@@ -552,6 +557,7 @@ class TelegramBotLibrary extends TblBasics{
    * @param int $To Unique identifier for the target chat or username of the target channel
    * @param int $From Unique identifier for the chat where the original message was sent
    * @param int $Id Message identifier in the chat specified in from_chat_id
+   * @param int $Thread Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
    * @param bool $DisableNotification Sends the message silently. Users will receive a notification with no sound.
    * @param bool $Protect Protects the contents of the forwarded message from forwarding and saving
    * @return object On success, the sent Message is returned.
@@ -562,12 +568,16 @@ class TelegramBotLibrary extends TblBasics{
     int $To,
     int $From,
     int $Id,
+    int $Thread = null,
     bool $DisableNotification = false,
     bool $Protect = false
   ):object{
     $param['chat_id'] = $To;
     $param['from_chat_id'] = $From;
     $param['message_id'] = $Id;
+    if($Thread !== null):
+      $param['message_thread_id'] = $Thread;
+    endif;
     if($DisableNotification):
       $param['disable_notification'] = true;
     endif;
