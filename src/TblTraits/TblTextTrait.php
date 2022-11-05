@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.11.05.00
+//2022.11.05.01
 
 namespace ProtocolLive\TelegramBotLibrary\TblTraits;
 use ProtocolLive\TelegramBotLibrary\TblObjects\TblEntities;
@@ -67,6 +67,7 @@ trait TblTextTrait{
    * Use this method to send text messages for one or multiple chats. The Telegram API have some limits, but don't have a official docs for this.
    * @param int|array $Chat Unique identifier for the target chats
    * @param string $Text Text of the message to be sent, 1-4096 characters after entities parsing
+   * @param int $Thread Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
    * @param TgParseMode $ParseMode Mode for parsing entities in the message text.
    * @param TblEntities $Entities A list of special entities that appear in message text, which can be specified instead of parse_mode
    * @param bool $DisablePreview Disables link previews for links in this message
@@ -82,6 +83,7 @@ trait TblTextTrait{
   public function TextSend(
     int $Chat,
     string $Text,
+    int $Thread = null,
     TgParseMode $ParseMode = null,
     TblEntities $Entities = null,
     bool $DisablePreview = false,
@@ -94,6 +96,7 @@ trait TblTextTrait{
     $param = $this->TextSendArgs(
       $Chat,
       $Text,
+      $Thread,
       $ParseMode,
       $Entities,
       $DisablePreview,
@@ -111,6 +114,7 @@ trait TblTextTrait{
    * Use this method with TextSendMulti
    * @param int|array $Chat Unique identifier for the target chats
    * @param string $Text Text of the message to be sent, 1-4096 characters after entities parsing
+   * @param int $Thread Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
    * @param TgParseMode $ParseMode Mode for parsing entities in the message text.
    * @param TblEntities $Entities A list of special entities that appear in message text, which can be specified instead of parse_mode
    * @param bool $DisablePreview Disables link previews for links in this message
@@ -125,6 +129,7 @@ trait TblTextTrait{
   public function TextSendArgs(
     int $Chat,
     string $Text,
+    int $Thread = null,
     TgParseMode $ParseMode = null,
     TblEntities $Entities = null,
     bool $DisablePreview = false,
@@ -136,6 +141,9 @@ trait TblTextTrait{
   ):array{
     $param['chat_id'] = $Chat;
     $param['text'] = $Text;
+    if($Thread !== null):
+      $param['message_thread_id'] = $Thread;
+    endif;
     if($ParseMode !== null):
       $param['parse_mode'] = $ParseMode->value;
     endif;
