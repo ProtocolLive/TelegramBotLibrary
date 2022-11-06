@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.11.05.00
+//2022.11.05.01
 
 namespace ProtocolLive\TelegramBotLibrary;
 use \CurlHandle;
@@ -49,6 +49,38 @@ abstract class TblBasics{
     else:
       return $response['result'];
     endif;
+  }
+
+  protected function DirCreate(
+    string $Dir,
+    int $Perm = 0755,
+    bool $Recursive = true
+  ):bool{
+    if(is_dir($Dir)):
+      return false;
+    else:
+      return mkdir($Dir, $Perm, $Recursive);
+    endif;
+  }
+
+  protected function Log(
+    int $Type,
+    string $Msg
+  ):void{
+    $log = date('Y-m-d H:i:s') . PHP_EOL;
+    $log .= $Msg . PHP_EOL;
+    if($Type === TblLog::Send):
+      $file = 'send';
+    elseif($Type === TblLog::Response):
+      $file = 'send';
+    elseif($Type === TblLog::Webhook):
+      $file = 'webhook';
+    elseif($Type === TblLog::Curl):
+      $file = 'curl';
+    endif;
+    $file = $this->BotData->DirLogs . '/' . $file . '.log';
+    $this->DirCreate(dirname($file));
+    file_put_contents($file, $log, FILE_APPEND);
   }
 
   /**
@@ -109,37 +141,5 @@ abstract class TblBasics{
       $return[$id] = $this->CurlResponse($calls[$id]);
     endforeach;
     return $return;
-  }
-
-  protected function Log(
-    int $Type,
-    string $Msg
-  ):void{
-    $log = date('Y-m-d H:i:s') . PHP_EOL;
-    $log .= $Msg . PHP_EOL;
-    if($Type === TblLog::Send):
-      $file = 'send';
-    elseif($Type === TblLog::Response):
-      $file = 'send';
-    elseif($Type === TblLog::Webhook):
-      $file = 'webhook';
-    elseif($Type === TblLog::Curl):
-      $file = 'curl';
-    endif;
-    $file = $this->BotData->DirLogs . '/' . $file . '.log';
-    $this->DirCreate(dirname($file));
-    file_put_contents($file, $log, FILE_APPEND);
-  }
-
-  protected function DirCreate(
-    string $Dir,
-    int $Perm = 0755,
-    bool $Recursive = true
-  ):bool{
-    if(is_dir($Dir)):
-      return false;
-    else:
-      return mkdir($Dir, $Perm, $Recursive);
-    endif;
   }
 }
