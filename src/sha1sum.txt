@@ -28,9 +28,9 @@ f0eb92c0cf1a00c0eefb2cf91ee38df577af57ad  TblObjects\TblLog.php
 aefc3a01de6d168faaab39b0e7ee7636de0d612f  TblTraits\TblInvoiceTrait.php
 6a759ba36da1761c10243f436f2b74dcf8d87b83  TblTraits\TblPhotoTrait.php
 8418adc4782624c484f2d8a8f94a017818440974  TblTraits\TblTextTrait.php
-a7eb4b9ad00a1ead291e81c3ca08ac8ddbbcfa81  TelegramBotLibrary.php
+bd704938b6d12265ba8b438f52e85057f8687846  TelegramBotLibrary.php
 16d738be178a94838a2f10a4aea32182f71672bf  TgObjects\TgCallback.php
-591f1284de61b0816ec45461522ec41476e35ad7  TgObjects\TgChat.php
+dabd432406f8cfc07805896c67023cf87407d7dd  TgObjects\TgChat.php
 909fc0329d8b49bc389487274a7f3b480e82a06c  TgObjects\TgChatAction.php
 1ff88dd50561326780712c0833472a1785667bac  TgObjects\TgChatAutoDel.php
 c8557a9f15251997f9abb3071cce140a93e357d0  TgObjects\TgChatInviteLink.php
@@ -96,7 +96,7 @@ d327ae486b63f08219ee76db926233609d8cfb3e  TgObjects\TgSticker.php
 aeef915403a0ad556202af99ff8fba4b861d2325  TgObjects\TgText.php
 afdee0eeb1f768767667a67ce71912869898dae3  TgObjects\TgTextEdited.php
 aaeeaa72d49d455b435bd29b6a21fd2947956704  TgObjects\TgUpdateType.php
-2c2e395c3d75e34983e53a28da8ac205e9471350  TgObjects\TgUser.php
+d24b5ee7754c1951a69be006898d3a9088a5d89c  TgObjects\TgUser.php
 17499e683302bfba3db77d8930f83f26ae8508cb  TgObjects\TgVideo.php
 070b780fcceb4259bc91b5df0848a5b44e7e24f1  TgObjects\TgVoice.php
 482e7c844cd3164990d26986f5b86a12ccb614ba  TgObjects\TgWebappData.php
