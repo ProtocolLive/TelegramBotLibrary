@@ -1,4 +1,4 @@
-324008a1768dd39c08c2d8ef8a5977f46c5b812b  TblBasics.php
+ab2f5d48e2515ee2182ce268ad43970c082b5cdd  TblBasics.php
 64c01edaea5ad682a66668e26dbf3187dcda76b0  TblObjects\TblCmd.php
 d9dc26a37198ced0d00a592258f28882772e9211  TblObjects\TblCmdEdited.php
 117467f009fbb0e85d261b8b34475faab25cfe1a  TblObjects\TblCommands.php
@@ -28,9 +28,9 @@ f0eb92c0cf1a00c0eefb2cf91ee38df577af57ad  TblObjects\TblLog.php
 aefc3a01de6d168faaab39b0e7ee7636de0d612f  TblTraits\TblInvoiceTrait.php
 6a759ba36da1761c10243f436f2b74dcf8d87b83  TblTraits\TblPhotoTrait.php
 8418adc4782624c484f2d8a8f94a017818440974  TblTraits\TblTextTrait.php
-f2e62d633e89ac31571c971efaa161e0fc381052  TelegramBotLibrary.php
+a7eb4b9ad00a1ead291e81c3ca08ac8ddbbcfa81  TelegramBotLibrary.php
 16d738be178a94838a2f10a4aea32182f71672bf  TgObjects\TgCallback.php
-dc40a25a4c77c07f8946b8530c668b552a061792  TgObjects\TgChat.php
+678539739136e7ddb5c7887dcb1522e54341ad79  TgObjects\TgChat.php
 909fc0329d8b49bc389487274a7f3b480e82a06c  TgObjects\TgChatAction.php
 1ff88dd50561326780712c0833472a1785667bac  TgObjects\TgChatAutoDel.php
 c8557a9f15251997f9abb3071cce140a93e357d0  TgObjects\TgChatInviteLink.php
@@ -73,7 +73,7 @@ d2a9737c9ac871b043df327b88fd9164cf453a69  TgObjects\TgMask.php
 1935be61e4851cfc2552e1eabd75351f9cccb6be  TgObjects\TgMemberNew.php
 623934ec9442a7e58702e32740a6ac38b10bd8c9  TgObjects\TgMemberStatus.php
 56decac2789e4c87d1cad4abae9b295d0e95ec0b  TgObjects\TgMenuButton.php
-e83065781d40624653883e5b696721665e986ac0  TgObjects\TgMessage.php
+35e1508f83e052f6beabcf1b3b1f6574f256f39d  TgObjects\TgMessage.php
 a3889ce9e15d0c2ad5b6776a8b1bd6cf59f5796d  TgObjects\TgMethods.php
 194f24b56ae46c6455ea11ff959da4ccb199eca3  TgObjects\TgParseMode.php
 9a1e3bd0c6af311e12c7348351d0694f742c7e24  TgObjects\TgPassport.php
@@ -96,7 +96,7 @@ d327ae486b63f08219ee76db926233609d8cfb3e  TgObjects\TgSticker.php
 aeef915403a0ad556202af99ff8fba4b861d2325  TgObjects\TgText.php
 afdee0eeb1f768767667a67ce71912869898dae3  TgObjects\TgTextEdited.php
 aaeeaa72d49d455b435bd29b6a21fd2947956704  TgObjects\TgUpdateType.php
-2bcd9ba02fd7deb9c144e6300c5c8a6c5951f858  TgObjects\TgUser.php
+2c2e395c3d75e34983e53a28da8ac205e9471350  TgObjects\TgUser.php
 17499e683302bfba3db77d8930f83f26ae8508cb  TgObjects\TgVideo.php
 070b780fcceb4259bc91b5df0848a5b44e7e24f1  TgObjects\TgVoice.php
 482e7c844cd3164990d26986f5b86a12ccb614ba  TgObjects\TgWebappData.php
