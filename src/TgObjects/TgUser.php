@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.11.05.01
+//2022.11.06.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -84,6 +84,8 @@ class TgUser{
     endif;
     if(isset($Data['photo'])):
       $this->Photo = new TgChatPhoto($Data['photo']);
+    else:
+      $this->Photo = null;
     endif;
   }
 }
