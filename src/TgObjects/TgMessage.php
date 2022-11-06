@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.11.05.03
+//2022.11.05.04
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -17,7 +17,7 @@ class TgMessage{
   /**
    * Sender of the message, sent on behalf of a chat. For example, the channel itself for channel posts, the supergroup itself for messages from anonymous group administrators, the linked channel for messages automatically forwarded to the discussion group. For backward compatibility, the field from contains a fake sender user in non-channel chats, if the message was sent on behalf of a chat.
    */
-  public readonly TgChat $Chat;
+  public readonly TgChat|TgUser $Chat;
   /**
    * Date the message was sent in Unix time
    */
@@ -83,7 +83,11 @@ class TgMessage{
       $this->ForwardId = null;
       $this->ForwardAuto = null;
     endif;
-    $this->Chat = new TgChat($Data['chat']);
+    if($Data['chat']['type'] === TgChatType::Private->value):
+      $this->Chat = new TgUser($Data['chat']);
+    else:
+      $this->Chat = new TgChat($Data['chat']);
+    endif;
     $this->Date = $Data['date'];
     $this->ForwardDate = $Data['forward_date'] ?? null;
     $this->Protected = $Data['has_protected_content'] ?? false;
