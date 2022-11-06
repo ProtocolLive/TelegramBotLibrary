@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.11.05.00
+//2022.11.06.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -22,8 +22,8 @@ final class TgForumCreated{
 
   public function __construct(array $Data){
     $this->Message = new TgMessage($Data);
-    $this->Name = $Data['name'];
-    $this->Color = $Data['icon_color'];
-    $this->Emoji = $Data['icon_custom_emoji_id'] ?? null;
+    $this->Name = $Data['forum_topic_created']['name'];
+    $this->Color = $Data['forum_topic_created']['icon_color'];
+    $this->Emoji = $Data['forum_topic_created']['icon_custom_emoji_id'] ?? null;
   }
 }
