@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.11.05.05
+//2022.11.06.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 use ProtocolLive\TelegramBotLibrary\TblBasics;
@@ -86,6 +86,8 @@ class TgChat{
     $this->Protected = $Data['has_protected_content'] ?? false;
     if(isset($Data['permissions'])):
       $this->Permissions = new TgPermAdmin($Data['permissions']);
+    else:
+      $this->Permissions = null;
     endif;
     if(isset($Data['active_usernames'])):
       $this->Nicks = json_decode($Data['active_usernames'], true);
