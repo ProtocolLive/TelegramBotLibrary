@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.11.05.10
+//2022.11.06.00
 
 namespace ProtocolLive\TelegramBotLibrary;
 use ProtocolLive\TelegramBotLibrary\TblObjects\TblCmd;
@@ -231,7 +231,7 @@ class TelegramBotLibrary extends TblBasics{
   }
 
   private function DetectReturn(array $Data):object{
-    if(($temp = TblBasics::DetectMessage($Data['message'] ?? null)) !== null):
+    if(($temp = TblBasics::DetectMessage($Data['message'] ?? [])) !== null):
       return $temp;
     elseif(isset($Data['channel_post']['entities'][0])
     and $Data['channel_post']['entities'][0]['type'] === TgEntityType::Command->value
