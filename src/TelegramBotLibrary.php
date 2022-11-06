@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.11.05.09
+//2022.11.05.10
 
 namespace ProtocolLive\TelegramBotLibrary;
 use ProtocolLive\TelegramBotLibrary\TblObjects\TblCmd;
@@ -20,47 +20,31 @@ use ProtocolLive\TelegramBotLibrary\TblTraits\TblInvoiceTrait;
 use ProtocolLive\TelegramBotLibrary\TblTraits\TblPhotoTrait;
 use ProtocolLive\TelegramBotLibrary\TblTraits\TblTextTrait;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgCallback;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgChatAutoDel;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgChatMigrateFrom;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgChatMigrateTo;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgChatRequest;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgChatTitle;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgCmdScope;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgDocument;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgDocumentEdited;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgEntityType;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgFile;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgForumClosed;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgForumCreated;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgForumReopened;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgGroupStatus;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgGroupStatusMy;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgInlineQuery;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgInlineQueryFeedback;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgInvoice;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgInvoiceCheckout;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgInvoiceDone;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgInvoiceShipping;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgLocation;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgLocationEdited;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgMemberLeft;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgMemberNew;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgMenuButton;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgMessage;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgMethods;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgParseMode;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgPassport;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgPermAdmin;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgPhoto;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgPhotoEdited;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgPoll;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgProfilePhoto;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgText;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgTextEdited;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgUser;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgVideo;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgVoice;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgWebappData;
 
 class TelegramBotLibrary extends TblBasics{
   use TblChatTrait;
@@ -247,7 +231,9 @@ class TelegramBotLibrary extends TblBasics{
   }
 
   private function DetectReturn(array $Data):object{
-    if(isset($Data['channel_post']['entities'][0])
+    if(($temp = TblBasics::DetectMessage($Data['message'] ?? null)) !== null):
+      return $temp;
+    elseif(isset($Data['channel_post']['entities'][0])
     and $Data['channel_post']['entities'][0]['type'] === TgEntityType::Command->value
     and $Data['channel_post']['entities'][0]['offset'] === 0):
       return new TblCmd($Data['channel_post']);
@@ -256,12 +242,6 @@ class TelegramBotLibrary extends TblBasics{
     and $Data['edited_message']['entities'][0]['type'] === TgEntityType::Command->value
     and $Data['edited_message']['entities'][0]['offset'] === 0):
       return new TblCmdEdited($Data['edited_message']);
-
-    elseif(isset($Data['message']['entities'][0])
-    and $Data['message']['entities'][0]['type'] === TgEntityType::Command->value
-    and $Data['message']['entities'][0]['offset'] === 0):
-      return new TblCmd($Data['message']);
-
     elseif(isset($Data['callback_query'])):
       return new TgCallback($Data['callback_query']);
     elseif(isset($Data['chat_join_request'])):
@@ -282,47 +262,10 @@ class TelegramBotLibrary extends TblBasics{
       return new TgInvoice($Data['invoice']);
     elseif(isset($Data['inline_query'])):
       return new TgInlineQuery($Data['inline_query']);
-    elseif(isset($Data['message']['document'])):
-      return new TgDocument($Data['message']);
-    elseif(isset($Data['message']['forum_topic_closed'])):
-      return new TgForumClosed($Data['message']);
-    elseif(isset($Data['message']['forum_topic_created'])):
-      return new TgForumCreated($Data['message']);
-    elseif(isset($Data['message']['forum_topic_reopened'])):
-      return new TgForumReopened($Data['message']);
-    elseif(isset($Data['message']['invoice'])):
-      return new TgInvoice($Data['message']);
-    elseif(isset($Data['message']['left_chat_member'])):
-      return new TgMemberLeft($Data['message']);
-    elseif(isset($Data['message']['location'])):
-      return new TgLocation($Data['message']);
-    elseif(isset($Data['message']['message_auto_delete_timer_changed'])):
-      return new TgChatAutoDel($Data['message']);
-    elseif(isset($Data['message']['migrate_from_chat_id'])):
-      return new TgChatMigrateFrom($Data['message']);
-    elseif(isset($Data['message']['migrate_to_chat_id'])):
-      return new TgChatMigrateTo($Data['message']);
-    elseif(isset($Data['message']['new_chat_member'])):
-      return new TgMemberNew($Data['message']);
-    elseif(isset($Data['message']['new_chat_title'])):
-      return new TgChatTitle($Data['message']);
-    elseif(isset($Data['message']['passport_data'])):
-      return new TgPassport($Data['message']);
-    elseif(isset($Data['message']['photo'])):
-      return new TgPhoto($Data['message']);
-    elseif(isset($Data['message']['poll'])):
-      return new TgPoll($Data['message']);
-    elseif(isset($Data['message']['successful_payment'])):
-      return new TgInvoiceDone($Data['message']);
-    elseif(isset($Data['message']['text'])):
-      return new TgText($Data['message']);
 
-    elseif(isset($Data['message']['video'])):
-      return new TgVideo($Data['message']);
-    elseif(isset($Data['message']['voice'])):
-      return new TgVoice($Data['message']);
-    elseif(isset($Data['message']['web_app_data'])):
-      return new TgWebappData($Data['message']);
+    elseif(isset($Data['message'])):
+      return $this->DetectMessage($Data['message']);
+
     elseif(isset($Data['my_chat_member'])):
       return new TgGroupStatusMy($Data['my_chat_member']);
     elseif(isset($Data['poll'])):

@@ -1,16 +1,38 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.11.05.01
+//2022.11.05.02
 
 namespace ProtocolLive\TelegramBotLibrary;
 use \CurlHandle;
+use ProtocolLive\TelegramBotLibrary\TblObjects\TblCmd;
 use ProtocolLive\TelegramBotLibrary\TblObjects\TblData;
 use ProtocolLive\TelegramBotLibrary\TblObjects\TblError;
 use ProtocolLive\TelegramBotLibrary\TblObjects\TblException;
 use ProtocolLive\TelegramBotLibrary\TblObjects\TblLog;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgChatAutoDel;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgChatMigrateFrom;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgChatMigrateTo;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgChatTitle;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgDocument;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgEntityType;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgErrors;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgForumClosed;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgForumCreated;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgForumReopened;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgInvoice;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgInvoiceDone;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgLocation;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgMemberLeft;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgMemberNew;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgMethods;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgPassport;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgPhoto;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgPoll;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgText;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgVideo;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgVoice;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgWebappData;
 
 abstract class TblBasics{
   protected TblData $BotData;
@@ -48,6 +70,58 @@ abstract class TblBasics{
       endif;
     else:
       return $response['result'];
+    endif;
+  }
+
+  public static function DetectMessage(
+    array $Data
+  ):object|null{
+    if(isset($Data['entities'][0])
+    and $Data['entities'][0]['type'] === TgEntityType::Command->value
+    and $Data['entities'][0]['offset'] === 0):
+      return new TblCmd($Data);
+    elseif(isset($Data['document'])):
+      return new TgDocument($Data);
+    elseif(isset($Data['forum_topic_closed'])):
+      return new TgForumClosed($Data);
+    elseif(isset($Data['forum_topic_created'])):
+      return new TgForumCreated($Data);
+    elseif(isset($Data['forum_topic_reopened'])):
+      return new TgForumReopened($Data);
+    elseif(isset($Data['invoice'])):
+      return new TgInvoice($Data);
+    elseif(isset($Data['left_chat_member'])):
+      return new TgMemberLeft($Data);
+    elseif(isset($Data['location'])):
+      return new TgLocation($Data);
+    elseif(isset($Data['message_auto_delete_timer_changed'])):
+      return new TgChatAutoDel($Data);
+    elseif(isset($Data['migrate_from_chat_id'])):
+      return new TgChatMigrateFrom($Data);
+    elseif(isset($Data['migrate_to_chat_id'])):
+      return new TgChatMigrateTo($Data);
+    elseif(isset($Data['new_chat_member'])):
+      return new TgMemberNew($Data);
+    elseif(isset($Data['new_chat_title'])):
+      return new TgChatTitle($Data);
+    elseif(isset($Data['passport_data'])):
+      return new TgPassport($Data);
+    elseif(isset($Data['photo'])):
+      return new TgPhoto($Data);
+    elseif(isset($Data['poll'])):
+      return new TgPoll($Data);
+    elseif(isset($Data['successful_payment'])):
+      return new TgInvoiceDone($Data);
+    elseif(isset($Data['text'])):
+      return new TgText($Data);
+    elseif(isset($Data['video'])):
+      return new TgVideo($Data);
+    elseif(isset($Data['voice'])):
+      return new TgVoice($Data);
+    elseif(isset($Data['web_app_data'])):
+      return new TgWebappData($Data);
+    else:
+      return null;
     endif;
   }
 
