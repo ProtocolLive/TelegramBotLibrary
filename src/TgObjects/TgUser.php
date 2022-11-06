@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.11.05.00
+//2022.11.05.01
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -50,6 +50,14 @@ class TgUser{
    */
   public readonly string|null $Bio;
   /**
+   * If privacy settings of the other party in the private chat allows to use tg://user?id=<user_id> links only in chats with the user.
+   */
+  public readonly bool|null $RestrictedForward;
+  /**
+   * If the privacy settings of the other party restrict sending voice and video note messages in the private chat. Returned only in getChat.
+   */
+  public readonly bool|null $RestrictedVoice;
+  /**
    * Chat photo. Returned only in getChat.
    */
   public readonly TgChatPhoto|null $Photo;
@@ -67,6 +75,8 @@ class TgUser{
     $this->Language = $Data['language_code'] ?? null;
     $this->Status = $Data['emoji_status_custom_emoji_id'] ?? null;
     $this->Bio = $Data['bio'] ?? null;
+    $this->RestrictedForward = $Data['has_private_forwards'] ?? false;
+    $this->RestrictedVoice = $Data['has_restricted_voice_and_video_messages'] ?? false;
     if(isset($Data['is_premium'])):
       $this->Premium = $Data['is_premium'];
     else:
