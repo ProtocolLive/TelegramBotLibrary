@@ -1,12 +1,16 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.09.25.00
+//2022.11.05.00
 
 namespace ProtocolLive\TelegramBotLibrary;
 use \CurlHandle;
-use ProtocolLive\TelegramBotLibrary\TblObjects\{TblData, TblError, TblLog, TblException};
-use ProtocolLive\TelegramBotLibrary\TgObjects\{TgMethods, TgErrors};
+use ProtocolLive\TelegramBotLibrary\TblObjects\TblData;
+use ProtocolLive\TelegramBotLibrary\TblObjects\TblError;
+use ProtocolLive\TelegramBotLibrary\TblObjects\TblException;
+use ProtocolLive\TelegramBotLibrary\TblObjects\TblLog;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgErrors;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgMethods;
 
 abstract class TblBasics{
   protected TblData $BotData;
