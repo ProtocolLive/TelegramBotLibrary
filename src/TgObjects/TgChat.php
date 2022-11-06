@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.11.06.00
+//2022.11.06.01
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 use ProtocolLive\TelegramBotLibrary\TblBasics;
@@ -45,7 +45,7 @@ class TgChat{
   /**
    * Default chat member permissions, for groups and supergroups. Returned only in getChat.
    */
-  public readonly TgPermAdmin $Permissions;
+  public readonly TgPermAdmin|null $Permissions;
   /**
    * If users need to join the supergroup before they can send messages. Returned only in getChat.
    */
