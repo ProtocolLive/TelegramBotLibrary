@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.11.05.04
+//2022.11.05.05
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 use ProtocolLive\TelegramBotLibrary\TblBasics;
@@ -65,7 +65,11 @@ class TgChat{
   /**
    * The most recent pinned message (by sending date). Returned only in getChat.
    */
-  public readonly array|null $Pinned;
+  public array|null $Pinned;
+  /**
+   * If messages from the chat can't be forwarded to other chats. Returned only in getChat.
+   */
+  public readonly bool $Protected;
 
   public function __construct(array $Data){
     $this->Id = $Data['id'];
@@ -79,6 +83,7 @@ class TgChat{
     $this->JoinByRequest = $Data['join_by_request'] ?? false;
     $this->SlowMode = $Data['slow_mode_delay'] ?? null;
     $this->LinkedChat = $Data['linked_chat_id'] ?? null;
+    $this->Protected = $Data['has_protected_content'] ?? false;
     if(isset($Data['permissions'])):
       $this->Permissions = new TgPermAdmin($Data['permissions']);
     endif;
@@ -91,6 +96,11 @@ class TgChat{
       $this->Photo = new TgChatPhoto($Data['photo']);
     else:
       $this->Photo = null;
+    endif;
+    if(isset($Data['pinned_message'])):
+      $this->Pinned[] = TblBasics::DetectMessage($Data['pinned_message']);
+    else:
+      $this->Pinned = null;
     endif;
   }
 }
