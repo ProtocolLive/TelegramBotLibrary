@@ -1,10 +1,10 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.11.05.02
+//2022.11.11.00
 
 namespace ProtocolLive\TelegramBotLibrary;
-use \CurlHandle;
+use CurlHandle;
 use ProtocolLive\TelegramBotLibrary\TblObjects\TblCmd;
 use ProtocolLive\TelegramBotLibrary\TblObjects\TblData;
 use ProtocolLive\TelegramBotLibrary\TblObjects\TblError;
@@ -29,6 +29,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\TgMethods;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgPassport;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgPhoto;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgPoll;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgSticker;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgText;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgVideo;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgVoice;
@@ -112,6 +113,8 @@ abstract class TblBasics{
       return new TgPoll($Data);
     elseif(isset($Data['successful_payment'])):
       return new TgInvoiceDone($Data);
+    elseif(isset($Data['sticker'])):
+      return new TgSticker($Data);
     elseif(isset($Data['text'])):
       return new TgText($Data);
     elseif(isset($Data['video'])):
