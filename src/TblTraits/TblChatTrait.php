@@ -1,18 +1,19 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.11.05.02
+//2022.11.11.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblTraits;
-
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgChat;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgChatAction;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgChatType;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgMember;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgMethods;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgPermAdmin;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgPermMember;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgUser;
+use ProtocolLive\TelegramBotLibrary\TgObjects\{
+  TgChat,
+  TgChatAction,
+  TgChatType,
+  TgMember,
+  TgMethods,
+  TgPermAdmin,
+  TgPermMember,
+  TgUser
+};
 
 trait TblChatTrait{
   /**

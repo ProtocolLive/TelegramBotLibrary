@@ -1,13 +1,15 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.11.05.00
+//2022.11.11.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblTraits;
-use ProtocolLive\TelegramBotLibrary\TblObjects\TblException;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgForumTopic;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgMethods;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgSticker;
+use ProtocolLive\TelegramBotLibrary\{
+  TblObjects\TblException,
+  TgObjects\TgForumTopic,
+  TgObjects\TgMethods,
+  TgObjects\TgSticker
+};
 
 trait TblForumTrait{
   /**

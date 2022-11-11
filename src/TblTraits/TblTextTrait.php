@@ -1,14 +1,18 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.11.05.01
+//2022.11.11.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblTraits;
-use ProtocolLive\TelegramBotLibrary\TblObjects\TblEntities;
-use ProtocolLive\TelegramBotLibrary\TblObjects\TblMarkup;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgMethods;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgParseMode;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgText;
+use ProtocolLive\TelegramBotLibrary\TblObjects\{
+  TblEntities,
+  TblMarkup
+};
+use ProtocolLive\TelegramBotLibrary\TgObjects\{
+  TgMethods,
+  TgParseMode,
+  TgText
+};
 
 trait TblTextTrait{
   /**

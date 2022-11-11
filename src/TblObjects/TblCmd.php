@@ -1,10 +1,13 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.08.19.00
+//2022.11.11.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
-use ProtocolLive\TelegramBotLibrary\TgObjects\{TgMessage, TgEntity};
+use ProtocolLive\TelegramBotLibrary\TgObjects\{
+  TgEntity,
+  TgMessage
+};
 
 class TblCmd{
   public readonly TgMessage $Message;

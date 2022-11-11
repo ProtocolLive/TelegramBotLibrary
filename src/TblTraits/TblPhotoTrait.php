@@ -1,18 +1,21 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.11.05.01
+//2022.11.11.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblTraits;
-
-use ProtocolLive\TelegramBotLibrary\TblObjects\TblEntities;
-use ProtocolLive\TelegramBotLibrary\TblObjects\TblError;
-use ProtocolLive\TelegramBotLibrary\TblObjects\TblException;
-use ProtocolLive\TelegramBotLibrary\TblObjects\TblMarkup;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgLimits;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgMethods;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgParseMode;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgPhoto;
+use ProtocolLive\TelegramBotLibrary\TblObjects\{
+  TblEntities,
+  TblError,
+  TblException,
+  TblMarkup
+};
+use ProtocolLive\TelegramBotLibrary\TgObjects\{
+  TgLimits,
+  TgMethods,
+  TgParseMode,
+  TgPhoto
+};
 
 trait TblPhotoTrait{
   /**

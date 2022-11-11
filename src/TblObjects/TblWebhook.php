@@ -1,12 +1,14 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.08.28.00
+//2022.11.11.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
-use ProtocolLive\TelegramBotLibrary\TblBasics;
-use ProtocolLive\TelegramBotLibrary\TblObjects\TblException;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgMethods;
+use ProtocolLive\TelegramBotLibrary\{
+  TblBasics,
+  TblObjects\TblException,
+  TgObjects\TgMethods
+};
 
 class TblWebhook extends TblBasics{
   public function __construct(TblData $BotData){

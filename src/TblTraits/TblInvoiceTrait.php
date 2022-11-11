@@ -1,18 +1,21 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.11.05.00
+//2022.11.11.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblTraits;
-
-use ProtocolLive\TelegramBotLibrary\TblObjects\TblError;
-use ProtocolLive\TelegramBotLibrary\TblObjects\TblException;
-use ProtocolLive\TelegramBotLibrary\TblObjects\TblInvoicePrices;
-use ProtocolLive\TelegramBotLibrary\TblObjects\TblInvoiceShippingOptions;
-use ProtocolLive\TelegramBotLibrary\TblObjects\TblMarkup;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgInvoice;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgInvoiceCurrencies;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgMethods;
+use ProtocolLive\TelegramBotLibrary\TblObjects\{
+  TblError,
+  TblException,
+  TblInvoicePrices,
+  TblInvoiceShippingOptions,
+  TblMarkup
+};
+use ProtocolLive\TelegramBotLibrary\TgObjects\{
+  TgInvoice,
+  TgInvoiceCurrencies,
+  TgMethods
+};
 
 trait TblInvoiceTrait{
   /**
