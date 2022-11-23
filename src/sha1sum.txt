@@ -1,4 +1,4 @@
-6ae232d9493764d4783e98d11b9932b5ea0ea2cf  TblBasics.php
+5e20e0b8011eefd8adba8fdc61a04b183e046a91  TblBasics.php
 b196d318a9396f24907400f817b1955403e06116  TblObjects\TblCmd.php
 d9dc26a37198ced0d00a592258f28882772e9211  TblObjects\TblCmdEdited.php
 117467f009fbb0e85d261b8b34475faab25cfe1a  TblObjects\TblCommands.php
@@ -87,6 +87,7 @@ b93814a14e2ae297b8cae29886e4918de693877e  TgObjects\TgPermMember.php
 54c6fb718e7f8fd1b954b6da3913112b7256cd8b  TgObjects\TgPhoto.php
 25bd4eb3df68598c25632a63ae86e8f9e725ee78  TgObjects\TgPhotoEdited.php
 77160fe3ebb165e20e8683628d50d31a629a6c9d  TgObjects\TgPhotoSize.php
+f5d6465bf814392b0a159e1638e615aac1e5c081  TgObjects\TgPinnedMsg.php
 2fa8fd215c33bae189e78579472fb2124c3cf2c3  TgObjects\TgPoll.php
 fb6ae91f78cb6a93363b9f72604d4839556184e4  TgObjects\TgPollOption.php
 b9d8542726d773847af3d5df0dfc062ba31c3e09  TgObjects\TgPollType.php
