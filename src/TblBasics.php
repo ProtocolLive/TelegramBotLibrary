@@ -1,41 +1,44 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.11.23.00
+//2022.11.23.01
 
 namespace ProtocolLive\TelegramBotLibrary;
 use CurlHandle;
-use ProtocolLive\TelegramBotLibrary\TblObjects\TblCmd;
-use ProtocolLive\TelegramBotLibrary\TblObjects\TblData;
-use ProtocolLive\TelegramBotLibrary\TblObjects\TblError;
-use ProtocolLive\TelegramBotLibrary\TblObjects\TblException;
-use ProtocolLive\TelegramBotLibrary\TblObjects\TblLog;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgChatAutoDel;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgChatMigrateFrom;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgChatMigrateTo;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgChatTitle;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgDocument;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgEntityType;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgErrors;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgForumClosed;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgForumCreated;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgForumReopened;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgInvoice;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgInvoiceDone;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgLocation;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgMemberLeft;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgMemberNew;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgMethods;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgPassport;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgPhoto;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgPinnedMsg;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgPoll;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgSticker;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgText;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgVideo;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgVoice;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgWebappData;
-
+use ProtocolLive\TelegramBotLibrary\TblObjects\{
+  TblCmd,
+  TblData,
+  TblError,
+  TblException,
+  TblLog
+};
+use ProtocolLive\TelegramBotLibrary\TgObjects\{
+  TgChatAutoDel,
+  TgChatMigrateFrom,
+  TgChatMigrateTo,
+  TgChatTitle,
+  TgDocument,
+  TgEntityType,
+  TgErrors,
+  TgForumClosed,
+  TgForumCreated,
+  TgForumReopened,
+  TgInvoice,
+  TgInvoiceDone,
+  TgLocation,
+  TgMemberLeft,
+  TgMemberNew,
+  TgMethods,
+  TgPassport,
+  TgPhoto,
+  TgPinnedMsg,
+  TgPoll,
+  TgSticker,
+  TgText,
+  TgVideo,
+  TgVoice,
+  TgWebappData
+};
 abstract class TblBasics{
   protected TblData $BotData;
 
