@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.11.11.00
+//2022.12.02.00
 
 namespace ProtocolLive\TelegramBotLibrary;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
@@ -49,7 +49,8 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgProfilePhoto,
   TgText,
   TgTextEdited,
-  TgUser
+  TgUser,
+  TgVideoEdited
 };
 
 class TelegramBotLibrary extends TblBasics{
@@ -264,6 +265,8 @@ class TelegramBotLibrary extends TblBasics{
       return new TgPhotoEdited($Data['edited_message']);
     elseif(isset($Data['edited_message']['text'])):
       return new TgTextEdited($Data['edited_message']);
+    elseif(isset($Data['edited_message']['video'])):
+      return new TgVideoEdited($Data['edited_message']);
     elseif(isset($Data['invoice'])): //Suspect unnecessary
       return new TgInvoice($Data['invoice']);
     elseif(isset($Data['inline_query'])):

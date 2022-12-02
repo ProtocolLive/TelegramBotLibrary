@@ -28,7 +28,7 @@ d9ce63a88bd3c5b67d675660cabd81679d373e7d  TblTraits\TblForumTrait.php
 0fa19edf3efd28ba1b2c0034ac844f9c13619a73  TblTraits\TblInvoiceTrait.php
 a960429e963b3769531a5612721e61cb83534592  TblTraits\TblPhotoTrait.php
 9fba4c5a6bebcd4a89e60195c868afb51d508e96  TblTraits\TblTextTrait.php
-b2b183717523b9066d546f72f9c5fcc68fe3a20d  TelegramBotLibrary.php
+82fad2e34b3a50c8e982d966dc5d60a7959ceaf9  TelegramBotLibrary.php
 16d738be178a94838a2f10a4aea32182f71672bf  TgObjects\TgCallback.php
 dabd432406f8cfc07805896c67023cf87407d7dd  TgObjects\TgChat.php
 909fc0329d8b49bc389487274a7f3b480e82a06c  TgObjects\TgChatAction.php
@@ -99,6 +99,7 @@ afdee0eeb1f768767667a67ce71912869898dae3  TgObjects\TgTextEdited.php
 aaeeaa72d49d455b435bd29b6a21fd2947956704  TgObjects\TgUpdateType.php
 d24b5ee7754c1951a69be006898d3a9088a5d89c  TgObjects\TgUser.php
 17499e683302bfba3db77d8930f83f26ae8508cb  TgObjects\TgVideo.php
+0d34d2df1c1fcbda7cb0b92c87a8a632e729c50c  TgObjects\TgVideoEdited.php
 070b780fcceb4259bc91b5df0848a5b44e7e24f1  TgObjects\TgVoice.php
 482e7c844cd3164990d26986f5b86a12ccb614ba  TgObjects\TgWebappData.php
 b7948fba84120feccd5596908a8dc53d275698c5  cacert.pem
