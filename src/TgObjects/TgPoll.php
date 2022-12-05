@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.08.18.00
+//2022.12.05.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -64,23 +64,27 @@ class TgPoll{
   public function __construct(array $Data){
     if(isset($Data['poll'])):
       $this->Message = new TgMessage($Data);
+      $pointer = &$Data['poll'];
     else:
       $this->Message = null;
+      $pointer = &$Data;
     endif;
-    $this->PollId = $Data['id'];
-    $this->Type = TgPollType::tryFrom($Data['type']);
-    $this->Question = $Data['question'];
-    foreach($Data['options'] as $option):
+    $this->PollId = $pointer['id'];
+    $this->Question = $pointer['question'];
+    $this->Type = TgPollType::tryFrom($pointer['type']);
+    foreach($pointer['options'] as $option):
       $this->Options[] = new TgPollOption($option);
     endforeach;
-    $this->Multiple = $Data['allows_multiple_answers'];
-    $this->Votes = $Data['total_voter_count'];
-    $this->Closed = $Data['is_closed'];
-    $this->Anonymous = $Data['is_anonymous'];
-    $this->Answer = $Data['correct_option_id'] ?? null;
-    $this->Explanation = $Data['explanation'] ?? null;
-    foreach($Data['explanation_entities'] as $entity):
-      $this->ExplanationEntities[] = new TgEntity($entity);
-    endforeach;
+    $this->Multiple = $pointer['allows_multiple_answers'];
+    $this->Votes = $pointer['total_voter_count'];
+    $this->Closed = $pointer['is_closed'];
+    $this->Anonymous = $pointer['is_anonymous'];
+    $this->Answer = $pointer['correct_option_id'] ?? null;
+    $this->Explanation = $pointer['explanation'] ?? null;
+    if(isset($pointer['explanation_entities'])):
+      foreach($pointer['explanation_entities'] as $entity):
+        $this->ExplanationEntities[] = new TgEntity($entity);
+      endforeach;
+    endif;
   }
 }
