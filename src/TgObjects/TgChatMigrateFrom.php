@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.08.18.00
+//2022.12.08.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -12,13 +12,19 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 class TgChatMigrateFrom{
   public readonly TgUser $Admin;
   public readonly TgChat $Group;
+  /**
+   * Date the message was sent in Unix time
+   */
   public readonly int $Date;
-  public readonly int $IdNew;
+  /**
+   * The supergroup has been migrated from a group with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+   */
+  public readonly int $IdOld;
 
   public function __construct(array $Data){
     $this->Admin = new TgUser($Data['from']);
     $this->Group = new TgChat($Data['chat']);
     $this->Date = $Data['date'];
-    $this->IdNew = $Data['migrate_from_chat_id'];
+    $this->IdOld = $Data['migrate_from_chat_id'];
   }
 }
