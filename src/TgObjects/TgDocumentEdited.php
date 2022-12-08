@@ -1,17 +1,20 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.08.18.00
+//2022.12.08.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
+/**
+ * New version of a message that is known to the bot and was edited
+ * @link https://core.telegram.org/bots/api#message
+ */
 class TgDocumentEdited extends TgDocument{
+  /**
+   * Date the message was last edited in Unix time
+   */
   public readonly int $DateEdited;
 
-  /**
-   * New version of a message that is known to the bot and was edited
-   * @link https://core.telegram.org/bots/api#message
-   */
   public function __construct(array $Data){
     parent::__construct($Data);
     $this->DateEdited = $Data['edit_date'];

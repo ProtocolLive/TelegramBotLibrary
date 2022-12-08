@@ -1,10 +1,13 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.11.06.00
+//2022.12.08.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
+/**
+ * @link https://core.telegram.org/bots/api#forumtopiccreated
+ */
 final class TgForumCreated{
   public readonly TgMessage $Message;
   /**

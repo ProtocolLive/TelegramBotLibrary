@@ -1,17 +1,27 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.08.18.00
+//2022.12.08.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
  * A chat member's status was updated in a chat. The bot must be an administrator in the chat and must explicitly specify “chat_member” in the list of allowed_updates to receive these updates.
  * @link https://core.telegram.org/bots/api#update
+ * @link https://core.telegram.org/bots/api#chatmemberupdated
  */
-class TgGroupStatus{
+final class TgGroupStatus{
+  /**
+   * Performer of the action, which resulted in the change
+   */
   public readonly TgUser $User;
+  /**
+   * Chat the user belongs to
+   */
   public readonly TgChat $Group;
+  /**
+   * Date the change was done in Unix time
+   */
   public readonly int $Date;
   public readonly TgUser $Member;
   public readonly TgMemberStatus $StatusOld;
@@ -21,7 +31,6 @@ class TgGroupStatus{
 
   /**
    * The bot's chat member status was updated in a chat. For private chats, this update is received only when the bot is blocked or unblocked by the user.
-   * @link https://core.telegram.org/bots/api#chatmemberupdated
    */
   public function __construct(array $Data){
     $this->User = new TgUser($Data['from']);
