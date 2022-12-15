@@ -41,7 +41,7 @@ dd96d4aa28e5cc01c1865782e30c3dd62e4ee837  TgObjects\TgChatRequest.php
 b740ce72522639f84efe6258915c36861156770c  TgObjects\TgChatTitle.php
 80edd5673d76656ad682abcb750de8b5084ba129  TgObjects\TgChatType.php
 8f0568fcf616bbe29cbef0446dfdff785d2440c8  TgObjects\TgCmdScope.php
-605a25b1c29a78ad51a3a1951dc09729abc2102f  TgObjects\TgDocument.php
+a10d669380307e1f836a8f743d7fef6412998268  TgObjects\TgDocument.php
 ba6d145efb1661c4b934b337419bf4803ea65b26  TgObjects\TgDocumentEdited.php
 4c9421b33679b6605b95ef87deab59092299a1d7  TgObjects\TgEntity.php
 65c3ac9ca951a5dd9c6069326615949ec27c2fc1  TgObjects\TgEntityType.php

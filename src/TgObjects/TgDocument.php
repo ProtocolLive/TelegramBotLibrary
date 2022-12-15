@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.12.08.00
+//2022.12.15.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -25,7 +25,7 @@ class TgDocument{
   /**
    * Document thumbnail as defined by sender
    */
-  //public readonly TgPhotoSize $Thumb;
+  public readonly TgPhotoSize $Thumb;
   /**
    * MIME type of the file as defined by sender
    */
@@ -38,6 +38,9 @@ class TgDocument{
    * The unique identifier of a media message group this message belongs to
    */
   public readonly string|null $MediaGroup;
+  /**
+   * Caption for the document
+   */
   public readonly string|null $Caption;
 
   public function __construct(array $Data){
@@ -49,5 +52,8 @@ class TgDocument{
     $this->Size = $Data['document']['file_size'];
     $this->MediaGroup = $Data['media_group_id'] ?? null;
     $this->Caption = $Data['caption'] ?? null;
+    if(isset($Data['thumb'])):
+      $this->Thumb = new TgPhotoSize($Data['thumb']);
+    endif;
   }
 }
