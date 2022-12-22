@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.12.02.00
+//2022.12.21.00
 
 namespace ProtocolLive\TelegramBotLibrary;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
@@ -716,7 +716,13 @@ class TelegramBotLibrary extends TblBasics{
     $update = json_decode($update, true);
     $this->Archive($update);
     if($this->BotData->Log & TblLog::Webhook):
-      $this->Log(TblLog::Webhook, json_encode($update, JSON_PRETTY_PRINT));
+      $this->Log(
+        TblLog::Webhook,
+        json_encode(
+          $update,
+          JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE
+        )
+      );
     endif;
     return $this->DetectReturn($update);
   }
