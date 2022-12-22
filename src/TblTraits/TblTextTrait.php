@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.11.11.00
+//2022.12.22.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblTraits;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
@@ -34,7 +34,7 @@ trait TblTextTrait{
     int $Id = null,
     string $Text,
     string $InlineId = null,
-    TgParseMode $ParseMode = TgParseMode::Html,
+    TgParseMode $ParseMode = null,
     TblEntities $Entities = null,
     bool $DisablePreview = false,
     TblMarkup $Markup = null
@@ -49,7 +49,9 @@ trait TblTextTrait{
     if($InlineId !== null):
       $param['inline_message_id'] = $InlineId;
     endif;
-    $param['parse_mode'] = $ParseMode->value;
+    if($ParseMode !== null):
+      $param['parse_mode'] = $ParseMode->value;
+    endif;
     if($Entities !== null):
       $param['entities'] = json_encode($Entities);
     endif;
