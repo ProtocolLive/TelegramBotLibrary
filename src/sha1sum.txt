@@ -102,4 +102,4 @@ d24b5ee7754c1951a69be006898d3a9088a5d89c  TgObjects\TgUser.php
 0d34d2df1c1fcbda7cb0b92c87a8a632e729c50c  TgObjects\TgVideoEdited.php
 070b780fcceb4259bc91b5df0848a5b44e7e24f1  TgObjects\TgVoice.php
 482e7c844cd3164990d26986f5b86a12ccb614ba  TgObjects\TgWebappData.php
-b7948fba84120feccd5596908a8dc53d275698c5  cacert.pem
+96c77e8ff7dcf7e1e0eba1cba8c141fc351e514a  cacert.pem
