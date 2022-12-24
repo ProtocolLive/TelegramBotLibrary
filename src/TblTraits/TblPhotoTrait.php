@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.11.11.00
+//2022.12.24.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblTraits;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
@@ -46,7 +46,7 @@ trait TblPhotoTrait{
    * @param int $RepliedMsg If the message is a reply, ID of the original message
    * @param bool $SendWithoutRepliedMsg Pass True, if the message should be sent even if the specified replied-to message is not found
    * @param TblMarkup $Markup Additional interface options. A object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
-   * @return TgPhoto|null On success, the sent Message is returned.
+   * @return TgPhoto On success, the sent Message is returned.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#sendphoto
    */
