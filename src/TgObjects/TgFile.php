@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.12.08.00
+//2022.12.25.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -24,12 +24,12 @@ class TgFile{
   /**
    * File path. Use https://api.telegram.org/file/bot<token>/<file_path> to get the file.
    */
-  public readonly string $Path;
+  public readonly string|null $Path;
 
   public function __construct(array $Data){
     $this->Id = $Data['file_id'];
     $this->IdUnique = $Data['file_unique_id'];
     $this->Size = $Data['file_size'];
-    $this->Path = $Data['file_path'];
+    $this->Path = $Data['file_path'] ?? null;
   }
 }
