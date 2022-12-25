@@ -47,7 +47,7 @@ ba6d145efb1661c4b934b337419bf4803ea65b26  TgObjects\TgDocumentEdited.php
 65c3ac9ca951a5dd9c6069326615949ec27c2fc1  TgObjects\TgEntityType.php
 fb6564f740fcbfc4ca8a3d379bbad4e164f27dcc  TgObjects\TgError.php
 e8d858b76f8065cbbe822fcac65626594405b417  TgObjects\TgErrors.php
-12c7c971c0c54b2a2c3ab0dad92db301041c57bf  TgObjects\TgFile.php
+44657d56eb0a0606cb34ad61e68a7f2513070731  TgObjects\TgFile.php
 5f04be2130c09015bc5e9109ee4fc5206f02e703  TgObjects\TgForumClosed.php
 7ed957bc6631f0f5589b78bee1a09ea14f7e61fa  TgObjects\TgForumCreated.php
 614fb532f5b16adf61790956fb1681a22fc8ce77  TgObjects\TgForumReopened.php
@@ -92,7 +92,7 @@ f5d6465bf814392b0a159e1638e615aac1e5c081  TgObjects\TgPinnedMsg.php
 fb6ae91f78cb6a93363b9f72604d4839556184e4  TgObjects\TgPollOption.php
 b9d8542726d773847af3d5df0dfc062ba31c3e09  TgObjects\TgPollType.php
 01404aa57ceee1df47cbb3f42a0b77626f5458c5  TgObjects\TgProfilePhoto.php
-d327ae486b63f08219ee76db926233609d8cfb3e  TgObjects\TgSticker.php
+10845296e0401127ee63b0ed6fbd27e0504b7fdb  TgObjects\TgSticker.php
 6ec940d12da129f5962d2f855c6dde534d64dab3  TgObjects\TgStickerType.php
 aeef915403a0ad556202af99ff8fba4b861d2325  TgObjects\TgText.php
 afdee0eeb1f768767667a67ce71912869898dae3  TgObjects\TgTextEdited.php
@@ -102,4 +102,4 @@ d24b5ee7754c1951a69be006898d3a9088a5d89c  TgObjects\TgUser.php
 0d34d2df1c1fcbda7cb0b92c87a8a632e729c50c  TgObjects\TgVideoEdited.php
 070b780fcceb4259bc91b5df0848a5b44e7e24f1  TgObjects\TgVoice.php
 482e7c844cd3164990d26986f5b86a12ccb614ba  TgObjects\TgWebappData.php
-96c77e8ff7dcf7e1e0eba1cba8c141fc351e514a  cacert.pem
+e9f9e8f59fae9984963228ba41c2b6a55510509a  cacert.pem
