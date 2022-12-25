@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.08.18.00
+//2022.12.25.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -10,6 +10,7 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
  * @link https://core.telegram.org/bots/api#sticker
  */
 final class TgSticker{
+  public readonly TgMessage $Message;
   /**
    * Identifier for this file, which can be used to download or reuse the file
    */
@@ -21,7 +22,7 @@ final class TgSticker{
   /**
    * Type of the sticker, currently one of “regular”, “mask”, “custom_emoji”. The type of the sticker is independent from its format, which is determined by the fields is_animated and is_video.
    */
-  public readonly string $Type;
+  public readonly TgStickerType $Type;
   /**
    * Sticker width
    */
@@ -71,29 +72,30 @@ final class TgSticker{
    * @link https://core.telegram.org/bots/api#sticker
    */
   public function __construct(array $Data){
-    $this->Id = $Data['file_id'];
-    $this->IdUnique = $Data['file_unique_id'];
-    $this->Type = TgStickerType::from($Data['type']);
-    $this->Width = $Data['width'];
-    $this->Height = $Data['height'];
-    $this->Animated = $Data['is_animated'] ?? false;
-    $this->Video = $Data['is_video'] ?? false;
-    if(isset($Data['thumb'])):
-      $this->Thumb = new TgPhotoSize($Data['thumb']);
+    $this->Message = new TgMessage($Data);
+    $this->Id = $Data['sticker']['file_id'];
+    $this->IdUnique = $Data['sticker']['file_unique_id'];
+    $this->Type = TgStickerType::from($Data['sticker']['type']);
+    $this->Width = $Data['sticker']['width'];
+    $this->Height = $Data['sticker']['height'];
+    $this->Animated = $Data['sticker']['is_animated'] ?? false;
+    $this->Video = $Data['sticker']['is_video'] ?? false;
+    if(isset($Data['sticker']['thumb'])):
+      $this->Thumb = new TgPhotoSize($Data['sticker']['thumb']);
     endif;
-    $this->Emoji = $Data['emoji'] ?? null;
-    $this->SetName = $Data['set_name'] ?? null;
-    if(isset($Data['premium_animation'])):
-      $this->PremiumAnimation = new TgFile($Data['premium_animation']);
+    $this->Emoji = $Data['sticker']['emoji'] ?? null;
+    $this->SetName = $Data['sticker']['set_name'] ?? null;
+    if(isset($Data['sticker']['premium_animation'])):
+      $this->PremiumAnimation = new TgFile($Data['sticker']['premium_animation']);
     else:
       $this->PremiumAnimation = null;
     endif;
-    if(isset($Data['mask_position'])):
-      $this->Mask = new TgMask($Data['mask_position']);
+    if(isset($Data['sticker']['mask_position'])):
+      $this->Mask = new TgMask($Data['sticker']['mask_position']);
     else:
       $this->Mask = null;
     endif;
-    $this->CustomEmojiId = $Data['custom_emoji_id'] ?? null;
-    $this->FileSize = $Data['file_size'] ?? null;
+    $this->CustomEmojiId = $Data['sticker']['custom_emoji_id'] ?? null;
+    $this->FileSize = $Data['sticker']['file_size'] ?? null;
   }
 }
