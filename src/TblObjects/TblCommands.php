@@ -1,13 +1,13 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.11.04.00
+//2022.12.27.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgLimits;
 
 final class TblCommands{
-  private array $Commands;
+  private array $Commands = [];
 
   public function __construct(
     array $Data = null
