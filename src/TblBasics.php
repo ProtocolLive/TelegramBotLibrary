@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.11.23.01
+//2022.12.27.00
 
 namespace ProtocolLive\TelegramBotLibrary;
 use CurlHandle;
@@ -39,6 +39,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgVoice,
   TgWebappData
 };
+
 abstract class TblBasics{
   protected TblData $BotData;
 
@@ -59,8 +60,8 @@ abstract class TblBasics{
   }
 
   private function CurlResponse(
-    \CurlHandle $Curl,
-  ):mixed{
+    CurlHandle $Curl,
+  ):array|bool|TblException{
     $response = curl_multi_getcontent($Curl);
     $response = json_decode($response, true);
     if($this->BotData->Log & TblLog::Response):
@@ -197,7 +198,7 @@ abstract class TblBasics{
 
   /**
    * Use the cURL multi resource to send many messages at once. All messages have to use the same method.
-   * @param array $ParamGroups Array with array os parameters
+   * @param array $ParamGroups Array with returns
    */
   protected function ServerMethodMulti(
     TgMethods $Method,
