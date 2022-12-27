@@ -1,17 +1,16 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.12.22.00
+//2022.12.27.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblTraits;
-use ProtocolLive\TelegramBotLibrary\TblObjects\{
-  TblEntities,
-  TblMarkup
-};
-use ProtocolLive\TelegramBotLibrary\TgObjects\{
-  TgMethods,
-  TgParseMode,
-  TgText
+use ProtocolLive\TelegramBotLibrary\{
+  TblObjects\TblEntities,
+  TblObjects\TblMarkup,
+  TelegramBotLibrary,
+  TgObjects\TgMethods,
+  TgObjects\TgParseMode,
+  TgObjects\TgText
 };
 
 trait TblTextTrait{
@@ -183,6 +182,9 @@ trait TblTextTrait{
    * @return TgText[]|TblException[]
    */
   public function TextSendMulti(array $Params):array{
+    /**
+     * @var TelegramBotLibrary $this
+     */
     $return = $this->ServerMethodMulti(TgMethods::TextSend, $Params);
     foreach($return as &$answer):
       if(is_object($answer) === false):
