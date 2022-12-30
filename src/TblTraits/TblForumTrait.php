@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.11.11.00
+//2022.12.30.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblTraits;
 use ProtocolLive\TelegramBotLibrary\{
@@ -81,7 +81,6 @@ trait TblForumTrait{
    * @param string $New topic name, 1-128 characters
    * @param string $Emoji New unique identifier of the custom emoji shown as the topic icon. Use getForumTopicIconStickers to get all allowed custom emoji identifiers
    * @return bool Returns True on success.
-   * @throws TblException
    * @link https://core.telegram.org/bots/api#editforumtopic
    * @throws TblException
    */
@@ -96,6 +95,79 @@ trait TblForumTrait{
     $param['name'] = $Name;
     $param['icon_custom_emoji_id'] = $Emoji;
     return $this->ServerMethod(TgMethods::ForumEdit, $param);
+  }
+
+  /**
+   * Use this method to close an open 'General' topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights.
+   * @param string $Chat Unique identifier for the target chat
+   * @return true Returns True on success.
+   * @link https://core.telegram.org/bots/api#closegeneralforumtopic
+   * @throws TblException
+   */
+  public function ForumGeneralClose(
+    int $Chat
+  ):bool{
+    $param['chat_id'] = $Chat;
+    return $this->ServerMethod(TgMethods::ForumGeneralClose, $param);
+  }
+
+  /**
+   * Use this method to edit the name of the 'General' topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have can_manage_topics administrator rights.
+   * @param int $Chat Unique identifier for the target chat
+   * @param string $Name New topic name, 1-128 characters
+   * @return true Returns True on success.
+   * @throws TblException
+   * @link https://core.telegram.org/bots/api#editgeneralforumtopic
+   */
+  public function ForumGeneralEdit(
+    int $Chat,
+    string $Name
+  ):bool{
+    $param['chat_id'] = $Chat;
+    $param['name'] = $Name;
+    return $this->ServerMethod(TgMethods::ForumGeneralEdit, $param);
+  }
+
+  /**
+   * Use this method to hide the 'General' topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights. The topic will be automatically closed if it was open.
+   * @param int $Chat Unique identifier for the target chat
+   * @return true Returns True on success.
+   * @link https://core.telegram.org/bots/api#hidegeneralforumtopic
+   * @throws TblException
+   */
+  public function ForumGeneralHide(
+    int $Chat
+  ):bool{
+    $param['chat_id'] = $Chat;
+    return $this->ServerMethod(TgMethods::ForumGeneralHide, $param);
+  }
+
+  /**
+   * Use this method to reopen a closed 'General' topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights. The topic will be automatically unhidden if it was hidden.
+   * @param int $Chat Unique identifier for the target chat
+   * @return true Returns True on success.
+   * @link https://core.telegram.org/bots/api#reopengeneralforumtopic
+   * @throws TblException
+   */
+  public function ForumGeneralReopen(
+    int $Chat
+  ):bool{
+    $param['chat_id'] = $Chat;
+    return $this->ServerMethod(TgMethods::ForumGeneralReopen, $param);
+  }
+
+  /**
+   * Use this method to unhide the 'General' topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights.
+   * @param int $Chat Unique identifier for the target chat
+   * @return true Returns True on success.
+   * @link https://core.telegram.org/bots/api#unhidegeneralforumtopic
+   * @throws TblException
+   */
+  public function ForumGeneralUnhide(
+    int $Chat
+  ):bool{
+    $param['chat_id'] = $Chat;
+    return $this->ServerMethod(TgMethods::ForumGeneralUnhide, $param);
   }
 
   /**
