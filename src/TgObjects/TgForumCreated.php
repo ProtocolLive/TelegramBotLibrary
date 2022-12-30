@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.12.08.00
+//2022.12.30.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -9,7 +9,7 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
  * @link https://core.telegram.org/bots/api#forumtopiccreated
  */
 final class TgForumCreated{
-  public readonly TgMessage $Message;
+  public readonly TgMessageData $Data;
   /**
    * Name of the topic
    */
@@ -24,7 +24,7 @@ final class TgForumCreated{
   public readonly string|null $Emoji;
 
   public function __construct(array $Data){
-    $this->Message = new TgMessage($Data);
+    $this->Data = new TgMessageData($Data);
     $this->Name = $Data['forum_topic_created']['name'];
     $this->Color = $Data['forum_topic_created']['icon_color'];
     $this->Emoji = $Data['forum_topic_created']['icon_custom_emoji_id'] ?? null;

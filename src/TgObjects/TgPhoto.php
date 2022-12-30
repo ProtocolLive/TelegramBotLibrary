@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.08.18.00
+//2022.12.30.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -9,7 +9,7 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
  * @link https://core.telegram.org/bots/api#message
  */
 class TgPhoto{
-  public readonly TgMessage $Message;
+  public readonly TgMessageData $Data;
   public array $Files;
   public readonly string|null $MediaGroup;
   public readonly string|null $Caption;
@@ -19,7 +19,7 @@ class TgPhoto{
    * @link https://core.telegram.org/bots/api#message
    */
   public function __construct(array $Data){
-    $this->Message = new TgMessage($Data);
+    $this->Data = new TgMessageData($Data);
     foreach($Data['photo'] as $file):
       $this->Files[] = new TgPhotoSize($file);
     endforeach;

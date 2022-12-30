@@ -1,11 +1,11 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.12.30.00
+//2022.12.30.01
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
-class TgMessage{
+class TgMessageData{
   /**
    * Unique message identifier inside this chat
    */

@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.08.18.00
+//2022.12.30.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -9,7 +9,7 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
  * @link https://core.telegram.org/bots/api#successfulpayment
  */
 class TgInvoiceDone{
-  public readonly TgMessage $Message;
+  public readonly TgMessageData $Data;
   public readonly TgInvoiceCurrencies $Currency;
   public readonly Int $Amount;
   public readonly string $Payload;
@@ -21,7 +21,7 @@ class TgInvoiceDone{
    * @link https://core.telegram.org/bots/api#successfulpayment
    */
   public function __construct(array $Data){
-    $this->Message = new TgMessage($Data);
+    $this->Data = new TgMessageData($Data);
     $this->Currency = TgInvoiceCurrencies::tryFrom($Data['successful_payment']['currency']);
     $this->Amount = $Data['successful_payment']['total_amount'];
     $this->Payload = $Data['successful_payment']['invoice_payload'];

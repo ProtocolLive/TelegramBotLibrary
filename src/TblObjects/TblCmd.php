@@ -1,22 +1,22 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.11.11.00
+//2022.12.30.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgEntity,
-  TgMessage
+  TgMessageData
 };
 
 class TblCmd{
-  public readonly TgMessage $Message;
+  public readonly TgMessageData $Data;
   public readonly string $Command;
   public readonly string|null $Parameters;
   public readonly string|null $Target;
 
   public function __construct(array $Data){
-    $this->Message = new TgMessage($Data);
+    $this->Data = new TgMessageData($Data);
     $Text = $Data['text'];
     $Entity = new TgEntity($Data['entities'][0]);
     $this->Command = substr(

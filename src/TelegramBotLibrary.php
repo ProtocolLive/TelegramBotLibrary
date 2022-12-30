@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.12.30.00
+//2022.12.30.01
 
 namespace ProtocolLive\TelegramBotLibrary;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
@@ -40,7 +40,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgInvoiceShipping,
   TgLocationEdited,
   TgMenuButton,
-  TgMessage,
+  TgMessageData,
   TgMethods,
   TgParseMode,
   TgPermAdmin,
@@ -363,7 +363,7 @@ class TelegramBotLibrary extends TblBasics{
    * @param int $Id Required if inline_message_id is not specified. Identifier of the message to edit
    * @param string $IdInline Required if chat_id and message_id are not specified. Identifier of the inline message
    * @param TblMarkup $Markup A object for an inline keyboard.
-   * @return TgMessage|bool On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned.
+   * @return TgMessageData|bool On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#editmessagereplymarkup
    */

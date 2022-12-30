@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.12.25.00
+//2022.12.30.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -10,7 +10,7 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
  * @link https://core.telegram.org/bots/api#sticker
  */
 final class TgSticker{
-  public readonly TgMessage $Message;
+  public readonly TgMessageData $Data;
   /**
    * Identifier for this file, which can be used to download or reuse the file
    */
@@ -72,7 +72,7 @@ final class TgSticker{
    * @link https://core.telegram.org/bots/api#sticker
    */
   public function __construct(array $Data){
-    $this->Message = new TgMessage($Data);
+    $this->Data = new TgMessageData($Data);
     $this->Id = $Data['sticker']['file_id'];
     $this->IdUnique = $Data['sticker']['file_unique_id'];
     $this->Type = TgStickerType::from($Data['sticker']['type']);

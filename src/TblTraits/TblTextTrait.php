@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.12.30.00
+//2022.12.30.01
 
 namespace ProtocolLive\TelegramBotLibrary\TblTraits;
 use ProtocolLive\TelegramBotLibrary\{
@@ -24,7 +24,7 @@ trait TblTextTrait{
    * @param TblEntities $Entities A list of special entities that appear in message text, which can be specified instead of parse_mode
    * @param bool $DisablePreview Disables link previews for links in this message
    * @param TblMarkup $Markup A object for an inline keyboard.
-   * @return TgMessage|bool On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned.
+   * @return TgMessageData|bool On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#editmessagetext
    */
@@ -81,7 +81,7 @@ trait TblTextTrait{
    * @param int $RepliedMsg If the message is a reply, ID of the original message
    * @param bool $SendWithoutRepliedMsg Pass True, if the message should be sent even if the specified replied-to message is not found
    * @param array TblMarkup Additional interface options. A object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
-   * @return TgMessage On success, the sent Message is returned.
+   * @return TgMessageData On success, the sent Message is returned.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#sendmessage
    */

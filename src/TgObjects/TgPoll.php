@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.12.05.00
+//2022.12.30.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -10,7 +10,7 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
  * @link https://core.telegram.org/bots/api#poll
  */
 class TgPoll{
-  public readonly TgMessage|null $Message;
+  public readonly TgMessageData|null $Data;
   /**
    * Unique poll identifier
    */
@@ -63,7 +63,7 @@ class TgPoll{
    */
   public function __construct(array $Data){
     if(isset($Data['poll'])):
-      $this->Message = new TgMessage($Data);
+      $this->Data = new TgMessageData($Data);
       $pointer = &$Data['poll'];
     else:
       $this->Message = null;

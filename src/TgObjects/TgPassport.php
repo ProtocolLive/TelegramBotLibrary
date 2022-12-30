@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.09.19.00
+//2022.12.30.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -10,12 +10,12 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
  * @link https://core.telegram.org/bots/api#encryptedcredentials
  */
 class TgPassport{
-  public TgMessage $Message;
+  public TgMessageData $Data;
   /**
    * Base64-encoded encrypted JSON-serialized data with unique user's payload, data hashes and secrets required for EncryptedPassportElement decryption and authentication
    * @link https://core.telegram.org/bots/api#encryptedcredentials
    */
-  public string $Data;
+  public string $Raw;
   /**
    * Base64-encoded data hash for data authentication
    * @link https://core.telegram.org/bots/api#encryptedcredentials
@@ -35,8 +35,8 @@ class TgPassport{
 
   public function __construct(array $Data = null){
     if($Data !== null):
-      $this->Message = new TgMessage($Data);
-      $this->Data = base64_decode($Data['passport_data']['credentials']['data']);
+      $this->Data = new TgMessageData($Data);
+      $this->Raw = base64_decode($Data['passport_data']['credentials']['data']);
       $this->Hash = base64_decode($Data['passport_data']['credentials']['hash']);
       $this->Secret = base64_decode($Data['passport_data']['credentials']['secret']);
       foreach($Data['passport_data']['data'] as $data):
@@ -72,7 +72,7 @@ class TgPassport{
     $this->Secret = $temp;
     //Decode data
     $Data = self::DecodeData(
-      $this->Data,
+      $this->Raw,
       $this->Secret,
       $this->Hash
     );
