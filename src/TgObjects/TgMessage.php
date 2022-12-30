@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.11.05.04
+//2022.12.30.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -54,6 +54,10 @@ class TgMessage{
    * Unique identifier of a message thread to which the message belongs; for supergroups only
    */
   public readonly int|null $Thread;
+  /**
+   * If the message media is covered by a spoiler animation
+   */
+  public readonly bool $Spoiler;
 
   //The bot 777000 is used to forward messages from channels to groups
   //The bot 1087968824 is used for admins post as the group and for migrate events
@@ -92,6 +96,7 @@ class TgMessage{
     $this->ForwardDate = $Data['forward_date'] ?? null;
     $this->Protected = $Data['has_protected_content'] ?? false;
     $this->Topic = $Data['is_topic_message'] ?? false;
+    $this->Spoiler = $Data['has_media_spoiler'] ?? false;
     $this->Thread = $Data['message_thread_id'] ?? null;
     if(isset($Data['reply_to_message']) === false):
       $this->Reply = null;
