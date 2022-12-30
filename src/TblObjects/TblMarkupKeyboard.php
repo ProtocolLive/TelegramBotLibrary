@@ -1,14 +1,16 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.08.19.00
+//2022.12.30.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgPollType;
 
-class TblMarkupKeyboard extends TblMarkup{
+class TblMarkupKeyboard
+extends TblMarkup{
   /**
    * This object represents a custom keyboard with reply options (see Introduction to bots for details and examples).
+   * @param bool $Persistent Requests clients to always show the keyboard when the regular keyboard is hidden. Defaults to false, in which case the custom keyboard can be hidden and opened with a keyboard icon.
    * @param bool $Resize Requests clients to resize the keyboard vertically for optimal fit (e.g., make the keyboard smaller if there are just two rows of buttons). Defaults to false, in which case the custom keyboard is always of the same height as the app's standard keyboard.
    * @param bool $OneTime Requests clients to hide the keyboard as soon as it's been used. The keyboard will still be available, but clients will automatically display the usual letter-keyboard in the chat – the user can press a special button in the input field to see the custom keyboard again. Defaults to false.
    * @param string $Placeholder The placeholder to be shown in the input field when the keyboard is active; 1-64 characters
@@ -17,6 +19,7 @@ class TblMarkupKeyboard extends TblMarkup{
    * @link https://core.telegram.org/bots/api#replykeyboardmarkup
    */
   public function __construct(
+    bool $Persistent = false,
     bool $Resize = false,
     bool $OneTime = false,
     string $Placeholder = null,
@@ -24,6 +27,9 @@ class TblMarkupKeyboard extends TblMarkup{
   ){
     $this->Markup['keyboard'] = [];
     $this->Pointer = &$this->Markup['keyboard'];
+    if($Persistent):
+      $this->Markup['is_persistent'] = true;
+    endif;
     if($Resize):
       $this->Markup['resize_keyboard'] = true;
     endif;
