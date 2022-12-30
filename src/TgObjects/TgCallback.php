@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.12.08.00
+//2022.12.30.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -20,7 +20,7 @@ final class TgCallback{
   /**
    * Message with the callback button that originated the query. Note that message content and message date will not be available if the message is too old
    */
-  public readonly TgMessage $Message;
+  public readonly TgText $Message;
   /**
    * Global identifier, uniquely corresponding to the chat to which the message with the callback button was sent. Useful for high scores in games.
    */
@@ -35,7 +35,7 @@ final class TgCallback{
   public function __construct(array $Data){
     $this->Id = $Data['id'];
     $this->User = new TgUser($Data['from']);
-    $this->Message = new TgMessage($Data['message']);
+    $this->Message = new TgText($Data['message']);
     $this->ChatInstance = $Data['chat_instance'];
     $temp = explode(' ', $Data['data']);
     $this->Data = $temp[0];
