@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.12.30.00
+//2022.12.30.01
 
 namespace ProtocolLive\TelegramBotLibrary\TblTraits;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
@@ -143,7 +143,7 @@ trait TblPhotoTrait{
       $param['parse_mode'] = $ParseMode->value;
     endif;
     if($Entities !== null):
-      $param['caption_entities'] = json_encode($Entities);
+      $param['caption_entities'] = $Entities->ToJson();
     endif;
     if($DisableNotification):
       $param['disable_notification'] = 'true';

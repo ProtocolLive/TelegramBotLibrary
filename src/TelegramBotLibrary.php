@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.12.21.00
+//2022.12.30.00
 
 namespace ProtocolLive\TelegramBotLibrary;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
@@ -213,7 +213,7 @@ class TelegramBotLibrary extends TblBasics{
       $param['parse_mode'] = $ParseMode->value;
     endif;
     if($Entities !== null):
-      $param['caption_entities'] = json_encode($Entities);
+      $param['caption_entities'] = $Entities->ToJson();
     endif;
     if($DisableDetection):
       $param['disable_content_type_detection'] = 'true';
@@ -485,7 +485,7 @@ class TelegramBotLibrary extends TblBasics{
     endif;
     $param['parse_mode'] = $ParseMode->value;
     if($Entities !== null):
-      $param['caption_entities'] = json_encode($Entities);
+      $param['caption_entities'] = $Entities->ToJson();
     endif;
     if($DisableNotification):
       $param['disable_notification'] = true;

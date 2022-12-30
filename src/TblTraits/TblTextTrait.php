@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.12.27.00
+//2022.12.30.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblTraits;
 use ProtocolLive\TelegramBotLibrary\{
@@ -52,7 +52,7 @@ trait TblTextTrait{
       $param['parse_mode'] = $ParseMode->value;
     endif;
     if($Entities !== null):
-      $param['entities'] = json_encode($Entities);
+      $param['entities'] = $Entities->ToJson();
     endif;
     if($DisablePreview):
       $param['disable_web_page_preview'] = 'true';
@@ -153,7 +153,7 @@ trait TblTextTrait{
       $param['parse_mode'] = $ParseMode->value;
     endif;
     if($Entities !== null):
-      $param['entities'] = json_encode($Entities);
+      $param['entities'] = $Entities->ToJson();
     endif;
     if($DisablePreview):
       $param['disable_web_page_preview'] = true;
