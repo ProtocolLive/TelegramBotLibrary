@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.12.30.01
+//2022.12.30.02
 
 namespace ProtocolLive\TelegramBotLibrary;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
@@ -53,7 +53,8 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgVideoEdited
 };
 
-class TelegramBotLibrary extends TblBasics{
+class TelegramBotLibrary
+extends TblBasics{
   use TblChatTrait;
   use TblForumTrait;
   use TblInvoiceTrait;
@@ -237,7 +238,9 @@ class TelegramBotLibrary extends TblBasics{
     return new TgDocument($return);
   }
 
-  private function DetectReturn(array $Data):object{
+  private function DetectReturn(
+    array $Data
+  ):object{
     if(($temp = TblBasics::DetectMessage($Data['message'] ?? [])) !== null):
       return $temp;
     elseif(isset($Data['channel_post']['entities'][0])
@@ -306,7 +309,9 @@ class TelegramBotLibrary extends TblBasics{
    * @throws TblException
    * @link https://core.telegram.org/bots/api#getfile
    */
-  public function FileInfo(string $Id):TgFile{
+  public function FileInfo(
+    string $Id
+  ):TgFile{
     $param['file_id'] = $Id;
     $return = $this->ServerMethod(TgMethods::FileGet, $param);
     return new TgFile($return);
