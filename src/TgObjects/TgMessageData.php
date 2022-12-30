@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.12.30.02
+//2022.12.30.03
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -118,7 +118,11 @@ class TgMessageData{
     if(isset($Data['reply_markup']['inline_keyboard'])):
       foreach($Data['reply_markup']['inline_keyboard'] as $line => $cols):
         foreach($cols as $col => $markup):
-          $this->Markup[$line][$col] = new TgButtonCallback($markup);
+          if(isset($markup['callback_data'])):
+            $this->Markup[$line][$col] = new TgButtonCallback($markup);
+          elseif(isset($markup['web_app'])):
+            $this->Markup[$line][$col] = new TgButtonWebapp($markup);
+          endif;
         endforeach;
       endforeach;
     endif;
