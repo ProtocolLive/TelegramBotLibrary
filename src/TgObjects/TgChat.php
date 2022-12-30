@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.11.06.01
+//2022.12.30.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 use ProtocolLive\TelegramBotLibrary\TblBasics;
@@ -70,6 +70,14 @@ class TgChat{
    * If messages from the chat can't be forwarded to other chats. Returned only in getChat.
    */
   public readonly bool $Protected;
+  /**
+   * If non-administrators can only get the list of bots and administrators in the chat. Returned only in getChat.
+   */
+  public readonly bool|null $HidedMembers;
+  /**
+   * If aggressive anti-spam checks are enabled in the supergroup. The field is only available to chat administrators. Returned only in getChat.
+   */
+  public readonly bool|null $AntiSpam;
 
   public function __construct(array $Data){
     $this->Id = $Data['id'];
@@ -103,6 +111,16 @@ class TgChat{
       $this->Pinned[] = TblBasics::DetectMessage($Data['pinned_message']);
     else:
       $this->Pinned = null;
+    endif;
+    if(isset($Data['has_hidden_members'])):
+      $this->HidedMembers = $Data['has_hidden_members'];
+    else:
+      $this->HidedMembers = null;
+    endif;
+    if(isset($Data['has_aggressive_anti_spam_enabled'])):
+      $this->AntiSpam = $Data['has_aggressive_anti_spam_enabled'];
+    else:
+      $this->AntiSpam = null;
     endif;
   }
 }
