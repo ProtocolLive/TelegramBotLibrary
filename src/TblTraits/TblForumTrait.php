@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.12.30.00
+//2022.12.30.01
 
 namespace ProtocolLive\TelegramBotLibrary\TblTraits;
 use ProtocolLive\TelegramBotLibrary\{
@@ -35,7 +35,7 @@ trait TblForumTrait{
    * @param string $Name Topic name, 1-128 characters
    * @param string $Color Color of the topic icon in RGB format. Currently, must be one of 0x6FB9F0, 0xFFD67E, 0xCB86DB, 0x8EEE98, 0xFF93B2, or 0xFB6F5F
    * @param string $Emoji Unique identifier of the custom emoji shown as the topic icon. Use getForumTopicIconStickers to get all allowed custom emoji identifiers.
-   * @return TgForumTopic|null Returns information about the created topic as a ForumTopic object.
+   * @return TgForumTopic Returns information about the created topic as a ForumTopic object.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#createforumtopic
    */
@@ -44,7 +44,7 @@ trait TblForumTrait{
     string $Name,
     string $Color = null,
     string $Emoji = null
-  ):TgForumTopic|null{
+  ):TgForumTopic{
     $param['chat_id'] = $Chat;
     $param['name'] = $Name;
     if($Color !== null):
