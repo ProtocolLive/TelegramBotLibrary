@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.12.30.01
+//2022.12.30.02
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -58,6 +58,10 @@ class TgMessageData{
    * If the message media is covered by a spoiler animation
    */
   public readonly bool $Spoiler;
+  /**
+   * Inline keyboard attached to the message. login_url buttons are represented as ordinary url buttons.
+   */
+  public array $Markup = [];
 
   //The bot 777000 is used to forward messages from channels to groups
   //The bot 1087968824 is used for admins post as the group and for migrate events
@@ -110,6 +114,13 @@ class TgMessageData{
       else:
         $this->Reply = null;
       endif;
+    endif;
+    if(isset($Data['reply_markup']['inline_keyboard'])):
+      foreach($Data['reply_markup']['inline_keyboard'] as $line => $cols):
+        foreach($cols as $col => $markup):
+          $this->Markup[$line][$col] = new TgButtonCallback($markup);
+        endforeach;
+      endforeach;
     endif;
   }
 }
