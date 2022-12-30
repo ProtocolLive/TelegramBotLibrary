@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.12.24.00
+//2022.12.30.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblTraits;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
@@ -46,6 +46,7 @@ trait TblPhotoTrait{
    * @param int $RepliedMsg If the message is a reply, ID of the original message
    * @param bool $SendWithoutRepliedMsg Pass True, if the message should be sent even if the specified replied-to message is not found
    * @param TblMarkup $Markup Additional interface options. A object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
+   * @param bool $Spoiler If the photo needs to be covered with a spoiler animation
    * @return TgPhoto On success, the sent Message is returned.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#sendphoto
@@ -60,6 +61,7 @@ trait TblPhotoTrait{
     bool $DisableNotification = false,
     bool $Protect = false,
     int $RepliedMsg = null,
+    bool $Spoiler = false,
     bool $SendWithoutRepliedMsg = false,
     TblMarkup $Markup = null
   ):TgPhoto{
@@ -73,6 +75,7 @@ trait TblPhotoTrait{
       $DisableNotification,
       $Protect,
       $RepliedMsg,
+      $Spoiler,
       $SendWithoutRepliedMsg,
       $Markup
     );
@@ -108,6 +111,7 @@ trait TblPhotoTrait{
    * @param int $RepliedMsg If the message is a reply, ID of the original message
    * @param bool $SendWithoutRepliedMsg Pass True, if the message should be sent even if the specified replied-to message is not found
    * @param TblMarkup $Markup Additional interface options. A object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
+   * @param bool $Spoiler If the photo needs to be covered with a spoiler animation
    * @return array Prepared parameters for the PhotoSendMulti method
    * @throws TblException
    * @link https://core.telegram.org/bots/api#sendphoto
@@ -122,6 +126,7 @@ trait TblPhotoTrait{
     bool $DisableNotification = false,
     bool $Protect = false,
     int $RepliedMsg = null,
+    bool $Spoiler = false,
     bool $SendWithoutRepliedMsg = false,
     TblMarkup $Markup = null
   ):array{
@@ -145,6 +150,9 @@ trait TblPhotoTrait{
     endif;
     if($Protect):
       $param['protect_content'] = 'true';
+    endif;
+    if($Spoiler):
+      $param['has_spoiler'] = 'true';
     endif;
     if($RepliedMsg !== null):
       $param['reply_to_message_id'] = $RepliedMsg;
