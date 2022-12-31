@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.12.31.01
+//2022.12.31.02
 
 namespace ProtocolLive\TelegramBotLibrary;
 use CurlHandle;
@@ -10,7 +10,8 @@ use ProtocolLive\TelegramBotLibrary\TblObjects\{
   TblData,
   TblError,
   TblException,
-  TblLog
+  TblLog,
+  TblServerMulti
 };
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgChatAutoDel,
@@ -207,22 +208,25 @@ abstract class TblBasics{
 
   /**
    * Use the cURL multi resource to send many messages at once. All messages have to use the same method.
-   * @param array $ParamGroups Array with returns
    */
   protected function ServerMethodMulti(
     TgMethods $Method,
-    array $ParamGroups
+    TblServerMulti $Params
   ):array{
     $mh = curl_multi_init();
     $calls = [];
-    foreach($ParamGroups as $id => $Params):
+    $Params = $Params->GetArray();
+    foreach($Params as $id => $params):
       $curl = $this->BotData->UrlApi . '/' . $Method->value;
       if($this->BotData->Log & TblLog::Send):
         $log = 'Url: ' . $curl . PHP_EOL;
-        $log .= 'Params: ' . json_encode($Params, JSON_PRETTY_PRINT);
+        $log .= 'Params: ' . json_encode(
+          $params,
+          JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
+        );
         $this->Log(TblLog::Send, $log);
       endif;
-      $calls[$id] = $this->Curl($curl, $Params);
+      $calls[$id] = $this->Curl($curl, $params);
       curl_multi_add_handle($mh, $calls[$id]);
     endforeach;
     do{
@@ -230,7 +234,7 @@ abstract class TblBasics{
       curl_multi_select($mh);
     }while($active);
     $return = [];
-    foreach($ParamGroups as $id => $Params):
+    foreach($Params as $id => $params):
       $return[$id] = $this->CurlResponse($calls[$id]);
     endforeach;
     return $return;

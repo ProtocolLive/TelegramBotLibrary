@@ -3,21 +3,80 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 //2022.12.31.00
 
-namespace ProtocolLive\TelegramBotLibrary\TblTraits;
-use ProtocolLive\TelegramBotLibrary\{
-  TblBasics,
-  TblObjects\TblEntities,
-  TblObjects\TblException,
-  TblObjects\TblMarkup,
-  TblObjects\TblPhotoSendMulti,
-  TgObjects\TgMethods,
-  TgObjects\TgParseMode,
-  TgObjects\TgPhoto
+namespace ProtocolLive\TelegramBotLibrary\TblObjects;
+use ProtocolLive\TelegramBotLibrary\TgObjects\{
+  TgLimits,
+  TgParseMode
 };
 
-trait TblPhotoTrait{
+final class TblPhotoSendMulti
+extends TblServerMulti{
+  public function __construct(
+    int $Chat = null,
+    string $Photo = null,
+    int $Thread = null,
+    string $Caption = null,
+    TgParseMode $ParseMode = TgParseMode::Html,
+    TblEntities $Entities = null,
+    bool $DisableNotification = false,
+    bool $Protect = false,
+    int $RepliedMsg = null,
+    bool $Spoiler = false,
+    bool $SendWithoutRepliedMsg = false,
+    TblMarkup $Markup = null
+  ){
+    if($Chat === null
+    or $Photo === null):
+      return;
+    endif;
+    $this->Args[] = $this->BuildArgs(
+      $Chat,
+      $Photo,
+      $Thread,
+      $Caption,
+      $ParseMode,
+      $Entities,
+      $DisableNotification,
+      $Protect,
+      $RepliedMsg,
+      $Spoiler,
+      $SendWithoutRepliedMsg,
+      $Markup
+    );
+  }
+
+  public function Add(
+    int $Chat,
+    string $Photo,
+    int $Thread = null,
+    string $Caption = null,
+    TgParseMode $ParseMode = TgParseMode::Html,
+    TblEntities $Entities = null,
+    bool $DisableNotification = false,
+    bool $Protect = false,
+    int $RepliedMsg = null,
+    bool $Spoiler = false,
+    bool $SendWithoutRepliedMsg = false,
+    TblMarkup $Markup = null
+  ):void{
+    $this->Args[] = self::BuildArgs(
+      $Chat,
+      $Photo,
+      $Thread,
+      $Caption,
+      $ParseMode,
+      $Entities,
+      $DisableNotification,
+      $Protect,
+      $RepliedMsg,
+      $Spoiler,
+      $SendWithoutRepliedMsg,
+      $Markup
+    );
+  }
+
   /**
-   * Use this method to send photos.
+   * Use this method with PhotoSendMulti
    * @param int $Chat Unique identifier for the target chat
    * @param string $Photo Photo to send. Pass a file_id as String to send a photo that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a photo from the Internet, or upload a new photo using multipart/form-data. The photo must be at most 10 MB in size. The photo's width and height must not exceed 10000 in total. Width and height ratio must be at most 20.
    * There are three ways to send files (photos, stickers, audio, media, etc.):
@@ -45,11 +104,11 @@ trait TblPhotoTrait{
    * @param bool $SendWithoutRepliedMsg Pass True, if the message should be sent even if the specified replied-to message is not found
    * @param TblMarkup $Markup Additional interface options. A object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
    * @param bool $Spoiler If the photo needs to be covered with a spoiler animation
-   * @return TgPhoto On success, the sent Message is returned.
+   * @return array Prepared parameters for the PhotoSendMulti method
    * @throws TblException
    * @link https://core.telegram.org/bots/api#sendphoto
    */
-  public function PhotoSend(
+  public static function BuildArgs(
     int $Chat,
     string $Photo,
     int $Thread = null,
@@ -62,45 +121,45 @@ trait TblPhotoTrait{
     bool $Spoiler = false,
     bool $SendWithoutRepliedMsg = false,
     TblMarkup $Markup = null
-  ):TgPhoto{
-    $param = $this->PhotoSendArgs(
-      $Chat,
-      $Photo,
-      $Thread,
-      $Caption,
-      $ParseMode,
-      $Entities,
-      $DisableNotification,
-      $Protect,
-      $RepliedMsg,
-      $Spoiler,
-      $SendWithoutRepliedMsg,
-      $Markup
-    );
-    $return = $this->ServerMethod(TgMethods::PhotoSend, $param);
-    return new TgPhoto($return);
-  }
-
-  /**
-   * Send photo to many chats at once. Carefully with server limits.
-   * https://core.telegram.org/bots/faq#my-bot-is-hitting-limits-how-do-i-avoid-this
-   * @return TgPhoto[]
-   */
-  public function PhotoSendMulti(
-    TblPhotoSendMulti $Params
   ):array{
-    /**
-     * @var TblBasics $this
-     */
-    $return = $this->ServerMethodMulti(
-      TgMethods::PhotoSend,
-      $Params
-    );
-    foreach($return as &$answer):
-      if(isset($answer['Error']) === false):
-        $answer = new TgPhoto($answer);
-      endif;
-    endforeach;
-    return $return;
+    if($Caption !== null
+    and strlen($Caption) > TgLimits::Caption):
+      throw new TblException(TblError::LimitPhotoCaption);
+    endif;
+    $param['chat_id'] = $Chat;
+    if($Thread !== null):
+      $param['message_thread_id'] = $Thread;
+    endif;
+    if($Caption !== null):
+      $param['caption'] = $Caption;
+      $param['parse_mode'] = $ParseMode->value;
+    endif;
+    if($Entities !== null):
+      $param['caption_entities'] = $Entities->ToJson();
+    endif;
+    if($DisableNotification):
+      $param['disable_notification'] = 'true';
+    endif;
+    if($Protect):
+      $param['protect_content'] = 'true';
+    endif;
+    if($Spoiler):
+      $param['has_spoiler'] = 'true';
+    endif;
+    if($RepliedMsg !== null):
+      $param['reply_to_message_id'] = $RepliedMsg;
+    endif;
+    if($SendWithoutRepliedMsg):
+      $param['allow_sending_without_reply'] = 'true';
+    endif;
+    if($Markup !== null):
+      $param['reply_markup'] = $Markup->ToJson();
+    endif;
+    if(is_file($Photo)):
+      $param['photo'] = new \CurlFile($Photo);
+    else:
+      $param['photo'] = $Photo;
+    endif;
+    return $param;
   }
 }
