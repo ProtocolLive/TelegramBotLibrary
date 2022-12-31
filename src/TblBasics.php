@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.12.27.00
+//2022.12.30.00
 
 namespace ProtocolLive\TelegramBotLibrary;
 use CurlHandle;
@@ -65,7 +65,10 @@ abstract class TblBasics{
     $response = curl_multi_getcontent($Curl);
     $response = json_decode($response, true);
     if($this->BotData->Log & TblLog::Response):
-      $this->Log(TblLog::Response, json_encode($response, JSON_PRETTY_PRINT));
+      $this->Log(
+        TblLog::Response,
+        json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES)
+      );
     endif;
     if($response['ok'] === false):
       $search = TgErrors::Search($response['description']);
@@ -177,7 +180,7 @@ abstract class TblBasics{
     $curl = $this->BotData->UrlApi . '/' . $Method->value;
     if($this->BotData->Log & TblLog::Send):
       $log = 'Url: ' . $curl . PHP_EOL;
-      $log .= 'Params: ' . json_encode($Params, JSON_PRETTY_PRINT);
+      $log .= 'Params: ' . json_encode($Params, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
       $log = str_replace('<', '&lt;', $log);
       $this->Log(TblLog::Send, $log);
     endif;
