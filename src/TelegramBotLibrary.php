@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.12.30.02
+//2022.12.31.00
 
 namespace ProtocolLive\TelegramBotLibrary;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
@@ -509,6 +509,31 @@ extends TblBasics{
     endif;
     $return = $this->ServerMethod(TgMethods::MessageCopy, $param);
     return $return['message_id'];
+  }
+
+  /**
+   * Use this method to delete a message, including service messages, with the following limitations:
+   * - A message can only be deleted if it was sent less than 48 hours ago.
+   * - Service messages about a supergroup, channel, or forum topic creation can't be deleted.
+   * - A dice message in a private chat can only be deleted if it was sent more than 24 hours ago.
+   * - Bots can delete outgoing messages in private chats, groups, and supergroups.
+   * - Bots can delete incoming messages in private chats.
+   * - Bots granted can_post_messages permissions can delete outgoing messages in channels.
+   * - If the bot is an administrator of a group, it can delete any message there.
+   * - If the bot has can_delete_messages permission in a supergroup or a channel, it can delete any message there.
+   * @param int $Chat Unique identifier for the target chat
+   * @param int $Id Identifier of the message to delete
+   * @return bool Returns True on success.
+   * @link https://core.telegram.org/bots/api#deletemessage
+   * @throws TblException
+   */
+  public function MessageDelete(
+    int $Chat,
+    int $Id
+  ):bool{
+    $param['chat_id'] = $Chat;
+    $param['message_id'] = $Id;
+    return parent::ServerMethod(TgMethods::MessageDelete, $param);
   }
 
   /**
