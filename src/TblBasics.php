@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.12.31.02
+//2023.01.01.00
 
 namespace ProtocolLive\TelegramBotLibrary;
 use CurlHandle;
@@ -214,28 +214,26 @@ abstract class TblBasics{
     TblServerMulti $Params
   ):array{
     $mh = curl_multi_init();
-    $calls = [];
-    $Params = $Params->GetArray();
-    foreach($Params as $id => $params):
-      $curl = $this->BotData->UrlApi . '/' . $Method->value;
+    $return = $Params->GetArray();
+    foreach($return as &$params):
+      $url = $this->BotData->UrlApi . '/' . $Method->value;
       if($this->BotData->Log & TblLog::Send):
-        $log = 'Url: ' . $curl . PHP_EOL;
+        $log = 'Url: ' . $url . PHP_EOL;
         $log .= 'Params: ' . json_encode(
           $params,
           JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
         );
         $this->Log(TblLog::Send, $log);
       endif;
-      $calls[$id] = $this->Curl($curl, $params);
-      curl_multi_add_handle($mh, $calls[$id]);
+      $params = $this->Curl($url, $params);
+      curl_multi_add_handle($mh, $params);
     endforeach;
     do{
       curl_multi_exec($mh, $active);
       curl_multi_select($mh);
     }while($active);
-    $return = [];
-    foreach($Params as $id => $params):
-      $return[$id] = $this->CurlResponse($calls[$id]);
+    foreach($return as &$params):
+      $params = $this->CurlResponse($params);
     endforeach;
     return $return;
   }
