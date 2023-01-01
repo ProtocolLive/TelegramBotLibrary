@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.12.31.00
+//2023.01.01.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
@@ -29,7 +29,7 @@ extends TblServerMulti{
     or $Photo === null):
       return;
     endif;
-    $this->Args[] = $this->BuildArgs(
+    $this->Args[$Chat] = $this->BuildArgs(
       $Chat,
       $Photo,
       $Thread,
@@ -59,7 +59,7 @@ extends TblServerMulti{
     bool $SendWithoutRepliedMsg = false,
     TblMarkup $Markup = null
   ):void{
-    $this->Args[] = self::BuildArgs(
+    $this->Args[$Chat] = self::BuildArgs(
       $Chat,
       $Photo,
       $Thread,
