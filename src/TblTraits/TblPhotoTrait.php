@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.12.31.00
+//2023.01.01.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblTraits;
 use ProtocolLive\TelegramBotLibrary\{
@@ -63,7 +63,7 @@ trait TblPhotoTrait{
     bool $SendWithoutRepliedMsg = false,
     TblMarkup $Markup = null
   ):TgPhoto{
-    $param = $this->PhotoSendArgs(
+    $param = TblPhotoSendMulti::BuildArgs(
       $Chat,
       $Photo,
       $Thread,
@@ -97,7 +97,7 @@ trait TblPhotoTrait{
       $Params
     );
     foreach($return as &$answer):
-      if(isset($answer['Error']) === false):
+      if(($answer instanceof TblException) === false):
         $answer = new TgPhoto($answer);
       endif;
     endforeach;
