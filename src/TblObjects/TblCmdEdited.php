@@ -1,11 +1,12 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.08.19.00
+//2023.01.01.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 
-class TblCmdEdited extends TblCmd{
+class TblCmdEdited
+extends TblCmd{
   public readonly int $DateEdited;
 
   public function __construct(array $Data){
