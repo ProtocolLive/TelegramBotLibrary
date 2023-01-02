@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.01.01.00
+//2023.01.02.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgParseMode;
@@ -19,13 +19,14 @@ extends TblServerMulti{
     bool $Protect = false,
     int $RepliedMsg = null,
     bool $SendWithoutRepliedMsg = false,
-    TblMarkup $Markup = null
+    TblMarkup $Markup = null,
+    string $MultiControl = null
   ){
     if($Chat === null
     or $Text === null):
       return;
     endif;
-    $this->Args[$Chat] = $this->BuildArgs(
+    $this->Args[$MultiControl ?? $Chat] = self::BuildArgs(
       $Chat,
       $Text,
       $Thread,
@@ -51,9 +52,10 @@ extends TblServerMulti{
     bool $Protect = false,
     int $RepliedMsg = null,
     bool $SendWithoutRepliedMsg = false,
-    TblMarkup $Markup = null
+    TblMarkup $Markup = null,
+    string $MultiControl = null
   ):void{
-    $this->Args[$Chat] = self::BuildArgs(
+    $this->Args[$MultiControl ?? $Chat] = self::BuildArgs(
       $Chat,
       $Text,
       $Thread,
