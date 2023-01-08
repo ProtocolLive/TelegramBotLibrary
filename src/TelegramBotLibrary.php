@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.01.08.00
+//2023.01.08.01
 
 namespace ProtocolLive\TelegramBotLibrary;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
@@ -745,7 +745,7 @@ extends TblBasics{
    * @throws TblException
    * @link https://core.telegram.org/bots/api#sendsticker
    */
-  public function SendSticker(
+  public function StickerSend(
     int $Chat,
     string $Sticker,
     int $Thread = null,
