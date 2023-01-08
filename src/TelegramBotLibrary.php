@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.12.31.00
+//2023.01.08.00
 
 namespace ProtocolLive\TelegramBotLibrary;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
@@ -47,6 +47,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgPhotoEdited,
   TgPoll,
   TgProfilePhoto,
+  TgSticker,
   TgText,
   TgTextEdited,
   TgUser,
@@ -728,6 +729,54 @@ extends TblBasics{
       $param['for_channels'] = 'true';
     endif;
     return $this->ServerMethod(TgMethods::MyDefaultPermAdmSet, $param);
+  }
+
+  /**
+   * Use this method to send static .WEBP, animated .TGS, or video .WEBM stickers.
+   * @param int $Chat Unique identifier for the target chat
+   * @param string $Sticker Sticker to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a .WEBP file from the Internet, or upload a new one using multipart/form-data.
+   * @param int $Thread Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   * @param bool $DisableNotification Sends the message silently. Users will receive a notification with no sound.
+   * @param bool $Protect Protects the contents of the sent message from forwarding and saving
+   * @param int $RepliedMsg If the message is a reply, ID of the original message
+   * @param bool $SendWithoutRepliedMsg If the message should be sent even if the specified replied-to message is not found
+   * @param TblMarkup $Markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
+   * @return TgSticker The sent Message.
+   * @throws TblException
+   * @link https://core.telegram.org/bots/api#sendsticker
+   */
+  public function SendSticker(
+    int $Chat,
+    string $Sticker,
+    int $Thread = null,
+    bool $DisableNotification = false,
+    bool $Protect = false,
+    int $RepliedMsg = null,
+    bool $SendWithoutRepliedMsg = false,
+    TblMarkup $Markup = null
+  ):TgSticker{
+    $param['chat_id'] = $Chat;
+    $param['sticker'] = $Sticker;
+    if($Thread !== null):
+      $param['message_thread_id'] = $Thread;
+    endif;
+    if($DisableNotification):
+      $param['disable_notification'] = 'true';
+    endif;
+    if($Protect):
+      $param['protect_content'] = 'true';
+    endif;
+    if($RepliedMsg !== null):
+      $param['reply_to_message_id'] = $RepliedMsg;
+      if($SendWithoutRepliedMsg):
+        $param['allow_sending_without_reply'] = 'true';
+      endif;
+    endif;
+    if($Markup !== null):
+      $param['reply_markup'] = $Markup->ToJson();
+    endif;
+    $return = parent::ServerMethod(TgMethods::StickerSend, $param);
+    return new TgSticker($return);
   }
 
   /**
