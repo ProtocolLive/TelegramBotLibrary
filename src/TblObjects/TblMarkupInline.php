@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.08.19.00
+//2023.01.13.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgLimits;
@@ -81,8 +81,7 @@ class TblMarkupInline extends TblMarkup{
     string $Data
   ):bool{
     if(strlen($Data) > TgLimits::CallbackData):
-      $this->Error = TblError::LimitCallbackData;
-      return false;
+      throw new TblException(TblError::LimitCallbackData);
     endif;
     $this->Pointer[$Line][$Column]['text'] = $Text;
     $this->Pointer[$Line][$Column]['callback_data'] = $Data;
