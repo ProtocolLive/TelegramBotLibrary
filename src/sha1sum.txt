@@ -1,4 +1,4 @@
-188d3368de28cce37c94ee2e76e0935032fbe4ca  TblBasics.php
+bc350e78dbd14cf8fa4184a47853bf19f16f2fac  TblBasics.php
 a10da458bd50256f63e61c53e5a66f8d053a547e  TblObjects\TblCmd.php
 c21cb052957966371e871c33c808717ff78a1bd1  TblObjects\TblCmdEdited.php
 adecae75a29cfa21ddb070f7a75a48eea6f1628f  TblObjects\TblCommands.php
@@ -104,6 +104,10 @@ afdee0eeb1f768767667a67ce71912869898dae3  TgObjects\TgTextEdited.php
 aaeeaa72d49d455b435bd29b6a21fd2947956704  TgObjects\TgUpdateType.php
 d24b5ee7754c1951a69be006898d3a9088a5d89c  TgObjects\TgUser.php
 aa11381a5304b591f55b35bfc8dea777b52307bf  TgObjects\TgVideo.php
+baca064f50204a717c8a1111d77be13c9a11ce50  TgObjects\TgVideoChatEnded.php
+dfd62762ed1828c1fdb6176bec767d48fe592cde  TgObjects\TgVideoChatInvite.php
+de8310d529141b470e307f0ed2a7635e6904f934  TgObjects\TgVideoChatScheduled.php
+2b674b78143ba8e969d9b07cd3cca8039e5e8357  TgObjects\TgVideoChatStarted.php
 0d34d2df1c1fcbda7cb0b92c87a8a632e729c50c  TgObjects\TgVideoEdited.php
 c06cc4199df9981c7266d7125d30f730ea8c1ac3  TgObjects\TgVoice.php
 482e7c844cd3164990d26986f5b86a12ccb614ba  TgObjects\TgWebappData.php

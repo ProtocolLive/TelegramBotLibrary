@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.01.01.00
+//2023.01.14.01
 
 namespace ProtocolLive\TelegramBotLibrary;
 use CurlHandle;
@@ -37,6 +37,10 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgSticker,
   TgText,
   TgVideo,
+  TgVideoChatEnded,
+  TgVideoChatInvite,
+  TgVideoChatScheduled,
+  TgVideoChatStarted,
   TgVoice,
   TgWebappData
 };
@@ -89,57 +93,39 @@ abstract class TblBasics{
   public static function DetectMessage(
     array $Data
   ):object|null{
-    if(isset($Data['entities'][0])
-    and $Data['entities'][0]['type'] === TgEntityType::Command->value
-    and $Data['entities'][0]['offset'] === 0):
-      return new TblCmd($Data);
-    elseif(isset($Data['document'])):
-      return new TgDocument($Data);
-    elseif(isset($Data['forum_topic_closed'])):
-      return new TgForumClosed($Data);
-    elseif(isset($Data['forum_topic_created'])):
-      return new TgForumCreated($Data);
-    elseif(isset($Data['forum_topic_reopened'])):
-      return new TgForumReopened($Data);
-    elseif(isset($Data['invoice'])):
-      return new TgInvoice($Data);
-    elseif(isset($Data['left_chat_member'])):
-      return new TgMemberLeft($Data);
-    elseif(isset($Data['location'])):
-      return new TgLocation($Data);
-    elseif(isset($Data['message_auto_delete_timer_changed'])):
-      return new TgChatAutoDel($Data);
-    elseif(isset($Data['migrate_from_chat_id'])):
-      return new TgChatMigrateFrom($Data);
-    elseif(isset($Data['migrate_to_chat_id'])):
-      return new TgChatMigrateTo($Data);
-    elseif(isset($Data['new_chat_member'])):
-      return new TgMemberNew($Data);
-    elseif(isset($Data['new_chat_title'])):
-      return new TgChatTitle($Data);
-    elseif(isset($Data['passport_data'])):
-      return new TgPassport($Data);
-    elseif(isset($Data['photo'])):
-      return new TgPhoto($Data);
-    elseif(isset($Data['pinned_message'])):
-      return new TgPinnedMsg($Data);
-    elseif(isset($Data['poll'])):
-      return new TgPoll($Data);
-    elseif(isset($Data['successful_payment'])):
-      return new TgInvoiceDone($Data);
-    elseif(isset($Data['sticker'])):
-      return new TgSticker($Data);
-    elseif(isset($Data['text'])):
-      return new TgText($Data);
-    elseif(isset($Data['video'])):
-      return new TgVideo($Data);
-    elseif(isset($Data['voice'])):
-      return new TgVoice($Data);
-    elseif(isset($Data['web_app_data'])):
-      return new TgWebappData($Data);
-    else:
-      return null;
-    endif;
+    return match($Data){
+      isset($Data['entities'][0])
+      and $Data['entities'][0]['type'] === TgEntityType::Command->value
+      and $Data['entities'][0]['offset'] === 0
+        => new TblCmd($Data),
+      isset($Data['document']) => new TgDocument($Data),
+      isset($Data['forum_topic_closed']) => new TgForumClosed($Data),
+      isset($Data['forum_topic_created']) => new TgForumCreated($Data),
+      isset($Data['forum_topic_reopened']) => new TgForumReopened($Data),
+      isset($Data['invoice']) => new TgInvoice($Data),
+      isset($Data['left_chat_member']) => new TgMemberLeft($Data),
+      isset($Data['location']) => new TgLocation($Data),
+      isset($Data['message_auto_delete_timer_changed']) => new TgChatAutoDel($Data),
+      isset($Data['migrate_from_chat_id']) => new TgChatMigrateFrom($Data),
+      isset($Data['migrate_to_chat_id']) => new TgChatMigrateTo($Data),
+      isset($Data['new_chat_member']) => new TgMemberNew($Data),
+      isset($Data['new_chat_title']) => new TgChatTitle($Data),
+      isset($Data['passport_data']) => new TgPassport($Data),
+      isset($Data['photo']) => new TgPhoto($Data),
+      isset($Data['pinned_message']) => new TgPinnedMsg($Data),
+      isset($Data['poll']) => new TgPoll($Data),
+      isset($Data['sticker']) => new TgSticker($Data),
+      isset($Data['successful_payment']) => new TgInvoiceDone($Data),
+      isset($Data['text']) => new TgText($Data),
+      isset($Data['video']) => new TgVideo($Data),
+      isset($Data['video_chat_ended']) => new TgVideoChatEnded($Data),
+      isset($Data['video_chat_participants_invited']) => new TgVideoChatInvite($Data),
+      isset($Data['video_chat_scheduled']) => new TgVideoChatScheduled($Data),
+      isset($Data['video_chat_started']) => new TgVideoChatStarted($Data),
+      isset($Data['voice']) => new TgVoice($Data),
+      isset($Data['web_app_data']) => new TgWebappData($Data),
+      default => null
+    };
   }
 
   protected function DirCreate(
