@@ -1,4 +1,4 @@
-9146f2be0a4d16911437f2a901f619d69ac27e0b  TblBasics.php
+6f485748ea7238e0330456530ad481e4b527db40  TblBasics.php
 a10da458bd50256f63e61c53e5a66f8d053a547e  TblObjects\TblCmd.php
 c21cb052957966371e871c33c808717ff78a1bd1  TblObjects\TblCmdEdited.php
 adecae75a29cfa21ddb070f7a75a48eea6f1628f  TblObjects\TblCommands.php
@@ -23,7 +23,7 @@ f0eb92c0cf1a00c0eefb2cf91ee38df577af57ad  TblObjects\TblLog.php
 3928807918109ec54dbc880c88d47fd9dc6f18cb  TblObjects\TblMarkupRemove.php
 33510905e9f7086e7e2ab225b237830b66270de5  TblObjects\TblMarkupRequest.php
 6272318d70679243055ab753d9788bccee5a6c77  TblObjects\TblPhotoSendMulti.php
-5624a538430991047ec5a1122ade0896f75b0532  TblObjects\TblServerMulti.php
+0234b7fa586f6a4a381e4c1062b7b82bf7b061c3  TblObjects\TblServerMulti.php
 9207049c086b738c7d86e35729811c0a395eb70d  TblObjects\TblTextSendMulti.php
 f0e1c36961e6ec5aea3db3ddfed7154f3a6b12a7  TblObjects\TblWebhook.php
 9f1e5e1637b807adaea1b946d1f510e12970de16  TblTraits\TblChatTrait.php
@@ -111,4 +111,4 @@ de8310d529141b470e307f0ed2a7635e6904f934  TgObjects\TgVideoChatScheduled.php
 0d34d2df1c1fcbda7cb0b92c87a8a632e729c50c  TgObjects\TgVideoEdited.php
 c06cc4199df9981c7266d7125d30f730ea8c1ac3  TgObjects\TgVoice.php
 482e7c844cd3164990d26986f5b86a12ccb614ba  TgObjects\TgWebappData.php
-c9ce28427c32cc9144871b92eea0557f95c7d070  cacert.pem
+0abc70deb764c2ce4ba9c9f622d7a6114d4d20b3  cacert.pem

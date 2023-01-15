@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.01.15.00
+//2023.01.15.01
 
 namespace ProtocolLive\TelegramBotLibrary;
 use CurlHandle;
@@ -244,6 +244,7 @@ abstract class TblBasics{
       curl_multi_exec($mh, $active);
       curl_multi_select($mh);
     }while($active);
+    /** @var CurlHandle[] $return */
     foreach($return as &$params):
       $params = $this->CurlResponse($params);
     endforeach;
