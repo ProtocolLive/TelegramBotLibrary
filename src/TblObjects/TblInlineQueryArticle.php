@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.08.19.00
+//2023.01.16.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 
@@ -41,7 +41,7 @@ class TblInlineQueryArticle extends TblInlineQuery{
       $param['input_message_content'] = $this->Message->ToArray();
     endif;
     if($this->Markup !== null):
-      $param['reply_markup'] = $this->Markup->ToJson();
+      $param['reply_markup'] = $this->Markup->ToArray();
     endif;
     if($this->Url !== null):
       $param['url'] = $this->Url;
