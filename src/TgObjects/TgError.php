@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.12.25.00
+//2023.01.17.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -17,6 +17,7 @@ enum TgError{
   case ForwardCant;
   case FileId;
   case Html;
+  case IdInvalid;
   case InlineId;
   case InlineQueryClosing;
   case InlineQueryMessage;

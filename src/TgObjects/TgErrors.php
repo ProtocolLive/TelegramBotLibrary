@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.12.25.00
+//2023.01.17.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -35,7 +35,8 @@ class TgErrors{
     'Bad Request: can\'t parse MessageEntity: Field "user" must be of type Object' => TgError::UserObject,
     'Bad Request: user not found' => TgError::UserNotFound,
     'Forbidden: bot is not a member of the channel chat' => TgError::NotMember,
-    'Forbidden: user is deactivated' => TgError::Deleted
+    'Forbidden: user is deactivated' => TgError::Deleted,
+    'Bad Request: MESSAGE_ID_INVALID' => TgError::IdInvalid
   ];
 
   public static function Search(string $Description):TgError|false{
