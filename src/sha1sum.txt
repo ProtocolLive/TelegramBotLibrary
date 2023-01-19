@@ -51,8 +51,8 @@ dd96d4aa28e5cc01c1865782e30c3dd62e4ee837  TgObjects\TgChatRequest.php
 ba6d145efb1661c4b934b337419bf4803ea65b26  TgObjects\TgDocumentEdited.php
 4c9421b33679b6605b95ef87deab59092299a1d7  TgObjects\TgEntity.php
 65c3ac9ca951a5dd9c6069326615949ec27c2fc1  TgObjects\TgEntityType.php
-fb6564f740fcbfc4ca8a3d379bbad4e164f27dcc  TgObjects\TgError.php
-e8d858b76f8065cbbe822fcac65626594405b417  TgObjects\TgErrors.php
+0906b861495c7d28b494238634814da1b08d83f0  TgObjects\TgError.php
+1b5d71c8f281013311e0251f068280fe595cbcf2  TgObjects\TgErrors.php
 44657d56eb0a0606cb34ad61e68a7f2513070731  TgObjects\TgFile.php
 8fbbcb5d4537d557fc31cdf4bd4518bb13cc5fce  TgObjects\TgForumClosed.php
 01d691c98d4fe62f221534d34424f396e3151814  TgObjects\TgForumCreated.php
