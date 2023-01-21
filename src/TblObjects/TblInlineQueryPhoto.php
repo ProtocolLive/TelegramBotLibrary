@@ -1,12 +1,13 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.08.19.00
+//2023.01.20.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgParseMode;
 
-class TblInlineQueryPhoto extends TblInlineQuery{
+class TblInlineQueryPhoto
+extends TblInlineQuery{
   /**
    * Represents a link to a photo or a link to a photo stored on the Telegram servers. By default, this photo will be sent by the user with optional caption. Alternatively, you can use input_message_content to send a message with the specified content instead of the photo.
    * @param string $Id Unique identifier for this result, 1-64 bytes
@@ -71,7 +72,7 @@ class TblInlineQueryPhoto extends TblInlineQuery{
       $param['caption_entities'] = json_encode($this->Entities);
     endif;
     if($this->Markup !== null):
-      $param['reply_markup'] = $this->Markup->ToJson();
+      $param['reply_markup'] = $this->Markup->ToArray();
     endif;
     if($this->Message !== null):
       $param['input_message_content'] = $this->Message->ToArray();
