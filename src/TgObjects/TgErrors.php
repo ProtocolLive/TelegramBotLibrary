@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.01.19.00
+//2023.01.20.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -52,6 +52,8 @@ abstract class TgErrors{
       'Forbidden: bot is not a member of the channel chat' => TgError::NotMember,
       'Forbidden: user is deactivated' => TgError::Deleted,
       'Bad Request: MESSAGE_ID_INVALID' => TgError::IdInvalid,
+      'Bad Request: there is no media in the message to edit' => TgError::NoMedia,
+      'Bad Request: message can\'t be deleted for everyone' => TgError::CantDelete,
       default => false
     };
   }
