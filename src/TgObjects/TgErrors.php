@@ -1,23 +1,23 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.01.20.00
+//2023.01.20.01
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 abstract class TgErrors{
   public static function Search(string $Description):TgError|false{
-    if(str_contains($Description, 'Bad Request: menu button web app URL ')
-    and str_contains($Description, ' is invalid: Only HTTPS links are allowed')):
+    if(str_starts_with($Description, 'Bad Request: menu button web app URL ')
+    and str_ends_with($Description, ' is invalid: Only HTTPS links are allowed')):
       return TgError::WebAppHttps;
     endif;
-    if(str_contains($Description, 'Bad Request: can\'t parse entities: Unsupported start tag ')):
+    if(str_starts_with($Description, 'Bad Request: can\'t parse entities: Unsupported start tag ')):
       return TgError::Html;
     endif;
-    if(str_contains($Description, 'Too Many Requests: retry after ')):
+    if(str_starts_with($Description, 'Too Many Requests: retry after ')):
       return TgError::TooMany;
     endif;
-    if(str_contains($Description, 'Bad Request: entity beginning at UTF-16 offset ')
+    if(str_starts_with($Description, 'Bad Request: entity beginning at UTF-16 offset ')
     and str_contains($Description, 'ends after the end of the text at UTF-16 offset ')):
       return TgError::EntityParse;
     endif;
