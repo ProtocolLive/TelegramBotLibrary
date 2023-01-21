@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.01.16.00
+//2023.01.20.00
 
 namespace ProtocolLive\TelegramBotLibrary;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
@@ -15,7 +15,8 @@ use ProtocolLive\TelegramBotLibrary\TblObjects\{
   TblException,
   TblInlineQueryResults,
   TblLog,
-  TblMarkup
+  TblMarkup,
+  TblMedia
 };
 use ProtocolLive\TelegramBotLibrary\TblTraits\{
   TblChatTrait,
@@ -45,6 +46,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgMethods,
   TgParseMode,
   TgPermAdmin,
+  TgPhoto,
   TgPhotoEdited,
   TgPoll,
   TgProfilePhoto,
@@ -395,6 +397,36 @@ extends TblBasics{
     else:
       return new TgText($return);
     endif;
+  }
+
+  /**
+   * Use this method to edit animation, audio, document, photo, or video messages. If a message is part of a message album, then it can be edited only to an audio for audio albums, only to a document for document albums and to a photo or a video otherwise. When an inline message is edited, a new file can't be uploaded; use a previously uploaded file via its file_id or specify a URL.
+   * @param int $Chat Required if inline_message_id is not specified. Unique identifier for the target chat
+   * @param int $Id Required if inline_message_id is not specified. Identifier of the message to edit
+   * @param string $InlineIdRequired if chat_id and message_id are not specified. Identifier of the inline message
+   * @param TblMedia $Media A JSON-serialized object for a new media content of the message
+   * @param TblMarkup $Markup A JSON-serialized object for a new inline keyboard.
+   * @throws TblException
+   * @link https://core.telegram.org/bots/api#editmessagemedia
+   */
+  public function MediaEdit(
+    int $Chat = null,
+    int $Id = null,
+    string $InlineId = null,
+    TblMedia $Media,
+    TblMarkup $Markup = null
+  ):TgPhoto|TgDocument|bool{
+    if($InlineId === null):
+      $param['chat_id'] = $Chat;
+      $param['message_id'] = $Id;
+    else:
+      $param['inline_message_id'] = $InlineId;
+    endif;
+    $param['media'] = $Media->Get();
+    if($Markup !== null):
+      $param['reply_markup'] = $Markup->ToArray();
+    endif;
+    return parent::ServerMethod(TgMethods::MediaEdit, $param);
   }
 
   /**

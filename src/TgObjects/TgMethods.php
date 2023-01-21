@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.01.08.00
+//2023.01.20.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -43,6 +43,7 @@ enum TgMethods:string{
   case InvoiceSend = 'sendInvoice';
   case InvoiceShippingSend = 'answerShippingQuery';
   case MarkupEdit = 'editMessageReplyMarkup';
+  case MediaEdit = 'editMessageMedia';
   case MessageCopy = 'copyMessage';
   case MessageDelete = 'deleteMessage';
   case MessageForward = 'forwardMessage';
