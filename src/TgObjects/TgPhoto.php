@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.12.30.00
+//2023.01.20.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -10,6 +10,9 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
  */
 class TgPhoto{
   public readonly TgMessageData $Data;
+  /**
+   * @var TgPhotoSize[]
+   */
   public array $Files;
   public readonly string|null $MediaGroup;
   public readonly string|null $Caption;
