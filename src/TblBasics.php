@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.01.15.01
+//2023.01.20.00
 
 namespace ProtocolLive\TelegramBotLibrary;
 use CurlHandle;
@@ -56,7 +56,8 @@ abstract class TblBasics{
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($curl, CURLOPT_USERAGENT, 'Protocol TelegramBotLibrary');
     curl_setopt($curl, CURLOPT_CAINFO, __DIR__ . '/cacert.pem');
-    curl_setopt($curl, CURLOPT_POSTFIELDS, $Params);
+    curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($Params));
+    curl_setopt($curl, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
     if($this->BotData->Log & TblLog::Curl):
       curl_setopt($curl, CURLOPT_VERBOSE, true);
       curl_setopt($curl, CURLOPT_STDERR, fopen($this->BotData->DirLogs . '/curl.log', 'a'));
