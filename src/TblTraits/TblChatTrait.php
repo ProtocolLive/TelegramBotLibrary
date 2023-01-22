@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.12.30.00
+//2021.01.21.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblTraits;
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
@@ -159,13 +159,13 @@ trait TblChatTrait{
   /**
    * Use this method to get up to date information about the chat (current name of the user for one-on-one conversations, current username of a user, group or channel, etc.).
    * @param int $Chat Unique identifier for the target chat
-   * @return TgChat Returns a Chat object on success.
+   * @return TgChat|TgUser Returns a Chat object on success.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#getchat
    */
   public function ChatGet(
     int $Chat
-  ):TgChat|TgUser|null{
+  ):TgChat|TgUser{
     $param['chat_id'] = $Chat;
     $temp = $this->ServerMethod(TgMethods::Chat, $param);
     if($temp['type'] === TgChatType::Private->value):
