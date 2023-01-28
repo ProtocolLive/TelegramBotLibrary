@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.01.28.00
+//2023.01.28.01
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 use ProtocolLive\TelegramBotLibrary\TblBasics;
@@ -93,15 +93,11 @@ class TgChat{
     $this->Protected = $Data['has_protected_content'] ?? false;
     $this->HidedMembers = $Data['has_hidden_members'] ?? false;
     $this->AntiSpam = $Data['has_aggressive_anti_spam_enabled'] ?? false;
+    $this->Nicks = $Data['active_usernames'] ?? null;
     if(isset($Data['permissions'])):
       $this->Permissions = new TgPermAdmin($Data['permissions']);
     else:
       $this->Permissions = null;
-    endif;
-    if(isset($Data['active_usernames'])):
-      $this->Nicks = json_decode($Data['active_usernames'], true);
-    else:
-      $this->Nicks = null;
     endif;
     if(isset($Data['photo'])):
       $this->Photo = new TgChatPhoto($Data['photo']);
