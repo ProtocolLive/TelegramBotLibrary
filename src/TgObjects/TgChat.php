@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.12.30.00
+//2023.01.28.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 use ProtocolLive\TelegramBotLibrary\TblBasics;
@@ -83,7 +83,6 @@ class TgChat{
     $this->Id = $Data['id'];
     $this->Name = $Data['title'];
     $this->Type = TgChatType::from($Data['type']);
-    $this->NameLast = $Data['last_name'] ?? null;
     $this->Nick = $Data['username'] ?? null;
     $this->Forum = $Data['is_forum'] ?? false;
     $this->Bio = $Data['description'] ?? false;
@@ -92,6 +91,8 @@ class TgChat{
     $this->SlowMode = $Data['slow_mode_delay'] ?? null;
     $this->LinkedChat = $Data['linked_chat_id'] ?? null;
     $this->Protected = $Data['has_protected_content'] ?? false;
+    $this->HidedMembers = $Data['has_hidden_members'] ?? false;
+    $this->AntiSpam = $Data['has_aggressive_anti_spam_enabled'] ?? false;
     if(isset($Data['permissions'])):
       $this->Permissions = new TgPermAdmin($Data['permissions']);
     else:
@@ -111,16 +112,6 @@ class TgChat{
       $this->Pinned[] = TblBasics::DetectMessage($Data['pinned_message']);
     else:
       $this->Pinned = null;
-    endif;
-    if(isset($Data['has_hidden_members'])):
-      $this->HidedMembers = $Data['has_hidden_members'];
-    else:
-      $this->HidedMembers = null;
-    endif;
-    if(isset($Data['has_aggressive_anti_spam_enabled'])):
-      $this->AntiSpam = $Data['has_aggressive_anti_spam_enabled'];
-    else:
-      $this->AntiSpam = null;
     endif;
   }
 }
