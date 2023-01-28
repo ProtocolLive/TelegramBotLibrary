@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.12.25.00
+//2023.01.28.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -17,7 +17,7 @@ class TgGroupStatusMy{
   /**
    * Chat the user belongs to
    */
-  public readonly TgChat $Group;
+  public readonly TgChat|TgUser $Group;
   /**
    * Date the change was done in Unix time
    */
@@ -38,7 +38,11 @@ class TgGroupStatusMy{
    */
   public function __construct(array $Data){
     $this->User = new TgUser($Data['from']);
-    $this->Group = new TgChat($Data['chat']);
+    if($Data['chat']['type'] === TgChatType::Private->value):
+      $this->Group = new TgUser($Data['chat']);
+    else:
+      $this->Group = new TgChat($Data['chat']);
+    endif;
     $this->Date = $Data['date'];
     $this->StatusOld = TgMemberStatus::tryFrom($Data['old_chat_member']['status']);
     $this->StatusNew = TgMemberStatus::tryFrom($Data['new_chat_member']['status']);
