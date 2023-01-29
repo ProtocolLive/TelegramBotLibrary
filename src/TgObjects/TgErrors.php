@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.01.20.01
+//2023.01.29.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -54,6 +54,7 @@ abstract class TgErrors{
       'Bad Request: MESSAGE_ID_INVALID' => TgError::IdInvalid,
       'Bad Request: there is no media in the message to edit' => TgError::NoMedia,
       'Bad Request: message can\'t be deleted for everyone' => TgError::CantDelete,
+      'Forbidden: bot was kicked from the supergroup chat' => TgError::Banned,
       default => false
     };
   }

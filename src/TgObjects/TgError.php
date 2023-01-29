@@ -1,11 +1,12 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.01.20.00
+//2023.01.29.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 enum TgError{
+  case Banned;
   case BotBot;
   case Blocked;
   case CallbackQueryOld;
