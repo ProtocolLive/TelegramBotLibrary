@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.01.20.00
+//2023.01.29.00
 
 namespace ProtocolLive\TelegramBotLibrary;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
@@ -40,6 +40,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgInvoice,
   TgInvoiceCheckout,
   TgInvoiceShipping,
+  TgLimits,
   TgLocationEdited,
   TgMenuButton,
   TgMessageData,
@@ -137,6 +138,9 @@ extends TblBasics{
   ):bool{
     $param['callback_query_id'] = $Id;
     if($Text !== null):
+      if(mb_strlen($Text) > TgLimits::CallbackAnswer):
+        throw new TblException(TblError::LimitCallbackAnswer);
+      endif;
       $param['text'] = $Text;
     endif;
     if($Alert):
