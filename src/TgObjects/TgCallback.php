@@ -1,9 +1,10 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.01.16.00
+//2023.01.29.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
+use ProtocolLive\TelegramBotLibrary\TblBasics;
 
 /**
  * @link https://core.telegram.org/bots/api#callbackquery
@@ -12,7 +13,7 @@ final class TgCallback{
   /**
    * Message with the callback button that originated the query. Note that message content and message date will not be available if the message is too old
    */
-  public readonly TgText|null $Data;
+  public readonly TgText|TgPhoto|null $Data;
   /**
    * Unique identifier for this query
    */
@@ -38,7 +39,7 @@ final class TgCallback{
     $this->Id = $Data['id'];
     $this->User = new TgUser($Data['from']);
     if(isset($Data['message'])):
-      $this->Data = new TgText($Data['message']);
+      $this->Data = TblBasics::DetectMessage($Data['message']);
     else:
       $this->Data = null;
     endif;
