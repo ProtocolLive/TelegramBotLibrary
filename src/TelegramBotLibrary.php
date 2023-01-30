@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.01.29.01
+//2023.01.30.00
 
 namespace ProtocolLive\TelegramBotLibrary;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
@@ -410,7 +410,7 @@ extends TblBasics{
    * @param string $InlineIdRequired if chat_id and message_id are not specified. Identifier of the inline message
    * @param TblMedia $Media A JSON-serialized object for a new media content of the message
    * @param TblMarkup $Markup A JSON-serialized object for a new inline keyboard.
-   * @return TgPhoto|TgDocument
+   * @return TgPhoto|TgDocument|bool On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#editmessagemedia
    */
@@ -420,7 +420,7 @@ extends TblBasics{
     string $InlineId = null,
     TblMedia $Media,
     TblMarkup $Markup = null
-  ):TgPhoto|TgDocument{
+  ):TgPhoto|TgDocument|bool{
     if($InlineId === null):
       $param['chat_id'] = $Chat;
       $param['message_id'] = $Id;
@@ -431,7 +431,12 @@ extends TblBasics{
     if($Markup !== null):
       $param['reply_markup'] = $Markup->ToArray();
     endif;
-    return parent::DetectMessage(parent::ServerMethod(TgMethods::MediaEdit, $param));
+    $return = parent::ServerMethod(TgMethods::MediaEdit, $param);
+    if($return === true):
+      return true;
+    else:
+      return parent::DetectMessage($return);
+    endif;
   }
 
   /**
