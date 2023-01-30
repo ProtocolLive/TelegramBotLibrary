@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.01.30.00
+//2023.01.30.01
 
 namespace ProtocolLive\TelegramBotLibrary;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
@@ -282,10 +282,6 @@ extends TblBasics{
       return new TgInvoice($Data['invoice']);
     elseif(isset($Data['inline_query'])):
       return new TgInlineQuery($Data['inline_query']);
-
-    elseif(isset($Data['message'])):
-      return $this->DetectMessage($Data['message']);
-
     elseif(isset($Data['my_chat_member'])):
       return new TgGroupStatusMy($Data['my_chat_member']);
     elseif(isset($Data['poll'])):
