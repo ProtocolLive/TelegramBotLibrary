@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.12.30.00
+//2023.01.30.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
@@ -19,7 +19,7 @@ class TblCmd{
     $this->Data = new TgMessageData($Data);
     $Text = $Data['text'];
     $Entity = new TgEntity($Data['entities'][0]);
-    $this->Command = substr(
+    $cmd = substr(
       $Text,
       $Entity->Offset + 1,
       $Entity->Length - 1
@@ -33,12 +33,13 @@ class TblCmd{
     else:
       $this->Parameters = $temp;
     endif;
-    $pos = strpos($this->Command, '@');
+    $pos = strpos($cmd, '@');
     if($pos === false):
       $this->Target = null;
     else:
-      $this->Target = substr($this->Command, $pos + 1);
-      $this->Command = substr($this->Command, 0, $pos);
+      $this->Target = substr($cmd, $pos + 1);
+      $cmd = substr($cmd, 0, $pos);
     endif;
+    $this->Command = $cmd;
   }
 }

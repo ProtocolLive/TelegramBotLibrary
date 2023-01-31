@@ -1,5 +1,5 @@
 375d1d45142675a742000d039b4bf5ce492a3cd3  TblBasics.php
-a10da458bd50256f63e61c53e5a66f8d053a547e  TblObjects\TblCmd.php
+1ba05565b9ea05bc96c8061f05419c86f2f94c7b  TblObjects\TblCmd.php
 c21cb052957966371e871c33c808717ff78a1bd1  TblObjects\TblCmdEdited.php
 adecae75a29cfa21ddb070f7a75a48eea6f1628f  TblObjects\TblCommands.php
 a8e377ccd1e1506988a3bd7ad15e501771a2cf5d  TblObjects\TblData.php
@@ -34,7 +34,7 @@ f0e1c36961e6ec5aea3db3ddfed7154f3a6b12a7  TblObjects\TblWebhook.php
 0fa19edf3efd28ba1b2c0034ac844f9c13619a73  TblTraits\TblInvoiceTrait.php
 b64572ce0ccdc0a6c548a5bf853d5768b53728a1  TblTraits\TblPhotoTrait.php
 3fc0e2464b3e75d6b2a618f8b2e6b70f03b499ce  TblTraits\TblTextTrait.php
-34a8957c6b3a9ed321001b2a58b8fb0b22f591f2  TelegramBotLibrary.php
+be5a5d05111dda5a617834dd1c88cbe77c5a8e8e  TelegramBotLibrary.php
 4f5ce14cac68a9551a9010a328d9af4d64832d72  TgObjects\TgButtonCallback.php
 4c8bf895037fbc35e2b1b875267e75623703fad2  TgObjects\TgButtonWebapp.php
 1d757f00217a4dd1594dd0b47059b6f644581a16  TgObjects\TgCallback.php
