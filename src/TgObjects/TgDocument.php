@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.12.30.00
+//2023.01.31.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -9,7 +9,7 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
  * @link https://core.telegram.org/bots/api#document
  */
 class TgDocument{
-  public readonly TgMessageData $Message;
+  public readonly TgMessageData $Data;
   /**
    * Identifier for this file, which can be used to download or reuse the file
    */

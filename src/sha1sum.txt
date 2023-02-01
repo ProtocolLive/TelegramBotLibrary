@@ -49,7 +49,7 @@ dd96d4aa28e5cc01c1865782e30c3dd62e4ee837  TgObjects\TgChatRequest.php
 4b911186110cfae9e3c0b2b6ca7fe88988005700  TgObjects\TgChatTitle.php
 80edd5673d76656ad682abcb750de8b5084ba129  TgObjects\TgChatType.php
 8f0568fcf616bbe29cbef0446dfdff785d2440c8  TgObjects\TgCmdScope.php
-131e38d408c264f688f8139b8bd683dbd1b342e7  TgObjects\TgDocument.php
+1080cee9d61a65b09cd4a8a77bc12425982ad261  TgObjects\TgDocument.php
 ba6d145efb1661c4b934b337419bf4803ea65b26  TgObjects\TgDocumentEdited.php
 4c9421b33679b6605b95ef87deab59092299a1d7  TgObjects\TgEntity.php
 65c3ac9ca951a5dd9c6069326615949ec27c2fc1  TgObjects\TgEntityType.php
