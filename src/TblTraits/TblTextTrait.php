@@ -1,17 +1,21 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.12.31.01
+//2023.02.02.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblTraits;
-use ProtocolLive\TelegramBotLibrary\{
-  TblObjects\TblEntities,
-  TblObjects\TblMarkup,
-  TblObjects\TblTextSendMulti,
-  TelegramBotLibrary,
-  TgObjects\TgMethods,
-  TgObjects\TgParseMode,
-  TgObjects\TgText
+use ProtocolLive\TelegramBotLibrary\TblObjects\{
+  TblEntities,
+  TblError,
+  TblException,
+  TblMarkup,
+  TblTextSendMulti
+};
+use ProtocolLive\TelegramBotLibrary\TgObjects\{
+  TgLimits,
+  TgMethods,
+  TgParseMode,
+  TgText
 };
 
 trait TblTextTrait{
@@ -38,7 +42,10 @@ trait TblTextTrait{
     TblEntities $Entities = null,
     bool $DisablePreview = false,
     TblMarkup $Markup = null
-  ):TgText|bool{
+  ):TgText{
+    if(mb_strlen($Text) > TgLimits::Text):
+      throw new TblException(TblError::LimitText);
+    endif;
     if($Chat !== null):
       $param['chat_id'] = $Chat;
     endif;

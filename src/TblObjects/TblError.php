@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.01.29.00
+//2023.02.02.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 
@@ -28,6 +28,10 @@ enum TblError{
    */
   case LimitCommand;
   case LimitPhotoCaption;
+  /**
+   * @link https://core.telegram.org/bots/api#sendmessage
+   */
+  case LimitText;
   case NoEvent;
   case TokenWebhook;
 }

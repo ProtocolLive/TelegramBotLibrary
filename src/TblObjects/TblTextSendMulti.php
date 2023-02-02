@@ -1,10 +1,13 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.01.02.00
+//2023.02.02.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgParseMode;
+use ProtocolLive\TelegramBotLibrary\TgObjects\{
+  TgLimits,
+  TgParseMode
+};
 
 final class TblTextSendMulti
 extends TblServerMulti{
@@ -99,6 +102,9 @@ extends TblServerMulti{
     bool $SendWithoutRepliedMsg = false,
     TblMarkup $Markup = null
   ):array{
+    if(mb_strlen($Text) > TgLimits::Text):
+      throw new TblException(TblError::LimitText);
+    endif;
     $param['chat_id'] = $Chat;
     $param['text'] = $Text;
     if($Thread !== null):
