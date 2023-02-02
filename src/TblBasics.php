@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.01.20.00
+//2023.02.01.00
 
 namespace ProtocolLive\TelegramBotLibrary;
 use CurlHandle;
@@ -24,6 +24,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgForumClosed,
   TgForumCreated,
   TgForumReopened,
+  TgGroupCreated,
   TgInvoice,
   TgInvoiceDone,
   TgLocation,
@@ -106,6 +107,8 @@ abstract class TblBasics{
       return new TgForumCreated($Data);
     elseif(isset($Data['forum_topic_reopened'])):
       return new TgForumReopened($Data);
+    elseif(isset($Data['group_chat_created'])):
+      return new TgGroupCreated($Data);
     elseif(isset($Data['invoice'])):
       return new TgInvoice($Data);
     elseif(isset($Data['left_chat_member'])):

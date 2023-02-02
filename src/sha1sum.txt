@@ -1,4 +1,4 @@
-375d1d45142675a742000d039b4bf5ce492a3cd3  TblBasics.php
+55e5fcfd347b301a55ce70e9d6933b09adffc329  TblBasics.php
 1ba05565b9ea05bc96c8061f05419c86f2f94c7b  TblObjects\TblCmd.php
 c21cb052957966371e871c33c808717ff78a1bd1  TblObjects\TblCmdEdited.php
 adecae75a29cfa21ddb070f7a75a48eea6f1628f  TblObjects\TblCommands.php
@@ -18,7 +18,7 @@ b3631c5cc503382ef5b9ad40951b8ee69231f646  TblObjects\TblInlineQueryPhoto.php
 df90c43034e036da9be1874151e779c23c5a614d  TblObjects\TblInvoiceShippingOptions.php
 f0eb92c0cf1a00c0eefb2cf91ee38df577af57ad  TblObjects\TblLog.php
 0011d3152998c5c6a6de1ead2120da99884b352c  TblObjects\TblMarkup.php
-28db183e9d31b74d7b7bdd48c21970cd628d55d6  TblObjects\TblMarkupForceReply.php
+43b3c4aacd8d7a15e310017fa6dc7d09cb5b59f5  TblObjects\TblMarkupForceReply.php
 934759fadb027fecd2ed9c8807e5218a0aa2ec2d  TblObjects\TblMarkupInline.php
 0046050bb7ce4c2f803e06875341159b880337f9  TblObjects\TblMarkupKeyboard.php
 3928807918109ec54dbc880c88d47fd9dc6f18cb  TblObjects\TblMarkupRemove.php
@@ -60,6 +60,7 @@ aee97a9e69ad034e8f68e251295cecd691937f2f  TgObjects\TgErrors.php
 01d691c98d4fe62f221534d34424f396e3151814  TgObjects\TgForumCreated.php
 3eddd7876c36d57d1d3fa5a08246d955d7148cf7  TgObjects\TgForumReopened.php
 8f2f57d7ef3467e04bccb15e43dc7d9b08fa3e77  TgObjects\TgForumTopic.php
+8a32c448ca715ada6c17b250a4b2aa4a070b5564  TgObjects\TgGroupCreated.php
 9c9a14dc98eaf4852346f3cd5d8f792e97e930ca  TgObjects\TgGroupStatus.php
 2bc8d43c0f62439e0590912371d202efce70d166  TgObjects\TgGroupStatusMy.php
 3daa013f7001feb2d59ddd62cd80df0f85901abc  TgObjects\TgInlineQuery.php
