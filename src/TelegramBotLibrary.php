@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.02.03.00
+//2023.02.03.01
 
 namespace ProtocolLive\TelegramBotLibrary;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
@@ -222,7 +222,7 @@ extends TblBasics{
       $param['parse_mode'] = $ParseMode->value;
     endif;
     if($Entities !== null):
-      $param['caption_entities'] = $Entities->ToJson();
+      $param['caption_entities'] = $Entities->ToArray();
     endif;
     if($DisableDetection):
       $param['disable_content_type_detection'] = 'true';
@@ -240,7 +240,7 @@ extends TblBasics{
       $param['allow_sending_without_reply'] = 'true';
     endif;
     if($Markup !== null):
-      $param['reply_markup'] = $Markup->ToJson();
+      $param['reply_markup'] = $Markup->ToArray();
     endif;
     $return = $this->ServerMethod(TgMethods::DocumentSend, $param);
     return new TgDocument($return);
@@ -389,7 +389,7 @@ extends TblBasics{
       $param['inline_message_id'] = $IdInline;
     endif;
     if($Markup !== null):
-      $param['reply_markup'] = $Markup->ToJson();
+      $param['reply_markup'] = $Markup->ToArray();
     endif;
     $return = $this->ServerMethod(TgMethods::MarkupEdit, $param);
     if($return === true):
@@ -527,7 +527,7 @@ extends TblBasics{
     endif;
     $param['parse_mode'] = $ParseMode->value;
     if($Entities !== null):
-      $param['caption_entities'] = $Entities->ToJson();
+      $param['caption_entities'] = $Entities->ToArray();
     endif;
     if($DisableNotification):
       $param['disable_notification'] = true;
@@ -542,7 +542,7 @@ extends TblBasics{
       $param['allow_sending_without_reply'] = true;
     endif;
     if($Markup !== null):
-      $param['reply_markup'] = $Markup->ToJson();
+      $param['reply_markup'] = $Markup->ToArray();
     endif;
     $return = $this->ServerMethod(TgMethods::MessageCopy, $param);
     return $return['message_id'];
@@ -697,7 +697,7 @@ extends TblBasics{
     int $Chat = null,
     int $User = null
   ):bool{
-    $param['commands'] = $Commands->ToJson();
+    $param['commands'] = $Commands->ToArray();
     if($Scope !== null):
       $param['scope']['type'] = $Scope->value;
       if($Scope === TgCmdScope::Chat
@@ -809,7 +809,7 @@ extends TblBasics{
       endif;
     endif;
     if($Markup !== null):
-      $param['reply_markup'] = $Markup->ToJson();
+      $param['reply_markup'] = $Markup->ToArray();
     endif;
     $return = parent::ServerMethod(TgMethods::StickerSend, $param);
     return new TgSticker($return);

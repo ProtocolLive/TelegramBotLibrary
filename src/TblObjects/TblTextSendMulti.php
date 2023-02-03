@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.02.03.00
+//2023.02.03.01
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
@@ -114,7 +114,7 @@ extends TblServerMulti{
       $param['parse_mode'] = $ParseMode->value;
     endif;
     if($Entities !== null):
-      $param['entities'] = $Entities->ToJson();
+      $param['entities'] = $Entities->ToArray();
     endif;
     if($DisablePreview):
       $param['disable_web_page_preview'] = true;
@@ -132,7 +132,7 @@ extends TblServerMulti{
       $param['allow_sending_without_reply'] = true;
     endif;
     if($Markup !== null):
-      $param['reply_markup'] = $Markup->ToJson();
+      $param['reply_markup'] = $Markup->ToArray();
     endif;
     return $param;
   }

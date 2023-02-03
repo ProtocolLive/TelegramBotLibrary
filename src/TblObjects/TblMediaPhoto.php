@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.01.20.00
+//2023.02.03.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgParseMode;
@@ -31,7 +31,7 @@ extends TblMedia{
       $param['parse_mode'] = $this->ParseMode->value;
     endif;
     if($this->Entities !== null):
-      $param['caption_entities'] = $this->Entities->ToJson();
+      $param['caption_entities'] = $this->Entities->ToArray();
     endif;
     if($this->Spoiler):
       $param['has_spoiler'] = 'true';

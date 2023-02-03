@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.08.19.00
+//2023.02.03.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 
@@ -18,7 +18,7 @@ class TblInvoiceShippingOptions{
     ];
   }
 
-  public function ToJson():string{
-    return json_encode($this->Options);
+  public function ToArray():array{
+    return $this->Options;
   }
 }

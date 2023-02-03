@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.12.27.00
+//2023.02.03.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgLimits;
@@ -64,9 +64,7 @@ final class TblCommands{
     endforeach;
   }
 
-  public function ToJson(
-    bool $Pretty = false
-  ):string{
+  public function ToArray():array{
     $return = [];
     foreach($this->Commands as $cmd => $description):
       $return[] = [
@@ -74,6 +72,6 @@ final class TblCommands{
         'description' => $description
       ];
     endforeach;
-    return json_encode($return, ($Pretty ? JSON_PRETTY_PRINT : 0));
+    return $return;
   }
 }

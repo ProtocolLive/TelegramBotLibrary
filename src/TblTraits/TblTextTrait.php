@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.02.02.00
+//2023.02.03.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblTraits;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
@@ -60,13 +60,13 @@ trait TblTextTrait{
       $param['parse_mode'] = $ParseMode->value;
     endif;
     if($Entities !== null):
-      $param['entities'] = $Entities->ToJson();
+      $param['entities'] = $Entities->ToArray();
     endif;
     if($DisablePreview):
       $param['disable_web_page_preview'] = 'true';
     endif;
     if($Markup !== null):
-      $param['reply_markup'] = $Markup->ToJson();
+      $param['reply_markup'] = $Markup->ToArray();
     endif;
     $return = $this->ServerMethod(TgMethods::TextEdit, $param);
     if($return === true):

@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.01.02.00
+//2023.01.03.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
@@ -137,7 +137,7 @@ extends TblServerMulti{
       $param['parse_mode'] = $ParseMode->value;
     endif;
     if($Entities !== null):
-      $param['caption_entities'] = $Entities->ToJson();
+      $param['caption_entities'] = $Entities->ToArray();
     endif;
     if($DisableNotification):
       $param['disable_notification'] = 'true';
@@ -155,7 +155,7 @@ extends TblServerMulti{
       $param['allow_sending_without_reply'] = 'true';
     endif;
     if($Markup !== null):
-      $param['reply_markup'] = $Markup->ToJson();
+      $param['reply_markup'] = $Markup->ToArray();
     endif;
     if(is_file($Photo)):
       $param['photo'] = new \CurlFile($Photo);

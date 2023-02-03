@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.11.11.00
+//2023.02.03.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblTraits;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
@@ -96,7 +96,7 @@ trait TblInvoiceTrait{
     $param['payload'] = $Payload;
     $param['provider_token'] = $Token;
     $param['currency'] = $Currency->value;
-    $param['prices'] = json_encode($Prices);
+    $param['prices'] = $Prices->ToArray();
     if($TipMax !== null):
       $param['max_tip_amount'] = $TipMax;
     endif;
@@ -210,7 +210,7 @@ trait TblInvoiceTrait{
     $param['payload'] = $Payload;
     $param['provider_token'] = $Token;
     $param['currency'] = $Currency->value;
-    $param['prices'] = $Prices->ToJson();
+    $param['prices'] = $Prices->ToArray();
     if($TipMax !== null):
       $param['max_tip_amount'] = $TipMax;
     endif;
@@ -269,7 +269,7 @@ trait TblInvoiceTrait{
       $param['allow_sending_without_reply'] = 'true';
     endif;
     if($Markup !== null):
-      $param['reply_markup'] = $Markup->ToJson();
+      $param['reply_markup'] = $Markup->ToArray();
     endif;
     $return = $this->ServerMethod(TgMethods::InvoiceSend, $param);
     return new TgInvoice($return);
@@ -294,7 +294,7 @@ trait TblInvoiceTrait{
     $param['shipping_query_id'] = $Id;
     $param['ok'] = $Confirm;
     if($Confirm):
-      $param['shipping_options'] = $Options->ToJson();
+      $param['shipping_options'] = $Options->ToArray();
     else:
       $param['error_message'] = $Error;
     endif;

@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.12.30.00
+//2023.02.03.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgEntityType;
@@ -39,7 +39,7 @@ class TblEntities{
     $this->Entities[] = $temp;
   }
 
-  public function ToJson():string{
-    return json_encode($this->Entities);
+  public function ToArray():array{
+    return $this->Entities;
   }
 }

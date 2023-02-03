@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.09.20.00
+//2023.02.03.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgInvoiceCurrencies;
@@ -41,10 +41,6 @@ class TblInvoicePrices{
 
   public function Count():int{
     return count($this->Prices);
-  }
-
-  public function ToJson():string{
-    return json_encode($this->Prices);
   }
 
   public function ToArray():array{
