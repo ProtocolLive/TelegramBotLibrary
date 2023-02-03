@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.02.03.04
+//2023.02.03.05
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
@@ -70,7 +70,7 @@ extends TblMarkup{
    * @param int $RequestChatId Signed 32-bit identifier of the request
    * @param bool $RequestChatChannel Pass True to request a channel chat, pass False to request a group or a supergroup chat.
    * @param bool|null $RequestChatForum Pass True to request a forum supergroup, pass False to request a non-forum chat. If not specified, no additional restrictions are applied.
-   * @param bool|null $RequestChatNick Pass True to request a supergroup or a channel with a username, pass False to request a chat without a username. If not specified, no additional restrictions are applied.
+   * @param bool|null $RequestChatPublic Pass True to request a supergroup or a channel with a username, pass False to request a chat without a username. If not specified, no additional restrictions are applied.
    * @param bool $RequestChatOwner Pass True to request a chat owned by the user. Otherwise, no additional restrictions are applied.
    * @param TgPermAdmin $RequestChatUserPerms A JSON-serialized object listing the required administrator rights of the user in the chat. If not specified, no additional restrictions are applied.
    * @param TgPermAdmin $RequestChatBotPerms A JSON-serialized object listing the required administrator rights of the bot in the chat. The rights must be a subset of user_administrator_rights. If not specified, no additional restrictions are applied.
