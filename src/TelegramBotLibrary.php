@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.01.30.01
+//2023.02.03.00
 
 namespace ProtocolLive\TelegramBotLibrary;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
@@ -344,7 +344,7 @@ extends TblBasics{
     string $SwitchPmParam = null
   ){
     $param['inline_query_id'] = $Id;
-    $param['results'] = $Results->ToJson();
+    $param['results'] = $Results->ToArray();
     if($Cache !== null):
       $param['cache_time'] = $Cache;
     endif;

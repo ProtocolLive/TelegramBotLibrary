@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.01.16.00
+//2023.02.03.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 
@@ -22,7 +22,7 @@ final class TblInlineQueryResults{
     $this->Results[] = $Result->ToArray();
   }
 
-  public function ToJson():string{
-    return json_encode($this->Results, JSON_UNESCAPED_SLASHES);
+  public function ToArray():array{
+    return $this->Results;
   }
 }
