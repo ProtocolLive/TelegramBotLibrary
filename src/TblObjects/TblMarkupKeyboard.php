@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.02.03.03
+//2023.02.03.04
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
@@ -95,7 +95,7 @@ extends TblMarkup{
     int $RequestChatId = null,
     bool $RequestChatChannel = false,
     bool|null $RequestChatForum = null,
-    bool|null $RequestChatNick = null,
+    bool|null $RequestChatPublic = null,
     bool $RequestChatOwner = false,
     TgPermAdmin $RequestChatUserPerms = null,
     TgPermAdmin $RequestChatBotPerms = null,
@@ -131,8 +131,8 @@ extends TblMarkup{
       if($RequestChatForum !== null):
         $this->Pointer[$Line][$Column]['request_chat']['chat_is_forum'] = $RequestChatForum;
       endif;
-      if($RequestChatNick !== null):
-        $this->Pointer[$Line][$Column]['request_chat']['chat_has_username'] = $RequestChatNick;
+      if($RequestChatPublic !== null):
+        $this->Pointer[$Line][$Column]['request_chat']['chat_has_username'] = $RequestChatPublic;
       endif;
       if($RequestChatOwner):
         $this->Pointer[$Line][$Column]['request_chat']['chat_is_created'] = true;
