@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.01.29.01
+//2023.02.03.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -9,6 +9,7 @@ enum TgError{
   case Banned;
   case Blocked;
   case BotBot;
+  case ButtonIdInvalid;
   case CallbackQueryOld;
   case CantDelete;
   case ChatNotFound;
@@ -19,7 +20,6 @@ enum TgError{
   case ForwardCant;
   case FileId;
   case Html;
-  case IdInvalid;
   case InlineId;
   case InlineQueryClosing;
   case InlineQueryMessage;
@@ -31,6 +31,7 @@ enum TgError{
   case InlineKeyboardNone;
   case InvoiceLabel;
   case InvoiceLimits;
+  case MessageIdInvalid;
   case NotMember;
   case NoMedia;
   case PermAdminManage;

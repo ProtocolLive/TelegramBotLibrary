@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.01.29.01
+//2023.02.03.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -22,6 +22,7 @@ abstract class TgErrors{
       return TgError::EntityParse;
     endif;
     return match($Description){
+      'Bad Request: BUTTON_ID_INVALID' => TgError::ButtonIdInvalid,
       'Bad Request: can\'t parse ChatAdministratorRights: Field "can_manage_chat" must be of type Boolean' => TgError::PermAdminManage,
       'Bad Request: can\'t parse inline keyboard button: Text buttons are unallowed in the inline keyboard' => TgError::TextButtonNo,
       'Bad Request: can\'t parse inline query result: Can\'t find field "message_text"' => TgError::InlineQueryMessage,
@@ -40,7 +41,7 @@ abstract class TgErrors{
       'Bad Request: message can\'t be deleted for everyone' => TgError::CantDelete,
       'Bad Request: message is not modified: specified new message content and reply markup are exactly the same as a current content and reply markup of the message' => TgError::EditSame,
       'Bad Request: message to copy not found' => TgError::CopyNotFound,
-      'Bad Request: MESSAGE_ID_INVALID' => TgError::IdInvalid,
+      'Bad Request: MESSAGE_ID_INVALID' => TgError::MessageIdInvalid,
       'Bad Request: PHOTO_THUMB_URL_EMPTY' => TgError::InlineQueryThumbEmpty,
       'Bad Request: query is too old and response timeout expired or query ID is invalid' => TgError::CallbackQueryOld,
       'Bad Request: the message can\'t be forwarded' => TgError::ForwardCant,
