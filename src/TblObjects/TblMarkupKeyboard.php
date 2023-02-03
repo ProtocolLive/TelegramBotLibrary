@@ -1,12 +1,13 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.02.03.00
+//2023.02.03.01
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
-
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgPermAdmin;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgPollType;
+use ProtocolLive\TelegramBotLibrary\TgObjects\{
+  TgPermAdmin,
+  TgPollType
+};
 
 class TblMarkupKeyboard
 extends TblMarkup{
@@ -136,10 +137,10 @@ extends TblMarkup{
         $this->Pointer[$Line][$Column]['RequestChatId']['chat_is_created'] = true;
       endif;
       if($RequestChatUserPerms !== null):
-        $this->Pointer[$Line][$Column]['RequestChatId']['user_administrator_rights'] = $RequestChatUserPerms->ArrayGet();
+        $this->Pointer[$Line][$Column]['RequestChatId']['user_administrator_rights'] = $RequestChatUserPerms->ToArray();
       endif;
       if($RequestChatBotPerms !== null):
-        $this->Pointer[$Line][$Column]['RequestChatId']['bot_administrator_rights'] = $RequestChatBotPerms->ArrayGet();
+        $this->Pointer[$Line][$Column]['RequestChatId']['bot_administrator_rights'] = $RequestChatBotPerms->ToArray();
       endif;
       if($RequestChatBotMember):
         $this->Pointer[$Line][$Column]['RequestChatId']['bot_administrator_rights'] = true;
