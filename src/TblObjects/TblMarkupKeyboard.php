@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.02.03.01
+//2023.02.03.03
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
@@ -79,6 +79,7 @@ extends TblMarkup{
    * @link https://core.telegram.org/bots/api#keyboardbuttonpolltype
    * @link https://core.telegram.org/bots/api#webappinfo
    * @link https://core.telegram.org/bots/api#keyboardbuttonrequestuser
+   * @link https://core.telegram.org/bots/api#keyboardbuttonrequestchat
    */
   public function Button(
     int $Line,
@@ -123,27 +124,27 @@ extends TblMarkup{
       endif;
     endif;
     if($RequestChatId !== null):
-      $this->Pointer[$Line][$Column]['RequestChatId']['request_id'] = $RequestChatId;
+      $this->Pointer[$Line][$Column]['request_chat']['request_id'] = $RequestChatId;
       if($RequestChatChannel):
-        $this->Pointer[$Line][$Column]['RequestChatId']['chat_is_channel'] = true;
+        $this->Pointer[$Line][$Column]['request_chat']['chat_is_channel'] = true;
       endif;
       if($RequestChatForum !== null):
-        $this->Pointer[$Line][$Column]['RequestChatId']['chat_is_forum'] = $RequestChatForum;
+        $this->Pointer[$Line][$Column]['request_chat']['chat_is_forum'] = $RequestChatForum;
       endif;
       if($RequestChatNick !== null):
-        $this->Pointer[$Line][$Column]['RequestChatId']['chat_has_username'] = $RequestChatNick;
+        $this->Pointer[$Line][$Column]['request_chat']['chat_has_username'] = $RequestChatNick;
       endif;
       if($RequestChatOwner):
-        $this->Pointer[$Line][$Column]['RequestChatId']['chat_is_created'] = true;
+        $this->Pointer[$Line][$Column]['request_chat']['chat_is_created'] = true;
       endif;
       if($RequestChatUserPerms !== null):
-        $this->Pointer[$Line][$Column]['RequestChatId']['user_administrator_rights'] = $RequestChatUserPerms->ToArray();
+        $this->Pointer[$Line][$Column]['request_chat']['user_administrator_rights'] = $RequestChatUserPerms->ToArray();
       endif;
       if($RequestChatBotPerms !== null):
-        $this->Pointer[$Line][$Column]['RequestChatId']['bot_administrator_rights'] = $RequestChatBotPerms->ToArray();
+        $this->Pointer[$Line][$Column]['request_chat']['bot_administrator_rights'] = $RequestChatBotPerms->ToArray();
       endif;
       if($RequestChatBotMember):
-        $this->Pointer[$Line][$Column]['RequestChatId']['bot_administrator_rights'] = true;
+        $this->Pointer[$Line][$Column]['request_chat']['bot_is_member'] = true;
       endif;
     endif;
   }
