@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.02.03.00
+//2023.02.03.01
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -22,7 +22,7 @@ final class TgUserShared{
 
   public function __construct(array $Data){
     $this->Data = new TgMessageData($Data);
-    $this->Id = $Data['request_id'];
-    $this->UserId = $Data['user_id'];
+    $this->Id = $Data['user_shared']['request_id'];
+    $this->UserId = $Data['user_shared']['user_id'];
   }
 }
