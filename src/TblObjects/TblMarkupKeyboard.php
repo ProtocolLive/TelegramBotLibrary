@@ -1,9 +1,11 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.12.30.00
+//2023.02.03.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
+
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgPermAdmin;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgPollType;
 
 class TblMarkupKeyboard
@@ -45,15 +47,37 @@ extends TblMarkup{
   }
 
   /**
+   * This object represents one button of the reply keyboard. For simple text buttons, String can be used instead of this object to specify the button text. The optional fields web_app, request_user, request_chat, request_contact, request_location, and request_poll are mutually exclusive.
+   * 
+   * Note: request_contact and request_location options will only work in Telegram versions released after 9 April, 2016. Older clients will display unsupported message.
+   * 
+   * Note: request_poll option will only work in Telegram versions released after 23 January, 2020. Older clients will display unsupported message.
+   * 
+   * Note: web_app option will only work in Telegram versions released after 16 April, 2022. Older clients will display unsupported message.
+   * 
+   * Note: request_user and request_chat options will only work in Telegram versions released after 3 February, 2023. Older clients will display unsupported message.
    * @param string $Text Label text on the button
    * @param bool $RequestContact If True, the user's phone number will be sent as a contact when the button is pressed. Available in private chats only.
    * @param bool $RequestLocation If True, the user's current location will be sent when the button is pressed. Available in private chats only.
    * @param TgPollType $RequestPoll If specified, the user will be asked to create a poll and send it to the bot when the button is pressed. Available in private chats only.
    * @param string $RequestWebapp If specified, the described Web App will be launched when the button is pressed. The Web App will be able to send a “web_app_data” service message. Available in private chats only.
+   * 
    * An HTTPS URL of a Web App to be opened with additional data as specified in Initializing Web Apps
+   * @param int $RequestUserId Signed 32-bit identifier of the request
+   * @param bool|null $RequestUserBot Pass True to request a bot, pass False to request a regular user. If not specified, no additional restrictions are applied.
+   * @param bool|null $RequestUserPremium Pass True to request a premium user, pass False to request a non-premium user. If not specified, no additional restrictions are applied.
+   * @param int $RequestChatId Signed 32-bit identifier of the request
+   * @param bool $RequestChatChannel Pass True to request a channel chat, pass False to request a group or a supergroup chat.
+   * @param bool|null $RequestChatForum Pass True to request a forum supergroup, pass False to request a non-forum chat. If not specified, no additional restrictions are applied.
+   * @param bool|null $RequestChatNick Pass True to request a supergroup or a channel with a username, pass False to request a chat without a username. If not specified, no additional restrictions are applied.
+   * @param bool $RequestChatOwner Pass True to request a chat owned by the user. Otherwise, no additional restrictions are applied.
+   * @param TgPermAdmin $RequestChatUserPerms A JSON-serialized object listing the required administrator rights of the user in the chat. If not specified, no additional restrictions are applied.
+   * @param TgPermAdmin $RequestChatBotPerms A JSON-serialized object listing the required administrator rights of the bot in the chat. The rights must be a subset of user_administrator_rights. If not specified, no additional restrictions are applied.
+   * @param bool $RequestChatBotMember Pass True to request a chat with the bot as a member. Otherwise, no additional restrictions are applied.
    * @link https://core.telegram.org/bots/api#inlinekeyboardmarkup
    * @link https://core.telegram.org/bots/api#keyboardbuttonpolltype
    * @link https://core.telegram.org/bots/api#webappinfo
+   * @link https://core.telegram.org/bots/api#keyboardbuttonrequestuser
    */
   public function Button(
     int $Line,
@@ -62,7 +86,18 @@ extends TblMarkup{
     bool $RequestContact = false,
     bool $RequestLocation = false,
     TgPollType $RequestPoll = null,
-    string $RequestWebapp = null
+    string $RequestWebapp = null,
+    int $RequestUserId = null,
+    bool|null $RequestUserBot = null,
+    bool|null $RequestUserPremium = null,
+    int $RequestChatId = null,
+    bool $RequestChatChannel = false,
+    bool|null $RequestChatForum = null,
+    bool|null $RequestChatNick = null,
+    bool $RequestChatOwner = false,
+    TgPermAdmin $RequestChatUserPerms = null,
+    TgPermAdmin $RequestChatBotPerms = null,
+    bool $RequestChatBotMember = false
   ):void{
     $this->Pointer[$Line][$Column]['text'] = $Text;
     if($RequestContact):
@@ -76,6 +111,39 @@ extends TblMarkup{
     endif;
     if($RequestWebapp != null):
       $this->Pointer[$Line][$Column]['web_app']['url'] = $RequestWebapp;
+    endif;
+    if($RequestUserId !== null):
+      $this->Pointer[$Line][$Column]['request_user']['request_id'] = $RequestUserId;
+      if($RequestUserBot !== null):
+        $this->Pointer[$Line][$Column]['request_user']['user_is_bot'] = $RequestUserBot;
+      endif;
+      if($RequestUserPremium !== null):
+        $this->Pointer[$Line][$Column]['request_user']['user_is_premium'] = $RequestUserPremium;
+      endif;
+    endif;
+    if($RequestChatId !== null):
+      $this->Pointer[$Line][$Column]['RequestChatId']['request_id'] = $RequestChatId;
+      if($RequestChatChannel):
+        $this->Pointer[$Line][$Column]['RequestChatId']['chat_is_channel'] = true;
+      endif;
+      if($RequestChatForum !== null):
+        $this->Pointer[$Line][$Column]['RequestChatId']['chat_is_forum'] = $RequestChatForum;
+      endif;
+      if($RequestChatNick !== null):
+        $this->Pointer[$Line][$Column]['RequestChatId']['chat_has_username'] = $RequestChatNick;
+      endif;
+      if($RequestChatOwner):
+        $this->Pointer[$Line][$Column]['RequestChatId']['chat_is_created'] = true;
+      endif;
+      if($RequestChatUserPerms !== null):
+        $this->Pointer[$Line][$Column]['RequestChatId']['user_administrator_rights'] = $RequestChatUserPerms->ArrayGet();
+      endif;
+      if($RequestChatBotPerms !== null):
+        $this->Pointer[$Line][$Column]['RequestChatId']['bot_administrator_rights'] = $RequestChatBotPerms->ArrayGet();
+      endif;
+      if($RequestChatBotMember):
+        $this->Pointer[$Line][$Column]['RequestChatId']['bot_administrator_rights'] = true;
+      endif;
     endif;
   }
 }

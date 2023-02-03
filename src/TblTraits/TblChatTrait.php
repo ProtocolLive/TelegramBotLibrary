@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.01.28.01
+//2023.02.03.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblTraits;
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
@@ -215,10 +215,7 @@ trait TblChatTrait{
   ):bool{
     $param['chat_id'] = $Chat;
     $param['user_id'] = $User;
-    foreach(TgPermMember::Array as $class => $json):
-      $param['permissions'][$json] = $Perms->$class;
-    endforeach;
-    $param['permissions'] = json_encode($param['permissions']);
+    $param['permissions'] = $Perms->ToArray();
     $param['until_date'] = $Period;
     return $this->ServerMethod(TgMethods::ChatMemberPerm, $param);
   }

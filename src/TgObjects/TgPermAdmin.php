@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.11.05.01
+//2023.02.03.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -58,5 +58,13 @@ class TgPermAdmin{
         $this->$perm = $Data[$vector] ?? false;
       endforeach;
     endif;
+  }
+
+  public function ToArray():array{
+    $return = [];
+    foreach(self::Array as $perm => $vector):
+      $return[$vector] = $this->$perm;
+    endforeach;
+    return $return;
   }
 }

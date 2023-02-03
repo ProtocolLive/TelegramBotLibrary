@@ -1,11 +1,12 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.08.18.00
+//2023.02.03.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
+ * This object contains information about one member of a chat. Currently, the following 6 types of chat members are supported:
  * @link https://core.telegram.org/bots/api#chatmember
  */
 class TgMember{

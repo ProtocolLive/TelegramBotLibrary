@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.11.05.01
+//2023.02.03.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -12,6 +12,12 @@ class TgPermMember{
   const Array = [
     'Message' => 'can_send_messages',
     'Media' => 'can_send_media_messages',
+    'Audio' => 'can_send_audios',
+    'Documents' => 'can_send_documents',
+    'Photos' => 'can_send_photos',
+    'Videos' => 'can_send_videos',
+    'VideoNote' => 'can_send_video_notes',
+    'VoiceNote' => 'can_send_voice_notes',
     'Poll' => 'can_send_polls',
     'Media2' => 'can_send_other_messages',
     'Preview' => 'can_add_web_page_previews',
@@ -36,20 +42,34 @@ class TgPermMember{
    */
   public function __construct(
     array $Data = null,
-    public bool $Message = false,
-    public bool $Media = false,
-    public bool $Poll = false,
-    public bool $Media2 = false,
-    public bool $Preview = false,
-    public bool $Info = false,
-    public bool $Invite = false,
-    public bool $Pin = false,
-    public bool $Topics = false
+    bool $Message = false,
+    bool $Media = false,
+    bool $Audio = false,
+    bool $Documents = false,
+    bool $Photos = false,
+    bool $Videos = false,
+    bool $VideoNote = false,
+    bool $VoiceNote = false,
+    bool $Poll = false,
+    bool $Media2 = false,
+    bool $Preview = false,
+    bool $Info = false,
+    bool $Invite = false,
+    bool $Pin = false,
+    bool $Topics = false
   ){
     if($Data !== null):
       foreach(self::Array as $perm => $vector):
         $this->$perm = $Data[$vector] ?? false;
       endforeach;
     endif;
+  }
+
+  public function ToArray():array{
+    $return = [];
+    foreach(self::Array as $perm => $vector):
+      $return[$vector] = $this->$perm;
+    endforeach;
+    return $return;
   }
 }
