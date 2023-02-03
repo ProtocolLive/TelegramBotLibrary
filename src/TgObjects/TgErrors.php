@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.02.03.00
+//2023.02.03.01
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -31,6 +31,7 @@ abstract class TgErrors{
       'Bad Request: can\'t parse inline query result: Inline query result must be an object' => TgError::InlineQueryResult,
       'Bad Request: can\'t parse JSON encoded inline query results: Closing \'"\' not found' => TgError::InlineQueryClosing,
       'Bad Request: can\'t parse JSON encoded inline query results: Expected string end' => TgError::InlineQueryStringEnd,
+      'Bad Request: can\'t parse keyboard button: ChatAdministratorRights must be an Object' => TgError::ChatAdministratorRightsObject,
       'Bad Request: can\'t parse labeled price: Can\'t find field "label"' => TgError::InvoiceLabel,
       'Bad Request: can\'t parse MessageEntity: Field "user" must be of type Object' => TgError::UserObject,
       'Bad Request: chat not found' => TgError::ChatNotFound,

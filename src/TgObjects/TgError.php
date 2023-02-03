@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.02.03.00
+//2023.02.03.01
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -12,6 +12,7 @@ enum TgError{
   case ButtonIdInvalid;
   case CallbackQueryOld;
   case CantDelete;
+  case ChatAdministratorRightsObject;
   case ChatNotFound;
   case CopyNotFound;
   case Deleted;
