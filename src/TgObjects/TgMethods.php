@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.01.20.00
+//2023.02.03.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -19,6 +19,7 @@ enum TgMethods:string{
   case ChatMemberPromote = 'promoteChatMember';
   case ChatMenuButtonGet = 'getChatMenuButton';
   case ChatMenuButtonSet = 'setChatMenuButton';
+  case ChatPerm = 'setChatPermissions';
   case CommandsDel = 'deleteMyCommands';
   case CommandsGet = 'getMyCommands';
   case CommandsSet = 'setMyCommands';
