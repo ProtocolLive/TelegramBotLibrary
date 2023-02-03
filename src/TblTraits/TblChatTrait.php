@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.02.03.00
+//2023.02.03.01
 
 namespace ProtocolLive\TelegramBotLibrary\TblTraits;
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
@@ -203,7 +203,8 @@ trait TblChatTrait{
    * @param int $User Unique identifier of the target user
    * @param TgPermMember $Perms A object for new user permissions
    * @param int $Period Date when restrictions will be lifted for the user, unix time. If user is restricted for more than 366 days or less than 30 seconds from the current time, they are considered to be restricted forever
-   * @return bool|null Returns True on success.
+   * @param bool $Independent Pass True if chat permissions are set independently. Otherwise, the can_send_other_messages and can_add_web_page_previews permissions will imply the can_send_messages, can_send_audios, can_send_documents, can_send_photos, can_send_videos, can_send_video_notes, and can_send_voice_notes permissions; the can_send_polls permission will imply the can_send_messages permission.
+   * @return bool Returns True on success.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#restrictchatmember
    */
@@ -211,12 +212,16 @@ trait TblChatTrait{
     int|string $Chat,
     int $User,
     TgPermMember $Perms,
-    int $Period = null
+    int $Period = null,
+    bool $Independent = false
   ):bool{
     $param['chat_id'] = $Chat;
     $param['user_id'] = $User;
     $param['permissions'] = $Perms->ToArray();
     $param['until_date'] = $Period;
+    if($Independent):
+      $param['use_independent_chat_permissions'] = true;
+    endif;
     return $this->ServerMethod(TgMethods::ChatMemberPerm, $param);
   }
 }
