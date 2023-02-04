@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.12.30.03
+//2023.02.04.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -62,6 +62,10 @@ class TgMessageData{
    * Inline keyboard attached to the message. login_url buttons are represented as ordinary url buttons.
    */
   public array $Markup = [];
+  /**
+   * Bot through which the message was sent
+   */
+  public readonly TgUser|null $Via;
 
   //The bot 777000 is used to forward messages from channels to groups
   //The bot 1087968824 is used for admins post as the group and for migrate events
@@ -125,6 +129,11 @@ class TgMessageData{
           endif;
         endforeach;
       endforeach;
+    endif;
+    if(isset($Data['via_bot'])):
+      $this->Via = new TgUser($Data['via_bot']);
+    else:
+      $this->Via = null;
     endif;
   }
 }
