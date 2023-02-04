@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.02.03.00
+//2023.02.04.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblTraits;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
@@ -42,7 +42,7 @@ trait TblTextTrait{
     TblEntities $Entities = null,
     bool $DisablePreview = false,
     TblMarkup $Markup = null
-  ):TgText{
+  ):TgText|bool{
     if(mb_strlen($Text) > TgLimits::Text):
       throw new TblException(TblError::LimitText);
     endif;
