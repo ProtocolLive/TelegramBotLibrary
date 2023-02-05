@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.02.03.05
+//2023.02.05.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
@@ -64,22 +64,9 @@ extends TblMarkup{
    * @param string $RequestWebapp If specified, the described Web App will be launched when the button is pressed. The Web App will be able to send a “web_app_data” service message. Available in private chats only.
    * 
    * An HTTPS URL of a Web App to be opened with additional data as specified in Initializing Web Apps
-   * @param int $RequestUserId Signed 32-bit identifier of the request
-   * @param bool|null $RequestUserBot Pass True to request a bot, pass False to request a regular user. If not specified, no additional restrictions are applied.
-   * @param bool|null $RequestUserPremium Pass True to request a premium user, pass False to request a non-premium user. If not specified, no additional restrictions are applied.
-   * @param int $RequestChatId Signed 32-bit identifier of the request
-   * @param bool $RequestChatChannel Pass True to request a channel chat, pass False to request a group or a supergroup chat.
-   * @param bool|null $RequestChatForum Pass True to request a forum supergroup, pass False to request a non-forum chat. If not specified, no additional restrictions are applied.
-   * @param bool|null $RequestChatPublic Pass True to request a supergroup or a channel with a username, pass False to request a chat without a username. If not specified, no additional restrictions are applied.
-   * @param bool $RequestChatOwner Pass True to request a chat owned by the user. Otherwise, no additional restrictions are applied.
-   * @param TgPermAdmin $RequestChatUserPerms A JSON-serialized object listing the required administrator rights of the user in the chat. If not specified, no additional restrictions are applied.
-   * @param TgPermAdmin $RequestChatBotPerms A JSON-serialized object listing the required administrator rights of the bot in the chat. The rights must be a subset of user_administrator_rights. If not specified, no additional restrictions are applied.
-   * @param bool $RequestChatBotMember Pass True to request a chat with the bot as a member. Otherwise, no additional restrictions are applied.
    * @link https://core.telegram.org/bots/api#inlinekeyboardmarkup
    * @link https://core.telegram.org/bots/api#keyboardbuttonpolltype
    * @link https://core.telegram.org/bots/api#webappinfo
-   * @link https://core.telegram.org/bots/api#keyboardbuttonrequestuser
-   * @link https://core.telegram.org/bots/api#keyboardbuttonrequestchat
    */
   public function Button(
     int $Line,
@@ -88,18 +75,7 @@ extends TblMarkup{
     bool $RequestContact = false,
     bool $RequestLocation = false,
     TgPollType $RequestPoll = null,
-    string $RequestWebapp = null,
-    int $RequestUserId = null,
-    bool|null $RequestUserBot = null,
-    bool|null $RequestUserPremium = null,
-    int $RequestChatId = null,
-    bool $RequestChatChannel = false,
-    bool|null $RequestChatForum = null,
-    bool|null $RequestChatPublic = null,
-    bool $RequestChatOwner = false,
-    TgPermAdmin $RequestChatUserPerms = null,
-    TgPermAdmin $RequestChatBotPerms = null,
-    bool $RequestChatBotMember = false
+    string $RequestWebapp = null
   ):void{
     $this->Pointer[$Line][$Column]['text'] = $Text;
     if($RequestContact):
@@ -114,38 +90,83 @@ extends TblMarkup{
     if($RequestWebapp != null):
       $this->Pointer[$Line][$Column]['web_app']['url'] = $RequestWebapp;
     endif;
-    if($RequestUserId !== null):
-      $this->Pointer[$Line][$Column]['request_user']['request_id'] = $RequestUserId;
-      if($RequestUserBot !== null):
-        $this->Pointer[$Line][$Column]['request_user']['user_is_bot'] = $RequestUserBot;
-      endif;
-      if($RequestUserPremium !== null):
-        $this->Pointer[$Line][$Column]['request_user']['user_is_premium'] = $RequestUserPremium;
-      endif;
+  }
+
+  /**
+   * @param string $Text Label text on the button
+   * @param int $Id Signed 32-bit identifier of the request
+   * @param bool $Channel Pass True to request a channel chat, pass False to request a group or a supergroup chat.
+   * @param bool|null $Forum Pass True to request a forum supergroup, pass False to request a non-forum chat. If not specified, no additional restrictions are applied.
+   * @param bool|null $Public Pass True to request a supergroup or a channel with a username, pass False to request a chat without a username. If not specified, no additional restrictions are applied.
+   * @param bool $Owner Pass True to request a chat owned by the user. Otherwise, no additional restrictions are applied.
+   * @param TgPermAdmin $UserPerms A JSON-serialized object listing the required administrator rights of the user in the chat. If not specified, no additional restrictions are applied.
+   * @param TgPermAdmin $BotPerms A JSON-serialized object listing the required administrator rights of the bot in the chat. The rights must be a subset of user_administrator_rights. If not specified, no additional restrictions are applied.
+   * @param bool $Member Pass True to request a chat with the bot as a member. Otherwise, no additional restrictions are applied.
+   * @link https://core.telegram.org/bots/api#keyboardbuttonrequestchat
+   */
+  public function ButtonRequestChat(
+    int $Line,
+    int $Column,
+    string $Text,
+    int $Id,
+    bool $Channel = false,
+    bool|null $Forum = null,
+    bool|null $Public = null,
+    bool $Owner = false,
+    TgPermAdmin $UserPerms = null,
+    TgPermAdmin $BotPerms = null,
+    bool $Member = false
+  ):void{
+    $this->Pointer[$Line][$Column]['text'] = $Text;
+    $this->Pointer[$Line][$Column]['request_chat']['request_id'] = $Id;
+    if($Channel):
+      $this->Pointer[$Line][$Column]['request_chat']['chat_is_channel'] = true;
     endif;
-    if($RequestChatId !== null):
-      $this->Pointer[$Line][$Column]['request_chat']['request_id'] = $RequestChatId;
-      if($RequestChatChannel):
-        $this->Pointer[$Line][$Column]['request_chat']['chat_is_channel'] = true;
-      endif;
-      if($RequestChatForum !== null):
-        $this->Pointer[$Line][$Column]['request_chat']['chat_is_forum'] = $RequestChatForum;
-      endif;
-      if($RequestChatPublic !== null):
-        $this->Pointer[$Line][$Column]['request_chat']['chat_has_username'] = $RequestChatPublic;
-      endif;
-      if($RequestChatOwner):
-        $this->Pointer[$Line][$Column]['request_chat']['chat_is_created'] = true;
-      endif;
-      if($RequestChatUserPerms !== null):
-        $this->Pointer[$Line][$Column]['request_chat']['user_administrator_rights'] = $RequestChatUserPerms->ToArray();
-      endif;
-      if($RequestChatBotPerms !== null):
-        $this->Pointer[$Line][$Column]['request_chat']['bot_administrator_rights'] = $RequestChatBotPerms->ToArray();
-      endif;
-      if($RequestChatBotMember):
-        $this->Pointer[$Line][$Column]['request_chat']['bot_is_member'] = true;
-      endif;
+    if($Forum !== null):
+      $this->Pointer[$Line][$Column]['request_chat']['chat_is_forum'] = $Forum;
+    endif;
+    if($Public !== null):
+      $this->Pointer[$Line][$Column]['request_chat']['chat_has_username'] = $Public;
+    endif;
+    if($Owner):
+      $this->Pointer[$Line][$Column]['request_chat']['chat_is_created'] = true;
+    endif;
+    if($UserPerms !== null):
+      $this->Pointer[$Line][$Column]['request_chat']['user_administrator_rights'] = $UserPerms->ToArray();
+    endif;
+    if($BotPerms !== null):
+      $this->Pointer[$Line][$Column]['request_chat']['bot_administrator_rights'] = $BotPerms->ToArray();
+    endif;
+    if($Member):
+      $this->Pointer[$Line][$Column]['request_chat']['bot_is_member'] = true;
+    endif;
+  }
+
+  /**
+   * Summary of ButtonRequestUser
+   * @param int $Line
+   * @param int $Column
+   * @param string $Text Label text on the button
+   * @param int $Id Signed 32-bit identifier of the request
+   * @param bool|null $Bot Pass True to request a bot, pass False to request a regular user. If not specified, no additional restrictions are applied.
+   * @param bool|null $Premium Pass True to request a premium user, pass False to request a non-premium user. If not specified, no additional restrictions are applied.
+   * @link https://core.telegram.org/bots/api#keyboardbuttonrequestuser
+   */
+  public function ButtonRequestUser(
+    int $Line,
+    int $Column,
+    string $Text,
+    int $Id = null,
+    bool|null $Bot = null,
+    bool|null $Premium = null
+  ):void{
+    $this->Pointer[$Line][$Column]['text'] = $Text;
+    $this->Pointer[$Line][$Column]['request_user']['request_id'] = $Id;
+    if($Bot !== null):
+      $this->Pointer[$Line][$Column]['request_user']['user_is_bot'] = $Bot;
+    endif;
+    if($Premium !== null):
+      $this->Pointer[$Line][$Column]['request_user']['user_is_premium'] = $Premium;
     endif;
   }
 }
