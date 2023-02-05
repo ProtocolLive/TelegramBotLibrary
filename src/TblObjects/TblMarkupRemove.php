@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.08.19.00
+//2023.02.05.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 
@@ -12,7 +12,7 @@ class TblMarkupRemove extends TblMarkup{
    * @link https://core.telegram.org/bots/api#replykeyboardremove
    */
   public function __construct(bool $Selective = false){
-    $this->Markup['remove_keyboard'] = 'true';
+    $this->Markup['remove_keyboard'] = true;
     $this->Markup['selective'] = $Selective;
   }
 }
