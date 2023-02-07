@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.02.07.00
+//2023.02.07.01
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
@@ -61,7 +61,6 @@ extends TblServerMulti{
   }
 
   /**
-   * Use this method to edit text and game messages.
    * @param int $Chat Required if inline_message_id is not specified. Unique identifier for the target chat
    * @param int $Id Required if inline_message_id is not specified. Identifier of the message to edit
    * @param string $Text New text of the message, 1-4096 characters after entities parsing
@@ -70,7 +69,6 @@ extends TblServerMulti{
    * @param TblEntities $Entities A list of special entities that appear in message text, which can be specified instead of parse_mode
    * @param bool $DisablePreview Disables link previews for links in this message
    * @param TblMarkup $Markup A object for an inline keyboard.
-   * @return TgMessageData|bool On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#editmessagetext
    */
