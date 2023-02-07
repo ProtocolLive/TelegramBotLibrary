@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.02.04.01
+//2023.02.07.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblTraits;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
@@ -11,6 +11,7 @@ use ProtocolLive\TelegramBotLibrary\TblObjects\{
   TblMarkup,
   TblTextSendMulti
 };
+use ProtocolLive\TelegramBotLibrary\TelegramBotLibrary;
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgLimits,
   TgMethods,
@@ -138,7 +139,7 @@ trait TblTextTrait{
      */
     $return = $this->ServerMethodMulti(
       TgMethods::TextSend,
-      $Params
+      $Params->GetArray()
     );
     foreach($return as &$answer):
       if(is_object($answer) === false):

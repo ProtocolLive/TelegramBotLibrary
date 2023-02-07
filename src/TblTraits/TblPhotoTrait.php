@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.01.07.00
+//2023.01.07.01
 
 namespace ProtocolLive\TelegramBotLibrary\TblTraits;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
@@ -96,7 +96,7 @@ trait TblPhotoTrait{
      */
     $return = $this->ServerMethodMulti(
       TgMethods::PhotoSend,
-      $Params
+      $Params->GetArray()
     );
     foreach($return as &$answer):
       if(($answer instanceof TblException) === false):
