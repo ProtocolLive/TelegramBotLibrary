@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.02.07.01
+//2023.02.07.02
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 use CurlHandle;
@@ -228,8 +228,8 @@ abstract class TblBasics{
     array $Params
   ):array{
     $mh = curl_multi_init();
+    $url = $this->BotData->UrlApi . '/' . $Method->value;
     foreach($Params as &$params):
-      $url = $this->BotData->UrlApi . '/' . $Method->value;
       if($this->BotData->Log & TblLog::Send):
         $log = 'Url: ' . $url . PHP_EOL;
         $log .= 'Params: ' . json_encode(
