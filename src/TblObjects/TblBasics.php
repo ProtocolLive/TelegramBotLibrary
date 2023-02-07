@@ -1,18 +1,10 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.02.03.01
+//2023.02.07.00
 
-namespace ProtocolLive\TelegramBotLibrary;
+namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 use CurlHandle;
-use ProtocolLive\TelegramBotLibrary\TblObjects\{
-  TblCmd,
-  TblData,
-  TblError,
-  TblException,
-  TblLog,
-  TblServerMulti
-};
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgChatAutoDel,
   TgChatMigrateFrom,
@@ -38,8 +30,8 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgPoll,
   TgSticker,
   TgText,
-    TgUserShared,
-    TgVideo,
+  TgUserShared,
+  TgVideo,
   TgVideoChatEnded,
   TgVideoChatInvite,
   TgVideoChatScheduled,

@@ -1,10 +1,10 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.01.28.01
+//2023.02.07.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
-use ProtocolLive\TelegramBotLibrary\TblBasics;
+use ProtocolLive\TelegramBotLibrary\TblObjects\TblBasics;
 
 /**
  * @link https://core.telegram.org/bots/api#chat

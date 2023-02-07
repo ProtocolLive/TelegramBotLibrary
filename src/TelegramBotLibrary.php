@@ -1,10 +1,11 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.02.03.01
+//2023.02.07.00
 
 namespace ProtocolLive\TelegramBotLibrary;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
+  TblBasics,
   TblCmd,
   TblCmdEdited,
   TblCommands,

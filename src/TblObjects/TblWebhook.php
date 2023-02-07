@@ -1,13 +1,12 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.01.01.00
+//2023.01.07.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
-use ProtocolLive\TelegramBotLibrary\{
-  TblBasics,
-  TblObjects\TblException,
-  TgObjects\TgMethods
+use ProtocolLive\TelegramBotLibrary\TgObjects\{
+  TgMethods,
+  TgUpdateType
 };
 
 final class TblWebhook
