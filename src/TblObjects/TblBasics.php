@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.02.07.01
+//2023.02.07.02
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 use CurlHandle;
@@ -246,9 +246,9 @@ abstract class TblBasics{
       curl_multi_select($mh);
     }while($active);
     /** @var CurlHandle[] $return */
-    foreach($return as &$params):
+    foreach($Params as &$params):
       $params = $this->CurlResponse($params);
     endforeach;
-    return $return;
+    return $Params;
   }
 }
