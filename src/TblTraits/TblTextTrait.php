@@ -1,19 +1,19 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.02.07.00
+//2023.02.07.01
 
 namespace ProtocolLive\TelegramBotLibrary\TblTraits;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
   TblEntities,
-  TblError,
   TblException,
   TblMarkup,
+  TblTextEditMulti,
   TblTextSendMulti
 };
 use ProtocolLive\TelegramBotLibrary\TelegramBotLibrary;
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
-  TgLimits,
+  TgMessageData,
   TgMethods,
   TgParseMode,
   TgText
@@ -44,37 +44,43 @@ trait TblTextTrait{
     bool $DisablePreview = false,
     TblMarkup $Markup = null
   ):TgText|bool{
-    if(mb_strlen($Text) > TgLimits::Text):
-      throw new TblException(TblError::LimitText);
-    endif;
-    if($Chat !== null):
-      $param['chat_id'] = $Chat;
-    endif;
-    if($Id !== null):
-      $param['message_id'] = $Id;
-    endif;
-    $param['text'] = $Text;
-    if($InlineId !== null):
-      $param['inline_message_id'] = $InlineId;
-    endif;
-    if($ParseMode !== null):
-      $param['parse_mode'] = $ParseMode->value;
-    endif;
-    if($Entities !== null):
-      $param['entities'] = $Entities->ToArray();
-    endif;
-    if($DisablePreview):
-      $param['disable_web_page_preview'] = 'true';
-    endif;
-    if($Markup !== null):
-      $param['reply_markup'] = $Markup->ToArray();
-    endif;
-    $return = $this->ServerMethod(TgMethods::TextEdit, $param);
+    $return = $this->ServerMethod(
+      TgMethods::TextEdit,
+      TblTextEditMulti::BuildArgs(
+        $Chat,
+        $Id,
+        $Text,
+        $InlineId,
+        $ParseMode,
+        $Entities,
+        $DisablePreview,
+        $Markup
+      )
+    );
+    $return = $this->ServerMethod(TgMethods::TextEdit, $return);
     if($return === true):
-      return $return;
+      return true;
     else:
       return new TgText($return);
     endif;
+  }
+
+  public function TextEditMulti(
+    TblTextEditMulti $Params
+  ):array{
+    /**
+     * @var TelegramBotLibrary $this
+     */
+    $return = $this->ServerMethodMulti(
+      TgMethods::TextEdit,
+      $Params->GetArray()
+    );
+    foreach($return as &$answer):
+      if(is_object($answer) === false):
+        $answer = new TgText($answer);
+      endif;
+    endforeach;
+    return $return;
   }
 
   /**
