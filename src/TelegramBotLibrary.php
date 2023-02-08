@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.02.07.00
+//2023.02.08.00
 
 namespace ProtocolLive\TelegramBotLibrary;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
@@ -826,7 +826,6 @@ extends TblBasics{
     endif;
     $update = file_get_contents('php://input');
     if($update === ''):
-      $this->Log(TblLog::Webhook, 'No event found');
       throw new TblException(TblError::NoEvent, 'No event found');
     endif;
     $update = json_decode($update, true);
