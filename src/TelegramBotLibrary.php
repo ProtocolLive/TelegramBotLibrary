@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.02.08.00
+//2023.02.08.01
 
 namespace ProtocolLive\TelegramBotLibrary;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
@@ -835,7 +835,7 @@ extends TblBasics{
         TblLog::Webhook,
         json_encode(
           $update,
-          JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE
+          JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES
         )
       );
     endif;
