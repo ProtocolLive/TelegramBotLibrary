@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.02.09.00
+//2023.02.09.01
 
 namespace ProtocolLive\TelegramBotLibrary\TblTraits;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
@@ -57,7 +57,6 @@ trait TblTextTrait{
         $Markup
       )
     );
-    $return = $this->ServerMethod(TgMethods::TextEdit, $return);
     if($return === true):
       return true;
     else:
