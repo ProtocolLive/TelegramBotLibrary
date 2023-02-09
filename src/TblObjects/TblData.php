@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.02.08.00
+//2023.02.08.01
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 
@@ -14,7 +14,8 @@ final class TblData{
     public readonly string $DirLogs,
     public readonly string|null $TokenWebhook = null,
     public readonly int $Log = TblLog::None,
-    bool $TestServer = false
+    bool $TestServer = false,
+    public readonly callable|null $LogHandler = null
   ){
     if($TestServer):
       $temp = '/test';

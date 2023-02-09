@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.02.07.02
+//2023.02.08.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 use CurlHandle;
@@ -172,6 +172,10 @@ abstract class TblBasics{
     int $Type,
     string $Msg
   ):void{
+    if($this->BotData->LogHandler !== null):
+      call_user_func($this->BotData->LogHandler, func_get_args());
+      return;
+    endif;
     $log = date('Y-m-d H:i:s') . PHP_EOL;
     $log .= $Msg . PHP_EOL;
     if($Type === TblLog::Send):
