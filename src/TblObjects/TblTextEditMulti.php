@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.02.07.01
+//2023.02.09.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
@@ -46,7 +46,7 @@ extends TblServerMulti{
     TblEntities $Entities = null,
     bool $DisablePreview = false,
     TblMarkup $Markup = null,
-    int|string $MultiControl
+    int|string $MultiControl = null
   ):void{
     $this->Args[$MultiControl ?? $Chat] = self::BuildArgs(
       $Chat,
