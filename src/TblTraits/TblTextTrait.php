@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.02.07.01
+//2023.02.09.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblTraits;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
@@ -22,7 +22,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 trait TblTextTrait{
   /**
    * Use this method to edit text and game messages.
-   * @param int $Chat Required if inline_message_id is not specified. Unique identifier for the target chat
+   * @param int|string $Chat Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
    * @param int $Id Required if inline_message_id is not specified. Identifier of the message to edit
    * @param string $Text New text of the message, 1-4096 characters after entities parsing
    * @param string $InlineId Required if chat_id and message_id are not specified. Identifier of the inline message
@@ -35,7 +35,7 @@ trait TblTextTrait{
    * @link https://core.telegram.org/bots/api#editmessagetext
    */
   public function TextEdit(
-    int $Chat = null,
+    int|string $Chat = null,
     int $Id = null,
     string $Text,
     string $InlineId = null,
@@ -65,6 +65,10 @@ trait TblTextTrait{
     endif;
   }
 
+  /**
+   * Edit text in many chats at once
+   * @return TgText[]|TblException[]|bool[]
+   */
   public function TextEditMulti(
     TblTextEditMulti $Params
   ):array{
@@ -85,7 +89,7 @@ trait TblTextTrait{
 
   /**
    * Use this method to send text messages for one or multiple chats. The Telegram API have some limits, but don't have a official docs for this.
-   * @param int|array $Chat Unique identifier for the target chats
+   * @param int|string $Chat Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
    * @param string $Text Text of the message to be sent, 1-4096 characters after entities parsing
    * @param int $Thread Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
    * @param TgParseMode $ParseMode Mode for parsing entities in the message text.
@@ -101,7 +105,7 @@ trait TblTextTrait{
    * @link https://core.telegram.org/bots/api#sendmessage
    */
   public function TextSend(
-    int $Chat,
+    int|string $Chat,
     string $Text,
     int $Thread = null,
     TgParseMode $ParseMode = null,
