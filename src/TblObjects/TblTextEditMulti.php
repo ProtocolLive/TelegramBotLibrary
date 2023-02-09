@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.02.09.00
+//2023.02.09.01
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
@@ -82,6 +82,17 @@ extends TblServerMulti{
     bool $DisablePreview = false,
     TblMarkup $Markup = null
   ):array{
+    if($InlineId === null):
+      if($Chat === null):
+        throw new TblException(TblError::MissingParameter, 'Chat is required');
+      endif;
+      if($Id === null):
+        throw new TblException(TblError::MissingParameter, 'Message ID is required');
+      endif;
+    endif;
+    if($Text === null):
+      throw new TblException(TblError::MissingParameter, 'Text is required');
+    endif;
     if(mb_strlen($Text) > TgLimits::Text):
       throw new TblException(TblError::LimitText);
     endif;

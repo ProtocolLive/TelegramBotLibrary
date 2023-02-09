@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.02.07.00
+//2023.02.09.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
@@ -102,6 +102,12 @@ extends TblServerMulti{
     bool $SendWithoutRepliedMsg = false,
     TblMarkup $Markup = null
   ):array{
+    if($Chat === null):
+      throw new TblException(TblError::MissingParameter, 'Chat is required');
+    endif;
+    if($Text === null):
+      throw new TblException(TblError::MissingParameter, 'Text is required');
+    endif;
     if(mb_strlen(strip_tags($Text)) > TgLimits::Text):
       throw new TblException(TblError::LimitText, 'Text exceed ' . TgLimits::Text . ' characters');
     endif;
