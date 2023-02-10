@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.01.03.00
+//2023.01.10.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
@@ -124,8 +124,7 @@ extends TblServerMulti{
     bool $SendWithoutRepliedMsg = false,
     TblMarkup $Markup = null
   ):array{
-    if($Caption !== null
-    and strlen($Caption) > TgLimits::Caption):
+    if(mb_strlen(strip_tags($Caption)) > TgLimits::Caption):
       throw new TblException(TblError::LimitPhotoCaption);
     endif;
     $param['chat_id'] = $Chat;

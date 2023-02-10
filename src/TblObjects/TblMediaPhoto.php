@@ -1,10 +1,13 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.02.03.00
+//2023.02.10.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgParseMode;
+use ProtocolLive\TelegramBotLibrary\TgObjects\{
+  TgLimits,
+  TgParseMode
+};
 
 /**
  * @link https://core.telegram.org/bots/api#inputmediaphoto
@@ -25,6 +28,9 @@ extends TblMedia{
       'media' => $this->Media
     ];
     if($this->Caption !== null):
+      if(mb_strlen(strip_tags($this->Caption)) > TgLimits::Caption):
+        throw new TblException(TblError::LimitPhotoCaption);
+      endif;
       $param['caption'] = $this->Caption;
     endif;
     if($this->ParseMode !== null):
