@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.02.09.02
+//2023.02.11.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
@@ -113,6 +113,10 @@ extends TblServerMulti{
       if($Id === null):
         throw new TblException(TblError::MissingParameter, 'Message ID is required');
       endif;
+      $param['chat_id'] = $Chat;
+      $param['message_id'] = $Id;
+    else:
+      $param['inline_message_id'] = $InlineId;
     endif;
     if($Text === null):
       throw new TblException(TblError::MissingParameter, 'Text is required');
@@ -120,16 +124,7 @@ extends TblServerMulti{
     if(mb_strlen($Text) > TgLimits::Text):
       throw new TblException(TblError::LimitText);
     endif;
-    if($Chat !== null):
-      $param['chat_id'] = $Chat;
-    endif;
-    if($Id !== null):
-      $param['message_id'] = $Id;
-    endif;
     $param['text'] = $Text;
-    if($InlineId !== null):
-      $param['inline_message_id'] = $InlineId;
-    endif;
     if($ParseMode !== null):
       $param['parse_mode'] = $ParseMode->value;
     endif;
