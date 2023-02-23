@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.02.08.00
+//2023.02.23.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 use CurlHandle;
@@ -9,6 +9,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgChatAutoDel,
   TgChatMigrateFrom,
   TgChatMigrateTo,
+  TgChatPhotoNew,
   TgChatShared,
   TgChatTitle,
   TgDocument,
@@ -119,6 +120,8 @@ abstract class TblBasics{
       return new TgChatMigrateTo($Data);
     elseif(isset($Data['new_chat_member'])):
       return new TgMemberNew($Data);
+    elseif(isset($Data['new_chat_photo'])):
+      return new TgChatPhotoNew($Data);
     elseif(isset($Data['new_chat_title'])):
       return new TgChatTitle($Data);
     elseif(isset($Data['passport_data'])):
