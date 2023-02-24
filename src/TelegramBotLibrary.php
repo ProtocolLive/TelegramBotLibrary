@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.02.08.01
+//2023.02.24.00
 
 namespace ProtocolLive\TelegramBotLibrary;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
@@ -608,6 +608,61 @@ extends TblBasics{
     endif;
     $return = $this->ServerMethod(TgMethods::MessageForward, $param);
     return $this->DetectReturn(['message' => $return]);
+  }
+
+  /**
+   * Use this method to add a message to the list of pinned messages in a chat. If the chat is not a private chat, the bot must be an administrator in the chat for this to work and must have the 'can_pin_messages' administrator right in a supergroup or 'can_edit_messages' administrator right in a channel.
+   * @param int|string $Chat Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * @param int $Id Identifier of a message to pin
+   * @param bool $DisableNotification Pass True if it is not necessary to send a notification to all chat members about the new pinned message. Notifications are always disabled in channels and private chats.
+   * @return bool Returns True on success.
+   * @throws TblException
+   * @link https://core.telegram.org/bots/api#pinchatmessage
+   */
+  public function MessagePin(
+    int|string $Chat,
+    int $Id,
+    bool $DisableNotification = false
+  ):void{
+    $param['chat_id'] = $Chat;
+    $param['message_id'] = $Id;
+    if($DisableNotification):
+      $param['disable_notification'] = true;
+    endif;
+    return $this->ServerMethod(TgMethods::MessagePin, $param);
+  }
+
+  /**
+   * Use this method to remove a message from the list of pinned messages in a chat. If the chat is not a private chat, the bot must be an administrator in the chat for this to work and must have the 'can_pin_messages' administrator right in a supergroup or 'can_edit_messages' administrator right in a channel.
+   * @param int|string $Chat Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * @param int $Id Identifier of a message to unpin. If not specified, the most recent pinned message (by sending date) will be unpinned.
+   * @return bool Returns True on success.
+   * @link https://core.telegram.org/bots/api#unpinchatmessage
+   * @throws TblException
+   */
+  public function MessageUnpin(
+    int|string $Chat,
+    int $Id = null
+  ):bool{
+    $param['chat_id'] = $Chat;
+    if($Id !== null):
+      $param['message_id'] = $Id;
+    endif;
+    return $this->ServerMethod(TgMethods::MessageUnpin, $param);
+  }
+
+  /**
+   * Use this method to clear the list of pinned messages in a chat. If the chat is not a private chat, the bot must be an administrator in the chat for this to work and must have the 'can_pin_messages' administrator right in a supergroup or 'can_edit_messages' administrator right in a channel.
+   * @param int|string $Chat Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * @return bool Returns True on success.
+   * @throws TblException
+   * @link https://core.telegram.org/bots/api#unpinallchatmessages
+   */
+  public function MessageUnpinAll(
+    int|string $Chat
+  ):bool{
+    $param['chat_id'] = $Chat;
+    return $this->ServerMethod(TgMethods::MessageUnpinAll, $param);
   }
 
   /**

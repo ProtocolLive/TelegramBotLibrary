@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.02.03.00
+//2023.02.24.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -48,6 +48,9 @@ enum TgMethods:string{
   case MessageCopy = 'copyMessage';
   case MessageDelete = 'deleteMessage';
   case MessageForward = 'forwardMessage';
+  case MessagePin = 'pinChatMessage';
+  case MessageUnpin = 'unpinChatMessage';
+  case MessageUnpinAll = 'unpinAllChatMessages';
   case MyDefaultPermAdmGet = 'getMyDefaultAdministratorRights';
   case MyDefaultPermAdmSet = 'setMyDefaultAdministratorRights';
   case MyGet = 'getMe';
