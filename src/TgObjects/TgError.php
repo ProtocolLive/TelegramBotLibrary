@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.02.03.01
+//2023.02.24.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -39,6 +39,7 @@ enum TgError{
   case SomethingMissing;
   case TextButtonNo;
   case TooMany;
+  case UnpinNotFound;
   case UrlFailed;
   case UrlInvalid;
   case UrlShort;
