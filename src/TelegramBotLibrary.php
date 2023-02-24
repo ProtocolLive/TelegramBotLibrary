@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.02.24.00
+//2023.02.24.01
 
 namespace ProtocolLive\TelegramBotLibrary;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
@@ -623,7 +623,7 @@ extends TblBasics{
     int|string $Chat,
     int $Id,
     bool $DisableNotification = false
-  ):void{
+  ):bool{
     $param['chat_id'] = $Chat;
     $param['message_id'] = $Id;
     if($DisableNotification):
