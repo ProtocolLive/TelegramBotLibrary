@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.02.25.00
+//2023.02.26.00
 
 namespace ProtocolLive\TelegramBotLibrary;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
@@ -50,6 +50,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgPermAdmin,
   TgPhoto,
   TgPhotoEdited,
+  TgPinnedMsg,
   TgPoll,
   TgProfilePhoto,
   TgSticker,
@@ -291,6 +292,8 @@ extends TblBasics{
       return new TgInvoiceCheckout($Data['pre_checkout_query']);
     elseif(isset($Data['shipping_query'])):
       return new TgInvoiceShipping($Data['shipping_query']);
+    elseif(isset($Data['channel_post']['pinned_message'])):
+      return new TgPinnedMsg($Data['channel_post']);
     endif;
   }
 
