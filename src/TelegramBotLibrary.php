@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.02.26.00
+//2023.02.28.00
 
 namespace ProtocolLive\TelegramBotLibrary;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
@@ -251,14 +251,13 @@ extends TblBasics{
   private function DetectReturn(
     array $Data
   ):object{
-    if(($temp = TblBasics::DetectMessage($Data['message'] ?? [])) !== null):
-      return $temp;
-    elseif(isset($Data['channel_post']['entities'][0])
-    and $Data['channel_post']['entities'][0]['type'] === TgEntityType::Command->value
-    and $Data['channel_post']['entities'][0]['offset'] === 0):
-      return new TblCmd($Data['channel_post']);
-
-    elseif(isset($Data['edited_message']['entities'][0])
+    if(isset($Data['message'])):
+      return TblBasics::DetectMessage($Data['message']);
+    endif;
+    if(isset($Data['channel_post'])):
+      return TblBasics::DetectMessage($Data['channel_post']);
+    endif;
+    if(isset($Data['edited_message']['entities'][0])
     and $Data['edited_message']['entities'][0]['type'] === TgEntityType::Command->value
     and $Data['edited_message']['entities'][0]['offset'] === 0):
       return new TblCmdEdited($Data['edited_message']);
@@ -292,8 +291,6 @@ extends TblBasics{
       return new TgInvoiceCheckout($Data['pre_checkout_query']);
     elseif(isset($Data['shipping_query'])):
       return new TgInvoiceShipping($Data['shipping_query']);
-    elseif(isset($Data['channel_post']['pinned_message'])):
-      return new TgPinnedMsg($Data['channel_post']);
     endif;
   }
 
