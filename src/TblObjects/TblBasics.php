@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.02.23.00
+//2023.02.28.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 use CurlHandle;
@@ -64,18 +64,24 @@ abstract class TblBasics{
   private function CurlResponse(
     CurlHandle $Curl,
   ):array|bool|TblException{
+    $error = null;
     $response = curl_multi_getcontent($Curl);
     $response = json_decode($response, true);
+    if(json_last_error() > 0):
+      $error = 'Json error: ' . json_last_error_msg();
+    endif;
     if($this->BotData->Log & TblLog::Response):
       $this->Log(
         TblLog::Response,
         json_encode(
-          $response,
+          $error === null ? $response : $error,
           JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
         )
       );
     endif;
-    if($response['ok'] === false):
+    if($response === null):
+      return new TblException(TblError::Custom, $error);
+    elseif($response['ok'] === false):
       $search = TgErrors::Search($response['description']);
       if($search === false):
         return new TblException(TblError::Custom, $response['description']);
