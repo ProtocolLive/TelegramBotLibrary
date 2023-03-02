@@ -1,4 +1,4 @@
-b3701222f6faae2018be31c5e8a40381354301c9  TblObjects\TblBasics.php
+6d227963524b433a0672b6e87a22565c6ccd24bf  TblObjects\TblBasics.php
 1ba05565b9ea05bc96c8061f05419c86f2f94c7b  TblObjects\TblCmd.php
 c21cb052957966371e871c33c808717ff78a1bd1  TblObjects\TblCmdEdited.php
 079695f24b862e0798e20038ccc16c6fc7611778  TblObjects\TblCommands.php
@@ -35,7 +35,7 @@ afc0826e32405cb6d7c76dbfacaaf7aedc13a320  TblObjects\TblMedia.php
 cd235c33054fed023466fbe400299332f53de0b5  TblTraits\TblInvoiceTrait.php
 afffe713c563d430992cf6415a0151e3ffa0b10e  TblTraits\TblPhotoTrait.php
 ce109dd4699e6024f3aa20fce35453d481f2029e  TblTraits\TblTextTrait.php
-b634d268ecb900c2fb47bfa1f59010771f3962af  TelegramBotLibrary.php
+fbd1e00a02b5da2779a28679b45932b1e7609a28  TelegramBotLibrary.php
 4f5ce14cac68a9551a9010a328d9af4d64832d72  TgObjects\TgButtonCallback.php
 4c8bf895037fbc35e2b1b875267e75623703fad2  TgObjects\TgButtonWebapp.php
 b2565f9e7ce7547e8ade261c02dbb7feafd8518b  TgObjects\TgCallback.php
@@ -95,7 +95,7 @@ c7bd294892e4eb95c3d4049dd59ec0fa9955341d  TgObjects\TgPassportDataDriver.php
 3690887b6330af47ad4d1204326d5c86f5709e18  TgObjects\TgPassportDataType.php
 71e517429857d2586b615e7326f566a6b5af8d40  TgObjects\TgPassportFile.php
 a545885d59538cf37af643fd1836a03e563ceb13  TgObjects\TgPermAdmin.php
-add0ed37433f7bb79161b1293d8e528e25356996  TgObjects\TgPermMember.php
+1c8f70a934d1ce81c62b5887460ab33fe26833de  TgObjects\TgPermMember.php
 5d63157fc1abc926323fb4e318983d33520104d1  TgObjects\TgPhoto.php
 25bd4eb3df68598c25632a63ae86e8f9e725ee78  TgObjects\TgPhotoEdited.php
 77160fe3ebb165e20e8683628d50d31a629a6c9d  TgObjects\TgPhotoSize.php
