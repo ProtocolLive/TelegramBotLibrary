@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.03.03.00
+//2023.03.03.01
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 use CurlHandle;
@@ -66,30 +66,31 @@ abstract class TblBasics{
   ):array|bool|TblException{
     $error = null;
     $response = curl_multi_getcontent($Curl);
-    $response = json_decode($response, true);
+    $json = json_decode($response, true);
     if(json_last_error() > 0):
-      $error = 'Json error: ' . json_last_error_msg();
+      $error = 'Json error: ' . json_last_error_msg() . PHP_EOL;
+      $error .= 'Response: ' . $response;
     endif;
     if($this->BotData->Log & TblLog::Response):
       $this->Log(
         TblLog::Response,
         json_encode(
-          $error === null ? $response : $error,
+          $error === null ? $json : $error,
           JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
         )
       );
     endif;
-    if($response === null):
+    if($error !== null):
       return new TblException(TblError::JsonError, $error);
-    elseif($response['ok'] === false):
-      $search = TgErrors::Search($response['description']);
+    elseif($json['ok'] === false):
+      $search = TgErrors::Search($json['description']);
       if($search === false):
-        return new TblException(TblError::Custom, $response['description']);
+        return new TblException(TblError::Custom, $json['description']);
       else:
-        return new TblException($search, $response['description']);
+        return new TblException($search, $json['description']);
       endif;
     else:
-      return $response['result'];
+      return $json['result'];
     endif;
   }
 
