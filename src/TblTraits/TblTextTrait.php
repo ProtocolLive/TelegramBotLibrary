@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.02.09.01
+//2023.03.03.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblTraits;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
@@ -136,8 +136,8 @@ trait TblTextTrait{
   }
 
   /**
-   * Send text to many chats at once. Carefully with server limits.
-   * https://core.telegram.org/bots/faq#my-bot-is-hitting-limits-how-do-i-avoid-this
+   * Send text to many chats at once.
+   * Carefully with server limits: https://core.telegram.org/bots/faq#my-bot-is-hitting-limits-how-do-i-avoid-this
    * @return TgText[]|TblException[]
    */
   public function TextSendMulti(
