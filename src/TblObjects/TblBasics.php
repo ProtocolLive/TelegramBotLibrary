@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.02.28.00
+//2023.03.03.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 use CurlHandle;
@@ -80,7 +80,7 @@ abstract class TblBasics{
       );
     endif;
     if($response === null):
-      return new TblException(TblError::Custom, $error);
+      return new TblException(TblError::JsonError, $error);
     elseif($response['ok'] === false):
       $search = TgErrors::Search($response['description']);
       if($search === false):
