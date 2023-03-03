@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.02.09.00
+//2023.03.03.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 
@@ -15,9 +15,12 @@ enum TblError{
   case InvoicePriceHigh;
   case InvoicePriceLow;
   /**
-   * https://core.telegram.org/bots/api#answercallbackquery
+   * @link https://core.telegram.org/bots/api#answercallbackquery
    */
   case LimitCallbackAnswer;
+  /**
+   * @link https://core.telegram.org/bots/api#inlinekeyboardbutton
+   */
   case LimitCallbackData;
   /**
    * @link https://core.telegram.org/bots/api#botcommand
