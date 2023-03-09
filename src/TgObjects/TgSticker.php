@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.03.09.00
+//2023.03.09.01
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -58,7 +58,7 @@ final class TgSticker{
   /**
    * For mask stickers, the position where the mask should be placed
    */
-  public readonly string|null $Mask;
+  public readonly TgMask|null $Mask;
   /**
    * For custom emoji stickers, unique identifier of the custom emoji
    */
