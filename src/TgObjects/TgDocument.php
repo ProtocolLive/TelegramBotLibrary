@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.01.31.00
+//2023.03.09.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -52,8 +52,8 @@ class TgDocument{
     $this->Size = $Data['document']['file_size'];
     $this->MediaGroup = $Data['media_group_id'] ?? null;
     $this->Caption = $Data['caption'] ?? null;
-    if(isset($Data['thumb'])):
-      $this->Thumb = new TgPhotoSize($Data['thumb']);
+    if(isset($Data['thumbnail'])):
+      $this->Thumb = new TgPhotoSize($Data['thumbnail']);
     endif;
   }
 }

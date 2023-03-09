@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.03.09.01
+//2023.03.09.02
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -84,8 +84,8 @@ final class TgSticker{
     $this->Height = $Data['sticker']['height'];
     $this->Animated = $Data['sticker']['is_animated'] ?? false;
     $this->Video = $Data['sticker']['is_video'] ?? false;
-    if(isset($Data['sticker']['thumb'])):
-      $this->Thumb = new TgPhotoSize($Data['sticker']['thumb']);
+    if(isset($Data['sticker']['thumbnail'])):
+      $this->Thumb = new TgPhotoSize($Data['sticker']['thumbnail']);
     endif;
     $this->Emoji = $Data['sticker']['emoji'] ?? null;
     $this->SetName = $Data['sticker']['set_name'] ?? null;
