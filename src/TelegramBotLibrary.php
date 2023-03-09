@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.03.09.00
+//2023.03.09.01
 
 namespace ProtocolLive\TelegramBotLibrary;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
@@ -914,6 +914,7 @@ extends TblBasics{
    * @param int $Chat Unique identifier for the target chat
    * @param string $Sticker Sticker to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a .WEBP file from the Internet, or upload a new one using multipart/form-data.
    * @param int $Thread Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   * @param string $Emoji Emoji associated with the sticker; only for just uploaded stickers
    * @param bool $DisableNotification Sends the message silently. Users will receive a notification with no sound.
    * @param bool $Protect Protects the contents of the sent message from forwarding and saving
    * @param int $RepliedMsg If the message is a reply, ID of the original message
@@ -927,6 +928,7 @@ extends TblBasics{
     int $Chat,
     string $Sticker,
     int $Thread = null,
+    string $Emoji = null,
     bool $DisableNotification = false,
     bool $Protect = false,
     int $RepliedMsg = null,
@@ -940,6 +942,9 @@ extends TblBasics{
     endif;
     if($DisableNotification):
       $param['disable_notification'] = 'true';
+    endif;
+    if($Emoji !== null):
+      $param['emoji'] = $Emoji;
     endif;
     if($Protect):
       $param['protect_content'] = 'true';
