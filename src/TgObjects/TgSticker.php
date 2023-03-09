@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.12.30.00
+//2023.03.09.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -67,6 +67,10 @@ final class TgSticker{
    * File size in bytes
    */
   public readonly int|null $FileSize;
+  /**
+   * If the sticker must be repainted to a text color in messages, the color of the Telegram Premium badge in emoji status, white color on chat photos, or another appropriate color in other places
+   */
+  public readonly bool $Repainting;
 
   /**
    * @link https://core.telegram.org/bots/api#sticker
@@ -97,5 +101,6 @@ final class TgSticker{
     endif;
     $this->CustomEmojiId = $Data['sticker']['custom_emoji_id'] ?? null;
     $this->FileSize = $Data['sticker']['file_size'] ?? null;
+    $this->Repainting = $Data['sticker']['needs_repainting'] ?? false;
   }
 }
