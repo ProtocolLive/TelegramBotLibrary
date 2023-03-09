@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.02.28.00
+//2023.03.09.00
 
 namespace ProtocolLive\TelegramBotLibrary;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
@@ -169,6 +169,92 @@ extends TblBasics{
   ):array{
     $param['custom_emoji_ids'] = json_encode($Ids);
     return $this->ServerMethod(TgMethods::CustomEmojiGet, $param);
+  }
+
+  /**
+   * Use this method to get the current bot description for the given user language.
+   * @param string $Language A two-letter ISO 639-1 language code or an empty string
+   * @return string Returns BotDescription on success.
+   * @throws TblException
+   * @link https://core.telegram.org/bots/api#getmydescription
+   */
+  public function DescriptionGet(
+    string $Language = null
+  ):string{
+    $params = [];
+    if($Language !== null):
+      $params['language_code'] = $Language;
+    endif;
+    $return = $this->ServerMethod(TgMethods::DescriptionGet, $params);
+    return $return['description'];
+  }
+
+  /**
+   * Use this method to change the bot's description, which is shown in the chat with the bot if the chat is empty.
+   * @param string $Description New bot description; 0-512 characters. Pass an empty string to remove the dedicated description for the given language.
+   * @param string $Language A two-letter ISO 639-1 language code. If empty, the description will be applied to all users for whose language there is no dedicated description.
+   * @return bool Returns True on success.
+   * @throws TblException
+   * @link https://core.telegram.org/bots/api#setmydescription
+   */
+  public function DescriptionSet(
+    string $Description = null,
+    string $Language = null
+  ):bool{
+    $params = [];
+    if($Description !== null):
+      if(mb_strlen($Description) > TgLimits::Description):
+        throw new TblException(TblError::LimitDescription);
+      endif;
+      $params['description'] = $Description;
+    endif;
+    if($Language !== null):
+      $params['language_code'] = $Language;
+    endif;
+    return $this->ServerMethod(TgMethods::DescriptionSet, $params);
+  }
+
+  /**
+   * Use this method to get the current bot short description for the given user language.
+   * @param string $Language A two-letter ISO 639-1 language code or an empty string
+   * @return string Returns BotShortDescription on success.
+   * @throws TblException
+   * @link https://core.telegram.org/bots/api#getmyshortdescription
+   */
+  public function DescriptionShortGet(
+    string $Language = null
+  ):string{
+    $params = [];
+    if($Language !== null):
+      $params['language_code'] = $Language;
+    endif;
+    $return = $this->ServerMethod(TgMethods::DescriptionShortGet, $params);
+    return $return['short_description'];
+  }
+
+  /**
+   * Use this method to change the bot's short description, which is shown on the bot's profile page and is sent together with the link when users share the bot.
+   * @param string $Description New short description for the bot; 0-120 characters. Pass an empty string to remove the dedicated short description for the given language.
+   * @param string $Language A two-letter ISO 639-1 language code. If empty, the short description will be applied to all users for whose language there is no dedicated short description.
+   * @return bool Returns True on success.
+   * @throws TblException
+   * @link https://core.telegram.org/bots/api#setmyshortdescription
+   */
+  public function DescriptionShortSet(
+    string $Description = null,
+    string $Language = null
+  ):bool{
+    $params = [];
+    if($Description !== null):
+      if(mb_strlen($Description) > TgLimits::DescriptionShort):
+        throw new TblException(TblError::LimitDescriptionShort);
+      endif;
+      $params['short_description'] = $Description;
+    endif;
+    if($Language !== null):
+      $params['language_code'] = $Language;
+    endif;
+    return $this->ServerMethod(TgMethods::DescriptionShortSet, $params);
   }
 
   /**
