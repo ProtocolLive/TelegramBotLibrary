@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.01.16.00
+//2023.03.09.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 
@@ -53,13 +53,13 @@ class TblInlineQueryArticle extends TblInlineQuery{
       $param['description'] = $this->Description;
     endif;
     if($this->Thumb !== null):
-      $param['thumb_url'] = $this->Thumb;
+      $param['thumbnail_url'] = $this->Thumb;
     endif;
     if($this->ThumbWidth !== null):
-      $param['thumb_width'] = $this->ThumbWidth;
+      $param['thumbnail_width'] = $this->ThumbWidth;
     endif;
     if($this->ThumbHeight !== null):
-      $param['thumb_height'] = $this->ThumbHeight;
+      $param['thumbnail_height'] = $this->ThumbHeight;
     endif;
     return $param;
   }

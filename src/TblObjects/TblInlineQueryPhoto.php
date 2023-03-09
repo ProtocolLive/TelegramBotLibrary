@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.01.20.00
+//2023.03.09.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgParseMode;
@@ -47,8 +47,8 @@ extends TblInlineQuery{
     if($this->FileId !== null):
       $param['photo_file_id'] = $this->FileId;
     else:
-      $param['photo_url'] = $this->Url;
-      $param['thumb_url'] = $this->Thumb;
+      $param['thumbnail_url'] = $this->Url;
+      $param['thumbnail_url'] = $this->Thumb;
       if($this->Width !== null):
         $param['photo_width'] = $this->Width;
       endif;
