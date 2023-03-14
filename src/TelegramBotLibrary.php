@@ -1,12 +1,12 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.03.09.01
+//2023.03.09.02
 
 namespace ProtocolLive\TelegramBotLibrary;
+use CurlFile;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
   TblBasics,
-  TblCmd,
   TblCmdEdited,
   TblCommands,
   TblData,
@@ -50,7 +50,6 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgPermAdmin,
   TgPhoto,
   TgPhotoEdited,
-  TgPinnedMsg,
   TgPoll,
   TgProfilePhoto,
   TgSticker,
@@ -291,7 +290,7 @@ extends TblBasics{
   ):TgDocument{
     $param['chat_id'] = $Chat;
     if(is_file($File)):
-      $param['document'] = new \CurlFile($File);
+      $param['document'] = new CurlFile($File);
     else:
       $param['document'] = $File;
     endif;
@@ -300,9 +299,9 @@ extends TblBasics{
     endif;
     if($Thumb !== null):
       if(is_file($Thumb)):
-        $param['thumb'] = new \CurlFile($File);
+        $param['thumbnail'] = new CurlFile($File);
       else:
-        $param['thumb'] = $Thumb;
+        $param['thumbnail'] = $Thumb;
       endif;
     endif;
     if($Caption !== null):
