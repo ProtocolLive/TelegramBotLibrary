@@ -1,13 +1,12 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.03.09.02
+//2023.03.16.00
 
 namespace ProtocolLive\TelegramBotLibrary;
 use CurlFile;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
   TblBasics,
-  TblCmdEdited,
   TblCommands,
   TblData,
   TblDefaultPerms,
@@ -32,7 +31,6 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgCmdScope,
   TgDocument,
   TgDocumentEdited,
-  TgEntityType,
   TgFile,
   TgGroupStatus,
   TgGroupStatusMy,
@@ -338,14 +336,12 @@ extends TblBasics{
   ):object{
     if(isset($Data['message'])):
       return TblBasics::DetectMessage($Data['message']);
-    endif;
-    if(isset($Data['channel_post'])):
+    elseif(isset($Data['edited_message'])):
+      return TblBasics::DetectMessageEdited($Data['edited_message']);
+    elseif(isset($Data['channel_post'])):
       return TblBasics::DetectMessage($Data['channel_post']);
-    endif;
-    if(isset($Data['edited_message']['entities'][0])
-    and $Data['edited_message']['entities'][0]['type'] === TgEntityType::Command->value
-    and $Data['edited_message']['entities'][0]['offset'] === 0):
-      return new TblCmdEdited($Data['edited_message']);
+    elseif(isset($Data['edited_channel_post'])):
+      return TblBasics::DetectMessageEdited($Data['edited_channel_post']);
     elseif(isset($Data['callback_query'])):
       return new TgCallback($Data['callback_query']);
     elseif(isset($Data['chat_join_request'])):

@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.03.03.01
+//2023.03.16.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 use CurlHandle;
@@ -13,6 +13,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgChatShared,
   TgChatTitle,
   TgDocument,
+  TgDocumentEdited,
   TgEntityType,
   TgErrors,
   TgForumClosed,
@@ -27,16 +28,19 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgMethods,
   TgPassport,
   TgPhoto,
+  TgPhotoEdited,
   TgPinnedMsg,
   TgPoll,
   TgSticker,
   TgText,
+  TgTextEdited,
   TgUserShared,
   TgVideo,
   TgVideoChatEnded,
   TgVideoChatInvite,
   TgVideoChatScheduled,
   TgVideoChatStarted,
+  TgVideoEdited,
   TgVoice,
   TgWebappData
 };
@@ -161,6 +165,26 @@ abstract class TblBasics{
       return new TgVoice($Data);
     elseif(isset($Data['web_app_data'])):
       return new TgWebappData($Data);
+    else:
+      return null;
+    endif;
+  }
+
+  public static function DetectMessageEdited(
+    array $Data
+  ):object|null{
+    if(isset($Data['entities'][0])
+    and $Data['entities'][0]['type'] === TgEntityType::Command->value
+    and $Data['entities'][0]['offset'] === 0):
+      return new TblCmdEdited($Data);
+    elseif(isset($Data['document'])):
+      return new TgDocumentEdited($Data);
+    elseif(isset($Data['photo'])):
+      return new TgPhotoEdited($Data);
+    elseif(isset($Data['text'])):
+      return new TgTextEdited($Data);
+    elseif(isset($Data['video'])):
+      return new TgVideoEdited($Data);
     else:
       return null;
     endif;
