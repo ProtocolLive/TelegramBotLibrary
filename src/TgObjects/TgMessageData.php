@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.02.04.00
+//2023.03.28.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -73,7 +73,7 @@ class TgMessageData{
     $this->Id = $Data['message_id'];
     if(($Data['from']['id'] ?? 0) === 777000): //Telegram
       $this->User = new TgChat($Data['sender_chat']);
-      $this->ForwardFrom = new TgChat($Data['forward_from_chat']);
+      $this->ForwardFrom = new TgChat($Data['forward_from_chat'] ?? $Data['forward_from']);
       $this->ForwardId = $Data['forward_from_message_id'];
       $this->ForwardAuto = $Data['is_automatic_forward'];
     elseif(($Data['from']['id'] ?? 0) === 1087968824): //GroupAnonymousBot
