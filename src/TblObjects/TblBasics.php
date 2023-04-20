@@ -1,11 +1,12 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.03.16.00
+//2023.04.20.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 use CurlHandle;
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
+  TgAnimation,
   TgChatAutoDel,
   TgChatMigrateFrom,
   TgChatMigrateTo,
@@ -105,6 +106,8 @@ abstract class TblBasics{
     and $Data['entities'][0]['type'] === TgEntityType::Command->value
     and $Data['entities'][0]['offset'] === 0):
       return new TblCmd($Data);
+    elseif(isset($Data['animation'])):
+      return new TgAnimation($Data);
     elseif(isset($Data['chat_shared'])):
       return new TgChatShared($Data);
     elseif(isset($Data['document'])):
@@ -177,6 +180,8 @@ abstract class TblBasics{
     and $Data['entities'][0]['type'] === TgEntityType::Command->value
     and $Data['entities'][0]['offset'] === 0):
       return new TblCmdEdited($Data);
+    elseif(isset($Data['animation'])):
+      return new TgAnimation($Data);
     elseif(isset($Data['document'])):
       return new TgDocumentEdited($Data);
     elseif(isset($Data['photo'])):
