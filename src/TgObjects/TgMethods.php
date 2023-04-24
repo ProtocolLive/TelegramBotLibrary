@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.03.09.00
+//2023.04.24.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -58,6 +58,8 @@ enum TgMethods:string{
   case MyDefaultPermAdmGet = 'getMyDefaultAdministratorRights';
   case MyDefaultPermAdmSet = 'setMyDefaultAdministratorRights';
   case MyGet = 'getMe';
+  case NameGet = 'getMyName';
+  case NameSet = 'setMyName';
   case PhotoSend = 'sendPhoto';
   case StickerSend = 'sendSticker';
   case TextEdit = 'editMessageText';

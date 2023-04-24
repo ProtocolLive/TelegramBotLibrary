@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.04.24.00
+//2023.04.24.01
 
 namespace ProtocolLive\TelegramBotLibrary\TblTraits;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
@@ -221,6 +221,46 @@ trait TblMyTrait{
   public function MyGet():TgUser{
     $return = $this->ServerMethod(TgMethods::MyGet);
     return new TgUser($return);
+  }
+
+  /**
+   * Use this method to get the current bot name for the given user language. Returns BotName on success.
+   * @param string $Language A two-letter ISO 639-1 language code or an empty string
+   * @return string
+   * @link https://core.telegram.org/bots/api#getmyname
+   */
+  public function MyNameGet(
+    string $Language = null
+  ):string{
+    $params = [];
+    if($Language !== null):
+      $params['language_code'] = $Language;
+    endif;
+    $return = $this->ServerMethod(TgMethods::NameGet, $params);
+    return $return['name'];
+  }
+
+  /**
+   * Use this method to get the current bot name for the given user language. Returns BotName on success.
+   * @param string $Name New bot name; 0-64 characters. Pass an empty string to remove the dedicated name for the given language.
+   * @param string $Language A two-letter ISO 639-1 language code. If empty, the name will be shown to all users for whose language there is no dedicated name.
+   * @return string
+   * @throws TblException
+   * @link https://core.telegram.org/bots/api#getmyname
+   */
+  public function MyNameSet(
+    string $Name = null,
+    string $Language = null
+  ):string{
+    $params = [];
+    if(strlen($Name) > TgLimits::Name):
+      throw new TblException(TblError::LimitName, 'Bot name exceeds ' . TgLimits::Name . ' characters');
+    endif;
+    if($Language !== null):
+      $params['language_code'] = $Language;
+    endif;
+    $return = $this->ServerMethod(TgMethods::NameSet, $params);
+    return $return['name'];
   }
 
   /**

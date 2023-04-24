@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.03.09.00
+//2023.04.24.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -29,5 +29,9 @@ class TgLimits{
    */
   const DescriptionShort = 120;
   const MediaGroup = 10;
+  /**
+   * @link https://core.telegram.org/bots/api#setmyname
+   */
+  const Name = 64;
   const Text = 4096;
 }
