@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.12.08.00
+//2023.04.24.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -28,6 +28,7 @@ final class TgGroupStatus{
   public readonly TgPermMember|TgPermAdmin $PermsOld;
   public readonly TgMemberStatus $StatusNew;
   public readonly TgPermMember|TgPermAdmin $PermsNew;
+  public readonly bool $ViaFolderLink;
 
   /**
    * The bot's chat member status was updated in a chat. For private chats, this update is received only when the bot is blocked or unblocked by the user.
@@ -49,5 +50,6 @@ final class TgGroupStatus{
     else:
       $this->PermsNew = new TgPermMember($Data['new_chat_member']);
     endif;
+    $this->ViaFolderLink = $Data['via_chat_folder_invite_link'] ?? false;
   }
 }
