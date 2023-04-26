@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.04.26.00
+//2023.04.26.01
 
 namespace ProtocolLive\TelegramBotLibrary\TblTraits;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
@@ -225,9 +225,9 @@ trait TblMyTrait{
   }
 
   /**
-   * Use this method to get the current bot name for the given user language. Returns BotName on success.
+   * Use this method to get the current bot name for the given user language.
    * @param TgLanguages $Language A two-letter ISO 639-1 language code or an empty string
-   * @return string
+   * @return string BotName on success.
    * @link https://core.telegram.org/bots/api#getmyname
    */
   public function MyNameGet(
@@ -242,10 +242,10 @@ trait TblMyTrait{
   }
 
   /**
-   * Use this method to get the current bot name for the given user language. Returns BotName on success.
+   * Use this method to get the current bot name for the given user language.
    * @param string $Name New bot name; 0-64 characters. Pass an empty string to remove the dedicated name for the given language.
    * @param TgLanguages $Language A two-letter ISO 639-1 language code. If empty, the name will be shown to all users for whose language there is no dedicated name.
-   * @return string
+   * @return string BotName on success.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#getmyname
    */
