@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.04.24.01
+//2023.04.26.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblTraits;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
@@ -12,6 +12,7 @@ use ProtocolLive\TelegramBotLibrary\TblObjects\{
 };
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgCmdScope,
+  TgLanguages,
   TgLimits,
   TgMethods,
   TgPermAdmin,
@@ -21,17 +22,17 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 trait TblMyTrait{
   /**
    * Use this method to get the current bot description for the given user language.
-   * @param string $Language A two-letter ISO 639-1 language code or an empty string
+   * @param TgLanguages $Language A two-letter ISO 639-1 language code or an empty string
    * @return string Returns BotDescription on success.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#getmydescription
    */
   public function DescriptionGet(
-    string $Language = null
+    TgLanguages $Language = null
   ):string{
     $params = [];
     if($Language !== null):
-      $params['language_code'] = $Language;
+      $params['language_code'] = $Language->value;
     endif;
     $return = $this->ServerMethod(TgMethods::DescriptionGet, $params);
     return $return['description'];
@@ -40,14 +41,14 @@ trait TblMyTrait{
   /**
    * Use this method to change the bot's description, which is shown in the chat with the bot if the chat is empty.
    * @param string $Description New bot description; 0-512 characters. Pass an empty string to remove the dedicated description for the given language.
-   * @param string $Language A two-letter ISO 639-1 language code. If empty, the description will be applied to all users for whose language there is no dedicated description.
+   * @param TgLanguages $Language A two-letter ISO 639-1 language code. If empty, the description will be applied to all users for whose language there is no dedicated description.
    * @return bool Returns True on success.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#setmydescription
    */
   public function DescriptionSet(
     string $Description = null,
-    string $Language = null
+    TgLanguages $Language = null
   ):bool{
     $params = [];
     if($Description !== null):
@@ -57,24 +58,24 @@ trait TblMyTrait{
       $params['description'] = $Description;
     endif;
     if($Language !== null):
-      $params['language_code'] = $Language;
+      $params['language_code'] = $Language->value;
     endif;
     return $this->ServerMethod(TgMethods::DescriptionSet, $params);
   }
 
   /**
    * Use this method to get the current bot short description for the given user language.
-   * @param string $Language A two-letter ISO 639-1 language code or an empty string
+   * @param TgLanguages $Language A two-letter ISO 639-1 language code or an empty string
    * @return string Returns BotShortDescription on success.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#getmyshortdescription
    */
   public function DescriptionShortGet(
-    string $Language = null
+    TgLanguages $Language = null
   ):string{
     $params = [];
     if($Language !== null):
-      $params['language_code'] = $Language;
+      $params['language_code'] = $Language->value;
     endif;
     $return = $this->ServerMethod(TgMethods::DescriptionShortGet, $params);
     return $return['short_description'];
@@ -83,14 +84,14 @@ trait TblMyTrait{
   /**
    * Use this method to change the bot's short description, which is shown on the bot's profile page and is sent together with the link when users share the bot.
    * @param string $Description New short description for the bot; 0-120 characters. Pass an empty string to remove the dedicated short description for the given language.
-   * @param string $Language A two-letter ISO 639-1 language code. If empty, the short description will be applied to all users for whose language there is no dedicated short description.
+   * @param TgLanguages $Language A two-letter ISO 639-1 language code. If empty, the short description will be applied to all users for whose language there is no dedicated short description.
    * @return bool Returns True on success.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#setmyshortdescription
    */
   public function DescriptionShortSet(
     string $Description = null,
-    string $Language = null
+    TgLanguages $Language = null
   ):bool{
     $params = [];
     if($Description !== null):
@@ -100,7 +101,7 @@ trait TblMyTrait{
       $params['short_description'] = $Description;
     endif;
     if($Language !== null):
-      $params['language_code'] = $Language;
+      $params['language_code'] = $Language->value;
     endif;
     return $this->ServerMethod(TgMethods::DescriptionShortSet, $params);
   }
@@ -108,14 +109,14 @@ trait TblMyTrait{
   /**
    * Use this method to delete the list of the bot's commands for the given scope and user language. After deletion, higher level commands will be shown to affected users.
    * @param TgCmdScope $Scope A JSON-serialized object, describing scope of users for which the commands are relevant. Defaults to BotCommandScopeDefault.
-   * @param string $Language A two-letter ISO 639-1 language code. If empty, commands will be applied to all users from the given scope, for whose language there are no dedicated commands
+   * @param TgLanguages $Language A two-letter ISO 639-1 language code. If empty, commands will be applied to all users from the given scope, for whose language there are no dedicated commands
    * @return bool Returns True on success.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#deletemycommands
    */
   public function MyCmdClear(
     TgCmdScope $Scope = null,
-    string $Language = null,
+    TgLanguages $Language = null,
     int $Chat = null,
     int $User = null
   ):bool{
@@ -133,7 +134,7 @@ trait TblMyTrait{
       $param['scope'] = json_encode($param['scope']);
     endif;
     if($Language !== null):
-      $param['language_code'] = $Language;
+      $param['language_code'] = $Language->value;
     endif;
     return $this->ServerMethod(TgMethods::CommandsDel, $param);
   }
@@ -141,7 +142,7 @@ trait TblMyTrait{
   /**
    * Use this method to get the current list of the bot's commands for the given scope and user language.
    * @param TgCmdScope $Scope A JSON-serialized object, describing scope of users. Defaults to TgCmdScope::Default.
-   * @param string $Language A two-letter ISO 639-1 language code or an empty string
+   * @param TgLanguages $Language A two-letter ISO 639-1 language code or an empty string
    * @param int $Chat Unique identifier for the target chat. Only for TgCmdScope::Chat, TgCmdScope::GroupsAdmins or TgCmdScope::Member
    * @param int $User Unique identifier of the target user. Only for TgCmdScope::Member
    * @throws TblException
@@ -149,7 +150,7 @@ trait TblMyTrait{
    */
   public function MyCmdGet(
     TgCmdScope $Scope = null,
-    string $Language = null,
+    TgLanguages $Language = null,
     int $Chat = null,
     int $User = null
   ):TblCommands{
@@ -167,7 +168,7 @@ trait TblMyTrait{
       $param['scope'] = json_encode($param['scope']);
     endif;
     if($Language !== null):
-      $param['language_code'] = $Language;
+      $param['language_code'] = $Language->value;
     endif;
     $return = $this->ServerMethod(TgMethods::CommandsGet, $param);
     if($return === []):
@@ -181,7 +182,7 @@ trait TblMyTrait{
    * Use this method to change the list of the bot's commands.
    * @param TblCommands $Commands A JSON-serialized list of bot commands to be set as the list of the bot's commands. At most 100 commands can be specified.
    * @param TgCmdScope $Scope A JSON-serialized object, describing scope of users for which the commands are relevant. Defaults to TgCmdScope::Default
-   * @param string $Language A two-letter ISO 639-1 language code. If empty, commands will be applied to all users from the given scope, for whose language there are no dedicated commands
+   * @param TgLanguages $Language A two-letter ISO 639-1 language code. If empty, commands will be applied to all users from the given scope, for whose language there are no dedicated commands
    * @return bool Returns True on success.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#setmycommands
@@ -189,7 +190,7 @@ trait TblMyTrait{
   public function MyCmdSet(
     TblCommands $Commands,
     TgCmdScope $Scope = null,
-    string $Language = null,
+    TgLanguages $Language = null,
     int $Chat = null,
     int $User = null
   ):bool{
@@ -207,7 +208,7 @@ trait TblMyTrait{
       $param['scope'] = json_encode($param['scope']);
     endif;
     if($Language !== null):
-      $param['language_code'] = $Language;
+      $param['language_code'] = $Language->value;
     endif;
     return $this->ServerMethod(TgMethods::CommandsSet, $param);
   }
@@ -225,16 +226,16 @@ trait TblMyTrait{
 
   /**
    * Use this method to get the current bot name for the given user language. Returns BotName on success.
-   * @param string $Language A two-letter ISO 639-1 language code or an empty string
+   * @param TgLanguages $Language A two-letter ISO 639-1 language code or an empty string
    * @return string
    * @link https://core.telegram.org/bots/api#getmyname
    */
   public function MyNameGet(
-    string $Language = null
+    TgLanguages $Language = null
   ):string{
     $params = [];
     if($Language !== null):
-      $params['language_code'] = $Language;
+      $params['language_code'] = $Language->value;
     endif;
     $return = $this->ServerMethod(TgMethods::NameGet, $params);
     return $return['name'];
@@ -243,21 +244,21 @@ trait TblMyTrait{
   /**
    * Use this method to get the current bot name for the given user language. Returns BotName on success.
    * @param string $Name New bot name; 0-64 characters. Pass an empty string to remove the dedicated name for the given language.
-   * @param string $Language A two-letter ISO 639-1 language code. If empty, the name will be shown to all users for whose language there is no dedicated name.
+   * @param TgLanguages $Language A two-letter ISO 639-1 language code. If empty, the name will be shown to all users for whose language there is no dedicated name.
    * @return string
    * @throws TblException
    * @link https://core.telegram.org/bots/api#getmyname
    */
   public function MyNameSet(
     string $Name = null,
-    string $Language = null
+    TgLanguages $Language = null
   ):string{
     $params = [];
     if(strlen($Name) > TgLimits::Name):
       throw new TblException(TblError::LimitName, 'Bot name exceeds ' . TgLimits::Name . ' characters');
     endif;
     if($Language !== null):
-      $params['language_code'] = $Language;
+      $params['language_code'] = $Language->value;
     endif;
     $return = $this->ServerMethod(TgMethods::NameSet, $params);
     return $return['name'];
