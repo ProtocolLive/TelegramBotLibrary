@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.02.07.00
+//2023.05.05.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 use ProtocolLive\TelegramBotLibrary\TblObjects\TblBasics;
@@ -57,7 +57,7 @@ class TgChat{
   /**
    * For supergroups, the minimum allowed delay between consecutive messages sent by each unpriviledged user; in seconds. Returned only in getChat.
    */
-  public readonly int|null $SlowMode;
+  public readonly int $SlowMode;
   /**
    * Unique identifier for the linked chat, i.e. the discussion group identifier for a channel and vice versa; for supergroups and channel chats. This identifier may be greater than 32 bits and some programming languages may have difficulty/silent defects in interpreting it. But it is smaller than 52 bits, so a signed 64 bit integer or double-precision float type are safe for storing this identifier. Returned only in getChat.
    */
@@ -88,7 +88,7 @@ class TgChat{
     $this->Bio = $Data['description'] ?? false;
     $this->JoinToSend = $Data['join_to_send_messages'] ?? false;
     $this->JoinByRequest = $Data['join_by_request'] ?? false;
-    $this->SlowMode = $Data['slow_mode_delay'] ?? null;
+    $this->SlowMode = $Data['slow_mode_delay'] ?? 0;
     $this->LinkedChat = $Data['linked_chat_id'] ?? null;
     $this->Protected = $Data['has_protected_content'] ?? false;
     $this->HidedMembers = $Data['has_hidden_members'] ?? false;
