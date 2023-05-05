@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.05.05.00
+//2023.05.05.01
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -37,6 +37,10 @@ class TgUser{
    * User's or bot's username
    */
   public readonly string|null $Nick;
+  /**
+   * If non-empty, the list of all active chat usernames; for private chats, supergroups and channels. Returned only in getChat.
+   */
+  public array|null $Nicks;
   /**
    * IETF language tag of the user's language
    */
@@ -82,6 +86,11 @@ class TgUser{
       $this->Photo = new TgChatPhoto($Data['photo']);
     else:
       $this->Photo = null;
+    endif;
+    if(isset($Data['active_usernames'])):
+      $this->Nicks = $Data['active_usernames'];
+    else:
+      $this->Nicks = null;
     endif;
   }
 }
