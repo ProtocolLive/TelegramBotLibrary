@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.04.26.01
+//2023.05.05.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblTraits;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
@@ -11,6 +11,7 @@ use ProtocolLive\TelegramBotLibrary\TblObjects\{
   TblException
 };
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
+  TgBot,
   TgCmdScope,
   TgLanguages,
   TgLimits,
@@ -219,9 +220,9 @@ trait TblMyTrait{
    * @throws TblException
    * @link https://core.telegram.org/bots/api#getme
    */
-  public function MyGet():TgUser{
+  public function MyGet():TgBot{
     $return = $this->ServerMethod(TgMethods::MyGet);
-    return new TgUser($return);
+    return new TgBot($return);
   }
 
   /**

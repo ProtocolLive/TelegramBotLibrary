@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.05.05.01
+//2023.05.05.02
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -18,10 +18,6 @@ class TgUser{
    */
   public readonly string $Name;
   /**
-   * If this user is a bot
-   */
-  public readonly bool $Bot;
-  /**
    * If this user added the bot to the attachment menu
    */
   public readonly bool $Attached;
@@ -37,9 +33,6 @@ class TgUser{
    * User's or bot's username
    */
   public readonly string|null $Nick;
-  /**
-   * If non-empty, the list of all active chat usernames; for private chats, supergroups and channels. Returned only in getChat.
-   */
   public array|null $Nicks;
   /**
    * IETF language tag of the user's language
@@ -72,7 +65,6 @@ class TgUser{
   public function __construct(array $Data){
     $this->Id = $Data['id'];
     $this->Name = $Data['first_name'];
-    $this->Bot = $Data['is_bot'] ?? false;
     $this->Attached = $Data['added_to_attachment_menu'] ?? false;
     $this->NameLast = $Data['last_name'] ?? null;
     $this->Nick = $Data['username'] ?? null;
