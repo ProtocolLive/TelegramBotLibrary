@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.11.06.00
+//2023.05.05.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -28,7 +28,7 @@ class TgUser{
   /**
    * If this user is a Telegram Premium user. This property only comes in message event
    */
-  public readonly bool|null $Premium;
+  public readonly bool $Premium;
   /**
    * User's or bot's last name
    */
@@ -77,11 +77,7 @@ class TgUser{
     $this->Bio = $Data['bio'] ?? null;
     $this->RestrictedForward = $Data['has_private_forwards'] ?? false;
     $this->RestrictedVoice = $Data['has_restricted_voice_and_video_messages'] ?? false;
-    if(isset($Data['is_premium'])):
-      $this->Premium = $Data['is_premium'];
-    else:
-      $this->Premium = null;
-    endif;
+    $this->Premium = $Data['is_premium'] ?? false;
     if(isset($Data['photo'])):
       $this->Photo = new TgChatPhoto($Data['photo']);
     else:
