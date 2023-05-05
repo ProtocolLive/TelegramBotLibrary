@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.05.05.00
+//2023.05.05.01
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -39,9 +39,9 @@ class TgLocation{
     $this->Data = new TgMessageData($Data);
     $this->Latitude = $Data['location']['latitude'];
     $this->Longitude = $Data['location']['longitude'];
-    $this->Longitude = $Data['location']['horizontal_accuracy'] ?? null;
+    $this->Accuracy = $Data['location']['horizontal_accuracy'] ?? null;
     $this->LiveTime = $Data['location']['live_period'] ?? null;
-    $this->LiveTime = $Data['location']['heading'] ?? null;
-    $this->LiveTime = $Data['location']['proximity_alert_radius'] ?? null;
+    $this->Heading = $Data['location']['heading'] ?? null;
+    $this->AlertRadius = $Data['location']['proximity_alert_radius'] ?? null;
   }
 }
