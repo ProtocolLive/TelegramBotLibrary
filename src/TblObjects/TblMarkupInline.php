@@ -1,12 +1,13 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.01.13.00
+//2023.05.14.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgLimits;
 
-class TblMarkupInline extends TblMarkup{
+class TblMarkupInline
+extends TblMarkup{
   /**
    * This object represents an inline keyboard that appears right next to the message it belongs to.
    * @link https://core.telegram.org/bots/api#inlinekeyboardmarkup
