@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.02.24.00
+//2023.05.15.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -40,6 +40,7 @@ abstract class TgErrors{
       'Bad Request: inline keyboard expected' => TgError::InlineKeyboardNone,
       'Bad Request: invalid inline message identifier specified' => TgError::InlineId,
       'Bad Request: message can\'t be deleted for everyone' => TgError::CantDelete,
+      'Bad Request: message has protected content and can\'t be forwarded' => TgError::Protected,
       'Bad Request: message is not modified: specified new message content and reply markup are exactly the same as a current content and reply markup of the message' => TgError::EditSame,
       'Bad Request: message to copy not found' => TgError::CopyNotFound,
       'Bad Request: message to unpin not found' => TgError::UnpinNotFound,
