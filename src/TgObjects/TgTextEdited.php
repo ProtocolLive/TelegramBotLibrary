@@ -1,14 +1,15 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.08.18.00
+//2023.05.15.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
  * @link https://core.telegram.org/bots/api#message
  */
-class TgTextEdited extends TgText{
+class TgTextEdited
+extends TgText{
   public readonly int $DateEdited;
 
   /**
