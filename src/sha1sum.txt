@@ -36,7 +36,7 @@ cd235c33054fed023466fbe400299332f53de0b5  TblTraits\TblInvoiceTrait.php
 10ccdab5532bc37912331bcf815a174b457c8a37  TblTraits\TblMyTrait.php
 afffe713c563d430992cf6415a0151e3ffa0b10e  TblTraits\TblPhotoTrait.php
 b5fe0f69ef3342005a7370fb6ebcf0d2bc828880  TblTraits\TblTextTrait.php
-630ff6483f8d6fa0d2d8dd3a64d125ef40635999  TelegramBotLibrary.php
+532c63ade091d8e1d1be4aedc50912371346e5a5  TelegramBotLibrary.php
 a67c32d5ae0ff72c712487db09691ed73134cfdd  TgObjects\TgAnimation.php
 9ed982a07eb55300ac578069414c837a11c78ec3  TgObjects\TgBot.php
 4f5ce14cac68a9551a9010a328d9af4d64832d72  TgObjects\TgButtonCallback.php
@@ -60,8 +60,8 @@ dd96d4aa28e5cc01c1865782e30c3dd62e4ee837  TgObjects\TgChatRequest.php
 ba6d145efb1661c4b934b337419bf4803ea65b26  TgObjects\TgDocumentEdited.php
 4c9421b33679b6605b95ef87deab59092299a1d7  TgObjects\TgEntity.php
 65c3ac9ca951a5dd9c6069326615949ec27c2fc1  TgObjects\TgEntityType.php
-ef94b4cbee280a106f0fe473488acb86ad8c17e1  TgObjects\TgError.php
-034541a6b357713db657320ed47a1f09b687e587  TgObjects\TgErrors.php
+64735f00a4feee3c93b0c321a5ea094d45ea8cd9  TgObjects\TgError.php
+42cda6edbf3630dd9024b8620ce963edcc49d007  TgObjects\TgErrors.php
 44657d56eb0a0606cb34ad61e68a7f2513070731  TgObjects\TgFile.php
 8fbbcb5d4537d557fc31cdf4bd4518bb13cc5fce  TgObjects\TgForumClosed.php
 01d691c98d4fe62f221534d34424f396e3151814  TgObjects\TgForumCreated.php
@@ -112,7 +112,7 @@ b9d8542726d773847af3d5df0dfc062ba31c3e09  TgObjects\TgPollType.php
 61b0f2076a7fecc1c104de0934fffecad9d4b149  TgObjects\TgSticker.php
 6ec940d12da129f5962d2f855c6dde534d64dab3  TgObjects\TgStickerType.php
 1c909c6a0b1cbf7a88b491c3a336e82c2f57f754  TgObjects\TgText.php
-afdee0eeb1f768767667a67ce71912869898dae3  TgObjects\TgTextEdited.php
+699e8fe57e4df5e8b6667ca8e323a29de3aa2766  TgObjects\TgTextEdited.php
 aaeeaa72d49d455b435bd29b6a21fd2947956704  TgObjects\TgUpdateType.php
 6f5dce7130f80576f3da0d3916c29b04472fd119  TgObjects\TgUser.php
 4c143b19b189d681df0cdea80bb4ab4cdd8f422a  TgObjects\TgUserShared.php
