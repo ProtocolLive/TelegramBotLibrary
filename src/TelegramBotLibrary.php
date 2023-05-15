@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.04.24.02
+//2023.05.15.00
 
 namespace ProtocolLive\TelegramBotLibrary;
 use CurlFile;
@@ -510,7 +510,7 @@ extends TblBasics{
     int $Thread = null,
     string $Caption = null,
     TblEntities $Entities = null,
-    TgParseMode $ParseMode = TgParseMode::Html,
+    TgParseMode $ParseMode = null,
     bool $DisableNotification = false,
     bool $Protect = false,
     int $RepliedMsg = null,
@@ -526,7 +526,9 @@ extends TblBasics{
     if($Caption !== null):
       $param['caption'] = $Caption;
     endif;
-    $param['parse_mode'] = $ParseMode->value;
+    if($ParseMode !== null):
+      $param['parse_mode'] = $ParseMode->value;
+    endif;
     if($Entities !== null):
       $param['caption_entities'] = $Entities->ToArray();
     endif;
