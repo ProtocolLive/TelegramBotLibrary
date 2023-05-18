@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.05.15.00
+//2023.05.18.00
 
 namespace ProtocolLive\TelegramBotLibrary;
 use CurlFile;
@@ -589,9 +589,9 @@ extends TblBasics{
    * @link https://core.telegram.org/bots/api#forwardmessage
    */
   public function MessageForward(
-    int $To,
     int $From,
     int $Id,
+    int $To,
     int $Thread = null,
     bool $DisableNotification = false,
     bool $Protect = false
