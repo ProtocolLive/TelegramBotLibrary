@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.04.20.00
+//2023.05.18.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 use CurlHandle;
@@ -264,9 +264,9 @@ abstract class TblBasics{
   }
 
   /**
-   * Use the cURL multi resource to send many messages at once. All messages have to use the same method.
+   * Use the cURL multi resource to send many messages at once. This method are now public. See the parameters in each method or in official documentation
    */
-  protected function ServerMethodMulti(
+  public function ServerMethodMulti(
     TgMethods $Method,
     array $Params
   ):array{
