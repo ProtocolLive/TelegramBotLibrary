@@ -1,11 +1,12 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.08.18.00
+//2023.05.20.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
+ * A chat photo was change to this value
  * @link https://core.telegram.org/bots/api#message
  */
 class TgPhotoEdited extends TgPhoto{

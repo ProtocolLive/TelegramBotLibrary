@@ -1,10 +1,13 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.12.30.00
+//2023.05.20.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
+/**
+ * New members that were added to the group or supergroup and information about them (the bot itself may be one of these members)
+ */
 class TgMemberNew{
   public readonly TgMessageData $Data;
   public readonly TgUser $Member;
