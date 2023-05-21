@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.05.20.00
+//2023.05.20.01
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 use CurlHandle;
@@ -208,6 +208,21 @@ abstract class TblBasics{
     else:
       return mkdir($Dir, $Perm, $Recursive);
     endif;
+  }
+
+  /**
+   * Check if a message can be forwarded or copied. (Beta)
+   */
+  public static function Forwardable(
+    object $Object
+  ):bool{
+    $false = [
+      TgChatAutoDel::class,
+      TgMemberNew::class,
+      TgMemberLeft::class,
+      TgPhotoEdited::class,
+    ];
+    return in_array(get_class($Object), $false) === false;
   }
 
   protected function Log(
