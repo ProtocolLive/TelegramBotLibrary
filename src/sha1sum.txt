@@ -1,4 +1,4 @@
-4ee46d19f69522bec1aec02cca34ba1abf05b12a  TblObjects\TblBasics.php
+eaf00198f44594339f520cfe100fae8e898863eb  TblObjects\TblBasics.php
 1ba05565b9ea05bc96c8061f05419c86f2f94c7b  TblObjects\TblCmd.php
 c21cb052957966371e871c33c808717ff78a1bd1  TblObjects\TblCmdEdited.php
 079695f24b862e0798e20038ccc16c6fc7611778  TblObjects\TblCommands.php
@@ -36,7 +36,7 @@ cd235c33054fed023466fbe400299332f53de0b5  TblTraits\TblInvoiceTrait.php
 10ccdab5532bc37912331bcf815a174b457c8a37  TblTraits\TblMyTrait.php
 afffe713c563d430992cf6415a0151e3ffa0b10e  TblTraits\TblPhotoTrait.php
 b5fe0f69ef3342005a7370fb6ebcf0d2bc828880  TblTraits\TblTextTrait.php
-000ec2a015f90e491ebb370b625d9258f2346a87  TelegramBotLibrary.php
+712bac71e315d08e03ff42a24a04af5494b8dce2  TelegramBotLibrary.php
 a67c32d5ae0ff72c712487db09691ed73134cfdd  TgObjects\TgAnimation.php
 9ed982a07eb55300ac578069414c837a11c78ec3  TgObjects\TgBot.php
 4f5ce14cac68a9551a9010a328d9af4d64832d72  TgObjects\TgButtonCallback.php
@@ -56,6 +56,7 @@ dd96d4aa28e5cc01c1865782e30c3dd62e4ee837  TgObjects\TgChatRequest.php
 4b911186110cfae9e3c0b2b6ca7fe88988005700  TgObjects\TgChatTitle.php
 80edd5673d76656ad682abcb750de8b5084ba129  TgObjects\TgChatType.php
 8f0568fcf616bbe29cbef0446dfdff785d2440c8  TgObjects\TgCmdScope.php
+32fbc41cc9a9af585ba35a61f54948703af044f3  TgObjects\TgContact.php
 9e954bd8ae01c5f8cb3000c38af1f149b8c545fa  TgObjects\TgDocument.php
 ba6d145efb1661c4b934b337419bf4803ea65b26  TgObjects\TgDocumentEdited.php
 4c9421b33679b6605b95ef87deab59092299a1d7  TgObjects\TgEntity.php
