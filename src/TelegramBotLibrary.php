@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.05.18.00
+//2023.05.20.00
 
 namespace ProtocolLive\TelegramBotLibrary;
 use CurlFile;
@@ -261,16 +261,6 @@ extends TblBasics{
       return new TgGroupStatus($Data['chat_member']);
     elseif(isset($Data['chosen_inline_result'])):
       return new TgInlineQueryFeedback($Data['chosen_inline_result']);
-    elseif(isset($Data['edited_message']['document'])):
-      return new TgDocumentEdited($Data['edited_message']);
-    elseif(isset($Data['edited_message']['location'])):
-      return new TgLocationEdited($Data['edited_message']);
-    elseif(isset($Data['edited_message']['photo'])):
-      return new TgPhotoEdited($Data['edited_message']);
-    elseif(isset($Data['edited_message']['text'])):
-      return new TgTextEdited($Data['edited_message']);
-    elseif(isset($Data['edited_message']['video'])):
-      return new TgVideoEdited($Data['edited_message']);
     elseif(isset($Data['invoice'])): //Suspect unnecessary
       return new TgInvoice($Data['invoice']);
     elseif(isset($Data['inline_query'])):
