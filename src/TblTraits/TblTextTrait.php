@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.03.03.00
+//2023.05.22.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblTraits;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
@@ -22,10 +22,10 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 trait TblTextTrait{
   /**
    * Use this method to edit text and game messages.
-   * @param int|string $Chat Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
-   * @param int $Id Required if inline_message_id is not specified. Identifier of the message to edit
+   * @param int|string|null $Chat Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * @param int|null $Id Required if inline_message_id is not specified. Identifier of the message to edit
    * @param string $Text New text of the message, 1-4096 characters after entities parsing
-   * @param string $InlineId Required if chat_id and message_id are not specified. Identifier of the inline message
+   * @param string|null $InlineId Required if chat_id and message_id are not specified. Identifier of the inline message
    * @param TgParseMode $ParseMode Mode for parsing entities in the message text.
    * @param TblEntities $Entities A list of special entities that appear in message text, which can be specified instead of parse_mode
    * @param bool $DisablePreview Disables link previews for links in this message
