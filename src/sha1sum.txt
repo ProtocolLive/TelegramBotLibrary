@@ -1,4 +1,4 @@
-eaf00198f44594339f520cfe100fae8e898863eb  TblObjects\TblBasics.php
+31a0a9680397884d133245829e4e179452e8d277  TblObjects\TblBasics.php
 1ba05565b9ea05bc96c8061f05419c86f2f94c7b  TblObjects\TblCmd.php
 c21cb052957966371e871c33c808717ff78a1bd1  TblObjects\TblCmdEdited.php
 079695f24b862e0798e20038ccc16c6fc7611778  TblObjects\TblCommands.php
@@ -88,7 +88,7 @@ f7b016ed6dd1fa1004d2869fb5a12afc3c17a5c5  TgObjects\TgLanguages.php
 d2a9737c9ac871b043df327b88fd9164cf453a69  TgObjects\TgMask.php
 70a1190cb40583809d873a1137b0cf79898fbd64  TgObjects\TgMember.php
 b8841a2d96587d9527182018de7b2985107a46f8  TgObjects\TgMemberLeft.php
-c614efa5b620747c33e5caafe561641496c20fdf  TgObjects\TgMemberNew.php
+a38a3dd8633d17beae73c67a83b9319011e1ca53  TgObjects\TgMemberNew.php
 623934ec9442a7e58702e32740a6ac38b10bd8c9  TgObjects\TgMemberStatus.php
 56decac2789e4c87d1cad4abae9b295d0e95ec0b  TgObjects\TgMenuButton.php
 3c353024df5df4013a15c1043a00e317a05999cf  TgObjects\TgMessageData.php
@@ -103,7 +103,7 @@ c7bd294892e4eb95c3d4049dd59ec0fa9955341d  TgObjects\TgPassportDataDriver.php
 a545885d59538cf37af643fd1836a03e563ceb13  TgObjects\TgPermAdmin.php
 1c8f70a934d1ce81c62b5887460ab33fe26833de  TgObjects\TgPermMember.php
 5d63157fc1abc926323fb4e318983d33520104d1  TgObjects\TgPhoto.php
-25bd4eb3df68598c25632a63ae86e8f9e725ee78  TgObjects\TgPhotoEdited.php
+be452957ae34a79562f9d2226776635669ee9d3d  TgObjects\TgPhotoEdited.php
 77160fe3ebb165e20e8683628d50d31a629a6c9d  TgObjects\TgPhotoSize.php
 ddc530159b1c45558b621771112823861d11cea3  TgObjects\TgPinnedMsg.php
 7fa1b770cf77e16669b362dc71793fa51c720dcc  TgObjects\TgPoll.php
