@@ -1,11 +1,11 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.05.22.00
+//2023.05.22.01
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
-class TgMessageData{
+final class TgMessageData{
   /**
    * Unique message identifier inside this chat
    */
@@ -66,6 +66,10 @@ class TgMessageData{
    * Bot through which the message was sent
    */
   public readonly TgUser|null $Via;
+  /**
+   * Signature of the post author for messages in channels, or the custom title of an anonymous group administrator
+   */
+  public readonly string|null $Signature;
 
   //The bot 777000 is used to auto forward messages from channels to groups
   //The bot 1087968824 is used when admin post as the group and for migrate events
@@ -101,6 +105,7 @@ class TgMessageData{
       $this->ForwardId = null;
       $this->ForwardAuto = null;
     endif;
+
     if($Data['chat']['type'] === TgChatType::Private->value):
       $this->Chat = new TgUser($Data['chat']);
     else:
@@ -112,6 +117,7 @@ class TgMessageData{
     $this->Topic = $Data['is_topic_message'] ?? false;
     $this->Spoiler = $Data['has_media_spoiler'] ?? false;
     $this->Thread = $Data['message_thread_id'] ?? null;
+    $this->Signature = $Data['author_signature'] ?? null;
     if(isset($Data['reply_to_message']) === false):
       $this->Reply = null;
     else:
