@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.05.05.01
+//2023.05.22.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -67,14 +67,19 @@ class TgMessageData{
    */
   public readonly TgUser|null $Via;
 
-  //The bot 777000 is used to forward messages from channels to groups
-  //The bot 1087968824 is used for admins post as the group and for migrate events
+  //The bot 777000 is used to auto forward messages from channels to groups
+  //The bot 1087968824 is used when admin post as the group and for migrate events
+  //The bot 136817688 is used when admin post as channel
   public function __construct(array $Data){
     $this->Id = $Data['message_id'];
     if(($Data['from']['id'] ?? 0) === 777000): //Telegram
       $this->User = new TgChat($Data['sender_chat']);
-      $this->ForwardFrom = new TgChat($Data['forward_from_chat'] ?? $Data['forward_from']);
-      $this->ForwardId = $Data['forward_from_message_id'];
+      if(isset($Data['forward_from_chat'])):
+        $this->ForwardFrom = new TgChat($Data['forward_from_chat']);
+        $this->ForwardId = $Data['forward_from_message_id'];
+      else:
+        $this->ForwardFrom = new TgUser($Data['forward_from']);
+      endif;
       $this->ForwardAuto = $Data['is_automatic_forward'];
     elseif(($Data['from']['id'] ?? 0) === 1087968824 //GroupAnonymousBot
     or ($Data['from']['id'] ?? 0) === 136817688): //Channel_Bot
