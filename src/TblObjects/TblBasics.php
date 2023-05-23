@@ -49,7 +49,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 };
 
 /**
- * @version 2023.05.23.01
+ * @version 2023.05.23.02
  */
 abstract class TblBasics{
   protected TblData $BotData;
@@ -214,21 +214,6 @@ abstract class TblBasics{
     else:
       return mkdir($Dir, $Perm, $Recursive);
     endif;
-  }
-
-  /**
-   * Check if a message can be forwarded or copied. (Beta)
-   */
-  public static function Forwardable(
-    object $Object
-  ):bool{
-    $false = [
-      TgChatAutoDel::class,
-      TgMemberNew::class,
-      TgMemberLeft::class,
-      TgPhotoEdited::class,
-    ];
-    return in_array(get_class($Object), $false) === false;
   }
 
   protected function Log(

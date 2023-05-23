@@ -3,6 +3,7 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
+use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgForwadableInterface;
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgEntity,
   TgMessageData,
@@ -11,10 +12,11 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 
 /**
  * Note: Extends TgObject to be a listener
- * @version 2023.05.23.00
+ * @version 2023.05.23.01
  */
 class TblCmd
-extends TgObject{
+extends TgObject
+implements TgForwadableInterface{
   public readonly TgMessageData $Data;
   public readonly string $Command;
   public readonly string|null $Parameters;
