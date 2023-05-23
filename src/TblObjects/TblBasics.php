@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.05.20.01
+//2023.05.23.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 use CurlHandle;
@@ -43,6 +43,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgVideoChatScheduled,
   TgVideoChatStarted,
   TgVideoEdited,
+  TgVideoNote,
   TgVoice,
   TgWebappData
 };
@@ -159,6 +160,8 @@ abstract class TblBasics{
       return new TgUserShared($Data);
     elseif(isset($Data['video'])):
       return new TgVideo($Data);
+    elseif(isset($Data['video_note'])):
+      return new TgVideoNote($Data);
     elseif(isset($Data['video_chat_ended'])):
       return new TgVideoChatEnded($Data);
     elseif(isset($Data['video_chat_participants_invited'])):
