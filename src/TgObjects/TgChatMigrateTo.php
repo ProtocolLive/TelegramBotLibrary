@@ -1,15 +1,16 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.12.08.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
  * The group has been migrated to a supergroup with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
  * @link https://core.telegram.org/bots/api#message
+ * @version 2023.05.23.00
  */
-class TgChatMigrateTo{
+final class TgChatMigrateTo
+extends TgObject{
   public readonly TgUser $Admin;
   public readonly TgChat $Group;
   /**

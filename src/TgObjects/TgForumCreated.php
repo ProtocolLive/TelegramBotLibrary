@@ -1,14 +1,15 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.12.30.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
  * @link https://core.telegram.org/bots/api#forumtopiccreated
+ * @version 2023.05.23.00
  */
-final class TgForumCreated{
+final class TgForumCreated
+extends TgObject{
   public readonly TgMessageData $Data;
   /**
    * Name of the topic

@@ -1,14 +1,15 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.12.30.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
  * @link https://core.telegram.org/bots/api#message
+ * @version 2023.05.23.00
  */
-class TgText{
+class TgText
+extends TgObject{
   public readonly TgMessageData $Data;
   public readonly string $Text;
   public array $Entities = [];

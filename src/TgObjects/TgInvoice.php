@@ -1,11 +1,14 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.12.30.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
-class TgInvoice{
+/**
+ * @version 2023.05.23.00
+ */
+final class TgInvoice
+extends TgObject{
   public readonly TgMessageData $Data;
   public readonly TgInvoiceData $Invoice;
 

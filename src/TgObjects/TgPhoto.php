@@ -1,14 +1,15 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.01.20.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
  * @link https://core.telegram.org/bots/api#message
+ * @version 2023.05.23.00
  */
-class TgPhoto{
+class TgPhoto
+extends TgObject{
   public readonly TgMessageData $Data;
   /**
    * @var TgPhotoSize[]

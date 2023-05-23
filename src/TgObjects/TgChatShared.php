@@ -1,15 +1,16 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.02.03.01
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
  * This object contains information about the chat whose identifier was shared with the bot using a KeyboardButtonRequestChat button.
  * @link https://core.telegram.org/bots/api#chatshared
+ * @version 2023.05.23.00
  */
-final class TgChatShared{
+final class TgChatShared
+extends TgObject{
   public readonly TgMessageData $Data;
   /**
    * Identifier of the request

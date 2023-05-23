@@ -1,15 +1,16 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.12.30.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
  * This object contains information about a poll.
  * @link https://core.telegram.org/bots/api#poll
+ * @version 2023.05.23.00
  */
-class TgPoll{
+final class TgPoll
+extends TgObject{
   public readonly TgMessageData|null $Data;
   /**
    * Unique poll identifier

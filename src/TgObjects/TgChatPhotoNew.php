@@ -1,15 +1,16 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.02.23.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
  * This object represents a chat photo.
  * @link https://core.telegram.org/bots/api#chatphoto
+ * @version 2023.05.23.00
  */
-class TgChatPhotoNew{
+final class TgChatPhotoNew
+extends TgObject{
   public readonly TgMessageData $Data;
   public array $Photo;
 

@@ -1,11 +1,14 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.02.01.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
-final class TgGroupCreated{
+/**
+ * @version 2023.05.23.00
+ */
+final class TgGroupCreated
+extends TgObject{
   public readonly TgMessageData $Data;
 
   public function __construct(

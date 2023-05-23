@@ -1,15 +1,16 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.12.08.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
  * New version of a message that is known to the bot and was edited
  * @link https://core.telegram.org/bots/api#message
+ * @version 2023.05.23.00
  */
-class TgDocumentEdited extends TgDocument{
+final class TgDocumentEdited
+extends TgDocument{
   /**
    * Date the message was last edited in Unix time
    */

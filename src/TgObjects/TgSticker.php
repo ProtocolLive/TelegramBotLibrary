@@ -1,15 +1,16 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.03.09.02
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
  * This object represents a sticker.
  * @link https://core.telegram.org/bots/api#sticker
+ * @version 2023.05.23.00
  */
-final class TgSticker{
+final class TgSticker
+extends TgObject{
   public readonly TgMessageData $Data;
   /**
    * Identifier for this file, which can be used to download or reuse the file

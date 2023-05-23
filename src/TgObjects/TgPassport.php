@@ -1,15 +1,16 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.12.30.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
  * @link https://core.telegram.org/bots/api#passportdata
  * @link https://core.telegram.org/bots/api#encryptedcredentials
+ * @version 2023.05.23.00
  */
-class TgPassport{
+final class TgPassport
+extends TgObject{
   public TgMessageData $Data;
   /**
    * Base64-encoded encrypted JSON-serialized data with unique user's payload, data hashes and secrets required for EncryptedPassportElement decryption and authentication

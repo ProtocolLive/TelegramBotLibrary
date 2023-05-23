@@ -1,15 +1,20 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.01.30.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgEntity,
-  TgMessageData
+  TgMessageData,
+  TgObject
 };
 
-class TblCmd{
+/**
+ * Note: Extends TgObject to be a listener
+ * @version 2023.05.23.00
+ */
+class TblCmd
+extends TgObject{
   public readonly TgMessageData $Data;
   public readonly string $Command;
   public readonly string|null $Parameters;

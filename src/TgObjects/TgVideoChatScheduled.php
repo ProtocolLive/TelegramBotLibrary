@@ -1,14 +1,15 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.01.14.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
  * @link https://core.telegram.org/bots/api#forumtopicclosed
+ * @version 2023.05.23.00
  */
-final class TgVideoChatScheduled{
+final class TgVideoChatScheduled
+extends TgObject{
   public readonly TgMessageData $Data;
   public readonly int $Start;
 

@@ -1,7 +1,6 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.12.30.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
@@ -9,8 +8,10 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
  * Service message: auto-delete timer settings changed in the chat. New auto-delete time for messages in the chat; in seconds
  * @link https://core.telegram.org/bots/api#message
  * @link https://core.telegram.org/bots/api#messageautodeletetimerchanged
+ * @version 2023.05.23.00
  */
-class TgChatAutoDel{
+final class TgChatAutoDel
+extends TgObject{
   public readonly TgMessageData $Data;
   /**
    * New auto-delete time for messages in the chat; in seconds

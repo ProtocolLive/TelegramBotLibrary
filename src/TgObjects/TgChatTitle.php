@@ -1,15 +1,17 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.12.30.00
+//
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
  * A chat title was changed to this value
  * @link https://core.telegram.org/bots/api#message
+ * @version 2023.05.23.00
  */
-final class TgChatTitle{
+final class TgChatTitle
+extends TgObject{
   public readonly TgMessageData $Data;
   /**
    * A chat title was changed to this value

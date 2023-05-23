@@ -1,14 +1,15 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.12.30.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
  * @link https://core.telegram.org/bots/api#photosize
+ * @version 2023.05.23.00
  */
-class TgPinnedMsg{
+final class TgPinnedMsg
+extends TgObject{
   public TgMessageData $Data;
   public TgMessageData $Pinned;
 

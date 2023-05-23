@@ -1,14 +1,15 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.05.05.01
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
  * @link https://core.telegram.org/bots/api#location
+ * @version 2023.05.23.00
  */
-class TgLocation{
+final class TgLocation
+extends TgObject{
   public readonly TgMessageData $Data;
   /**
    * Latitude as defined by sender

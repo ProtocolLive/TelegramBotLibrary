@@ -1,14 +1,15 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.03.28.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
  * @link https://core.telegram.org/bots/api#video
+ * @version 2023.05.23.00
  */
-class TgVideo{
+final class TgVideo
+extends TgObject{
   /**
    * @param TgMessageData $Data Message data
    */

@@ -1,14 +1,15 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.04.20.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
  * @link https://core.telegram.org/bots/api#animation
+ * @version 2023.05.23.00
  */
-class TgAnimation{
+class TgAnimation
+extends TgObject{
   public readonly TgMessageData $Data;
   /**
    * Identifier for this file, which can be used to download or reuse the file

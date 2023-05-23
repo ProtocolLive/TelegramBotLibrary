@@ -1,15 +1,16 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.12.30.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
  * Represents a chat member that isn't currently a member of the chat, but may join it themselves.
- * https://core.telegram.org/bots/api#chatmemberleft
+ * @link https://core.telegram.org/bots/api#chatmemberleft
+ * @version 2023.05.23.00
  */
-class TgMemberLeft{
+final class TgMemberLeft
+extends TgObject{
   public readonly TgMessageData $Data;
   public readonly TgUser $Member;
 
