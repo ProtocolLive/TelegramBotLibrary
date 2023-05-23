@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.05.20.00
+//2023.05.22.00
 
 namespace ProtocolLive\TelegramBotLibrary;
 use CurlFile;
@@ -28,7 +28,6 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgCallback,
   TgChatRequest,
   TgDocument,
-  TgDocumentEdited,
   TgFile,
   TgGroupStatus,
   TgGroupStatusMy,
