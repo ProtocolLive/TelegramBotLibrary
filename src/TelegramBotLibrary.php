@@ -1,7 +1,6 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.05.22.01
 
 namespace ProtocolLive\TelegramBotLibrary;
 use CurlFile;
@@ -52,7 +51,10 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgVideoEdited
 };
 
-class TelegramBotLibrary
+/**
+ * @version 2023.05.23.00
+ */
+final class TelegramBotLibrary
 extends TblBasics{
   use TblChatTrait;
   use TblForumTrait;
