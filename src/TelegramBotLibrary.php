@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.05.22.00
+//2023.05.22.01
 
 namespace ProtocolLive\TelegramBotLibrary;
 use CurlFile;
@@ -75,16 +75,11 @@ extends TblBasics{
   }
 
   private function Archive(array $New){
-    $file = $this->BotData->DirLogs . '/archive.json';
-    if(is_file($file)):
-      $archive = file_get_contents($file);
-    else:
-      $archive = '[]';
-    endif;
-    $archive = json_decode($archive, true);
-    $archive[] = $New;
-    $archive = json_encode($archive);
-    file_put_contents($file, $archive);
+    file_put_contents(
+      $this->BotData->DirLogs . '/archive.json',
+      json_encode($New) . ',',
+      FILE_APPEND
+    );
   }
 
   /**
