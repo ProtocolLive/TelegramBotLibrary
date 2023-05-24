@@ -3,13 +3,15 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
+use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgForwadableInterface;
 
 /**
  * @link https://core.telegram.org/bots/api#message
- * @version 2023.05.23.00
+ * @version 2023.05.24.00
  */
 class TgPhoto
-extends TgObject{
+extends TgObject
+implements TgForwadableInterface{
   public readonly TgMessageData $Data;
   /**
    * @var TgPhotoSize[]
