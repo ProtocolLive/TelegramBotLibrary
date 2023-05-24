@@ -3,13 +3,15 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
+use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgForwadableInterface;
 
 /**
  * @link https://core.telegram.org/bots/api#animation
- * @version 2023.05.23.00
+ * @version 2023.05.23.01
  */
 final class TgAnimationEdited
-extends TgAnimation{
+extends TgAnimation
+implements TgForwadableInterface{
   public readonly TgMessageData $Data;
   /**
    * Identifier for this file, which can be used to download or reuse the file
