@@ -3,14 +3,16 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
+use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgForwadableInterface;
 
 /**
  * @link https://core.telegram.org/bots/api#location
- * @version 2023.05.23.00
+ * @version 2023.05.24.00
  */
 final class TgLocation
-extends TgObject{
-  public readonly TgMessageData $Data;
+extends TgObject
+implements TgForwadableInterface{
+  public readonly TgMessageData|null $Data;
   /**
    * Latitude as defined by sender
    */
@@ -36,8 +38,15 @@ extends TgObject{
    */
   public readonly int|null $AlertRadius;
 
-  public function __construct(array $Data){
-    $this->Data = new TgMessageData($Data);
+  public function __construct(
+    array $Data,
+    bool $WithData = true
+  ){
+    if($WithData):
+      $this->Data = new TgMessageData($Data);
+    else:
+      $this->Data = null;
+    endif;
     $this->Latitude = $Data['location']['latitude'];
     $this->Longitude = $Data['location']['longitude'];
     $this->Accuracy = $Data['location']['horizontal_accuracy'] ?? null;
