@@ -1,10 +1,12 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.05.15.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
+/**
+ * @version 2023.05.23.00
+ */
 abstract class TgErrors{
   public static function Search(string $Description):TgError|false{
     if(str_starts_with($Description, 'Bad Request: menu button web app URL ')
@@ -51,6 +53,7 @@ abstract class TgErrors{
       'Bad Request: there is no media in the message to edit' => TgError::NoMedia,
       'Bad Request: there must be at least one price' => TgError::SomethingMissing,
       'Bad Request: user not found' => TgError::UserNotFound,
+      'Bad Request: VOICE_MESSAGES_FORBIDDEN' => TgError::ForwardCant,
       'Bad Request: WEBDOCUMENT_URL_INVALID' => TgError::UrlInvalid,
       'Bad Request: wrong file identifier/HTTP URL specified' => TgError::FileId,
       'Bad Request: wrong remote file identifier specified: Wrong string length' => TgError::UrlShort,
