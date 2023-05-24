@@ -1,12 +1,12 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.05.05.02
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
  * @link https://core.telegram.org/bots/api#user
+ * @version 2023.05.23.00
  */
 class TgUser{
   /**
@@ -71,8 +71,8 @@ class TgUser{
     $this->Language = $Data['language_code'] ?? null;
     $this->Status = $Data['emoji_status_custom_emoji_id'] ?? null;
     $this->Bio = $Data['bio'] ?? null;
-    $this->RestrictedForward = $Data['has_private_forwards'] ?? false;
-    $this->RestrictedVoice = $Data['has_restricted_voice_and_video_messages'] ?? false;
+    $this->RestrictedForward = $Data['has_private_forwards'] ?? null;
+    $this->RestrictedVoice = $Data['has_restricted_voice_and_video_messages'] ?? null;
     $this->Premium = $Data['is_premium'] ?? false;
     if(isset($Data['photo'])):
       $this->Photo = new TgChatPhoto($Data['photo']);
