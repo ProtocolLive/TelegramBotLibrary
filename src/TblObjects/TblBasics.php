@@ -37,6 +37,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgText,
   TgTextEdited,
   TgUserShared,
+  TgVenue,
   TgVideo,
   TgVideoChatEnded,
   TgVideoChatInvite,
@@ -49,7 +50,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 };
 
 /**
- * @version 2023.05.23.02
+ * @version 2023.05.24.00
  */
 abstract class TblBasics{
   protected TblData $BotData;
@@ -131,6 +132,8 @@ abstract class TblBasics{
       return new TgInvoice($Data);
     elseif(isset($Data['left_chat_member'])):
       return new TgMemberLeft($Data);
+    elseif(isset($Data['venue'])): //out of order because for priority above location
+      return new TgVenue($Data);
     elseif(isset($Data['location'])):
       return new TgLocation($Data);
     elseif(isset($Data['message_auto_delete_timer_changed'])):
