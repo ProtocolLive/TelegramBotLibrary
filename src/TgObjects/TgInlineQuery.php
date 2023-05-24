@@ -1,15 +1,16 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.01.16.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
  * This object represents an incoming inline query. When the user sends an empty query, your bot could return some default or trending results.
  * @link https://core.telegram.org/bots/api#inlinequery
+ * @version 2023.05.23.00
  */
-class TgInlineQuery{
+final class TgInlineQuery
+extends TgObject{
   /**
    * @param string $Id Unique identifier for this query
    */
