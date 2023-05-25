@@ -1,4 +1,4 @@
-0a4b4f565269e3979e9afbdb510f3fa7d9b61e4c  TblObjects\TblBasics.php
+66f7e799c892420791f4bd3912c03b35fa6fc747  TblObjects\TblBasics.php
 e7addd2aeba032d5b1186bc479fc7151ae73b700  TblObjects\TblCmd.php
 fa0d763c6f315b52e63ce116abe2a8b961c6e156  TblObjects\TblCmdEdited.php
 079695f24b862e0798e20038ccc16c6fc7611778  TblObjects\TblCommands.php
@@ -85,7 +85,7 @@ f0e5c2a87d960d4f32846166ebaa4780c6aaf46f  TgObjects\TgInvoice.php
 f5d005f4f9a65b2d1e6e8747b113ab6f4ed2eeb6  TgObjects\TgInvoiceShipping.php
 f7b016ed6dd1fa1004d2869fb5a12afc3c17a5c5  TgObjects\TgLanguages.php
 416271203682551688a14b9cf15ac8bf6319e304  TgObjects\TgLimits.php
-d0b9ef00471f382cc164e7408796e0d902b30bae  TgObjects\TgLocation.php
+99a4b109861d48677ae64e96eceae47923b577b7  TgObjects\TgLocation.php
 276fdf93456a4f810c08dae6d1feeecd8ebc0c01  TgObjects\TgLocationEdited.php
 d2a9737c9ac871b043df327b88fd9164cf453a69  TgObjects\TgMask.php
 70a1190cb40583809d873a1137b0cf79898fbd64  TgObjects\TgMember.php
@@ -105,8 +105,8 @@ c7bd294892e4eb95c3d4049dd59ec0fa9955341d  TgObjects\TgPassportDataDriver.php
 71e517429857d2586b615e7326f566a6b5af8d40  TgObjects\TgPassportFile.php
 a545885d59538cf37af643fd1836a03e563ceb13  TgObjects\TgPermAdmin.php
 1c8f70a934d1ce81c62b5887460ab33fe26833de  TgObjects\TgPermMember.php
-830f7ba92a838bf91c82c5b212bbfb4c108c769c  TgObjects\TgPhoto.php
-74e823acc59840b3415a019b7dc21f0a8f417249  TgObjects\TgPhotoEdited.php
+7fd24857dc7221f633f90e10d9b6a045b1c830b8  TgObjects\TgPhoto.php
+40fc39ac8b609d684c1ad99a25dc8fa4494af763  TgObjects\TgPhotoEdited.php
 77160fe3ebb165e20e8683628d50d31a629a6c9d  TgObjects\TgPhotoSize.php
 10eb33bf8f8b4aabb0962ecaf82d4ddf8a639311  TgObjects\TgPinnedMsg.php
 f950180aac64df205a750eb3c9247bf01e22d22b  TgObjects\TgPoll.php
@@ -120,6 +120,7 @@ d667150722f1ccbd4a75e4cf939ecead0c0b5e4a  TgObjects\TgText.php
 aaeeaa72d49d455b435bd29b6a21fd2947956704  TgObjects\TgUpdateType.php
 970791f2e5a6aa86900726ff572cb8c876e49eae  TgObjects\TgUser.php
 7401bae4324a730c92cc935d7b74718d5646ad80  TgObjects\TgUserShared.php
+aea9cb81f70352ef477f68ee400202a7681dacb7  TgObjects\TgVenue.php
 a3d99c1207dc4747e4351ab66d909156b5236be2  TgObjects\TgVideo.php
 2aa827b462af8bf541634d45142145fa38fc8c40  TgObjects\TgVideoChatEnded.php
 217ebd10e158dff3a639f12573eae0b56c5f63f3  TgObjects\TgVideoChatInvite.php
