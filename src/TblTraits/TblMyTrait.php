@@ -1,7 +1,6 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.05.05.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblTraits;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
@@ -20,6 +19,9 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgUser
 };
 
+/**
+ * @version 2023.05.29.00
+ */
 trait TblMyTrait{
   /**
    * Use this method to get the current bot description for the given user language.
@@ -216,7 +218,7 @@ trait TblMyTrait{
 
   /**
    * A simple method for testing your bot's authentication token. Requires no parameters.
-   * @return TgUser Returns basic information about the bot in form of a User object.
+   * @return TgBot Returns basic information about the bot in form of a User object.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#getme
    */
