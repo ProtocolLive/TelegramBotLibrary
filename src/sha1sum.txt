@@ -33,7 +33,7 @@ afc0826e32405cb6d7c76dbfacaaf7aedc13a320  TblObjects\TblMedia.php
 7d240aff7c3c35cc90da7a28e74816820b69045c  TblTraits\TblChatTrait.php
 08ebfe6ac6a9a71bc5e5c9b9943139828b4c9605  TblTraits\TblForumTrait.php
 cd235c33054fed023466fbe400299332f53de0b5  TblTraits\TblInvoiceTrait.php
-10ccdab5532bc37912331bcf815a174b457c8a37  TblTraits\TblMyTrait.php
+2588136f89e00cadcc48b867dd9263d2dff5d745  TblTraits\TblMyTrait.php
 afffe713c563d430992cf6415a0151e3ffa0b10e  TblTraits\TblPhotoTrait.php
 7ebef1b2b54ff3c775573a5769d2bef1768bcdea  TblTraits\TblTextTrait.php
 58291e459cbd5566253b049efe561ba51cfe2917  TelegramBotLibrary.php
@@ -109,7 +109,7 @@ a545885d59538cf37af643fd1836a03e563ceb13  TgObjects\TgPermAdmin.php
 40fc39ac8b609d684c1ad99a25dc8fa4494af763  TgObjects\TgPhotoEdited.php
 77160fe3ebb165e20e8683628d50d31a629a6c9d  TgObjects\TgPhotoSize.php
 10eb33bf8f8b4aabb0962ecaf82d4ddf8a639311  TgObjects\TgPinnedMsg.php
-f950180aac64df205a750eb3c9247bf01e22d22b  TgObjects\TgPoll.php
+4b15ae7894946d0aaa09af63cdcf8abce2232fe3  TgObjects\TgPoll.php
 fb6ae91f78cb6a93363b9f72604d4839556184e4  TgObjects\TgPollOption.php
 b9d8542726d773847af3d5df0dfc062ba31c3e09  TgObjects\TgPollType.php
 01404aa57ceee1df47cbb3f42a0b77626f5458c5  TgObjects\TgProfilePhoto.php
@@ -121,7 +121,7 @@ aaeeaa72d49d455b435bd29b6a21fd2947956704  TgObjects\TgUpdateType.php
 970791f2e5a6aa86900726ff572cb8c876e49eae  TgObjects\TgUser.php
 7401bae4324a730c92cc935d7b74718d5646ad80  TgObjects\TgUserShared.php
 aea9cb81f70352ef477f68ee400202a7681dacb7  TgObjects\TgVenue.php
-a3d99c1207dc4747e4351ab66d909156b5236be2  TgObjects\TgVideo.php
+ed1a4733a8589cc2e69ef48fcdc9988ccb491d4c  TgObjects\TgVideo.php
 2aa827b462af8bf541634d45142145fa38fc8c40  TgObjects\TgVideoChatEnded.php
 217ebd10e158dff3a639f12573eae0b56c5f63f3  TgObjects\TgVideoChatInvite.php
 adc48acca117de0accada76699cf966da360e7a5  TgObjects\TgVideoChatScheduled.php
