@@ -7,7 +7,7 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 /**
  * This object contains information about a poll.
  * @link https://core.telegram.org/bots/api#poll
- * @version 2023.05.23.00
+ * @version 2023.05.29.00
  */
 final class TgPoll
 extends TgObject{
@@ -67,7 +67,7 @@ extends TgObject{
       $this->Data = new TgMessageData($Data);
       $pointer = &$Data['poll'];
     else:
-      $this->Message = null;
+      $this->Data = null;
       $pointer = &$Data;
     endif;
     $this->PollId = $pointer['id'];
