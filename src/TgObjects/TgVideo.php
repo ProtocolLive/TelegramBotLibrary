@@ -7,9 +7,9 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgForwadableInterface;
 
 /**
  * @link https://core.telegram.org/bots/api#video
- * @version 2023.05.23.01
+ * @version 2023.05.29.00
  */
-final class TgVideo
+class TgVideo
 extends TgObject
 implements TgForwadableInterface{
   /**
