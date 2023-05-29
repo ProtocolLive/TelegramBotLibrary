@@ -50,7 +50,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 };
 
 /**
- * @version 2023.05.24.00
+ * @version 2023.05.29.00
  */
 abstract class TblBasics{
   protected TblData $BotData;
@@ -224,7 +224,7 @@ abstract class TblBasics{
     string $Msg
   ):void{
     if($this->BotData->LogHandler !== null):
-      call_user_func($this->BotData->LogHandler, func_get_args());
+      call_user_func_array($this->BotData->LogHandler, func_get_args());
       return;
     endif;
     $log = date('Y-m-d H:i:s') . PHP_EOL;
