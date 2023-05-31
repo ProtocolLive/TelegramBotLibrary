@@ -9,30 +9,28 @@ use Exception;
 /**
  * @link https://core.telegram.org/bots/api#passportdata
  * @link https://core.telegram.org/bots/api#encryptedcredentials
- * @version 2023.05.30.00
+ * @version 2023.05.30.01
  */
 final class TgPassport
 extends TgObject{
   public TgMessageData $Data;
   /**
    * Base64-encoded encrypted JSON-serialized data with unique user's payload, data hashes and secrets required for EncryptedPassportElement decryption and authentication
-   * @link https://core.telegram.org/bots/api#encryptedcredentials
    */
   public string|null $Raw;
   /**
    * Base64-encoded data hash for data authentication
-   * @link https://core.telegram.org/bots/api#encryptedcredentials
    */
   public string|null $Hash;
   /**
    * Base64-encoded secret, encrypted with the bot's public RSA key, required for data decryption
-   * @link https://core.telegram.org/bots/api#encryptedcredentials
    */
   public string|null $Secret;
 
   public TgPassportDataPersonal $Personal;
   public TgPassportDataDriver $Driver;
   public TgPassportDataAddress $Address;
+  public array|null $UtilityBill;
   public string $Phone;
   public string $Email;
 
@@ -53,6 +51,10 @@ extends TgObject{
           $this->Email = $data['email'];
         elseif($data['type'] === TgPassportDataType::Phone->value):
           $this->Phone = $data['phone_number'];
+        elseif($data['type'] === TgPassportDataType::DocUtility->value):
+          foreach($data['files'] as $file):
+            $this->UtilityBill[] = new TgPassportFile($file);
+          endforeach;
         endif;
       endforeach;
     endif;
@@ -81,14 +83,12 @@ extends TgObject{
       $this->Secret,
       $this->Hash
     );
-    $Data = json_decode($Data, true);
     //Decode Address
     $temp = self::DecodeData(
       $this->Address->Data,
       base64_decode($Data['secure_data']['address']['data']['secret']),
       base64_decode($Data['secure_data']['address']['data']['data_hash'])
     );
-    $temp = json_decode($temp, true);
     $this->Address->City = $temp['city'];
     $this->Address->Country = $temp['country_code'];
     $this->Address->PostCode = $temp['post_code'];
@@ -101,7 +101,6 @@ extends TgObject{
       base64_decode($Data['secure_data']['driver_license']['data']['secret']),
       base64_decode($Data['secure_data']['driver_license']['data']['data_hash'])
     );
-    $temp = json_decode($temp, true);
     $this->Driver->Number = $temp['document_no'];
     $this->Driver->Expiry = $temp['expiry_date'];
     //Decode personal
@@ -110,7 +109,6 @@ extends TgObject{
       base64_decode($Data['secure_data']['personal_details']['data']['secret']),
       base64_decode($Data['secure_data']['personal_details']['data']['data_hash'])
     );
-    $temp = json_decode($temp, true);
     $this->Personal->Name = $temp['first_name'];
     $this->Personal->NameMiddle = $temp['middle_name'] === '' ? null : $temp['middle_name'];
     $this->Personal->NameLast = $temp['last_name'];
@@ -135,7 +133,7 @@ extends TgObject{
     string $Data,
     string $Secret,
     string $Hash
-  ):string{
+  ):array{
     $keyiv = hash('sha512', $Secret . $Hash, true);
     $key = substr($keyiv, 0, 32);
     $iv = substr($keyiv, 32, 16);
@@ -151,6 +149,7 @@ extends TgObject{
     endif;
     $len = ord($Data[0]);
     $Data = substr($Data, $len);
+    $Data = json_decode($Data, true);
     return $Data;
   }
 }
