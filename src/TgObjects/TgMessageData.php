@@ -1,10 +1,12 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.05.22.01
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
+/**
+ * @version 2023.06.02.00
+ */
 final class TgMessageData{
   /**
    * Unique message identifier inside this chat
@@ -29,7 +31,7 @@ final class TgMessageData{
   /**
    * For messages forwarded from channels or from anonymous administrators, information about the original sender chat
    */
-  public readonly TgUser|TgChat|null $ForwardFrom;
+  public readonly TgUser|TgChat|string|null $ForwardFrom;
   /**
    * For messages forwarded from channels, identifier of the original message in the channel
    */
@@ -81,8 +83,10 @@ final class TgMessageData{
       if(isset($Data['forward_from_chat'])):
         $this->ForwardFrom = new TgChat($Data['forward_from_chat']);
         $this->ForwardId = $Data['forward_from_message_id'];
-      else:
+      elseif(isset($Data['forward_from'])):
         $this->ForwardFrom = new TgUser($Data['forward_from']);
+      else:
+        $this->ForwardFrom = $Data['forward_sender_name'];
       endif;
       $this->ForwardAuto = $Data['is_automatic_forward'];
     elseif(($Data['from']['id'] ?? 0) === 1087968824 //GroupAnonymousBot
