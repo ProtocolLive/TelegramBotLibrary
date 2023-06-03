@@ -93,7 +93,7 @@ d2a9737c9ac871b043df327b88fd9164cf453a69  TgObjects\TgMask.php
 dc85c6b69f46b51ba168d17e00452048f7889ea6  TgObjects\TgMemberNew.php
 623934ec9442a7e58702e32740a6ac38b10bd8c9  TgObjects\TgMemberStatus.php
 56decac2789e4c87d1cad4abae9b295d0e95ec0b  TgObjects\TgMenuButton.php
-439d2fdbc7c486632d84a2c837e279b96c50073c  TgObjects\TgMessageData.php
+b11516a0682cbb31db3bc3f2dc496e1823b73d68  TgObjects\TgMessageData.php
 c17ccbd785e6ea02cf93c509d4a399a2c2bd43d1  TgObjects\TgMethods.php
 1b00e33d422586957705cd0de88ce1b248d0e067  TgObjects\TgObject.php
 194f24b56ae46c6455ea11ff959da4ccb199eca3  TgObjects\TgParseMode.php
