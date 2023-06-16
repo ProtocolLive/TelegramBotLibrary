@@ -1,10 +1,12 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.04.24.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
+/**
+ * @version 2023.06.16.00
+ */
 enum TgMethods:string{
   case CallbackAnswer = 'answerCallbackQuery';
   case Chat = 'getChat';
@@ -65,6 +67,8 @@ enum TgMethods:string{
   case TextEdit = 'editMessageText';
   case TextSend = 'sendMessage';
   case UserPhotos = 'getUserProfilePhotos';
+  case VideoSend = 'sendVideo';
+  case VideoNoteSend = 'sendVideoNote';
   case WebhookSet = 'setWebhook';
   case WebhookGet = 'getWebhookInfo';
   case WebhookDel = 'deleteWebhook';

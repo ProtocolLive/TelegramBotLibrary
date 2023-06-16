@@ -21,7 +21,8 @@ use ProtocolLive\TelegramBotLibrary\TblTraits\{
   TblInvoiceTrait,
   TblMyTrait,
   TblPhotoTrait,
-  TblTextTrait
+  TblTextTrait,
+  TblVideoTrait
 };
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgCallback,
@@ -48,7 +49,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 };
 
 /**
- * @version 2023.06.16.00
+ * @version 2023.06.16.01
  */
 final class TelegramBotLibrary
 extends TblBasics{
@@ -58,6 +59,7 @@ extends TblBasics{
   use TblMyTrait;
   use TblPhotoTrait;
   use TblTextTrait;
+  use TblVideoTrait;
 
   /**
    * @throws TblException
