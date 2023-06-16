@@ -49,7 +49,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 };
 
 /**
- * @version 2023.06.16.01
+ * @version 2023.06.16.02
  */
 final class TelegramBotLibrary
 extends TblBasics{
@@ -271,6 +271,7 @@ extends TblBasics{
   }
 
   /**
+   * Return the URL to download a file from Telegram
    * @param string $Id The file Id or IdUnique
    * @return string
    * @throws TblException
