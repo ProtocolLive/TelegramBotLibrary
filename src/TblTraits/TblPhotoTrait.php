@@ -1,7 +1,6 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.01.07.01
 
 namespace ProtocolLive\TelegramBotLibrary\TblTraits;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
@@ -17,6 +16,9 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgPhoto
 };
 
+/**
+ * @version 2023.06.16.00
+ */
 trait TblPhotoTrait{
   /**
    * Use this method to send photos.
@@ -79,7 +81,11 @@ trait TblPhotoTrait{
       $SendWithoutRepliedMsg,
       $Markup
     );
-    $return = $this->ServerMethod(TgMethods::PhotoSend, $param);
+    $return = $this->ServerMethod(
+      TgMethods::PhotoSend,
+      $param,
+      is_file($Photo) ? false : true
+    );
     return new TgPhoto($return);
   }
 

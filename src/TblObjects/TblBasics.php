@@ -50,21 +50,27 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 };
 
 /**
- * @version 2023.05.29.00
+ * @version 2023.06.16.00
  */
 abstract class TblBasics{
   protected TblData $BotData;
 
   private function Curl(
     string $Url,
-    array $Params = null
+    array $Params = null,
+    bool $AsJson = true
   ):CurlHandle{
     $curl = curl_init($Url);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($curl, CURLOPT_USERAGENT, 'Protocol TelegramBotLibrary');
     curl_setopt($curl, CURLOPT_CAINFO, dirname(__DIR__) . '/cacert.pem');
-    curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($Params));
-    curl_setopt($curl, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+    if($AsJson):
+      curl_setopt($curl, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+      curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($Params));
+    else:
+      curl_setopt($curl, CURLOPT_HTTPHEADER, ['Content-Type: multipart/form-data']);
+      curl_setopt($curl, CURLOPT_POSTFIELDS, $Params);
+    endif;
     if($this->BotData->Log & TblLog::Curl):
       curl_setopt($curl, CURLOPT_VERBOSE, true);
       curl_setopt($curl, CURLOPT_STDERR, fopen($this->BotData->DirLogs . '/curl.log', 'a'));
@@ -244,11 +250,13 @@ abstract class TblBasics{
   }
 
   /**
+   * @param bool $AsJson Send the data as application/json or multipart/form-data. Use the second one to send files
    * @throws TblException
    */
   protected function ServerMethod(
     TgMethods $Method,
-    array $Params = null
+    array $Params = null,
+    bool $AsJson = true
   ):mixed{
     $curl = $this->BotData->UrlApi . '/' . $Method->value;
     if($this->BotData->Log & TblLog::Send):
@@ -260,7 +268,7 @@ abstract class TblBasics{
       $log = str_replace('<', '&lt;', $log);
       $this->Log(TblLog::Send, $log);
     endif;
-    $curl = $this->Curl($curl, $Params);
+    $curl = $this->Curl($curl, $Params, $AsJson);
     $return = curl_exec($curl);
     if($return === false):
       $temp = 'cURL error #' . curl_errno($curl) . ' ' . curl_error($curl);
