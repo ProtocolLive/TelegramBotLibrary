@@ -1,14 +1,17 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.01.10.01
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
+use CURLFile;
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgLimits,
   TgParseMode
 };
 
+/**
+ * @version 2023.06.16.00
+ */
 final class TblPhotoSendMulti
 extends TblServerMulti{
   public function __construct(
@@ -158,7 +161,7 @@ extends TblServerMulti{
       $param['reply_markup'] = $Markup->ToArray();
     endif;
     if(is_file($Photo)):
-      $param['photo'] = new \CurlFile($Photo);
+      $param['photo'] = new CURLFile($Photo);
     else:
       $param['photo'] = $Photo;
     endif;
