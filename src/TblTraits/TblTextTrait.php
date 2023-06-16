@@ -1,7 +1,6 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.05.22.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblTraits;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
@@ -19,6 +18,9 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgText
 };
 
+/**
+ * @version 2023.06.16.00
+ */
 trait TblTextTrait{
   /**
    * Use this method to edit text and game messages.
@@ -98,7 +100,7 @@ trait TblTextTrait{
    * @param bool $Protect Protects the contents of the sent message from forwarding and saving
    * @param int $RepliedMsg If the message is a reply, ID of the original message
    * @param bool $SendWithoutRepliedMsg Pass True, if the message should be sent even if the specified replied-to message is not found
-   * @param TblMarkup TblMarkup Additional interface options. A object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
+   * @param TblMarkup $Markup Additional interface options. A object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
    * @return TgText On success, the sent Message is returned.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#sendmessage
