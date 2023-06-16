@@ -7,7 +7,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgForwadableInterface;
 
 /**
  * @link https://core.telegram.org/bots/api#videonote
- * @version 2023.06.16.00
+ * @version 2023.06.16.01
  */
 final class TgVideoNote
 extends TgObject
@@ -44,8 +44,8 @@ implements TgForwadableInterface{
     $this->IdUnique = $Data['video_note']['file_unique_id'];
     $this->Length = $Data['video_note']['length'];
     $this->Duration = $Data['video_note']['duration'];
-    if(isset($Data['video_note']['thumb'])):
-      $this->Thumb = new TgPhotoSize($Data['video_note']['thumb']);
+    if(isset($Data['video_note']['thumbnail'])):
+      $this->Thumb = new TgPhotoSize($Data['video_note']['thumbnail']);
     else:
       $this->Thumb = null;
     endif;
