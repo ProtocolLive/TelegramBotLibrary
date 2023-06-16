@@ -15,12 +15,11 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgLanguages,
   TgLimits,
   TgMethods,
-  TgPermAdmin,
-  TgUser
+  TgPermAdmin
 };
 
 /**
- * @version 2023.05.29.00
+ * @version 2023.06.16.00
  */
 trait TblMyTrait{
   /**

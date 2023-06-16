@@ -36,23 +36,19 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgInvoiceCheckout,
   TgInvoiceShipping,
   TgLimits,
-  TgLocationEdited,
   TgMenuButton,
   TgMessageData,
   TgMethods,
   TgParseMode,
   TgPhoto,
-  TgPhotoEdited,
   TgPoll,
   TgProfilePhoto,
   TgSticker,
-  TgText,
-  TgTextEdited,
-  TgVideoEdited
+  TgText
 };
 
 /**
- * @version 2023.05.23.00
+ * @version 2023.06.16.00
  */
 final class TelegramBotLibrary
 extends TblBasics{
