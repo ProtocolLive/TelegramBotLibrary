@@ -6,8 +6,8 @@ namespace ProtocolLive\TelegramBotLibrary\TblTraits;
 use CURLFile;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
   TblEntities,
-    TblError,
-    TblException,
+  TblError,
+  TblException,
   TblMarkup
 };
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
@@ -19,7 +19,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 };
 
 /**
- * @version 2023.06.16.00
+ * @version 2023.06.16.01
  */
 trait TblVideoTrait{
   /**
@@ -189,7 +189,7 @@ trait TblVideoTrait{
     if($Markup !== null):
       $params['reply_markup'] = $Markup->ToArray();
     endif;
-    return new TgVideoNote($this->ServerMethod(
+    return parent::DetectMessage($this->ServerMethod(
       TgMethods::VideoNoteSend,
       $params,
       is_file($Video) ? false : true
