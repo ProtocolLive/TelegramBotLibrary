@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
- * @version 2023.05.23.00
+ * @version 2023.06.16.00
  */
 abstract class TgErrors{
   public static function Search(string $Description):TgError|false{
@@ -23,6 +23,11 @@ abstract class TgErrors{
     and str_contains($Description, 'ends after the end of the text at UTF-16 offset ')):
       return TgError::EntityParse;
     endif;
+    if(str_starts_with($Description, 'Bad Request: file "')
+    and str_ends_with($Description, ' bytes is too big for a video note')):
+      return TgError::TooBig;
+    endif;
+
     return match($Description){
       'Bad Request: BUTTON_ID_INVALID' => TgError::ButtonIdInvalid,
       'Bad Request: can\'t parse ChatAdministratorRights: Field "can_manage_chat" must be of type Boolean' => TgError::PermAdminManage,

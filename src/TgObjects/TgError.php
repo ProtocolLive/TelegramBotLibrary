@@ -1,10 +1,12 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.05.15.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
+/**
+ * @version 2023.06.16.00
+ */
 enum TgError{
   case Banned;
   case Blocked;
@@ -39,6 +41,7 @@ enum TgError{
   case Protected;
   case SomethingMissing;
   case TextButtonNo;
+  case TooBig;
   case TooMany;
   case UnpinNotFound;
   case UrlFailed;
