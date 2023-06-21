@@ -10,7 +10,7 @@ use Exception;
  * @link https://core.telegram.org/bots/api#passportdata
  * @link https://core.telegram.org/bots/api#encryptedcredentials
  * @link https://core.telegram.org/passport
- * @version 2023.05.30.02
+ * @version 2023.06.20.00
  */
 final class TgPassport
 extends TgObject{
@@ -38,7 +38,7 @@ extends TgObject{
   /**
    * Credentials for encrypted residential address
    */
-  public TgPassportDataAddress $Address;
+  public TgPassportDataAddress|null $Address = null;
   /**
    * Credentials for encrypted utility bill
    */
@@ -107,17 +107,19 @@ extends TgObject{
     );
     $this->Nonce = $Data['nonce'];
     //Decode Address
-    $temp = self::DecodeData(
-      $this->Address->Data,
-      base64_decode($Data['secure_data']['address']['data']['secret']),
-      base64_decode($Data['secure_data']['address']['data']['data_hash'])
-    );
-    $this->Address->City = $temp['city'];
-    $this->Address->Country = $temp['country_code'];
-    $this->Address->PostCode = $temp['post_code'];
-    $this->Address->State = $temp['state'];
-    $this->Address->Street1 = $temp['street_line1'];
-    $this->Address->Street2 = $temp['street_line2'];
+    if($this->Address !== null):
+      $temp = self::DecodeData(
+        $this->Address->Data,
+        base64_decode($Data['secure_data']['address']['data']['secret']),
+        base64_decode($Data['secure_data']['address']['data']['data_hash'])
+      );
+      $this->Address->City = $temp['city'];
+      $this->Address->Country = $temp['country_code'];
+      $this->Address->PostCode = $temp['post_code'];
+      $this->Address->State = $temp['state'];
+      $this->Address->Street1 = $temp['street_line1'];
+      $this->Address->Street2 = $temp['street_line2'];
+    endif;
     //Decode driver
     if($this->Driver !== null):
       $temp = self::DecodeData(
@@ -151,8 +153,10 @@ extends TgObject{
       $this->Driver->Data = null;
       $this->Driver->Hash = null;
     endif;
-    $this->Address->Data = null;
-    $this->Address->Hash = null;
+    if($this->Address !== null):
+      $this->Address->Data = null;
+      $this->Address->Hash = null;
+    endif;
   }
 
 
