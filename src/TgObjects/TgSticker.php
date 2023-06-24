@@ -3,14 +3,16 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
+use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgForwadableInterface;
 
 /**
  * This object represents a sticker.
  * @link https://core.telegram.org/bots/api#sticker
- * @version 2023.05.23.00
+ * @version 2023.06.23.00
  */
 final class TgSticker
-extends TgObject{
+extends TgObject
+implements TgForwadableInterface{
   public readonly TgMessageData $Data;
   /**
    * Identifier for this file, which can be used to download or reuse the file
