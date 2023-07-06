@@ -25,6 +25,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgInvoice,
   TgInvoiceDone,
   TgLocation,
+  TgLogin,
   TgMemberLeft,
   TgMemberNew,
   TgMethods,
@@ -50,7 +51,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 };
 
 /**
- * @version 2023.06.16.00
+ * @version 2023.07.05.00
  */
 abstract class TblBasics{
   protected TblData $BotData;
@@ -122,6 +123,8 @@ abstract class TblBasics{
       return new TgAnimation($Data);
     elseif(isset($Data['chat_shared'])):
       return new TgChatShared($Data);
+    elseif(isset($Data['connected_website'])):
+      return new TgLogin($Data);
     elseif(isset($Data['contact'])):
       return new TgContact($Data);
     elseif(isset($Data['document'])):
