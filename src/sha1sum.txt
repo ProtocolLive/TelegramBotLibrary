@@ -1,4 +1,4 @@
-d909becf11d3cc794c3a218662c6f22a327e431c  TblObjects\TblBasics.php
+c1d84d01fb5cb9a958967f1acb02710f765369d9  TblObjects\TblBasics.php
 2234c94111ac0c97fda56f9815217f7b13c55ea2  TblObjects\TblCmd.php
 8571cedd72c19a1d295ecce4d04585924e8534cb  TblObjects\TblCmdEdited.php
 52a43df4e3acc130c5e13aee61bbd74311df1623  TblObjects\TblCommands.php
@@ -88,6 +88,7 @@ af44371bf7b0519441015cf653c9b0693d1979ed  TgObjects\TgInvoiceOrderInfo.php
 eea15296c996f04109dd8c5e077a2ce3a8c12ea8  TgObjects\TgLimits.php
 7658777e6adde49853dcb86ebf689b9433135d63  TgObjects\TgLocation.php
 05a7444b3697cb898237d03388565553189cf609  TgObjects\TgLocationEdited.php
+3075b28314e8f107119b8a5807fb80c32ca01e31  TgObjects\TgLogin.php
 6edec844fb194cde1452e61fa61940e96286c2db  TgObjects\TgMask.php
 0d6305b38fb2c4038f8bd165b04878d6ba9a86e6  TgObjects\TgMember.php
 e225e29cf0a94a22ceac31a8a21fa009a81e6e4b  TgObjects\TgMemberLeft.php
