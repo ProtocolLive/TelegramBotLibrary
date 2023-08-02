@@ -46,12 +46,13 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgVideoChatStarted,
   TgVideoEdited,
   TgVideoNote,
+  TgVideoNoteEdited,
   TgVoice,
   TgWebappData
 };
 
 /**
- * @version 2023.07.05.00
+ * @version 2023.08.02.00
  */
 abstract class TblBasics{
   protected TblData $BotData;
@@ -211,6 +212,8 @@ abstract class TblBasics{
       return new TgTextEdited($Data);
     elseif(isset($Data['video'])):
       return new TgVideoEdited($Data);
+    elseif(isset($Data['video_note'])):
+      return new TgVideoNoteEdited($Data);
     else:
       return null;
     endif;

@@ -7,9 +7,9 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgForwadableInterface;
 
 /**
  * @link https://core.telegram.org/bots/api#videonote
- * @version 2023.06.16.01
+ * @version 2023.08.02.00
  */
-final class TgVideoNote
+class TgVideoNote
 extends TgObject
 implements TgForwadableInterface{
   public readonly TgMessageData $Data;
