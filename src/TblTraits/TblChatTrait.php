@@ -1,7 +1,6 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.02.03.02
 
 namespace ProtocolLive\TelegramBotLibrary\TblTraits;
 use ProtocolLive\TelegramBotLibrary\TblObjects\TblException;
@@ -16,6 +15,9 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgUser
 };
 
+/**
+ * @version 2023.08.11.00
+ */
 trait TblChatTrait{
   /**
    * Use this method when you need to tell the user that something is happening on the bot's side. The status is set for 5 seconds or less (when a message arrives from your bot, Telegram clients clear its typing status).
@@ -128,6 +130,23 @@ trait TblChatTrait{
   }
 
   /**
+   * Use this method to ban a channel chat in a supergroup or a channel. Until the chat is unbanned, the owner of the banned chat won't be able to send messages on behalf of any of their channels. The bot must be an administrator in the supergroup or channel for this to work and must have the appropriate administrator rights.
+   * @param string|int $Chat Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * @param int $SenderChat Unique identifier of the target sender chat
+   * @return true on success.
+   * @throws TblException
+   * @link https://core.telegram.org/bots/api#banchatsenderchat
+   */
+  public function ChatBanChannel(
+    string|int $Chat,
+    int $SenderChat
+  ):true{
+    $param['chat_id'] = $Chat;
+    $param['sender_chat_id'] = $SenderChat;
+    return $this->ServerMethod(TgMethods::ChatBanChannel, $param);
+  }
+
+  /**
    * Use this method to unban a previously banned user in a supergroup or channel. The user will not return to the group or channel automatically, but will be able to join via link, etc. The bot must be an administrator for this to work. By default, this method guarantees that after the call the user is not a member of the chat, but will be able to join it. So if the user is a member of the chat they will also be removed from the chat. If you don't want this, use the parameter only_if_banned.
    * @param int|string $Chat Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername)
    * @param int $User Unique identifier of the target user
@@ -145,6 +164,23 @@ trait TblChatTrait{
     $param['user_id'] = $User;
     $param['only_if_banned'] = $OnlyIfBanned;
     return $this->ServerMethod(TgMethods::ChatMemberBanUndo, $param);
+  }
+
+  /**
+   * Use this method to unban a previously banned channel chat in a supergroup or channel. The bot must be an administrator for this to work and must have the appropriate administrator rights.
+   * @param string|int $Chat Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * @param int $SenderChat Unique identifier of the target sender chat
+   * @return true on success.
+   * @throws TblException
+   * @link https://core.telegram.org/bots/api#unbanchatsenderchat
+   */
+  public function ChatBanUndoChannel(
+    string|int $Chat,
+    int $SenderChat
+  ):true{
+    $param['chat_id'] = $Chat;
+    $param['sender_chat_id'] = $SenderChat;
+    return $this->ServerMethod(TgMethods::ChatBanChannelUndo, $param);
   }
 
   /**
