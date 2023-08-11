@@ -49,7 +49,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 };
 
 /**
- * @version 2023.06.16.02
+ * @version 2023.08.03.00
  */
 final class TelegramBotLibrary
 extends TblBasics{
@@ -75,6 +75,9 @@ extends TblBasics{
   }
 
   private function Archive(array $New){
+    if(is_dir($this->BotData->DirLogs) === false):
+      mkdir($this->BotData->DirLogs, 0755, true);
+    endif;
     file_put_contents(
       $this->BotData->DirLogs . '/archive.json',
       json_encode($New) . ',',
