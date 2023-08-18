@@ -1,7 +1,6 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.12.30.01
 
 namespace ProtocolLive\TelegramBotLibrary\TblTraits;
 use ProtocolLive\TelegramBotLibrary\{
@@ -11,6 +10,9 @@ use ProtocolLive\TelegramBotLibrary\{
   TgObjects\TgSticker
 };
 
+/**
+ * @version 2023.08.18.00
+ */
 trait TblForumTrait{
   /**
    * Use this method to close an open topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights, unless it is the creator of the topic.
@@ -216,5 +218,19 @@ trait TblForumTrait{
     $param['chat_id'] = $Chat;
     $param['message_thread_id'] = $Id;
     return $this->ServerMethod(TgMethods::ForumUnpin, $param);
+  }
+
+  /**
+   * Use this method to clear the list of pinned messages in a General forum topic. The bot must be an administrator in the chat for this to work and must have the can_pin_messages administrator right in the supergroup.
+   * @param string|int $Chat Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+   * @return true Returns True on success.
+   * @throws TblException
+   * @link https://core.telegram.org/bots/api#unpinallgeneralforumtopicmessages
+   */
+  public function ForumUnpinAllGeneral(
+    string|int $Chat
+  ):true{
+    $param['chat_id'] = $Chat;
+    return $this->ServerMethod(TgMethods::ForumUnpinAllGeneral, $param);
   }
 }
