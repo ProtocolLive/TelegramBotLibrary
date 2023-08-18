@@ -35,6 +35,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgPinnedMsg,
   TgPoll,
   TgSticker,
+  TgStory,
   TgText,
   TgTextEdited,
   TgUserShared,
@@ -52,7 +53,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 };
 
 /**
- * @version 2023.08.02.00
+ * @version 2023.08.18.00
  */
 abstract class TblBasics{
   protected TblData $BotData;
@@ -170,6 +171,8 @@ abstract class TblBasics{
       return new TgInvoiceDone($Data);
     elseif(isset($Data['sticker'])):
       return new TgSticker($Data);
+    elseif(isset($Data['story'])):
+      return new TgStory($Data);
     elseif(isset($Data['text'])):
       return new TgText($Data);
     elseif(isset($Data['user_shared'])):
