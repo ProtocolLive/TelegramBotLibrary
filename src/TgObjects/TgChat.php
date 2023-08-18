@@ -1,13 +1,14 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.05.05.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 use ProtocolLive\TelegramBotLibrary\TblObjects\TblBasics;
 
 /**
  * @link https://core.telegram.org/bots/api#chat
+ * @version 2023.08.18.00
+ * 
  */
 class TgChat{
   /**
@@ -78,8 +79,18 @@ class TgChat{
    * If aggressive anti-spam checks are enabled in the supergroup. The field is only available to chat administrators. Returned only in getChat.
    */
   public readonly bool|null $AntiSpam;
+  /**
+   * Custom emoji identifier of emoji status of the other party in a private chat. Returned only in getChat.
+   */
+  public readonly string|null $Emoji;
+  /**
+   * Expiration date of the emoji status of the other party in a private chat, if any. Returned only in getChat.
+   */
+  public readonly string|null $EmojiExpiration;
 
-  public function __construct(array $Data){
+  public function __construct(
+    array $Data
+  ){
     $this->Id = $Data['id'];
     $this->Name = $Data['title'];
     $this->Type = TgChatType::from($Data['type']);
@@ -94,6 +105,8 @@ class TgChat{
     $this->HidedMembers = $Data['has_hidden_members'] ?? false;
     $this->AntiSpam = $Data['has_aggressive_anti_spam_enabled'] ?? false;
     $this->Nicks = $Data['active_usernames'] ?? null;
+    $this->Emoji = $Data['emoji_status_custom_emoji_id'] ?? null;
+    $this->EmojiExpiration = $Data['emoji_status_expiration_date'] ?? null;
     if(isset($Data['permissions'])):
       $this->Permissions = new TgPermAdmin($Data['permissions']);
     else:
