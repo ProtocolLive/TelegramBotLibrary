@@ -1,4 +1,4 @@
-8013d15dd3b8faf33e753e0cd8c3008ab17afd58  TblObjects\TblBasics.php
+1b6ce952bbd9f2bf089302029178da31283b6278  TblObjects\TblBasics.php
 2234c94111ac0c97fda56f9815217f7b13c55ea2  TblObjects\TblCmd.php
 8571cedd72c19a1d295ecce4d04585924e8534cb  TblObjects\TblCmdEdited.php
 52a43df4e3acc130c5e13aee61bbd74311df1623  TblObjects\TblCommands.php
@@ -31,7 +31,7 @@ f55bc333fde3c765ffed659c2f11c1c18f287f67  TblObjects\TblServerMulti.php
 973d453e5bc31ba38835a6107ccce4734b31cff8  TblObjects\TblTextSendMulti.php
 8ad5f047ef6e256d5d9dea65d5252d7f5d31e497  TblObjects\TblWebhook.php
 b7d66bcce36353b64f4ce1c48cf7dab7a2d24224  TblTraits\TblChatTrait.php
-ba73eccd30b3a4f6cb92007bebbafebea5cbb124  TblTraits\TblForumTrait.php
+b88329c16f61c8f803e798b596ad49fbdb04cc7d  TblTraits\TblForumTrait.php
 3e93a3ad8d4607c553398d1d07f75246ba0c40fd  TblTraits\TblInvoiceTrait.php
 2d515f1d7576f2b86b98749e60699ac9d0c9f5c2  TblTraits\TblMyTrait.php
 1b6a032dcaed7fe79417b0383b4dfedf40521f63  TblTraits\TblPhotoTrait.php
@@ -45,7 +45,7 @@ cdc4fb9fc73beb01bc360f0e051483dc8f85ce91  TgObjects\TgAnimationEdited.php
 672997809ed8fc02c3b13681498e2f93336a4aa5  TgObjects\TgButtonCallback.php
 e3874ae26b1df09585657ad3cea314e668d3b55d  TgObjects\TgButtonWebapp.php
 fe2823bdd71948a6fe4d9540d41215acde13c3ea  TgObjects\TgCallback.php
-9edb14cf63881138310a59d0123176c878c50f88  TgObjects\TgChat.php
+6e76f6b7bcca6dd2dd21c2005ee8688fd1c3569a  TgObjects\TgChat.php
 3e4b04c42be0783e65ecdca584cd325b1d189673  TgObjects\TgChatAction.php
 0f55a7e5bee55435dc60d09eb12c63b96f7b3ffc  TgObjects\TgChatAutoDel.php
 9a2e27c3c6d4878bfe2799e645fd8f72580dd58c  TgObjects\TgChatInviteLink.php
@@ -96,7 +96,7 @@ e3d1d87c7a44fe83af91874175acc63649f5092e  TgObjects\TgMemberNew.php
 55408d75839d0c7fac7f9dae4b308630b8efef3d  TgObjects\TgMemberStatus.php
 63edf2fb1eba44011f67d98362719d162a2cdfe5  TgObjects\TgMenuButton.php
 c7ac31db136056e0f0743f43aa2690b7d9688113  TgObjects\TgMessageData.php
-49c520687792b2b5af0cc0219cc3e9be4043fdf6  TgObjects\TgMethods.php
+632e834b9722d9d98711830d0d7771f57d3918b6  TgObjects\TgMethods.php
 4ba79fb533388fa7c7b768400bd42e997d93db9f  TgObjects\TgObject.php
 463c7b0049dab6b31e14be6766d0dd725ad7fb02  TgObjects\TgParseMode.php
 c67d58394ddf9af69c724abea740bcee7c8484eb  TgObjects\TgPassport.php
@@ -117,6 +117,7 @@ bd9711cf4eb6cd4618f927c480788556137da6bb  TgObjects\TgPollOption.php
 a3bfb70bcb4955a534b7a70f14fe20989b048723  TgObjects\TgProfilePhoto.php
 bdbb656ca8986dc5ece309d8e666b4d726f9f712  TgObjects\TgSticker.php
 b8faa7d955a47a1749bec33a109c582116ecfe9a  TgObjects\TgStickerType.php
+d9d26b5d424a19841dda4c2d46ba19e027d6a883  TgObjects\TgStory.php
 5e83046107654f73646bb9f4c803be10520ab309  TgObjects\TgText.php
 5a45e7f6a2b662f53841404b2df5c417ae406821  TgObjects\TgTextEdited.php
 f9ce0411b03d01745e9b34444e59d966683f191f  TgObjects\TgUpdateType.php
