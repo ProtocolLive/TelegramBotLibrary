@@ -6,7 +6,7 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
  * @link https://core.telegram.org/bots/api#user
- * @version 2023.09.11.00
+ * @version 2023.09.11.01
  */
 class TgUser{
   /**
@@ -78,16 +78,12 @@ class TgUser{
     $this->RestrictedForward = $Data['has_private_forwards'] ?? null;
     $this->RestrictedVoice = $Data['has_restricted_voice_and_video_messages'] ?? null;
     $this->Premium = $Data['is_premium'] ?? false;
+    $this->Nicks = $Data['active_usernames'] ?? null;
     $this->AutoDel = $Data['message_auto_delete_time'] ?? 0;
     if(isset($Data['photo'])):
       $this->Photo = new TgChatPhoto($Data['photo']);
     else:
       $this->Photo = null;
-    endif;
-    if(isset($Data['active_usernames'])):
-      $this->Nicks = $Data['active_usernames'];
-    else:
-      $this->Nicks = null;
     endif;
   }
 }
