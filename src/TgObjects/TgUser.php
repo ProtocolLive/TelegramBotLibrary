@@ -6,7 +6,7 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
  * @link https://core.telegram.org/bots/api#user
- * @version 2023.05.23.00
+ * @version 2023.09.11.00
  */
 class TgUser{
   /**
@@ -58,6 +58,10 @@ class TgUser{
    * Chat photo. Returned only in getChat.
    */
   public readonly TgChatPhoto|null $Photo;
+  /**
+   * The time after which all messages sent to the chat will be automatically deleted; in seconds. Returned only in getChat.
+   */
+  public readonly int $AutoDel;
 
   /**
    * @link https://core.telegram.org/bots/api#user
@@ -74,6 +78,7 @@ class TgUser{
     $this->RestrictedForward = $Data['has_private_forwards'] ?? null;
     $this->RestrictedVoice = $Data['has_restricted_voice_and_video_messages'] ?? null;
     $this->Premium = $Data['is_premium'] ?? false;
+    $this->AutoDel = $Data['message_auto_delete_time'] ?? 0;
     if(isset($Data['photo'])):
       $this->Photo = new TgChatPhoto($Data['photo']);
     else:
