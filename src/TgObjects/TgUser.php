@@ -6,7 +6,7 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
  * @link https://core.telegram.org/bots/api#user
- * @version 2023.09.11.01
+ * @version 2023.09.11.02
  */
 class TgUser{
   /**
@@ -24,7 +24,7 @@ class TgUser{
   /**
    * If this user is a Telegram Premium user. This property only comes in message event
    */
-  public readonly bool $Premium;
+  public readonly bool|null $Premium;
   /**
    * User's or bot's last name
    */
@@ -77,7 +77,7 @@ class TgUser{
     $this->Bio = $Data['bio'] ?? null;
     $this->RestrictedForward = $Data['has_private_forwards'] ?? null;
     $this->RestrictedVoice = $Data['has_restricted_voice_and_video_messages'] ?? null;
-    $this->Premium = $Data['is_premium'] ?? false;
+    $this->Premium = $Data['is_premium'] ?? null;
     $this->Nicks = $Data['active_usernames'] ?? null;
     $this->AutoDel = $Data['message_auto_delete_time'] ?? 0;
     if(isset($Data['photo'])):
