@@ -121,7 +121,7 @@ d9d26b5d424a19841dda4c2d46ba19e027d6a883  TgObjects\TgStory.php
 5e83046107654f73646bb9f4c803be10520ab309  TgObjects\TgText.php
 5a45e7f6a2b662f53841404b2df5c417ae406821  TgObjects\TgTextEdited.php
 f9ce0411b03d01745e9b34444e59d966683f191f  TgObjects\TgUpdateType.php
-16aff82f3ad89d0db19bb74ef063fc2b5d16e11d  TgObjects\TgUser.php
+df4e5b71c78f096d0b0eadce047335d4f6bdb30b  TgObjects\TgUser.php
 4fb9805150c19666a7486067a80dd9397a89989f  TgObjects\TgUserShared.php
 de3bab785e2c21339a02ff54c9277eabafdb312a  TgObjects\TgVenue.php
 83853276e752a0cb85c7d09516c08f1a7f00e9b8  TgObjects\TgVideo.php
