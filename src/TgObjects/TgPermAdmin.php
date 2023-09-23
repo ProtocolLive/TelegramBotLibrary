@@ -1,12 +1,12 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.02.03.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
  * @link https://core.telegram.org/bots/api#chatmemberadministrator
+ * @version 2023.09.22.00
  */
 class TgPermAdmin{
   const Array = [
@@ -20,7 +20,10 @@ class TgPermAdmin{
     'Video' => 'can_manage_video_chats',
     'Info' => 'can_change_info',
     'Pin' => 'can_pin_messages',
-    'Topics' => 'can_manage_topics'
+    'Topics' => 'can_manage_topics',
+    'StoryCreate' => 'can_post_stories',
+    'StoryEdit' => 'can_edit_stories',
+    'StoryDelete' => 'can_delete_stories'
   ];
 
   /**
@@ -35,7 +38,10 @@ class TgPermAdmin{
    * @param bool $Video If the administrator can manage video chats
    * @param bool $Info If the administrator can change chat title, photo and other settings
    * @param bool $Pin If the administrator can pin messages, supergroups only
-   * @param bool $Topics If the user is allowed to create, rename, close, and reopen forum topics; supergroups only
+   * @param bool $Topics If the user is allowed to create, rename, close, and reopen forum topics; supergroups only,
+   * @param bool $StoryCreate Pass True if the administrator can post stories in the channel; channels only
+   * @param bool $StoryEdit Pass True if the administrator can edit stories posted by other users; channels only
+   * @param bool $StoryDelete Pass True if the administrator can edit stories posted by other users; channels only
    * @link https://core.telegram.org/bots/api#chatmemberadministrator
    */
   public function __construct(
@@ -51,7 +57,10 @@ class TgPermAdmin{
     public bool $Video = false,
     public bool $Info = false,
     public bool $Pin = false,
-    public bool $Topics = false
+    public bool $Topics = false,
+    public bool $StoryCreate = false,
+    public bool $StoryEdit = false,
+    public bool $StoryDelete = false
   ){
     if($Data !== null):
       foreach(self::Array as $perm => $vector):

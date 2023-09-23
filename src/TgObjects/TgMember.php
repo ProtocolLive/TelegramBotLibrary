@@ -1,15 +1,15 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.02.03.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
  * This object contains information about one member of a chat. Currently, the following 6 types of chat members are supported:
  * @link https://core.telegram.org/bots/api#chatmember
+ * @version 2023.09.22.00
  */
-class TgMember{
+final class TgMember{
   /**
    * Information about the user
    */
@@ -62,8 +62,42 @@ class TgMember{
     $this->Title = $Data['custom_title'] ?? null;
     $this->Expires = $Data['until_date'] ?? null;
     if($this->Status === TgMemberStatus::Creator):
-      $this->AdminPerms = new TgPermAdmin(null, true, false, true, true, true, true, true);
-      $this->MemberPerms = new TgPermMember(null, true, true, true,true, true, true, true, true);
+      $this->AdminPerms = new TgPermAdmin(
+        null,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      );
+      $this->MemberPerms = new TgPermMember(
+        null,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      );
     else:
       $this->AdminPerms = new TgPermAdmin($Data);
       $this->MemberPerms = new TgPermMember($Data);
