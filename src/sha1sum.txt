@@ -90,7 +90,7 @@ eea15296c996f04109dd8c5e077a2ce3a8c12ea8  TgObjects\TgLimits.php
 05a7444b3697cb898237d03388565553189cf609  TgObjects\TgLocationEdited.php
 3075b28314e8f107119b8a5807fb80c32ca01e31  TgObjects\TgLogin.php
 6edec844fb194cde1452e61fa61940e96286c2db  TgObjects\TgMask.php
-0d6305b38fb2c4038f8bd165b04878d6ba9a86e6  TgObjects\TgMember.php
+bc715c3153b38fa9b6d2fbacec16981e2a34a7bd  TgObjects\TgMember.php
 e225e29cf0a94a22ceac31a8a21fa009a81e6e4b  TgObjects\TgMemberLeft.php
 e3d1d87c7a44fe83af91874175acc63649f5092e  TgObjects\TgMemberNew.php
 55408d75839d0c7fac7f9dae4b308630b8efef3d  TgObjects\TgMemberStatus.php
@@ -105,7 +105,7 @@ eaf4fc089bf3c15be9fd426d8428579f6a13fa26  TgObjects\TgPassportDataDriver.php
 10b67863d8d035114287315b65d5dcbf7a2c9ca6  TgObjects\TgPassportDataPersonal.php
 184a46ceee105bfb0c739d354a179d6d76bd29d7  TgObjects\TgPassportDataType.php
 d58347f189303f066d96961ce626dc60fc708498  TgObjects\TgPassportFile.php
-30f126a18558c404f852369f50274e445b4c4cd0  TgObjects\TgPermAdmin.php
+633f8a7aa05620f01eee91b8a4216c1bb8087a6e  TgObjects\TgPermAdmin.php
 50eb455dee13aae3c9a1f9b353468d963c50f261  TgObjects\TgPermMember.php
 03942fa103220101fa8e1a9fa0fed4d240fbb3e0  TgObjects\TgPhoto.php
 40dd61bed2ca940a6b03447efc29d5dc0d54a7b4  TgObjects\TgPhotoEdited.php
