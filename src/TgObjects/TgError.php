@@ -5,9 +5,10 @@
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
- * @version 2023.06.16.00
+ * @version 2023.10.07.00
  */
 enum TgError{
+  case Admin;
   case Banned;
   case Blocked;
   case BotBot;

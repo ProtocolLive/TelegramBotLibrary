@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
- * @version 2023.06.16.00
+ * @version 2023.10.07.00
  */
 abstract class TgErrors{
   public static function Search(string $Description):TgError|false{
@@ -57,6 +57,7 @@ abstract class TgErrors{
       'Bad Request: the message can\'t be forwarded' => TgError::ForwardCant,
       'Bad Request: there is no media in the message to edit' => TgError::NoMedia,
       'Bad Request: there must be at least one price' => TgError::SomethingMissing,
+      'Bad Request: user is an administrator of the chat' => TgError::Admin,
       'Bad Request: user not found' => TgError::UserNotFound,
       'Bad Request: VOICE_MESSAGES_FORBIDDEN' => TgError::ForwardCant,
       'Bad Request: WEBDOCUMENT_URL_INVALID' => TgError::UrlInvalid,
