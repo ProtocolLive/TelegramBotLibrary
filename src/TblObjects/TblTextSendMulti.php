@@ -9,7 +9,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 };
 
 /**
- * @version 2023.06.20.00
+ * @version 2023.11.09.00
  */
 final class TblTextSendMulti
 extends TblServerMulti{
@@ -142,6 +142,9 @@ extends TblServerMulti{
       throw new TblException(TblError::LimitText, 'Text exceed ' . TgLimits::Text . ' characters');
     endif;
     $param['chat_id'] = $Chat;
+    if($ParseMode === TgParseMode::Markdown2):
+      $Text = preg_replace('/([>#+\-={}.!])/', '\\\\$1', $Text);
+    endif;
     $param['text'] = $Text;
     if($Thread !== null):
       $param['message_thread_id'] = $Thread;
