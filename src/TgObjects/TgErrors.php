@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
- * @version 2023.10.07.00
+ * @version 2023.11.07.00
  */
 abstract class TgErrors{
   public static function Search(string $Description):TgError|false{
@@ -26,6 +26,10 @@ abstract class TgErrors{
     if(str_starts_with($Description, 'Bad Request: file "')
     and str_ends_with($Description, ' bytes is too big for a video note')):
       return TgError::TooBig;
+    endif;
+    if(str_starts_with($Description, 'Bad Request: can\'t parse entities: Character')
+    and str_ends_with($Description, 'is reserved and must be escaped with the preceding \'\\\'')):
+      return TgError::Markdown;
     endif;
 
     return match($Description){
