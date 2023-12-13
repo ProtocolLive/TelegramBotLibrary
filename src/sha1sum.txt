@@ -134,4 +134,4 @@ d6642288faca11b889855e7e5474edacb44fbb9d  TgObjects\TgVideoChatStarted.php
 f294523df377f8286767d719a94b6ae6c27af8e9  TgObjects\TgVideoNoteEdited.php
 e4b35daccf69e4f8186c71360c0e6a71617dc7a2  TgObjects\TgVoice.php
 385cef96cd4900d134cdeeff8851740e167381c0  TgObjects\TgWebappData.php
-cc7062a9e6272e5c0a30817b7136ac34d9484c11  cacert.pem
+3c4a17b6c725462993e42152c5ba97645168243a  cacert.pem
