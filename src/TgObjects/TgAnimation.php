@@ -7,12 +7,15 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgForwadableInterface;
 
 /**
  * @link https://core.telegram.org/bots/api#animation
- * @version 2023.05.23.01
+ * @version 2023.12.20.00
  */
 class TgAnimation
 extends TgObject
 implements TgForwadableInterface{
-  public readonly TgMessageData $Data;
+  /**
+   * The game message have a animation inside, turning this null
+   */
+  public readonly TgMessageData|null $Data;
   /**
    * Identifier for this file, which can be used to download or reuse the file
    */
@@ -50,8 +53,14 @@ implements TgForwadableInterface{
    */
   public readonly int|null $Size;
 
-  public function __construct(array $Data){
-    $this->Data = new TgMessageData($Data);
+  public function __construct(
+    array $Data
+  ){
+    if(isset($Data['message_id'])):
+      $this->Data = new TgMessageData($Data);
+    else:
+      $this->Data = null;
+    endif;
     $this->Id = $Data['animation']['file_id'];
     $this->IdUnique = $Data['animation']['file_unique_id'];
     $this->Width = $Data['animation']['width'];
