@@ -1,4 +1,4 @@
-1b6ce952bbd9f2bf089302029178da31283b6278  TblObjects\TblBasics.php
+8fefd3811ce485a758b1dcafa3f3385a444aea91  TblObjects\TblBasics.php
 2234c94111ac0c97fda56f9815217f7b13c55ea2  TblObjects\TblCmd.php
 8571cedd72c19a1d295ecce4d04585924e8534cb  TblObjects\TblCmdEdited.php
 52a43df4e3acc130c5e13aee61bbd74311df1623  TblObjects\TblCommands.php
@@ -39,7 +39,7 @@ b88329c16f61c8f803e798b596ad49fbdb04cc7d  TblTraits\TblForumTrait.php
 74b843de3a7337f95b2e95c4c8dd66937ee42737  TblTraits\TblVideoTrait.php
 323d7852fcb23223fbfdc7055a9568a2da96011d  TelegramBotLibrary.php
 0f22f051f568721c145bdff65a81ac5d55575206  TgInterfaces\TgForwadableInterface.php
-47a39d0616a9f20aea7514ff392074d4be8ae07c  TgObjects\TgAnimation.php
+73cf68cd98f40b3649df53934137abfc829e3683  TgObjects\TgAnimation.php
 cdc4fb9fc73beb01bc360f0e051483dc8f85ce91  TgObjects\TgAnimationEdited.php
 5e4f5a8473d24a8c370c9e6286293c59e22404bf  TgObjects\TgBot.php
 672997809ed8fc02c3b13681498e2f93336a4aa5  TgObjects\TgButtonCallback.php
@@ -71,6 +71,7 @@ c4ed0dac512da9b60e3766183f6b0e0a2fa94575  TgObjects\TgForumClosed.php
 6942958407d6570b052cb4ae202e8a9f6c68ee5f  TgObjects\TgForumCreated.php
 9ce82b1e87998266d8e5c6398d09edc07ef2dcd4  TgObjects\TgForumReopened.php
 dc681cc13aedfbc5bb6cc3984f1c00e50dcfd769  TgObjects\TgForumTopic.php
+5ca1b0a274b6048d394f35608b979c1b3e0559f4  TgObjects\TgGame.php
 ea9acdfb538ce555b0cb11a5015828d085307d5a  TgObjects\TgGroupCreated.php
 2b0ef7a2785e3a235e22887a9051a0e78fe73e84  TgObjects\TgGroupStatus.php
 491353cfeb019af56a6d6117068d99fe0d4a28c6  TgObjects\TgGroupStatusMy.php
