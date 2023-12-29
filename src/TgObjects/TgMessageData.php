@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
- * @version 2023.06.02.00
+ * @version 2023.12.29.00
  */
 final class TgMessageData{
   /**
@@ -39,15 +39,20 @@ final class TgMessageData{
   /**
    * If the message is a channel post that was automatically forwarded to the connected discussion group
    */
-  public readonly bool|null $ForwardAuto;
+  public readonly bool $ForwardAuto;
   /**
    * For forwarded messages, date the original message was sent in Unix time
    */
   public readonly int|null $ForwardDate;
   /**
-   * For replies, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
+   * For messages originally sent by an anonymous chat administrator, original message author signature
    */
-  public readonly TgText|TgPhoto|TgDocument|null $Reply;
+  public readonly string|null $ForwardSignature;
+  /**
+   * For replies, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
+   * Information about the message that is being replied to, which may come from another chat or forum topic
+   */
+  public readonly TgText|TgPhoto|TgDocument|TgReplyExternal|null $Reply;
   /**
    * If the message is sent to a forum topic
    */
@@ -78,36 +83,19 @@ final class TgMessageData{
   //The bot 136817688 is used when admin post as channel
   public function __construct(array $Data){
     $this->Id = $Data['message_id'];
-    if(($Data['from']['id'] ?? 0) === 777000): //Telegram
-      $this->User = new TgChat($Data['sender_chat']);
-      if(isset($Data['forward_from_chat'])):
-        $this->ForwardFrom = new TgChat($Data['forward_from_chat']);
-        $this->ForwardId = $Data['forward_from_message_id'];
-      elseif(isset($Data['forward_from'])):
-        $this->ForwardFrom = new TgUser($Data['forward_from']);
-      else:
-        $this->ForwardFrom = $Data['forward_sender_name'];
-      endif;
-      $this->ForwardAuto = $Data['is_automatic_forward'];
-    elseif(($Data['from']['id'] ?? 0) === 1087968824 //GroupAnonymousBot
-    or ($Data['from']['id'] ?? 0) === 136817688): //Channel_Bot
-      $this->User = new TgChat($Data['sender_chat']);
-      $this->ForwardFrom = null;
-      $this->ForwardId = null;
-      $this->ForwardAuto = null;
+
+    if(isset($Data['from'])
+    and $Data['from']['id'] !== 777000
+    and $Data['from']['id'] !== 1087968824
+    and $Data['from']['id'] !== 136817688):
+      $this->User = new TgUser($Data['from']);
     else:
-      if(isset($Data['from'])):
-        $this->User = new TgUser($Data['from']);
-      else:
+      if($Data['sender_chat']['type'] === TgChatType::Channel->value
+      or $Data['sender_chat']['type'] === TgChatType::GroupSuper->value):
         $this->User = new TgChat($Data['sender_chat']);
-      endif;
-      if(isset($Data['forward_from'])):
-        $this->ForwardFrom = new TgUser($Data['forward_from']);
       else:
-        $this->ForwardFrom = null;
+        $this->User = new TgUser($Data['sender']);
       endif;
-      $this->ForwardId = null;
-      $this->ForwardAuto = null;
     endif;
 
     if($Data['chat']['type'] === TgChatType::Private->value):
@@ -115,26 +103,40 @@ final class TgMessageData{
     else:
       $this->Chat = new TgChat($Data['chat']);
     endif;
+
+    if(isset($Data['forward_origin'])):
+      if($Data['forward_origin']['type'] === 'user'):
+        $this->ForwardFrom = new TgUser($Data['forward_origin']['sender_user']);
+      elseif($Data['forward_origin']['type'] === TgChatType::Channel->value):
+        $this->ForwardFrom = new TgChat($Data['forward_origin']['chat']);
+      endif;
+    else:
+      $this->ForwardFrom = null;
+    endif;
+    $this->ForwardId = $Data['forward_origin']['message_id'] ?? null;
+    $this->ForwardDate = $Data['forward_origin']['date'] ?? null;
+    $this->ForwardSignature = $Data['forward_origin']['author_signature'] ?? null;
+    $this->ForwardAuto = $Data['is_automatic_forward'] ?? false;
+
     $this->Date = $Data['date'];
-    $this->ForwardDate = $Data['forward_date'] ?? null;
     $this->Protected = $Data['has_protected_content'] ?? false;
     $this->Topic = $Data['is_topic_message'] ?? false;
     $this->Spoiler = $Data['has_media_spoiler'] ?? false;
     $this->Thread = $Data['message_thread_id'] ?? null;
     $this->Signature = $Data['author_signature'] ?? null;
-    if(isset($Data['reply_to_message']) === false):
-      $this->Reply = null;
+
+    if(isset($Data['reply_to_message']['text'])):
+      $this->Reply = new TgText($Data['reply_to_message']);
+    elseif(isset($Data['reply_to_message']['photo'])):
+      $this->Reply = new TgPhoto($Data['reply_to_message']);
+    elseif(isset($Data['reply_to_message']['document'])):
+      $this->Reply = new TgDocument($Data['reply_to_message']);
+    elseif(isset($Data['external_reply'])):
+      $this->Reply = new TgReplyExternal($Data['external_reply']);
     else:
-      if(isset($Data['reply_to_message']['text'])):
-        $this->Reply = new TgText($Data['reply_to_message']);
-      elseif(isset($Data['reply_to_message']['photo'])):
-        $this->Reply = new TgPhoto($Data['reply_to_message']);
-      elseif(isset($Data['reply_to_message']['document'])):
-        $this->Reply = new TgDocument($Data['reply_to_message']);
-      else:
-        $this->Reply = null;
-      endif;
+      $this->Reply = null;
     endif;
+
     if(isset($Data['reply_markup']['inline_keyboard'])):
       foreach($Data['reply_markup']['inline_keyboard'] as $line => $cols):
         foreach($cols as $col => $markup):
@@ -146,6 +148,7 @@ final class TgMessageData{
         endforeach;
       endforeach;
     endif;
+
     if(isset($Data['via_bot'])):
       $this->Via = new TgUser($Data['via_bot']);
     else:
