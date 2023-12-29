@@ -7,6 +7,7 @@ use CurlHandle;
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgAnimation,
   TgAnimationEdited,
+  TgAudio,
   TgChatAutoDel,
   TgChatMigrateFrom,
   TgChatMigrateTo,
@@ -54,7 +55,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 };
 
 /**
- * @version 2023.12.20.00
+ * @version 2023.12.29.00
  */
 abstract class TblBasics{
   protected TblData $BotData;
@@ -124,6 +125,8 @@ abstract class TblBasics{
       return new TblCmd($Data);
     elseif(isset($Data['animation'])):
       return new TgAnimation($Data);
+    elseif(isset($Data['audio'])):
+      return new TgAudio($Data);
     elseif(isset($Data['chat_shared'])):
       return new TgChatShared($Data);
     elseif(isset($Data['connected_website'])):
