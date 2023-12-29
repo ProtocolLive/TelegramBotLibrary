@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
- * @version 2023.12.29.00
+ * @version 2023.12.29.01
  */
 final class TgMessageData{
   /**
@@ -53,6 +53,10 @@ final class TgMessageData{
    * Information about the message that is being replied to, which may come from another chat or forum topic
    */
   public readonly TgText|TgPhoto|TgDocument|TgReplyExternal|null $Reply;
+  /**
+   * For replies that quote part of the original message, the quoted part of the message
+   */
+  public readonly TgQuote|null $Quote;
   /**
    * If the message is sent to a forum topic
    */
@@ -153,6 +157,11 @@ final class TgMessageData{
       $this->Via = new TgUser($Data['via_bot']);
     else:
       $this->Via = null;
+    endif;
+    if(isset($Data['quote'])):
+      $this->Quote = new TgQuote($Data['quote']);
+    else:
+      $this->Quote = null;
     endif;
   }
 }
