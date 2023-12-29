@@ -7,15 +7,15 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgForwadableInterface;
 
 /**
  * @link https://core.telegram.org/bots/api#video
- * @version 2023.05.29.00
+ * @version 2023.12.29.00
  */
 class TgVideo
 extends TgObject
 implements TgForwadableInterface{
   /**
-   * @param TgMessageData $Data Message data
+   * @param TgMessageData $Data Can be null in case of external reply
    */
-  public readonly TgMessageData $Data;
+  public readonly TgMessageData|null $Data;
   /**
    * @param string $Id Identifier for this file, which can be used to download or reuse the file
    */
@@ -50,14 +50,18 @@ implements TgForwadableInterface{
   public readonly string $Mime;
 
   public function __construct(array $Data){
-    $this->Data = new TgMessageData($Data);
-    $this->Id = $Data['video']['file_id'];
-    $this->IdUnique = $Data['video']['file_unique_id'];
-    $this->Thumb = new TgPhotoSize($Data['video']['thumbnail']);
-    $this->Width = $Data['video']['width'];
-    $this->Height = $Data['video']['height'];
-    $this->Duration = $Data['video']['duration'];
-    $this->Size = $Data['video']['file_size'];
-    $this->Mime = $Data['video']['mime_type'];
+    if(isset($Data['message_id'])):
+      $this->Data = new TgMessageData($Data);
+    else:
+      $this->Data = null;
+    endif;
+    $this->Id = $Data['video']['file_id'] ?? $Data['file_id'];
+    $this->IdUnique = $Data['video']['file_unique_id'] ?? $Data['file_unique_id'];
+    $this->Thumb = new TgPhotoSize($Data['video']['thumbnail'] ?? $Data['thumbnail']);
+    $this->Width = $Data['video']['width'] ?? $Data['width'];
+    $this->Height = $Data['video']['height'] ?? $Data['height'];
+    $this->Duration = $Data['video']['duration'] ?? $Data['duration'];
+    $this->Size = $Data['video']['file_size'] ?? $Data['file_size'];
+    $this->Mime = $Data['video']['mime_type'] ?? $Data['mime_type'];
   }
 }
