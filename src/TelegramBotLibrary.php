@@ -44,12 +44,14 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgPhoto,
   TgPoll,
   TgProfilePhoto,
+  TgReactionType,
+  TgReactionUpdate,
   TgSticker,
   TgText
 };
 
 /**
- * @version 2023.08.03.00
+ * @version 2023.12.29.00
  */
 final class TelegramBotLibrary
 extends TblBasics{
@@ -262,6 +264,10 @@ extends TblBasics{
       return new TgInvoice($Data['invoice']);
     elseif(isset($Data['inline_query'])):
       return new TgInlineQuery($Data['inline_query']);
+    elseif(isset($Data['message_reaction'])):
+      return new TgReactionUpdate($Data['message_reaction']);
+    elseif(isset($Data['message_reaction_count'])):
+      return new TgReactionUpdate($Data['message_reaction_count']);
     elseif(isset($Data['my_chat_member'])):
       return new TgGroupStatusMy($Data['my_chat_member']);
     elseif(isset($Data['poll'])):
@@ -620,6 +626,35 @@ extends TblBasics{
       $param['disable_notification'] = true;
     endif;
     return $this->ServerMethod(TgMethods::MessagePin, $param);
+  }
+
+  /**
+   * Use this method to change the chosen reactions on a message. Service messages can't be reacted to. Automatically forwarded messages from a channel to its discussion group have the same available reactions as messages in the channel. In albums, bots must react to the first message.
+   * @return true on success.
+   * @link https://core.telegram.org/bots/api#setmessagereaction
+   * @throws TblException
+   */
+  public function MessageReaction(
+    int|string $Chat,
+    int $Message,
+    string $Emoji,
+    bool $Big = true
+  ):true{
+    $default = ['👍','👎','❤','🔥','🥰','👏','😁','🤔','🤯','😱','🤬','😢','🎉','🤩','🤮','💩','🙏','👌','🕊',
+      '🤡','🥱','🥴','😍','🐳','❤‍🔥','🌚','🌭','💯','🤣','⚡','🍌','🏆','💔','🤨','😐','🍓','🍾','💋','🖕','😈',
+      '😴','😭','🤓','👻','👨‍💻','👀','🎃','🙈','😇','😨','🤝','✍','🤗','🫡','🎅','🎄','☃','💅','🤪','🗿','🆒',
+      '💘','🙉','🦄','😘','💊','🙊','😎','👾','🤷‍♂','🤷','🤷‍♀','😡'];
+    $param['chat_id'] = $Chat;
+    $param['message_id'] = $Message;
+    if(in_array($Emoji, $default)):
+      $param['reaction']['type'] = TgReactionType::Normal->value;
+      $param['reaction']['emoji'] = $Emoji;
+    else:
+      $param['reaction']['type'] = TgReactionType::Custom->value;
+      $param['reaction']['custom_emoji'] = $Emoji;
+    endif;
+    $param['is_big'] = $Big;
+    return $this->ServerMethod(TgMethods::MessageReaction, $param);
   }
 
   /**

@@ -7,7 +7,7 @@ use ProtocolLive\TelegramBotLibrary\TblObjects\TblBasics;
 
 /**
  * @link https://core.telegram.org/bots/api#chat
- * @version 2023.08.18.00
+ * @version 2023.12.29.00
  * 
  */
 class TgChat{
@@ -87,6 +87,10 @@ class TgChat{
    * Expiration date of the emoji status of the other party in a private chat, if any. Returned only in getChat.
    */
   public readonly string|null $EmojiExpiration;
+  /**
+   * List of available reactions allowed in the chat. If omitted, then all emoji reactions are allowed. Returned only in getChat.
+   */
+  public array|null $Reactions;
 
   public function __construct(
     array $Data
@@ -121,6 +125,13 @@ class TgChat{
       $this->Pinned[] = TblBasics::DetectMessage($Data['pinned_message']);
     else:
       $this->Pinned = null;
+    endif;
+    if(isset($Data['available_reactions'])):
+      foreach($Data['available_reactions'] as $reaction):
+        $this->Reactions[] = new TgReaction($reaction);
+      endforeach;
+    else:
+      $this->Reactions = null;
     endif;
   }
 }
