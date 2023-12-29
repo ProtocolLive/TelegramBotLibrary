@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 
 /**
- * @version 2023.12.29.00
+ * @version 2023.12.29.01
  */
 enum TblError{
   case Curl;
@@ -50,6 +50,9 @@ enum TblError{
    * @link https://core.telegram.org/bots/api#sendmessage
    */
   case LimitText;
+  case MessagesCopy;
+  case MessagesDelete;
+  case MessagesForward;
   case MissingParameter;
   case NoEvent;
   case Quote;

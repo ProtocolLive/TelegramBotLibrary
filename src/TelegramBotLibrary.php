@@ -51,7 +51,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 };
 
 /**
- * @version 2023.12.29.00
+ * @version 2023.12.29.01
  */
 final class TelegramBotLibrary
 extends TblBasics{
@@ -655,6 +655,106 @@ extends TblBasics{
     endif;
     $param['is_big'] = $Big;
     return $this->ServerMethod(TgMethods::MessageReaction, $param);
+  }
+
+  /**
+   * Use this method to copy messages of any kind. If some of the specified messages can't be found or copied, they are skipped. Service messages, giveaway messages, giveaway winners messages, and invoice messages can't be copied. A quiz poll can be copied only if the value of the field correct_option_id is known to the bot. The method is analogous to the method forwardMessages, but the copied messages don't have a link to the original message. Album grouping is kept for copied messages
+   * @param int|string $From Unique identifier for the chat where the original messages were sent (or channel username in the format @channelusername)
+   * @param int[] $Ids Identifiers of 1-100 messages in the chat from_chat_id to copy. The identifiers must be specified in a strictly increasing order.
+   * @param int|string $To Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * @param int $Thread Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   * @param bool $DisableNotification Sends the messages silently. Users will receive a notification with no sound.
+   * @param bool $Protect Protects the contents of the sent messages from forwarding and saving
+   * @param bool $RemoveCaption Pass True to copy the messages without their captions
+   * @return array On success, an array of MessageId of the sent messages is returned.
+   * @link https://core.telegram.org/bots/api#copymessages
+   * @throws TblException
+   */
+  public function MessagesCopy(
+    int|string $From,
+    array $Ids,
+    int|string $To,
+    int $Thread = null,
+    bool $DisableNotification = false,
+    bool $Protect = false,
+    bool $RemoveCaption = false
+  ):array{
+    if(count($Ids) > TgLimits::MessagesCopy):
+      throw new TblException(TblError::MessagesCopy, 'Cant copy more than ' . TgLimits::MessagesCopy . ' messages');
+    endif;
+    $param['from_chat_id'] = $From;
+    $param['message_ids'] = $Ids;
+    $param['chat_id'] = $To;
+    if($Thread !== null):
+      $param['message_thread_id'] = $Thread;
+    endif;
+    if($DisableNotification):
+      $param['disable_notification'] = true;
+    endif;
+    if($Protect):
+      $param['protect_content'] = true;
+    endif;
+    if($RemoveCaption):
+      $param['remove_caption'] = true;
+    endif;
+    return $this->ServerMethod(TgMethods::MessagesCopy, $param);
+  }
+
+  /**
+   * Use this method to delete multiple messages simultaneously. If some of the specified messages can't be found, they are skipped.
+   * @param int|string $Chat Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * @param int[] $Messages Identifiers of 1-100 messages to delete. See deleteMessage for limitations on which messages can be deleted
+   * @return true on success
+   * @throws TblException
+   * @link https://core.telegram.org/bots/api#deletemessages
+   */
+  public function MessagesDelete(
+    int|string $Chat,
+    array $Messages
+  ):true{
+    if(count($Messages) > TgLimits::MessagesDelete):
+      throw new TblException(TblError::MessagesDelete, 'Cant delete more than ' . TgLimits::MessagesDelete . ' messages');
+    endif;
+    $param['chat_id'] = $Chat;
+    $param['message_ids'] = $Messages;
+    return $this->ServerMethod(TgMethods::MessagesDelete, $param);
+  }
+
+  /**
+   * Use this method to forward multiple messages of any kind. If some of the specified messages can't be found or forwarded, they are skipped. Service messages and messages with protected content can't be forwarded. Album grouping is kept for forwarded messages.
+   * @param int|string $From Unique identifier for the chat where the original messages were sent (or channel username in the format @channelusername)
+   * @param int[] $Ids Identifiers of 1-100 messages in the chat from_chat_id to forward. The identifiers must be specified in a strictly increasing order.
+   * @param int|string $To Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * @param int $Thread Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   * @param bool $DisableNotification Sends the messages silently. Users will receive a notification with no sound.
+   * @param bool $Protect Protects the contents of the forwarded messages from forwarding and saving
+   * @return array On success, an array of MessageId of the sent messages is returned.
+   * @throws TblException
+   */
+  public function MessagesForward(
+    int|string $From,
+    array $Ids,
+    int|string $To,
+    int $Thread = null,
+    bool $DisableNotification = false,
+    bool $Protect = false
+  ):array{
+    if(count($Ids) > TgLimits::MessagesForward):
+      throw new TblException(TblError::MessagesForward, 'Cant forward more than ' . TgLimits::MessagesForward . ' messages');
+    endif;
+    $param['chat_id'] = $To;
+    $param['from_chat_id'] = $From;
+    $param['message_ids'] = $Ids;
+    if($Thread !== null):
+      $param['message_thread_id'] = $Thread;
+    endif;
+    if($DisableNotification):
+      $param['disable_notification'] = true;
+    endif;
+    if($Protect):
+      $param['protect_content'] = true;
+    endif;
+    return $this->ServerMethod(TgMethods::MessagesForward, $param);
   }
 
   /**

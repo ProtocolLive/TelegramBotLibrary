@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
- * @version 2023.12.29.00
+ * @version 2023.12.29.01
  */
 class TgLimits{
   /**
@@ -22,6 +22,18 @@ class TgLimits{
    * @link https://core.telegram.org/bots/api#botcommand
    */
   const CmdDescription = 256;
+  /**
+   * https://core.telegram.org/bots/api#copymessages
+   */
+  const MessagesCopy = 100;
+  /**
+   * @link https://core.telegram.org/bots/api#deletemessages
+   */
+  const MessagesDelete = 100;
+  /**
+   * https://core.telegram.org/bots/api#forwardmessages
+   */
+  const MessagesForward = 100;
   /**
    * @link https://core.telegram.org/bots/api#setmydescription
    */

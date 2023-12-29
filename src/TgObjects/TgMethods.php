@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
- * @version 2023.12.29.00
+ * @version 2023.12.29.01
  */
 enum TgMethods:string{
   case CallbackAnswer = 'answerCallbackQuery';
@@ -59,6 +59,9 @@ enum TgMethods:string{
   case MessageForward = 'forwardMessage';
   case MessagePin = 'pinChatMessage';
   case MessageReaction = 'setMessageReaction';
+  case MessagesCopy = 'copyMessages';
+  case MessagesDelete = 'deleteMessages';
+  case MessagesForward = 'forwardMessages';
   case MessageUnpin = 'unpinChatMessage';
   case MessageUnpinAll = 'unpinAllChatMessages';
   case MyDefaultPermAdmGet = 'getMyDefaultAdministratorRights';
