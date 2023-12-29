@@ -40,7 +40,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgStory,
   TgText,
   TgTextEdited,
-  TgUserShared,
+  TgUsersShared,
   TgVenue,
   TgVideo,
   TgVideoChatEnded,
@@ -55,7 +55,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 };
 
 /**
- * @version 2023.12.29.00
+ * @version 2023.12.29.01
  */
 abstract class TblBasics{
   protected TblData $BotData;
@@ -181,8 +181,8 @@ abstract class TblBasics{
       return new TgStory($Data);
     elseif(isset($Data['text'])):
       return new TgText($Data);
-    elseif(isset($Data['user_shared'])):
-      return new TgUserShared($Data);
+    elseif(isset($Data['users_shared'])):
+      return new TgUsersShared($Data);
     elseif(isset($Data['video'])):
       return new TgVideo($Data);
     elseif(isset($Data['video_note'])):

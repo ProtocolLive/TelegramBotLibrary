@@ -1,7 +1,6 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.02.05.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
@@ -9,6 +8,9 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgPollType
 };
 
+/**
+ * @version 2023.12.29.00
+ */
 class TblMarkupKeyboard
 extends TblMarkup{
   /**
@@ -48,7 +50,7 @@ extends TblMarkup{
   }
 
   /**
-   * This object represents one button of the reply keyboard. For simple text buttons, String can be used instead of this object to specify the button text. The optional fields web_app, request_user, request_chat, request_contact, request_location, and request_poll are mutually exclusive.
+   * This object represents one button of the reply keyboard. For simple text buttons, String can be used instead of this object to specify the button text. The optional fields web_app, request_users, request_chat, request_contact, request_location, and request_poll are mutually exclusive.
    * 
    * Note: request_contact and request_location options will only work in Telegram versions released after 9 April, 2016. Older clients will display unsupported message.
    * 
@@ -56,7 +58,6 @@ extends TblMarkup{
    * 
    * Note: web_app option will only work in Telegram versions released after 16 April, 2022. Older clients will display unsupported message.
    * 
-   * Note: request_user and request_chat options will only work in Telegram versions released after 3 February, 2023. Older clients will display unsupported message.
    * @param string $Text Label text on the button
    * @param bool $RequestContact If True, the user's phone number will be sent as a contact when the button is pressed. Available in private chats only.
    * @param bool $RequestLocation If True, the user's current location will be sent when the button is pressed. Available in private chats only.
@@ -93,6 +94,7 @@ extends TblMarkup{
   }
 
   /**
+   * Note: request_users and request_chat options will only work in Telegram versions released after 3 February, 2023. Older clients will display unsupported message.
    * @param string $Text Label text on the button
    * @param int $Id Signed 32-bit identifier of the request
    * @param bool $Channel Pass True to request a channel chat, pass False to request a group or a supergroup chat.
@@ -143,30 +145,34 @@ extends TblMarkup{
   }
 
   /**
-   * Summary of ButtonRequestUser
+   *Note: request_users and request_chat options will only work in Telegram versions released after 3 February, 2023. Older clients will display unsupported message.
    * @param int $Line
    * @param int $Column
    * @param string $Text Label text on the button
    * @param int $Id Signed 32-bit identifier of the request
    * @param bool|null $Bot Pass True to request a bot, pass False to request a regular user. If not specified, no additional restrictions are applied.
    * @param bool|null $Premium Pass True to request a premium user, pass False to request a non-premium user. If not specified, no additional restrictions are applied.
-   * @link https://core.telegram.org/bots/api#keyboardbuttonrequestuser
+   * @link https://core.telegram.org/bots/api#keyboardbuttonrequestusers
    */
   public function ButtonRequestUser(
     int $Line,
     int $Column,
     string $Text,
     int $Id = null,
+    int $Quantity = 1,
     bool|null $Bot = null,
     bool|null $Premium = null
   ):void{
     $this->Pointer[$Line][$Column]['text'] = $Text;
-    $this->Pointer[$Line][$Column]['request_user']['request_id'] = $Id;
+    $this->Pointer[$Line][$Column]['request_users']['request_id'] = $Id;
     if($Bot !== null):
-      $this->Pointer[$Line][$Column]['request_user']['user_is_bot'] = $Bot;
+      $this->Pointer[$Line][$Column]['request_users']['user_is_bot'] = $Bot;
     endif;
     if($Premium !== null):
-      $this->Pointer[$Line][$Column]['request_user']['user_is_premium'] = $Premium;
+      $this->Pointer[$Line][$Column]['request_users']['user_is_premium'] = $Premium;
+    endif;
+    if($Quantity > 1):
+      $this->Pointer[$Line][$Column]['request_users']['max_quantity'] = $Quantity;
     endif;
   }
 }
