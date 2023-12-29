@@ -1,12 +1,12 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.12.08.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
  * @link https://core.telegram.org/bots/api#messageentity
+ * @version 2023.12.29.00
  */
 class TgEntity{
   public readonly TgEntityType $Type;
@@ -61,7 +61,7 @@ class TgEntity{
       $this->User = $User;
       $this->Language = $Language;
     else:
-      $this->Type = TgEntityType::tryFrom($Data['type']);
+      $this->Type = TgEntityType::from($Data['type']);
       $this->Offset = $Data['offset'];
       $this->Length = $Data['length'];
       $this->Url = $Data['url'] ?? null;
