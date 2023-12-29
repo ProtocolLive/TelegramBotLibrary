@@ -1,10 +1,12 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.04.24.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
+/**
+ * @version 2023.12.29.00
+ */
 class TgLimits{
   /**
    * @link https://core.telegram.org/bots/api#answercallbackquery
@@ -33,5 +35,9 @@ class TgLimits{
    * @link https://core.telegram.org/bots/api#setmyname
    */
   const Name = 64;
+  /**
+   * @link https://core.telegram.org/bots/api#replyparameters
+   */
+  const Quote = 1024;
   const Text = 4096;
 }

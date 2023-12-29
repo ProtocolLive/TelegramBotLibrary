@@ -5,11 +5,12 @@
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgLimits,
-  TgParseMode
+  TgParseMode,
+  TgReplyParams
 };
 
 /**
- * @version 2023.11.09.00
+ * @version 2023.12.29.00
  */
 final class TblTextSendMulti
 extends TblServerMulti{
@@ -22,8 +23,7 @@ extends TblServerMulti{
    * @param bool $DisablePreview Disables link previews for links in this message
    * @param bool $DisableNotification Sends the message silently. Users will receive a notification with no sound.
    * @param bool $Protect Protects the contents of the sent message from forwarding and saving
-   * @param int $RepliedMsg If the message is a reply, ID of the original message
-   * @param bool $SendWithoutRepliedMsg Pass True if the message should be sent even if the specified replied-to message is not found
+   * @param TgReplyParams $Reply If the message is a reply, ID of the original message
    * @param TblMarkup $Markup Additional interface options. A object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
    * @link https://core.telegram.org/bots/api#sendmessage
    */
@@ -36,8 +36,7 @@ extends TblServerMulti{
     bool $DisablePreview = false,
     bool $DisableNotification = false,
     bool $Protect = false,
-    int $RepliedMsg = null,
-    bool $SendWithoutRepliedMsg = false,
+    TgReplyParams $Reply = null,
     TblMarkup $Markup = null,
     string $MultiControl = null
   ){
@@ -54,8 +53,7 @@ extends TblServerMulti{
       $DisablePreview,
       $DisableNotification,
       $Protect,
-      $RepliedMsg,
-      $SendWithoutRepliedMsg,
+      $Reply,
       $Markup
     );
   }
@@ -69,8 +67,7 @@ extends TblServerMulti{
    * @param bool $DisablePreview Disables link previews for links in this message
    * @param bool $DisableNotification Sends the message silently. Users will receive a notification with no sound.
    * @param bool $Protect Protects the contents of the sent message from forwarding and saving
-   * @param int $RepliedMsg If the message is a reply, ID of the original message
-   * @param bool $SendWithoutRepliedMsg Pass True if the message should be sent even if the specified replied-to message is not found
+   * @param TgReplyParams $Reply If the message is a reply, ID of the original message
    * @param TblMarkup $Markup Additional interface options. A object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
    * @link https://core.telegram.org/bots/api#sendmessage
    */
@@ -83,8 +80,7 @@ extends TblServerMulti{
     bool $DisablePreview = false,
     bool $DisableNotification = false,
     bool $Protect = false,
-    int $RepliedMsg = null,
-    bool $SendWithoutRepliedMsg = false,
+    TgReplyParams $Reply = null,
     TblMarkup $Markup = null,
     string $MultiControl = null
   ):void{
@@ -97,8 +93,7 @@ extends TblServerMulti{
       $DisablePreview,
       $DisableNotification,
       $Protect,
-      $RepliedMsg,
-      $SendWithoutRepliedMsg,
+      $Reply,
       $Markup
     );
   }
@@ -113,8 +108,7 @@ extends TblServerMulti{
    * @param bool $DisablePreview Disables link previews for links in this message
    * @param bool $DisableNotification Sends the message silently. Users will receive a notification with no sound.
    * @param bool $Protect Protects the contents of the sent message from forwarding and saving
-   * @param int $RepliedMsg If the message is a reply, ID of the original message
-   * @param bool $SendWithoutRepliedMsg Pass True if the message should be sent even if the specified replied-to message is not found
+   * @param TgReplyParams $Reply Description of the message to reply to
    * @param TblMarkup $Markup Additional interface options. A object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
    * @return array Prepared parameters for the TextSendMulti method
    * @link https://core.telegram.org/bots/api#sendmessage
@@ -128,8 +122,7 @@ extends TblServerMulti{
     bool $DisablePreview = false,
     bool $DisableNotification = false,
     bool $Protect = false,
-    int $RepliedMsg = null,
-    bool $SendWithoutRepliedMsg = false,
+    TgReplyParams $Reply = null,
     TblMarkup $Markup = null
   ):array{
     if($Chat === null):
@@ -164,11 +157,8 @@ extends TblServerMulti{
     if($Protect):
       $param['protect_content'] = true;
     endif;
-    if($RepliedMsg !== null):
-      $param['reply_to_message_id'] = $RepliedMsg;
-    endif;
-    if($SendWithoutRepliedMsg):
-      $param['allow_sending_without_reply'] = true;
+    if($Reply !== null):
+      $param['reply_parameters'] = $Reply->ToArray();
     endif;
     if($Markup !== null):
       $param['reply_markup'] = $Markup->ToArray();

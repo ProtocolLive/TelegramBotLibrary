@@ -6,11 +6,12 @@ namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 use CURLFile;
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgLimits,
-  TgParseMode
+  TgParseMode,
+  TgReplyParams
 };
 
 /**
- * @version 2023.06.16.00
+ * @version 2023.12.29.00
  */
 final class TblPhotoSendMulti
 extends TblServerMulti{
@@ -23,9 +24,8 @@ extends TblServerMulti{
     TblEntities $Entities = null,
     bool $DisableNotification = false,
     bool $Protect = false,
-    int $RepliedMsg = null,
     bool $Spoiler = false,
-    bool $SendWithoutRepliedMsg = false,
+    TgReplyParams $Reply = null,
     TblMarkup $Markup = null,
     string $MultiControl = null
   ){
@@ -42,9 +42,8 @@ extends TblServerMulti{
       $Entities,
       $DisableNotification,
       $Protect,
-      $RepliedMsg,
       $Spoiler,
-      $SendWithoutRepliedMsg,
+      $Reply,
       $Markup
     );
   }
@@ -58,9 +57,8 @@ extends TblServerMulti{
     TblEntities $Entities = null,
     bool $DisableNotification = false,
     bool $Protect = false,
-    int $RepliedMsg = null,
     bool $Spoiler = false,
-    bool $SendWithoutRepliedMsg = false,
+    TgReplyParams $Reply = null,
     TblMarkup $Markup = null,
     string $MultiControl = null
   ):void{
@@ -73,9 +71,8 @@ extends TblServerMulti{
       $Entities,
       $DisableNotification,
       $Protect,
-      $RepliedMsg,
       $Spoiler,
-      $SendWithoutRepliedMsg,
+      $Reply,
       $Markup
     );
   }
@@ -105,8 +102,7 @@ extends TblServerMulti{
    * @param TblEntities $Entities A list of special entities that appear in the caption, which can be specified instead of parse_mode
    * @param bool $DisableNotification Sends the message silently. Users will receive a notification with no sound.
    * @param bool $Protect Protects the contents of the sent message from forwarding and saving
-   * @param int $RepliedMsg If the message is a reply, ID of the original message
-   * @param bool $SendWithoutRepliedMsg Pass True, if the message should be sent even if the specified replied-to message is not found
+   * @param TgReplyParams $Reply If the message is a reply, ID of the original message
    * @param TblMarkup $Markup Additional interface options. A object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
    * @param bool $Spoiler If the photo needs to be covered with a spoiler animation
    * @return array Prepared parameters for the PhotoSendMulti method
@@ -122,9 +118,8 @@ extends TblServerMulti{
     TblEntities $Entities = null,
     bool $DisableNotification = false,
     bool $Protect = false,
-    int $RepliedMsg = null,
     bool $Spoiler = false,
-    bool $SendWithoutRepliedMsg = false,
+    TgReplyParams $Reply = null,
     TblMarkup $Markup = null
   ):array{
     if($Caption !== null
@@ -151,11 +146,8 @@ extends TblServerMulti{
     if($Spoiler):
       $param['has_spoiler'] = 'true';
     endif;
-    if($RepliedMsg !== null):
-      $param['reply_to_message_id'] = $RepliedMsg;
-    endif;
-    if($SendWithoutRepliedMsg):
-      $param['allow_sending_without_reply'] = 'true';
+    if($Reply !== null):
+      $param['reply_to_message_id'] = $Reply->ToArray();
     endif;
     if($Markup !== null):
       $param['reply_markup'] = $Markup->ToArray();

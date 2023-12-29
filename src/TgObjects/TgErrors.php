@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
- * @version 2023.11.07.00
+ * @version 2023.12.29.00
  */
 abstract class TgErrors{
   public static function Search(string $Description):TgError|false{
@@ -58,6 +58,7 @@ abstract class TgErrors{
       'Bad Request: MESSAGE_ID_INVALID' => TgError::MessageIdInvalid,
       'Bad Request: PHOTO_THUMB_URL_EMPTY' => TgError::InlineQueryThumbEmpty,
       'Bad Request: query is too old and response timeout expired or query ID is invalid' => TgError::CallbackQueryOld,
+      'Bad Request: QUOTE_TEXT_INVALID' => TgError::Quote,
       'Bad Request: the message can\'t be forwarded' => TgError::ForwardCant,
       'Bad Request: there is no media in the message to edit' => TgError::NoMedia,
       'Bad Request: there must be at least one price' => TgError::SomethingMissing,

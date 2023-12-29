@@ -14,12 +14,13 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgLimits,
   TgMethods,
   TgParseMode,
+  TgReplyParams,
   TgVideo,
   TgVideoNote
 };
 
 /**
- * @version 2023.06.16.01
+ * @version 2023.12.29.00
  */
 trait TblVideoTrait{
   /**
@@ -38,8 +39,7 @@ trait TblVideoTrait{
    * @param bool $Streaming Pass True if the uploaded video is suitable for streaming
    * @param bool $DisableNotification Sends the message silently. Users will receive a notification with no sound.
    * @param bool $Protect Protects the contents of the sent message from forwarding and saving
-   * @param int $RepliedMsg If the message is a reply, ID of the original message
-   * @param bool $SendWithoutReply Pass True if the message should be sent even if the specified replied-to message is not found
+   * @param TgReplyParams $Reply If the message is a reply, ID of the original message
    * @param TblMarkup $Markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
    * @return TgVideo On success, the sent Message is returned.
    * @link https://core.telegram.org/bots/api#sendvideo
@@ -60,8 +60,7 @@ trait TblVideoTrait{
     bool $Streaming = false,
     bool $DisableNotification = false,
     bool $Protect = false,
-    int $RepliedMsg = null,
-    bool $SendWithoutRepliedMsg = false,
+    TgReplyParams $Reply = null,
     TblMarkup $Markup = null
   ):TgVideo|TgVideoNote{
     if($Caption !== null
@@ -110,11 +109,8 @@ trait TblVideoTrait{
     if($Protect):
       $params['protect_content'] = true;
     endif;
-    if($RepliedMsg !== null):
-      $params['reply_to_message_id'] = $RepliedMsg;
-    endif;
-    if($SendWithoutRepliedMsg):
-      $params['allow_sending_without_reply'] = true;
+    if($Reply !== null):
+      $params['reply_parameters'] = $Reply->ToArray();
     endif;
     if($Markup !== null):
       $params['reply_markup'] = $Markup->ToArray();
@@ -136,8 +132,7 @@ trait TblVideoTrait{
    * @param string $Thumbnail Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. More information on Sending Files
    * @param bool $DisableNotification Sends the message silently. Users will receive a notification with no sound.
    * @param bool $Protect Protects the contents of the sent message from forwarding and saving
-   * @param int $RepliedMsg If the message is a reply, ID of the original message
-   * @param bool $SendWithoutReply Pass True if the message should be sent even if the specified replied-to message is not found
+   * @param TgReplyParams $Reply If the message is a reply, ID of the original message
    * @param TblMarkup $Markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
    * @return TgVideoNote The sent Message is returned.
    * @link https://core.telegram.org/bots/api#sendvideonote
@@ -152,8 +147,7 @@ trait TblVideoTrait{
     string $Thumbnail = null,
     bool $DisableNotification = false,
     bool $Protect = false,
-    int $RepliedMsg = null,
-    bool $SendWithoutReply = false,
+    TgReplyParams $Reply = null,
     TblMarkup $Markup = null
   ):TgVideoNote|TgVideo{
     $params['chat_id'] = $Chat;
@@ -180,11 +174,8 @@ trait TblVideoTrait{
     if($Protect):
       $params['protect_content'] = true;
     endif;
-    if($RepliedMsg !== null):
-      $params['reply_to_message_id'] = $RepliedMsg;
-    endif;
-    if($SendWithoutReply):
-      $params['allow_sending_without_reply'] = true;
+    if($Reply !== null):
+      $params['reply_parameters'] = $Reply;
     endif;
     if($Markup !== null):
       $params['reply_markup'] = $Markup->ToArray();

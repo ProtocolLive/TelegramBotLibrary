@@ -1,10 +1,12 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.04.24.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 
+/**
+ * @version 2023.12.29.00
+ */
 enum TblError{
   case Curl;
   case Custom;
@@ -50,5 +52,6 @@ enum TblError{
   case LimitText;
   case MissingParameter;
   case NoEvent;
+  case Quote;
   case TokenWebhook;
 }

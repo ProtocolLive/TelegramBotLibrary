@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
- * @version 2023.11.07.00
+ * @version 2023.12.29.00
  */
 enum TgError{
   case Admin;
@@ -41,6 +41,7 @@ enum TgError{
   case NoMedia;
   case PermAdminManage;
   case Protected;
+  case Quote;
   case SomethingMissing;
   case TextButtonNo;
   case TooBig;
