@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
- * @version 2023.12.29.01
+ * @version 2023.12.30.00
  */
 enum TgMethods:string{
   case CallbackAnswer = 'answerCallbackQuery';
@@ -15,6 +15,7 @@ enum TgMethods:string{
   case ChatAdmTitle = 'setChatAdministratorCustomTitle';
   case ChatBanChannel = 'banChatSenderChat';
   case ChatBanChannelUndo = 'unbanChatSenderChat';
+  case ChatBoosterGet = 'getUserChatBoosts';
   case ChatMember = 'getChatMember';
   case ChatMemberBan = 'banChatMember';
   case ChatMemberBanUndo = 'unbanChatMember';

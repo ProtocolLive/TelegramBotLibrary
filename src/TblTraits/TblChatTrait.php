@@ -7,6 +7,7 @@ use ProtocolLive\TelegramBotLibrary\TblObjects\TblException;
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgChat,
   TgChatAction,
+  TgChatBoost,
   TgChatType,
   TgMember,
   TgMethods,
@@ -16,7 +17,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 };
 
 /**
- * @version 2023.12.05.00
+ * @version 2023.12.30.00
  */
 trait TblChatTrait{
   /**
@@ -181,6 +182,27 @@ trait TblChatTrait{
     $param['chat_id'] = $Chat;
     $param['sender_chat_id'] = $SenderChat;
     return $this->ServerMethod(TgMethods::ChatBanChannelUndo, $param);
+  }
+
+  /**
+   * Use this method to get the list of boosts added to a chat by a user. Requires administrator rights in the chat. Returns a UserChatBoosts object.
+   * @param int|string $Chat Unique identifier for the chat or username of the channel (in the format @channelusername)
+   * @param int $User Unique identifier of the target user
+   * @return TgChatBoost[]
+   * @link https://core.telegram.org/bots/api#getuserchatboosts
+   */
+  public function ChatBoostGet(
+    int|string $Chat,
+    int $User
+  ):array{
+    $param['chat_id'] = $Chat;
+    $param['user_id'] = $User;
+    $temp = $this->ServerMethod(TgMethods::ChatBoosterGet, $param);
+    $return = [];
+    foreach($temp['boosts'] as $boost):
+      $return[] = new TgChatBoost($boost);
+    endforeach;
+    return $return;
   }
 
   /**
