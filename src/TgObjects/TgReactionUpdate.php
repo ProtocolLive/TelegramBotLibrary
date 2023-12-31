@@ -9,9 +9,10 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
  * @param TgReaction|TgReaction[]|null $New
  * @link https://core.telegram.org/bots/api#messagereactionupdated
  * @link https://core.telegram.org/bots/api#messagereactioncountupdated
- * @version 2023.12.29.00
+ * @version 2023.12.31.00
  */
-class TgReactionUpdate{
+final class TgReactionUpdate
+extends TgObject{
   public readonly TgChat|TgUser $Chat;
   public readonly TgUser|null $User;
   public readonly int $Message;

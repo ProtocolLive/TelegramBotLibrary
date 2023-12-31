@@ -6,9 +6,10 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
  * @link https://core.telegram.org/bots/api#chatboostupdated
- * @version 2023.12.30.00
+ * @version 2023.12.31.00
  */
-class TgChatBoost{
+final class TgChatBoost
+extends TgObject{
   /**
    * Chat which was boosted. Can be null in case of ChatBoostGet method
    */
