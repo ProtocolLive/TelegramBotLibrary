@@ -26,6 +26,7 @@ use ProtocolLive\TelegramBotLibrary\TblTraits\{
 };
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgCallback,
+  TgChatBoost,
   TgChatRequest,
   TgDocument,
   TgFile,
@@ -51,7 +52,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 };
 
 /**
- * @version 2023.12.29.01
+ * @version 2023.12.31.00
  */
 final class TelegramBotLibrary
 extends TblBasics{
@@ -254,6 +255,8 @@ extends TblBasics{
       return TblBasics::DetectMessageEdited($Data['edited_channel_post']);
     elseif(isset($Data['callback_query'])):
       return new TgCallback($Data['callback_query']);
+    elseif(isset($Data['chat_boost'])):
+      return new TgChatBoost($Data['chat_boost']);
     elseif(isset($Data['chat_join_request'])):
       return new TgChatRequest($Data['chat_join_request']);
     elseif(isset($Data['chat_member'])):
