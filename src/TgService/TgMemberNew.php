@@ -3,7 +3,10 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgService;
-use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgServiceInterface;
+use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
+  TgEventInterface,
+  TgServiceInterface
+};
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgMessageData,
   TgUser
@@ -11,10 +14,10 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 
 /**
  * New members that were added to the group or supergroup and information about them (the bot itself may be one of these members)
- * @version 2024.01.01.01
+ * @version 2024.01.01.02
  */
 final class TgMemberNew
-implements TgServiceInterface{
+implements TgServiceInterface, TgEventInterface{
   public readonly TgMessageData $Data;
   public readonly TgUser $Member;
 

@@ -3,20 +3,21 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
-use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgForwadableInterface;
+use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
+  TgEventInterface,
+  TgForwadableInterface
+};
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgEntity,
-  TgMessageData,
-  TgObject
+  TgMessageData
 };
 
 /**
  * Note: Extends TgObject to be a listener
- * @version 2023.05.23.01
+ * @version 2024.01.01.00
  */
 class TblCmd
-extends TgObject
-implements TgForwadableInterface{
+implements TgForwadableInterface, TgEventInterface{
   public readonly TgMessageData $Data;
   public readonly string $Command;
   public readonly string|null $Parameters;

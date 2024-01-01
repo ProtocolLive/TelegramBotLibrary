@@ -3,17 +3,18 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgService;
-use ProtocolLive\TelegramBotLibrary\TgObjects\{
-  TgMessageData,
-  TgObject
+use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
+  TgEventInterface,
+  TgServiceInterface
 };
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgMessageData;
 
 /**
  * @link https://core.telegram.org/bots/api#forumtopicclosed
- * @version 2024.01.01.00
+ * @version 2024.01.01.01
  */
 final class TgVideoChatEnded
-extends TgObject{
+implements TgServiceInterface, TgEventInterface{
   public readonly TgMessageData $Data;
   public readonly int $Duration;
 

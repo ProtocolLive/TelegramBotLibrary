@@ -3,7 +3,10 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgService;
-use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgServiceInterface;
+use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
+  TgEventInterface,
+  TgServiceInterface
+};
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgMessageData,
   TgUser
@@ -12,10 +15,10 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 /**
  * Represents a chat member that isn't currently a member of the chat, but may join it themselves.
  * @link https://core.telegram.org/bots/api#chatmemberleft
- * @version 2024.01.01.01
+ * @version 2024.01.01.02
  */
 final class TgMemberLeft
-implements TgServiceInterface{
+implements TgServiceInterface, TgEventInterface{
   public readonly TgMessageData $Data;
   public readonly TgUser $Member;
 
