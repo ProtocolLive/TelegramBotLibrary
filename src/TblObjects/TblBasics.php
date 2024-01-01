@@ -40,10 +40,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgUsersShared,
   TgVenue,
   TgVideo,
-  TgVideoChatEnded,
   TgVideoChatInvite,
-  TgVideoChatScheduled,
-  TgVideoChatStarted,
   TgVideoEdited,
   TgVideoNote,
   TgVideoNoteEdited,
@@ -57,11 +54,14 @@ use ProtocolLive\TelegramBotLibrary\TgService\{
   TgGiveawayCreated,
   TgMemberLeft,
   TgMemberNew,
-  TgPinnedMsg
+  TgPinnedMsg,
+  TgVideoChatEnded,
+  TgVideoChatScheduled,
+  TgVideoChatStarted
 };
 
 /**
- * @version 2024.01.01.01
+ * @version 2024.01.01.02
  */
 abstract class TblBasics{
   protected TblData $BotData;

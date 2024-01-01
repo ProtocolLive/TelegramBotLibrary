@@ -2,11 +2,15 @@
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
-namespace ProtocolLive\TelegramBotLibrary\TgObjects;
+namespace ProtocolLive\TelegramBotLibrary\TgService;
+use ProtocolLive\TelegramBotLibrary\TgObjects\{
+  TgMessageData,
+  TgObject
+};
 
 /**
  * @link https://core.telegram.org/bots/api#forumtopicclosed
- * @version 2023.05.23.00
+ * @version 2024.01.01.00
  */
 final class TgVideoChatEnded
 extends TgObject{
