@@ -7,8 +7,7 @@ use ProtocolLive\TelegramBotLibrary\TblObjects\TblBasics;
 
 /**
  * @link https://core.telegram.org/bots/api#chat
- * @version 2024.01.01.00
- * 
+ * @version 2024.01.01.01
  */
 final class TgChat{
   /**
@@ -86,6 +85,10 @@ final class TgChat{
    */
   public readonly string|null $EmojiBackground;
   /**
+   * True, if new chat members will have access to old messages; available only to chat administrators. Returned only in getChat.
+   */
+  public readonly bool $History;
+  /**
    * Default chat member permissions, for groups and supergroups. Returned only in getChat.
    */
   public readonly TgPermMember|null $Permissions;
@@ -128,6 +131,7 @@ final class TgChat{
     $this->Color = $Data['accent_color_id'] ?? null;
     $this->EmojiBackground = $Data['background_custom_emoji_id'] ?? null;
     $this->ColorBackground = $Data['profile_accent_color_id'] ?? null;
+    $this->History = $Data['has_visible_history'] ?? false;
     if(isset($Data['permissions'])):
       $this->Permissions = new TgPermMember($Data['permissions']);
     endif;
