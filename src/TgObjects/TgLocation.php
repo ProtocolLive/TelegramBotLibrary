@@ -10,9 +10,9 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 
 /**
  * @link https://core.telegram.org/bots/api#location
- * @version 2024.01.01.00
+ * @version 2024.01.01.01
  */
-final class TgLocation
+class TgLocation
 implements TgForwadableInterface, TgEventInterface{
   public readonly TgMessageData|null $Data;
   /**
