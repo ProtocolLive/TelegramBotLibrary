@@ -3,12 +3,17 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
+use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
+  TgEventInterface,
+  TgForwadableInterface
+};
 
 /**
  * @link https://core.telegram.org/bots/api#audio
- * @version 2023.12.29.00
+ * @version 2024.01.01.00
  */
-class TgAudio{
+final class TgAudio
+implements TgForwadableInterface, TgEventInterface{
   /**
    * Null in case of external reply
    */

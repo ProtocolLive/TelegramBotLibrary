@@ -3,15 +3,17 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
-use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgForwadableInterface;
+use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
+  TgEventInterface,
+  TgForwadableInterface
+};
 
 /**
  * @link https://core.telegram.org/bots/api#animation
- * @version 2023.12.20.00
+ * @version 2024.01.01.00
  */
 class TgAnimation
-extends TgObject
-implements TgForwadableInterface{
+implements TgForwadableInterface, TgEventInterface{
   /**
    * The game message have a animation inside, turning this null
    */

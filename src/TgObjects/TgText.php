@@ -3,15 +3,17 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
-use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgForwadableInterface;
+use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
+  TgEventInterface,
+  TgForwadableInterface
+};
 
 /**
  * @link https://core.telegram.org/bots/api#message
- * @version 2023.05.23.01
+ * @version 2024.01.01.00
  */
 class TgText
-extends TgObject
-implements TgForwadableInterface{
+implements TgForwadableInterface, TgEventInterface{
   public readonly TgMessageData $Data;
   public readonly string $Text;
   public array $Entities = [];
@@ -19,7 +21,9 @@ implements TgForwadableInterface{
   /**
    * @link https://core.telegram.org/bots/api#message
    */
-  public function __construct(array $Data){
+  public function __construct(
+    array $Data
+  ){
     $this->Data = new TgMessageData($Data);
     $this->Text = $Data['text'];
     if(isset($Data['entities'])):

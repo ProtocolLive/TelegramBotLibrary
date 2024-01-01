@@ -3,15 +3,17 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
-use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgForwadableInterface;
+use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
+  TgEventInterface,
+  TgForwadableInterface
+};
 
 /**
  * @link https://core.telegram.org/bots/api#videonote
- * @version 2023.08.02.00
+ * @version 2024.01.01.00
  */
 class TgVideoNote
-extends TgObject
-implements TgForwadableInterface{
+implements TgForwadableInterface, TgEventInterface{
   public readonly TgMessageData $Data;
   /**
    * Identifier for this file, which can be used to download or reuse the file
@@ -38,7 +40,9 @@ implements TgForwadableInterface{
    */
   public readonly int|null $Size;
 
-  public function __construct(array $Data){
+  public function __construct(
+    array $Data
+  ){
     $this->Data = new TgMessageData($Data);
     $this->Id = $Data['video_note']['file_id'];
     $this->IdUnique = $Data['video_note']['file_unique_id'];

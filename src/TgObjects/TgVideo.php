@@ -3,15 +3,17 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
-use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgForwadableInterface;
+use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
+  TgEventInterface,
+  TgForwadableInterface
+};
 
 /**
  * @link https://core.telegram.org/bots/api#video
- * @version 2023.12.29.00
+ * @version 2024.01.01.00
  */
 class TgVideo
-extends TgObject
-implements TgForwadableInterface{
+implements TgForwadableInterface, TgEventInterface{
   /**
    * @param TgMessageData $Data Can be null in case of external reply
    */
@@ -49,7 +51,9 @@ implements TgForwadableInterface{
    */
   public readonly string $Mime;
 
-  public function __construct(array $Data){
+  public function __construct(
+    array $Data
+  ){
     if(isset($Data['message_id'])):
       $this->Data = new TgMessageData($Data);
     else:

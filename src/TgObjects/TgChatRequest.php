@@ -1,14 +1,16 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.09.24.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
+use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgEventInterface;
 
 /**
  * @link https://core.telegram.org/bots/api#chatjoinrequest
+ * @version 2024.01.01.00
  */
-class TgChatRequest{
+class TgChatRequest
+implements TgEventInterface{
   /**
    * Chat to which the request was sent
    */
