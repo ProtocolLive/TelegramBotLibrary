@@ -2,13 +2,17 @@
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
-namespace ProtocolLive\TelegramBotLibrary\TgObjects;
+namespace ProtocolLive\TelegramBotLibrary\TgService;
 use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgServiceInterface;
+use ProtocolLive\TelegramBotLibrary\TgObjects\{
+  TgMessageData,
+  TgPhotoSize
+};
 
 /**
  * This object represents a chat photo.
  * @link https://core.telegram.org/bots/api#chatphoto
- * @version 2024.01.01.00
+ * @version 2024.01.01.01
  */
 final class TgChatPhotoNew
 implements TgServiceInterface{

@@ -2,12 +2,13 @@
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
-namespace ProtocolLive\TelegramBotLibrary\TgObjects;
+namespace ProtocolLive\TelegramBotLibrary\TgService;
 use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgServiceInterface;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgMessageData;
 
 /**
  * @link https://core.telegram.org/bots/api#photosize
- * @version 2023.05.23.00
+ * @version 2024.01.01.01
  */
 final class TgPinnedMsg
 implements TgServiceInterface{
