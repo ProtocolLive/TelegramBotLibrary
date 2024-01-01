@@ -3,14 +3,14 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
-
 use Exception;
+use ProtocolLive\TelegramBotLibrary\TgEnums\TgPassportDataType;
 
 /**
  * @link https://core.telegram.org/bots/api#passportdata
  * @link https://core.telegram.org/bots/api#encryptedcredentials
  * @link https://core.telegram.org/passport
- * @version 2023.06.20.00
+ * @version 2024.01.01.00
  */
 final class TgPassport
 extends TgObject{

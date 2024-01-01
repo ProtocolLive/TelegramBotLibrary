@@ -4,20 +4,22 @@
 
 namespace ProtocolLive\TelegramBotLibrary\TblTraits;
 use ProtocolLive\TelegramBotLibrary\TblObjects\TblException;
+use ProtocolLive\TelegramBotLibrary\TgEnums\{
+  TgChatAction,
+  TgChatType,
+  TgMethods
+};
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgChat,
-  TgChatAction,
   TgChatBoost,
-  TgChatType,
   TgMember,
-  TgMethods,
   TgPermAdmin,
   TgPermMember,
   TgUser
 };
 
 /**
- * @version 2023.12.30.00
+ * @version 2024.01.01.00
  */
 trait TblChatTrait{
   /**

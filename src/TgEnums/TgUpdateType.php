@@ -2,11 +2,11 @@
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
-namespace ProtocolLive\TelegramBotLibrary\TgObjects;
+namespace ProtocolLive\TelegramBotLibrary\TgEnums;
 
 /**
  * https://core.telegram.org/bots/api#update
- * @version 2023.12.29.00
+ * @version 2024.01.01.00
  */
 enum TgUpdateType:string{
   case Callback = 'callback_query';

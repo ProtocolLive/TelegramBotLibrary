@@ -1,10 +1,13 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.09.21.02
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
+use ProtocolLive\TelegramBotLibrary\TgEnums\TgInvoiceCurrencies;
 
+/**
+ * @version 2024.01.01.00
+ */
 class TgInvoiceCheckout{
   public readonly string $Id;
   public readonly TgUser $User;

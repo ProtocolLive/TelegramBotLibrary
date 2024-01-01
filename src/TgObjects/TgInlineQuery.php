@@ -3,11 +3,12 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
+use ProtocolLive\TelegramBotLibrary\TgEnums\TgChatType;
 
 /**
  * This object represents an incoming inline query. When the user sends an empty query, your bot could return some default or trending results.
  * @link https://core.telegram.org/bots/api#inlinequery
- * @version 2023.05.23.00
+ * @version 2024.01.01.00
  */
 final class TgInlineQuery
 extends TgObject{

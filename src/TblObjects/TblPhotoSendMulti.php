@@ -4,14 +4,14 @@
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 use CURLFile;
+use ProtocolLive\TelegramBotLibrary\TgEnums\TgParseMode;
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgLimits,
-  TgParseMode,
   TgReplyParams
 };
 
 /**
- * @version 2023.12.29.00
+ * @version 2024.01.01.00
  */
 final class TblPhotoSendMulti
 extends TblServerMulti{

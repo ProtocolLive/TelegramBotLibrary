@@ -1,12 +1,15 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.08.19.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgParseMode;
+use ProtocolLive\TelegramBotLibrary\TgEnums\TgParseMode;
 
-class TblInlineQueryContentText extends TblInlineQueryContent{
+/**
+ * @version 2024.01.01.00
+ */
+class TblInlineQueryContentText
+extends TblInlineQueryContent{
   public function __construct(
     public string $Text,
     public TgParseMode|null $ParseMode = null,

@@ -3,10 +3,11 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
+use ProtocolLive\TelegramBotLibrary\TgEnums\TgBoostSource;
 
 /**
  * @link https://core.telegram.org/bots/api#chatboostupdated
- * @version 2023.12.31.00
+ * @version 2024.01.01.00
  */
 final class TgChatBoostRemoved
 extends TgObject{

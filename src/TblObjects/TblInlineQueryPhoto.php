@@ -1,11 +1,13 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.03.09.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgParseMode;
+use ProtocolLive\TelegramBotLibrary\TgEnums\TgParseMode;
 
+/**
+ * @version 2024.01.01.00
+ */
 class TblInlineQueryPhoto
 extends TblInlineQuery{
   /**

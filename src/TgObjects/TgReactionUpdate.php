@@ -3,13 +3,14 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
+use ProtocolLive\TelegramBotLibrary\TgEnums\TgChatType;
 
 /**
  * If $User are null, its an annonimous reaction and $New have an array of TgReaction
  * @param TgReaction|TgReaction[]|null $New
  * @link https://core.telegram.org/bots/api#messagereactionupdated
  * @link https://core.telegram.org/bots/api#messagereactioncountupdated
- * @version 2023.12.31.00
+ * @version 2024.01.01.00
  */
 final class TgReactionUpdate
 extends TgObject{

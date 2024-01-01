@@ -3,11 +3,12 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
+use ProtocolLive\TelegramBotLibrary\TgEnums\TgMemberStatus;
 
 /**
  * This object contains information about one member of a chat. Currently, the following 6 types of chat members are supported:
  * @link https://core.telegram.org/bots/api#chatmember
- * @version 2023.09.22.00
+ * @version 2024.01.01.00
  */
 final class TgMember{
   /**

@@ -3,9 +3,10 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
+use ProtocolLive\TelegramBotLibrary\TgEnums\TgError;
 
 /**
- * @version 2023.12.29.00
+ * @version 2024.01.01.00
  */
 abstract class TgErrors{
   public static function Search(string $Description):TgError|false{

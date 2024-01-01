@@ -3,13 +3,11 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
-use ProtocolLive\TelegramBotLibrary\TgObjects\{
-  TgPermAdmin,
-  TgPollType
-};
+use ProtocolLive\TelegramBotLibrary\TgEnums\TgPollType;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgPermAdmin;
 
 /**
- * @version 2023.12.29.00
+ * @version 2024.01.01.00
  */
 class TblMarkupKeyboard
 extends TblMarkup{

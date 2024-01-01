@@ -3,15 +3,14 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TblTraits;
-use ProtocolLive\TelegramBotLibrary\{
-  TblObjects\TblException,
-  TgObjects\TgForumTopic,
-  TgObjects\TgMethods,
-  TgObjects\TgSticker
+use ProtocolLive\TelegramBotLibrary\TgEnums\TgMethods;
+use ProtocolLive\TelegramBotLibrary\TgObjects\{
+  TgForumTopic,
+  TgSticker
 };
 
 /**
- * @version 2023.08.18.00
+ * @version 2024.01.01.00
  */
 trait TblForumTrait{
   /**

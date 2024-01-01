@@ -3,6 +3,7 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
+use ProtocolLive\TelegramBotLibrary\TgEnums\TgChatType;
 
 /**
  * @param TgUser|TgChat|string $User String if user have privacy enabled
@@ -12,7 +13,7 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
  * @param string|null $Signature In case of sender is a channel
  * @link https://core.telegram.org/bots/api#externalreplyinfo
  * @link https://core.telegram.org/bots/api#messageorigin
- * @version 2023.12.29.00
+ * @version 2024.01.01.00
  */
 class TgReplyExternal{
   public readonly TgUser|TgChat|string $User;

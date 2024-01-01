@@ -11,16 +11,18 @@ use ProtocolLive\TelegramBotLibrary\TblObjects\{
   TblTextSendMulti
 };
 use ProtocolLive\TelegramBotLibrary\TelegramBotLibrary;
+use ProtocolLive\TelegramBotLibrary\TgEnums\{
+  TgMethods,
+  TgParseMode
+};
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgMessageData,
-  TgMethods,
-  TgParseMode,
   TgReplyParams,
   TgText
 };
 
 /**
- * @version 2023.12.29.00
+ * @version 2024.01.01.00
  */
 trait TblTextTrait{
   /**

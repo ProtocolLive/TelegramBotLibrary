@@ -1,14 +1,15 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.04.24.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
+use ProtocolLive\TelegramBotLibrary\TgEnums\TgMemberStatus;
 
 /**
  * A chat member's status was updated in a chat. The bot must be an administrator in the chat and must explicitly specify “chat_member” in the list of allowed_updates to receive these updates.
  * @link https://core.telegram.org/bots/api#update
  * @link https://core.telegram.org/bots/api#chatmemberupdated
+ * @version 2024.01.01.00
  */
 final class TgGroupStatus{
   /**

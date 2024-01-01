@@ -1,12 +1,12 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.04.26.00
 
-namespace ProtocolLive\TelegramBotLibrary\TgObjects;
+namespace ProtocolLive\TelegramBotLibrary\TgEnums;
 
 /**
  * @link https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
+ * @version 2024.01.01.00
  */
 enum TgLanguages:string{
   case Abkhazian = 'ab';

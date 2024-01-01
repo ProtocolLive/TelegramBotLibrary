@@ -1,14 +1,14 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.05.22.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
-use ProtocolLive\TelegramBotLibrary\TgObjects\{
-  TgLimits,
-  TgParseMode
-};
+use ProtocolLive\TelegramBotLibrary\TgEnums\TgParseMode;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgLimits;
 
+/**
+ * @version 2024.01.01.00
+ */
 final class TblTextEditMulti
 extends TblServerMulti{
   /**

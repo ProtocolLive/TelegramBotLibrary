@@ -4,6 +4,10 @@
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 use CurlHandle;
+use ProtocolLive\TelegramBotLibrary\TgEnums\{
+  TgEntityType,
+  TgMethods
+};
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgAnimation,
   TgAnimationEdited,
@@ -14,7 +18,6 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgContact,
   TgDocument,
   TgDocumentEdited,
-  TgEntityType,
   TgErrors,
   TgForumClosed,
   TgForumCreated,
@@ -26,7 +29,6 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgInvoiceDone,
   TgLocation,
   TgLogin,
-  TgMethods,
   TgPassport,
   TgPhoto,
   TgPhotoEdited,
@@ -59,7 +61,7 @@ use ProtocolLive\TelegramBotLibrary\TgService\{
 };
 
 /**
- * @version 2024.01.01.00
+ * @version 2024.01.01.01
  */
 abstract class TblBasics{
   protected TblData $BotData;

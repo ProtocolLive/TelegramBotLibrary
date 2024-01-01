@@ -3,9 +3,10 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
+use ProtocolLive\TelegramBotLibrary\TgEnums\TgChatType;
 
 /**
- * @version 2023.12.29.01
+ * @version 2024.01.01.00
  */
 final class TgMessageData{
   /**

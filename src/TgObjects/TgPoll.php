@@ -3,11 +3,12 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
+use ProtocolLive\TelegramBotLibrary\TgEnums\TgPollType;
 
 /**
  * This object contains information about a poll.
  * @link https://core.telegram.org/bots/api#poll
- * @version 2023.05.29.00
+ * @version 2024.01.01.00
  */
 final class TgPoll
 extends TgObject{

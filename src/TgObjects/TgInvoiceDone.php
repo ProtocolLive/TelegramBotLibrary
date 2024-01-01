@@ -3,10 +3,11 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
+use ProtocolLive\TelegramBotLibrary\TgEnums\TgInvoiceCurrencies;
 
 /**
  * @link https://core.telegram.org/bots/api#successfulpayment
- * @version 2023.05.23.00
+ * @version 2024.01.01.00
  */
 final class TgInvoiceDone
 extends TgObject{

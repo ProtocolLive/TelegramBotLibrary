@@ -3,10 +3,11 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
+use ProtocolLive\TelegramBotLibrary\TgEnums\TgEntityType;
 
 /**
  * @link https://core.telegram.org/bots/api#messageentity
- * @version 2023.12.29.00
+ * @version 2024.01.01.00
  */
 class TgEntity{
   public readonly TgEntityType $Type;

@@ -24,6 +24,12 @@ use ProtocolLive\TelegramBotLibrary\TblTraits\{
   TblTextTrait,
   TblVideoTrait
 };
+use ProtocolLive\TelegramBotLibrary\TgEnums\{
+  TgMenuButton,
+  TgMethods,
+  TgParseMode,
+  TgReactionType
+};
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgCallback,
   TgChatBoost,
@@ -39,14 +45,10 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgInvoiceCheckout,
   TgInvoiceShipping,
   TgLimits,
-  TgMenuButton,
   TgMessageData,
-  TgMethods,
-  TgParseMode,
   TgPhoto,
   TgPoll,
   TgProfilePhoto,
-  TgReactionType,
   TgReactionUpdate,
   TgSticker,
   TgText

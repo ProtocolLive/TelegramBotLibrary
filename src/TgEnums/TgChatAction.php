@@ -1,12 +1,12 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.08.18.00
 
-namespace ProtocolLive\TelegramBotLibrary\TgObjects;
+namespace ProtocolLive\TelegramBotLibrary\TgEnums;
 
 /**
- * https://core.telegram.org/bots/api#sendchataction
+ * @link https://core.telegram.org/bots/api#sendchataction
+ * @version 2024.01.01.00
  */
 enum TgChatAction:string{
   case Typing = 'typing';

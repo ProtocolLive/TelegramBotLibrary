@@ -10,17 +10,19 @@ use ProtocolLive\TelegramBotLibrary\TblObjects\{
   TblException,
   TblMarkup
 };
+use ProtocolLive\TelegramBotLibrary\TgEnums\{
+  TgMethods,
+  TgParseMode
+};
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgLimits,
-  TgMethods,
-  TgParseMode,
   TgReplyParams,
   TgVideo,
   TgVideoNote
 };
 
 /**
- * @version 2023.12.29.00
+ * @version 2024.01.01.00
  */
 trait TblVideoTrait{
   /**

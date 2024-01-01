@@ -9,17 +9,19 @@ use ProtocolLive\TelegramBotLibrary\TblObjects\{
   TblError,
   TblException
 };
-use ProtocolLive\TelegramBotLibrary\TgObjects\{
-  TgBot,
+use ProtocolLive\TelegramBotLibrary\TgEnums\{
   TgCmdScope,
   TgLanguages,
+  TgMethods
+};
+use ProtocolLive\TelegramBotLibrary\TgObjects\{
+  TgBot,
   TgLimits,
-  TgMethods,
   TgPermAdmin
 };
 
 /**
- * @version 2023.06.16.00
+ * @version 2024.01.01.00
  */
 trait TblMyTrait{
   /**

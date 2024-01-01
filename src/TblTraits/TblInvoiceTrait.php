@@ -1,7 +1,6 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.02.03.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblTraits;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
@@ -11,12 +10,15 @@ use ProtocolLive\TelegramBotLibrary\TblObjects\{
   TblInvoiceShippingOptions,
   TblMarkup
 };
-use ProtocolLive\TelegramBotLibrary\TgObjects\{
-  TgInvoice,
+use ProtocolLive\TelegramBotLibrary\TgEnums\{
   TgInvoiceCurrencies,
   TgMethods
 };
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgInvoice;
 
+/**
+ * @version 2024.01.01.00
+ */
 trait TblInvoiceTrait{
   /**
    * Once the user has confirmed their payment and shipping details, the Bot API sends the final confirmation in the form of an Update with the field pre_checkout_query. Use this method to respond to such pre-checkout queries. Note: The Bot API must receive an answer within 10 seconds after the pre-checkout query was sent.

@@ -8,10 +8,11 @@ use ProtocolLive\TelegramBotLibrary\TblObjects\{
   TblError,
   TblException
 };
+use ProtocolLive\TelegramBotLibrary\TgEnums\TgParseMode;
 
 /**
  * @link https://core.telegram.org/bots/api#replyparameters
- * @version 2023.12.29.00
+ * @version 2024.01.01.00
  */
 class TgReplyParams{
   private array $Array = [];
