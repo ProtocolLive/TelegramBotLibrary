@@ -3,23 +3,21 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
+use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgServiceInterface;
 
 /**
- * This object represents a chat photo.
- * @link https://core.telegram.org/bots/api#chatphoto
+ * @link https://core.telegram.org/bots/api#photosize
  * @version 2023.05.23.00
  */
-final class TgChatPhotoNew
-extends TgObject{
+final class TgPinnedMsg
+implements TgServiceInterface{
   public readonly TgMessageData $Data;
-  public array $Photo;
+  public readonly TgMessageData $Pinned;
 
   public function __construct(
     array $Data
   ){
     $this->Data = new TgMessageData($Data);
-    foreach($Data['new_chat_photo'] as $photo):
-      $this->Photo[] = new TgPhotoSize($photo);
-    endforeach;
+    $this->Pinned = new TgMessageData($Data['pinned_message']);
   }
 }
