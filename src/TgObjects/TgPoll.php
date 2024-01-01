@@ -4,6 +4,10 @@
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgPollType;
+use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
+  TgEventInterface,
+  TgForwadableInterface
+};
 
 /**
  * This object contains information about a poll.
@@ -11,7 +15,7 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\TgPollType;
  * @version 2024.01.01.00
  */
 final class TgPoll
-extends TgObject{
+implements TgEventInterface, TgForwadableInterface{
   public readonly TgMessageData|null $Data;
   /**
    * Unique poll identifier
