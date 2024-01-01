@@ -8,12 +8,9 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgAnimation,
   TgAnimationEdited,
   TgAudio,
-  TgChatAutoDel,
   TgChatMigrateFrom,
   TgChatMigrateTo,
-  TgChatPhotoNew,
   TgChatShared,
-  TgChatTitle,
   TgContact,
   TgDocument,
   TgDocumentEdited,
@@ -24,19 +21,15 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgForumReopened,
   TgGame,
   TgGiveaway,
-  TgGiveawayCreated,
   TgGroupCreated,
   TgInvoice,
   TgInvoiceDone,
   TgLocation,
   TgLogin,
-  TgMemberLeft,
-  TgMemberNew,
   TgMethods,
   TgPassport,
   TgPhoto,
   TgPhotoEdited,
-  TgPinnedMsg,
   TgPoll,
   TgSticker,
   TgStory,
@@ -55,9 +48,18 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgVoice,
   TgWebappData
 };
+use ProtocolLive\TelegramBotLibrary\TgService\{
+  TgChatAutoDel,
+  TgChatPhotoNew,
+  TgChatTitle,
+  TgGiveawayCreated,
+  TgMemberLeft,
+  TgMemberNew,
+  TgPinnedMsg
+};
 
 /**
- * @version 2023.12.31.00
+ * @version 2024.01.01.00
  */
 abstract class TblBasics{
   protected TblData $BotData;
