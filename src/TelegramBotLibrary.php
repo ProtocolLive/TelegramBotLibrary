@@ -27,6 +27,7 @@ use ProtocolLive\TelegramBotLibrary\TblTraits\{
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgCallback,
   TgChatBoost,
+  TgChatBoostRemoved,
   TgChatRequest,
   TgDocument,
   TgFile,
@@ -52,7 +53,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 };
 
 /**
- * @version 2023.12.31.00
+ * @version 2024.01.01.00
  */
 final class TelegramBotLibrary
 extends TblBasics{
@@ -277,6 +278,8 @@ extends TblBasics{
       return new TgPoll($Data['poll']);
     elseif(isset($Data['pre_checkout_query'])):
       return new TgInvoiceCheckout($Data['pre_checkout_query']);
+    elseif(isset($Data['removed_chat_boost'])):
+      return new TgChatBoostRemoved($Data['removed_chat_boost']);
     elseif(isset($Data['shipping_query'])):
       return new TgInvoiceShipping($Data['shipping_query']);
     endif;
