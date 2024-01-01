@@ -3,15 +3,17 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
-use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgForwadableInterface;
+use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
+  TgEventInterface,
+  TgForwadableInterface
+};
 
 /**
- * @link 
- * @version 2023.12.31.00
+ * @link https://core.telegram.org/bots/api#giveaway
+ * @version 2024.01.01.00
  */
 final class TgGiveaway
-extends TgObject
-implements TgForwadableInterface{
+implements TgForwadableInterface, TgEventInterface{
   public readonly TgMessageData $Data;
   /**
    * The list of chats which the user must join to participate in the giveaway

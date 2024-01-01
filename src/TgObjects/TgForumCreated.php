@@ -3,13 +3,14 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
+use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgEventInterface;
 
 /**
  * @link https://core.telegram.org/bots/api#forumtopiccreated
- * @version 2023.05.23.00
+ * @version 2024.01.01.00
  */
 final class TgForumCreated
-extends TgObject{
+implements TgEventInterface{
   public readonly TgMessageData $Data;
   /**
    * Name of the topic
@@ -24,7 +25,9 @@ extends TgObject{
    */
   public readonly string|null $Emoji;
 
-  public function __construct(array $Data){
+  public function __construct(
+    array $Data
+  ){
     $this->Data = new TgMessageData($Data);
     $this->Name = $Data['forum_topic_created']['name'];
     $this->Color = $Data['forum_topic_created']['icon_color'];

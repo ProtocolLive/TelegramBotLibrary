@@ -3,16 +3,18 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
-use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgForwadableInterface;
+use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
+  TgEventInterface,
+  TgForwadableInterface
+};
 
 /**
  * This object represents a venue.
  * @link https://core.telegram.org/bots/api#venue
- * @version 2023.05.24.00
+ * @version 2024.01.01.00
  */
 final class TgVenue
-extends TgObject
-implements TgForwadableInterface{
+implements TgForwadableInterface, TgEventInterface{
   public readonly TgMessageData $Data;
 
   /**
@@ -44,7 +46,9 @@ implements TgForwadableInterface{
    */
   public readonly string|null $GoogleType;
 
-  public function __construct(array $Data){
+  public function __construct(
+    array $Data
+  ){
     $this->Data = new TgMessageData($Data);
     $this->Location = new TgLocation($Data['venue'], false);
     $this->Name = $Data['venue']['title'];

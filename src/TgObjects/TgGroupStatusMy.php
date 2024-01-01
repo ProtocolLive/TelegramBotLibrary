@@ -7,13 +7,15 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\{
   TgChatType,
   TgMemberStatus
 };
+use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgEventInterface;
 
 /**
  * The bot's chat member status was updated in a chat. For private chats, this update is received only when the bot is blocked or unblocked by the user.
  * @link https://core.telegram.org/bots/api#chatmemberupdated
  * @version 2024.01.01.00
  */
-class TgGroupStatusMy{
+class TgGroupStatusMy
+implements TgEventInterface{
   /**
    * Performer of the action, which resulted in the change
    */
@@ -40,7 +42,9 @@ class TgGroupStatusMy{
    * The bot's chat member status was updated in a chat. For private chats, this update is received only when the bot is blocked or unblocked by the user.
    * @link https://core.telegram.org/bots/api#chatmemberupdated
    */
-  public function __construct(array $Data){
+  public function __construct(
+    array $Data
+  ){
     $this->User = new TgUser($Data['from']);
     if($Data['chat']['type'] === TgChatType::Private->value):
       $this->Group = new TgUser($Data['chat']);
