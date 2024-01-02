@@ -56,7 +56,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 use ProtocolLive\TelegramBotLibrary\TgParams\TgInlineQueryResults;
 
 /**
- * @version 2024.01.02.00
+ * @version 2024.01.02.01
  */
 final class TelegramBotLibrary
 extends TblBasics{
@@ -875,6 +875,6 @@ extends TblBasics{
         )
       );
     endif;
-    return vd($this->DetectReturn($update));
+    return $this->DetectReturn($update);
   }
 }
