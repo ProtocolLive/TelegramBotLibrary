@@ -10,7 +10,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 
 /**
  * @link https://core.telegram.org/bots/api#document
- * @version 2024.01.02.00
+ * @version 2024.01.02.01
  */
 readonly class TgDocument
 implements TgEventInterface, TgForwadableInterface{
@@ -50,6 +50,10 @@ implements TgEventInterface, TgForwadableInterface{
    * Caption for the document
    */
   public string|null $Caption;
+  /**
+   * For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption
+   */
+  public array|null $Entities;
 
   public function __construct(
     array $Data
@@ -71,6 +75,13 @@ implements TgEventInterface, TgForwadableInterface{
       $this->Thumbnail = new TgPhotoSize($Data['document']['thumbnail'] ?? $Data['thumbnail']);
     else:
       $this->Thumbnail = null;
+    endif;
+    if(isset($Data['caption_entities'])):
+      $temp = [];
+      foreach($Data['caption_entities'] as $entity):
+        $temp[] = new TgEntity($entity);
+      endforeach;
+      $this->Entities = $temp;
     endif;
   }
 }
