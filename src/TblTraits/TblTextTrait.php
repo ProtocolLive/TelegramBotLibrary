@@ -20,9 +20,10 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgReplyParams,
   TgText
 };
+use ProtocolLive\TelegramBotLibrary\TgParams\TgLinkPreview;
 
 /**
- * @version 2024.01.01.00
+ * @version 2024.01.02.00
  */
 trait TblTextTrait{
   /**
@@ -33,7 +34,7 @@ trait TblTextTrait{
    * @param string|null $InlineId Required if chat_id and message_id are not specified. Identifier of the inline message
    * @param TgParseMode $ParseMode Mode for parsing entities in the message text.
    * @param TblEntities $Entities A list of special entities that appear in message text, which can be specified instead of parse_mode
-   * @param bool $DisablePreview Disables link previews for links in this message
+   * @param TgLinkPreview $LinkPreview Link preview generation options for the message
    * @param TblMarkup $Markup A object for an inline keyboard.
    * @return TgMessageData|bool On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned.
    * @throws TblException
@@ -46,7 +47,7 @@ trait TblTextTrait{
     string $InlineId = null,
     TgParseMode $ParseMode = null,
     TblEntities $Entities = null,
-    bool $DisablePreview = false,
+    TgLinkPreview $LinkPreview = null,
     TblMarkup $Markup = null
   ):TgText|bool{
     $return = $this->ServerMethod(
@@ -58,7 +59,7 @@ trait TblTextTrait{
         $InlineId,
         $ParseMode,
         $Entities,
-        $DisablePreview,
+        $LinkPreview,
         $Markup
       )
     );
@@ -98,7 +99,7 @@ trait TblTextTrait{
    * @param int $Thread Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
    * @param TgParseMode $ParseMode Mode for parsing entities in the message text.
    * @param TblEntities $Entities A list of special entities that appear in message text, which can be specified instead of parse_mode
-   * @param bool $DisablePreview Disables link previews for links in this message
+   * @param TgLinkPreview $LinkPreview Link preview generation options for the message
    * @param bool $DisableNotification Sends the message silently. Users will receive a notification with no sound.
    * @param bool $Protect Protects the contents of the sent message from forwarding and saving
    * @param TgReplyParams $Reply If the message is a reply, ID of the original message
@@ -113,7 +114,7 @@ trait TblTextTrait{
     int $Thread = null,
     TgParseMode $ParseMode = null,
     TblEntities $Entities = null,
-    bool $DisablePreview = false,
+    TgLinkPreview $LinkPreview = null,
     bool $DisableNotification = false,
     bool $Protect = false,
     TgReplyParams $Reply = null,
@@ -127,7 +128,7 @@ trait TblTextTrait{
         $Thread,
         $ParseMode,
         $Entities,
-        $DisablePreview,
+        $LinkPreview,
         $DisableNotification,
         $Protect,
         $Reply,
