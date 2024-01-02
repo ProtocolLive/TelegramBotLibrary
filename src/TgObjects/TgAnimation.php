@@ -10,50 +10,58 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 
 /**
  * @link https://core.telegram.org/bots/api#animation
- * @version 2024.01.01.00
+ * @version 2024.01.02.00
  */
-class TgAnimation
-implements TgForwadableInterface, TgEventInterface{
+readonly class TgAnimation
+implements TgEventInterface, TgForwadableInterface{
   /**
    * The game message have a animation inside, turning this null
    */
-  public readonly TgMessageData|null $Data;
+  public TgMessageData|null $Data;
   /**
    * Identifier for this file, which can be used to download or reuse the file
    */
-  public readonly string $Id;
+  public string $Id;
   /**
    * Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file.
    */
-  public readonly string $IdUnique;
+  public string $IdUnique;
   /**
    * Video width as defined by sender
    */
-  public readonly int $Width;
+  public int $Width;
   /**
    * Video height as defined by sender
    */
-  public readonly int $Height;
+  public int $Height;
   /**
    * Duration of the video in seconds as defined by sender
    */
-  public readonly int $Duration;
+  public int $Duration;
   /**
    * Animation thumbnail as defined by sender
    */
-  public readonly TgPhotoSize|null $Thumb;
+  public TgPhotoSize|null $Thumb;
   /**
    * Original animation filename as defined by sender
    */
-  public readonly string|null $Name;
+  public string|null $Name;
   /**
    * MIME type of the file as defined by sender
    */
-  public readonly string|null $Mime;
+  public string|null $Mime;
   /**
    * File size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value.
    */
-  public readonly int|null $Size;
+  public int|null $Size;
+  /**
+   * Caption for the document
+   */
+  public string|null $Caption;
+  /**
+   * For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption
+   */
+  public array|null $Entities;
 
   public function __construct(
     array $Data
@@ -76,5 +84,13 @@ implements TgForwadableInterface, TgEventInterface{
     $this->Name = $Data['animation']['file_name'] ?? null;
     $this->Mime = $Data['animation']['mime_type'] ?? null;
     $this->Size = $Data['animation']['file_size'] ?? null;
+    $this->Caption = $Data['caption'] ?? null;
+    if(isset($Data['caption_entities'])):
+      $temp = [];
+      foreach($Data['caption_entities'] as $entity):
+        $temp[] = new TgEntity($entity);
+      endforeach;
+      $this->Entities = $temp;
+    endif;
   }
 }
