@@ -53,9 +53,10 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgSticker,
   TgText
 };
+use ProtocolLive\TelegramBotLibrary\TgParams\TgInlineQueryResults;
 
 /**
- * @version 2024.01.01.00
+ * @version 2024.01.02.00
  */
 final class TelegramBotLibrary
 extends TblBasics{
@@ -335,7 +336,7 @@ extends TblBasics{
    */
   public function InlineQueryAnswer(
     string $Id,
-    TblInlineQueryResults $Results,
+    TgInlineQueryResults $Results,
     int $Cache = null,
     bool $Personal = false,
     string $NextOffset = null,
@@ -874,6 +875,6 @@ extends TblBasics{
         )
       );
     endif;
-    return $this->DetectReturn($update);
+    return vd($this->DetectReturn($update));
   }
 }

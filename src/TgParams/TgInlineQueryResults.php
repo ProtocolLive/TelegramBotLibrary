@@ -1,15 +1,18 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.02.03.00
 
-namespace ProtocolLive\TelegramBotLibrary\TblObjects;
+namespace ProtocolLive\TelegramBotLibrary\TgParams;
+use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgInlineQueryInterface;
 
-final class TblInlineQueryResults{
+/**
+ * @version 2024.01.02.00
+ */
+final class TgInlineQueryResults{
   private array $Results = [];
 
   public function __construct(
-    TblInlineQuery $Result = null
+    TgInlineQueryInterface $Result = null
   ){
     if($Result !== null):
       $this->Add($Result);
@@ -17,7 +20,7 @@ final class TblInlineQueryResults{
   }
 
   public function Add(
-    TblInlineQuery $Result
+    TgInlineQueryInterface $Result
   ):void{
     $this->Results[] = $Result->ToArray();
   }

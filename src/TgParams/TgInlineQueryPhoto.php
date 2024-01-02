@@ -2,14 +2,22 @@
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
-namespace ProtocolLive\TelegramBotLibrary\TblObjects;
+namespace ProtocolLive\TelegramBotLibrary\TgParams;
+
+use ProtocolLive\TelegramBotLibrary\TblObjects\{
+  TblEntities,
+  TblMarkup
+};
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgParseMode;
+use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgInlineQueryContentInterface;
+use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgInlineQueryInterface;
 
 /**
- * @version 2024.01.01.00
+ * @link https://core.telegram.org/bots/api#inlinequeryresultphoto
+ * @version 2024.01.02.00
  */
 class TblInlineQueryPhoto
-extends TblInlineQuery{
+implements TgInlineQueryInterface{
   /**
    * Represents a link to a photo or a link to a photo stored on the Telegram servers. By default, this photo will be sent by the user with optional caption. Alternatively, you can use input_message_content to send a message with the specified content instead of the photo.
    * @param string $Id Unique identifier for this result, 1-64 bytes
@@ -22,7 +30,7 @@ extends TblInlineQuery{
    * @param string $Description Short description of the result
    * @param string $Caption Caption of the photo to be sent, 0-1024 characters after entities parsing
    * @param TgParseMode $ParseMode Mode for parsing entities in the photo caption. See formatting options for more details.
-   * @param array $Entities List of special entities that appear in the caption, which can be specified instead of parse_mode
+   * @param TblEntities $Entities List of special entities that appear in the caption, which can be specified instead of parse_mode
    * @param TblMarkup $Markup Inline keyboard attached to the message
    * @link https://core.telegram.org/bots/api#inlinequeryresultcachedphoto
    * @link https://core.telegram.org/bots/api#inlinequeryresultphoto
@@ -38,9 +46,9 @@ extends TblInlineQuery{
     public string|null $Description = null,
     public string|null $Caption = null,
     public TgParseMode|null $ParseMode = null,
-    public array|null $Entities = null,
+    public TblEntities|null $Entities = null,
     public TblMarkup|null $Markup = null,
-    public TblInlineQueryContent|null $Message = null
+    public TgInlineQueryContentInterface|null $Message = null
   ){}
 
   public function ToArray():array{
@@ -71,7 +79,7 @@ extends TblInlineQuery{
       $param['parse_mode'] = $this->ParseMode->value;
     endif;
     if($this->Entities !== null):
-      $param['caption_entities'] = json_encode($this->Entities);
+      $param['caption_entities'] = $this->Entities->ToArray();
     endif;
     if($this->Markup !== null):
       $param['reply_markup'] = $this->Markup->ToArray();

@@ -2,17 +2,19 @@
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
-namespace ProtocolLive\TelegramBotLibrary\TblObjects;
+namespace ProtocolLive\TelegramBotLibrary\TgParams;
+use ProtocolLive\TelegramBotLibrary\TblObjects\TblEntities;
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgParseMode;
+use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgInlineQueryContentInterface;
 use ProtocolLive\TelegramBotLibrary\TgParams\TgLinkPreview;
 
 /**
  * Represents the content of a text message to be sent as the result of an inline query.
  * @link https://core.telegram.org/bots/api#inputtextmessagecontent
- * @version 2024.01.02.01
+ * @version 2024.01.02.02
  */
-class TblInlineQueryContentText
-extends TblInlineQueryContent{
+class TgInlineQueryContentText
+implements TgInlineQueryContentInterface{
   /**
    * @param string $Text Text of the message to be sent, 1-4096 characters
    * @param TgParseMode|null $ParseMode Mode for parsing entities in the message text. See formatting options for more details.
@@ -22,8 +24,8 @@ extends TblInlineQueryContent{
   public function __construct(
     public string $Text,
     public TgParseMode|null $ParseMode = null,
-    public TblEntities $Entities = null,
-    public TgLinkPreview $LinkPreview = null
+    public TblEntities|null $Entities = null,
+    public TgLinkPreview|null $LinkPreview = null
   ){}
 
   public function ToArray():array{

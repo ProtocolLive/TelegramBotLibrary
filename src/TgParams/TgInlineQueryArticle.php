@@ -1,16 +1,24 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.03.09.00
 
-namespace ProtocolLive\TelegramBotLibrary\TblObjects;
+namespace ProtocolLive\TelegramBotLibrary\TgParams;
+use ProtocolLive\TelegramBotLibrary\TblObjects\TblMarkup;
+use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
+  TgInlineQueryContentInterface,
+  TgInlineQueryInterface
+};
 
-class TblInlineQueryArticle extends TblInlineQuery{
+/**
+ * @version 2024.01.02.00
+ */
+final class TgInlineQueryArticle
+implements TgInlineQueryInterface{
   /**
    * Represents a link to an article or web page.
    * @param string $Id Unique identifier for this result, 1-64 Bytes
    * @param string $Title Title of the result
-   * @param TblInlineQueryContent $Message Content of the message to be sent
+   * @param TblInlineQueryContentInterface $Message Content of the message to be sent
    * @param TblMarkup $Markup Inline keyboard attached to the message
    * @param string $Url URL of the result
    * @param bool $UrlHide Pass True, if you don't want the URL to be shown in the message
@@ -23,7 +31,7 @@ class TblInlineQueryArticle extends TblInlineQuery{
   public function __construct(
     public string $Id,
     public string $Title,
-    public TblInlineQueryContent $Message,
+    public TgInlineQueryContentInterface $Message,
     public TblMarkup|null $Markup = null,
     public string|null $Url = null,
     public bool|null $UrlHide = false,
