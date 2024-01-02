@@ -11,15 +11,15 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgEventInterface;
  * @param TgReaction|TgReaction[]|null $New
  * @link https://core.telegram.org/bots/api#messagereactionupdated
  * @link https://core.telegram.org/bots/api#messagereactioncountupdated
- * @version 2024.01.01.01
+ * @version 2024.01.02.00
  */
-final class TgReactionUpdate
+final readonly class TgReactionUpdate
 implements TgEventInterface{
-  public readonly TgChat|TgUser $Chat;
-  public readonly TgUser|null $User;
-  public readonly int $Message;
-  public readonly int $Date;
-  public readonly TgReaction|null $Old;
+  public TgChat|TgUser $Chat;
+  public TgUser|null $User;
+  public int $Message;
+  public int $Date;
+  public TgReaction|null $Old;
   public TgReaction|array|null $New;
 
   public function __construct(
@@ -38,12 +38,14 @@ implements TgEventInterface{
     $this->Message = $Data['message_id'];
     $this->Date = $Data['date'];
     if(isset($Data['reactions'])):
+      $temp = [];
       foreach($Data['reactions'] as $reaction):
-        $this->New[] = new TgReaction(
+        $temp[] = new TgReaction(
           $reaction['type'],
           $reaction['total_count']
         );
       endforeach;
+      $this->New = $temp;
       return;
     endif;
     if($Data['old_reaction'] === []):
