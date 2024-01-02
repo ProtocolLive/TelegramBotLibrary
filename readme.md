@@ -1,15 +1,15 @@
-![Logo](https://repository-images.githubusercontent.com/466533286/8e47414c-a244-4196-a37a-3c8b1b719638)
+![Slide2](https://github.com/ProtocolLive/TelegramBotLibrary/assets/39626142/f1a358dc-3c8d-440d-93f3-ae60791a0479)
 # Telegram Bot Library
 
 A library to simplify and agregate the Telegram API functions.
 
 This library is developed in conjunction with the [SimpleTelegramBot](https://github.com/ProtocolLive/SimpleTelegramBot) project.
 
-Updated with Telegram Bot API 6.5 (2023-02-03)
+Updated with Telegram Bot API 7.0 (2023-12-29)
 
 ## Dependencies
 
-- PHP >= 8.1;
+- PHP >= 8.2;
 - Extension OpenSSL;
 - Extension cURL;
 
