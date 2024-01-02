@@ -7,7 +7,7 @@ namespace ProtocolLive\TelegramBotLibrary\TgParams;
 /**
  * Describes the options used for link preview generation
  * @link https://core.telegram.org/bots/api#linkpreviewoptions
- * @version 2024.01.02.00
+ * @version 2024.01.02.01
  */
 final class TgLinkPreview{
   /**
@@ -18,9 +18,9 @@ final class TgLinkPreview{
    */
   public function __construct(
     public bool $Disabled = false,
-    public string $Url = null,
-    public bool $Big = null,
-    public bool $Above = null,
+    public string|null $Url = null,
+    public bool|null $Big = null,
+    public bool $Above = false
   ){}
 
   public function ToArray():array|null{
