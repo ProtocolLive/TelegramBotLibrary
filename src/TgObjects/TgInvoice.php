@@ -3,14 +3,18 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
+use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
+  TgEventInterface,
+  TgForwadableInterface
+};
 
 /**
- * @version 2023.05.23.00
+ * @version 2024.01.02.00
  */
-final class TgInvoice
-extends TgObject{
-  public readonly TgMessageData $Data;
-  public readonly TgInvoiceData $Invoice;
+final readonly class TgInvoice
+implements TgEventInterface, TgForwadableInterface{
+  public TgMessageData $Data;
+  public TgInvoiceData $Invoice;
 
   public function __construct(array $Data){
     $this->Data = new TgMessageData($Data);
