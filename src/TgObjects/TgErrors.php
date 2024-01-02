@@ -6,7 +6,7 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgError;
 
 /**
- * @version 2024.01.01.00
+ * @version 2024.01.02.00
  */
 abstract class TgErrors{
   public static function Search(string $Description):TgError|false{
@@ -57,6 +57,7 @@ abstract class TgErrors{
       'Bad Request: message to copy not found' => TgError::CopyNotFound,
       'Bad Request: message to unpin not found' => TgError::UnpinNotFound,
       'Bad Request: MESSAGE_ID_INVALID' => TgError::MessageIdInvalid,
+      'Bad Request: object expected as link preview options' => TgError::LinkPreview,
       'Bad Request: PHOTO_THUMB_URL_EMPTY' => TgError::InlineQueryThumbEmpty,
       'Bad Request: query is too old and response timeout expired or query ID is invalid' => TgError::CallbackQueryOld,
       'Bad Request: QUOTE_TEXT_INVALID' => TgError::Quote,

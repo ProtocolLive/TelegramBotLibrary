@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TgEnums;
 
 /**
- * @version 2024.01.01.00
+ * @version 2024.01.02.00
  */
 enum TgError{
   case Admin;
@@ -35,6 +35,7 @@ enum TgError{
   case InlineKeyboardNone;
   case InvoiceLabel;
   case InvoiceLimits;
+  case LinkPreview;
   case Markdown;
   case MessageIdInvalid;
   case NotMember;
