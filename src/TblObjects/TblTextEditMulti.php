@@ -5,9 +5,10 @@
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgParseMode;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgLimits;
+use ProtocolLive\TelegramBotLibrary\TgParams\TgLinkPreview;
 
 /**
- * @version 2024.01.01.00
+ * @version 2024.01.02.00
  */
 final class TblTextEditMulti
 extends TblServerMulti{
@@ -18,7 +19,7 @@ extends TblServerMulti{
    * @param string|null $InlineId Required if chat_id and message_id are not specified. Identifier of the inline message
    * @param TgParseMode $ParseMode Mode for parsing entities in the message text.
    * @param TblEntities $Entities A list of special entities that appear in message text, which can be specified instead of parse_mode
-   * @param bool $DisablePreview Disables link previews for links in this message
+   * @param TgLinkPreview $LinkPreview Link preview generation options for the message
    * @param TblMarkup $Markup A object for an inline keyboard.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#editmessagetext
@@ -30,7 +31,7 @@ extends TblServerMulti{
     string $InlineId = null,
     TgParseMode $ParseMode = null,
     TblEntities $Entities = null,
-    bool $DisablePreview = false,
+    TgLinkPreview $LinkPreview = null,
     TblMarkup $Markup = null,
     int|string $MultiControl = null
   ){
@@ -44,7 +45,7 @@ extends TblServerMulti{
       $InlineId,
       $ParseMode,
       $Entities,
-      $DisablePreview,
+      $LinkPreview,
       $Markup
     );
   }
@@ -56,7 +57,7 @@ extends TblServerMulti{
    * @param string $InlineId Required if chat_id and message_id are not specified. Identifier of the inline message
    * @param TgParseMode $ParseMode Mode for parsing entities in the message text.
    * @param TblEntities $Entities A list of special entities that appear in message text, which can be specified instead of parse_mode
-   * @param bool $DisablePreview Disables link previews for links in this message
+   * @param TgLinkPreview $LinkPreview Link preview generation options for the message
    * @param TblMarkup $Markup A object for an inline keyboard.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#editmessagetext
@@ -68,7 +69,7 @@ extends TblServerMulti{
     string $InlineId = null,
     TgParseMode $ParseMode = null,
     TblEntities $Entities = null,
-    bool $DisablePreview = false,
+    TgLinkPreview $LinkPreview = null,
     TblMarkup $Markup = null,
     int|string $MultiControl = null
   ):void{
@@ -79,7 +80,7 @@ extends TblServerMulti{
       $InlineId,
       $ParseMode,
       $Entities,
-      $DisablePreview,
+      $LinkPreview,
       $Markup
     );
   }
@@ -91,7 +92,7 @@ extends TblServerMulti{
    * @param string|null $InlineId Required if chat_id and message_id are not specified. Identifier of the inline message
    * @param TgParseMode $ParseMode Mode for parsing entities in the message text.
    * @param TblEntities $Entities A list of special entities that appear in message text, which can be specified instead of parse_mode
-   * @param bool $DisablePreview Disables link previews for links in this message
+   * @param TgLinkPreview $LinkPreview Link preview generation options for the message
    * @param TblMarkup $Markup A object for an inline keyboard.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#editmessagetext
@@ -103,7 +104,7 @@ extends TblServerMulti{
     string $InlineId = null,
     TgParseMode $ParseMode = null,
     TblEntities $Entities = null,
-    bool $DisablePreview = false,
+    TgLinkPreview $LinkPreview = null,
     TblMarkup $Markup = null
   ):array{
     if($InlineId === null):
@@ -131,8 +132,8 @@ extends TblServerMulti{
     if($Entities !== null):
       $param['entities'] = $Entities->ToArray();
     endif;
-    if($DisablePreview):
-      $param['disable_web_page_preview'] = 'true';
+    if($LinkPreview !== null):
+      $param['link_preview_options'] = $LinkPreview->ToArray();
     endif;
     if($Markup !== null):
       $param['reply_markup'] = $Markup->ToArray();

@@ -8,9 +8,10 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgLimits,
   TgReplyParams
 };
+use ProtocolLive\TelegramBotLibrary\TgParams\TgLinkPreview;
 
 /**
- * @version 2024.01.01.00
+ * @version 2024.01.02.00
  */
 final class TblTextSendMulti
 extends TblServerMulti{
@@ -20,7 +21,7 @@ extends TblServerMulti{
    * @param int $Thread Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
    * @param TgParseMode $ParseMode Mode for parsing entities in the message text. See formatting options for more details.
    * @param TblEntities $Entities A  list of special entities that appear in message text, which can be specified instead of parse_mode
-   * @param bool $DisablePreview Disables link previews for links in this message
+   * @param TgLinkPreview $LinkPreview Link preview generation options for the message
    * @param bool $DisableNotification Sends the message silently. Users will receive a notification with no sound.
    * @param bool $Protect Protects the contents of the sent message from forwarding and saving
    * @param TgReplyParams $Reply If the message is a reply, ID of the original message
@@ -33,7 +34,7 @@ extends TblServerMulti{
     int $Thread = null,
     TgParseMode $ParseMode = null,
     TblEntities $Entities = null,
-    bool $DisablePreview = false,
+    TgLinkPreview $LinkPreview = null,
     bool $DisableNotification = false,
     bool $Protect = false,
     TgReplyParams $Reply = null,
@@ -50,7 +51,7 @@ extends TblServerMulti{
       $Thread,
       $ParseMode,
       $Entities,
-      $DisablePreview,
+      $LinkPreview,
       $DisableNotification,
       $Protect,
       $Reply,
@@ -64,7 +65,7 @@ extends TblServerMulti{
    * @param int $Thread Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
    * @param TgParseMode $ParseMode Mode for parsing entities in the message text. See formatting options for more details.
    * @param TblEntities $Entities A list of special entities that appear in message text, which can be specified instead of parse_mode
-   * @param bool $DisablePreview Disables link previews for links in this message
+   * @param TgLinkPreview $LinkPreview Link preview generation options for the message
    * @param bool $DisableNotification Sends the message silently. Users will receive a notification with no sound.
    * @param bool $Protect Protects the contents of the sent message from forwarding and saving
    * @param TgReplyParams $Reply If the message is a reply, ID of the original message
@@ -77,7 +78,7 @@ extends TblServerMulti{
     int $Thread = null,
     TgParseMode $ParseMode = null,
     TblEntities $Entities = null,
-    bool $DisablePreview = false,
+    TgLinkPreview $LinkPreview = null,
     bool $DisableNotification = false,
     bool $Protect = false,
     TgReplyParams $Reply = null,
@@ -90,7 +91,7 @@ extends TblServerMulti{
       $Thread,
       $ParseMode,
       $Entities,
-      $DisablePreview,
+      $LinkPreview,
       $DisableNotification,
       $Protect,
       $Reply,
@@ -105,7 +106,7 @@ extends TblServerMulti{
    * @param int $Thread Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
    * @param TgParseMode $ParseMode Mode for parsing entities in the message text. See formatting options for more details.
    * @param TblEntities $Entities A list of special entities that appear in message text, which can be specified instead of parse_mode
-   * @param bool $DisablePreview Disables link previews for links in this message
+   * @param TgLinkPreview $LinkPreview Link preview generation options for the message
    * @param bool $DisableNotification Sends the message silently. Users will receive a notification with no sound.
    * @param bool $Protect Protects the contents of the sent message from forwarding and saving
    * @param TgReplyParams $Reply Description of the message to reply to
@@ -119,7 +120,7 @@ extends TblServerMulti{
     int $Thread = null,
     TgParseMode $ParseMode = null,
     TblEntities $Entities = null,
-    bool $DisablePreview = false,
+    TgLinkPreview $LinkPreview = null,
     bool $DisableNotification = false,
     bool $Protect = false,
     TgReplyParams $Reply = null,
@@ -148,8 +149,8 @@ extends TblServerMulti{
     if($Entities !== null):
       $param['entities'] = $Entities->ToArray();
     endif;
-    if($DisablePreview):
-      $param['disable_web_page_preview'] = true;
+    if($LinkPreview !== null):
+      $param['link_preview_options'] = $LinkPreview->ToArray();
     endif;
     if($DisableNotification):
       $param['disable_notification'] = true;
