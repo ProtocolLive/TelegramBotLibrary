@@ -17,13 +17,15 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\{
 };
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgMessageData,
-  TgReplyParams,
   TgText
 };
-use ProtocolLive\TelegramBotLibrary\TgParams\TgLinkPreview;
+use ProtocolLive\TelegramBotLibrary\TgParams\{
+  TgLinkPreview,
+  TgReplyParams
+};
 
 /**
- * @version 2024.01.02.00
+ * @version 2024.01.02.01
  */
 trait TblTextTrait{
   /**

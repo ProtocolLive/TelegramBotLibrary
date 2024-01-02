@@ -14,13 +14,11 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\{
   TgMethods,
   TgParseMode
 };
-use ProtocolLive\TelegramBotLibrary\TgObjects\{
-  TgPhoto,
-  TgReplyParams
-};
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgPhoto;
+use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2024.01.01.00
+ * @version 2024.01.02.00
  */
 trait TblPhotoTrait{
   /**

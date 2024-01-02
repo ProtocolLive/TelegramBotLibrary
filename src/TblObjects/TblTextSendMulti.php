@@ -4,14 +4,14 @@
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgParseMode;
-use ProtocolLive\TelegramBotLibrary\TgObjects\{
-  TgLimits,
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgLimits;
+use ProtocolLive\TelegramBotLibrary\TgParams\{
+  TgLinkPreview,
   TgReplyParams
 };
-use ProtocolLive\TelegramBotLibrary\TgParams\TgLinkPreview;
 
 /**
- * @version 2024.01.02.00
+ * @version 2024.01.02.01
  */
 final class TblTextSendMulti
 extends TblServerMulti{

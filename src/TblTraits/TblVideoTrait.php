@@ -16,13 +16,13 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\{
 };
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgLimits,
-  TgReplyParams,
   TgVideo,
   TgVideoNote
 };
+use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2024.01.01.00
+ * @version 2024.01.02.00
  */
 trait TblVideoTrait{
   /**

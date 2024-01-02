@@ -2,17 +2,18 @@
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
-namespace ProtocolLive\TelegramBotLibrary\TgObjects;
+namespace ProtocolLive\TelegramBotLibrary\TgParams;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
   TblEntities,
   TblError,
   TblException
 };
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgParseMode;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgLimits;
 
 /**
  * @link https://core.telegram.org/bots/api#replyparameters
- * @version 2024.01.01.00
+ * @version 2024.01.02.00
  */
 class TgReplyParams{
   private array $Array = [];
