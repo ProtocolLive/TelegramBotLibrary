@@ -7,11 +7,23 @@ use ProtocolLive\TelegramBotLibrary\TblObjects\TblError;
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgInvoiceCurrencies;
 
 /**
- * @version 2024.01.03.00
+ * @version 2024.01.03.01
  */
 final class TgInvoicePrices{
   private array $Prices = [];
   public TblError|null $Error = null;
+
+  public function __construct(
+    string $Name = null,
+    int $Price = null,
+    bool $IgnoreLimit = false,
+    TgInvoiceCurrencies $Currency = TgInvoiceCurrencies::USD
+  ){
+    if($Name === null):
+      return;
+    endif;
+    $this->Add($Name, $Price, $IgnoreLimit, $Currency);
+  }
 
   public function Add(
     string $Name,
