@@ -23,8 +23,8 @@ final class TgLinkPreview{
     public bool $Above = false
   ){}
 
-  public function ToArray():array|null{
-    $return = null;
+  public function ToArray():array|object{
+    $return = [];
     if($this->Disabled):
       $return['is_disabled'] = $this->Disabled;
     endif;
@@ -38,6 +38,9 @@ final class TgLinkPreview{
     endif;
     if($this->Above):
       $return['show_above_text'] = $this->Above;
+    endif;
+    if($return === []):
+      return new class{};
     endif;
     return $return;
   }
