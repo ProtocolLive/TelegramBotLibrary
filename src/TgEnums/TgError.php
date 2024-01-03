@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TgEnums;
 
 /**
- * @version 2024.01.02.00
+ * @version 2024.01.03.00
  */
 enum TgError{
   case Admin;
@@ -19,9 +19,11 @@ enum TgError{
   case ChatNotFound;
   case CopyNotFound;
   case Deleted;
+  case EditNotFound;
   case EditSame;
   case EntityParse;
   case ForwardCant;
+  case GameScore;
   case FileId;
   case Html;
   case InlineId;

@@ -6,7 +6,7 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgError;
 
 /**
- * @version 2024.01.02.00
+ * @version 2024.01.03.00
  */
 abstract class TgErrors{
   public static function Search(string $Description):TgError|false{
@@ -35,6 +35,7 @@ abstract class TgErrors{
 
     return match($Description){
       'Bad Request: BUTTON_ID_INVALID' => TgError::ButtonIdInvalid,
+      'Bad Request: BOT_SCORE_NOT_MODIFIED' => TgError::GameScore,
       'Bad Request: can\'t parse ChatAdministratorRights: Field "can_manage_chat" must be of type Boolean' => TgError::PermAdminManage,
       'Bad Request: can\'t parse inline keyboard button: Text buttons are unallowed in the inline keyboard' => TgError::TextButtonNo,
       'Bad Request: can\'t parse inline query result: Can\'t find field "message_text"' => TgError::InlineQueryMessage,
@@ -55,6 +56,7 @@ abstract class TgErrors{
       'Bad Request: message has protected content and can\'t be forwarded' => TgError::Protected,
       'Bad Request: message is not modified: specified new message content and reply markup are exactly the same as a current content and reply markup of the message' => TgError::EditSame,
       'Bad Request: message to copy not found' => TgError::CopyNotFound,
+      'Bad Request: message to edit not found' => TgError::EditNotFound,
       'Bad Request: message to unpin not found' => TgError::UnpinNotFound,
       'Bad Request: MESSAGE_ID_INVALID' => TgError::MessageIdInvalid,
       'Bad Request: object expected as link preview options' => TgError::LinkPreview,
