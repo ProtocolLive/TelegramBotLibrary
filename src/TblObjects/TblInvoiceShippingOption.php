@@ -11,12 +11,12 @@ use ProtocolLive\TelegramBotLibrary\TgParams\TgInvoicePrices;
  * @param string $Name Option title
  * @param array $Prices List of price portions, in TblInvoiceProduct format
  * @link https://core.telegram.org/bots/api#shippingoption
- * @version 2024.01.03.01
+ * @version 2024.01.03.02
  */
-class TblInvoiceShippingOption{
+final readonly class TblInvoiceShippingOption{
   public function __construct(
-    public readonly string $Id,
-    public readonly string $Name,
-    public readonly TgInvoicePrices $Prices
+    public string $Id,
+    public string $Name,
+    public TgInvoicePrices $Prices
   ){}
 }
