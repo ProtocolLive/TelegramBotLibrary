@@ -1,15 +1,17 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.02.03.00
 
-namespace ProtocolLive\TelegramBotLibrary\TblObjects;
+namespace ProtocolLive\TelegramBotLibrary\TgParams;
 
-class TblInvoiceShippingOptions{
-  private array $Options;
+/**
+ * @version 2024.01.03.00
+ */
+final class TgInvoiceShippingOptions{
+  private array $Options = [];
 
   public function Add(
-    TblInvoiceShippingOption $Option
+    TgInvoiceShippingOption $Option
   ):void{
     $this->Options[] = [
       'id' => $Option->Id,

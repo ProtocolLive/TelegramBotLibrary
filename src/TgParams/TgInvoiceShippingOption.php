@@ -2,7 +2,7 @@
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
-namespace ProtocolLive\TelegramBotLibrary\TblObjects;
+namespace ProtocolLive\TelegramBotLibrary\TgParams;
 use ProtocolLive\TelegramBotLibrary\TgParams\TgInvoicePrices;
 
 /**
@@ -11,9 +11,9 @@ use ProtocolLive\TelegramBotLibrary\TgParams\TgInvoicePrices;
  * @param string $Name Option title
  * @param array $Prices List of price portions, in TblInvoiceProduct format
  * @link https://core.telegram.org/bots/api#shippingoption
- * @version 2024.01.03.02
+ * @version 2024.01.03.03
  */
-final readonly class TblInvoiceShippingOption{
+final readonly class TgInvoiceShippingOption{
   public function __construct(
     public string $Id,
     public string $Name,
