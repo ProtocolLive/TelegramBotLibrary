@@ -58,7 +58,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 use ProtocolLive\TelegramBotLibrary\TgParams\TgInlineQueryResults;
 
 /**
- * @version 2024.01.03.00
+ * @version 2024.01.03.01
  */
 final class TelegramBotLibrary
 extends TblBasics{
@@ -880,6 +880,16 @@ extends TblBasics{
         )
       );
     endif;
-    return $this->DetectReturn($update);
+    $return = $this->DetectReturn($update);
+    if($this->BotData->Log & TblLog::Webhook):
+      $this->Log(
+        TblLog::Webhook,
+        json_encode(
+          $return,
+          JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES
+        )
+      );
+    endif;
+    return $return;
   }
 }
