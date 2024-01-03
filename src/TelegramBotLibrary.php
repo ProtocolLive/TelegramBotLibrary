@@ -18,6 +18,7 @@ use ProtocolLive\TelegramBotLibrary\TblObjects\{
 use ProtocolLive\TelegramBotLibrary\TblTraits\{
   TblChatTrait,
   TblForumTrait,
+  TblGameTrait,
   TblInvoiceTrait,
   TblMyTrait,
   TblPhotoTrait,
@@ -37,6 +38,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgChatRequest,
   TgDocument,
   TgFile,
+  TgGameStart,
   TgGroupStatus,
   TgGroupStatusMy,
   TgInlineQuery,
@@ -56,12 +58,13 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 use ProtocolLive\TelegramBotLibrary\TgParams\TgInlineQueryResults;
 
 /**
- * @version 2024.01.02.01
+ * @version 2024.01.03.00
  */
 final class TelegramBotLibrary
 extends TblBasics{
   use TblChatTrait;
   use TblForumTrait;
+  use TblGameTrait;
   use TblInvoiceTrait;
   use TblMyTrait;
   use TblPhotoTrait;
@@ -257,6 +260,8 @@ extends TblBasics{
       return TblBasics::DetectMessage($Data['channel_post']);
     elseif(isset($Data['edited_channel_post'])):
       return TblBasics::DetectMessageEdited($Data['edited_channel_post']);
+    elseif(isset($Data['callback_query']['game_short_name'])):
+      return new TgGameStart($Data['callback_query']);
     elseif(isset($Data['callback_query'])):
       return new TgCallback($Data['callback_query']);
     elseif(isset($Data['chat_boost'])):

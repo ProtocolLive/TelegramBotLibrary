@@ -3,13 +3,18 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
+use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
+  TgEventInterface,
+  TgForwadableInterface
+};
 
 /**
  * Message is a game, information about the game.
  * @link https://core.telegram.org/bots/api#game
- * @version 2024.01.02.00
+ * @version 2024.01.03.00
  */
-final readonly class TgGame{
+readonly class TgGame
+implements TgEventInterface, TgForwadableInterface{
   public TgMessageData $Data;
   /**
    * Title of the game

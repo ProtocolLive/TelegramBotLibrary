@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TgEnums;
 
 /**
- * @version 2024.01.01.00
+ * @version 2024.01.03.00
  */
 enum TgMethods:string{
   case CallbackAnswer = 'answerCallbackQuery';
@@ -48,6 +48,7 @@ enum TgMethods:string{
   case ForumStickers = 'getForumTopicIconStickers';
   case ForumUnpin = 'unpinAllForumTopicMessages';
   case ForumUnpinAllGeneral = 'unpinAllGeneralForumTopicMessages';
+  case GameScoreSet = 'setGameScore';
   case InlineQueryAnswer = 'answerInlineQuery';
   case InvoiceCheckoutSend = 'answerPreCheckoutQuery';
   case InvoiceLink = 'createInvoiceLink';
