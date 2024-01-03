@@ -14,10 +14,13 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\{
   TgMethods
 };
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgInvoice;
-use ProtocolLive\TelegramBotLibrary\TgParams\TgInvoicePrices;
+use ProtocolLive\TelegramBotLibrary\TgParams\{
+  TgInvoicePrices,
+  TgInvoiceShippingOptions
+};
 
 /**
- * @version 2024.01.03.00
+ * @version 2024.01.03.01
  */
 trait TblInvoiceTrait{
   /**
@@ -290,7 +293,7 @@ trait TblInvoiceTrait{
   public function InvoiceShippingSend(
     string $Id,
     bool $Confirm,
-    TblInvoiceShippingOptions $Options = null,
+    TgInvoiceShippingOptions $Options = null,
     string $Error = null
   ):bool{
     $param['shipping_query_id'] = $Id;
