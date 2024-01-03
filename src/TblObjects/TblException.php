@@ -1,13 +1,17 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.08.19.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
+use Exception;
 
-class TblException extends \Exception{
+/**
+ * version 2024.01.03.00
+ */
+class TblException
+extends Exception{
   /**
-   * @param TblError $code The Exception code.
+   * @param TblError|TgException $code The Exception code.
    * @param string $message [optional] The Exception message to throw.
    * @param Throwable|null $previous [optional] The previous throwable used for the exception chaining.
    * @return void
