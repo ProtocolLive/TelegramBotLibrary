@@ -9,7 +9,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 };
 
 /**
- * @version 2024.01.02.00
+ * @version 2024.01.02.01
  */
 final readonly class TgInvoice
 implements TgEventInterface, TgForwadableInterface{
@@ -18,6 +18,6 @@ implements TgEventInterface, TgForwadableInterface{
 
   public function __construct(array $Data){
     $this->Data = new TgMessageData($Data);
-    $this->Invoice = new TgInvoiceData($Data);
+    $this->Invoice = new TgInvoiceData($Data['invoice']);
   }
 }
