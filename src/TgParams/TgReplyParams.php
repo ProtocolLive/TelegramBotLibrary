@@ -13,7 +13,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\TgLimits;
 
 /**
  * @link https://core.telegram.org/bots/api#replyparameters
- * @version 2024.01.02.00
+ * @version 2024.01.02.01
  */
 class TgReplyParams{
   private array $Array = [];
