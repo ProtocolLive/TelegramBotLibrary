@@ -7,7 +7,7 @@ use ProtocolLive\TelegramBotLibrary\TblObjects\TblError;
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgInvoiceCurrencies;
 
 /**
- * @version 2024.01.03.01
+ * @version 2024.01.03.02
  */
 final class TgInvoicePrices{
   private array $Prices = [];
@@ -32,15 +32,17 @@ final class TgInvoicePrices{
     TgInvoiceCurrencies $Currency = TgInvoiceCurrencies::USD
   ):bool{
     if($IgnoreLimit === false):
-      $CurrenciesJson = file_get_contents('https://core.telegram.org/bots/payments/currencies.json');
-      if($CurrenciesJson !== false):
-        $CurrenciesJson = json_decode($CurrenciesJson, true);
+      if(isset($_SESSION['Currencies']) === false):
+        $_SESSION['Currencies'] = file_get_contents('https://core.telegram.org/bots/payments/currencies.json');
+      endif;
+      if($_SESSION['Currencies'] !== false):
+        $_SESSION['Currencies'] = json_decode($_SESSION['Currencies'], true);
         if($Price > 0):
-          if($Price <= $CurrenciesJson[$Currency->value]['min_amount']):
+          if($Price <= $_SESSION['Currencies'][$Currency->value]['min_amount']):
             $this->Error = TblError::InvoicePriceLow;
             return false;
           endif;
-          if($Price > $CurrenciesJson[$Currency->value]['max_amount']):
+          if($Price > $_SESSION['Currencies'][$Currency->value]['max_amount']):
             $this->Error = TblError::InvoicePriceHigh;
             return false;
           endif;
