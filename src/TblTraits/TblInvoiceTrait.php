@@ -17,7 +17,7 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\{
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgInvoice;
 
 /**
- * @version 2024.01.01.00
+ * @version 2024.01.03.00
  */
 trait TblInvoiceTrait{
   /**
@@ -121,25 +121,25 @@ trait TblInvoiceTrait{
       $param['photo_height'] = $PhotoHeight;
     endif;
     if($NeedName):
-      $param['need_name'] = 'true';
+      $param['need_name'] = true;
     endif;
     if($NeedPhone):
-      $param['need_phone_number'] = 'true';
+      $param['need_phone_number'] = true;
     endif;
     if($NeedEmail):
-      $param['need_email'] = 'true';
+      $param['need_email'] = true;
     endif;
     if($NeedAddress):
-      $param['need_shipping_address'] = 'true';
+      $param['need_shipping_address'] = true;
     endif;
     if($ProviderPhone):
-      $param['send_phone_number_to_provider'] = 'true';
+      $param['send_phone_number_to_provider'] = true;
     endif;
     if($ProviderEmail):
-      $param['send_email_to_provider'] = 'true';
+      $param['send_email_to_provider'] = true;
     endif;
     if($PriceWithShipping):
-      $param['is_flexible'] = 'true';
+      $param['is_flexible'] = true;
     endif;
     return $this->ServerMethod(TgMethods::InvoiceLink, $param);
   }
@@ -238,37 +238,37 @@ trait TblInvoiceTrait{
       $param['photo_height'] = $PhotoHeight;
     endif;
     if($NeedName):
-      $param['need_name'] = 'true';
+      $param['need_name'] = true;
     endif;
     if($NeedPhone):
-      $param['need_phone_number'] = 'true';
+      $param['need_phone_number'] = true;
     endif;
     if($NeedEmail):
-      $param['need_email'] = 'true';
+      $param['need_email'] = true;
     endif;
     if($NeedAddress):
-      $param['need_shipping_address'] = 'true';
+      $param['need_shipping_address'] = true;
     endif;
     if($ProviderPhone):
-      $param['send_phone_number_to_provider'] = 'true';
+      $param['send_phone_number_to_provider'] = true;
     endif;
     if($ProviderEmail):
-      $param['send_email_to_provider'] = 'true';
+      $param['send_email_to_provider'] = true;
     endif;
     if($PriceWithShipping):
-      $param['is_flexible'] = 'true';
+      $param['is_flexible'] = true;
     endif;
     if($DisableNotification):
-      $param['disable_notification'] = 'true';
+      $param['disable_notification'] = true;
     endif;
     if($Protect):
-      $param['protect_content'] = 'true';
+      $param['protect_content'] = true;
     endif;
     if($RepliedMsg !== null):
       $param['reply_to_message_id'] = $RepliedMsg;
     endif;
     if($SendWithoutRepliedMsg):
-      $param['allow_sending_without_reply'] = 'true';
+      $param['allow_sending_without_reply'] = true;
     endif;
     if($Markup !== null):
       $param['reply_markup'] = $Markup->ToArray();
