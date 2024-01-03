@@ -2,13 +2,14 @@
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
-namespace ProtocolLive\TelegramBotLibrary\TblObjects;
+namespace ProtocolLive\TelegramBotLibrary\TgParams;
+use ProtocolLive\TelegramBotLibrary\TblObjects\TblError;
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgInvoiceCurrencies;
 
 /**
- * @version 2024.01.01.00
+ * @version 2024.01.03.00
  */
-class TblInvoicePrices{
+final class TgInvoicePrices{
   private array $Prices = [];
   public TblError|null $Error = null;
 

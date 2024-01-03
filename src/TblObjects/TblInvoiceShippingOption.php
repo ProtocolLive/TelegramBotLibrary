@@ -1,9 +1,9 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.08.19.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
+use ProtocolLive\TelegramBotLibrary\TgParams\TgInvoicePrices;
 
 /**
  * This object represents one shipping option.
@@ -11,11 +11,12 @@ namespace ProtocolLive\TelegramBotLibrary\TblObjects;
  * @param string $Name Option title
  * @param array $Prices List of price portions, in TblInvoiceProduct format
  * @link https://core.telegram.org/bots/api#shippingoption
+ * @version 2024.01.03.01
  */
 class TblInvoiceShippingOption{
   public function __construct(
     public readonly string $Id,
     public readonly string $Name,
-    public readonly TblInvoicePrices $Prices
+    public readonly TgInvoicePrices $Prices
   ){}
 }
