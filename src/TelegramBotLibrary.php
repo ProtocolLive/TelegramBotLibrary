@@ -58,7 +58,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 use ProtocolLive\TelegramBotLibrary\TgParams\TgInlineQueryResults;
 
 /**
- * @version 2024.01.03.02
+ * @version 2024.01.03.03
  */
 final class TelegramBotLibrary
 extends TblBasics{
@@ -859,6 +859,7 @@ extends TblBasics{
       throw new TblException(TblError::NoEvent, 'No event found');
     endif;
     $update = json_decode($update, true);
+    $return = $this->DetectReturn($update);
     if($this->BotData->Log & TblLog::Webhook):
       $this->Log(
         TblLog::Webhook,
@@ -867,16 +868,11 @@ extends TblBasics{
           JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES
         )
       );
-    endif;
-    $return = $this->DetectReturn($update);
-    if($this->BotData->Log & TblLog::Webhook):
-      $this->Log(
-        TblLog::Webhook,
-        json_encode(
-          $return,
-          JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES
-        )
-      );
+      ob_start();
+      var_dump($return);
+      $temp = ob_get_contents();
+      ob_end_clean();
+      $this->Log(TblLog::Webhook, $temp, true);
     endif;
     return $return;
   }

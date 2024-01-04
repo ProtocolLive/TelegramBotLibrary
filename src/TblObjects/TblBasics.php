@@ -63,7 +63,7 @@ use ProtocolLive\TelegramBotLibrary\TgService\{
 };
 
 /**
- * @version 2024.01.03.01
+ * @version 2024.01.03.02
  */
 abstract class TblBasics{
   protected TblData $BotData;
@@ -258,9 +258,11 @@ abstract class TblBasics{
 
   protected function Log(
     int $Type,
-    string $Msg
+    string $Msg,
+    bool $SkipLogHandler = false
   ):void{
-    if($this->BotData->LogHandler !== null):
+    if($this->BotData->LogHandler !== null
+    and $SkipLogHandler === false):
       call_user_func_array($this->BotData->LogHandler, func_get_args());
       return;
     endif;
