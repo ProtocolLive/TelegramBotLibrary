@@ -15,7 +15,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2024.01.03.01
+ * @version 2024.01.04.00
  */
 trait TblGameTrait{
   /**
@@ -99,7 +99,7 @@ trait TblGameTrait{
    * @param int|string $Chat Required if InlineMessageId is not specified. Unique identifier for the target chat
    * @param int $MessageId Required if InlineMessageId is not specified. Identifier of the sent message
    * @param string $InlineMessageId Required if Chat is not specified. Identifier of the inline message
-   * @return true On success, if the message is not an inline message, the Message is returned, otherwise True is returned. Returns an error, if the new score is not greater than the user's current score in the chat and force is False.
+   * @return true|TgGame On success, if the message is not an inline message, the Message is returned, otherwise True is returned. Returns an error, if the new score is not greater than the user's current score in the chat and force is False.
    * @link https://core.telegram.org/bots/api#setgamescore
    * @throws TblException
    */
@@ -111,7 +111,7 @@ trait TblGameTrait{
     int|string $Chat = null,
     int $MessageId = null,
     string $InlineMessageId = null
-  ):true{
+  ):true|TgGame{
     $param['user_id'] = $User;
     $param['score'] = $Score;
     if($Force):
@@ -126,6 +126,11 @@ trait TblGameTrait{
       $param['chat_id'] = $Chat;
       $param['message_id'] = $MessageId;
     endif;
-    return $this->ServerMethod(TgMethods::GameScoreSet, $param);
+    $return = $this->ServerMethod(TgMethods::GameScoreSet, $param);
+    if($return):
+      return true;
+    else:
+      return new TgGame($return);
+    endif;
   }
 }
