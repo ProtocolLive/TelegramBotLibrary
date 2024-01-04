@@ -29,6 +29,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgInvoice,
   TgInvoiceDone,
   TgLocation,
+  TgLocationEdited,
   TgLogin,
   TgPassport,
   TgPhoto,
@@ -62,7 +63,7 @@ use ProtocolLive\TelegramBotLibrary\TgService\{
 };
 
 /**
- * @version 2024.01.03.00
+ * @version 2024.01.03.01
  */
 abstract class TblBasics{
   protected TblData $BotData;
@@ -228,6 +229,8 @@ abstract class TblBasics{
       return new TgDocumentEdited($Data);
     elseif(isset($Data['game'])):
       return new TgGameEdited($Data);
+    elseif(isset($Data['location'])):
+      return new TgLocationEdited($Data);
     elseif(isset($Data['photo'])):
       return new TgPhotoEdited($Data);
     elseif(isset($Data['text'])):
