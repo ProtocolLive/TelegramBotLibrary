@@ -8,7 +8,7 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\TgChatType;
 
 /**
  * @link https://core.telegram.org/bots/api#chat
- * @version 2024.01.03.00
+ * @version 2024.01.03.01
  */
 final class TgChat{
   /**
@@ -86,9 +86,13 @@ final class TgChat{
    */
   public readonly string|null $EmojiBackground;
   /**
-   * True, if new chat members will have access to old messages; available only to chat administrators. Returned only in getChat.
+   * If new chat members will have access to old messages; available only to chat administrators. Returned only in getChat. Null in case of channel
    */
-  public readonly bool $History;
+  public readonly bool|null $History;
+  /**
+   * Chat photo. Returned only in getChat.
+   */
+  public readonly TgChatPhoto|null $Photo;
   /**
    * Default chat member permissions, for groups and supergroups. Returned only in getChat.
    */
@@ -97,10 +101,6 @@ final class TgChat{
    * If non-empty, the list of all active chat usernames; for private chats, supergroups and channels. Returned only in getChat.
    */
   public readonly array $Nicks;
-  /**
-   * Chat photo. Returned only in getChat.
-   */
-  public readonly TgChatPhoto|null $Photo;
   /**
    * The most recent pinned message (by sending date). Returned only in getChat.
    */
@@ -132,11 +132,9 @@ final class TgChat{
     $this->Color = $Data['accent_color_id'] ?? null;
     $this->EmojiBackground = $Data['background_custom_emoji_id'] ?? null;
     $this->ColorBackground = $Data['profile_accent_color_id'] ?? null;
-    $this->History = $Data['has_visible_history'] ?? false;
+    $this->History = $Data['has_visible_history'] ?? $this->Type === TgChatType::Channel ? null : false;
     if(isset($Data['permissions'])):
       $this->Permissions = new TgPermMember($Data['permissions']);
-    else:
-      $this->Permissions = null;
     endif;
     if(isset($Data['photo'])):
       $this->Photo = new TgChatPhoto($Data['photo']);
