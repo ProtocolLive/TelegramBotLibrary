@@ -10,51 +10,53 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 
 /**
  * @link https://core.telegram.org/bots/api#giveaway
- * @version 2024.01.01.00
+ * @version 2024.01.04.00
  */
-final class TgGiveaway
+final readonly class TgGiveaway
 implements TgForwadableInterface, TgEventInterface{
-  public readonly TgMessageData $Data;
+  public TgMessageData $Data;
   /**
    * The list of chats which the user must join to participate in the giveaway
    */
-  public array $Chats = [];
+  public array $Chats;
   /**
    * Point in time (Unix timestamp) when winners of the giveaway will be selected
    */
-  public readonly int $Date;
+  public int $Date;
   /**
    * The number of users which are supposed to be selected as winners of the giveaway
    */
-  public readonly int $Winners;
+  public int $Winners;
   /**
    * True, if the list of giveaway winners will be visible to everyone
    */
-  public readonly bool $Public;
+  public bool $Public;
   /**
    * The number of months the Telegram Premium subscription won from the giveaway will be active for
    */
-  public readonly int|null $Months;
+  public int|null $Months;
   /**
    * True, if only users who join the chats after the giveaway started should be eligible to win
    */
-  public readonly bool $OnlyNew;
+  public bool $OnlyNew;
   /**
    * A list of two-letter ISO 3166-1 alpha-2 country codes indicating the countries from which eligible users for the giveaway must come. If empty, then all users can participate in the giveaway. Users with a phone number that was bought on Fragment can always participate in giveaways.
    */
-  public array $Countries = [];
+  public array $Countries;
   /**
    * Description of additional giveaway prize
    */
-  public readonly string|null $Additional;
+  public string|null $Additional;
 
   public function __construct(
     array $Data
   ){
     $this->Data = new TgMessageData($Data);
+    $temp = [];
     foreach($Data['giveaway']['chats'] as $chat):
-      $this->Chats[] = new TgChat($chat);
+      $temp[] = new TgChat($chat);
     endforeach;
+    $this->Chats = $temp;
     $this->Date = $Data['giveaway']['winners_selection_date'];
     $this->Winners = $Data['giveaway']['winner_count'];
     $this->OnlyNew = $Data['giveaway']['only_new_members'] ?? false;

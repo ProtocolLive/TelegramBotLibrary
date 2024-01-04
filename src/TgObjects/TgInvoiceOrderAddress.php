@@ -1,25 +1,25 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.08.18.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
+ * This object represents a shipping address.
  * @link https://core.telegram.org/bots/api#shippingaddress
+ * @version 2024.01.04.00
  */
-class TgInvoiceOrderAddress{
-  public readonly string $Country;
-  public readonly string $State;
-  public readonly string $City;
-  public readonly string $Street1;
-  public readonly string $Street2;
-  public readonly string $ZipCode;
-  
-  /**
-   * @link https://core.telegram.org/bots/api#shippingaddress
-   */
-  public function __construct(array $Data){
+final readonly class TgInvoiceOrderAddress{
+  public string $Country;
+  public string $State;
+  public string $City;
+  public string $Street1;
+  public string $Street2;
+  public string $ZipCode;
+
+  public function __construct(
+    array $Data
+  ){
     $this->Country = $Data['country_code'];
     $this->State = $Data['state'];
     $this->City = $Data['city'];

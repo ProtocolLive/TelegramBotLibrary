@@ -5,12 +5,19 @@
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
- * @version 2023.05.30.01
+ * This object represents the data of an identity document.
+ * @version 2024.01.04.00
  */
-class TgPassportDataDriver{
+final class TgPassportDataDriver{
   public string|null $Data;
   public string|null $Hash;
+  /**
+   * Document number
+   */
   public string|null $Number = null;
+  /**
+   * Date of expiry, in DD.MM.YYYY format
+   */
   public string|null $Expiry = null;
   public TgPassportFile|null $Front = null;
   public TgPassportFile|null $Back = null;

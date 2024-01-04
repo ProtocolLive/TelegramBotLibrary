@@ -11,40 +11,40 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 /**
  * This object represents a venue.
  * @link https://core.telegram.org/bots/api#venue
- * @version 2024.01.01.00
+ * @version 2024.01.04.00
  */
-final class TgVenue
-implements TgForwadableInterface, TgEventInterface{
-  public readonly TgMessageData $Data;
+final readonly class TgVenue
+implements TgEventInterface, TgForwadableInterface{
+  public TgMessageData $Data;
 
   /**
    * Venue location. Can't be a live location
    */
-  public readonly TgLocation $Location;
+  public TgLocation $Location;
   /**
    * Name of the venue
    */
-  public readonly string $Name;
+  public string $Name;
   /**
    * Address of the venue
    */
-  public readonly string $Address;
+  public string $Address;
   /**
    * Foursquare identifier of the venue
    */
-  public readonly string|null $Foursquare;
+  public string|null $Foursquare;
   /**
    * Foursquare type of the venue. (For example, “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.)
    */
-  public readonly string|null $FoursquareType;
+  public string|null $FoursquareType;
   /**
    * Google Places identifier of the venue
    */
-  public readonly string|null $Google;
+  public string|null $Google;
   /**
    * Google Places type of the venue. (See supported types)
    */
-  public readonly string|null $GoogleType;
+  public string|null $GoogleType;
 
   public function __construct(
     array $Data

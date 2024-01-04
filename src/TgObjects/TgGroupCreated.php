@@ -6,11 +6,11 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgEventInterface;
 
 /**
- * @version 2024.01.01.00
+ * @version 2024.01.04.00
  */
-final class TgGroupCreated
+final readonly class TgGroupCreated
 implements TgEventInterface{
-  public readonly TgMessageData $Data;
+  public TgMessageData $Data;
 
   public function __construct(
     array $Data

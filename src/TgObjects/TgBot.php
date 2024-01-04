@@ -1,43 +1,42 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.05.05.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
  * @link https://core.telegram.org/bots/api#user
+ * @version 2024.01.04.00
  */
-class TgBot{
+final readonly class TgBot{
   /**
    * Unique identifier for this user or bot. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a 64-bit integer or double-precision float type are safe for storing this identifier.
    */
-  public readonly int $Id;
+  public int $Id;
   /**
    * User's or bot's first name
    */
-  public readonly string $Name;
+  public string $Name;
   /**
    * User's or bot's username
    */
-  public readonly string $Nick;
+  public string $Nick;
   /**
    * If the bot can be invited to groups. Returned only in getMe.
    */
-  public readonly bool $Groups;
+  public bool $Groups;
   /**
    * If privacy mode is disabled for the bot. Returned only in getMe.
    */
-  public readonly bool $Read;
+  public bool $Read;
   /**
    * If the bot supports inline queries. Returned only in getMe.
    */
-  public readonly bool $InlineQuery;
+  public bool $InlineQuery;
 
-  /**
-   * @link https://core.telegram.org/bots/api#user
-   */
-  public function __construct(array $Data){
+  public function __construct(
+    array $Data
+  ){
     $this->Id = $Data['id'];
     $this->Name = $Data['first_name'];
     $this->Nick = $Data['username'];

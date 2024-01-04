@@ -4,37 +4,38 @@
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgMemberStatus;
+use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgEventInterface;
 
 /**
  * A chat member's status was updated in a chat. The bot must be an administrator in the chat and must explicitly specify “chat_member” in the list of allowed_updates to receive these updates.
  * @link https://core.telegram.org/bots/api#update
  * @link https://core.telegram.org/bots/api#chatmemberupdated
- * @version 2024.01.01.00
+ * @version 2024.01.04.00
  */
-final class TgGroupStatus{
+final readonly class TgGroupStatus
+implements TgEventInterface{
   /**
    * Performer of the action, which resulted in the change
    */
-  public readonly TgUser $User;
+  public TgUser $User;
   /**
    * Chat the user belongs to
    */
-  public readonly TgChat $Group;
+  public TgChat $Group;
   /**
    * Date the change was done in Unix time
    */
-  public readonly int $Date;
-  public readonly TgUser $Member;
-  public readonly TgMemberStatus $StatusOld;
-  public readonly TgPermMember|TgPermAdmin $PermsOld;
-  public readonly TgMemberStatus $StatusNew;
-  public readonly TgPermMember|TgPermAdmin $PermsNew;
-  public readonly bool $ViaFolderLink;
+  public int $Date;
+  public TgUser $Member;
+  public TgMemberStatus $StatusOld;
+  public TgPermMember|TgPermAdmin $PermsOld;
+  public TgMemberStatus $StatusNew;
+  public TgPermMember|TgPermAdmin $PermsNew;
+  public bool $ViaFolderLink;
 
-  /**
-   * The bot's chat member status was updated in a chat. For private chats, this update is received only when the bot is blocked or unblocked by the user.
-   */
-  public function __construct(array $Data){
+  public function __construct(
+    array $Data
+  ){
     $this->User = new TgUser($Data['from']);
     $this->Group = new TgChat($Data['chat']);
     $this->Date = $Data['date'];

@@ -12,36 +12,32 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgEventInterface;
 /**
  * The bot's chat member status was updated in a chat. For private chats, this update is received only when the bot is blocked or unblocked by the user.
  * @link https://core.telegram.org/bots/api#chatmemberupdated
- * @version 2024.01.01.00
+ * @version 2024.01.04.00
  */
-class TgGroupStatusMy
+final readonly class TgGroupStatusMy
 implements TgEventInterface{
   /**
    * Performer of the action, which resulted in the change
    */
-  public readonly TgUser $User;
+  public TgUser $User;
   /**
    * Chat the user belongs to
    */
-  public readonly TgChat|TgUser $Group;
+  public TgChat|TgUser $Group;
   /**
    * Date the change was done in Unix time
    */
-  public readonly int $Date;
+  public int $Date;
   /**
    * Previous information about the chat member
    */
-  public readonly TgMemberStatus $StatusOld;
+  public TgMemberStatus $StatusOld;
   /**
    * New information about the chat member
    */
-  public readonly TgMemberStatus $StatusNew;
-  public readonly TgPermAdmin|null $Perms;
+  public TgMemberStatus $StatusNew;
+  public TgPermAdmin|null $Perms;
 
-  /**
-   * The bot's chat member status was updated in a chat. For private chats, this update is received only when the bot is blocked or unblocked by the user.
-   * @link https://core.telegram.org/bots/api#chatmemberupdated
-   */
   public function __construct(
     array $Data
   ){

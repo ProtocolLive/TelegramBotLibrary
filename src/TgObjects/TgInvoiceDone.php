@@ -4,25 +4,26 @@
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgInvoiceCurrencies;
+use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgEventInterface;
 
 /**
+ * This object contains basic information about a successful payment.
  * @link https://core.telegram.org/bots/api#successfulpayment
  * @version 2024.01.01.00
  */
-final class TgInvoiceDone
-extends TgObject{
-  public readonly TgMessageData $Data;
-  public readonly TgInvoiceCurrencies $Currency;
-  public readonly Int $Amount;
-  public readonly string $Payload;
-  public readonly TgInvoiceOrderInfo $OrderInfo;
-  public readonly string $PayTelegramId;
-  public readonly string $PayProviderId;
+final readonly class TgInvoiceDone
+implements TgEventInterface{
+  public  TgMessageData $Data;
+  public TgInvoiceCurrencies $Currency;
+  public Int $Amount;
+  public string $Payload;
+  public TgInvoiceOrderInfo $OrderInfo;
+  public string $PayTelegramId;
+  public string $PayProviderId;
 
-  /**
-   * @link https://core.telegram.org/bots/api#successfulpayment
-   */
-  public function __construct(array $Data){
+  public function __construct(
+    array $Data
+  ){
     $this->Data = new TgMessageData($Data);
     $this->Currency = TgInvoiceCurrencies::tryFrom($Data['successful_payment']['currency']);
     $this->Amount = $Data['successful_payment']['total_amount'];

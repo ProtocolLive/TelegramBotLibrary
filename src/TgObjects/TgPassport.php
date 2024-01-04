@@ -5,15 +5,14 @@
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 use Exception;
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgPassportDataType;
+use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgEventInterface;
 
 /**
- * @link https://core.telegram.org/bots/api#passportdata
- * @link https://core.telegram.org/bots/api#encryptedcredentials
  * @link https://core.telegram.org/passport
- * @version 2024.01.01.00
+ * @version 2024.01.04.00
  */
 final class TgPassport
-extends TgObject{
+implements TgEventInterface{
   public TgMessageData $Data;
   /**
    * Base64-encoded encrypted JSON-serialized data with unique user's payload, data hashes and secrets required for EncryptedPassportElement decryption and authentication
@@ -56,7 +55,9 @@ extends TgObject{
    */
   public string $Nonce;
 
-  public function __construct(array $Data = null){
+  public function __construct(
+    array $Data = null
+  ){
     if($Data !== null):
       $this->Data = new TgMessageData($Data);
       $this->Raw = base64_decode($Data['passport_data']['credentials']['data']);
@@ -79,7 +80,6 @@ extends TgObject{
           endforeach;
         endif;
       endforeach;
-
     endif;
   }
 

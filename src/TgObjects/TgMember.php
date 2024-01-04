@@ -8,43 +8,43 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\TgMemberStatus;
 /**
  * This object contains information about one member of a chat. Currently, the following 6 types of chat members are supported:
  * @link https://core.telegram.org/bots/api#chatmember
- * @version 2024.01.01.00
+ * @version 2024.01.04.00
  */
-final class TgMember{
+final readonly class TgMember{
   /**
    * Information about the user
    */
-  public readonly TgUser $Member;
+  public TgUser $Member;
   /**
    * If the user is a member of the chat at the moment of the request
    * @link https://core.telegram.org/bots/api#chatmemberrestricted
    */
-  public readonly bool $In;
+  public bool $In;
   /**
    * The member's status in the chat.
    */
-  public readonly TgMemberStatus $Status;
+  public TgMemberStatus $Status;
   /**
    * @link https://core.telegram.org/bots/api#chatmemberadministrator
    */
-  public readonly TgPermAdmin $AdminPerms;
+  public TgPermAdmin $AdminPerms;
   /**
    * @link https://core.telegram.org/bots/api#chatmemberrestricted
    */
-  public readonly TgPermMember $MemberPerms;
+  public TgPermMember $MemberPerms;
   /**
    * If the user's presence in the chat is hidden
    */
-  public readonly bool $Anonymous;
+  public bool $Anonymous;
   /**
    * Custom title for this user
    */
-  public readonly string|null $Title;
+  public string|null $Title;
   /**
    * Date when restrictions will be lifted for this user; unix time. If 0, then the user is banned forever
    * @link https://core.telegram.org/bots/api#chatmemberbanned
    */
-  public readonly int|null $Expires;
+  public int|null $Expires;
 
   public function __construct(array $Data){
     $this->Member = new TgUser($Data['user']);

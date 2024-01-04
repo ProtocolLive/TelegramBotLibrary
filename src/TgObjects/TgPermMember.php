@@ -1,12 +1,13 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.02.26.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
+ * Describes actions that a non-administrator user is allowed to take in a chat.
  * @link https://core.telegram.org/bots/api#chatpermissions
+ * @version 2024.01.04.00
  */
 final class TgPermMember{
   const Array = [

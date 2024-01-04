@@ -1,23 +1,23 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.08.18.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
  * This object contains information about one answer option in a poll.
  * @link https://core.telegram.org/bots/api#polloption
+ * @version 2024.01.04.00
  */
-class TgPollOption{
+final readonly class TgPollOption{
   /**
    * Option text, 1-100 characters
    */
-  public readonly string $Text;
+  public string $Text;
   /**
    * Number of users that voted for this option
    */
-  public readonly int $Votes;
+  public int $Votes;
 
   public function __construct(array $Data){
     $this->Text = $Data['text'];

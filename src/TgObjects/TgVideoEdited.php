@@ -10,12 +10,12 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 
 /**
  * @link https://core.telegram.org/bots/api#message
- * @version 2023.05.23.00
+ * @version 2024.01.04.00
  */
-final class TgVideoEdited
+final readonly class TgVideoEdited
 extends TgVideo
-implements TgForwadableInterface, TgEventInterface{
-  public readonly int $DateEdited;
+implements TgEventInterface, TgForwadableInterface{
+  public  int $DateEdited;
 
   /**
    * New version of a message that is known to the bot and was edited

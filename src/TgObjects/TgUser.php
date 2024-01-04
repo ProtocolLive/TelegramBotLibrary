@@ -6,62 +6,62 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
  * @link https://core.telegram.org/bots/api#user
- * @version 2023.09.11.02
+ * @version 2024.01.04.00
  */
-class TgUser{
+final readonly class TgUser{
   /**
    * Unique identifier for this user or bot. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a 64-bit integer or double-precision float type are safe for storing this identifier.
    */
-  public readonly int $Id;
+  public int $Id;
   /**
    * User's or bot's first name
    */
-  public readonly string $Name;
+  public string $Name;
   /**
    * If this user added the bot to the attachment menu
    */
-  public readonly bool $Attached;
+  public bool $Attached;
   /**
    * If this user is a Telegram Premium user. This property only comes in message event
    */
-  public readonly bool|null $Premium;
+  public bool|null $Premium;
   /**
    * User's or bot's last name
    */
-  public readonly string|null $NameLast;
+  public string|null $NameLast;
   /**
    * User's or bot's username
    */
-  public readonly string|null $Nick;
+  public string|null $Nick;
   public array|null $Nicks;
   /**
    * IETF language tag of the user's language
    */
-  public readonly string|null $Language;
+  public string|null $Language;
   /**
    * Custom emoji identifier of emoji status of the other party in a private chat. Returned only in getChat.
    */
-  public readonly string|null $Status;
+  public string|null $Status;
   /**
    * Bio of the other party in a private chat. Returned only in getChat.
    */
-  public readonly string|null $Bio;
+  public string|null $Bio;
   /**
    * If privacy settings of the other party in the private chat allows to use tg://user?id=<user_id> links only in chats with the user.
    */
-  public readonly bool|null $RestrictedForward;
+  public bool|null $RestrictedForward;
   /**
    * If the privacy settings of the other party restrict sending voice and video note messages in the private chat. Returned only in getChat.
    */
-  public readonly bool|null $RestrictedVoice;
+  public bool|null $RestrictedVoice;
   /**
    * Chat photo. Returned only in getChat.
    */
-  public readonly TgChatPhoto|null $Photo;
+  public TgChatPhoto|null $Photo;
   /**
    * The time after which all messages sent to the chat will be automatically deleted; in seconds. Returned only in getChat.
    */
-  public readonly int $AutoDel;
+  public int $AutoDel;
 
   /**
    * @link https://core.telegram.org/bots/api#user

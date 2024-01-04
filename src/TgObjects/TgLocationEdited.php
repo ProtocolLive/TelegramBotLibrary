@@ -9,12 +9,12 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 };
 
 /**
- * @version 2024.01.03.00
+ * @version 2024.01.04.00
  */
-readonly class TgLocationEdited
+final readonly class TgLocationEdited
 extends TgLocation
 implements TgEventInterface, TgForwadableInterface{
-  public readonly int $DateEdited;
+  public int $DateEdited;
 
   public function __construct(
     array $Data

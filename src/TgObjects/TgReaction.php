@@ -7,11 +7,11 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\TgReactionType;
 
 /**
  * @link https://core.telegram.org/bots/api#reactiontype
- * @version 2024.01.01.01
+ * @version 2024.01.04.00
  */
-class TgReaction{
-  public readonly TgReactionType $Type;
-  public readonly string $Emoji;
+final readonly class TgReaction{
+  public TgReactionType $Type;
+  public string $Emoji;
 
   public function __construct(
     array $Data,

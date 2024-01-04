@@ -10,46 +10,46 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 
 /**
  * @link https://core.telegram.org/bots/api#video
- * @version 2024.01.01.00
+ * @version 2024.01.04.00
  */
-class TgVideo
-implements TgForwadableInterface, TgEventInterface{
+readonly class TgVideo
+implements TgEventInterface, TgForwadableInterface{
   /**
    * @param TgMessageData $Data Can be null in case of external reply
    */
-  public readonly TgMessageData|null $Data;
+  public TgMessageData|null $Data;
   /**
    * @param string $Id Identifier for this file, which can be used to download or reuse the file
    */
-  public readonly string $Id;
+  public string $Id;
   /**
    * @param string $IdUnique Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file.
    */
-  public readonly string $IdUnique;
+  public string $IdUnique;
   /**
    * @param TgPhotoSize $Thumb Video thumbnail
    */
-  public readonly TgPhotoSize $Thumb;
+  public TgPhotoSize $Thumb;
   /**
    * @param int $Width Video width as defined by sender
    */
-  public readonly int $Width;
+  public int $Width;
   /**
    * @param int $Height Video height as defined by sender
    */
-  public readonly int $Height;
+  public int $Height;
   /**
    * @param int $Duration Duration of the video in seconds as defined by sender
    */
-  public readonly int $Duration;
+  public int $Duration;
   /**
    * @param string $Size File size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value.
    */
-  public readonly string $Size;
+  public string $Size;
   /**
    * @param string $Mime MIME type of the file as defined by sender
    */
-  public readonly string $Mime;
+  public string $Mime;
 
   public function __construct(
     array $Data

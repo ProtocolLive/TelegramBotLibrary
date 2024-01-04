@@ -7,19 +7,21 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgEventInterface;
 
 /**
  * @link https://core.telegram.org/bots/api#forumtopicclosed
- * @version 2024.01.01.00
+ * @version 2024.01.04.00
  */
-final class TgVideoChatInvite
+final readonly class TgVideoChatInvite
 implements TgEventInterface{
-  public readonly TgMessageData $Data;
+  public TgMessageData $Data;
   public array $Users;
 
   public function __construct(
     array $Data
   ){
     $this->Data = new TgMessageData($Data);
-    foreach($$Data['video_chat_participants_invited']['users'] as $user):
-      $this->Users[] = new TgUser($user);
+    $temp = [];
+    foreach($Data['video_chat_participants_invited']['users'] as $user):
+      $temp[] = new TgUser($user);
     endforeach;
+    $this->Users = $temp;
   }
 }

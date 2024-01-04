@@ -10,35 +10,35 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 
 /**
  * @link https://core.telegram.org/bots/api#videonote
- * @version 2024.01.01.00
+ * @version 2024.01.04.00
  */
-class TgVideoNote
-implements TgForwadableInterface, TgEventInterface{
-  public readonly TgMessageData $Data;
+readonly class TgVideoNote
+implements TgEventInterface, TgForwadableInterface{
+  public TgMessageData $Data;
   /**
    * Identifier for this file, which can be used to download or reuse the file
    */
-  public readonly string $Id;
+  public string $Id;
   /**
    * Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file.
    */
-  public readonly string $IdUnique;
+  public string $IdUnique;
   /**
    * Video width and height (diameter of the video message) as defined by sender
    */
-  public readonly int $Length;
+  public int $Length;
   /**
    * Duration of the video in seconds as defined by sender
    */
-  public readonly int $Duration;
+  public int $Duration;
   /**
    * Video thumbnail
    */
-  public readonly TgPhotoSize|null $Thumb;
+  public TgPhotoSize|null $Thumb;
   /**
    * File size in bytes
    */
-  public readonly int|null $Size;
+  public int|null $Size;
 
   public function __construct(
     array $Data

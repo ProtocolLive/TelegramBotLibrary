@@ -7,23 +7,23 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgEventInterface;
 
 /**
  * @link https://core.telegram.org/bots/api#forumtopiccreated
- * @version 2024.01.01.00
+ * @version 2024.01.04.00
  */
-final class TgForumCreated
+final readonly class TgForumCreated
 implements TgEventInterface{
-  public readonly TgMessageData $Data;
+  public TgMessageData $Data;
   /**
    * Name of the topic
    */
-  public readonly string $Name;
+  public string $Name;
   /**
    * Color of the topic icon in RGB format
    */
-  public readonly string $Color;
+  public string $Color;
   /**
    * Unique identifier of the custom emoji shown as the topic icon
    */
-  public readonly string|null $Emoji;
+  public string|null $Emoji;
 
   public function __construct(
     array $Data

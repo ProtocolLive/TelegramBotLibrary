@@ -13,15 +13,15 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\TgChatType;
  * @param string|null $Signature In case of sender is a channel
  * @link https://core.telegram.org/bots/api#externalreplyinfo
  * @link https://core.telegram.org/bots/api#messageorigin
- * @version 2024.01.01.00
+ * @version 2024.01.04.00
  */
-class TgReplyExternal{
-  public readonly TgUser|TgChat|string $User;
-  public readonly TgChat|null $Chat;
-  public readonly int|null $Message;
-  public readonly int $Date;
+final readonly class TgReplyExternal{
+  public TgUser|TgChat|string $User;
+  public TgChat|null $Chat;
+  public int|null $Message;
+  public int $Date;
   public array|TgAudio|TgDocument|TgVideo|null $Object;
-  public readonly string|null $Signature;
+  public string|null $Signature;
 
   public function __construct(
     array $Data
@@ -42,9 +42,11 @@ class TgReplyExternal{
     $this->Signature = $Data['origin']['author_signature'] ?? null;
 
     if(isset($Data['photo'])):
+      $temp = [];
       foreach($Data['photo'] as $photo):
-        $this->Object[] = new TgPhotoSize($photo);
+        $temp[] = new TgPhotoSize($photo);
       endforeach;
+      $this->Object = $temp;
     elseif(isset($Data['audio'])):
       $this->Object = new TgAudio($Data['audio']);
     elseif(isset($Data['document'])):

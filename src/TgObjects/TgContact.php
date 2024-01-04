@@ -7,31 +7,31 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgEventInterface;
 
 /**
  * @link https://core.telegram.org/bots/api#contact
- * @version 2024.01.01.00
+ * @version 2024.01.04.00
  */
-final class TgContact
+final readonly class TgContact
 implements TgEventInterface{
-  public readonly TgMessageData $Data;
+  public TgMessageData $Data;
   /**
    * Contact's phone number
    */
-  public readonly string $Number;
+  public string $Number;
   /**
    * Contact's first name
    */
-  public readonly string $Name;
+  public string $Name;
   /**
    * Contact's first name
    */
-  public readonly string|null $NameLast;
+  public string|null $NameLast;
   /**
    * Contact's user identifier in Telegram. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a 64-bit integer or double-precision float type are safe for storing this identifier.
    */
-  public readonly int|null $Id;
+  public int|null $Id;
   /**
    * Additional data about the contact in the form of a vCard
    */
-  public readonly string|null $Vcard;
+  public string|null $Vcard;
 
   public function __construct(
     array $Data

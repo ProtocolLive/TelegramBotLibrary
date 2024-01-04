@@ -1,19 +1,21 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.08.18.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
  * @link https://core.telegram.org/bots/api#choseninlineresult
+ * @version 2024.01.04.00
  */
-class TgInlineQueryFeedback{
-  public readonly TgUser $User;
-  public readonly string $Text;
-  public readonly string $Choose;
+final readonly class TgInlineQueryFeedback{
+  public TgUser $User;
+  public string $Text;
+  public string $Choose;
 
-  public function __construct(array $Data){
+  public function __construct(
+    array $Data
+  ){
     $this->User = new TgUser($Data['from']);
     $this->Text = $Data['query'];
     $this->Choose = $Data['result_id'];

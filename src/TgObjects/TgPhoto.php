@@ -9,23 +9,21 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 };
 
 /**
+ * Message is a photo, available sizes of the photo
  * @link https://core.telegram.org/bots/api#message
- * @version 2029.01.01.00
+ * @version 2024.01.04.00
  */
-class TgPhoto
-implements TgForwadableInterface, TgEventInterface{
-  public readonly TgMessageData $Data;
+readonly class TgPhoto
+implements TgEventInterface, TgForwadableInterface{
+  public TgMessageData $Data;
   /**
    * @var TgPhotoSize[]
    */
   public array $Files;
-  public readonly string|null $MediaGroup;
-  public readonly string|null $Caption;
-  public array $Entities = [];
+  public string|null $MediaGroup;
+  public string|null $Caption;
+  public array $Entities;
 
-  /**
-   * @link https://core.telegram.org/bots/api#message
-   */
   public function __construct(
     array $Data
   ){
@@ -36,9 +34,13 @@ implements TgForwadableInterface, TgEventInterface{
     $this->MediaGroup = $Data['media_group_id'] ?? null;
     $this->Caption = $Data['caption'] ?? null;
     if(isset($Data['caption_entities'])):
+      $temp = [];
       foreach($Data['caption_entities'] as $entity):
-        $this->Entities[] = new TgEntity($entity);
+        $temp[] = new TgEntity($entity);
       endforeach;
+      $this->Entities = $temp;
+    else:
+      $this->Entities = [];
     endif;
   }
 }

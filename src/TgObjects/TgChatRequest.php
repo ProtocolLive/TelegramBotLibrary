@@ -7,32 +7,34 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgEventInterface;
 
 /**
  * @link https://core.telegram.org/bots/api#chatjoinrequest
- * @version 2024.01.01.00
+ * @version 2024.01.04.00
  */
-class TgChatRequest
+final readonly class TgChatRequest
 implements TgEventInterface{
   /**
    * Chat to which the request was sent
    */
-  public readonly TgChat $Chat;
+  public TgChat $Chat;
   /**
    * User that sent the join request
    */
-  public readonly TgUser $User;
+  public TgUser $User;
   /**
    * Date the request was sent in Unix time
    */
-  public readonly int $Date;
+  public int $Date;
   /**
    * Bio of the user.
    */
-  public readonly string|null $Bio;
+  public string|null $Bio;
   /**
    * Chat invite link that was used by the user to send the join request
    */
-  public readonly TgChatInviteLink|null $Link;
+  public TgChatInviteLink|null $Link;
 
-  public function __construct(array $Data){
+  public function __construct(
+    array $Data
+  ){
     $this->Chat = new TgChat($Data['chat']);
     $this->User = new TgUser($Data['from']);
     $this->Date = $Data['date'];

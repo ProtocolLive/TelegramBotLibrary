@@ -3,16 +3,18 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
-use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgForwadableInterface;
+use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
+  TgEventInterface,
+  TgForwadableInterface
+};
 
 /**
  * @link https://core.telegram.org/bots/api#story
- * @version 2023.08.18.00
+ * @version 2024.01.04.00
  */
-class TgStory
-extends TgObject
-implements TgForwadableInterface{
-  public readonly TgMessageData $Data;
+final readonly class TgStory
+implements TgEventInterface, TgForwadableInterface{
+  public TgMessageData $Data;
   
   /**
    * This object represents a message about a forwarded story in the chat. Currently holds no information.

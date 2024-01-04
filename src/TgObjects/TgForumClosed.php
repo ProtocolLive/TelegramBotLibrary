@@ -7,11 +7,11 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgEventInterface;
 
 /**
  * @link https://core.telegram.org/bots/api#forumtopicclosed
- * @version 2024.01.01.00
+ * @version 2024.01.04.00
  */
-final class TgForumClosed
+final readonly class TgForumClosed
 implements TgEventInterface{
-  public readonly TgMessageData $Data;
+  public TgMessageData $Data;
 
   public function __construct(
     array $Data

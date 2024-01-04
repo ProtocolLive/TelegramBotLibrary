@@ -1,20 +1,22 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.08.18.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
  * @link https://core.telegram.org/bots/api#shippingquery
+ * @version 2024.01.04.00
  */
-class TgInvoiceShipping{
-  public readonly string $Id;
-  public readonly TgUser $User;
-  public readonly string $Payload;
-  public readonly TgInvoiceOrderAddress $Address;
+final readonly class TgInvoiceShipping{
+  public string $Id;
+  public TgUser $User;
+  public string $Payload;
+  public TgInvoiceOrderAddress $Address;
 
-  public function __construct(array $Data){
+  public function __construct(
+    array $Data
+  ){
     $this->Id = $Data['id'];
     $this->User = new TgUser($Data['from']);
     $this->Payload = $Data['invoice_payload'];

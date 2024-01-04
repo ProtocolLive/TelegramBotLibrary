@@ -3,14 +3,14 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
+use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgEventInterface;
 
 /**
- * This object contains information about a poll.
  * @link https://core.telegram.org/bots/api#message
- * @version 2023.07.05.00
+ * @version 2024.01.04.00
  */
-final class TgLogin
-extends TgObject{
+final readonly class TgLogin
+implements TgEventInterface{
   public TgMessageData $Data;
   /**
    * The domain name of the website on which the user has logged in. More about in Telegram Login.

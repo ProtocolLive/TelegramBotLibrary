@@ -10,13 +10,13 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 
 /**
  * @link https://core.telegram.org/bots/api#message
- * @version 2024.01.01.00
+ * @version 2024.01.04.00
  */
-class TgText
-implements TgForwadableInterface, TgEventInterface{
-  public readonly TgMessageData $Data;
-  public readonly string $Text;
-  public array $Entities = [];
+readonly class TgText
+implements TgEventInterface, TgForwadableInterface{
+  public TgMessageData $Data;
+  public string $Text;
+  public array $Entities;
 
   /**
    * @link https://core.telegram.org/bots/api#message
@@ -27,9 +27,13 @@ implements TgForwadableInterface, TgEventInterface{
     $this->Data = new TgMessageData($Data);
     $this->Text = $Data['text'];
     if(isset($Data['entities'])):
+      $temp = [];
       foreach($Data['entities'] as $entity):
-        $this->Entities[] = new TgEntity($entity);
+        $temp[] = new TgEntity($entity);
       endforeach;
+      $this->Entities = $temp;
+    else:
+      $this->Entities = [];
     endif;
   }
 }

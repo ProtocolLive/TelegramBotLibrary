@@ -4,19 +4,23 @@
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgInvoiceCurrencies;
+use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgEventInterface;
 
 /**
- * @version 2024.01.01.00
+ * @version 2024.01.04.00
  */
-class TgInvoiceCheckout{
-  public readonly string $Id;
-  public readonly TgUser $User;
-  public readonly TgInvoiceCurrencies $Currency;
-  public readonly Int $Amount;
-  public readonly string $Payload;
-  public readonly TgInvoiceOrderInfo|null $OrderInfo;
+final readonly class TgInvoiceCheckout
+implements TgEventInterface{
+  public string $Id;
+  public TgUser $User;
+  public TgInvoiceCurrencies $Currency;
+  public Int $Amount;
+  public string $Payload;
+  public TgInvoiceOrderInfo|null $OrderInfo;
 
-  public function __construct(array $Data){
+  public function __construct(
+    array $Data
+  ){
     $this->Id = $Data['id'];
     $this->User = new TgUser($Data['from']);
     $this->Currency = TgInvoiceCurrencies::tryFrom($Data['currency']);

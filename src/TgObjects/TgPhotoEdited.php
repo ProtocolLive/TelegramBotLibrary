@@ -11,12 +11,12 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 /**
  * A chat photo was change to this value
  * @link https://core.telegram.org/bots/api#message
- * @version 2024.01.01.00
+ * @version 2024.01.04.00
  */
-final class TgPhotoEdited
+final readonly class TgPhotoEdited
 extends TgPhoto
-implements TgForwadableInterface, TgEventInterface{
-  public readonly int $DateEdited;
+implements TgEventInterface, TgForwadableInterface{
+  public int $DateEdited;
 
   /**
    * New version of a message that is known to the bot and was edited

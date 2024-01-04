@@ -1,23 +1,23 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.09.21.01
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
+ * This object represents information about an order.
  * @link https://core.telegram.org/bots/api#orderinfo
+ * @version 2024.01.04.00
  */
-class TgInvoiceOrderInfo{
-  public readonly string|null $Name;
-  public readonly string|null $Phone;
-  public readonly string|null $Email;
-  public readonly TgInvoiceOrderAddress|null $Address;
+final readonly class TgInvoiceOrderInfo{
+  public string|null $Name;
+  public string|null $Phone;
+  public string|null $Email;
+  public TgInvoiceOrderAddress|null $Address;
 
-  /**
-   * @link https://core.telegram.org/bots/api#orderinfo
-   */
-  public function __construct(array $Data){
+  public function __construct(
+    array $Data
+  ){
     if(isset($Data['name'])):
       $this->Name = $Data['name'];
     else:
