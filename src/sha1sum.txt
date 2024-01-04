@@ -1,4 +1,4 @@
-7c5881d1e926a7c6a8b6bd461e42a68016a41e5d  TblObjects\TblBasics.php
+7d0c90c24deae0b72fee224880110c6511722cb0  TblObjects\TblBasics.php
 b45aa215be09f71a54c8d6abe4696a718b5f4ded  TblObjects\TblCmd.php
 170c5f82ebfac6cb3081c0f38a9b91953934ac56  TblObjects\TblCmdEdited.php
 52a43df4e3acc130c5e13aee61bbd74311df1623  TblObjects\TblCommands.php
@@ -28,7 +28,7 @@ c21be2bd90b996ee67d69ce1a79ff375dd4933a0  TblTraits\TblInvoiceTrait.php
 5c330de5078760d53705fba2ce3ffe83b0aeb3da  TblTraits\TblPhotoTrait.php
 4f305fab9d5000a4bcde13925b86a00e3db5598a  TblTraits\TblTextTrait.php
 e7e00fb5d0a20e812a79fd1c74ded0fd19bcf24b  TblTraits\TblVideoTrait.php
-ce3a85983e4bfebb04108ea687d68d45681bfcac  TelegramBotLibrary.php
+cdb06859e1917211d7681d93feae314dbd6bb13b  TelegramBotLibrary.php
 003a7c3619434100a349409140711e9d317ca182  TgEnums\TgBoostSource.php
 0f12827d196f45e785ca313b665d2378d6b3bcbd  TgEnums\TgChatAction.php
 2737a52755f97d47e2b0fb76b1571a83dfe4e24f  TgEnums\TgChatType.php
@@ -58,9 +58,9 @@ aa81f1b2e7d6f2ce2a0a4027fc7d727cbf3f3012  TgObjects\TgAudio.php
 672997809ed8fc02c3b13681498e2f93336a4aa5  TgObjects\TgButtonCallback.php
 e3874ae26b1df09585657ad3cea314e668d3b55d  TgObjects\TgButtonWebapp.php
 fe2823bdd71948a6fe4d9540d41215acde13c3ea  TgObjects\TgCallback.php
-ea74b11d069aea01578a81dd3925621f5af2e0f3  TgObjects\TgChat.php
+cba2c695d8b2b2c95fd9bf06bba25bc8164f1141  TgObjects\TgChat.php
 329b52e8e456d22f8a862fb9a875d118294c8ecd  TgObjects\TgChatBoost.php
-dbdc5a0f12bb8aa6aa72e7aeca5aaa9446d94a56  TgObjects\TgChatBoostRemoved.php
+f023c50bf250312d6963f70e9648713d9090e737  TgObjects\TgChatBoostRemoved.php
 9a2e27c3c6d4878bfe2799e645fd8f72580dd58c  TgObjects\TgChatInviteLink.php
 bc54f0520d9c8a16ce3a1795591f6c966d1f7d04  TgObjects\TgChatLocation.php
 9a70a60345c2a5e5d6681e0e248b3f8a359fba8a  TgObjects\TgChatMigrateFrom.php
@@ -83,6 +83,7 @@ d218e6fd50619da91d8f5975db8a9c4c19e2d04f  TgObjects\TgGameEdited.php
 cdd80a6bea9f919cabac40cd177230cc2b3437e3  TgObjects\TgGameScore.php
 69f831af31ab0977c53b17e33c91a82c6bb839cc  TgObjects\TgGameStart.php
 2a35f887ee09a528a314dd0aef9c823ab9b57cc8  TgObjects\TgGiveaway.php
+fb16e0e9666ebcbc438add21eaf7ca3115f62615  TgObjects\TgGiveawayWinners.php
 4c09b03d990949cd97d05e57272a24b03af444d0  TgObjects\TgGroupCreated.php
 19c64ed59ca75f0d99b98b663057cbe7ab897df6  TgObjects\TgGroupStatus.php
 1389b5beddcb76af1d348764569fd064b6f8a177  TgObjects\TgGroupStatusMy.php
@@ -145,6 +146,7 @@ fc8c4d5b62185b632a166f648b72924f450afd4e  TgParams\TgLinkPreview.php
 2baf435197a3acf534a9d611c3c1302afcda748c  TgService\TgChatAutoDel.php
 a88d4dd3b5a270d6c2ee91077b837602887ff7ac  TgService\TgChatPhotoNew.php
 207db07bd1afa4434cd16ca80e2f2cfa8a790f6b  TgService\TgChatTitle.php
+1bbbb6f141eec4df7acd6b3532549cbea368ee12  TgService\TgGiveawayCompleted.php
 586c50c75faf40e8c432cf8da90a42ae52293364  TgService\TgGiveawayCreated.php
 ca8f6fa8a3e130519f64b7a53d85a454898502e4  TgService\TgMemberLeft.php
 00a527b4caff50e04dd7331afe5338cfd1cba741  TgService\TgMemberNew.php
