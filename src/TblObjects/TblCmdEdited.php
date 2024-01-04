@@ -9,14 +9,16 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 };
 
 /**
- * @version 2024.01.01.00
+ * @version 2024.01.04.00
  */
 final class TblCmdEdited
 extends TblCmd
 implements TgForwadableInterface, TgEventInterface{
   public readonly int $DateEdited;
 
-  public function __construct(array $Data){
+  public function __construct(
+    array $Data
+  ){
     parent::__construct($Data);
     $this->DateEdited = $Data['edit_date'];
   }

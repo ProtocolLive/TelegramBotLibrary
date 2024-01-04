@@ -14,7 +14,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 
 /**
  * Note: Extends TgObject to be a listener
- * @version 2024.01.01.00
+ * @version 2024.01.04.00
  */
 class TblCmd
 implements TgForwadableInterface, TgEventInterface{
@@ -23,7 +23,9 @@ implements TgForwadableInterface, TgEventInterface{
   public readonly string|null $Parameters;
   public readonly string|null $Target;
 
-  public function __construct(array $Data){
+  public function __construct(
+    array $Data
+  ){
     $this->Data = new TgMessageData($Data);
     $Text = $Data['text'];
     $Entity = new TgEntity($Data['entities'][0]);

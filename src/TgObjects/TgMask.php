@@ -7,7 +7,7 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 /**
  * This object describes the position on faces where a mask should be placed by default.
  * @link https://core.telegram.org/bots/api#maskposition
- * @version 2024.01.04.00
+ * @version 2024.01.04.01
  */
 final readonly class TgMask{
   /**
@@ -27,7 +27,9 @@ final readonly class TgMask{
    */
   public float $Scale;
 
-  public function __construct(array $Data){
+  public function __construct(
+    array $Data
+  ){
     $this->Point = $Data['point'];
     $this->XShift = $Data['x_shift'];
     $this->YShift = $Data['y_shift'];

@@ -6,7 +6,7 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
  * This object represents the data of an identity document.
- * @version 2024.01.04.00
+ * @version 2024.01.04.01
  */
 final class TgPassportDataDriver{
   public string|null $Data;
@@ -22,7 +22,9 @@ final class TgPassportDataDriver{
   public TgPassportFile|null $Front = null;
   public TgPassportFile|null $Back = null;
 
-  public function __construct(array $Data){
+  public function __construct(
+    array $Data
+  ){
     $this->Data = base64_decode($Data['data']);
     $this->Hash = base64_decode($Data['hash']);
     $this->Front = new TgPassportFile($Data['front_side']);

@@ -6,7 +6,7 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
  * @link https://core.telegram.org/bots/api#user
- * @version 2024.01.04.00
+ * @version 2024.01.04.01
  */
 final readonly class TgUser{
   /**
@@ -66,7 +66,9 @@ final readonly class TgUser{
   /**
    * @link https://core.telegram.org/bots/api#user
    */
-  public function __construct(array $Data){
+  public function __construct(
+    array $Data
+  ){
     $this->Id = $Data['id'];
     $this->Name = $Data['first_name'];
     $this->Attached = $Data['added_to_attachment_menu'] ?? false;

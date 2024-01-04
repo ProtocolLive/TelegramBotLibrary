@@ -11,14 +11,16 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\TgMessageData;
 
 /**
  * @link https://core.telegram.org/bots/api#forumtopicclosed
- * @version 2024.01.01.01
+ * @version 2024.01.01.02
  */
 final class TgVideoChatScheduled
-implements TgServiceInterface, TgEventInterface{
+implements TgEventInterface, TgServiceInterface{
   public readonly TgMessageData $Data;
   public readonly int $Start;
 
-  public function __construct(array $Data){
+  public function __construct(
+    array $Data
+  ){
     $this->Data = new TgMessageData($Data);
     $this->Start = $Data['video_chat_scheduled']['start_date'];
   }

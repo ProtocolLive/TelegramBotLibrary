@@ -7,7 +7,7 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\TgInvoiceCurrencies;
 
 /**
  * @link https://core.telegram.org/bots/api#invoice
- * @version 2024.01.02.00
+ * @version 2024.01.04.00
  */
 final readonly class TgInvoiceData{
   public string $Title;
@@ -16,7 +16,9 @@ final readonly class TgInvoiceData{
   public TgInvoiceCurrencies $Currency;
   public int $Amount;
 
-  public function __construct(array $Data){
+  public function __construct(
+    array $Data
+  ){
     $this->Title = $Data['title'];
     $this->Description = $Data['description'];
     $this->StartParam = $Data['start_parameter'];

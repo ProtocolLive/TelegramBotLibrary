@@ -1,13 +1,13 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.02.07.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 use ProtocolLive\TelegramBotLibrary\TblObjects\TblBasics;
 
 /**
  * @link https://core.telegram.org/bots/api#callbackquery
+ * @version 2024.01.04.00
  */
 final class TgCallback{
   /**
@@ -35,7 +35,9 @@ final class TgCallback{
    */
   public readonly string $Callback;
 
-  public function __construct(array $Data){
+  public function __construct(
+    array $Data
+  ){
     $this->Id = $Data['id'];
     $this->User = new TgUser($Data['from']);
     if(isset($Data['message'])):

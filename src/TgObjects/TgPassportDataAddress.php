@@ -7,7 +7,7 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 /**
  * This object represents a residential address.
  * @link https://core.telegram.org/passport#residentialaddress
- * @version 2024.01.04.00
+ * @version 2024.01.04.01
  */
 class TgPassportDataAddress{
   public string|null $Data;
@@ -37,7 +37,9 @@ class TgPassportDataAddress{
    */
   public string|null $Street2 = null;
 
-  public function __construct(array $Data){
+  public function __construct(
+    array $Data
+  ){
     $this->Data = base64_decode($Data['data']);
     $this->Hash = base64_decode($Data['hash']);
   }

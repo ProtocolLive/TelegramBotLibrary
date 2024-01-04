@@ -7,7 +7,7 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\TgChatType;
 
 /**
  * @link https://core.telegram.org/bots/api#message
- * @version 2024.01.04.00
+ * @version 2024.01.04.01
  */
 final readonly class TgMessageData{
   /**
@@ -87,7 +87,9 @@ final readonly class TgMessageData{
   //The bot 777000 is used to auto forward messages from channels to groups
   //The bot 1087968824 is used when admin post as the group and for migrate events
   //The bot 136817688 is used when admin post as channel
-  public function __construct(array $Data){
+  public function __construct(
+    array $Data
+  ){
     $this->Id = $Data['message_id'];
 
     if(isset($Data['from'])

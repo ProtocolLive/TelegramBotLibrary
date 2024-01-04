@@ -12,7 +12,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 /**
  * This object represents a sticker.
  * @link https://core.telegram.org/bots/api#sticker
- * @version 2024.01.04.00
+ * @version 2024.01.04.01
  */
 final readonly class TgSticker
 implements TgEventInterface, TgForwadableInterface{
@@ -81,7 +81,9 @@ implements TgEventInterface, TgForwadableInterface{
   /**
    * @link https://core.telegram.org/bots/api#sticker
    */
-  public function __construct(array $Data){
+  public function __construct(
+    array $Data
+  ){
     $this->Data = new TgMessageData($Data);
     $this->Id = $Data['sticker']['file_id'];
     $this->IdUnique = $Data['sticker']['file_unique_id'];

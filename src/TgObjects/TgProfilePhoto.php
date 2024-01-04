@@ -6,7 +6,7 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
  * @link https://core.telegram.org/bots/api#userprofilephotos
- * @version 2024.01.04.00
+ * @version 2024.01.04.01
  */
 final readonly class TgProfilePhoto{
   public int $Count;
@@ -15,7 +15,9 @@ final readonly class TgProfilePhoto{
    */
   public array $Photos;
 
-  public function __construct(array $Data){
+  public function __construct(
+    array $Data
+  ){
     $this->Count = $Data['total_count'];
     $temp = [];
     foreach($Data['photos'] as $photo1):

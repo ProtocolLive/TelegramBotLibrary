@@ -8,7 +8,7 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\TgMemberStatus;
 /**
  * This object contains information about one member of a chat. Currently, the following 6 types of chat members are supported:
  * @link https://core.telegram.org/bots/api#chatmember
- * @version 2024.01.04.00
+ * @version 2024.01.04.01
  */
 final readonly class TgMember{
   /**
@@ -46,7 +46,9 @@ final readonly class TgMember{
    */
   public int|null $Expires;
 
-  public function __construct(array $Data){
+  public function __construct(
+    array $Data
+  ){
     $this->Member = new TgUser($Data['user']);
     $this->Status = TgMemberStatus::tryFrom($Data['status']);
     if($this->Status === TgMemberStatus::Restricted):

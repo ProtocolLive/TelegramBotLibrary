@@ -1,13 +1,13 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.05.05.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
  * @link https://core.telegram.org/bots/api#chatlocation
  * @link https://core.telegram.org/bots/api#location
+ * @version 2024.01.04.00
  */
 final class TgChatLocation{
   /**
@@ -23,7 +23,9 @@ final class TgChatLocation{
    */
   public readonly float $Longitude;
 
-  public function __construct(array $Data){
+  public function __construct(
+    array $Data
+  ){
     $this->Address = $Data['address'];
     $this->Latitude = $Data['location']['latitude'];
     $this->Longitude = $Data['location']['longitude'];

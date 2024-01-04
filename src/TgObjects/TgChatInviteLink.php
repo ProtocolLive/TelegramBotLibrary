@@ -1,12 +1,12 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.09.24.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
  * @link https://core.telegram.org/bots/api#chatinvitelink
+ * @version 2024.01.04.00
  */
 class TgChatInviteLink{
   /**
@@ -46,7 +46,9 @@ class TgChatInviteLink{
    */
   public readonly int|null $Limit;
 
-  public function __construct(array $Data){
+  public function __construct(
+    array $Data
+  ){
     $this->Link = $Data['invite_link'];
     $this->Creator = new TgUser($Data['creator']);
     $this->Request = $Data['creates_join_request'];

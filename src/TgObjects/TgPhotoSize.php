@@ -7,7 +7,7 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 /**
  * This object represents one size of a photo or a file / sticker thumbnail.
  * @link https://core.telegram.org/bots/api#photosize
- * @version 2024.01.04.00
+ * @version 2024.01.04.01
  */
 final readonly class TgPhotoSize{
   public string $Id;
@@ -16,7 +16,9 @@ final readonly class TgPhotoSize{
   public int $Width;
   public int $Height;
 
-  public function __construct(array $Data){
+  public function __construct(
+    array $Data
+  ){
     $this->Id = $Data['file_id'];
     $this->IdUnique = $Data['file_unique_id'];
     $this->Size = $Data['file_size'];

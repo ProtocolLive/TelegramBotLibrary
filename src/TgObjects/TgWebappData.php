@@ -7,7 +7,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgEventInterface;
 
 /**
  * @link https://core.telegram.org/bots/api#webappdata
- * @version 2024.01.04.00
+ * @version 2024.01.04.01
  */
 final readonly class TgWebappData
 implements TgEventInterface{
@@ -20,7 +20,9 @@ implements TgEventInterface{
    */
   public string $Data;
 
-  public function __construct(array $Data){
+  public function __construct(
+    array $Data
+  ){
     $this->Text = $Data['web_app_data']['button_text'];
     $this->Data = $Data['web_app_data']['data'];
   }

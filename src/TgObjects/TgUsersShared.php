@@ -8,7 +8,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgEventInterface;
 /**
  * This object contains information about the user whose identifier was shared with the bot using a KeyboardButtonRequestUser button.
  * @link https://core.telegram.org/bots/api#usershared
- * @version 2024.01.04.00
+ * @version 2024.01.04.01
  */
 final readonly class TgUsersShared
 implements TgEventInterface{
@@ -22,7 +22,9 @@ implements TgEventInterface{
    */
   public array $Users;
 
-  public function __construct(array $Data){
+  public function __construct(
+    array $Data
+  ){
     $this->Data = new TgMessageData($Data);
     $this->Id = $Data['users_shared']['request_id'];
     $this->Users = $Data['users_shared']['user_ids'];

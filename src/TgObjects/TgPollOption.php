@@ -7,7 +7,7 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 /**
  * This object contains information about one answer option in a poll.
  * @link https://core.telegram.org/bots/api#polloption
- * @version 2024.01.04.00
+ * @version 2024.01.04.01
  */
 final readonly class TgPollOption{
   /**
@@ -19,7 +19,9 @@ final readonly class TgPollOption{
    */
   public int $Votes;
 
-  public function __construct(array $Data){
+  public function __construct(
+    array $Data
+  ){
     $this->Text = $Data['text'];
     $this->Votes = $Data['voter_count'];
   }
