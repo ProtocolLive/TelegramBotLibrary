@@ -7,7 +7,7 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\TgReactionType;
 
 /**
  * @link https://core.telegram.org/bots/api#reactiontype
- * @version 2024.01.04.00
+ * @version 2024.01.04.01
  */
 final readonly class TgReaction{
   public TgReactionType $Type;
@@ -15,7 +15,7 @@ final readonly class TgReaction{
 
   public function __construct(
     array $Data,
-    public readonly int|null $Count = null
+    public int|null $Count = null
   ){
     $this->Type = TgReactionType::from($Data['type']);
     $this->Emoji = $Data[$this->Type->value];

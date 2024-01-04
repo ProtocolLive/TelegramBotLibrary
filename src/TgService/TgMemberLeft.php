@@ -15,12 +15,12 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 /**
  * Represents a chat member that isn't currently a member of the chat, but may join it themselves.
  * @link https://core.telegram.org/bots/api#chatmemberleft
- * @version 2024.01.01.02
+ * @version 2024.01.04.00
  */
-final class TgMemberLeft
-implements TgServiceInterface, TgEventInterface{
-  public readonly TgMessageData $Data;
-  public readonly TgUser $Member;
+final readonly class TgMemberLeft
+implements TgEventInterface, TgServiceInterface{
+  public TgMessageData $Data;
+  public TgUser $Member;
 
   public function __construct(
     array $Data

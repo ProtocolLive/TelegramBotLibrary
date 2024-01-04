@@ -10,23 +10,23 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 
 /**
  * @link https://core.telegram.org/bots/api#audio
- * @version 2024.01.04.00
+ * @version 2024.01.04.01
  */
-final class TgAudio
+final readonly class TgAudio
 implements TgEventInterface, TgForwadableInterface{
   /**
    * Null in case of external reply
    */
-  public readonly TgMessageData|null $Data;
-  public readonly string $Id;
-  public readonly string $IdUnique;
-  public readonly int $Duration;
-  public readonly string|null $Performer;
-  public readonly string|null $Title;
-  public readonly string|null $FileName;
-  public readonly int|null $Size;
-  public readonly string|null $Mime;
-  public readonly TgPhotoSize|null $Thumbnail;
+  public TgMessageData|null $Data;
+  public string $Id;
+  public string $IdUnique;
+  public int $Duration;
+  public string|null $Performer;
+  public string|null $Title;
+  public string|null $FileName;
+  public int|null $Size;
+  public string|null $Mime;
+  public TgPhotoSize|null $Thumbnail;
 
   public function __construct(
     array $Data

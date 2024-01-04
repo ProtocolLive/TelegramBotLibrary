@@ -1,22 +1,24 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.02.10.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 use Closure;
 
-final class TblData{
-  public readonly string $UrlApi;
-  public readonly string $UrlFiles;
+/**
+ * @version 2024.01.04.00
+ */
+final readonly class TblData{
+  public string $UrlApi;
+  public string $UrlFiles;
 
   public function __construct(
     string $Token,
-    public readonly string $DirLogs,
-    public readonly string|null $TokenWebhook = null,
-    public readonly int $Log = TblLog::None,
+    public string $DirLogs,
+    public string|null $TokenWebhook = null,
+    public int $Log = TblLog::None,
     bool $TestServer = false,
-    public readonly Closure|string|null $LogHandler = null
+    public Closure|string|null $LogHandler = null
   ){
     if($TestServer):
       $temp = '/test';

@@ -7,33 +7,33 @@ use ProtocolLive\TelegramBotLibrary\TblObjects\TblBasics;
 
 /**
  * @link https://core.telegram.org/bots/api#callbackquery
- * @version 2024.01.04.00
+ * @version 2024.01.04.01
  */
-final class TgCallback{
+final readonly class TgCallback{
   /**
    * Message with the callback button that originated the query. Note that message content and message date will not be available if the message is too old
    */
-  public readonly TgText|TgPhoto|null $Data;
+  public TgText|TgPhoto|null $Data;
   /**
    * Unique identifier for this query
    */
-  public readonly int $Id;
+  public int $Id;
   /**
    * Sender
    */
-  public readonly TgUser $User;
+  public TgUser $User;
   /**
    * Global identifier, uniquely corresponding to the chat to which the message with the callback button was sent. Useful for high scores in games.
    */
-  public readonly string $ChatInstance;
+  public string $ChatInstance;
   /**
    * Identifier of the message sent via the bot in inline mode, that originated the query.
    */
-  public readonly string|null $InlineMessageId;
+  public string|null $InlineMessageId;
   /**
    * Data associated with the callback button. Be aware that the message originated the query can contain no callback buttons with this data.
    */
-  public readonly string $Callback;
+  public string $Callback;
 
   public function __construct(
     array $Data

@@ -11,12 +11,12 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\TgMessageData;
 
 /**
  * @link https://core.telegram.org/bots/api#photosize
- * @version 2024.01.01.02
+ * @version 2024.01.04.00
  */
-final class TgPinnedMsg
-implements TgServiceInterface, TgEventInterface{
-  public readonly TgMessageData $Data;
-  public readonly TgMessageData $Pinned;
+final readonly class TgPinnedMsg
+implements TgEventInterface, TgServiceInterface{
+  public TgMessageData $Data;
+  public TgMessageData $Pinned;
 
   public function __construct(
     array $Data

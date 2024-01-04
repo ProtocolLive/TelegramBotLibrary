@@ -13,15 +13,15 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\TgMessageData;
  * Service message: auto-delete timer settings changed in the chat. New auto-delete time for messages in the chat; in seconds
  * @link https://core.telegram.org/bots/api#message
  * @link https://core.telegram.org/bots/api#messageautodeletetimerchanged
- * @version 2024.01.01.02
+ * @version 2024.01.04.00
  */
-final class TgChatAutoDel
+final readonly class TgChatAutoDel
 implements TgServiceInterface, TgEventInterface{
-  public readonly TgMessageData $Data;
+  public TgMessageData $Data;
   /**
    * New auto-delete time for messages in the chat; in seconds
    */
-  public readonly int $Time;
+  public int $Time;
 
   public function __construct(
     array $Data

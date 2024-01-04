@@ -6,45 +6,45 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
  * @link https://core.telegram.org/bots/api#chatinvitelink
- * @version 2024.01.04.00
+ * @version 2024.01.04.01
  */
-class TgChatInviteLink{
+final readonly class TgChatInviteLink{
   /**
    * The invite link. If the link was created by another chat administrator, then the second part of the link will be replaced with “…”.
    */
-  public readonly string $Link;
+  public string $Link;
   /**
    * Invite link name
    */
-  public readonly string|null $Name;
+  public string|null $Name;
   /**
    * Creator of the link
    */
-  public readonly TgUser $Creator;
+  public TgUser $Creator;
   /**
    * Number of pending join requests created using this link
    */
-  public readonly int|null $Pending;
+  public int|null $Pending;
   /**
    * If users joining the chat via the link need to be approved by chat administrators
    */
-  public readonly bool $Request;
+  public bool $Request;
   /**
    *  If the link is primary
    */
-  public readonly bool $Primary;
+  public bool $Primary;
   /**
    * If the link is revoked
    */
-  public readonly bool $Revoked;
+  public bool $Revoked;
   /**
    * Point in time (Unix timestamp) when the link will expire or has been expired
    */
-  public readonly int|null $Expire;
+  public int|null $Expire;
   /**
    * The maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999
    */
-  public readonly int|null $Limit;
+  public int|null $Limit;
 
   public function __construct(
     array $Data

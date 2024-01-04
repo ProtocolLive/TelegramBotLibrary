@@ -15,19 +15,21 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 /**
  * This object represents a chat photo.
  * @link https://core.telegram.org/bots/api#chatphoto
- * @version 2024.01.01.02
+ * @version 2024.01.04.00
  */
-final class TgChatPhotoNew
-implements TgServiceInterface, TgEventInterface{
-  public readonly TgMessageData $Data;
-  public array $Photo = [];
+final readonly class TgChatPhotoNew
+implements TgEventInterface, TgServiceInterface{
+  public TgMessageData $Data;
+  public array $Photo;
 
   public function __construct(
     array $Data
   ){
     $this->Data = new TgMessageData($Data);
+    $temp = [];
     foreach($Data['new_chat_photo'] as $photo):
-      $this->Photo[] = new TgPhotoSize($photo);
+      $temp[] = new TgPhotoSize($photo);
     endforeach;
+    $this->Photo = $temp;
   }
 }

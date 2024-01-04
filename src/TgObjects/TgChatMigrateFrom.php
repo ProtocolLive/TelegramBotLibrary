@@ -8,20 +8,20 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgEventInterface;
 /**
  * The supergroup has been migrated from a group with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
  * @link https://core.telegram.org/bots/api#message
- * @version 2024.01.01.00
+ * @version 2024.01.04.00
  */
-final class TgChatMigrateFrom
+final readonly class TgChatMigrateFrom
 implements TgEventInterface{
-  public readonly TgUser $Admin;
-  public readonly TgChat $Group;
+  public TgUser $Admin;
+  public TgChat $Group;
   /**
    * Date the message was sent in Unix time
    */
-  public readonly int $Date;
+  public int $Date;
   /**
    * The supergroup has been migrated from a group with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
    */
-  public readonly int $IdOld;
+  public int $IdOld;
 
   public function __construct(
     array $Data

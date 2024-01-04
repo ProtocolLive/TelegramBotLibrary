@@ -8,42 +8,42 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgEventInterface;
 
 /**
  * @link https://core.telegram.org/bots/api#chatboostupdated
- * @version 2024.01.02.00
+ * @version 2024.01.04.00
  */
-final class TgChatBoost
+final readonly class TgChatBoost
 implements TgEventInterface{
   /**
    * Chat which was boosted. Can be null in case of ChatBoostGet method
    */
-  public readonly TgChat|null $Chat;
+  public TgChat|null $Chat;
   /**
    * Unique identifier of the boost
    */
-  public readonly string $Id;
+  public string $Id;
   /**
    * Point in time (Unix timestamp) when the chat was boosted
    */
-  public readonly string $Date;
+  public string $Date;
   /**
    * 	Point in time (Unix timestamp) when the boost will automatically expire, unless the booster's Telegram Premium subscription is prolonged
    */
-  public readonly string $Expiration;
+  public string $Expiration;
   /**
    * Source of the added boost
    */
-  public readonly TgBoostSource $Source;
+  public TgBoostSource $Source;
   /**
    * User that boosted the chat, user for which the gift code was created or User that won the prize in the giveaway if any
    */
-  public readonly TgUser|null $User;
+  public TgUser|null $User;
   /**
    * Identifier of a message in the chat with the giveaway; the message could have been deleted already. May be 0 if the message isn't sent yet.
    */
-  public readonly int|null $Message;
+  public int|null $Message;
   /**
    * True, if the giveaway was completed, but there was no user to win the prize
    */
-  public readonly bool $Unclaimed;
+  public bool $Unclaimed;
   
   public function __construct(
     array $Data

@@ -1,13 +1,15 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.12.30.00
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
-final class TgButtonWebapp{
-  public readonly string $Text;
-  public readonly string $Url;
+/**
+ * @version 2024.01.04.00
+ */
+final readonly class TgButtonWebapp{
+  public string $Text;
+  public string $Url;
 
   public function __construct(
     array $Data = null

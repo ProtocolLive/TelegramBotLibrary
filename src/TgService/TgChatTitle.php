@@ -12,15 +12,15 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\TgMessageData;
 /**
  * A chat title was changed to this value
  * @link https://core.telegram.org/bots/api#message
- * @version 2024.01.01.02
+ * @version 2024.01.04.00
  */
-final class TgChatTitle
+final readonly class TgChatTitle
 implements TgServiceInterface, TgEventInterface{
-  public readonly TgMessageData $Data;
+  public TgMessageData $Data;
   /**
    * A chat title was changed to this value
    */
-  public readonly string $Title;
+  public string $Title;
 
   public function __construct(
     array $Data

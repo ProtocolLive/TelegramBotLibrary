@@ -11,11 +11,11 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\TgMessageData;
 
 /**
  * @link https://core.telegram.org/bots/api#giveawaycreated
- * @version 2024.01.01.02
+ * @version 2024.01.04.00
  */
-final class TgGiveawayCreated
-implements TgServiceInterface, TgEventInterface{
-  public readonly TgMessageData $Data;
+final readonly class TgGiveawayCreated
+implements TgEventInterface, TgServiceInterface{
+  public TgMessageData $Data;
 
   public function __construct(
     array $Data

@@ -11,12 +11,12 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\TgMessageData;
 
 /**
  * @link https://core.telegram.org/bots/api#forumtopicclosed
- * @version 2024.01.01.02
+ * @version 2024.01.04.00
  */
-final class TgVideoChatEnded
+final readonly class TgVideoChatEnded
 implements TgEventInterface, TgServiceInterface{
-  public readonly TgMessageData $Data;
-  public readonly int $Duration;
+  public TgMessageData $Data;
+  public int $Duration;
 
   public function __construct(
     array $Data

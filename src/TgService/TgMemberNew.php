@@ -14,12 +14,12 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 
 /**
  * New members that were added to the group or supergroup and information about them (the bot itself may be one of these members)
- * @version 2024.01.01.02
+ * @version 2024.01.04.00
  */
-final class TgMemberNew
-implements TgServiceInterface, TgEventInterface{
-  public readonly TgMessageData $Data;
-  public readonly TgUser $Member;
+final readonly class TgMemberNew
+implements TgEventInterface, TgServiceInterface{
+  public TgMessageData $Data;
+  public TgUser $Member;
 
   public function __construct(
     array $Data
