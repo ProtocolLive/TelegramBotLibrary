@@ -10,11 +10,11 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 
 /**
  * @link https://core.telegram.org/bots/api#animation
- * @version 2024.01.02.00
+ * @version 2024.01.04.00
  */
 final readonly class TgAnimationEdited
 extends TgAnimation
-implements TgForwadableInterface, TgEventInterface{
+implements TgEventInterface, TgForwadableInterface{
   /**
    * Date the message was last edited in Unix time
    */

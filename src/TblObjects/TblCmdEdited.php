@@ -9,11 +9,11 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 };
 
 /**
- * @version 2024.01.04.00
+ * @version 2024.01.04.01
  */
 final class TblCmdEdited
 extends TblCmd
-implements TgForwadableInterface, TgEventInterface{
+implements TgEventInterface, TgForwadableInterface{
   public readonly int $DateEdited;
 
   public function __construct(

@@ -14,10 +14,10 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 
 /**
  * Note: Extends TgObject to be a listener
- * @version 2024.01.04.00
+ * @version 2024.01.04.01
  */
 class TblCmd
-implements TgForwadableInterface, TgEventInterface{
+implements TgEventInterface, TgForwadableInterface{
   public readonly TgMessageData $Data;
   public readonly string $Command;
   public readonly string|null $Parameters;

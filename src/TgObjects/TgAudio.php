@@ -10,10 +10,10 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 
 /**
  * @link https://core.telegram.org/bots/api#audio
- * @version 2024.01.01.00
+ * @version 2024.01.04.00
  */
 final class TgAudio
-implements TgForwadableInterface, TgEventInterface{
+implements TgEventInterface, TgForwadableInterface{
   /**
    * Null in case of external reply
    */

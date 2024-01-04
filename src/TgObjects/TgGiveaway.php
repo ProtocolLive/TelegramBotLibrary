@@ -10,10 +10,10 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 
 /**
  * @link https://core.telegram.org/bots/api#giveaway
- * @version 2024.01.04.00
+ * @version 2024.01.04.01
  */
 final readonly class TgGiveaway
-implements TgForwadableInterface, TgEventInterface{
+implements TgEventInterface, TgForwadableInterface{
   public TgMessageData $Data;
   /**
    * The list of chats which the user must join to participate in the giveaway
