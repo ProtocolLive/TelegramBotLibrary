@@ -65,7 +65,7 @@ use ProtocolLive\TelegramBotLibrary\TgService\{
 };
 
 /**
- * @version 2024.01.03.03
+ * @version 2024.01.04.00
  */
 abstract class TblBasics{
   protected TblData $BotData;
@@ -347,7 +347,6 @@ abstract class TblBasics{
       curl_multi_exec($mh, $active);
       curl_multi_select($mh);
     }while($active);
-    /** @var CurlHandle[] $return */
     foreach($Params as &$params):
       $params = $this->CurlResponse($params);
     endforeach;
