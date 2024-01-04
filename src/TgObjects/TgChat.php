@@ -8,107 +8,107 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\TgChatType;
 
 /**
  * @link https://core.telegram.org/bots/api#chat
- * @version 2024.01.03.01
+ * @version 2024.01.03.02
  */
-final class TgChat{
+final readonly class TgChat{
   /**
    * Unique identifier for this chat. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
    */
-  public readonly int $Id;
+  public int $Id;
   /**
    * First name of the other party in a private chat or title, for supergroups, channels and group chats
    */
-  public readonly string $Name;
+  public string $Name;
   /**
    * Type of chat, can be either “private”, “group”, “supergroup” or “channel”
    */
-  public readonly TgChatType $Type;
+  public TgChatType $Type;
   /**
    * Username, for private chats, supergroups and channels if available
    */
-  public readonly string|null $Nick;
+  public string|null $Nick;
   /**
    * Description, for groups, supergroups and channel chats. Returned only in getChat.
    */
-  public readonly string|null $Bio;
+  public string|null $Bio;
   /**
    * If the supergroup chat is a forum (has topics enabled)
    */
-  public readonly bool $Forum;
+  public bool $Forum;
   /**
    * If users need to join the supergroup before they can send messages. Returned only in getChat.
    */
-  public readonly bool $JoinToSend;
+  public bool $JoinToSend;
   /**
    * If all users directly joining the supergroup need to be approved by supergroup administrators. Returned only in getChat.
    */
-  public readonly bool $JoinByRequest;
+  public bool $JoinByRequest;
   /**
    * For supergroups, the minimum allowed delay between consecutive messages sent by each unpriviledged user; in seconds. Returned only in getChat.
    */
-  public readonly int $SlowMode;
+  public int $SlowMode;
   /**
    * Unique identifier for the linked chat, i.e. the discussion group identifier for a channel and vice versa; for supergroups and channel chats. This identifier may be greater than 32 bits and some programming languages may have difficulty/silent defects in interpreting it. But it is smaller than 52 bits, so a signed 64 bit integer or double-precision float type are safe for storing this identifier. Returned only in getChat.
    */
-  public readonly int|null $LinkedChat;
+  public int|null $LinkedChat;
   /**
    * If messages from the chat can't be forwarded to other chats. Returned only in getChat.
    */
-  public readonly bool $Protected;
+  public bool $Protected;
   /**
    * If non-administrators can only get the list of bots and administrators in the chat. Returned only in getChat.
    */
-  public readonly bool|null $HidedMembers;
+  public bool|null $HidedMembers;
   /**
    * If aggressive anti-spam checks are enabled in the supergroup. The field is only available to chat administrators. Returned only in getChat.
    */
-  public readonly bool|null $AntiSpam;
+  public bool|null $AntiSpam;
   /**
    * Custom emoji identifier of emoji status of the other party in a private chat. Returned only in getChat.
    */
-  public readonly string|null $Emoji;
+  public string|null $Emoji;
   /**
    * Expiration date of the emoji status of the other party in a private chat, if any. Returned only in getChat.
    */
-  public readonly string|null $EmojiExpiration;
+  public string|null $EmojiExpiration;
   /**
    * Identifier of the accent color for the chat name and backgrounds of the chat photo, reply header, and link preview. See accent colors for more details. Returned only in getChat. Always returned in getChat.
    * @link https://core.telegram.org/bots/api#accent-colors
    */
-  public readonly int|null $Color;
+  public int|null $Color;
   /**
    * Identifier of the accent color for the chat's profile background. See profile accent colors for more details. Returned only in getChat.
    * @link https://core.telegram.org/bots/api#profile-accent-colors
    */
-  public readonly string|null $ColorBackground;
+  public string|null $ColorBackground;
   /**
    * Custom emoji identifier of emoji chosen by the chat for the reply header and link preview background. Returned only in getChat.
    */
-  public readonly string|null $EmojiBackground;
+  public string|null $EmojiBackground;
   /**
    * If new chat members will have access to old messages; available only to chat administrators. Returned only in getChat. Null in case of channel
    */
-  public readonly bool|null $History;
+  public bool|null $History;
   /**
    * Chat photo. Returned only in getChat.
    */
-  public readonly TgChatPhoto|null $Photo;
+  public TgChatPhoto|null $Photo;
   /**
    * Default chat member permissions, for groups and supergroups. Returned only in getChat.
    */
-  public readonly TgPermMember|null $Permissions;
+  public TgPermMember|null $Permissions;
   /**
    * If non-empty, the list of all active chat usernames; for private chats, supergroups and channels. Returned only in getChat.
    */
-  public readonly array $Nicks;
+  public array $Nicks;
   /**
    * The most recent pinned message (by sending date). Returned only in getChat.
    */
-  public readonly array $Pinned;
+  public array $Pinned;
   /**
    * List of available reactions allowed in the chat. If omitted, then all emoji reactions are allowed. Returned only in getChat.
    */
-  public readonly array $Reactions;
+  public array $Reactions;
 
   public function __construct(
     array $Data
