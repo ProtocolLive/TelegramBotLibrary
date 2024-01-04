@@ -65,7 +65,7 @@ use ProtocolLive\TelegramBotLibrary\TgService\{
 };
 
 /**
- * @version 2024.01.04.00
+ * @version 2024.01.04.01
  */
 abstract class TblBasics{
   protected TblData $BotData;
@@ -95,6 +95,7 @@ abstract class TblBasics{
 
   private function CurlResponse(
     CurlHandle $Curl,
+    string $Log = null,
   ):array|bool|TblException{
     $error = null;
     $response = curl_multi_getcontent($Curl);
@@ -102,6 +103,10 @@ abstract class TblBasics{
     if(json_last_error() > 0):
       $error = 'Json error: ' . json_last_error_msg() . PHP_EOL;
       $error .= 'Response: ' . $response;
+    endif;
+    if($this->BotData->Log & TblLog::Send
+    and $Log !== null):
+      $this->Log(TblLog::Send, $Log);
     endif;
     if($this->BotData->Log & TblLog::Response):
       $this->Log(
@@ -305,7 +310,6 @@ abstract class TblBasics{
         JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
       );
       $log = str_replace('<', '&lt;', $log);
-      $this->Log(TblLog::Send, $log);
     endif;
     $curl = $this->Curl($curl, $Params, $AsJson);
     $return = curl_exec($curl);
@@ -314,7 +318,7 @@ abstract class TblBasics{
       $this->Log(TblLog::Curl, $temp);
       throw new TblException(TblError::Curl, $temp);
     endif;
-    $return = $this->CurlResponse($curl);
+    $return = $this->CurlResponse($curl, $log ?? null);
     if(is_object($return)):
       throw $return;
     else:
@@ -329,16 +333,17 @@ abstract class TblBasics{
     TgMethods $Method,
     array $Params
   ):array{
+    $MultiLog = [];
     $mh = curl_multi_init();
     $url = $this->BotData->UrlApi . '/' . $Method->value;
-    foreach($Params as &$params):
+    foreach($Params as $id => &$params):
       if($this->BotData->Log & TblLog::Send):
         $log = 'Url: ' . $url . PHP_EOL;
         $log .= 'Params: ' . json_encode(
           $params,
           JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
         );
-        $this->Log(TblLog::Send, $log);
+        $MultiLog[$id] = $log;
       endif;
       $params = $this->Curl($url, $params);
       curl_multi_add_handle($mh, $params);
@@ -347,8 +352,8 @@ abstract class TblBasics{
       curl_multi_exec($mh, $active);
       curl_multi_select($mh);
     }while($active);
-    foreach($Params as &$params):
-      $params = $this->CurlResponse($params);
+    foreach($Params as $id => &$params):
+      $params = $this->CurlResponse($params, $MultiLog[$id]);
     endforeach;
     return $Params;
   }
