@@ -4,77 +4,79 @@
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgStickerType;
-use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgForwadableInterface;
+use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
+  TgEventInterface,
+  TgForwadableInterface
+};
 
 /**
  * This object represents a sticker.
  * @link https://core.telegram.org/bots/api#sticker
- * @version 2024.01.01.00
+ * @version 2024.01.04.00
  */
-final class TgSticker
-extends TgObject
-implements TgForwadableInterface{
-  public readonly TgMessageData $Data;
+final readonly class TgSticker
+implements TgEventInterface, TgForwadableInterface{
+  public TgMessageData $Data;
   /**
    * Identifier for this file, which can be used to download or reuse the file
    */
-  public readonly string $Id;
+  public string $Id;
   /**
    * Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file.
    */
-  public readonly string $IdUnique;
+  public string $IdUnique;
   /**
    * Type of the sticker, currently one of “regular”, “mask”, “custom_emoji”. The type of the sticker is independent from its format, which is determined by the fields is_animated and is_video.
    */
-  public readonly TgStickerType $Type;
+  public TgStickerType $Type;
   /**
    * Sticker width
    */
-  public readonly int $Width;
+  public int $Width;
   /**
    * Sticker height
    */
-  public readonly int $Height;
+  public int $Height;
   /**
    * If the sticker is animated
    */
-  public readonly bool $Animated;
+  public bool $Animated;
   /**
    * If the sticker is a video sticker
    */
-  public readonly bool $Video;
+  public bool $Video;
   /**
    * Sticker thumbnail in the .WEBP or .JPG format
    */
-  public readonly TgPhotoSize|null $Thumb;
+  public TgPhotoSize|null $Thumb;
   /**
    * Emoji associated with the sticker
    */
-  public readonly string|null $Emoji;
+  public string|null $Emoji;
   /**
    * Name of the sticker set to which the sticker belongs
    */
-  public readonly string|null $SetName;
+  public string|null $SetName;
   /**
    * For premium regular stickers, premium animation for the sticker
    */
-  public readonly TgFile|null $PremiumAnimation;
+  public TgFile|null $PremiumAnimation;
   /**
    * For mask stickers, the position where the mask should be placed
    */
-  public readonly TgMask|null $Mask;
+  public TgMask|null $Mask;
   /**
    * For custom emoji stickers, unique identifier of the custom emoji
    */
-  public readonly string|null $CustomEmojiId;
+  public string|null $CustomEmojiId;
   /**
    * File size in bytes
    */
-  public readonly int|null $FileSize;
+  public int|null $FileSize;
   /**
    * If the sticker must be repainted to a text color in messages, the color of the Telegram Premium badge in emoji status, white color on chat photos, or another appropriate color in other places
    */
-  public readonly bool $Repainting;
+  public bool $Repainting;
 
   /**
    * @link https://core.telegram.org/bots/api#sticker
