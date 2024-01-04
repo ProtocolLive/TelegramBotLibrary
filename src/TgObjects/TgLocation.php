@@ -10,35 +10,35 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 
 /**
  * @link https://core.telegram.org/bots/api#location
- * @version 2024.01.01.01
+ * @version 2024.01.03.00
  */
-class TgLocation
-implements TgForwadableInterface, TgEventInterface{
+readonly class TgLocation
+implements TgEventInterface, TgForwadableInterface{
   public readonly TgMessageData|null $Data;
   /**
    * Latitude as defined by sender
    */
-  public readonly float $Latitude;
+  public float $Latitude;
   /**
    * Longitude as defined by sender
    */
-  public readonly float $Longitude;
+  public float $Longitude;
   /**
    * The radius of uncertainty for the location, measured in meters; 0-1500
    */
-  public readonly float|null $Accuracy;
+  public float|null $Accuracy;
   /**
    * Time relative to the message sending date, during which the location can be updated; in seconds. For active live locations only.
    */
-  public readonly int|null $LiveTime;
+  public int|null $LiveTime;
   /**
    * The direction in which user is moving, in degrees; 1-360. For active live locations only.
    */
-  public readonly int|null $Heading;
+  public int|null $Heading;
   /**
    * The maximum distance for proximity alerts about approaching another chat member, in meters. For sent live locations only.
    */
-  public readonly int|null $AlertRadius;
+  public int|null $AlertRadius;
 
   public function __construct(
     array $Data,
