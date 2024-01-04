@@ -58,7 +58,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 use ProtocolLive\TelegramBotLibrary\TgParams\TgInlineQueryResults;
 
 /**
- * @version 2024.01.03.01
+ * @version 2024.01.03.02
  */
 final class TelegramBotLibrary
 extends TblBasics{
@@ -82,17 +82,6 @@ extends TblBasics{
     endif;
     $this->BotData = $BotData;
     $_SERVER['HTTP_USER_AGENT'] ??= 'Protocol TelegramBotLibrary';
-  }
-
-  private function Archive(array $New){
-    if(is_dir($this->BotData->DirLogs) === false):
-      mkdir($this->BotData->DirLogs, 0755, true);
-    endif;
-    file_put_contents(
-      $this->BotData->DirLogs . '/archive.json',
-      json_encode($New) . ',',
-      FILE_APPEND
-    );
   }
 
   /**
@@ -870,7 +859,6 @@ extends TblBasics{
       throw new TblException(TblError::NoEvent, 'No event found');
     endif;
     $update = json_decode($update, true);
-    $this->Archive($update);
     if($this->BotData->Log & TblLog::Webhook):
       $this->Log(
         TblLog::Webhook,
