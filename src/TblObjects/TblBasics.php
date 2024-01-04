@@ -25,6 +25,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgGame,
   TgGameEdited,
   TgGiveaway,
+  TgGiveawayWinners,
   TgGroupCreated,
   TgInvoice,
   TgInvoiceDone,
@@ -53,6 +54,7 @@ use ProtocolLive\TelegramBotLibrary\TgService\{
   TgChatAutoDel,
   TgChatPhotoNew,
   TgChatTitle,
+  TgGiveawayCompleted,
   TgGiveawayCreated,
   TgMemberLeft,
   TgMemberNew,
@@ -63,7 +65,7 @@ use ProtocolLive\TelegramBotLibrary\TgService\{
 };
 
 /**
- * @version 2024.01.03.02
+ * @version 2024.01.03.03
  */
 abstract class TblBasics{
   protected TblData $BotData;
@@ -155,6 +157,10 @@ abstract class TblBasics{
       return new TgGiveaway($Data);
     elseif(isset($Data['giveaway_created'])):
       return new TgGiveawayCreated($Data);
+    elseif(isset($Data['giveaway_completed'])):
+      return new TgGiveawayCompleted($Data);
+    elseif(isset($Data['giveaway_winners'])):
+      return new TgGiveawayWinners($Data);
     elseif(isset($Data['group_chat_created'])):
       return new TgGroupCreated($Data);
     elseif(isset($Data['invoice'])):
