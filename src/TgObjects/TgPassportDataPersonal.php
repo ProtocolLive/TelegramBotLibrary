@@ -7,7 +7,7 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 /**
  * This object represents personal details.
  * @link https://core.telegram.org/passport#personaldetails
- * @version 2024.01.04.00
+ * @version 2024.01.04.01
  */
 final class TgPassportDataPersonal{
   public string|null $Data;
@@ -40,6 +40,18 @@ final class TgPassportDataPersonal{
    * Country of residence (ISO 3166-1 alpha-2 country code)
    */
   public string|null $CountryResidence = null;
+  /**
+   * First Name in the language of the user's country of residence
+   */
+  public string|null $NameNative = null;
+  /**
+   * Last Name in the language of the user's country of residence
+   */
+  public string|null $NameLastNative = null;
+  /**
+   * Middle Name in the language of the user's country of residence
+   */
+  public string|null $NameMiddleNative = null;
 
   public function __construct(
     array $Data

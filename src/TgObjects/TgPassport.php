@@ -9,7 +9,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgEventInterface;
 
 /**
  * @link https://core.telegram.org/passport
- * @version 2024.01.04.00
+ * @version 2024.01.04.01
  */
 final class TgPassport
 implements TgEventInterface{
@@ -143,6 +143,9 @@ implements TgEventInterface{
     $this->Personal->Sex = $temp['gender'];
     $this->Personal->Country = $temp['country_code'];
     $this->Personal->CountryResidence = $temp['residence_country_code'];
+    $this->Personal->NameNative = $temp['first_name_native'];
+    $this->Personal->NameLastNative = $temp['last_name_native'];
+    $this->Personal->NameMiddleNative = $temp['middle_name_native'];
     //Cleanup
     $this->Raw = null;
     $this->Secret = null;
