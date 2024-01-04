@@ -4,13 +4,14 @@
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgBoostSource;
+use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgEventInterface;
 
 /**
  * @link https://core.telegram.org/bots/api#chatboostupdated
- * @version 2024.01.01.00
+ * @version 2024.01.03.00
  */
 final class TgChatBoostRemoved
-extends TgObject{
+implements TgEventInterface{
   /**
    * Chat which was boosted
    */
@@ -39,6 +40,8 @@ extends TgObject{
     $this->Id = $Data['boost_id'];
     $this->Date = $Data['remove_date'];
     $this->Source = TgBoostSource::from($Data['source']['source']);
-    $this->User = new TgUser($Data['source']['user']);
+    if(isset($Data['source']['user'])):
+      $this->User = new TgUser($Data['source']['user']);
+    endif;
   }
 }
