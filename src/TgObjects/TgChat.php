@@ -8,7 +8,7 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\TgChatType;
 
 /**
  * @link https://core.telegram.org/bots/api#chat
- * @version 2024.01.01.01
+ * @version 2024.01.03.00
  */
 final class TgChat{
   /**
@@ -135,9 +135,13 @@ final class TgChat{
     $this->History = $Data['has_visible_history'] ?? false;
     if(isset($Data['permissions'])):
       $this->Permissions = new TgPermMember($Data['permissions']);
+    else:
+      $this->Permissions = null;
     endif;
     if(isset($Data['photo'])):
       $this->Photo = new TgChatPhoto($Data['photo']);
+    else:
+      $this->Photo = null;
     endif;
     $temp = [];
     foreach($Data['pinned_message'] ?? [] as $pinned):
