@@ -7,7 +7,7 @@ use ProtocolLive\TelegramBotLibrary\TblObjects\TblError;
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgInvoiceCurrencies;
 
 /**
- * @version 2024.01.03.02
+ * @version 2024.01.05.00
  */
 final class TgInvoicePrices{
   private array $Prices = [];
@@ -34,9 +34,11 @@ final class TgInvoicePrices{
     if($IgnoreLimit === false):
       if(isset($_SESSION['Currencies']) === false):
         $_SESSION['Currencies'] = file_get_contents('https://core.telegram.org/bots/payments/currencies.json');
+        if($_SESSION['Currencies'] !== false):
+          $_SESSION['Currencies'] = json_decode($_SESSION['Currencies'], true);
+        endif;
       endif;
-      if($_SESSION['Currencies'] !== false):
-        $_SESSION['Currencies'] = json_decode($_SESSION['Currencies'], true);
+      if(isset($_SESSION['Currencies'])):
         if($Price > 0):
           if($Price <= $_SESSION['Currencies'][$Currency->value]['min_amount']):
             $this->Error = TblError::InvoicePriceLow;
