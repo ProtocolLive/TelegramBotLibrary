@@ -1,4 +1,4 @@
-40467555b8e2df3ecd255d79b2b002d6b9621eee  TblObjects\TblBasics.php
+4a300f0aeb73f2593d46c5ed99407d7d410ef05b  TblObjects\TblBasics.php
 194cf0ecddd67f1cd6fb9f41eea84f45d2b7fad7  TblObjects\TblCmd.php
 eed5614879fad395a961405e7cf4852ed3860eed  TblObjects\TblCmdEdited.php
 52a43df4e3acc130c5e13aee61bbd74311df1623  TblObjects\TblCommands.php
@@ -102,7 +102,7 @@ b90e63fd55da0cca4d22c23853a9b0dea541d35d  TgObjects\TgLocationEdited.php
 e0ed6baab9ac8b34813322493390bade5bb2f2ac  TgObjects\TgLogin.php
 a6ed1d2ac4f0e9b6681816142c7b98b1d581b4ed  TgObjects\TgMask.php
 3a178bc2635a90bda84b66c2d10ae438c42eaa9a  TgObjects\TgMember.php
-a52d9d50aa9b893340e2a16629a07bc02b2aa702  TgObjects\TgMessageData.php
+0d61d94679b6b1bff20190ec93bc1b8fb1048af2  TgObjects\TgMessageData.php
 d518d5b7b1a4770532afd141e45dbe11886d0c50  TgObjects\TgPassport.php
 b7a50035d473242c01b0ca359a93099a5f2b6b82  TgObjects\TgPassportDataAddress.php
 3c337c4aef656d9bdb135f0b65d5ca16617df5dd  TgObjects\TgPassportDataDriver.php
@@ -138,7 +138,7 @@ f9794516e8eb6483900a53f816f2ac2e1d8ed820  TgParams\TgInlineQueryArticle.php
 750af90a119e3b26f0888f5bb32b72fe05907045  TgParams\TgInlineQueryContentText.php
 1edc6aca39340277043a47a84f255f075efb249e  TgParams\TgInlineQueryPhoto.php
 279b928531b81530dfa61f71e8ce70abf2ab910f  TgParams\TgInlineQueryResults.php
-8e2430365de291c0f56a638d252291b0a8ae2253  TgParams\TgInvoicePrices.php
+72803d7d1ca0e7dc16f484a5414b6f56b99476b7  TgParams\TgInvoicePrices.php
 e0037f4cb3318ca8041d2ced8f6733f13681b5ab  TgParams\TgInvoiceShippingOption.php
 7a63a09a41c856aa9815d96fda90e3deb6801601  TgParams\TgInvoiceShippingOptions.php
 fc8c4d5b62185b632a166f648b72924f450afd4e  TgParams\TgLinkPreview.php
