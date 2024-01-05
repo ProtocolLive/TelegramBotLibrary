@@ -7,7 +7,7 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\TgChatType;
 
 /**
  * @link https://core.telegram.org/bots/api#message
- * @version 2024.01.04.01
+ * @version 2024.01.05.00
  */
 final readonly class TgMessageData{
   /**
@@ -156,7 +156,7 @@ final readonly class TgMessageData{
           endif;
         endforeach;
       endforeach;
-      $this->Markup[] = $temp;
+      $this->Markup = $temp;
     endif;
 
     if(isset($Data['via_bot'])):
