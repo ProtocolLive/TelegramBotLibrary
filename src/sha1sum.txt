@@ -1,4 +1,4 @@
-d6715b3128841eb690382422368dea3078cfd2a3  TblObjects\TblBasics.php
+40467555b8e2df3ecd255d79b2b002d6b9621eee  TblObjects\TblBasics.php
 194cf0ecddd67f1cd6fb9f41eea84f45d2b7fad7  TblObjects\TblCmd.php
 eed5614879fad395a961405e7cf4852ed3860eed  TblObjects\TblCmdEdited.php
 52a43df4e3acc130c5e13aee61bbd74311df1623  TblObjects\TblCommands.php
@@ -110,7 +110,7 @@ fd95fe9b5c3c2a23314fb7ce5edd752432447b72  TgObjects\TgPassportDataPersonal.php
 94620763da202271824b5a820361f5268aa02c37  TgObjects\TgPassportFile.php
 d9bc6ba280516d5c6cb2c450fb2bc9f350b9eb44  TgObjects\TgPermAdmin.php
 ed95dc628efb42f802c5d262b0ffa0bc9ce6816e  TgObjects\TgPermMember.php
-be775c46919c96d2a1493319f52176f61ebedceb  TgObjects\TgPhoto.php
+1fe852fe42901a185483c69305a8f805f2d14d5c  TgObjects\TgPhoto.php
 df444a4d38d188c1ec20ab51d5aa2c48ff2aabb7  TgObjects\TgPhotoEdited.php
 d6e92bbf3de1be5d13107926d5711ad4fc0e6025  TgObjects\TgPhotoSize.php
 d9d9a9a7fa9a4ad96d2979306371ac6b9715ce5d  TgObjects\TgPoll.php
