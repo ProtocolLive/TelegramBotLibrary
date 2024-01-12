@@ -9,12 +9,14 @@ use ProtocolLive\TelegramBotLibrary\TblObjects\{
   TblMarkup
 };
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgParseMode;
-use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgInlineQueryContentInterface;
-use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgInlineQueryInterface;
+use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
+  TgInlineQueryContentInterface,
+  TgInlineQueryInterface
+};
 
 /**
  * @link https://core.telegram.org/bots/api#inlinequeryresultphoto
- * @version 2024.01.02.00
+ * @version 2024.01.12.00
  */
 class TblInlineQueryPhoto
 implements TgInlineQueryInterface{
