@@ -1,7 +1,7 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2022.08.28.00
+//2024.01.13.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 
@@ -11,5 +11,6 @@ class TblLog{
   const Send = 1;
   const Response = 2;
   const Webhook = 4;
-  const Curl = 8;
+  const WebhookObject = 8;
+  const Curl = 16;
 }

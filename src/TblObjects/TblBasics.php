@@ -65,7 +65,7 @@ use ProtocolLive\TelegramBotLibrary\TgService\{
 };
 
 /**
- * @version 2024.01.05.00
+ * @version 2024.01.13.00
  */
 abstract class TblBasics{
   protected TblData $BotData;
@@ -280,11 +280,11 @@ abstract class TblBasics{
     endif;
     $log = date('Y-m-d H:i:s') . PHP_EOL;
     $log .= $Msg . PHP_EOL;
-    if($Type === TblLog::Send):
+    if($Type === TblLog::Send
+    or $Type === TblLog::Response):
       $file = 'send';
-    elseif($Type === TblLog::Response):
-      $file = 'send';
-    elseif($Type === TblLog::Webhook):
+    elseif($Type === TblLog::Webhook
+    or $Type === TblLog::WebhookObject):
       $file = 'webhook';
     elseif($Type === TblLog::Curl):
       $file = 'curl';
