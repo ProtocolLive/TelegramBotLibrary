@@ -3,14 +3,14 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
-use Closure;
 
 /**
- * @version 2024.01.04.00
+ * @version 2024.01.13.00
  */
 final readonly class TblData{
   public string $UrlApi;
   public string $UrlFiles;
+  public object|string|array|null $LogHandler;
 
   public function __construct(
     string $Token,
@@ -18,7 +18,7 @@ final readonly class TblData{
     public string|null $TokenWebhook = null,
     public int $Log = TblLog::None,
     bool $TestServer = false,
-    public Closure|string|null $LogHandler = null
+    callable $LogHandler = null
   ){
     if($TestServer):
       $temp = '/test';
@@ -27,5 +27,6 @@ final readonly class TblData{
     endif;
     $this->UrlApi = 'https://api.telegram.org/bot' . $Token . $temp;
     $this->UrlFiles = 'https://api.telegram.org/file/bot' . $Token . $temp;
+    $this->LogHandler = $LogHandler;
   }
 }
