@@ -16,9 +16,9 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 
 /**
  * @link https://core.telegram.org/bots/api#inlinequeryresultphoto
- * @version 2024.01.12.00
+ * @version 2024.01.13.00
  */
-class TblInlineQueryPhoto
+class TgInlineQueryPhoto
 implements TgInlineQueryInterface{
   /**
    * Represents a link to a photo or a link to a photo stored on the Telegram servers. By default, this photo will be sent by the user with optional caption. Alternatively, you can use input_message_content to send a message with the specified content instead of the photo.
