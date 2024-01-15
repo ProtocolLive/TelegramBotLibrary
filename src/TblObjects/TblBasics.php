@@ -48,6 +48,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgVideoNote,
   TgVideoNoteEdited,
   TgVoice,
+  TgVoiceEdited,
   TgWebappData
 };
 use ProtocolLive\TelegramBotLibrary\TgService\{
@@ -65,7 +66,7 @@ use ProtocolLive\TelegramBotLibrary\TgService\{
 };
 
 /**
- * @version 2024.01.13.00
+ * @version 2024.01.15.00
  */
 abstract class TblBasics{
   protected TblData $BotData;
@@ -251,6 +252,8 @@ abstract class TblBasics{
       return new TgVideoEdited($Data);
     elseif(isset($Data['video_note'])):
       return new TgVideoNoteEdited($Data);
+    elseif(isset($Data['voice'])):
+      return new TgVoiceEdited($Data);
     else:
       return null;
     endif;
