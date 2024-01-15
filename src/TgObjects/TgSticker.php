@@ -12,7 +12,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 /**
  * This object represents a sticker.
  * @link https://core.telegram.org/bots/api#sticker
- * @version 2024.01.04.01
+ * @version 2024.01.15.00
  */
 final readonly class TgSticker
 implements TgEventInterface, TgForwadableInterface{
@@ -46,10 +46,6 @@ implements TgEventInterface, TgForwadableInterface{
    */
   public bool $Video;
   /**
-   * Sticker thumbnail in the .WEBP or .JPG format
-   */
-  public TgPhotoSize|null $Thumb;
-  /**
    * Emoji associated with the sticker
    */
   public string|null $Emoji;
@@ -77,6 +73,10 @@ implements TgEventInterface, TgForwadableInterface{
    * If the sticker must be repainted to a text color in messages, the color of the Telegram Premium badge in emoji status, white color on chat photos, or another appropriate color in other places
    */
   public bool $Repainting;
+  /**
+   * Sticker thumbnail in the .WEBP or .JPG format
+   */
+  public TgPhotoSize|null $Thumb;
 
   /**
    * @link https://core.telegram.org/bots/api#sticker
