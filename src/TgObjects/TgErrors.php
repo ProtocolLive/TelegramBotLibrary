@@ -6,7 +6,7 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgError;
 
 /**
- * @version 2024.01.03.00
+ * @version 2024.01.26.00
  */
 abstract class TgErrors{
   public static function Search(string $Description):TgError|false{
@@ -63,6 +63,7 @@ abstract class TgErrors{
       'Bad Request: PHOTO_THUMB_URL_EMPTY' => TgError::InlineQueryThumbEmpty,
       'Bad Request: query is too old and response timeout expired or query ID is invalid' => TgError::CallbackQueryOld,
       'Bad Request: QUOTE_TEXT_INVALID' => TgError::Quote,
+      'Bad Request: secret token contains unallowed characters' => TgError::Webhook,
       'Bad Request: the message can\'t be forwarded' => TgError::ForwardCant,
       'Bad Request: there is no media in the message to edit' => TgError::NoMedia,
       'Bad Request: there must be at least one price' => TgError::SomethingMissing,

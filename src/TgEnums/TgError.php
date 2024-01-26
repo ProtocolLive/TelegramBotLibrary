@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TgEnums;
 
 /**
- * @version 2024.01.03.00
+ * @version 2024.01.26.00
  */
 enum TgError{
   case Admin;
@@ -56,4 +56,5 @@ enum TgError{
   case UserObject;
   case UserNotFound;
   case WebAppHttps;
+  case Webhook;
 }
