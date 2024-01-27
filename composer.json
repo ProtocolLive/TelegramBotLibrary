@@ -1,23 +1,23 @@
 {
-    "name": "protocollive/telegrambotlibrary",
-    "description": "A library to easy handling with Telegram bot API",
-    "type": "library",
-    "require": {
-        "php": ">=8.2",
-        "ext-openssl": "*",
-        "ext-curl": "*",
-        "ext-mbstring": "*"
-    },
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Protocol Corporation",
-            "email": "protocollive@outlook.com"
-        }
-    ],
-    "autoload": {
-        "psr-4": {
-            "ProtocolLive\\TelegramBotLibrary\\": "src"
-        }
+  "name": "protocollive/telegrambotlibrary",
+  "description": "A library to easy handling with Telegram bot API",
+  "type": "library",
+  "require": {
+    "php": ">=8.2",
+    "ext-openssl": "*",
+    "ext-curl": "*",
+    "ext-mbstring": "*"
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Protocol Corporation",
+      "email": "protocollive@outlook.com"
     }
+  ],
+  "autoload": {
+    "psr-4": {
+      "ProtocolLive\\TelegramBotLibrary\\": "src"
+    }
+  }
 }
