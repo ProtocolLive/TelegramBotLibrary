@@ -66,7 +66,7 @@ use ProtocolLive\TelegramBotLibrary\TgService\{
 };
 
 /**
- * @version 2024.01.15.00
+ * @version 2024.01.26.00
  */
 abstract class TblBasics{
   protected TblData $BotData;
@@ -113,8 +113,8 @@ abstract class TblBasics{
     if($this->BotData->Log & TblLog::Response):
       $this->Log(
         TblLog::Response,
-        json_encode(
-          $error === null ? $json : $error,
+        $error ?? json_encode(
+          $json,
           JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
         )
       );
