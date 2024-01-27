@@ -16,6 +16,7 @@ use ProtocolLive\TelegramBotLibrary\TblObjects\{
   TblMedia
 };
 use ProtocolLive\TelegramBotLibrary\TblTraits\{
+  TblAnimationTrait,
   TblChatTrait,
   TblForumTrait,
   TblGameTrait,
@@ -32,6 +33,7 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\{
   TgReactionType
 };
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
+  TgAnimation,
   TgCallback,
   TgChatBoost,
   TgChatBoostRemoved,
@@ -58,10 +60,11 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 use ProtocolLive\TelegramBotLibrary\TgParams\TgInlineQueryResults;
 
 /**
- * @version 2024.01.13.00
+ * @version 2024.01.26.00
  */
 final class TelegramBotLibrary
 extends TblBasics{
+  use TblAnimationTrait;
   use TblChatTrait;
   use TblForumTrait;
   use TblGameTrait;
@@ -414,7 +417,7 @@ extends TblBasics{
     string $InlineId = null,
     TblMedia $Media,
     TblMarkup $Markup = null
-  ):TgPhoto|TgDocument|bool{
+  ):TgPhoto|TgDocument|TgAnimation|bool{
     if($InlineId === null):
       $param['chat_id'] = $Chat;
       $param['message_id'] = $Id;
