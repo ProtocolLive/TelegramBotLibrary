@@ -9,7 +9,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgEventInterface;
 
 /**
  * @link https://core.telegram.org/passport
- * @version 2024.01.04.01
+ * @version 2024.01.26.00
  */
 final class TgPassport
 implements TgEventInterface{
@@ -17,15 +17,15 @@ implements TgEventInterface{
   /**
    * Base64-encoded encrypted JSON-serialized data with unique user's payload, data hashes and secrets required for EncryptedPassportElement decryption and authentication
    */
-  public string|null $Raw;
+  public string|null $Raw = null;
   /**
    * Base64-encoded data hash for data authentication
    */
-  public string|null $Hash;
+  public string|null $Hash = null;
   /**
    * Base64-encoded secret, encrypted with the bot's public RSA key, required for data decryption
    */
-  public string|null $Secret;
+  public string|null $Secret = null;
   /**
    * Credentials for encrypted personal details
    */
@@ -58,29 +58,30 @@ implements TgEventInterface{
   public function __construct(
     array $Data = null
   ){
-    if($Data !== null):
-      $this->Data = new TgMessageData($Data);
-      $this->Raw = base64_decode($Data['passport_data']['credentials']['data']);
-      $this->Hash = base64_decode($Data['passport_data']['credentials']['hash']);
-      $this->Secret = base64_decode($Data['passport_data']['credentials']['secret']);
-      foreach($Data['passport_data']['data'] as $data):
-        if($data['type'] === TgPassportDataType::PersonalDetail->value):
-          $this->Personal = new TgPassportDataPersonal($data);
-        elseif($data['type'] === TgPassportDataType::Driver->value):
-          $this->Driver = new TgPassportDataDriver($data);
-        elseif($data['type'] === TgPassportDataType::Address->value):
-          $this->Address = new TgPassportDataAddress($data);
-        elseif($data['type'] === TgPassportDataType::Email->value):
-          $this->Email = $data['email'];
-        elseif($data['type'] === TgPassportDataType::Phone->value):
-          $this->Phone = $data['phone_number'];
-        elseif($data['type'] === TgPassportDataType::DocUtility->value):
-          foreach($data['files'] as $file):
-            $this->UtilityBill[] = new TgPassportFile($file);
-          endforeach;
-        endif;
-      endforeach;
+    if($Data === null):
+      return;
     endif;
+    $this->Data = new TgMessageData($Data);
+    $this->Raw = base64_decode($Data['passport_data']['credentials']['data']);
+    $this->Hash = base64_decode($Data['passport_data']['credentials']['hash']);
+    $this->Secret = base64_decode($Data['passport_data']['credentials']['secret']);
+    foreach($Data['passport_data']['data'] as $data):
+      if($data['type'] === TgPassportDataType::PersonalDetail->value):
+        $this->Personal = new TgPassportDataPersonal($data);
+      elseif($data['type'] === TgPassportDataType::Driver->value):
+        $this->Driver = new TgPassportDataDriver($data);
+      elseif($data['type'] === TgPassportDataType::Address->value):
+        $this->Address = new TgPassportDataAddress($data);
+      elseif($data['type'] === TgPassportDataType::Email->value):
+        $this->Email = $data['email'];
+      elseif($data['type'] === TgPassportDataType::Phone->value):
+        $this->Phone = $data['phone_number'];
+      elseif($data['type'] === TgPassportDataType::DocUtility->value):
+        foreach($data['files'] as $file):
+          $this->UtilityBill[] = new TgPassportFile($file);
+        endforeach;
+      endif;
+    endforeach;
   }
 
   /**
