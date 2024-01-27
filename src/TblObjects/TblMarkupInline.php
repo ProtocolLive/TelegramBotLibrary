@@ -1,11 +1,13 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.05.14.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgLimits;
 
+/**
+ * @version 2024.01.26.00
+ */
 class TblMarkupInline
 extends TblMarkup{
   /**
@@ -53,7 +55,7 @@ extends TblMarkup{
     string $ForwardText = null,
     string $BotName = null
   ):TblError|null{
-    if(substr($Url, 0, 5) !== 'https'):
+    if(str_starts_with($Url, 'https') === false):
       return TblError::InlineButtonLoginSsl;
     endif;
     $this->Pointer[$Line][$Column]['text'] = $Text;
