@@ -19,7 +19,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 };
 
 /**
- * @version 2024.01.01.00
+ * @version 2024.01.26.00
  */
 trait TblChatTrait{
   /**
@@ -68,7 +68,6 @@ trait TblChatTrait{
    * Use this method to promote or demote a user in a supergroup or a channel. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Pass False for all boolean parameters to demote a user.
    * @param int|string $Chat Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername)
    * @param int $User Unique identifier of the target user
-   * @param TgPermAdmin $Perms
    * @param bool $Anonymous If the administrator's presence in the chat is hidden
    * @return bool Returns True on success.
    * @throws TblException

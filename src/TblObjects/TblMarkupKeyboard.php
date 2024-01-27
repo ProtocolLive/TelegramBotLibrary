@@ -7,7 +7,7 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\TgPollType;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgPermAdmin;
 
 /**
- * @version 2024.01.01.00
+ * @version 2024.01.26.00
  */
 class TblMarkupKeyboard
 extends TblMarkup{
@@ -144,8 +144,6 @@ extends TblMarkup{
 
   /**
    *Note: request_users and request_chat options will only work in Telegram versions released after 3 February, 2023. Older clients will display unsupported message.
-   * @param int $Line
-   * @param int $Column
    * @param string $Text Label text on the button
    * @param int $Id Signed 32-bit identifier of the request
    * @param bool|null $Bot Pass True to request a bot, pass False to request a regular user. If not specified, no additional restrictions are applied.
