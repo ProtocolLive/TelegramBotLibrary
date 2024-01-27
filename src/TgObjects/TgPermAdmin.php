@@ -7,10 +7,10 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 /**
  * Represents a chat member that has some additional privileges.
  * @link https://core.telegram.org/bots/api#chatmemberadministrator
- * @version 2024.01.04.00
+ * @version 2024.01.26.00
  */
 final class TgPermAdmin{
-  const Array = [
+  public const Array = [
     'Manage' => 'can_manage_chat',
     'Message' => 'can_post_messages',
     'Edit' => 'can_edit_messages',

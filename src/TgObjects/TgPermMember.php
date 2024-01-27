@@ -10,7 +10,7 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
  * @version 2024.01.04.00
  */
 final class TgPermMember{
-  const Array = [
+  public const Array = [
     'Message' => 'can_send_messages',
     'Media' => 'can_send_media_messages',
     'Audio' => 'can_send_audios',
