@@ -12,9 +12,9 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 /**
  * This object represents a sticker.
  * @link https://core.telegram.org/bots/api#sticker
- * @version 2024.01.15.00
+ * @version 2024.01.30.00
  */
-final readonly class TgSticker
+readonly class TgSticker
 implements TgEventInterface, TgForwadableInterface{
   public TgMessageData $Data;
   /**

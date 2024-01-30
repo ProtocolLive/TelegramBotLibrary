@@ -37,6 +37,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgPhotoEdited,
   TgPoll,
   TgSticker,
+  TgStickerEdited,
   TgStory,
   TgText,
   TgTextEdited,
@@ -66,7 +67,7 @@ use ProtocolLive\TelegramBotLibrary\TgService\{
 };
 
 /**
- * @version 2024.01.26.00
+ * @version 2024.01.30.00
  */
 abstract class TblBasics{
   protected TblData $BotData;
@@ -246,6 +247,8 @@ abstract class TblBasics{
       return new TgLocationEdited($Data);
     elseif(isset($Data['photo'])):
       return new TgPhotoEdited($Data);
+    elseif(isset($Data['sticker'])):
+      return new TgStickerEdited($Data);
     elseif(isset($Data['text'])):
       return new TgTextEdited($Data);
     elseif(isset($Data['video'])):
