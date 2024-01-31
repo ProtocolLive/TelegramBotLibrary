@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 
 /**
- * @version 2024.01.27.00
+ * @version 2024.01.30.00
  */
 final readonly class TblData{
   public string $UrlApi;
@@ -32,8 +32,10 @@ final readonly class TblData{
     $this->UrlApi = 'https://api.telegram.org/bot' . $Token . $temp;
     $this->UrlFiles = 'https://api.telegram.org/file/bot' . $Token . $temp;
     $this->LogHandler = $LogHandler;
-    if(preg_match('/^[a-zA-z0-9_-]{1,256}$/', $TokenWebhook) === false):
-      throw new TblException(TblError::TokenWebhook);
+    if($TokenWebhook !== null):
+      if(preg_match('/^[a-zA-z0-9_-]{1,256}$/', $TokenWebhook) === false):
+        throw new TblException(TblError::TokenWebhook);
+      endif;
     endif;
     $this->TokenWebhook = $TokenWebhook;
   }
