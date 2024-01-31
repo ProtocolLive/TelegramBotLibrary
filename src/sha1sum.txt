@@ -1,4 +1,4 @@
-6a14a3241c2214a12bd3e76e0328f03015c7dd3e  TblObjects\TblBasics.php
+d6eccbff269f0bd1b36acb5144196c92de01f777  TblObjects\TblBasics.php
 194cf0ecddd67f1cd6fb9f41eea84f45d2b7fad7  TblObjects\TblCmd.php
 eed5614879fad395a961405e7cf4852ed3860eed  TblObjects\TblCmdEdited.php
 52a43df4e3acc130c5e13aee61bbd74311df1623  TblObjects\TblCommands.php
@@ -121,7 +121,8 @@ d9d9a9a7fa9a4ad96d2979306371ac6b9715ce5d  TgObjects\TgPoll.php
 1c8945b243eb62a5119028b99e4ed379fdd624c9  TgObjects\TgReaction.php
 ff0e74751db8feb4c70c8e67d11b79334e1b9ca3  TgObjects\TgReactionUpdate.php
 435124b1148a5c942d00f513bbc0b34a7c87459e  TgObjects\TgReplyExternal.php
-c330b09cca21c712f2f8b33675d94d51f75d40c5  TgObjects\TgSticker.php
+2fd3b6933e599e2c5276797363532916fc56d711  TgObjects\TgSticker.php
+37c2a424037ba589d4dfaccd70df3f476854d2ed  TgObjects\TgStickerEdited.php
 d510dd27c67e4ff23156a62d56f6fb07552308d1  TgObjects\TgStory.php
 35dd8a7f647b2a571d8b2a3788df64085e982ced  TgObjects\TgText.php
 b9719724edfe8026a8d4dc891b1a41c62606a1ea  TgObjects\TgTextEdited.php
