@@ -7,7 +7,7 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\TgChatType;
 
 /**
  * @link https://core.telegram.org/bots/api#message
- * @version 2024.01.05.00
+ * @version 2024.02.09.00
  */
 final readonly class TgMessageData{
   /**
@@ -15,9 +15,9 @@ final readonly class TgMessageData{
    */
   public int $Id;
   /**
-   * Sender of the message; empty for messages sent to channels. For backward compatibility, the field contains a fake sender user in non-channel chats, if the message was sent on behalf of a chat.
+   * Sender of the message; empty for messages sent to channels. For backward compatibility, the field contains a fake sender user in non-channel chats, if the message was sent on behalf of a chat. Can be null in case of anonymous reaction
    */
-  public TgUser|TgChat $User;
+  public TgUser|TgChat|null $User;
   /**
    * Sender of the message, sent on behalf of a chat. For example, the channel itself for channel posts, the supergroup itself for messages from anonymous group administrators, the linked channel for messages automatically forwarded to the discussion group. For backward compatibility, the field from contains a fake sender user in non-channel chats, if the message was sent on behalf of a chat.
    */
@@ -97,13 +97,17 @@ final readonly class TgMessageData{
     and $Data['from']['id'] !== 1087968824
     and $Data['from']['id'] !== 136817688):
       $this->User = new TgUser($Data['from']);
-    else:
+    elseif(isset($Data['user'])): //reaction
+      $this->User = new TgUser($Data['user']);
+    elseif(isset($Data['sender_chat'])):
       if($Data['sender_chat']['type'] === TgChatType::Channel->value
       or $Data['sender_chat']['type'] === TgChatType::GroupSuper->value):
         $this->User = new TgChat($Data['sender_chat']);
       else:
         $this->User = new TgUser($Data['sender']);
       endif;
+    else:
+      $this->User = null; //anonymous reaction
     endif;
 
     if($Data['chat']['type'] === TgChatType::Private->value):
