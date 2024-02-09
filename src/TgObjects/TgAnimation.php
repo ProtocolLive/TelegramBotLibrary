@@ -4,16 +4,19 @@
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
+  TgCaptionableInterface,
   TgEventInterface,
   TgForwadableInterface
 };
 
 /**
  * @link https://core.telegram.org/bots/api#animation
- * @version 2024.01.02.00
+ * @version 2024.02.08.00
  */
 readonly class TgAnimation
-implements TgEventInterface, TgForwadableInterface{
+implements TgCaptionableInterface,
+TgEventInterface,
+TgForwadableInterface{
   /**
    * The game message have a animation inside, turning this null
    */
