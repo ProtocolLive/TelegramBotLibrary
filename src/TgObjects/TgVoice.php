@@ -10,9 +10,9 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 
 /**
  * @link https://core.telegram.org/bots/api#voice
- * @version 2024.01.04.00
+ * @version 2024.02.08.00
  */
-final readonly class TgVoice
+readonly class TgVoice
 implements TgEventInterface, TgForwadableInterface{
   public TgMessageData $Data;
   /**
