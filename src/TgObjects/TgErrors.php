@@ -6,7 +6,7 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgError;
 
 /**
- * @version 2024.02.09.00
+ * @version 2024.02.09.01
  */
 abstract class TgErrors{
   public static function Search(string $Description):TgError|false{
@@ -49,6 +49,7 @@ abstract class TgErrors{
       'Bad Request: can\'t parse MessageEntity: Field "user" must be of type Object' => TgError::UserObject,
       'Bad Request: chat not found' => TgError::ChatNotFound,
       'Bad Request: CURRENCY_TOTAL_AMOUNT_INVALID' => TgError::InvoiceLimits,
+      'Bad Request: expected an Array of ReactionType' => TgError::MissingParameter,
       'Bad Request: failed to get HTTP URL content' => TgError::UrlFailed,
       'Bad Request: inline keyboard expected' => TgError::InlineKeyboardNone,
       'Bad Request: invalid inline message identifier specified' => TgError::InlineId,

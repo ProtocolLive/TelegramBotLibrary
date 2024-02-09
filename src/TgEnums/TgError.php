@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TgEnums;
 
 /**
- * @version 2024.02.09.00
+ * @version 2024.02.09.01
  */
 enum TgError{
   case Admin;
@@ -41,6 +41,7 @@ enum TgError{
   case LinkPreview;
   case Markdown;
   case MessageIdInvalid;
+  case MissingParameter;
   case NotMember;
   case NoMedia;
   case PermAdminManage;
