@@ -4,18 +4,19 @@
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
+  TgCaptionableInterface,
   TgEventInterface,
   TgForwadableInterface
 };
 
 /**
  * @link https://core.telegram.org/bots/api#audio
- * @version 2024.01.04.01
+ * @version 2024.02.08.00
  */
 final readonly class TgAudio
-implements TgEventInterface, TgForwadableInterface{
+implements TgEventInterface, TgForwadableInterface, TgCaptionableInterface{
   /**
-   * Null in case of external reply
+   * Can be null in case of command or external reply
    */
   public TgMessageData|null $Data;
   public string $Id;

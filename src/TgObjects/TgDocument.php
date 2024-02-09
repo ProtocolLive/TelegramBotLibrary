@@ -4,18 +4,19 @@
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
+  TgCaptionableInterface,
   TgEventInterface,
   TgForwadableInterface
 };
 
 /**
  * @link https://core.telegram.org/bots/api#document
- * @version 2024.01.02.01
+ * @version 2024.02.08.00
  */
 readonly class TgDocument
-implements TgEventInterface, TgForwadableInterface{
+implements TgEventInterface, TgForwadableInterface, TgCaptionableInterface{
   /**
-   * Can be null in case of external reply
+   * Can be null in case of command or external reply
    */
   public TgMessageData|null $Data;
   /**

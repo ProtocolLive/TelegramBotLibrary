@@ -4,6 +4,7 @@
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
+  TgCaptionableInterface,
   TgEventInterface,
   TgForwadableInterface
 };
@@ -14,8 +15,11 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
  * @version 2024.01.04.01
  */
 readonly class TgPhoto
-implements TgEventInterface, TgForwadableInterface{
-  public TgMessageData $Data;
+implements TgEventInterface, TgForwadableInterface, TgCaptionableInterface{
+  /**
+   * Can be null in case of command or external reply
+   */
+  public TgMessageData|null $Data;
   /**
    * @var TgPhotoSize[]
    */

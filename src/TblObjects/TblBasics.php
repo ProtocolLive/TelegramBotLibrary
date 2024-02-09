@@ -67,7 +67,7 @@ use ProtocolLive\TelegramBotLibrary\TgService\{
 };
 
 /**
- * @version 2024.01.30.00
+ * @version 2024.02.08.00
  */
 abstract class TblBasics{
   protected TblData $BotData;
@@ -135,11 +135,14 @@ abstract class TblBasics{
   }
 
   public static function DetectMessage(
-    array $Data
+    array $Data,
+    bool $IgnoreCmd = false
   ):object|null{
-    if(isset($Data['entities'][0])
-    and $Data['entities'][0]['type'] === TgEntityType::Command->value
-    and $Data['entities'][0]['offset'] === 0):
+    $entity = $Data['caption_entities'][0] ?? $Data['entities'][0] ?? null;
+    if($IgnoreCmd === false
+    and $entity !== null
+    and $entity['type'] === TgEntityType::Command->value
+    and $entity['offset'] === 0):
       return new TblCmd($Data);
     elseif(isset($Data['animation'])):
       return new TgAnimation($Data);
