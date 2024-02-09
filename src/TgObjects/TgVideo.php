@@ -11,10 +11,12 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 
 /**
  * @link https://core.telegram.org/bots/api#video
- * @version 2024.02.08.00
+ * @version 2024.02.08.01
  */
 readonly class TgVideo
-implements TgEventInterface, TgForwadableInterface, TgCaptionableInterface{
+implements TgCaptionableInterface,
+TgEventInterface,
+TgForwadableInterface{
   /**
    * Can be null in case of command or external reply
    */

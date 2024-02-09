@@ -12,10 +12,12 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 /**
  * Message is a photo, available sizes of the photo
  * @link https://core.telegram.org/bots/api#message
- * @version 2024.01.04.01
+ * @version 2024.02.08.01
  */
 readonly class TgPhoto
-implements TgEventInterface, TgForwadableInterface, TgCaptionableInterface{
+implements TgCaptionableInterface,
+TgEventInterface,
+TgForwadableInterface{
   /**
    * Can be null in case of command or external reply
    */

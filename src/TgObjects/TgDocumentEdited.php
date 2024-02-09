@@ -3,19 +3,14 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
-use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
-  TgEventInterface,
-  TgForwadableInterface
-};
 
 /**
  * New version of a message that is known to the bot and was edited
  * @link https://core.telegram.org/bots/api#message
- * @version 2024.01.02.00
+ * @version 2024.02.08.00
  */
 final readonly class TgDocumentEdited
-extends TgDocument
-implements TgEventInterface, TgForwadableInterface{
+extends TgDocument{
   /**
    * Date the message was last edited in Unix time
    */

@@ -11,10 +11,12 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 
 /**
  * @link https://core.telegram.org/bots/api#audio
- * @version 2024.02.08.00
+ * @version 2024.02.08.01
  */
-final readonly class TgAudio
-implements TgEventInterface, TgForwadableInterface, TgCaptionableInterface{
+readonly class TgAudio
+implements TgCaptionableInterface,
+TgEventInterface,
+TgForwadableInterface{
   /**
    * Can be null in case of command or external reply
    */

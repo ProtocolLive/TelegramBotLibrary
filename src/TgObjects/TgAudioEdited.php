@@ -5,18 +5,17 @@
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
- * A chat photo was change to this value
+ * New version of a message that is known to the bot and was edited
  * @link https://core.telegram.org/bots/api#message
  * @version 2024.02.08.00
  */
-final readonly class TgPhotoEdited
-extends TgPhoto{
+final readonly class TgAudioEdited
+extends TgAudio{
+  /**
+   * Date the message was last edited in Unix time
+   */
   public int $DateEdited;
 
-  /**
-   * New version of a message that is known to the bot and was edited
-   * @link https://core.telegram.org/bots/api#message
-   */
   public function __construct(
     array $Data
   ){
