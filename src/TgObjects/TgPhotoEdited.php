@@ -3,14 +3,16 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
+use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgEditedInterface;
 
 /**
  * A chat photo was change to this value
  * @link https://core.telegram.org/bots/api#message
- * @version 2024.02.08.00
+ * @version 2024.02.08.01
  */
 final readonly class TgPhotoEdited
-extends TgPhoto{
+extends TgPhoto
+implements TgEditedInterface{
   public int $DateEdited;
 
   /**

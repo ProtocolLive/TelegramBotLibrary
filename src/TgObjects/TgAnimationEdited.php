@@ -3,18 +3,15 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
-use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
-  TgEventInterface,
-  TgForwadableInterface
-};
+use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgEditedInterface;
 
 /**
  * @link https://core.telegram.org/bots/api#animation
- * @version 2024.01.04.00
+ * @version 2024.02.08.00
  */
 final readonly class TgAnimationEdited
 extends TgAnimation
-implements TgEventInterface, TgForwadableInterface{
+implements TgEditedInterface{
   /**
    * Date the message was last edited in Unix time
    */

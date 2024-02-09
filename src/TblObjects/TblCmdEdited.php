@@ -3,17 +3,14 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
-use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
-  TgEventInterface,
-  TgForwadableInterface
-};
+use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgEditedInterface;
 
 /**
- * @version 2024.01.04.02
+ * @version 2024.02.08.00
  */
 final readonly class TblCmdEdited
 extends TblCmd
-implements TgEventInterface, TgForwadableInterface{
+implements TgEditedInterface{
   public int $DateEdited;
 
   public function __construct(

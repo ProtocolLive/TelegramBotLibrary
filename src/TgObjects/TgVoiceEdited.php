@@ -3,19 +3,16 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
-use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
-  TgEventInterface,
-  TgForwadableInterface
-};
+use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgEditedInterface;
 
 /**
  * This object represents a edited voice note.
  * @link https://core.telegram.org/bots/api#voice
- * @version 2024.01.15.00
+ * @version 2024.02.08.00
  */
 final readonly class TgVoiceEdited
 extends TgVoice
-implements TgEventInterface, TgForwadableInterface{
+implements TgEditedInterface{
   public TgMessageData $Data;
   public int $DateEdited;
 

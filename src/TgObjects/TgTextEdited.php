@@ -3,18 +3,15 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
-use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
-  TgEventInterface,
-  TgForwadableInterface
-};
+use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgEditedInterface;
 
 /**
  * @link https://core.telegram.org/bots/api#message
- * @version 2024.01.04.00
+ * @version 2024.02.08.00
  */
 final readonly class TgTextEdited
 extends TgText
-implements TgEventInterface, TgForwadableInterface{
+implements TgEditedInterface{
   public int $DateEdited;
 
   /**
