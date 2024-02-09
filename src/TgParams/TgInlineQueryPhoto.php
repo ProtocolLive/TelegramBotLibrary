@@ -16,7 +16,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 
 /**
  * @link https://core.telegram.org/bots/api#inlinequeryresultphoto
- * @version 2024.01.13.00
+ * @version 2024.02.09.00
  */
 class TgInlineQueryPhoto
 implements TgInlineQueryInterface{
@@ -59,7 +59,7 @@ implements TgInlineQueryInterface{
     if($this->FileId !== null):
       $param['photo_file_id'] = $this->FileId;
     else:
-      $param['thumbnail_url'] = $this->Url;
+      $param['photo_url'] = $this->Url;
       $param['thumbnail_url'] = $this->Thumb;
       if($this->Width !== null):
         $param['photo_width'] = $this->Width;
