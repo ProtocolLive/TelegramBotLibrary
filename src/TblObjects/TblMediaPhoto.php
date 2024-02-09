@@ -8,16 +8,16 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\TgLimits;
 
 /**
  * @link https://core.telegram.org/bots/api#inputmediaphoto
- * @version 2024.01.01.00
+ * @version 2024.02.09.00
  */
 final class TblMediaPhoto
 extends TblMedia{
   public function __construct(
-    private string $Media,
-    private string|null $Caption = null,
-    private TgParseMode|null $ParseMode = null,
-    private TblEntities|null $Entities = null,
-    private bool $Spoiler = false
+    public string $Media,
+    public string|null $Caption = null,
+    public TgParseMode|null $ParseMode = null,
+    public TblEntities|null $Entities = null,
+    public bool $Spoiler = false
   ){}
 
   public function Get():array{
