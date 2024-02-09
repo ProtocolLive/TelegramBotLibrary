@@ -31,8 +31,8 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\{
   TgParseMode,
   TgReactionType
 };
+use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgEditedInterface;
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
-  TgAnimation,
   TgCallback,
   TgChatBoost,
   TgChatBoostRemoved,
@@ -49,7 +49,6 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgInvoiceShipping,
   TgLimits,
   TgMessageData,
-  TgPhoto,
   TgPoll,
   TgProfilePhoto,
   TgReactionUpdate,
@@ -59,7 +58,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 use ProtocolLive\TelegramBotLibrary\TgParams\TgInlineQueryResults;
 
 /**
- * @version 2024.02.09.00
+ * @version 2024.02.09.01
  */
 final class TelegramBotLibrary
 extends TblBasics{
@@ -406,7 +405,7 @@ extends TblBasics{
    * @param string $InlineIdRequired if chat_id and message_id are not specified. Identifier of the inline message
    * @param TblMedia $Media A JSON-serialized object for a new media content of the message
    * @param TblMarkup $Markup A JSON-serialized object for a new inline keyboard.
-   * @return TgPhoto|TgDocument|bool On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned.
+   * @return TgEditedInterface|true On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#editmessagemedia
    */
@@ -416,7 +415,7 @@ extends TblBasics{
     string $InlineId = null,
     TblMedia $Media,
     TblMarkup $Markup = null
-  ):TgPhoto|TgDocument|TgAnimation|bool{
+  ):TgEditedInterface|true{
     if($InlineId === null):
       $param['chat_id'] = $Chat;
       $param['message_id'] = $Id;
