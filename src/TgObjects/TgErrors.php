@@ -6,7 +6,7 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgError;
 
 /**
- * @version 2024.01.26.00
+ * @version 2024.02.09.00
  */
 abstract class TgErrors{
   public static function Search(string $Description):TgError|false{
@@ -53,6 +53,7 @@ abstract class TgErrors{
       'Bad Request: inline keyboard expected' => TgError::InlineKeyboardNone,
       'Bad Request: invalid inline message identifier specified' => TgError::InlineId,
       'Bad Request: message can\'t be deleted for everyone' => TgError::CantDelete,
+      'Bad Request: message can\'t be edited' => TgError::CantEdit,
       'Bad Request: message has protected content and can\'t be forwarded' => TgError::Protected,
       'Bad Request: message is not modified: specified new message content and reply markup are exactly the same as a current content and reply markup of the message' => TgError::EditSame,
       'Bad Request: message to copy not found' => TgError::CopyNotFound,
