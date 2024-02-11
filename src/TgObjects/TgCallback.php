@@ -7,21 +7,14 @@ use ProtocolLive\TelegramBotLibrary\TblObjects\TblBasics;
 
 /**
  * @link https://core.telegram.org/bots/api#callbackquery
- * @version 2024.01.04.01
+ * @version 2024.02.11.00
  */
 final readonly class TgCallback{
+  public TgMessageData $Data;
   /**
    * Message with the callback button that originated the query. Note that message content and message date will not be available if the message is too old
    */
-  public TgText|TgPhoto|null $Data;
-  /**
-   * Unique identifier for this query
-   */
-  public int $Id;
-  /**
-   * Sender
-   */
-  public TgUser $User;
+  public TgText|TgPhoto|null $Message;
   /**
    * Global identifier, uniquely corresponding to the chat to which the message with the callback button was sent. Useful for high scores in games.
    */
@@ -38,12 +31,11 @@ final readonly class TgCallback{
   public function __construct(
     array $Data
   ){
-    $this->Id = $Data['id'];
-    $this->User = new TgUser($Data['from']);
+    $this->Data = new TgMessageData($Data);
     if(isset($Data['message'])):
-      $this->Data = TblBasics::DetectMessage($Data['message']);
+      $this->Message = TblBasics::DetectMessage($Data['message']);
     else:
-      $this->Data = null;
+      $this->Message = null;
     endif;
     $this->ChatInstance = $Data['chat_instance'];
     $this->Callback = $Data['data'];

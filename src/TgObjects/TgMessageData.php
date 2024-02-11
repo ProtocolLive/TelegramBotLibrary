@@ -7,11 +7,11 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\TgChatType;
 
 /**
  * @link https://core.telegram.org/bots/api#message
- * @version 2024.02.09.00
+ * @version 2024.02.11.00
  */
 final readonly class TgMessageData{
   /**
-   * Unique message identifier inside this chat
+   * Unique message identifier inside this chat or unique identifier for the query
    */
   public int $Id;
   /**
@@ -19,13 +19,13 @@ final readonly class TgMessageData{
    */
   public TgUser|TgChat|null $User;
   /**
-   * Sender of the message, sent on behalf of a chat. For example, the channel itself for channel posts, the supergroup itself for messages from anonymous group administrators, the linked channel for messages automatically forwarded to the discussion group. For backward compatibility, the field from contains a fake sender user in non-channel chats, if the message was sent on behalf of a chat.
+   * Sender of the message, sent on behalf of a chat. For example, the channel itself for channel posts, the supergroup itself for messages from anonymous group administrators, the linked channel for messages automatically forwarded to the discussion group. For backward compatibility, the field from contains a fake sender user in non-channel chats, if the message was sent on behalf of a chat. Can be null in case of callback
    */
-  public TgChat|TgUser $Chat;
+  public TgChat|TgUser|null $Chat;
   /**
-   * Date the message was sent in Unix time
+   * Date the message was sent in Unix time. Can be null in case of callback
    */
-  public int $Date;
+  public int|null $Date;
   /**
    * If the message can't be forwarded
    */
@@ -90,7 +90,8 @@ final readonly class TgMessageData{
   public function __construct(
     array $Data
   ){
-    $this->Id = $Data['message_id'];
+    //$Data['id'] form Callback
+    $this->Id = $Data['id'] ?? $Data['message_id'];
 
     if(isset($Data['from'])
     and $Data['from']['id'] !== 777000
@@ -110,7 +111,9 @@ final readonly class TgMessageData{
       $this->User = null; //anonymous reaction
     endif;
 
-    if($Data['chat']['type'] === TgChatType::Private->value):
+    if(isset($Data['chat']) === false): //callback
+      $this->Chat = null;
+    elseif($Data['chat']['type'] === TgChatType::Private->value):
       $this->Chat = new TgUser($Data['chat']);
     else:
       $this->Chat = new TgChat($Data['chat']);
@@ -130,7 +133,7 @@ final readonly class TgMessageData{
     $this->ForwardSignature = $Data['forward_origin']['author_signature'] ?? null;
     $this->ForwardAuto = $Data['is_automatic_forward'] ?? false;
 
-    $this->Date = $Data['date'];
+    $this->Date = $Data['date'] ?? null; //callback
     $this->Protected = $Data['has_protected_content'] ?? false;
     $this->Topic = $Data['is_topic_message'] ?? false;
     $this->Spoiler = $Data['has_media_spoiler'] ?? false;
