@@ -58,7 +58,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 use ProtocolLive\TelegramBotLibrary\TgParams\TgInlineQueryResults;
 
 /**
- * @version 2024.02.09.02
+ * @version 2024.02.11.00
  */
 final class TelegramBotLibrary
 extends TblBasics{
@@ -856,7 +856,7 @@ extends TblBasics{
    */
   public function WebhookGet():object{
     if($this->BotData->TokenWebhook !== null
-    and $_SERVER['HTTP_X_TELEGRAM_BOT_API_SECRET_TOKEN'] !== $this->BotData->TokenWebhook):
+    and ($_SERVER['HTTP_X_TELEGRAM_BOT_API_SECRET_TOKEN'] ?? null) !== $this->BotData->TokenWebhook):
       throw new TblException(TblError::TokenWebhook, 'Wrong webhook token');
     endif;
     $update = file_get_contents('php://input');
