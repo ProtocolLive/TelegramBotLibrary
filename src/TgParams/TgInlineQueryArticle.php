@@ -10,7 +10,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 };
 
 /**
- * @version 2024.01.02.00
+ * @version 2024.01.12.00
  */
 final class TgInlineQueryArticle
 implements TgInlineQueryInterface{
@@ -18,7 +18,7 @@ implements TgInlineQueryInterface{
    * Represents a link to an article or web page.
    * @param string $Id Unique identifier for this result, 1-64 Bytes
    * @param string $Title Title of the result
-   * @param TblInlineQueryContentInterface $Message Content of the message to be sent
+   * @param TgInlineQueryContentInterface $Message Content of the message to be sent
    * @param TblMarkup $Markup Inline keyboard attached to the message
    * @param string $Url URL of the result
    * @param bool $UrlHide Pass True, if you don't want the URL to be shown in the message
