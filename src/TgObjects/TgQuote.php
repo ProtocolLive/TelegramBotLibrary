@@ -7,7 +7,7 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 /**
  * This object contains information about the quoted part of a message that is replied to by the given message.
  * @link https://core.telegram.org/bots/api#textquote
- * @version 20234.01.04.00
+ * @version 20234.02.12.00
  */
 final readonly class TgQuote{
   /**
@@ -39,6 +39,6 @@ final readonly class TgQuote{
       $this->Entities = $temp;
     endif;
     $this->Position = $Data['position'];
-    $this->Manual = $Data['is_manual'];
+    $this->Manual = $Data['is_manual'] ?? false;
   }
 }
