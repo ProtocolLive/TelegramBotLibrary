@@ -6,7 +6,7 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgError;
 
 /**
- * @version 2024.02.09.01
+ * @version 2024.02.13.00
  */
 abstract class TgErrors{
   public static function Search(string $Description):TgError|false{
@@ -59,6 +59,7 @@ abstract class TgErrors{
       'Bad Request: message is not modified: specified new message content and reply markup are exactly the same as a current content and reply markup of the message' => TgError::EditSame,
       'Bad Request: message to copy not found' => TgError::CopyNotFound,
       'Bad Request: message to edit not found' => TgError::EditNotFound,
+      'Bad Request: message to react not found' => TgError::ReactionMsgNotFound,
       'Bad Request: message to unpin not found' => TgError::UnpinNotFound,
       'Bad Request: MESSAGE_ID_INVALID' => TgError::MessageIdInvalid,
       'Bad Request: object expected as link preview options' => TgError::LinkPreview,
