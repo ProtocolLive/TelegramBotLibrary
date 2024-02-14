@@ -58,7 +58,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 use ProtocolLive\TelegramBotLibrary\TgParams\TgInlineQueryResults;
 
 /**
- * @version 2024.02.11.00
+ * @version 2024.02.13.00
  */
 final class TelegramBotLibrary
 extends TblBasics{
@@ -641,7 +641,7 @@ extends TblBasics{
   public function MessageReaction(
     int|string $Chat,
     int $Message,
-    string $Emoji,
+    string|null $Emoji,
     bool $Big = true
   ):true{
     $default = ['👍','👎','❤','🔥','🥰','👏','😁','🤔','🤯','😱','🤬','😢','🎉','🤩','🤮','💩','🙏','👌','🕊',
@@ -650,7 +650,9 @@ extends TblBasics{
       '💘','🙉','🦄','😘','💊','🙊','😎','👾','🤷‍♂','🤷','🤷‍♀','😡'];
     $param['chat_id'] = $Chat;
     $param['message_id'] = $Message;
-    if(in_array($Emoji, $default)):
+    if($Emoji === null):
+      $param['reaction'] = [];
+    elseif(in_array($Emoji, $default)):
       $param['reaction'][] = [
         'type' => TgReactionType::Normal->value,
         'emoji' => $Emoji
