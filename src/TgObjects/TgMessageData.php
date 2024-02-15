@@ -7,13 +7,13 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\TgChatType;
 
 /**
  * @link https://core.telegram.org/bots/api#message
- * @version 2024.02.11.00
+ * @version 2024.02.15.00
  */
 final readonly class TgMessageData{
   /**
-   * Unique message identifier inside this chat or unique identifier for the query
+   * Unique message identifier inside this chat or unique identifier for the query. Can be null in case of TgGroupStatus
    */
-  public int $Id;
+  public int|null $Id;
   /**
    * Sender of the message; empty for messages sent to channels. For backward compatibility, the field contains a fake sender user in non-channel chats, if the message was sent on behalf of a chat. Can be null in case of anonymous reaction
    */
@@ -91,7 +91,7 @@ final readonly class TgMessageData{
     array $Data
   ){
     //$Data['id'] form Callback
-    $this->Id = $Data['id'] ?? $Data['message_id'];
+    $this->Id = $Data['id'] ?? $Data['message_id'] ?? null;
 
     if(isset($Data['from'])
     and $Data['from']['id'] !== 777000
