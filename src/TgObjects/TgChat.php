@@ -8,7 +8,7 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\TgChatType;
 
 /**
  * @link https://core.telegram.org/bots/api#chat
- * @version 2024.01.03.02
+ * @version 2024.02.16.00
  */
 final readonly class TgChat{
   /**
@@ -90,6 +90,10 @@ final readonly class TgChat{
    */
   public bool|null $History;
   /**
+   * For supergroups, the minimum number of boosts that a non-administrator user needs to add in order to ignore slow mode and chat permissions. Returned only in getChat.
+   */
+  public int $BoostCountUnrestrict;
+  /**
    * Chat photo. Returned only in getChat.
    */
   public TgChatPhoto|null $Photo;
@@ -151,5 +155,6 @@ final readonly class TgChat{
       $temp = new TgReaction($reaction);
     endforeach;
     $this->Reactions = $temp;
+    $this->BoostCountUnrestrict = $Data['unrestrict_boost_count'] ?? 0;
   }
 }
