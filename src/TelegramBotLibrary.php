@@ -35,7 +35,6 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgEditedInterface;
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgCallback,
   TgChatBoost,
-  TgChatBoostAdded,
   TgChatBoostRemoved,
   TgChatRequest,
   TgDocument,
@@ -59,7 +58,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 use ProtocolLive\TelegramBotLibrary\TgParams\TgInlineQueryResults;
 
 /**
- * @version 2024.02.16.00
+ * @version 2024.02.16.01
  */
 final class TelegramBotLibrary
 extends TblBasics{
@@ -251,8 +250,6 @@ extends TblBasics{
       return TblBasics::DetectMessage($Data['channel_post']);
     elseif(isset($Data['edited_channel_post'])):
       return TblBasics::DetectMessageEdited($Data['edited_channel_post']);
-    elseif(isset($Data['boost_added'])):
-      return new TgChatBoostAdded($Data['boost_added']);
     elseif(isset($Data['callback_query']['game_short_name'])):
       return new TgGameStart($Data['callback_query']);
     elseif(isset($Data['callback_query'])):
