@@ -8,7 +8,7 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\TgChatType;
 
 /**
  * @link https://core.telegram.org/bots/api#chat
- * @version 2024.02.16.01
+ * @version 2024.02.16.02
  */
 final readonly class TgChat{
   /**
@@ -94,9 +94,17 @@ final readonly class TgChat{
    */
   public int $BoostCountUnrestrict;
   /**
+   * If the bot can change the group sticker set. Returned only in getChat.
+   */
+  public bool $SetStickerSet;
+  /**
    * For supergroups, the name of the group's custom emoji sticker set. Custom emoji from this set can be used by all users and bots in the group. Returned only in getChat.
    */
   public string|null $EmojiSet;
+  /**
+   * For supergroups, name of group sticker set. Returned only in getChat.
+   */
+  public string|null $StickerSet;
   /**
    * Chat photo. Returned only in getChat.
    */
@@ -161,5 +169,7 @@ final readonly class TgChat{
     $this->Reactions = $temp;
     $this->BoostCountUnrestrict = $Data['unrestrict_boost_count'] ?? 0;
     $this->EmojiSet = $Data['custom_emoji_sticker_set_name'] ?? null;
+    $this->StickerSet = $Data['sticker_set_name'] ?? null;
+    $this->SetStickerSet = $Data['can_set_sticker_set'] ?? false;
   }
 }
