@@ -8,22 +8,11 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgEventInterface;
 
 /**
  * @link https://core.telegram.org/bots/api#chatboostupdated
- * @version 2024.01.04.00
+ * @version 2024.02.22.00
  */
 final readonly class TgChatBoostRemoved
 implements TgEventInterface{
-  /**
-   * Chat which was boosted
-   */
-  public TgChat $Chat;
-  /**
-   * Unique identifier of the boost
-   */
-  public string $Id;
-  /**
-   * Point in time (Unix timestamp) when the chat was boosted
-   */
-  public string $Date;
+  public TgMessageData $Data;
   /**
    * Source of the added boost
    */
@@ -36,9 +25,7 @@ implements TgEventInterface{
   public function __construct(
     array $Data
   ){
-    $this->Chat = new TgChat($Data['chat']);
-    $this->Id = $Data['boost_id'];
-    $this->Date = $Data['remove_date'];
+    $this->Data = new TgMessageData($Data);
     $this->Source = TgBoostSource::from($Data['source']['source']);
     if(isset($Data['source']['user'])):
       $this->User = new TgUser($Data['source']['user']);
