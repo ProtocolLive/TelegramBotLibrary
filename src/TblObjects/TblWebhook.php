@@ -3,11 +3,12 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
+use CURLFile;
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgMethods;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgUpdateType;
 
 /**
- * @version 2024.01.01.00
+ * @version 2024.03.04.00
  */
 final class TblWebhook
 extends TblBasics{
@@ -49,7 +50,7 @@ extends TblBasics{
       $param['allowed_updates'] = json_encode($param['allowed_updates']);
     endif;
     if($Certificate !== null):
-      $param['certificate'] = new \CurlFile($Certificate);
+      $param['certificate'] = new CURLFile($Certificate);
     endif;
     if($TokenWebhook !== null):
       $param['secret_token'] = $TokenWebhook;
