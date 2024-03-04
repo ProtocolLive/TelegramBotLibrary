@@ -8,11 +8,13 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\TgMethods;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgUpdateType;
 
 /**
- * @version 2024.03.04.00
+ * @version 2024.03.04.01
  */
 final class TblWebhook
 extends TblBasics{
-  public function __construct(TblData $BotData){
+  public function __construct(
+    TblData $BotData
+  ){
     $this->BotData = $BotData;
   }
 
