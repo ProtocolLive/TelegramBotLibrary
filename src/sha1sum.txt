@@ -133,7 +133,7 @@ eed6d8a3c35ab80f674acb3c58a679919bc56ffc  TgObjects\TgTextEdited.php
 4fe3fb69117c82f111490cbfcd0de6eeac871b98  TgObjects\TgUser.php
 d59ad9c23e66c71eceb054c0eee07c08c177816a  TgObjects\TgUsersShared.php
 de6698ea818acf17f5057e6ea9b93a84be465747  TgObjects\TgVenue.php
-b091aec09d7cfc30fa5491ce1e91005331deb560  TgObjects\TgVideo.php
+4405bf1b1985da505ced648a925f04545d3b5fbf  TgObjects\TgVideo.php
 cd54386612b5216478deaeb6d9bd763f23da7563  TgObjects\TgVideoChatInvite.php
 4139aec28a40640f9106b6913f75850b284cc5ce  TgObjects\TgVideoEdited.php
 741038bc9aed85a9d4e44c0cd59c0e8ccf1d2c59  TgObjects\TgVideoNote.php
