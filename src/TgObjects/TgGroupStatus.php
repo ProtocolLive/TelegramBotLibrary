@@ -10,35 +10,40 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgEventInterface;
  * A chat member's status was updated in a chat. The bot must be an administrator in the chat and must explicitly specify “chat_member” in the list of allowed_updates to receive these updates.
  * @link https://core.telegram.org/bots/api#update
  * @link https://core.telegram.org/bots/api#chatmemberupdated
- * @version 2024.01.04.00
+ * @version 2024.03.08.00
  */
 final readonly class TgGroupStatus
 implements TgEventInterface{
+  public TgMessageData $Data;
   /**
-   * Performer of the action, which resulted in the change
+   * Previous information about the chat member
    */
-  public TgUser $User;
-  /**
-   * Chat the user belongs to
-   */
-  public TgChat $Group;
-  /**
-   * Date the change was done in Unix time
-   */
-  public int $Date;
   public TgUser $Member;
+  /**
+   * Previous information about the chat member
+   */
   public TgMemberStatus $StatusOld;
+  /**
+   * Previous information about the chat member
+   */
   public TgPermMember|TgPermAdmin $PermsOld;
+  /**
+   * New information about the chat member
+   */
   public TgMemberStatus $StatusNew;
+  /**
+   * New information about the chat member
+   */
   public TgPermMember|TgPermAdmin $PermsNew;
+  /**
+   * If the user joined the chat via a chat folder invite link
+   */
   public bool $ViaFolderLink;
 
   public function __construct(
     array $Data
   ){
-    $this->User = new TgUser($Data['from']);
-    $this->Group = new TgChat($Data['chat']);
-    $this->Date = $Data['date'];
+    $this->Data = new TgMessageData($Data);
     $this->Member = new TgUser($Data['new_chat_member']['user']);
     $this->StatusOld = TgMemberStatus::tryFrom($Data['old_chat_member']['status']);
     $this->StatusNew = TgMemberStatus::tryFrom($Data['new_chat_member']['status']);
