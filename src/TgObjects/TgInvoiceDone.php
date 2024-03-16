@@ -4,15 +4,19 @@
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgInvoiceCurrencies;
-use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgEventInterface;
+use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
+  TgEventInterface,
+  TgServiceInterface
+};
 
 /**
  * This object contains basic information about a successful payment.
  * @link https://core.telegram.org/bots/api#successfulpayment
- * @version 2024.03.15.00
+ * @version 2024.03.15.01
  */
 final readonly class TgInvoiceDone
-implements TgEventInterface{
+implements TgEventInterface,
+TgServiceInterface{
   public TgMessageData $Data;
   /**
    * Three-letter ISO 4217 currency code
