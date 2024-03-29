@@ -58,7 +58,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 use ProtocolLive\TelegramBotLibrary\TgParams\TgInlineQueryResults;
 
 /**
- * @version 2024.02.16.01
+ * @version 2024.03.29.00
  */
 final class TelegramBotLibrary
 extends TblBasics{
@@ -250,6 +250,8 @@ extends TblBasics{
       return TblBasics::DetectMessage($Data['channel_post']);
     elseif(isset($Data['edited_channel_post'])):
       return TblBasics::DetectMessageEdited($Data['edited_channel_post']);
+    elseif(isset($Data['business_message'])):
+      return TblBasics::DetectMessage($Data['business_message']);
     elseif(isset($Data['callback_query']['game_short_name'])):
       return new TgGameStart($Data['callback_query']);
     elseif(isset($Data['callback_query'])):

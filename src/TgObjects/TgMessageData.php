@@ -7,7 +7,7 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\TgChatType;
 
 /**
  * @link https://core.telegram.org/bots/api#message
- * @version 2024.02.16.00
+ * @version 2024.03.29.00
  */
 final readonly class TgMessageData{
   /**
@@ -87,6 +87,10 @@ final readonly class TgMessageData{
    * If the sender of the message boosted the chat, the number of boosts added by the user
    */
   public int $Boost;
+  /**
+   * Not implemented in production yet
+   */
+  public string|null $BusinessConnection;
 
   //The bot 777000 is used to auto forward messages from channels to groups
   //The bot 1087968824 is used when admin post as the group and for migrate events
@@ -181,5 +185,6 @@ final readonly class TgMessageData{
       $this->Quote = null;
     endif;
     $this->Boost = $Data['sender_boost_count'] ?? 0;
+    $this->BusinessConnection = $Data['business_connection_id'] ?? null;
   }
 }
