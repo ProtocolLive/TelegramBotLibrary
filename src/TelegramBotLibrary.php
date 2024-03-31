@@ -50,6 +50,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgInvoiceShipping,
   TgLimits,
   TgMessageData,
+  TgMessageDeleted,
   TgPoll,
   TgProfilePhoto,
   TgReactionUpdate,
@@ -59,7 +60,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 use ProtocolLive\TelegramBotLibrary\TgParams\TgInlineQueryResults;
 
 /**
- * @version 2024.03.31.01
+ * @version 2024.03.31.02
  */
 final class TelegramBotLibrary
 extends TblBasics{
@@ -257,6 +258,8 @@ extends TblBasics{
       return TblBasics::DetectMessage($Data['business_message']);
     elseif(isset($Data['edited_business_message'])):
       return TblBasics::DetectMessageEdited($Data['business_message']);
+    elseif(isset($Data['deleted_business_messages'])):
+      return new TgMessageDeleted($Data['deleted_business_messages']);
     elseif(isset($Data['callback_query']['game_short_name'])):
       return new TgGameStart($Data['callback_query']);
     elseif(isset($Data['callback_query'])):
