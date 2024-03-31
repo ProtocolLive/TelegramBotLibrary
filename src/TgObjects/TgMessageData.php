@@ -7,13 +7,13 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\TgChatType;
 
 /**
  * @link https://core.telegram.org/bots/api#message
- * @version 2024.03.29.00
+ * @version 2024.03.31.00
  */
 final readonly class TgMessageData{
   /**
-   * Unique message identifier inside this chat or unique identifier for the query. Can be null in case of TgGroupStatus
+   * Unique message identifier inside this chat or unique identifier for the query. Can be null in case of TgGroupStatus. Can be the connection id in case of business connection
    */
-  public int|null $Id;
+  public int|string|null $Id;
   /**
    * Sender of the message; empty for messages sent to channels. For backward compatibility, the field contains a fake sender user in non-channel chats, if the message was sent on behalf of a chat. Can be null in case of anonymous reaction
    */

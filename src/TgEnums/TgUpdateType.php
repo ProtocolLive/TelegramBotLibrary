@@ -6,9 +6,10 @@ namespace ProtocolLive\TelegramBotLibrary\TgEnums;
 
 /**
  * https://core.telegram.org/bots/api#update
- * @version 2024.01.01.00
+ * @version 2024.03.31.00
  */
 enum TgUpdateType:string{
+  case BusinessConnection = 'business_connection';
   case Callback = 'callback_query';
   case ChannelPost = 'channel_post';
   case ChannelPostEdit = 'edited_channel_post';
