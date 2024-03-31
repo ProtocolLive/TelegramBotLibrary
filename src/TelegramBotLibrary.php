@@ -60,7 +60,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 use ProtocolLive\TelegramBotLibrary\TgParams\TgInlineQueryResults;
 
 /**
- * @version 2024.03.31.02
+ * @version 2024.03.31.03
  */
 final class TelegramBotLibrary
 extends TblBasics{
@@ -110,6 +110,20 @@ extends TblBasics{
     endif;
     $return = $this->ServerMethod(TgMethods::UserPhotos, $param);
     return new TgProfilePhoto($return);
+  }
+
+  /**
+   * Use this method to get information about the connection of the bot with a business account. Returns a BusinessConnection object on success.
+   * @param string $Id Unique identifier for the business account
+   * @throws TblException
+   * @link https://core.telegram.org/bots/api#getbusinessconnection
+   */
+  public function BusinessGet(
+    string $Id
+  ):TgBusinessConnection{
+    return new TgBusinessConnection(
+      $this->ServerMethod(TgMethods::BusinessGet, ['business_connection_id' => $Id])
+    );
   }
 
   /**

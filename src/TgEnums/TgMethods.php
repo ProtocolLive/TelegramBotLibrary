@@ -5,10 +5,14 @@
 namespace ProtocolLive\TelegramBotLibrary\TgEnums;
 
 /**
- * @version 2024.01.26.00
+ * @version 2024.03.31.00
  */
 enum TgMethods:string{
   case AnimationSend = 'sendAnimation';
+  /**
+   * @link https://core.telegram.org/bots/api#getbusinessconnection
+   */
+  case BusinessGet = 'getBusinessConnection';
   case CallbackAnswer = 'answerCallbackQuery';
   case Chat = 'getChat';
   case ChatAction = 'sendChatAction';
