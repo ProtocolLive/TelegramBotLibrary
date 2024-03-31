@@ -6,7 +6,7 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
  * @link https://core.telegram.org/bots/api#user
- * @version 2024.01.04.01
+ * @version 2024.03.31.00
  */
 final readonly class TgUser{
   /**
@@ -55,13 +55,25 @@ final readonly class TgUser{
    */
   public bool|null $RestrictedVoice;
   /**
+   * The time after which all messages sent to the chat will be automatically deleted; in seconds. Returned only in getChat.
+   */
+  public int $AutoDel;
+  /**
    * Chat photo. Returned only in getChat.
    */
   public TgChatPhoto|null $Photo;
   /**
-   * The time after which all messages sent to the chat will be automatically deleted; in seconds. Returned only in getChat.
+   * For private chats with business accounts, the intro of the business. Returned only in getChat.
    */
-  public int $AutoDel;
+  public TgBusinessIntro|null $BusinessIntro;
+  /**
+   * For private chats with business accounts, the location of the business. Returned only in getChat.
+   */
+  public TgBusinessLocation|null $BusinessLocation;
+  /**
+   * For private chats with business accounts, the opening hours of the business. Returned only in getChat.
+   */
+  public TgBusinessOpen|null $BusinessOpen;
 
   /**
    * @link https://core.telegram.org/bots/api#user
@@ -86,6 +98,21 @@ final readonly class TgUser{
       $this->Photo = new TgChatPhoto($Data['photo']);
     else:
       $this->Photo = null;
+    endif;
+    if(isset($Data['business_info'])):
+      $this->BusinessIntro = new TgBusinessIntro($Data['business_intro']);
+    else:
+      $this->BusinessIntro = null;
+    endif;
+    if(isset($Data['business_location'])):
+      $this->BusinessLocation = new TgBusinessLocation($Data['business_location']);
+    else:
+      $this->BusinessLocation = null;
+    endif;
+    if(isset($Data['business_opening_hours'])):
+      $this->BusinessOpen = new TgBusinessOpen($Data['business_opening_hours']);
+    else:
+      $this->BusinessOpen = null;
     endif;
   }
 }
