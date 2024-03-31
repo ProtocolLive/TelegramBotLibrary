@@ -18,12 +18,12 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\TgPhoto;
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2024.01.02.00
+ * @version 2024.03.31.00
  */
 trait TblPhotoTrait{
   /**
    * Use this method to send photos.
-   * @param int $Chat Unique identifier for the target chat
+   * @param int|string $Chat Unique identifier for the target chat or username of the target channel (in the format @channelusername)
    * @param string $Photo Photo to send. Pass a file_id as String to send a photo that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a photo from the Internet, or upload a new photo using multipart/form-data. The photo must be at most 10 MB in size. The photo's width and height must not exceed 10000 in total. Width and height ratio must be at most 20.
    * There are three ways to send files (photos, stickers, audio, media, etc.):
    * 1) If the file is already stored somewhere on the Telegram servers, you don't need to re-upload it: each file object has a file_id field, simply pass this file_id as a parameter instead of uploading. There are no limits for files sent this way.
@@ -54,7 +54,7 @@ trait TblPhotoTrait{
    * @link https://core.telegram.org/bots/api#sendphoto
    */
   public function PhotoSend(
-    int $Chat,
+    int|string $Chat = null,
     string $Photo,
     int $Thread = null,
     string $Caption = null,
