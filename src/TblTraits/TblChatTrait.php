@@ -19,7 +19,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 };
 
 /**
- * @version 2024.01.26.00
+ * @version 2024.03.31.00
  */
 trait TblChatTrait{
   /**
@@ -28,16 +28,22 @@ trait TblChatTrait{
    * @param int|string $Chat Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername)
    * @param TgChatAction $Action Type of action to broadcast.
    * @param int $Thread Unique identifier for the target message thread; supergroups only
+   * @param string $BusinessId Unique identifier of the business connection on behalf of which the action will be sent
    * @return bool Returns True on success.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#sendchataction
    */
   public function ChatActionSend(
-    int|string $Chat,
+    int|string $Chat = null,
     TgChatAction $Action,
-    int $Thread = null
+    int $Thread = null,
+    string $BusinessId = null
   ):bool{
-    $param['chat_id'] = $Chat;
+    if($BusinessId !== null):
+      $param['business_connection_id'] = $BusinessId;
+    else:
+      $param['chat_id'] = $Chat;
+    endif;
     $param['action'] = $Action->value;
     if($Thread !== null):
       $param['message_thread_id'] = $Chat;
