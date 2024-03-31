@@ -3,12 +3,14 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
+use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgEventInterface;
 
 /**
- * @version 2024.03.31.00
+ * @version 2024.03.31.01
  * @link https://core.telegram.org/bots/api#businessmessagesdeleted
  */
-final readonly class TgMessageDeleted{
+final readonly class TgMessageDeleted
+implements TgEventInterface{
   public TgMessageData $Data;
   /**
    * A JSON-serialized list of identifiers of deleted messages in the chat of the business account
