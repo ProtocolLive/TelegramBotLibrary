@@ -12,7 +12,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 /**
  * This object represents a sticker.
  * @link https://core.telegram.org/bots/api#sticker
- * @version 2024.01.30.00
+ * @version 2024.03.31.00
  */
 readonly class TgSticker
 implements TgEventInterface, TgForwadableInterface{
@@ -37,14 +37,6 @@ implements TgEventInterface, TgForwadableInterface{
    * Sticker height
    */
   public int $Height;
-  /**
-   * If the sticker is animated
-   */
-  public bool $Animated;
-  /**
-   * If the sticker is a video sticker
-   */
-  public bool $Video;
   /**
    * Emoji associated with the sticker
    */
@@ -90,8 +82,6 @@ implements TgEventInterface, TgForwadableInterface{
     $this->Type = TgStickerType::from($Data['sticker']['type']);
     $this->Width = $Data['sticker']['width'];
     $this->Height = $Data['sticker']['height'];
-    $this->Animated = $Data['sticker']['is_animated'] ?? false;
-    $this->Video = $Data['sticker']['is_video'] ?? false;
     if(isset($Data['sticker']['thumbnail'])):
       $this->Thumb = new TgPhotoSize($Data['sticker']['thumbnail']);
     endif;

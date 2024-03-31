@@ -6,7 +6,7 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
  * @link https://core.telegram.org/bots/api#user
- * @version 2024.03.31.00
+ * @version 2024.03.31.01
  */
 final readonly class TgUser{
   /**
@@ -74,6 +74,14 @@ final readonly class TgUser{
    * For private chats with business accounts, the opening hours of the business. Returned only in getChat.
    */
   public TgBusinessOpen|null $BusinessOpen;
+  /**
+   * For private chats, the personal channel of the user. Returned only in getChat.
+   */
+  public TgChat|null $Channel;
+  /**
+   * For private chats, the date of birth of the user. Returned only in getChat.
+   */
+  public string $Birthdate;
 
   /**
    * @link https://core.telegram.org/bots/api#user
@@ -113,6 +121,19 @@ final readonly class TgUser{
       $this->BusinessOpen = new TgBusinessOpen($Data['business_opening_hours']);
     else:
       $this->BusinessOpen = null;
+    endif;
+    if(isset($Data['personal_chat'])):
+      $this->Channel = new TgChat($Data['personal_chat']);
+    else:
+      $this->Channel = null;
+    endif;
+    if(isset($Data['birthdate'])):
+      if(isset($Data['birthdate']['year'])):
+        $Birthdate = $Data['birthdate']['year'] . '-';
+      endif;
+      $Birthdate .= $Data['birthdate']['month'] . '-' . $Data['birthdate']['day'];
+    else:
+      $this->Birthdate = null;
     endif;
   }
 }

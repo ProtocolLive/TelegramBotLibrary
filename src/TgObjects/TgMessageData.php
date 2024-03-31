@@ -7,7 +7,7 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\TgChatType;
 
 /**
  * @link https://core.telegram.org/bots/api#message
- * @version 2024.03.31.00
+ * @version 2024.03.31.01
  */
 final readonly class TgMessageData{
   /**
@@ -91,6 +91,10 @@ final readonly class TgMessageData{
    * Not implemented in production yet
    */
   public string|null $BusinessConnection;
+  /**
+   * If the message was sent by an implicit action, for example, as an away or a greeting business message, or as a scheduled message
+   */
+  public bool $Offline;
 
   //The bot 777000 is used to auto forward messages from channels to groups
   //The bot 1087968824 is used when admin post as the group and for migrate events
@@ -186,5 +190,6 @@ final readonly class TgMessageData{
     endif;
     $this->Boost = $Data['sender_boost_count'] ?? 0;
     $this->BusinessConnection = $Data['business_connection_id'] ?? null;
+    $this->Offline = $Data['is_from_offline'] ?? false;
   }
 }
