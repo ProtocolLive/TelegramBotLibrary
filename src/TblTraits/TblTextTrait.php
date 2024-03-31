@@ -25,7 +25,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2024.01.02.01
+ * @version 2024.03.31.00
  */
 trait TblTextTrait{
   /**
@@ -99,6 +99,7 @@ trait TblTextTrait{
    * @param int|string $Chat Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
    * @param string $Text Text of the message to be sent, 1-4096 characters after entities parsing
    * @param int $Thread Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   * @param string $BusinessId Unique identifier of the business connection on behalf of which the message will be sent
    * @param TgParseMode $ParseMode Mode for parsing entities in the message text.
    * @param TblEntities $Entities A list of special entities that appear in message text, which can be specified instead of parse_mode
    * @param TgLinkPreview $LinkPreview Link preview generation options for the message
@@ -111,9 +112,10 @@ trait TblTextTrait{
    * @link https://core.telegram.org/bots/api#sendmessage
    */
   public function TextSend(
-    int|string $Chat,
+    int|string $Chat = null,
     string $Text,
     int $Thread = null,
+    string $BusinessId = null,
     TgParseMode $ParseMode = null,
     TblEntities $Entities = null,
     TgLinkPreview $LinkPreview = null,
@@ -128,6 +130,7 @@ trait TblTextTrait{
         $Chat,
         $Text,
         $Thread,
+        $BusinessId,
         $ParseMode,
         $Entities,
         $LinkPreview,

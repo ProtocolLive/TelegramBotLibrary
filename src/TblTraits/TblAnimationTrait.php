@@ -17,7 +17,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\TgAnimation;
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2024.01.26.00
+ * @version 2024.03.31.00
  */
 trait TblAnimationTrait{
   /**
@@ -25,6 +25,7 @@ trait TblAnimationTrait{
    * @param int|string $Chat Unique identifier for the target chat or username of the target channel (in the format @channelusername)
    * @param string $Animation Animation to send. Pass a file_id as String to send an animation that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get an animation from the Internet, or upload a new animation using multipart/form-data.
    * @param int $Thread Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   * @param string $BusinessId Unique identifier of the business connection on behalf of which the message will be sent
    * @param int $Duration Duration of sent animation in seconds
    * @param int $Width Animation width
    * @param int $Height Animation height
@@ -42,9 +43,10 @@ trait TblAnimationTrait{
    * @link https://core.telegram.org/bots/api#sendanimation
    */
   public function AnimationSend(
-    int|string $Chat,
+    int|string $Chat = null,
     string $Animation,
     int $Thread = null,
+    string $BusinessId = null,
     int $Duration = null,
     int $Width = null,
     int $Height = null,
@@ -58,7 +60,11 @@ trait TblAnimationTrait{
     TgReplyParams $Reply = null,
     TblMarkup $Markup = null
   ):TgAnimation{
-    $param['chat_id'] = $Chat;
+    if($BusinessId !== null):
+      $param['business_connection_id'] = $BusinessId;
+    else:
+      $param['chat_id'] = $Chat;
+    endif;
     if(is_file($Animation)):
       $param['animation'] = new CURLFile($Animation);
     else:

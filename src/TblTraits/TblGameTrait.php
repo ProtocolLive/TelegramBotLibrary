@@ -15,14 +15,15 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2024.01.04.00
+ * @version 2024.03.31.00
  */
 trait TblGameTrait{
   /**
    * Use this method to send a game
-   * @param int $Chat Unique identifier for the target chat
+   * @param int|string $Chat Unique identifier for the target chat
    * @param string $Game Short name of the game, serves as the unique identifier for the game. Set up your games via @BotFather.
    * @param int $Thread Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   * @param string $BusinessId Unique identifier of the business connection on behalf of which the message will be sent
    * @param bool $DisableNotifications Sends the message silently. Users will receive a notification with no sound.
    * @param bool $Protect Protects the contents of the sent message from forwarding and saving
    * @param TgReplyParams $Reply Description of the message to reply to
@@ -32,15 +33,20 @@ trait TblGameTrait{
    * @throws TblException
    */
   public function GameSend(
-    int $Chat,
+    int|string $Chat = null,
     string $Game,
     int $Thread = null,
+    string $BusinessId = null,
     bool $DisableNotifications = false,
     bool $Protect = false,
     TgReplyParams $Reply = null,
     TblMarkup $Markup = null
   ):TgGame{
-    $param['chat_id'] = $Chat;
+    if($BusinessId !== null):
+      $param['business_connection_id'] = $BusinessId;
+    else:
+      $param['chat_id'] = $Chat;
+    endif;
     $param['game_short_name'] = $Game;
     if($Thread !== null):
       $param['message_thread_id'] = $Thread;

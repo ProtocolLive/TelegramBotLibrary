@@ -11,7 +11,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2024.01.02.01
+ * @version 2024.03.31.00
  */
 final class TblTextSendMulti
 extends TblServerMulti{
@@ -19,6 +19,7 @@ extends TblServerMulti{
    * @param int|string $Chat Unique identifier for the target chat or username of the target channel (in the format @channelusername)
    * @param string $Text Text of the message to be sent, 1-4096 characters after entities parsing
    * @param int $Thread Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   * @param string $BusinessId Unique identifier of the business connection on behalf of which the message will be sent
    * @param TgParseMode $ParseMode Mode for parsing entities in the message text. See formatting options for more details.
    * @param TblEntities $Entities A  list of special entities that appear in message text, which can be specified instead of parse_mode
    * @param TgLinkPreview $LinkPreview Link preview generation options for the message
@@ -32,6 +33,7 @@ extends TblServerMulti{
     int|string $Chat = null,
     string $Text = null,
     int $Thread = null,
+    string $BusinessId = null,
     TgParseMode $ParseMode = null,
     TblEntities $Entities = null,
     TgLinkPreview $LinkPreview = null,
@@ -49,6 +51,7 @@ extends TblServerMulti{
       $Chat,
       $Text,
       $Thread,
+      $BusinessId,
       $ParseMode,
       $Entities,
       $LinkPreview,
@@ -63,6 +66,7 @@ extends TblServerMulti{
    * @param int|string $Chat Unique identifier for the target chat or username of the target channel (in the format @channelusername)
    * @param string $Text Text of the message to be sent, 1-4096 characters after entities parsing
    * @param int $Thread Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   * @param string $BusinessId Unique identifier of the business connection on behalf of which the message will be sent
    * @param TgParseMode $ParseMode Mode for parsing entities in the message text. See formatting options for more details.
    * @param TblEntities $Entities A list of special entities that appear in message text, which can be specified instead of parse_mode
    * @param TgLinkPreview $LinkPreview Link preview generation options for the message
@@ -73,9 +77,10 @@ extends TblServerMulti{
    * @link https://core.telegram.org/bots/api#sendmessage
    */
   public function Add(
-    int|string $Chat,
+    int|string $Chat = null,
     string $Text,
     int $Thread = null,
+    string $BusinessId = null,
     TgParseMode $ParseMode = null,
     TblEntities $Entities = null,
     TgLinkPreview $LinkPreview = null,
@@ -89,6 +94,7 @@ extends TblServerMulti{
       $Chat,
       $Text,
       $Thread,
+      $BusinessId,
       $ParseMode,
       $Entities,
       $LinkPreview,
@@ -104,6 +110,7 @@ extends TblServerMulti{
    * @param int|string $Chat Unique identifier for the target chat or username of the target channel (in the format @channelusername)
    * @param string $Text Text of the message to be sent, 1-4096 characters after entities parsing
    * @param int $Thread Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   * @param string $BusinessId Unique identifier of the business connection on behalf of which the message will be sent
    * @param TgParseMode $ParseMode Mode for parsing entities in the message text. See formatting options for more details.
    * @param TblEntities $Entities A list of special entities that appear in message text, which can be specified instead of parse_mode
    * @param TgLinkPreview $LinkPreview Link preview generation options for the message
@@ -115,9 +122,10 @@ extends TblServerMulti{
    * @link https://core.telegram.org/bots/api#sendmessage
    */
   public static function BuildArgs(
-    int|string $Chat,
+    int|string $Chat = null,
     string $Text,
     int $Thread = null,
+    string $BusinessId = null,
     TgParseMode $ParseMode = null,
     TblEntities $Entities = null,
     TgLinkPreview $LinkPreview = null,
@@ -135,7 +143,11 @@ extends TblServerMulti{
     if(mb_strlen(strip_tags($Text)) > TgLimits::Text):
       throw new TblException(TblError::LimitText, 'Text exceed ' . TgLimits::Text . ' characters');
     endif;
-    $param['chat_id'] = $Chat;
+    if($BusinessId !== null):
+      $param['business_connection_id'] = $BusinessId;
+    else:
+      $param['chat_id'] = $Chat;
+    endif;
     if($ParseMode === TgParseMode::Markdown2):
       $Text = preg_replace('/([>#+\-={}.!])/', '\\\\$1', $Text);
     endif;

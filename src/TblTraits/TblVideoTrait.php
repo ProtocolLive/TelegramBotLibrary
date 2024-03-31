@@ -22,7 +22,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2024.01.02.00
+ * @version 2024.03.31.00
  */
 trait TblVideoTrait{
   /**
@@ -30,6 +30,7 @@ trait TblVideoTrait{
    * @param int|string $Chat Unique identifier for the target chat or username of the target channel (in the format @channelusername)
    * @param string $Video Video to send. Pass a file_id as String to send a video that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a video from the Internet, or upload a new video using multipart/form-data. More information on Sending Files
    * @param int $Thread Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   * @param string $BusinessId Unique identifier of the business connection on behalf of which the message will be sent
    * @param int $Duration Duration of sent video in seconds
    * @param int $Width Video width
    * @param int $Height Video height
@@ -48,9 +49,10 @@ trait TblVideoTrait{
    * @throws TblException
    */
   public function VideoSend(
-    int|string $Chat,
+    int|string $Chat = null,
     string $Video,
     int $Thread = null,
+    string $BusinessId = null,
     int $Duration = null,
     int $Width = null,
     int $Height = null,
@@ -69,7 +71,11 @@ trait TblVideoTrait{
     and mb_strlen(strip_tags($Caption)) > TgLimits::Caption):
       throw new TblException(TblError::LimitPhotoCaption);
     endif;
-    $params['chat_id'] = $Chat;
+    if($BusinessId !== null):
+      $param['business_connection_id'] = $BusinessId;
+    else:
+      $param['chat_id'] = $Chat;
+    endif;
     if(is_file($Video)):
       $params['video'] = new CURLFile($Video);
     else:
@@ -129,6 +135,7 @@ trait TblVideoTrait{
    * @param int|string $Chat Unique identifier for the target chat or username of the target channel (in the format @channelusername)
    * @param string $Video Video note to send. Pass a file_id as String to send a video note that exists on the Telegram servers (recommended) or upload a new video using multipart/form-data. More information on Sending Files ». Sending video notes by a URL is currently unsupported
    * @param int $Thread Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   * @param string $BusinessId Unique identifier of the business connection on behalf of which the message will be sent
    * @param int $Duration Duration of sent video in seconds
    * @param int $Length Video width and height, i.e. diameter of the video message
    * @param string $Thumbnail Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. More information on Sending Files
@@ -141,9 +148,10 @@ trait TblVideoTrait{
    * @throws TblException
    */
   public function VideoNoteSend(
-    int|string $Chat,
+    int|string $Chat = null,
     string $Video,
     int $Thread = null,
+    string $BusinessId = null,
     int $Duration = null,
     int $Length = null,
     string $Thumbnail = null,
@@ -152,7 +160,11 @@ trait TblVideoTrait{
     TgReplyParams $Reply = null,
     TblMarkup $Markup = null
   ):TgVideoNote|TgVideo{
-    $params['chat_id'] = $Chat;
+    if($BusinessId !== null):
+      $params['business_connection_id'] = $BusinessId;
+    else:
+      $params['chat_id'] = $Chat;
+    endif;
     if(is_file($Video)):
       $params['video_note'] = new CURLFile($Video);
     else:

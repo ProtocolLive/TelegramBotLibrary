@@ -9,7 +9,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\TgLimits;
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2024.03.31.00
+ * @version 2024.03.31.01
  */
 final class TblPhotoSendMulti
 extends TblServerMulti{
@@ -17,6 +17,7 @@ extends TblServerMulti{
     int|string $Chat = null,
     string $Photo = null,
     int $Thread = null,
+    string $BusinessId = null,
     string $Caption = null,
     TgParseMode $ParseMode = TgParseMode::Html,
     TblEntities $Entities = null,
@@ -35,6 +36,7 @@ extends TblServerMulti{
       $Chat,
       $Photo,
       $Thread,
+      $BusinessId,
       $Caption,
       $ParseMode,
       $Entities,
@@ -79,9 +81,10 @@ extends TblServerMulti{
    * @link https://core.telegram.org/bots/api#sendphoto
    */
   public function Add(
-    int|string $Chat,
+    int|string $Chat = null,
     string $Photo,
     int $Thread = null,
+    string $BusinessId = null,
     string $Caption = null,
     TgParseMode $ParseMode = TgParseMode::Html,
     TblEntities $Entities = null,
@@ -96,6 +99,7 @@ extends TblServerMulti{
       $Chat,
       $Photo,
       $Thread,
+      $BusinessId,
       $Caption,
       $ParseMode,
       $Entities,
@@ -109,7 +113,7 @@ extends TblServerMulti{
 
   /**
    * Use this method with PhotoSendMulti
-   * @param int|string $Chat Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * @param int|string $Chat Unique identifier for the target chat
    * @param string $Photo Photo to send. Pass a file_id as String to send a photo that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a photo from the Internet, or upload a new photo using multipart/form-data. The photo must be at most 10 MB in size. The photo's width and height must not exceed 10000 in total. Width and height ratio must be at most 20.
    * There are three ways to send files (photos, stickers, audio, media, etc.):
    * 1) If the file is already stored somewhere on the Telegram servers, you don't need to re-upload it: each file object has a file_id field, simply pass this file_id as a parameter instead of uploading. There are no limits for files sent this way.
@@ -127,6 +131,7 @@ extends TblServerMulti{
    * - When sending by URL the target file must have the correct MIME type (e.g., audio/mpeg for sendAudio, etc.).
    * - Other configurations may work but we can't guarantee that they will.
    * @param int $Thread Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   * @param string $BusinessId Unique identifier of the business connection on behalf of which the message will be sent
    * @param string $Caption Photo caption (may also be used when resending photos by file_id), 0-1024 characters after entities parsing
    * @param TgParseMode $ParseMode Mode for parsing entities in the photo caption. See formatting options for more details.
    * @param TblEntities $Entities A list of special entities that appear in the caption, which can be specified instead of parse_mode
@@ -140,9 +145,10 @@ extends TblServerMulti{
    * @link https://core.telegram.org/bots/api#sendphoto
    */
   public static function BuildArgs(
-    int|string $Chat,
+    int|string $Chat = null,
     string $Photo,
     int $Thread = null,
+    string $BusinessId = null,
     string $Caption = null,
     TgParseMode $ParseMode = TgParseMode::Html,
     TblEntities $Entities = null,
@@ -156,7 +162,11 @@ extends TblServerMulti{
     and mb_strlen(strip_tags($Caption)) > TgLimits::Caption):
       throw new TblException(TblError::LimitPhotoCaption);
     endif;
-    $param['chat_id'] = $Chat;
+    if($BusinessId !== null):
+      $param['business_connection_id'] = $BusinessId;
+    else:
+      $param['chat_id'] = $Chat;
+    endif;
     if($Thread !== null):
       $param['message_thread_id'] = $Thread;
     endif;
