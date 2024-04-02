@@ -60,11 +60,12 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 use ProtocolLive\TelegramBotLibrary\TgParams\TgInlineQueryResults;
 
 /**
- * @version 2024.03.31.03
+ * @version 2024.04.02.00
  */
 final class TelegramBotLibrary
 extends TblBasics{
   use TblAnimationTrait;
+  use TblAudioTrait;
   use TblChatTrait;
   use TblForumTrait;
   use TblGameTrait;

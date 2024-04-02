@@ -5,10 +5,14 @@
 namespace ProtocolLive\TelegramBotLibrary\TgEnums;
 
 /**
- * @version 2024.03.31.00
+ * @version 2024.04.02.00
  */
 enum TgMethods:string{
   case AnimationSend = 'sendAnimation';
+  /**
+   * @link https://core.telegram.org/bots/api#sendaudio
+   */
+  case AudioSend = 'sendAudio';
   /**
    * @link https://core.telegram.org/bots/api#getbusinessconnection
    */
@@ -85,6 +89,10 @@ enum TgMethods:string{
   case UserPhotos = 'getUserProfilePhotos';
   case VideoSend = 'sendVideo';
   case VideoNoteSend = 'sendVideoNote';
+  /**
+   * @link https://core.telegram.org/bots/api#sendvoice
+   */
+  case VoiceSend = 'sendVoice';
   case WebhookSet = 'setWebhook';
   case WebhookGet = 'getWebhookInfo';
   case WebhookDel = 'deleteWebhook';
