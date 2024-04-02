@@ -6,7 +6,7 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
  * @link https://core.telegram.org/bots/api#user
- * @version 2024.03.31.01
+ * @version 2024.03.31.02
  */
 final readonly class TgUser{
   /**
@@ -81,7 +81,7 @@ final readonly class TgUser{
   /**
    * For private chats, the date of birth of the user. Returned only in getChat.
    */
-  public string $Birthdate;
+  public string|null $Birthdate;
 
   /**
    * @link https://core.telegram.org/bots/api#user
