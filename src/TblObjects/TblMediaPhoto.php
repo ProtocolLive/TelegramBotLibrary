@@ -8,7 +8,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\TgLimits;
 
 /**
  * @link https://core.telegram.org/bots/api#inputmediaphoto
- * @version 2024.02.09.00
+ * @version 2024.04.02.00
  */
 final class TblMediaPhoto
 extends TblMedia{
@@ -27,7 +27,7 @@ extends TblMedia{
     ];
     if($this->Caption !== null):
       if(mb_strlen(strip_tags($this->Caption)) > TgLimits::Caption):
-        throw new TblException(TblError::LimitPhotoCaption);
+        throw new TblException(TblError::LimitCaption, 'Caption bigger than ' . TgLimits::Caption);
       endif;
       $param['caption'] = $this->Caption;
     endif;

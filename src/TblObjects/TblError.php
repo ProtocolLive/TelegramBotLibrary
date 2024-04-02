@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 
 /**
- * @version 2023.12.29.01
+ * @version 2024.04.02.00
  */
 enum TblError{
   case Curl;
@@ -28,6 +28,7 @@ enum TblError{
   /**
    * @link https://core.telegram.org/bots/api#botcommand
    */
+  case LimitCaption;
   case LimitCmdDescription;
   /**
    * @link https://core.telegram.org/bots/api#botcommand
@@ -45,7 +46,6 @@ enum TblError{
    * @link https://core.telegram.org/bots/api#setmyname
    */
   case LimitName;
-  case LimitPhotoCaption;
   /**
    * @link https://core.telegram.org/bots/api#sendmessage
    */
