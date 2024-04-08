@@ -3,34 +3,41 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgParams;
-use ProtocolLive\TelegramBotLibrary\TblObjects\TblError;
+use ProtocolLive\TelegramBotLibrary\TblObjects\{
+  TblError,
+  TblException
+};
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgInvoiceCurrencies;
 
 /**
- * @version 2024.01.05.00
+ * @version 2024.04.08.00
  */
 final class TgInvoicePrices{
   private array $Prices = [];
-  public TblError|null $Error = null;
 
+  /**
+   * @throws TblException
+   */
   public function __construct(
     string $Name = null,
     int $Price = null,
     bool $IgnoreLimit = false,
-    TgInvoiceCurrencies $Currency = TgInvoiceCurrencies::USD
+    private TgInvoiceCurrencies $Currency = TgInvoiceCurrencies::USD
   ){
     if($Name === null):
       return;
     endif;
-    $this->Add($Name, $Price, $IgnoreLimit, $Currency);
+    $this->Add($Name, $Price, $IgnoreLimit);
   }
 
+  /**
+   * @throws TblException
+   */
   public function Add(
     string $Name,
     int $Price,
-    bool $IgnoreLimit = false,
-    TgInvoiceCurrencies $Currency = TgInvoiceCurrencies::USD
-  ):bool{
+    bool $IgnoreLimit = false
+    ):bool{
     if($IgnoreLimit === false):
       if(isset($_SESSION['Currencies']) === false):
         $_SESSION['Currencies'] = file_get_contents('https://core.telegram.org/bots/payments/currencies.json');
@@ -40,13 +47,11 @@ final class TgInvoicePrices{
       endif;
       if(isset($_SESSION['Currencies'])):
         if($Price > 0):
-          if($Price <= $_SESSION['Currencies'][$Currency->value]['min_amount']):
-            $this->Error = TblError::InvoicePriceLow;
-            return false;
+          if($Price <= $_SESSION['Currencies'][$this->Currency->value]['min_amount']):
+            throw new TblException(TblError::InvoicePriceLow, 'Price must be bigger than ' . $_SESSION['Currencies'][$this->Currency->value]['min_amount']);
           endif;
-          if($Price > $_SESSION['Currencies'][$Currency->value]['max_amount']):
-            $this->Error = TblError::InvoicePriceHigh;
-            return false;
+          if($Price > $_SESSION['Currencies'][$this->Currency->value]['max_amount']):
+            throw new TblException(TblError::InvoicePriceHigh, 'Price must be smaller than ' . $_SESSION['Currencies'][$this->Currency->value]['max_amount']);
           endif;
         endif;
       endif;
