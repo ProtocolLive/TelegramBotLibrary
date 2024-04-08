@@ -6,7 +6,7 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
  * @link https://core.telegram.org/bots/api#user
- * @version 2024.03.31.00
+ * @version 2024.04.08.00
  */
 final readonly class TgBot{
   /**
@@ -44,9 +44,9 @@ final readonly class TgBot{
     $this->Id = $Data['id'];
     $this->Name = $Data['first_name'];
     $this->Nick = $Data['username'];
-    $this->Groups = $Data['can_join_groups'];
-    $this->Read = $Data['can_read_all_group_messages'];
-    $this->InlineQuery = $Data['supports_inline_queries'];
+    $this->Groups = $Data['can_join_groups'] ?? false;
+    $this->Read = $Data['can_read_all_group_messages'] ?? false;
+    $this->InlineQuery = $Data['supports_inline_queries'] ?? false;
     $this->Business = $Data['can_connect_to_business'] ?? false;
   }
 }

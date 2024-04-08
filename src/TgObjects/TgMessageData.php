@@ -33,7 +33,7 @@ final readonly class TgMessageData{
   /**
    * For messages forwarded from channels or from anonymous administrators, information about the original sender chat
    */
-  public TgUser|TgChat|string|null $ForwardFrom;
+  public TgUser|TgChat|TgBot|string|null $ForwardFrom;
   /**
    * For messages forwarded from channels, identifier of the original message in the channel
    */
@@ -132,10 +132,16 @@ final readonly class TgMessageData{
     endif;
 
     if(isset($Data['forward_origin'])):
-      if($Data['forward_origin']['type'] === 'user'):
+      if($Data['forward_origin']['type'] === 'user'
+      and $Data['forward_origin']['sender_user']['is_bot']):
+        $this->ForwardFrom = new TgBot($Data['forward_origin']['sender_user']);
+      elseif($Data['forward_origin']['type'] === 'user'):
         $this->ForwardFrom = new TgUser($Data['forward_origin']['sender_user']);
-      elseif($Data['forward_origin']['type'] === TgChatType::Channel->value):
+      elseif($Data['forward_origin']['type'] === TgChatType::Channel->value
+      or $Data['forward_origin']['type'] === 'chat'):
         $this->ForwardFrom = new TgChat($Data['forward_origin']['chat']);
+      elseif($Data['forward_origin']['type'] === 'hidden_user'):
+        $this->ForwardFrom = $Data['forward_origin']['sender_user_name'];
       endif;
     else:
       $this->ForwardFrom = null;
