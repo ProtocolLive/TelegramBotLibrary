@@ -9,7 +9,7 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\TgChatType;
 
 /**
  * @link https://core.telegram.org/bots/api#message
- * @version 2024.04.09.01
+ * @version 2024.04.09.02
  */
 final readonly class TgMessageData{
   /**
@@ -79,15 +79,12 @@ final readonly class TgMessageData{
    */
   public bool $Offline;
 
-  //The bot 777000 is used to auto forward messages from channels to groups
-  //The bot 1087968824 is used when admin post as the group and for migrate events
-  //The bot 136817688 is used when admin post as channel
   public function __construct(
     array $Data
   ){
-    //$Data['id'] form Callback
-    $this->Id = $Data['id'] ?? $Data['message_id'] ?? null;
-
+    //The bot 777000 is used to auto forward messages from channels to groups
+    //The bot 1087968824 is used when admin post as the group and for migrate events
+    //The bot 136817688 is used when admin post as channel
     if(isset($Data['from'])
     and $Data['from']['id'] !== 777000
     and $Data['from']['id'] !== 1087968824
@@ -113,19 +110,6 @@ final readonly class TgMessageData{
     else:
       $this->Chat = new TgChat($Data['chat']);
     endif;
-
-    if(isset($Data['forward_origin'])):
-      $this->Forward = new TgForward($Data); //no index because 'is_automatic_forward'
-    else:
-      $this->Forward = null;
-    endif;
-
-    $this->Date = $Data['date'] ?? null; //callback
-    $this->Protected = $Data['has_protected_content'] ?? false;
-    $this->Topic = $Data['is_topic_message'] ?? false;
-    $this->Spoiler = $Data['has_media_spoiler'] ?? false;
-    $this->Thread = $Data['message_thread_id'] ?? null;
-    $this->Signature = $Data['author_signature'] ?? null;
 
     if(isset($Data['reply_to_message']['text'])):
       $this->Reply = new TgText($Data['reply_to_message']);
@@ -153,6 +137,11 @@ final readonly class TgMessageData{
       $this->Markup = $temp;
     endif;
 
+    if(isset($Data['forward_origin'])):
+      $this->Forward = new TgForward($Data); //no index because 'is_automatic_forward'
+    else:
+      $this->Forward = null;
+    endif;
     if(isset($Data['via_bot'])):
       $this->Via = new TgBot($Data['via_bot']);
     else:
@@ -163,6 +152,14 @@ final readonly class TgMessageData{
     else:
       $this->Quote = null;
     endif;
+
+    $this->Id = $Data['id'] ?? $Data['message_id'] ?? null;//$Data['id'] form Callback
+    $this->Date = $Data['date'] ?? null; //callback
+    $this->Protected = $Data['has_protected_content'] ?? false;
+    $this->Topic = $Data['is_topic_message'] ?? false;
+    $this->Spoiler = $Data['has_media_spoiler'] ?? false;
+    $this->Thread = $Data['message_thread_id'] ?? null;
+    $this->Signature = $Data['author_signature'] ?? null;
     $this->Boost = $Data['sender_boost_count'] ?? 0;
     $this->BusinessConnection = $Data['business_connection_id'] ?? null;
     $this->Offline = $Data['is_from_offline'] ?? false;
