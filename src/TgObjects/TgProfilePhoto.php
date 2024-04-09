@@ -3,10 +3,11 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
+use ProtocolLive\TelegramBotLibrary\TgAuxiliary\TgPhotoSize;
 
 /**
  * @link https://core.telegram.org/bots/api#userprofilephotos
- * @version 2024.01.04.01
+ * @version 2024.04.09.00
  */
 final readonly class TgProfilePhoto{
   public int $Count;

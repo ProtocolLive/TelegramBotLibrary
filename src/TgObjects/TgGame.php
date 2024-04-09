@@ -3,6 +3,7 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
+use ProtocolLive\TelegramBotLibrary\TgAuxiliary\TgPhotoSize;
 use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
   TgEventInterface,
   TgForwadableInterface
@@ -11,7 +12,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 /**
  * Message is a game, information about the game.
  * @link https://core.telegram.org/bots/api#game
- * @version 2024.01.03.00
+ * @version 2024.04.09.00
  */
 readonly class TgGame
 implements TgEventInterface, TgForwadableInterface{

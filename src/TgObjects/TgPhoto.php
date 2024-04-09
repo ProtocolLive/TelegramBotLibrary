@@ -3,6 +3,7 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
+use ProtocolLive\TelegramBotLibrary\TgAuxiliary\TgPhotoSize;
 use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
   TgCaptionableInterface,
   TgEventInterface,
@@ -12,7 +13,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 /**
  * Message is a photo, available sizes of the photo
  * @link https://core.telegram.org/bots/api#message
- * @version 2024.02.08.01
+ * @version 2024.04.09.00
  */
 readonly class TgPhoto
 implements TgCaptionableInterface,

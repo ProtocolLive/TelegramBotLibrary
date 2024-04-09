@@ -3,19 +3,17 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgService;
+use ProtocolLive\TelegramBotLibrary\TgAuxiliary\TgPhotoSize;
 use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
   TgEventInterface,
   TgServiceInterface
 };
-use ProtocolLive\TelegramBotLibrary\TgObjects\{
-  TgMessageData,
-  TgPhotoSize
-};
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgMessageData;
 
 /**
  * This object represents a chat photo.
  * @link https://core.telegram.org/bots/api#chatphoto
- * @version 2024.01.04.00
+ * @version 2024.04.09.00
  */
 final readonly class TgChatPhotoNew
 implements TgEventInterface, TgServiceInterface{

@@ -2,12 +2,12 @@
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
-namespace ProtocolLive\TelegramBotLibrary\TgObjects;
+namespace ProtocolLive\TelegramBotLibrary\TgAuxiliary;
 
 /**
  * This object represents one size of a photo or a file / sticker thumbnail.
  * @link https://core.telegram.org/bots/api#photosize
- * @version 2024.01.04.01
+ * @version 2024.04.09.00
  */
 final readonly class TgPhotoSize{
   public string $Id;
