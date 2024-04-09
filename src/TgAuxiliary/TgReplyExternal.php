@@ -8,6 +8,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgAudio,
   TgChat,
   TgDocument,
+  TgPhoto,
   TgUser,
   TgVideo
 };
@@ -20,14 +21,14 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
  * @param string|null $Signature In case of sender is a channel
  * @link https://core.telegram.org/bots/api#externalreplyinfo
  * @link https://core.telegram.org/bots/api#messageorigin
- * @version 2024.04.09.00
+ * @version 2024.04.09.01
  */
 final readonly class TgReplyExternal{
   public TgUser|TgChat|string $User;
   public TgChat|null $Chat;
   public int|null $Message;
   public int $Date;
-  public array|TgAudio|TgDocument|TgVideo|null $Object;
+  public TgPhoto|TgAudio|TgDocument|TgVideo|null $Object;
   public string|null $Signature;
 
   public function __construct(
@@ -49,11 +50,7 @@ final readonly class TgReplyExternal{
     $this->Signature = $Data['origin']['author_signature'] ?? null;
 
     if(isset($Data['photo'])):
-      $temp = [];
-      foreach($Data['photo'] as $photo):
-        $temp[] = new TgPhotoSize($photo);
-      endforeach;
-      $this->Object = $temp;
+      $this->Object = new TgPhoto($Data);
     elseif(isset($Data['audio'])):
       $this->Object = new TgAudio($Data['audio']);
     elseif(isset($Data['document'])):
