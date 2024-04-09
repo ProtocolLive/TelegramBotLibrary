@@ -3,12 +3,13 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
+use ProtocolLive\TelegramBotLibrary\TgAuxiliary\TgForward;
 use ProtocolLive\TelegramBotLibrary\TgAuxiliary\TgReplyExternal;
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgChatType;
 
 /**
  * @link https://core.telegram.org/bots/api#message
- * @version 2024.04.09.00
+ * @version 2024.04.09.01
  */
 final readonly class TgMessageData{
   /**
@@ -31,26 +32,7 @@ final readonly class TgMessageData{
    * If the message can't be forwarded
    */
   public bool $Protected;
-  /**
-   * For messages forwarded from channels or from anonymous administrators, information about the original sender chat
-   */
-  public TgUser|TgChat|TgBot|string|null $ForwardFrom;
-  /**
-   * For messages forwarded from channels, identifier of the original message in the channel
-   */
-  public int|null $ForwardId;
-  /**
-   * If the message is a channel post that was automatically forwarded to the connected discussion group
-   */
-  public bool $ForwardAuto;
-  /**
-   * For forwarded messages, date the original message was sent in Unix time
-   */
-  public int|null $ForwardDate;
-  /**
-   * For messages originally sent by an anonymous chat administrator, original message author signature
-   */
-  public string|null $ForwardSignature;
+  public TgForward|null $Forward;
   /**
    * For replies, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
    * Information about the message that is being replied to, which may come from another chat or forum topic
@@ -133,24 +115,10 @@ final readonly class TgMessageData{
     endif;
 
     if(isset($Data['forward_origin'])):
-      if($Data['forward_origin']['type'] === 'user'
-      and $Data['forward_origin']['sender_user']['is_bot']):
-        $this->ForwardFrom = new TgBot($Data['forward_origin']['sender_user']);
-      elseif($Data['forward_origin']['type'] === 'user'):
-        $this->ForwardFrom = new TgUser($Data['forward_origin']['sender_user']);
-      elseif($Data['forward_origin']['type'] === TgChatType::Channel->value
-      or $Data['forward_origin']['type'] === 'chat'):
-        $this->ForwardFrom = new TgChat($Data['forward_origin']['chat']);
-      elseif($Data['forward_origin']['type'] === 'hidden_user'):
-        $this->ForwardFrom = $Data['forward_origin']['sender_user_name'];
-      endif;
+      $this->Forward = new TgForward($Data); //no index because 'is_automatic_forward'
     else:
-      $this->ForwardFrom = null;
+      $this->Forward = null;
     endif;
-    $this->ForwardId = $Data['forward_origin']['message_id'] ?? null;
-    $this->ForwardDate = $Data['forward_origin']['date'] ?? null;
-    $this->ForwardSignature = $Data['forward_origin']['author_signature'] ?? null;
-    $this->ForwardAuto = $Data['is_automatic_forward'] ?? false;
 
     $this->Date = $Data['date'] ?? null; //callback
     $this->Protected = $Data['has_protected_content'] ?? false;
