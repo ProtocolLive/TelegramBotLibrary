@@ -11,7 +11,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 };
 
 /**
- * @version 2024.04.09.00
+ * @version 2024.04.09.01
  */
 final readonly class TgForward{
   /**
@@ -43,9 +43,10 @@ final readonly class TgForward{
       $this->From = new TgBot($Data['forward_origin']['sender_user']);
     elseif($Data['forward_origin']['type'] === 'user'):
       $this->From = new TgUser($Data['forward_origin']['sender_user']);
-    elseif($Data['forward_origin']['type'] === TgChatType::Channel->value
-    or $Data['forward_origin']['type'] === 'chat'):
+    elseif($Data['forward_origin']['type'] === TgChatType::Channel->value):
       $this->From = new TgChat($Data['forward_origin']['chat']);
+    elseif($Data['forward_origin']['type'] === 'chat'):
+      $this->From = new TgChat($Data['forward_origin']['sender_chat']);
     elseif($Data['forward_origin']['type'] === 'hidden_user'):
       $this->From = $Data['forward_origin']['sender_user_name'];
     endif;
