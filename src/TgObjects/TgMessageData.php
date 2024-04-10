@@ -11,7 +11,7 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\TgChatType;
 
 /**
  * @link https://core.telegram.org/bots/api#message
- * @version 2024.04.09.03
+ * @version 2024.04.10.00
  */
 final readonly class TgMessageData{
   /**
@@ -39,7 +39,7 @@ final readonly class TgMessageData{
    * For replies, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
    * Information about the message that is being replied to, which may come from another chat or forum topic
    */
-  public TgText|TgPhoto|TgAudio|TgDocument|TgVideo|TgVoice|TgSticker|TgVenue|TgLocation|TgVideoNote|TgPoll|TgReplyExternal|null $Reply;
+  public TgText|TgPhoto|TgAudio|TgDocument|TgVideo|TgVoice|TgSticker|TgVenue|TgLocation|TgVideoNote|TgPoll|TgReplyExternal|TgContact|null $Reply;
   /**
    * For replies that quote part of the original message, the quoted part of the message
    */
@@ -137,6 +137,8 @@ final readonly class TgMessageData{
       $this->Reply = new TgVideoNote($Data['reply_to_message']['video_note']);
     elseif(isset($Data['reply_to_message']['poll'])):
       $this->Reply = new TgPoll($Data['reply_to_message']['poll']);
+    elseif(isset($Data['reply_to_message']['contact'])):
+      $this->Reply = new TgContact($Data['reply_to_message']['contact']);
     else:
       $this->Reply = null;
     endif;
