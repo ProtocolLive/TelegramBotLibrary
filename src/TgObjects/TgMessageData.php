@@ -3,13 +3,15 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
-use ProtocolLive\TelegramBotLibrary\TgAuxiliary\TgForward;
-use ProtocolLive\TelegramBotLibrary\TgAuxiliary\TgReplyExternal;
+use ProtocolLive\TelegramBotLibrary\TgAuxiliary\{
+  TgForward,
+  TgReplyExternal
+};
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgChatType;
 
 /**
  * @link https://core.telegram.org/bots/api#message
- * @version 2024.04.09.02
+ * @version 2024.04.09.03
  */
 final readonly class TgMessageData{
   /**
@@ -37,7 +39,7 @@ final readonly class TgMessageData{
    * For replies, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
    * Information about the message that is being replied to, which may come from another chat or forum topic
    */
-  public TgText|TgPhoto|TgDocument|TgReplyExternal|null $Reply;
+  public TgText|TgPhoto|TgAudio|TgDocument|TgVideo|TgVoice|TgSticker|TgVenue|TgLocation|TgVideoNote|TgPoll|TgReplyExternal|null $Reply;
   /**
    * For replies that quote part of the original message, the quoted part of the message
    */
@@ -111,14 +113,30 @@ final readonly class TgMessageData{
       $this->Chat = new TgChat($Data['chat']);
     endif;
 
-    if(isset($Data['reply_to_message']['text'])):
+    if(isset($Data['external_reply'])):
+      $this->Reply = new TgReplyExternal($Data['external_reply']);
+    elseif(isset($Data['reply_to_message']['text'])):
       $this->Reply = new TgText($Data['reply_to_message']);
     elseif(isset($Data['reply_to_message']['photo'])):
-      $this->Reply = new TgPhoto($Data['reply_to_message']);
+      $this->Reply = new TgPhoto($Data['reply_to_message']['photo']);
+    elseif(isset($Data['reply_to_message']['audio'])):
+      $this->Reply = new TgAudio($Data['reply_to_message']['audio']);
     elseif(isset($Data['reply_to_message']['document'])):
-      $this->Reply = new TgDocument($Data['reply_to_message']);
-    elseif(isset($Data['external_reply'])):
-      $this->Reply = new TgReplyExternal($Data['external_reply']);
+      $this->Reply = new TgDocument($Data['reply_to_message']['document']);
+    elseif(isset($Data['reply_to_message']['video'])):
+      $this->Reply = new TgVideo($Data['reply_to_message']['video']);
+    elseif(isset($Data['reply_to_message']['voice'])):
+      $this->Reply = new TgVoice($Data['reply_to_message']['voice']);
+    elseif(isset($Data['reply_to_message']['sticker'])):
+      $this->Reply = new TgSticker($Data['reply_to_message']['sticker']);
+    elseif(isset($Data['reply_to_message']['venue'])):
+      $this->Reply = new TgVenue($Data['reply_to_message']['venue']);
+    elseif(isset($Data['reply_to_message']['location'])):
+      $this->Reply = new TgLocation($Data['reply_to_message']['location']);
+    elseif(isset($Data['reply_to_message']['video_note'])):
+      $this->Reply = new TgVideoNote($Data['reply_to_message']['video_note']);
+    elseif(isset($Data['reply_to_message']['poll'])):
+      $this->Reply = new TgPoll($Data['reply_to_message']['poll']);
     else:
       $this->Reply = null;
     endif;
