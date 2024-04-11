@@ -3,14 +3,17 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
-use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgEventInterface;
+use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
+  TgEventInterface,
+  TgForwadableInterface
+};
 
 /**
  * @link https://core.telegram.org/bots/api#contact
- * @version 2024.01.04.00
+ * @version 2024.04.11.00
  */
 final readonly class TgContact
-implements TgEventInterface{
+implements TgEventInterface, TgForwadableInterface{
   public TgMessageData $Data;
   /**
    * Contact's phone number
