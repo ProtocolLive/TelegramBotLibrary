@@ -3,12 +3,13 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
+use ProtocolLive\TelegramBotLibrary\TgAuxiliary\TgMessageData;
 use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgEventInterface;
 
 /**
  * This object contains information about the user whose identifier was shared with the bot using a KeyboardButtonRequestUser button.
  * @link https://core.telegram.org/bots/api#usershared
- * @version 2024.01.04.01
+ * @version 2024.04.11.00
  */
 final readonly class TgUsersShared
 implements TgEventInterface{

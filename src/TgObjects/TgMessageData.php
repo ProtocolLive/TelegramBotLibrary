@@ -2,16 +2,33 @@
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
-namespace ProtocolLive\TelegramBotLibrary\TgObjects;
-use ProtocolLive\TelegramBotLibrary\TgAuxiliary\{
-  TgForward,
-  TgReplyExternal
-};
+namespace ProtocolLive\TelegramBotLibrary\TgAuxiliary;
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgChatType;
+use ProtocolLive\TelegramBotLibrary\TgObjects\{
+  TgAudio,
+  TgBot,
+  TgButtonCallback,
+  TgButtonWebapp,
+  TgChat,
+  TgContact,
+  TgDice,
+  TgDocument,
+  TgLocation,
+  TgPhoto,
+  TgPoll,
+  TgQuote,
+  TgSticker,
+  TgText,
+  TgUser,
+  TgVenue,
+  TgVideo,
+  TgVideoNote,
+  TgVoice
+};
 
 /**
  * @link https://core.telegram.org/bots/api#message
- * @version 2024.04.11.00
+ * @version 2024.04.11.01
  */
 final readonly class TgMessageData{
   /**

@@ -3,10 +3,11 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
+use ProtocolLive\TelegramBotLibrary\TgAuxiliary\TgMessageData;
 use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgEventInterface;
 
 /**
- * @version 2024.03.31.01
+ * @version 2024.04.11.00
  * @link https://core.telegram.org/bots/api#businessmessagesdeleted
  */
 final readonly class TgMessageDeleted

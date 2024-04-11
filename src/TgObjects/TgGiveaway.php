@@ -3,6 +3,7 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
+use ProtocolLive\TelegramBotLibrary\TgAuxiliary\TgMessageData;
 use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
   TgEventInterface,
   TgForwadableInterface
@@ -10,7 +11,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 
 /**
  * @link https://core.telegram.org/bots/api#giveaway
- * @version 2024.01.04.01
+ * @version 2024.04.11.00
  */
 final readonly class TgGiveaway
 implements TgEventInterface, TgForwadableInterface{

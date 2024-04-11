@@ -3,6 +3,7 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
+use ProtocolLive\TelegramBotLibrary\TgAuxiliary\TgMessageData;
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgChatType;
 use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
   TgEventInterface,
@@ -11,7 +12,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 
 /**
  * @link https://core.telegram.org/bots/api#story
- * @version 2024.02.16.00
+ * @version 2024.04.11.00
  */
 final readonly class TgStory
 implements TgEventInterface, TgForwadableInterface{

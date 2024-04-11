@@ -4,12 +4,13 @@
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 use Exception;
+use ProtocolLive\TelegramBotLibrary\TgAuxiliary\TgMessageData;
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgPassportDataType;
 use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgEventInterface;
 
 /**
  * @link https://core.telegram.org/passport
- * @version 2024.01.26.00
+ * @version 2024.04.11.00
  */
 final class TgPassport
 implements TgEventInterface{

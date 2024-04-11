@@ -3,12 +3,13 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
+use ProtocolLive\TelegramBotLibrary\TgAuxiliary\TgMessageData;
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgBoostSource;
 use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgEventInterface;
 
 /**
  * @link https://core.telegram.org/bots/api#chatboostupdated
- * @version 2024.02.22.00
+ * @version 2024.04.11.00
  */
 final readonly class TgChatBoostRemoved
 implements TgEventInterface{

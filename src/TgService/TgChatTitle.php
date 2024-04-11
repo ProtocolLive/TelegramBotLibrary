@@ -3,16 +3,16 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgService;
+use ProtocolLive\TelegramBotLibrary\TgAuxiliary\TgMessageData;
 use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
   TgEventInterface,
   TgServiceInterface
 };
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgMessageData;
 
 /**
  * A chat title was changed to this value
  * @link https://core.telegram.org/bots/api#message
- * @version 2024.01.04.00
+ * @version 2024.04.11.00
  */
 final readonly class TgChatTitle
 implements TgServiceInterface, TgEventInterface{

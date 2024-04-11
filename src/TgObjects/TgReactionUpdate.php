@@ -3,6 +3,7 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
+use ProtocolLive\TelegramBotLibrary\TgAuxiliary\TgMessageData;
 use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgEventInterface;
 
 /**
@@ -10,7 +11,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgEventInterface;
  * @param TgReaction|TgReaction[]|null $New
  * @link https://core.telegram.org/bots/api#messagereactionupdated
  * @link https://core.telegram.org/bots/api#messagereactioncountupdated
- * @version 2024.02.09.00
+ * @version 2024.04.11.00
  */
 final readonly class TgReactionUpdate
 implements TgEventInterface{

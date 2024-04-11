@@ -3,17 +3,17 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgService;
+use ProtocolLive\TelegramBotLibrary\TgAuxiliary\TgMessageData;
 use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
   TgEventInterface,
   TgServiceInterface
 };
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgMessageData;
 
 /**
  * Service message: auto-delete timer settings changed in the chat. New auto-delete time for messages in the chat; in seconds
  * @link https://core.telegram.org/bots/api#message
  * @link https://core.telegram.org/bots/api#messageautodeletetimerchanged
- * @version 2024.01.04.00
+ * @version 2024.04.11.00
  */
 final readonly class TgChatAutoDel
 implements TgServiceInterface, TgEventInterface{

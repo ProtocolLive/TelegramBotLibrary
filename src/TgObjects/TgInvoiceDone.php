@@ -3,6 +3,7 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
+use ProtocolLive\TelegramBotLibrary\TgAuxiliary\TgMessageData;
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgInvoiceCurrencies;
 use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
   TgEventInterface,
@@ -12,7 +13,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 /**
  * This object contains basic information about a successful payment.
  * @link https://core.telegram.org/bots/api#successfulpayment
- * @version 2024.03.15.01
+ * @version 2024.04.11.00
  */
 final readonly class TgInvoiceDone
 implements TgEventInterface,

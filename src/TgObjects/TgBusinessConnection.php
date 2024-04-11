@@ -3,11 +3,11 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
+use ProtocolLive\TelegramBotLibrary\TgAuxiliary\TgMessageData;
 use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgEventInterface;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgUser;
 
 /**
- * @version 2024.03.31.00
+ * @version 2024.04.11.00
  * @link https://core.telegram.org/bots/api#businessconnection
  */
 final readonly class TgBusinessConnection

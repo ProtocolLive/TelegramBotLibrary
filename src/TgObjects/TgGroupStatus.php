@@ -3,6 +3,7 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
+use ProtocolLive\TelegramBotLibrary\TgAuxiliary\TgMessageData;
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgMemberStatus;
 use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgEventInterface;
 
@@ -10,7 +11,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgEventInterface;
  * A chat member's status was updated in a chat. The bot must be an administrator in the chat and must explicitly specify “chat_member” in the list of allowed_updates to receive these updates.
  * @link https://core.telegram.org/bots/api#update
  * @link https://core.telegram.org/bots/api#chatmemberupdated
- * @version 2024.03.08.00
+ * @version 2024.04.11.00
  */
 final readonly class TgGroupStatus
 implements TgEventInterface{

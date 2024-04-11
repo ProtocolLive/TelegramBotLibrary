@@ -3,7 +3,10 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
-use ProtocolLive\TelegramBotLibrary\TgAuxiliary\TgPhotoSize;
+use ProtocolLive\TelegramBotLibrary\TgAuxiliary\{
+  TgMessageData,
+  TgPhotoSize
+};
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgStickerType;
 use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
   TgEventInterface,
@@ -13,7 +16,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 /**
  * This object represents a sticker.
  * @link https://core.telegram.org/bots/api#sticker
- * @version 2024.04.09.00
+ * @version 2024.04.11.00
  */
 readonly class TgSticker
 implements TgEventInterface, TgForwadableInterface{

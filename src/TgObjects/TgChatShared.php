@@ -3,12 +3,13 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
+use ProtocolLive\TelegramBotLibrary\TgAuxiliary\TgMessageData;
 use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgEventInterface;
 
 /**
  * This object contains information about the chat whose identifier was shared with the bot using a KeyboardButtonRequestChat button.
  * @link https://core.telegram.org/bots/api#chatshared
- * @version 2024.01.04.00
+ * @version 2024.04.11.00
  */
 final readonly class TgChatShared
 implements TgEventInterface{

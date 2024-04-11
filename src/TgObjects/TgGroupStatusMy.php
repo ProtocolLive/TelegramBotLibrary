@@ -3,13 +3,14 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
+use ProtocolLive\TelegramBotLibrary\TgAuxiliary\TgMessageData;
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgMemberStatus;
 use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgEventInterface;
 
 /**
  * The bot's chat member status was updated in a chat. For private chats, this update is received only when the bot is blocked or unblocked by the user.
  * @link https://core.telegram.org/bots/api#chatmemberupdated
- * @version 2024.02.16.00
+ * @version 2024.04.11.00
  */
 final readonly class TgGroupStatusMy
 implements TgEventInterface{

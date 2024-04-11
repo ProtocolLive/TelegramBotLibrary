@@ -3,6 +3,7 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
+use ProtocolLive\TelegramBotLibrary\TgAuxiliary\TgMessageData;
 use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
   TgEventInterface,
   TgForwadableInterface
@@ -11,7 +12,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 /**
  * This object represents a message about the completion of a giveaway with public winners.
  * @link https://core.telegram.org/bots/api#giveawaywinners
- * @version 2024.01.03.00
+ * @version 2024.04.11.00
  */
 final readonly class TgGiveawayWinners
 implements TgEventInterface, TgForwadableInterface{

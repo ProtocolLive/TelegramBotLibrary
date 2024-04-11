@@ -4,10 +4,11 @@
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 use ProtocolLive\TelegramBotLibrary\TblObjects\TblBasics;
+use ProtocolLive\TelegramBotLibrary\TgAuxiliary\TgMessageData;
 
 /**
  * @link https://core.telegram.org/bots/api#callbackquery
- * @version 2024.02.11.00
+ * @version 2024.04.11.00
  */
 final readonly class TgCallback{
   public TgMessageData $Data;

@@ -3,19 +3,17 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgService;
+use ProtocolLive\TelegramBotLibrary\TgAuxiliary\TgMessageData;
 use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
   TgEventInterface,
   TgServiceInterface
 };
-use ProtocolLive\TelegramBotLibrary\TgObjects\{
-  TgGiveaway,
-  TgMessageData
-};
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgGiveaway;
 
 /**
  * This object represents a service message about the completion of a giveaway without public winners.
  * @link https://core.telegram.org/bots/api#giveawaycompleted
- * @version 2024.01.03.00
+ * @version 2024.04.11.00
  */
 final readonly class TgGiveawayCompleted
 implements TgEventInterface, TgServiceInterface{

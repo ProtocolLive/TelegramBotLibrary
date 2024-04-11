@@ -3,6 +3,7 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
+use ProtocolLive\TelegramBotLibrary\TgAuxiliary\TgMessageData;
 use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
   TgEventInterface,
   TgForwadableInterface
@@ -11,7 +12,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 /**
  * This object represents a venue.
  * @link https://core.telegram.org/bots/api#venue
- * @version 2024.01.04.00
+ * @version 2024.04.11.00
  */
 final readonly class TgVenue
 implements TgEventInterface, TgForwadableInterface{
