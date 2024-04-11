@@ -16,6 +16,7 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\{
   TgParseMode
 };
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
+  TgDice,
   TgMessageData,
   TgText
 };
@@ -25,9 +26,58 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2024.03.31.00
+ * @version 2024.04.11.00
  */
 trait TblTextTrait{
+  /**
+   * Use this method to send an animated emoji that will display a random value.
+   * @param int|string $Chat Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * @param string $Emoji Emoji on which the dice throw animation is based. Currently, must be one of “🎲”, “🎯”, “🏀”, “⚽”, “🎳”, or “🎰”. Dice can have values 1-6 for “🎲”, “🎯” and “🎳”, values 1-5 for “🏀” and “⚽”, and values 1-64 for “🎰”. Defaults to “🎲”
+   * @param int $Thread Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   * @param string $BusinessId Unique identifier of the business connection on behalf of which the message will be sent
+   * @param bool $DisableNotification Sends the message silently. Users will receive a notification with no sound.
+   * @param bool $Protect Protects the contents of the sent message from forwarding and saving
+   * @param TgReplyParams $Reply If the message is a reply, ID of the original message
+   * @param TblMarkup $Markup Additional interface options. A object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
+   * @return TgText On success, the sent Message is returned.
+   * @link https://core.telegram.org/bots/api#senddice
+   */
+  public function DiceSend(
+    int|string $Chat = null,
+    string $Emoji = null,
+    int $Thread = null,
+    string $BusinessId = null,
+    bool $DisableNotification = false,
+    bool $Protect = false,
+    TgReplyParams $Reply = null,
+    TblMarkup $Markup = null
+  ):TgDice{
+    if($BusinessId !== null):
+      $param['business_connection_id'] = $BusinessId;
+    else:
+      $param['chat_id'] = $Chat;
+      if($Thread !== null):
+        $param['message_thread_id'] = $Thread;
+      endif;
+    endif;
+    if($Emoji !== null):
+      $param['emoji'] = $Emoji;
+    endif;
+    if($DisableNotification):
+      $param['disable_notification'] = true;
+    endif;
+    if($Protect):
+      $param['protect_content'] = true;
+    endif;
+    if($Reply !== null):
+      $param['reply_parameters'] = $Reply->ToArray();
+    endif;
+    if($Markup !== null):
+      $param['reply_markup'] = $Markup->ToArray();
+    endif;
+    return new TgDice($this->ServerMethod(TgMethods::DiceSend, $param));
+  }
+
   /**
    * Use this method to edit text and game messages.
    * @param int|string|null $Chat Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)

@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TgEnums;
 
 /**
- * @version 2024.04.02.00
+ * @version 2024.04.11.00
  */
 enum TgMethods:string{
   case AnimationSend = 'sendAnimation';
@@ -42,6 +42,10 @@ enum TgMethods:string{
   case DescriptionSet = 'setMyDescription';
   case DescriptionShortGet = 'getMyShortDescription';
   case DescriptionShortSet = 'setMyShortDescription';
+  /**
+   * @link https://core.telegram.org/bots/api#senddice
+   */
+  case DiceSend = 'sendDice';
   case DocumentSend = 'sendDocument';
   case FileGet = 'getFile';
   case ForumClose = 'closeForumTopic';

@@ -8,6 +8,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgAudio,
   TgChat,
   TgContact,
+  TgDice,
   TgDocument,
   TgLocation,
   TgPhoto,
@@ -28,14 +29,14 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
  * @param string|null $Signature In case of sender is a channel
  * @link https://core.telegram.org/bots/api#externalreplyinfo
  * @link https://core.telegram.org/bots/api#messageorigin
- * @version 2024.04.10.00
+ * @version 2024.04.11.00
  */
 final readonly class TgReplyExternal{
   public TgUser|TgChat|string $User;
   public TgChat|null $Chat;
   public int|null $Message;
   public int $Date;
-  public TgPhoto|TgAudio|TgDocument|TgVideo|TgVoice|TgSticker|TgVenue|TgLocation|TgVideoNote|TgPoll|TgContact|null $Object;
+  public TgPhoto|TgAudio|TgDocument|TgVideo|TgVoice|TgSticker|TgVenue|TgLocation|TgVideoNote|TgPoll|TgContact|TgDice|null $Object;
   public string|null $Signature;
 
   public function __construct(
@@ -78,6 +79,8 @@ final readonly class TgReplyExternal{
       $this->Object = new TgPoll($Data['poll']);
     elseif(isset($Data['contact'])):
       $this->Object = new TgContact($Data['contact']);
+    elseif(isset($Data['dice'])):
+      $this->Object = new TgDice($Data['dice']);
     else:
       $this->Object = null;
     endif;
