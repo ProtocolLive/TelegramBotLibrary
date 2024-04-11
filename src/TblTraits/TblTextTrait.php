@@ -17,7 +17,6 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\{
 };
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgDice,
-  TgMessageData,
   TgText
 };
 use ProtocolLive\TelegramBotLibrary\TgParams\{
@@ -26,7 +25,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2024.04.11.00
+ * @version 2024.04.11.01
  */
 trait TblTextTrait{
   /**
@@ -88,7 +87,7 @@ trait TblTextTrait{
    * @param TblEntities $Entities A list of special entities that appear in message text, which can be specified instead of parse_mode
    * @param TgLinkPreview $LinkPreview Link preview generation options for the message
    * @param TblMarkup $Markup A object for an inline keyboard.
-   * @return TgMessageData|bool On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned.
+   * @return TgText|true On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#editmessagetext
    */
@@ -101,7 +100,7 @@ trait TblTextTrait{
     TblEntities $Entities = null,
     TgLinkPreview $LinkPreview = null,
     TblMarkup $Markup = null
-  ):TgText|bool{
+  ):TgText|true{
     $return = $this->ServerMethod(
       TgMethods::TextEdit,
       TblTextEditMulti::BuildArgs(

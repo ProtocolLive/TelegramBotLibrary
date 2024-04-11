@@ -50,7 +50,6 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgInvoiceCheckout,
   TgInvoiceShipping,
   TgLimits,
-  TgMessageData,
   TgMessageDeleted,
   TgPoll,
   TgProfilePhoto,
@@ -61,7 +60,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 use ProtocolLive\TelegramBotLibrary\TgParams\TgInlineQueryResults;
 
 /**
- * @version 2024.04.11.00
+ * @version 2024.04.11.01
  */
 final class TelegramBotLibrary
 extends TblBasics{
@@ -394,7 +393,7 @@ extends TblBasics{
    * @param int $Id Required if inline_message_id is not specified. Identifier of the message to edit
    * @param string $IdInline Required if chat_id and message_id are not specified. Identifier of the inline message
    * @param TblMarkup $Markup A object for an inline keyboard.
-   * @return TgMessageData|bool On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned.
+   * @return TgEditedInterface|true On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#editmessagereplymarkup
    */
@@ -403,7 +402,7 @@ extends TblBasics{
     int $Id = null,
     string $IdInline = null,
     TblMarkup $Markup = null
-  ):TgText|bool{
+  ):TgEditedInterface|true{
     if($Chat !== null):
       $param['chat_id'] = $Chat;
     endif;
