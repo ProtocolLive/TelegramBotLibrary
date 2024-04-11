@@ -3,9 +3,11 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgService;
+use ProtocolLive\TelegramBotLibrary\TblObjects\TblBasics;
 use ProtocolLive\TelegramBotLibrary\TgAuxiliary\TgMessageData;
 use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
   TgEventInterface,
+  TgMessageInterface,
   TgServiceInterface
 };
 
@@ -16,12 +18,12 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 final readonly class TgPinnedMsg
 implements TgEventInterface, TgServiceInterface{
   public TgMessageData $Data;
-  public TgMessageData $Pinned;
+  public TgMessageInterface $Pinned;
 
   public function __construct(
     array $Data
   ){
     $this->Data = new TgMessageData($Data);
-    $this->Pinned = new TgMessageData($Data['pinned_message']);
+    $this->Pinned = TblBasics::DetectMessage($Data['pinned_message']);
   }
 }
