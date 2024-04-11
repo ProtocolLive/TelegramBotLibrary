@@ -61,7 +61,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 use ProtocolLive\TelegramBotLibrary\TgParams\TgInlineQueryResults;
 
 /**
- * @version 2024.04.09.00
+ * @version 2024.04.11.00
  */
 final class TelegramBotLibrary
 extends TblBasics{
@@ -686,7 +686,7 @@ extends TblBasics{
     else:
       $param['reaction'][] = [
         'type' => TgReactionType::Custom->value,
-        'custom_emoji' => $Emoji
+        'custom_emoji_id' => $Emoji
       ];
     endif;
     $param['is_big'] = $Big;
