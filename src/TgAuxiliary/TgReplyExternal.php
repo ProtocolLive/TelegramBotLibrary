@@ -4,6 +4,7 @@
 
 namespace ProtocolLive\TelegramBotLibrary\TgAuxiliary;
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgChatType;
+use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgMessageInterface;
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgAudio,
   TgChat,
@@ -29,14 +30,14 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
  * @param string|null $Signature In case of sender is a channel
  * @link https://core.telegram.org/bots/api#externalreplyinfo
  * @link https://core.telegram.org/bots/api#messageorigin
- * @version 2024.04.11.00
+ * @version 2024.04.11.01
  */
 final readonly class TgReplyExternal{
   public TgUser|TgChat|string $User;
   public TgChat|null $Chat;
   public int|null $Message;
   public int $Date;
-  public TgPhoto|TgAudio|TgDocument|TgVideo|TgVoice|TgSticker|TgVenue|TgLocation|TgVideoNote|TgPoll|TgContact|TgDice|null $Object;
+  public TgMessageInterface|null $Object;
   public string|null $Signature;
 
   public function __construct(

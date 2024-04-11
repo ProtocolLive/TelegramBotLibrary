@@ -10,18 +10,20 @@ use ProtocolLive\TelegramBotLibrary\TgAuxiliary\{
 use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
   TgCaptionableInterface,
   TgEventInterface,
-  TgForwadableInterface
+  TgForwadableInterface,
+  TgMessageInterface
 };
 
 /**
  * Message is a photo, available sizes of the photo
  * @link https://core.telegram.org/bots/api#message
- * @version 2024.04.11.00
+ * @version 2024.04.11.01
  */
 readonly class TgPhoto
 implements TgCaptionableInterface,
 TgEventInterface,
-TgForwadableInterface{
+TgForwadableInterface,
+TgMessageInterface{
   /**
    * Can be null in case of command or external reply
    */

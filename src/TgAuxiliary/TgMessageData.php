@@ -4,6 +4,7 @@
 
 namespace ProtocolLive\TelegramBotLibrary\TgAuxiliary;
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgChatType;
+use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgMessageInterface;
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgAudio,
   TgBot,
@@ -28,7 +29,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 
 /**
  * @link https://core.telegram.org/bots/api#message
- * @version 2024.04.11.01
+ * @version 2024.04.11.02
  */
 final readonly class TgMessageData{
   /**
@@ -56,7 +57,7 @@ final readonly class TgMessageData{
    * For replies, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
    * Information about the message that is being replied to, which may come from another chat or forum topic
    */
-  public TgReplyExternal|TgText|TgPhoto|TgAudio|TgDocument|TgVideo|TgVoice|TgSticker|TgVenue|TgLocation|TgVideoNote|TgPoll|TgContact|TgDice|null $Reply;
+  public TgReplyExternal|TgMessageInterface|null $Reply;
   /**
    * For replies that quote part of the original message, the quoted part of the message
    */

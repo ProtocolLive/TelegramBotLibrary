@@ -6,15 +6,18 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 use ProtocolLive\TelegramBotLibrary\TgAuxiliary\TgMessageData;
 use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
   TgEventInterface,
-  TgForwadableInterface
+  TgForwadableInterface,
+  TgMessageInterface
 };
 
 /**
  * @link https://core.telegram.org/bots/api#location
- * @version 2024.04.11.00
+ * @version 2024.04.11.01
  */
 readonly class TgLocation
-implements TgEventInterface, TgForwadableInterface{
+implements TgEventInterface,
+TgForwadableInterface,
+TgMessageInterface{
   public TgMessageData|null $Data;
   /**
    * Latitude as defined by sender

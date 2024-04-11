@@ -6,16 +6,19 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 use ProtocolLive\TelegramBotLibrary\TgAuxiliary\TgMessageData;
 use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
   TgEventInterface,
-  TgForwadableInterface
+  TgForwadableInterface,
+  TgMessageInterface
 };
 
 /**
  * This object represents a venue.
  * @link https://core.telegram.org/bots/api#venue
- * @version 2024.04.11.00
+ * @version 2024.04.11.01
  */
 final readonly class TgVenue
-implements TgEventInterface, TgForwadableInterface{
+implements TgEventInterface,
+TgForwadableInterface,
+TgMessageInterface{
   public TgMessageData $Data;
 
   /**
