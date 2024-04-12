@@ -2,12 +2,12 @@
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
-namespace ProtocolLive\TelegramBotLibrary\TgObjects;
+namespace ProtocolLive\TelegramBotLibrary\TgAuxiliary;
 
 /**
  * This object contains information about one answer option in a poll.
  * @link https://core.telegram.org/bots/api#polloption
- * @version 2024.01.04.01
+ * @version 2024.04.11.00
  */
 final readonly class TgPollOption{
   /**
