@@ -6,15 +6,18 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 use ProtocolLive\TelegramBotLibrary\TgAuxiliary\TgMessageData;
 use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
   TgEventInterface,
-  TgForwadableInterface
+  TgForwadableInterface,
+  TgMessageInterface
 };
 
 /**
  * @link https://core.telegram.org/bots/api#message
- * @version 2024.04.11.00
+ * @version 2024.04.16.00
  */
 readonly class TgText
-implements TgEventInterface, TgForwadableInterface{
+implements TgEventInterface,
+TgForwadableInterface,
+TgMessageInterface{
   public TgMessageData $Data;
   public string $Text;
   public array $Entities;
