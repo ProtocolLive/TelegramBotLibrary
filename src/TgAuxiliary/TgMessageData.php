@@ -29,7 +29,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 
 /**
  * @link https://core.telegram.org/bots/api#message
- * @version 2024.04.11.02
+ * @version 2024.04.16.00
  */
 final readonly class TgMessageData{
   /**
@@ -136,7 +136,7 @@ final readonly class TgMessageData{
     elseif(isset($Data['reply_to_message']['text'])):
       $this->Reply = new TgText($Data['reply_to_message']);
     elseif(isset($Data['reply_to_message']['photo'])):
-      $this->Reply = new TgPhoto($Data['reply_to_message']['photo']);
+      $this->Reply = new TgPhoto($Data['reply_to_message']);
     elseif(isset($Data['reply_to_message']['audio'])):
       $this->Reply = new TgAudio($Data['reply_to_message']['audio']);
     elseif(isset($Data['reply_to_message']['document'])):
