@@ -7,16 +7,19 @@ use ProtocolLive\TelegramBotLibrary\TgAuxiliary\TgMessageData;
 use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
   TgCaptionableInterface,
   TgEventInterface,
-  TgForwadableInterface
+  TgForwadableInterface,
+  TgMessageInterface
 };
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgEntity;
 
 /**
  * Note: Extends TgObject to be a listener
- * @version 2024.04.11.00
+ * @version 2024.04.22.00
  */
 readonly class TblCmd
-implements TgEventInterface, TgForwadableInterface{
+implements TgEventInterface,
+TgForwadableInterface,
+TgMessageInterface{
   public TgMessageData $Data;
   public string $Command;
   public string|null $Parameters;
