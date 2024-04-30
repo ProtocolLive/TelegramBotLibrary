@@ -22,7 +22,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2024.04.02.00
+ * @version 2024.04.30.00
  */
 trait TblAudioTrait{
   /**
@@ -77,13 +77,13 @@ trait TblAudioTrait{
       $param['audio'] = $Audio;
     endif;
     if($Caption !== null):
-      if(mb_strlen($Caption) > TgLimits::Caption):
+      if(mb_strlen(strip_tags($Caption)) > TgLimits::Caption):
         throw new TblException(TblError::LimitCaption, 'Caption bigger than ' . TgLimits::Caption);
       endif;
       $param['caption'] = $Caption;
-    endif;
-    if($ParseMode !== null):
-      $param['parse_mode'] = $ParseMode;
+      if($ParseMode !== null):
+        $param['parse_mode'] = $ParseMode;
+      endif;
     endif;
     if($Entities !== null):
       $param['caption_entities'] = $Entities->ToArray();
@@ -165,13 +165,13 @@ trait TblAudioTrait{
       $param['voice'] = $Voice;
     endif;
     if($Caption !== null):
-      if(mb_strlen($Caption) > TgLimits::Caption):
+      if(mb_strlen(strip_tags($Caption)) > TgLimits::Caption):
         throw new TblException(TblError::LimitCaption, 'Caption bigger than ' . TgLimits::Caption);
       endif;
       $param['caption'] = $Caption;
-    endif;
-    if($ParseMode !== null):
-      $param['parse_mode'] = $ParseMode;
+      if($ParseMode !== null):
+        $param['parse_mode'] = $ParseMode;
+      endif;
     endif;
     if($Entities !== null):
       $param['caption_entities'] = $Entities->ToArray();

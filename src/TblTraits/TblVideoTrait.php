@@ -22,7 +22,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2024.04.02.00
+ * @version 2024.04.30.00
  */
 trait TblVideoTrait{
   /**
@@ -67,10 +67,6 @@ trait TblVideoTrait{
     TgReplyParams $Reply = null,
     TblMarkup $Markup = null
   ):TgVideo|TgVideoNote{
-    if($Caption !== null
-    and mb_strlen(strip_tags($Caption)) > TgLimits::Caption):
-      throw new TblException(TblError::LimitCaption, 'Caption bigger than ' . TgLimits::Caption);
-    endif;
     if($BusinessId !== null):
       $param['business_connection_id'] = $BusinessId;
     else:
@@ -97,10 +93,13 @@ trait TblVideoTrait{
       $params['thumbnail'] = $Thumbnail;
     endif;
     if($Caption !== null):
+      if(mb_strlen(strip_tags($Caption)) > TgLimits::Caption):
+        throw new TblException(TblError::LimitCaption, 'Caption bigger than ' . TgLimits::Caption);
+      endif;
       $params['caption'] = $Caption;
-    endif;
-    if($ParseMode !== null):
-      $params['parse_mode'] = $ParseMode->value;
+      if($ParseMode !== null):
+        $params['parse_mode'] = $ParseMode->value;
+      endif;
     endif;
     if($Entities !== null):
       $params['caption_entities'] = $Entities->ToArray();

@@ -6,6 +6,8 @@ namespace ProtocolLive\TelegramBotLibrary\TgParams;
 
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
   TblEntities,
+  TblError,
+  TblException,
   TblMarkup
 };
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgParseMode;
@@ -13,10 +15,11 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
   TgInlineQueryContentInterface,
   TgInlineQueryInterface
 };
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgLimits;
 
 /**
  * @link https://core.telegram.org/bots/api#inlinequeryresultphoto
- * @version 2024.02.09.00
+ * @version 2024.04.30.00
  */
 class TgInlineQueryPhoto
 implements TgInlineQueryInterface{
@@ -75,10 +78,13 @@ implements TgInlineQueryInterface{
       $param['description'] = $this->Description;
     endif;
     if($this->Caption !== null):
+      if(mb_strlen(strip_tags($this->Caption)) > TgLimits::Caption):
+        throw new TblException(TblError::LimitCaption, 'Caption exceeds ' . TgLimits::Caption);
+      endif;
       $param['caption'] = $this->Caption;
-    endif;
-    if($this->ParseMode !== null):
-      $param['parse_mode'] = $this->ParseMode->value;
+      if($this->ParseMode !== null):
+        $param['parse_mode'] = $this->ParseMode->value;
+      endif;
     endif;
     if($this->Entities !== null):
       $param['caption_entities'] = $this->Entities->ToArray();

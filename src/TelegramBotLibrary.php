@@ -60,7 +60,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 use ProtocolLive\TelegramBotLibrary\TgParams\TgInlineQueryResults;
 
 /**
- * @version 2024.04.11.01
+ * @version 2024.04.30.00
  */
 final class TelegramBotLibrary
 extends TblBasics{
@@ -228,8 +228,13 @@ extends TblBasics{
       endif;
     endif;
     if($Caption !== null):
+      if(mb_strlen(strip_tags($Caption)) > TgLimits::Caption):
+        throw new TblException(TblError::LimitCaption, 'Caption bigger than ' . TgLimits::Caption);
+      endif;
       $param['caption'] = $Caption;
-      $param['parse_mode'] = $ParseMode->value;
+      if($ParseMode !== null):
+        $param['parse_mode'] = $ParseMode->value;
+      endif;
     endif;
     if($Entities !== null):
       $param['caption_entities'] = $Entities->ToArray();
@@ -547,10 +552,13 @@ extends TblBasics{
       $param['message_thread_id'] = $Thread;
     endif;
     if($Caption !== null):
+      if(mb_strlen(strip_tags($Caption)) > TgLimits::Caption):
+        throw new TblException(TblError::LimitCaption, 'Caption bigger than ' . TgLimits::Caption);
+      endif;
       $param['caption'] = $Caption;
-    endif;
-    if($ParseMode !== null):
-      $param['parse_mode'] = $ParseMode->value;
+      if($ParseMode !== null):
+        $param['parse_mode'] = $ParseMode->value;
+      endif;
     endif;
     if($Entities !== null):
       $param['caption_entities'] = $Entities->ToArray();

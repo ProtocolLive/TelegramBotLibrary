@@ -9,7 +9,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\TgLimits;
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2024.04.02.00
+ * @version 2024.04.30.00
  */
 final class TblPhotoSendMulti
 extends TblServerMulti{
@@ -158,10 +158,6 @@ extends TblServerMulti{
     TgReplyParams $Reply = null,
     TblMarkup $Markup = null
   ):array{
-    if($Caption !== null
-    and mb_strlen(strip_tags($Caption)) > TgLimits::Caption):
-      throw new TblException(TblError::LimitCaption, 'Caption bigger than ' . TgLimits::Caption);
-    endif;
     if($BusinessId !== null):
       $param['business_connection_id'] = $BusinessId;
     else:
@@ -171,8 +167,13 @@ extends TblServerMulti{
       $param['message_thread_id'] = $Thread;
     endif;
     if($Caption !== null):
+      if(mb_strlen(strip_tags($Caption)) > TgLimits::Caption):
+        throw new TblException(TblError::LimitCaption, 'Caption bigger than ' . TgLimits::Caption);
+      endif;
       $param['caption'] = $Caption;
-      $param['parse_mode'] = $ParseMode->value;
+      if($ParseMode !== null):
+        $param['parse_mode'] = $ParseMode->value;
+      endif;
     endif;
     if($Entities !== null):
       $param['caption_entities'] = $Entities->ToArray();

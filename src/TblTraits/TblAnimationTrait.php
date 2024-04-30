@@ -6,6 +6,7 @@ namespace ProtocolLive\TelegramBotLibrary\TblTraits;
 use CURLFile;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
   TblEntities,
+  TblError,
   TblException,
   TblMarkup
 };
@@ -13,11 +14,14 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\{
   TgMethods,
   TgParseMode
 };
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgAnimation;
+use ProtocolLive\TelegramBotLibrary\TgObjects\{
+  TgAnimation,
+  TgLimits
+};
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2024.03.31.00
+ * @version 2024.04.30.00
  */
 trait TblAnimationTrait{
   /**
@@ -90,10 +94,13 @@ trait TblAnimationTrait{
       endif;
     endif;
     if($Caption !== null):
+      if(mb_strlen(strip_tags($this->Caption)) > TgLimits::Caption):
+        throw new TblException(TblError::LimitCaption, 'Caption exceeds ' . TgLimits::Caption);
+      endif;
       $param['caption'] = $Caption;
-    endif;
-    if($ParseMode !== null):
-      $param['parse_mode'] = $ParseMode->value;
+      if($ParseMode !== null):
+        $param['parse_mode'] = $ParseMode->value;
+      endif;
     endif;
     if($Entities !== null):
       $param['caption_entities'] = $Entities->toArray();
