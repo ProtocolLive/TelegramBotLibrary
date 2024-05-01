@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TgEnums;
 
 /**
- * @version 2024.04.11.00
+ * @version 2024.04.30.00
  */
 enum TgMethods:string{
   case AnimationSend = 'sendAnimation';
@@ -64,6 +64,10 @@ enum TgMethods:string{
   case GameScoreGet = 'getGameHighScores';
   case GameScoreSet = 'setGameScore';
   case GameSend = 'sendGame';
+  /**
+   * @link https://core.telegram.org/bots/api#sendmediagroup
+   */
+  case GroupSend = 'sendMediaGroup';
   case InlineQueryAnswer = 'answerInlineQuery';
   case InvoiceCheckoutSend = 'answerPreCheckoutQuery';
   case InvoiceLink = 'createInvoiceLink';

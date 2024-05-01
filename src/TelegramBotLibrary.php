@@ -57,10 +57,17 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgSticker,
   TgText
 };
-use ProtocolLive\TelegramBotLibrary\TgParams\TgInlineQueryResults;
+use ProtocolLive\TelegramBotLibrary\TgParams\{
+  TgAudioGroup,
+  TgDocumentGroup,
+  TgInlineQueryResults,
+  TgPhotoGroup,
+  TgReplyParams,
+  TgVideoGroup
+};
 
 /**
- * @version 2024.04.30.00
+ * @version 2024.04.30.01
  */
 final class TelegramBotLibrary
 extends TblBasics{
@@ -340,6 +347,34 @@ extends TblBasics{
     $param['file_id'] = $Id;
     $return = $this->ServerMethod(TgMethods::FileGet, $param);
     return new TgFile($return);
+  }
+
+  /**
+   * Use this method to send a group of photos, videos, documents or audios as an album. Documents and audio files can be only grouped in an album with messages of the same type.
+   * @param TgAudioGroup[]|TgDocumentGroup[]|TgPhotoGroup[]|TgVideoGroup[] $Objects
+   * @return array An array of Messages that were sent is returned.
+   * @link https://core.telegram.org/bots/api#sendmediagroup
+   */
+  public function GroupSend(
+    int|string $Chat = null,
+    array $Objects,
+    int $Thread = null,
+    string $BusinessId = null,
+    bool $DisableNotification = false,
+    bool $Protect = false,
+    TgReplyParams $Reply = null,
+  ):void{
+    foreach($Objects as &$object):
+      $object = $object->ToArray();
+    endforeach;
+    $param['chat_id'] = $Chat;
+    $param['thread_id'] = $Thread;
+    $param['business_id'] = $BusinessId;
+    $param['media'] = $Objects;
+    $param['disable_notification'] = $DisableNotification;
+    $param['protect_content'] = $Protect;
+    $param['reply_parameters'] = $Reply->ToArray();
+    $this->ServerMethod(TgMethods::GroupSend, $param);
   }
 
   /**
