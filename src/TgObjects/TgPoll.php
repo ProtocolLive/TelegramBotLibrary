@@ -18,7 +18,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
  * This object contains information about a poll.
  * Param Answer: 0-based identifier of the correct answer option. Available only for polls in the quiz mode, which are closed, or was sent (not forwarded) by the bot or to the private chat with the bot.
  * @link https://core.telegram.org/bots/api#poll
- * @version 2024.04.11.02
+ * @version 2024.05.06.00
  */
 final readonly class TgPoll
 implements TgEventInterface,
@@ -69,6 +69,10 @@ TgMessageInterface{
    * Special entities like usernames, URLs, bot commands, etc. that appear in the explanation
    */
   public array $ExplanationEntities;
+  /**
+   * Special entities that appear in the question. Currently, only custom emoji entities are allowed in poll questions
+   */
+  public array $QuestionEntities;
 
   public function __construct(
     array $Data
@@ -100,6 +104,13 @@ TgMessageInterface{
         $temp[] = new TgEntity($entity);
       endforeach;
       $this->ExplanationEntities = $temp;
+    endif;
+    if(isset($pointer['question_entities'])):
+      $temp = [];
+      foreach($pointer['question_entities'] as $entity):
+        $temp[] = new TgEntity($entity);
+      endforeach;
+      $this->QuestionEntities = $temp;
     endif;
   }
 }
