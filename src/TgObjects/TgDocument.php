@@ -16,7 +16,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 
 /**
  * @link https://core.telegram.org/bots/api#document
- * @version 2024.04.11.01
+ * @version 2024.05.07.00
  */
 readonly class TgDocument
 implements TgCaptionableInterface,
@@ -36,9 +36,9 @@ TgMessageInterface{
    */
   public string $IdUnique;
   /**
-   * Original filename as defined by sender
+   * Original filename as defined by sender. Can be null in case of chat background
    */
-  public string $Name;
+  public string|null $Name;
   /**
    * Document thumbnail as defined by sender
    */
@@ -74,7 +74,7 @@ TgMessageInterface{
     endif;
     $this->Id = $Data['document']['file_id'] ?? $Data['file_id'];
     $this->IdUnique = $Data['document']['file_unique_id'] ?? $Data['file_unique_id'];
-    $this->Name = $Data['document']['file_name'] ?? $Data['file_name'];
+    $this->Name = $Data['document']['file_name'] ?? $Data['file_name'] ?? null;
     $this->Mime = $Data['document']['mime_type'] ?? $Data['mime_type'];
     $this->Size = $Data['document']['file_size'] ?? $Data['file_size'];
     $this->MediaGroup = $Data['media_group_id'] ?? null;
@@ -91,6 +91,8 @@ TgMessageInterface{
         $temp[] = new TgEntity($entity);
       endforeach;
       $this->Entities = $temp;
+    else:
+      $this->Entities = null;
     endif;
   }
 }
