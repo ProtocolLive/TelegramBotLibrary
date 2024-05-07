@@ -21,7 +21,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2024.04.30.00
+ * @version 2024.05.07.00
  */
 trait TblAnimationTrait{
   /**
@@ -94,7 +94,7 @@ trait TblAnimationTrait{
       endif;
     endif;
     if($Caption !== null):
-      if(mb_strlen(strip_tags($this->Caption)) > TgLimits::Caption):
+      if(mb_strlen(strip_tags($Caption)) > TgLimits::Caption):
         throw new TblException(TblError::LimitCaption, 'Caption exceeds ' . TgLimits::Caption);
       endif;
       $param['caption'] = $Caption;
