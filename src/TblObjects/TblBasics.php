@@ -12,6 +12,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgAnimation,
   TgAnimationEdited,
   TgAudio,
+  TgBackground,
   TgChatBoostAdded,
   TgChatMigrateFrom,
   TgChatMigrateTo,
@@ -68,7 +69,7 @@ use ProtocolLive\TelegramBotLibrary\TgService\{
 };
 
 /**
- * @version 2024.02.16.00
+ * @version 2024.05.07.00
  */
 abstract class TblBasics{
   protected TblData $BotData;
@@ -151,6 +152,8 @@ abstract class TblBasics{
       return new TgAudio($Data);
     elseif(isset($Data['boost_added'])):
       return new TgChatBoostAdded($Data['boost_added']);
+    elseif(isset($Data['chat_background_set'])):
+      return new TgBackground($Data['chat_background_set']);
     elseif(isset($Data['chat_shared'])):
       return new TgChatShared($Data);
     elseif(isset($Data['connected_website'])):
