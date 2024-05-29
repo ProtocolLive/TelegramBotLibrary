@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TgEnums;
 
 /**
- * @version 2024.01.01.00
+ * @version 2024.05.28.00
  */
 enum TgInvoiceCurrencies:string{
   case AED = 'AED';
@@ -90,6 +90,7 @@ enum TgInvoiceCurrencies:string{
   case UYU = 'UYU';
   case UZS = 'UZS';
   case VND = 'VND';
+  case XTR = 'XTR';
   case YER = 'YER';
   case ZAR = 'ZAR';
 }
