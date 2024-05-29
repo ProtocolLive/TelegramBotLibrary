@@ -29,7 +29,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 
 /**
  * @link https://core.telegram.org/bots/api#message
- * @version 2024.04.16.00
+ * @version 2024.05.28.00
  */
 final readonly class TgMessageData{
   /**
@@ -98,6 +98,10 @@ final readonly class TgMessageData{
    * If the message was sent by an implicit action, for example, as an away or a greeting business message, or as a scheduled message
    */
   public bool $Offline;
+  /**
+   * Unique identifier of the message effect added to the message
+   */
+  public string|null $Effect;
 
   public function __construct(
     array $Data
@@ -203,5 +207,6 @@ final readonly class TgMessageData{
     $this->Boost = $Data['sender_boost_count'] ?? 0;
     $this->BusinessConnection = $Data['business_connection_id'] ?? null;
     $this->Offline = $Data['is_from_offline'] ?? false;
+    $this->Effect = $Data['effect_id'] ?? null;
   }
 }
