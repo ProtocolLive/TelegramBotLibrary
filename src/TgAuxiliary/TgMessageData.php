@@ -32,7 +32,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 
 /**
  * @link https://core.telegram.org/bots/api#message
- * @version 2024.05.28.00
+ * @version 2024.05.30.01
  */
 final readonly class TgMessageData{
   /**
@@ -214,11 +214,7 @@ final readonly class TgMessageData{
     $this->Boost = $Data['sender_boost_count'] ?? 0;
     $this->BusinessConnection = $Data['business_connection_id'] ?? null;
     $this->Offline = $Data['is_from_offline'] ?? false;
-    if(isset($Data['effect_id'])):
-      $this->Effect = TgEffects::from($Data['effect_id']);
-    else:
-      $this->Effect = null;
-    endif;
+    $this->Effect = $Data['effect_id'] ?? null;
     $this->CaptionAbove = $Data['show_caption_above_media'] ?? false;
   }
 }
