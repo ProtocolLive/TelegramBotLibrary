@@ -21,7 +21,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2024.05.07.00
+ * @version 2024.05.30.00
  */
 trait TblAnimationTrait{
   /**
@@ -42,6 +42,7 @@ trait TblAnimationTrait{
    * @param bool $Protect Protects the contents of the sent message from forwarding and saving
    * @param TgReplyParams $Reply Description of the message to reply to
    * @param TblMarkup $Markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
+   * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
    * @return TgAnimation On success, the sent Message is returned.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#sendanimation
@@ -62,7 +63,8 @@ trait TblAnimationTrait{
     bool $DisableNotification = false,
     bool $Protect = false,
     TgReplyParams $Reply = null,
-    TblMarkup $Markup = null
+    TblMarkup $Markup = null,
+    string $Effect = null
   ):TgAnimation{
     if($BusinessId !== null):
       $param['business_connection_id'] = $BusinessId;
@@ -119,6 +121,9 @@ trait TblAnimationTrait{
     endif;
     if($Markup !== null):
       $param['reply_markup'] = $Markup->ToArray();
+    endif;
+    if($Effect !== null):
+      $param['message_effect_id'] = $Effect;
     endif;
     return new TgAnimation($this->ServerMethod(TgMethods::AnimationSend, $param));
   }

@@ -22,7 +22,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2024.04.30.00
+ * @version 2024.05.30.00
  */
 trait TblVideoTrait{
   /**
@@ -44,6 +44,7 @@ trait TblVideoTrait{
    * @param bool $Protect Protects the contents of the sent message from forwarding and saving
    * @param TgReplyParams $Reply If the message is a reply, ID of the original message
    * @param TblMarkup $Markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
+   * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
    * @return TgVideo On success, the sent Message is returned.
    * @link https://core.telegram.org/bots/api#sendvideo
    * @throws TblException
@@ -65,7 +66,8 @@ trait TblVideoTrait{
     bool $DisableNotification = false,
     bool $Protect = false,
     TgReplyParams $Reply = null,
-    TblMarkup $Markup = null
+    TblMarkup $Markup = null,
+    string $Effect = null
   ):TgVideo|TgVideoNote{
     if($BusinessId !== null):
       $param['business_connection_id'] = $BusinessId;
@@ -122,6 +124,9 @@ trait TblVideoTrait{
     if($Markup !== null):
       $params['reply_markup'] = $Markup->ToArray();
     endif;
+    if($Effect !== null):
+      $param['message_effect_id'] = $Effect;
+    endif;
     return parent::DetectMessage($this->ServerMethod(
       TgMethods::VideoSend,
       $params,
@@ -142,6 +147,7 @@ trait TblVideoTrait{
    * @param bool $Protect Protects the contents of the sent message from forwarding and saving
    * @param TgReplyParams $Reply If the message is a reply, ID of the original message
    * @param TblMarkup $Markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
+   * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
    * @return TgVideoNote The sent Message is returned.
    * @link https://core.telegram.org/bots/api#sendvideonote
    * @throws TblException
@@ -157,7 +163,8 @@ trait TblVideoTrait{
     bool $DisableNotification = false,
     bool $Protect = false,
     TgReplyParams $Reply = null,
-    TblMarkup $Markup = null
+    TblMarkup $Markup = null,
+    string $Effect = null
   ):TgVideoNote|TgVideo{
     if($BusinessId !== null):
       $params['business_connection_id'] = $BusinessId;
@@ -192,6 +199,9 @@ trait TblVideoTrait{
     endif;
     if($Markup !== null):
       $params['reply_markup'] = $Markup->ToArray();
+    endif;
+    if($Effect !== null):
+      $param['message_effect_id'] = $Effect;
     endif;
     return parent::DetectMessage($this->ServerMethod(
       TgMethods::VideoNoteSend,

@@ -18,7 +18,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\TgPhoto;
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2024.03.31.01
+ * @version 2024.05.30.00
  */
 trait TblPhotoTrait{
   /**
@@ -50,6 +50,7 @@ trait TblPhotoTrait{
    * @param TgReplyParams $Reply If the message is a reply, ID of the original message
    * @param TblMarkup $Markup Additional interface options. A object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
    * @param bool $Spoiler If the photo needs to be covered with a spoiler animation
+   * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
    * @return TgPhoto On success, the sent Message is returned.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#sendphoto
@@ -66,7 +67,8 @@ trait TblPhotoTrait{
     bool $Protect = false,
     bool $Spoiler = false,
     TgReplyParams $Reply = null,
-    TblMarkup $Markup = null
+    TblMarkup $Markup = null,
+    string $Effect = null
   ):TgPhoto{
     $param = TblPhotoSendMulti::BuildArgs(
       $Chat,
@@ -80,7 +82,8 @@ trait TblPhotoTrait{
       $Protect,
       $Spoiler,
       $Reply,
-      $Markup
+      $Markup,
+      $Effect
     );
     $return = $this->ServerMethod(
       TgMethods::PhotoSend,

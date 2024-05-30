@@ -67,7 +67,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2024.04.30.01
+ * @version 2024.05.30.00
  */
 final class TelegramBotLibrary
 extends TblBasics{
@@ -200,6 +200,7 @@ extends TblBasics{
    * @param int $RepliedMsg If the message is a reply, ID of the original message
    * @param bool $SendWithoutRepliedMsg Pass True, if the message should be sent even if the specified replied-to message is not found
    * @param TblMarkup $Markup Additional interface options. A object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
+   * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
    * @return TgDocument On success, the sent Message is returned.
    * @link https://core.telegram.org/bots/api#senddocument
    */
@@ -216,7 +217,8 @@ extends TblBasics{
     bool $Protect = false,
     int $RepliedMsg = null,
     bool $SendWithoutRepliedMsg = false,
-    TblMarkup $Markup = null
+    TblMarkup $Markup = null,
+    string $Effect = null
   ):TgDocument{
     $param['chat_id'] = $Chat;
     if(is_file($File)):
@@ -263,6 +265,9 @@ extends TblBasics{
     endif;
     if($Markup !== null):
       $param['reply_markup'] = $Markup->ToArray();
+    endif;
+    if($Effect !== null):
+      $param['message_effect_id'] = $Effect;
     endif;
     $return = $this->ServerMethod(TgMethods::DocumentSend, $param);
     return new TgDocument($return);
@@ -879,6 +884,7 @@ extends TblBasics{
    * @param int $RepliedMsg If the message is a reply, ID of the original message
    * @param bool $SendWithoutRepliedMsg If the message should be sent even if the specified replied-to message is not found
    * @param TblMarkup $Markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
+   * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
    * @return TgSticker The sent Message.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#sendsticker
@@ -892,7 +898,8 @@ extends TblBasics{
     bool $Protect = false,
     int $RepliedMsg = null,
     bool $SendWithoutRepliedMsg = false,
-    TblMarkup $Markup = null
+    TblMarkup $Markup = null,
+    string $Effect = null
   ):TgSticker{
     $param['chat_id'] = $Chat;
     $param['sticker'] = $Sticker;
@@ -916,6 +923,9 @@ extends TblBasics{
     endif;
     if($Markup !== null):
       $param['reply_markup'] = $Markup->ToArray();
+    endif;
+    if($Effect !== null):
+      $param['message_effect_id'] = $Effect;
     endif;
     $return = parent::ServerMethod(TgMethods::StickerSend, $param);
     return new TgSticker($return);

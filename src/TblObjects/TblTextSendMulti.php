@@ -11,7 +11,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2024.03.31.00
+ * @version 2024.05.30.00
  */
 final class TblTextSendMulti
 extends TblServerMulti{
@@ -118,6 +118,7 @@ extends TblServerMulti{
    * @param bool $Protect Protects the contents of the sent message from forwarding and saving
    * @param TgReplyParams $Reply Description of the message to reply to
    * @param TblMarkup $Markup Additional interface options. A object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
+   * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
    * @return array Prepared parameters for the TextSendMulti method
    * @link https://core.telegram.org/bots/api#sendmessage
    */
@@ -132,7 +133,8 @@ extends TblServerMulti{
     bool $DisableNotification = false,
     bool $Protect = false,
     TgReplyParams $Reply = null,
-    TblMarkup $Markup = null
+    TblMarkup $Markup = null,
+    string $Effect = null
   ):array{
     if($Chat === null):
       throw new TblException(TblError::MissingParameter, 'Chat is required');
@@ -175,6 +177,9 @@ extends TblServerMulti{
     endif;
     if($Markup !== null):
       $param['reply_markup'] = $Markup->ToArray();
+    endif;
+    if($Effect !== null):
+      $param['message_effect_id'] = $Effect;
     endif;
     return $param;
   }

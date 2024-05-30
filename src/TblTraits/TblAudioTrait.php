@@ -22,7 +22,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2024.04.30.00
+ * @version 2024.05.30.00
  */
 trait TblAudioTrait{
   /**
@@ -42,6 +42,7 @@ trait TblAudioTrait{
    * @param bool $Protect Protects the contents of the sent message from forwarding and saving
    * @param TgReplyParams $Reply Description of the message to reply to
    * @param TblMarkup $Markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account
+   * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
    * @return TgAudio On success, the sent Message is returned.
    * @link https://core.telegram.org/bots/api#sendaudio
    * @throws TblException
@@ -61,7 +62,8 @@ trait TblAudioTrait{
     bool $DisableNotification = false,
     bool $Protect = false,
     TgReplyParams $Reply = null,
-    TblMarkup $Markup = null
+    TblMarkup $Markup = null,
+    string $Effect = null
   ):TgAudio{
     if($BusinessId !== null):
       $param['business_connection_id'] = $BusinessId;
@@ -116,6 +118,9 @@ trait TblAudioTrait{
     if($Markup !== null):
       $param['reply_markup'] = $Markup->ToArray();
     endif;
+    if($Effect !== null):
+      $param['message_effect_id'] = $Effect;
+    endif;
     return new TgAudio($this->ServerMethod(TgMethods::AudioSend, $param));
   }
 
@@ -133,6 +138,7 @@ trait TblAudioTrait{
    * @param bool $Protect Protects the contents of the sent message from forwarding and saving
    * @param TgReplyParams $Reply Description of the message to reply to
    * @param TblMarkup $Markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account
+   * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
    * @return TgVoice On success, the sent Message is returned.
    * @link https://core.telegram.org/bots/api#sendvoice
    * @throws TblException
@@ -149,7 +155,8 @@ trait TblAudioTrait{
     bool $DisableNotification = false,
     bool $Protect = false,
     TgReplyParams $Reply = null,
-    TblMarkup $Markup = null
+    TblMarkup $Markup = null,
+    string $Effect = null
   ):TgVoice{
     if($BusinessId !== null):
       $param['business_connection_id'] = $BusinessId;
@@ -190,6 +197,9 @@ trait TblAudioTrait{
     endif;
     if($Markup !== null):
       $param['reply_markup'] = $Markup->ToArray();
+    endif;
+    if($Effect !== null):
+      $param['message_effect_id'] = $Effect;
     endif;
     return new TgVoice($this->ServerMethod(TgMethods::VoiceSend, $param));
   }

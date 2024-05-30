@@ -25,7 +25,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2024.04.11.01
+ * @version 2024.05.30.00
  */
 trait TblTextTrait{
   /**
@@ -38,6 +38,7 @@ trait TblTextTrait{
    * @param bool $Protect Protects the contents of the sent message from forwarding and saving
    * @param TgReplyParams $Reply If the message is a reply, ID of the original message
    * @param TblMarkup $Markup Additional interface options. A object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
+   * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
    * @return TgText On success, the sent Message is returned.
    * @link https://core.telegram.org/bots/api#senddice
    */
@@ -49,7 +50,8 @@ trait TblTextTrait{
     bool $DisableNotification = false,
     bool $Protect = false,
     TgReplyParams $Reply = null,
-    TblMarkup $Markup = null
+    TblMarkup $Markup = null,
+    string $Effect = null
   ):TgDice{
     if($BusinessId !== null):
       $param['business_connection_id'] = $BusinessId;
@@ -73,6 +75,9 @@ trait TblTextTrait{
     endif;
     if($Markup !== null):
       $param['reply_markup'] = $Markup->ToArray();
+    endif;
+    if($Effect !== null):
+      $param['message_effect_id'] = $Effect;
     endif;
     return new TgDice($this->ServerMethod(TgMethods::DiceSend, $param));
   }
@@ -156,6 +161,7 @@ trait TblTextTrait{
    * @param bool $Protect Protects the contents of the sent message from forwarding and saving
    * @param TgReplyParams $Reply If the message is a reply, ID of the original message
    * @param TblMarkup $Markup Additional interface options. A object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
+   * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
    * @return TgText On success, the sent Message is returned.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#sendmessage
@@ -171,7 +177,8 @@ trait TblTextTrait{
     bool $DisableNotification = false,
     bool $Protect = false,
     TgReplyParams $Reply = null,
-    TblMarkup $Markup = null
+    TblMarkup $Markup = null,
+    string $Effect = null
   ):TgText{
     $return = $this->ServerMethod(
       TgMethods::TextSend,
@@ -186,7 +193,8 @@ trait TblTextTrait{
         $DisableNotification,
         $Protect,
         $Reply,
-        $Markup
+        $Markup,
+        $Effect
       )
     );
     return new TgText($return);

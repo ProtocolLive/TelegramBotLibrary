@@ -19,7 +19,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2024.05.28.00
+ * @version 2024.05.30.00
  */
 trait TblInvoiceTrait{
   /**
@@ -175,6 +175,7 @@ trait TblInvoiceTrait{
    * @param int $RepliedMsg If the message is a reply, ID of the original message
    * @param bool $SendWithoutRepliedMsg Pass True, if the message should be sent even if the specified replied-to message is not found
    * @param TblMarkup $Markup A object for an inline keyboard. If empty, one 'Pay total price' button will be shown. If not empty, the first button must be a Pay button.
+   * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
    * @return TgInvoice On success, the sent Message is returned.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#sendinvoice
@@ -206,7 +207,8 @@ trait TblInvoiceTrait{
     bool $Protect = false,
     int $RepliedMsg = null,
     bool $SendWithoutRepliedMsg = false,
-    TblMarkup $Markup = null
+    TblMarkup $Markup = null,
+    string $Effect = null
   ):TgInvoice{
     $param['chat_id'] = $Chat;
     $param['title'] = $Title;
@@ -274,6 +276,9 @@ trait TblInvoiceTrait{
     endif;
     if($Markup !== null):
       $param['reply_markup'] = $Markup->ToArray();
+    endif;
+    if($Effect !== null):
+      $param['message_effect_id'] = $Effect;
     endif;
     $return = $this->ServerMethod(TgMethods::InvoiceSend, $param);
     return new TgInvoice($return);

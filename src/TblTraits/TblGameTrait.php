@@ -15,7 +15,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2024.03.31.00
+ * @version 2024.05.30.00
  */
 trait TblGameTrait{
   /**
@@ -28,6 +28,7 @@ trait TblGameTrait{
    * @param bool $Protect Protects the contents of the sent message from forwarding and saving
    * @param TgReplyParams $Reply Description of the message to reply to
    * @param TblMarkup $Markup A JSON-serialized object for an inline keyboard. If empty, one 'Play game_title' button will be shown. If not empty, the first button must launch the game.
+   * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
    * @return TgGame On success, the sent Message is returned.
    * @link https://core.telegram.org/bots/api#sendgame
    * @throws TblException
@@ -40,7 +41,8 @@ trait TblGameTrait{
     bool $DisableNotifications = false,
     bool $Protect = false,
     TgReplyParams $Reply = null,
-    TblMarkup $Markup = null
+    TblMarkup $Markup = null,
+    string $Effect = null
   ):TgGame{
     if($BusinessId !== null):
       $param['business_connection_id'] = $BusinessId;
@@ -62,6 +64,9 @@ trait TblGameTrait{
     endif;
     if($Markup !== null):
       $param['reply_markup'] = $Markup->ToArray();
+    endif;
+    if($Effect !== null):
+      $param['message_effect_id'] = $Effect;
     endif;
     $return = $this->ServerMethod(TgMethods::GameSend, $param);
     return new TgGame($return);
