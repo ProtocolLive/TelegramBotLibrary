@@ -3,7 +3,10 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgAuxiliary;
-use ProtocolLive\TelegramBotLibrary\TgEnums\TgChatType;
+use ProtocolLive\TelegramBotLibrary\TgEnums\{
+  TgChatType,
+  TgEffects
+};
 use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgMessageInterface;
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgAudio,
@@ -101,7 +104,11 @@ final readonly class TgMessageData{
   /**
    * Unique identifier of the message effect added to the message
    */
-  public string|null $Effect;
+  public TgEffects|null $Effect;
+  /**
+   * True, if the caption must be shown above the message media
+   */
+  public bool $CaptionAbove;
 
   public function __construct(
     array $Data
@@ -207,6 +214,11 @@ final readonly class TgMessageData{
     $this->Boost = $Data['sender_boost_count'] ?? 0;
     $this->BusinessConnection = $Data['business_connection_id'] ?? null;
     $this->Offline = $Data['is_from_offline'] ?? false;
-    $this->Effect = $Data['effect_id'] ?? null;
+    if(isset($Data['effect_id'])):
+      $this->Effect = TgEffects::from($Data['effect_id']);
+    else:
+      $this->Effect = null;
+    endif;
+    $this->CaptionAbove = $Data['show_caption_above_media'] ?? false;
   }
 }
