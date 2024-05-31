@@ -21,7 +21,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2024.05.30.00
+ * @version 2024.05.31.00
  */
 trait TblAnimationTrait{
   /**
@@ -43,6 +43,7 @@ trait TblAnimationTrait{
    * @param TgReplyParams $Reply Description of the message to reply to
    * @param TblMarkup $Markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
    * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
+   * @param bool $CaptionAbove If the caption must be shown above the message media
    * @return TgAnimation On success, the sent Message is returned.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#sendanimation
@@ -57,6 +58,7 @@ trait TblAnimationTrait{
     int $Height = null,
     int $Thumbnail = null,
     string $Caption = null,
+    bool $CaptionAbove = false,
     TgParseMode $ParseMode = null,
     TblEntities $Entities = null,
     bool $Spoiler = false,
@@ -124,6 +126,9 @@ trait TblAnimationTrait{
     endif;
     if($Effect !== null):
       $param['message_effect_id'] = $Effect;
+    endif;
+    if($CaptionAbove):
+      $param['show_caption_above_media'] = true;
     endif;
     return new TgAnimation($this->ServerMethod(TgMethods::AnimationSend, $param));
   }

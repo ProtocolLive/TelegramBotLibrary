@@ -67,7 +67,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2024.05.30.00
+ * @version 2024.05.31.00
  */
 final class TelegramBotLibrary
 extends TblBasics{
@@ -170,6 +170,55 @@ extends TblBasics{
       $param['cache_time'] = $Cache;
     endif;
     return $this->ServerMethod(TgMethods::CallbackAnswer, $param);
+  }
+
+  /**
+   * @param string $Caption New caption of the message, 0-1024 characters after entities parsing
+   * @param int|string $Chat Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * @param int $Id Required if inline_message_id is not specified. Identifier of the message to edit
+   * @param string $InlineId Required if chat_id and message_id are not specified. Identifier of the inline message
+   * @param bool $CaptionAbove If the caption must be shown above the message media. Supported only for animation, photo and video messages.
+   * @param TgParseMode $ParseMode Mode for parsing entities in the message caption. See formatting options for more details.
+   * @param TblEntities $Entities A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
+   * @param TblMarkup $Markup A JSON-serialized object for an inline keyboard.
+   * @link https://core.telegram.org/bots/api#editmessagecaption
+   */
+  public function CaptionEdit(
+    string $Caption,
+    int|string $Chat = null,
+    int $Id = null,
+    string $InlineId = null,
+    bool $CaptionAbove = false,
+    TgParseMode $ParseMode = null,
+    TblEntities $Entities = null,
+    TblMarkup $Markup = null
+  ):TgEditedInterface|true{
+    if(mb_strlen(strip_tags($Caption)) > TgLimits::Caption):
+      throw new TblException(TblError::LimitCaption, 'Caption bigger than ' . TgLimits::Caption);
+    endif;
+    if($InlineId === null):
+      $param['chat_id'] = $Chat;
+      $param['message_id'] = $Id;
+    else:
+      $param['inline_message_id'] = $InlineId;
+    endif;
+    $param['caption'] = $Caption;
+    $param['parse_mode'] = $ParseMode->value;
+    if($Entities !== null):
+      $param['caption_entities'] = $Entities->ToArray();
+    endif;
+    if($Markup !== null):
+      $param['reply_markup'] = $Markup->ToArray();
+    endif;
+    if($CaptionAbove):
+      $param['show_caption_above_media'] = true;
+    endif;
+    $return = parent::ServerMethod(TgMethods::CaptionEdit, $param);
+    if($return === true):
+      return true;
+    else:
+      return parent::DetectMessage($return);
+    endif;
   }
 
   /**
@@ -567,6 +616,7 @@ extends TblBasics{
    * @param int $RepliedMsg If the message is a reply, ID of the original message
    * @param bool $SendWithoutRepliedMsg Pass True, if the message should be sent even if the specified replied-to message is not found
    * @param TblMarkup $Markup Additional interface options. A object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
+   * @param bool $CaptionAbove If the caption must be shown above the message media
    * @return int Returns the MessageId of the sent message on success.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#copymessage
@@ -577,6 +627,7 @@ extends TblBasics{
     int $To,
     int $Thread = null,
     string $Caption = null,
+    bool $CaptionAbove = false,
     TblEntities $Entities = null,
     TgParseMode $ParseMode = null,
     bool $DisableNotification = false,
@@ -617,6 +668,9 @@ extends TblBasics{
     endif;
     if($Markup !== null):
       $param['reply_markup'] = $Markup->ToArray();
+    endif;
+    if($CaptionAbove):
+      $param['show_caption_above_media'] = true;
     endif;
     $return = $this->ServerMethod(TgMethods::MessageCopy, $param);
     return $return['message_id'];

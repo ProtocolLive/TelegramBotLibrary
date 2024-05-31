@@ -22,7 +22,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2024.05.30.00
+ * @version 2024.05.31.00
  */
 trait TblVideoTrait{
   /**
@@ -45,6 +45,7 @@ trait TblVideoTrait{
    * @param TgReplyParams $Reply If the message is a reply, ID of the original message
    * @param TblMarkup $Markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
    * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
+   * @param bool $CaptionAbove If the caption must be shown above the message media
    * @return TgVideo On success, the sent Message is returned.
    * @link https://core.telegram.org/bots/api#sendvideo
    * @throws TblException
@@ -59,6 +60,7 @@ trait TblVideoTrait{
     int $Height = null,
     string $Thumbnail = null,
     string $Caption = null,
+    bool $CaptionAbove = false,
     TgParseMode $ParseMode = null,
     TblEntities $Entities = null,
     bool $Spoiler = false,
@@ -126,6 +128,9 @@ trait TblVideoTrait{
     endif;
     if($Effect !== null):
       $param['message_effect_id'] = $Effect;
+    endif;
+    if($CaptionAbove):
+      $param['show_caption_above_media'] = true;
     endif;
     return parent::DetectMessage($this->ServerMethod(
       TgMethods::VideoSend,
@@ -203,6 +208,7 @@ trait TblVideoTrait{
     if($Effect !== null):
       $param['message_effect_id'] = $Effect;
     endif;
+    
     return parent::DetectMessage($this->ServerMethod(
       TgMethods::VideoNoteSend,
       $params,

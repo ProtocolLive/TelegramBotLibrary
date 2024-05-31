@@ -9,7 +9,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\TgLimits;
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2024.05.30.00
+ * @version 2024.05.31.00
  */
 final class TblPhotoSendMulti
 extends TblServerMulti{
@@ -43,6 +43,7 @@ extends TblServerMulti{
    * @param TblMarkup $Markup Additional interface options. A object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
    * @param bool $Spoiler If the photo needs to be covered with a spoiler animation
    * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
+   * @param bool $CaptionAbove If the caption must be shown above the message media
    * @throws TblException
    * @link https://core.telegram.org/bots/api#sendphoto
    */
@@ -52,6 +53,7 @@ extends TblServerMulti{
     int $Thread = null,
     string $BusinessId = null,
     string $Caption = null,
+    bool $CaptionAbove = false,
     TgParseMode $ParseMode = TgParseMode::Html,
     TblEntities $Entities = null,
     bool $DisableNotification = false,
@@ -72,6 +74,7 @@ extends TblServerMulti{
       $Thread,
       $BusinessId,
       $Caption,
+      $CaptionAbove,
       $ParseMode,
       $Entities,
       $DisableNotification,
@@ -112,6 +115,7 @@ extends TblServerMulti{
    * @param TblMarkup $Markup Additional interface options. A object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
    * @param bool $Spoiler If the photo needs to be covered with a spoiler animation
    * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
+   * @param bool $CaptionAbove If the caption must be shown above the message media
    * @return array Prepared parameters for the PhotoSendMulti method
    * @throws TblException
    * @link https://core.telegram.org/bots/api#sendphoto
@@ -122,6 +126,7 @@ extends TblServerMulti{
     int $Thread = null,
     string $BusinessId = null,
     string $Caption = null,
+    bool $CaptionAbove = false,
     TgParseMode $ParseMode = TgParseMode::Html,
     TblEntities $Entities = null,
     bool $DisableNotification = false,
@@ -138,6 +143,7 @@ extends TblServerMulti{
       $Thread,
       $BusinessId,
       $Caption,
+      $CaptionAbove,
       $ParseMode,
       $Entities,
       $DisableNotification,
@@ -179,6 +185,7 @@ extends TblServerMulti{
    * @param TblMarkup $Markup Additional interface options. A object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
    * @param bool $Spoiler If the photo needs to be covered with a spoiler animation
    * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
+   * @param bool $CaptionAbove If the caption must be shown above the message media
    * @return array Prepared parameters for the PhotoSendMulti method
    * @throws TblException
    * @link https://core.telegram.org/bots/api#sendphoto
@@ -189,6 +196,7 @@ extends TblServerMulti{
     int $Thread = null,
     string $BusinessId = null,
     string $Caption = null,
+    bool $CaptionAbove = false,
     TgParseMode $ParseMode = TgParseMode::Html,
     TblEntities $Entities = null,
     bool $DisableNotification = false,
@@ -235,6 +243,9 @@ extends TblServerMulti{
     endif;
     if($Effect !== null):
       $param['message_effect_id'] = $Effect;
+    endif;
+    if($CaptionAbove):
+      $param['show_caption_above_media'] = true;
     endif;
     if(is_file($Photo)):
       $param['photo'] = new CURLFile($Photo);
