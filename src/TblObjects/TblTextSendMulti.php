@@ -11,7 +11,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2024.05.30.00
+ * @version 2024.07.03.00
  */
 final class TblTextSendMulti
 extends TblServerMulti{
@@ -123,8 +123,8 @@ extends TblServerMulti{
    * @link https://core.telegram.org/bots/api#sendmessage
    */
   public static function BuildArgs(
-    int|string $Chat = null,
     string $Text,
+    int|string $Chat = null,
     int $Thread = null,
     string $BusinessId = null,
     TgParseMode $ParseMode = null,
