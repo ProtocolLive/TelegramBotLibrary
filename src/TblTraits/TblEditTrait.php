@@ -15,13 +15,10 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\{
   TgParseMode
 };
 use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgEditedInterface;
-use ProtocolLive\TelegramBotLibrary\TgObjects\{
-  TgLimits,
-  TgText
-};
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgLimits;
 
 /**
- * @version 2024.07.03.00
+ * @version 2024.07.03.01
  */
 trait TblEditTrait{
   /**
@@ -74,7 +71,7 @@ trait TblEditTrait{
     if($return === true):
       return true;
     else:
-      return parent::DetectMessage($return);
+      return parent::DetectMessageEdited($return);
     endif;
   }
 
@@ -112,7 +109,7 @@ trait TblEditTrait{
     if($return === true):
       return $return;
     else:
-      return new TgText($return);
+      return parent::DetectMessageEdited($return);
     endif;
   }
 
@@ -153,7 +150,7 @@ trait TblEditTrait{
     if($return === true):
       return true;
     else:
-      return parent::DetectMessage($return);
+      return parent::DetectMessageEdited($return);
     endif;
   }
 }
