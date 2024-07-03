@@ -8,7 +8,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\TgLimits;
 use ProtocolLive\TelegramBotLibrary\TgParams\TgLinkPreview;
 
 /**
- * @version 2024.07.03.00
+ * @version 2024.07.03.01
  */
 final class TblTextEditMulti
 extends TblServerMulti{
@@ -25,9 +25,9 @@ extends TblServerMulti{
    * @link https://core.telegram.org/bots/api#editmessagetext
    */
   public function __construct(
+    string $Text,
     int|string $Chat = null,
     int $Id = null,
-    string $Text,
     string $InlineId = null,
     TgParseMode $ParseMode = null,
     TblEntities $Entities = null,
@@ -39,9 +39,9 @@ extends TblServerMulti{
       return;
     endif;
     $this->Args[$MultiControl ?? $Chat] = self::BuildArgs(
+      $Text,
       $Chat,
       $Id,
-      $Text,
       $InlineId,
       $ParseMode,
       $Entities,
@@ -63,9 +63,9 @@ extends TblServerMulti{
    * @link https://core.telegram.org/bots/api#editmessagetext
    */
   public function Add(
+    string $Text,
     int|string $Chat = null,
     int $Id = null,
-    string $Text,
     string $InlineId = null,
     TgParseMode $ParseMode = null,
     TblEntities $Entities = null,
@@ -74,9 +74,9 @@ extends TblServerMulti{
     int|string $MultiControl = null
   ):void{
     $this->Args[$MultiControl ?? $Chat] = self::BuildArgs(
+      $Text,
       $Chat,
       $Id,
-      $Text,
       $InlineId,
       $ParseMode,
       $Entities,
