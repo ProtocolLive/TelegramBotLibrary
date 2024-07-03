@@ -25,7 +25,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2024.05.30.00
+ * @version 2024.07.03.00
  */
 trait TblTextTrait{
   /**
@@ -97,9 +97,9 @@ trait TblTextTrait{
    * @link https://core.telegram.org/bots/api#editmessagetext
    */
   public function TextEdit(
+    string $Text,
     int|string $Chat = null,
     int $Id = null,
-    string $Text,
     string $InlineId = null,
     TgParseMode $ParseMode = null,
     TblEntities $Entities = null,
@@ -109,9 +109,9 @@ trait TblTextTrait{
     $return = $this->ServerMethod(
       TgMethods::TextEdit,
       TblTextEditMulti::BuildArgs(
+        $Text,
         $Chat,
         $Id,
-        $Text,
         $InlineId,
         $ParseMode,
         $Entities,
@@ -167,8 +167,8 @@ trait TblTextTrait{
    * @link https://core.telegram.org/bots/api#sendmessage
    */
   public function TextSend(
-    int|string $Chat = null,
     string $Text,
+    int|string $Chat = null,
     int $Thread = null,
     string $BusinessId = null,
     TgParseMode $ParseMode = null,
@@ -183,8 +183,8 @@ trait TblTextTrait{
     $return = $this->ServerMethod(
       TgMethods::TextSend,
       TblTextSendMulti::BuildArgs(
-        $Chat,
         $Text,
+        $Chat,
         $Thread,
         $BusinessId,
         $ParseMode,
