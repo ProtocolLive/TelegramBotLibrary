@@ -68,7 +68,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2024.07.01.00
+ * @version 2024.07.03.00
  */
 final class TelegramBotLibrary
 extends TblBasics{
@@ -179,6 +179,7 @@ extends TblBasics{
    * @param int|string $Chat Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
    * @param int $Id Required if inline_message_id is not specified. Identifier of the message to edit
    * @param string $InlineId Required if chat_id and message_id are not specified. Identifier of the inline message
+   * @param string $BusinessId Unique identifier of the business connection on behalf of which the message to be edited was sent
    * @param bool $CaptionAbove If the caption must be shown above the message media. Supported only for animation, photo and video messages.
    * @param TgParseMode $ParseMode Mode for parsing entities in the message caption. See formatting options for more details.
    * @param TblEntities $Entities A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
@@ -190,6 +191,7 @@ extends TblBasics{
     int|string $Chat = null,
     int $Id = null,
     string $InlineId = null,
+    string $BusinessId = null,
     bool $CaptionAbove = false,
     TgParseMode $ParseMode = null,
     TblEntities $Entities = null,
@@ -198,9 +200,12 @@ extends TblBasics{
     if(mb_strlen(strip_tags($Caption)) > TgLimits::Caption):
       throw new TblException(TblError::LimitCaption, 'Caption bigger than ' . TgLimits::Caption);
     endif;
-    if($InlineId === null):
+    if($InlineId === null
+    and $BusinessId === null):
       $param['chat_id'] = $Chat;
       $param['message_id'] = $Id;
+    elseif($BusinessId !== null):
+      $param['business_connection_id'] = $BusinessId;
     else:
       $param['inline_message_id'] = $InlineId;
     endif;
@@ -488,6 +493,7 @@ extends TblBasics{
    * @param int $Chat Required if inline_message_id is not specified. Unique identifier for the target chat.
    * @param int $Id Required if inline_message_id is not specified. Identifier of the message to edit
    * @param string $IdInline Required if chat_id and message_id are not specified. Identifier of the inline message
+   * @param string $BusinessId Unique identifier of the business connection on behalf of which the message to be edited was sent
    * @param TblMarkup $Markup A object for an inline keyboard.
    * @return TgEditedInterface|true On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned.
    * @throws TblException
@@ -497,15 +503,16 @@ extends TblBasics{
     int $Chat = null,
     int $Id = null,
     string $IdInline = null,
+    string $BusinessId = null,
     TblMarkup $Markup = null
   ):TgEditedInterface|true{
-    if($Chat !== null):
+    if($IdInline === null
+    and $BusinessId === null):
       $param['chat_id'] = $Chat;
-    endif;
-    if($Id !== null):
       $param['message_id'] = $Id;
-    endif;
-    if($IdInline !== null):
+    elseif($BusinessId !== null):
+      $param['business_connection_id'] = $BusinessId;
+    else:
       $param['inline_message_id'] = $IdInline;
     endif;
     if($Markup !== null):
@@ -524,6 +531,7 @@ extends TblBasics{
    * @param int $Chat Required if inline_message_id is not specified. Unique identifier for the target chat
    * @param int $Id Required if inline_message_id is not specified. Identifier of the message to edit
    * @param string $InlineIdRequired if chat_id and message_id are not specified. Identifier of the inline message
+   * @param string $BusinessId Unique identifier of the business connection on behalf of which the message to be edited was sent
    * @param TblMedia $Media A JSON-serialized object for a new media content of the message
    * @param TblMarkup $Markup A JSON-serialized object for a new inline keyboard.
    * @return TgEditedInterface|true On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned.
@@ -534,12 +542,16 @@ extends TblBasics{
     int $Chat = null,
     int $Id = null,
     string $InlineId = null,
+    string $BusinessId = null,
     TblMedia $Media,
     TblMarkup $Markup = null
   ):TgEditedInterface|true{
-    if($InlineId === null):
+    if($InlineId === null
+    and $BusinessId === null):
       $param['chat_id'] = $Chat;
       $param['message_id'] = $Id;
+    elseif($BusinessId !== null):
+      $param['business_connection_id'] = $BusinessId;
     else:
       $param['inline_message_id'] = $InlineId;
     endif;

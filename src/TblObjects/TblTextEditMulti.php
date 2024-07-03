@@ -8,7 +8,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\TgLimits;
 use ProtocolLive\TelegramBotLibrary\TgParams\TgLinkPreview;
 
 /**
- * @version 2024.07.03.01
+ * @version 2024.07.03.02
  */
 final class TblTextEditMulti
 extends TblServerMulti{
@@ -17,6 +17,7 @@ extends TblServerMulti{
    * @param int|null $Id Required if inline_message_id is not specified. Identifier of the message to edit
    * @param string $Text New text of the message, 1-4096 characters after entities parsing
    * @param string|null $InlineId Required if chat_id and message_id are not specified. Identifier of the inline message
+   * @param string $BusinessId Unique identifier of the business connection on behalf of which the message to be edited was sent
    * @param TgParseMode $ParseMode Mode for parsing entities in the message text.
    * @param TblEntities $Entities A list of special entities that appear in message text, which can be specified instead of parse_mode
    * @param TgLinkPreview $LinkPreview Link preview generation options for the message
@@ -29,13 +30,16 @@ extends TblServerMulti{
     int|string $Chat = null,
     int $Id = null,
     string $InlineId = null,
+    string $BusinessId = null,
     TgParseMode $ParseMode = null,
     TblEntities $Entities = null,
     TgLinkPreview $LinkPreview = null,
     TblMarkup $Markup = null,
     int|string $MultiControl = null
   ){
-    if($Id === null and $InlineId === null):
+    if($Id === null
+    and $InlineId === null
+    and $BusinessId === null):
       return;
     endif;
     $this->Args[$MultiControl ?? $Chat] = self::BuildArgs(
@@ -43,6 +47,7 @@ extends TblServerMulti{
       $Chat,
       $Id,
       $InlineId,
+      $BusinessId,
       $ParseMode,
       $Entities,
       $LinkPreview,
@@ -55,6 +60,7 @@ extends TblServerMulti{
    * @param int $Id Required if inline_message_id is not specified. Identifier of the message to edit
    * @param string $Text New text of the message, 1-4096 characters after entities parsing
    * @param string $InlineId Required if chat_id and message_id are not specified. Identifier of the inline message
+   * @param string $BusinessId Unique identifier of the business connection on behalf of which the message to be edited was sent
    * @param TgParseMode $ParseMode Mode for parsing entities in the message text.
    * @param TblEntities $Entities A list of special entities that appear in message text, which can be specified instead of parse_mode
    * @param TgLinkPreview $LinkPreview Link preview generation options for the message
@@ -67,6 +73,7 @@ extends TblServerMulti{
     int|string $Chat = null,
     int $Id = null,
     string $InlineId = null,
+    string $BusinessId = null,
     TgParseMode $ParseMode = null,
     TblEntities $Entities = null,
     TgLinkPreview $LinkPreview = null,
@@ -78,6 +85,7 @@ extends TblServerMulti{
       $Chat,
       $Id,
       $InlineId,
+      $BusinessId,
       $ParseMode,
       $Entities,
       $LinkPreview,
@@ -90,6 +98,7 @@ extends TblServerMulti{
    * @param int|null $Id Required if inline_message_id is not specified. Identifier of the message to edit
    * @param string $Text New text of the message, 1-4096 characters after entities parsing
    * @param string|null $InlineId Required if chat_id and message_id are not specified. Identifier of the inline message
+   * @param string $BusinessId Unique identifier of the business connection on behalf of which the message to be edited was sent
    * @param TgParseMode $ParseMode Mode for parsing entities in the message text.
    * @param TblEntities $Entities A list of special entities that appear in message text, which can be specified instead of parse_mode
    * @param TgLinkPreview $LinkPreview Link preview generation options for the message
@@ -102,12 +111,14 @@ extends TblServerMulti{
     int|string $Chat = null,
     int $Id = null,
     string $InlineId = null,
+    string $BusinessId = null,
     TgParseMode $ParseMode = null,
     TblEntities $Entities = null,
     TgLinkPreview $LinkPreview = null,
     TblMarkup $Markup = null
   ):array{
-    if($InlineId === null):
+    if($InlineId === null
+    and $BusinessId === null):
       if($Chat === null):
         throw new TblException(TblError::MissingParameter, 'Chat is required');
       endif;
@@ -116,6 +127,8 @@ extends TblServerMulti{
       endif;
       $param['chat_id'] = $Chat;
       $param['message_id'] = $Id;
+    elseif($BusinessId !== null):
+      $param['business_connection_id'] = $BusinessId;
     else:
       $param['inline_message_id'] = $InlineId;
     endif;
