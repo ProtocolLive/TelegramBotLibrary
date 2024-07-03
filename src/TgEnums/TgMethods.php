@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TgEnums;
 
 /**
- * @version 2024.05.31.00
+ * @version 2024.07.01.00
  */
 enum TgMethods:string{
   case AnimationSend = 'sendAnimation';
@@ -95,6 +95,10 @@ enum TgMethods:string{
   case NameGet = 'getMyName';
   case NameSet = 'setMyName';
   case PhotoSend = 'sendPhoto';
+  /**
+   * @link https://core.telegram.org/bots/api#getstartransactions
+   */
+  case StarTransactionsGet = 'getStarTransactions';
   case StickerSend = 'sendSticker';
   case TextEdit = 'editMessageText';
   case TextSend = 'sendMessage';
