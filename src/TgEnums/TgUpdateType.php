@@ -5,6 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TgEnums;
 
 /**
+ * Used in webhook set
  * https://core.telegram.org/bots/api#update
  * @version 2024.03.31.00
  */
