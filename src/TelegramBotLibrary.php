@@ -54,6 +54,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgLimits,
   TgMessageDeleted,
   TgPoll,
+  TgPollAnswer,
   TgProfilePhoto,
   TgReactionUpdate,
   TgSticker
@@ -68,7 +69,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2024.07.04.01
+ * @version 2024.07.04.02
  */
 final class TelegramBotLibrary
 extends TblBasics{
@@ -323,6 +324,8 @@ extends TblBasics{
       return new TgGroupStatusMy($Data['my_chat_member']);
     elseif(isset($Data['poll'])):
       return new TgPoll($Data['poll']);
+    elseif(isset($Data['poll_answer'])):
+      return new TgPollAnswer($Data['poll_answer']);
     elseif(isset($Data['pre_checkout_query'])):
       return new TgInvoiceCheckout($Data['pre_checkout_query']);
     elseif(isset($Data['removed_chat_boost'])):
