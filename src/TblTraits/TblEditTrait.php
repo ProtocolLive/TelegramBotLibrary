@@ -5,12 +5,12 @@
 namespace ProtocolLive\TelegramBotLibrary\TblTraits;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
   TblEntities,
-  TblError,
   TblException,
   TblMarkup,
   TblMedia
 };
 use ProtocolLive\TelegramBotLibrary\TgEnums\{
+  TgError,
   TgMethods,
   TgParseMode
 };
@@ -18,7 +18,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgEditedInterface;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgLimits;
 
 /**
- * @version 2024.07.03.01
+ * @version 2024.07.04.00
  */
 trait TblEditTrait{
   /**
@@ -45,7 +45,10 @@ trait TblEditTrait{
     TblMarkup $Markup = null
   ):TgEditedInterface|true{
     if(mb_strlen(strip_tags($Caption)) > TgLimits::Caption):
-      throw new TblException(TblError::LimitCaption, 'Caption bigger than ' . TgLimits::Caption);
+      throw new TblException(
+        TgError::LimitCaption,
+        'Caption bigger than ' . TgLimits::Caption . ' characters'
+      );
     endif;
     if($InlineId === null
     and $BusinessId === null):

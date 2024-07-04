@@ -3,12 +3,15 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
-use ProtocolLive\TelegramBotLibrary\TgEnums\TgParseMode;
+use ProtocolLive\TelegramBotLibrary\TgEnums\{
+  TgError,
+  TgParseMode
+};
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgLimits;
 
 /**
  * @link https://core.telegram.org/bots/api#inputmediaphoto
- * @version 2024.04.02.00
+ * @version 2024.07.04.00
  */
 final class TblMediaPhoto
 extends TblMedia{
@@ -27,7 +30,10 @@ extends TblMedia{
     ];
     if($this->Caption !== null):
       if(mb_strlen(strip_tags($this->Caption)) > TgLimits::Caption):
-        throw new TblException(TblError::LimitCaption, 'Caption bigger than ' . TgLimits::Caption);
+        throw new TblException(
+          TgError::LimitCaption,
+          'Caption bigger than ' . TgLimits::Caption . ' characters'
+        );
       endif;
       $param['caption'] = $this->Caption;
     endif;

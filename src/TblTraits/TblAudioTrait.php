@@ -6,11 +6,11 @@ namespace ProtocolLive\TelegramBotLibrary\TblTraits;
 use CURLFile;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
   TblEntities,
-  TblError,
   TblMarkup
 };
 use ProtocolLive\TelegramBotLibrary\TblObjects\TblException;
 use ProtocolLive\TelegramBotLibrary\TgEnums\{
+  TgError,
   TgMethods,
   TgParseMode
 };
@@ -22,7 +22,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2024.05.30.00
+ * @version 2024.07.04.00
  */
 trait TblAudioTrait{
   /**
@@ -80,7 +80,10 @@ trait TblAudioTrait{
     endif;
     if($Caption !== null):
       if(mb_strlen(strip_tags($Caption)) > TgLimits::Caption):
-        throw new TblException(TblError::LimitCaption, 'Caption bigger than ' . TgLimits::Caption);
+        throw new TblException(
+          TgError::LimitCaption,
+          'Caption bigger than ' . TgLimits::Caption . ' characters'
+        );
       endif;
       $param['caption'] = $Caption;
       if($ParseMode !== null):
@@ -173,7 +176,10 @@ trait TblAudioTrait{
     endif;
     if($Caption !== null):
       if(mb_strlen(strip_tags($Caption)) > TgLimits::Caption):
-        throw new TblException(TblError::LimitCaption, 'Caption bigger than ' . TgLimits::Caption);
+        throw new TblException(
+          TgError::LimitCaption,
+          'Caption bigger than ' . TgLimits::Caption . ' characters'
+        );
       endif;
       $param['caption'] = $Caption;
       if($ParseMode !== null):

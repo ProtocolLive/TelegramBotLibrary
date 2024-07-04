@@ -6,11 +6,11 @@ namespace ProtocolLive\TelegramBotLibrary\TblTraits;
 use CURLFile;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
   TblEntities,
-  TblError,
   TblException,
   TblMarkup
 };
 use ProtocolLive\TelegramBotLibrary\TgEnums\{
+  TgError,
   TgMethods,
   TgParseMode
 };
@@ -22,7 +22,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2024.05.31.00
+ * @version 2024.07.04.00
  */
 trait TblVideoTrait{
   /**
@@ -98,7 +98,10 @@ trait TblVideoTrait{
     endif;
     if($Caption !== null):
       if(mb_strlen(strip_tags($Caption)) > TgLimits::Caption):
-        throw new TblException(TblError::LimitCaption, 'Caption bigger than ' . TgLimits::Caption);
+        throw new TblException(
+          TgError::LimitCaption,
+          'Caption bigger than ' . TgLimits::Caption . ' characters'
+        );
       endif;
       $params['caption'] = $Caption;
       if($ParseMode !== null):

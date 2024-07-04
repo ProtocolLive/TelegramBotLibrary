@@ -4,12 +4,15 @@
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 use CURLFile;
-use ProtocolLive\TelegramBotLibrary\TgEnums\TgParseMode;
+use ProtocolLive\TelegramBotLibrary\TgEnums\{
+  TgError,
+  TgParseMode
+};
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgLimits;
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2024.05.31.00
+ * @version 2024.07.04.00
  */
 final class TblPhotoSendMulti
 extends TblServerMulti{
@@ -216,7 +219,10 @@ extends TblServerMulti{
     endif;
     if($Caption !== null):
       if(mb_strlen(strip_tags($Caption)) > TgLimits::Caption):
-        throw new TblException(TblError::LimitCaption, 'Caption bigger than ' . TgLimits::Caption);
+        throw new TblException(
+          TgError::LimitCaption,
+          'Caption bigger than ' . TgLimits::Caption . ' characters'
+        );
       endif;
       $param['caption'] = $Caption;
       if($ParseMode !== null):

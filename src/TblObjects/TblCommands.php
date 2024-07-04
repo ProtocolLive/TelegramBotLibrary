@@ -1,11 +1,14 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.02.03.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
+use ProtocolLive\TelegramBotLibrary\TgEnums\TgError;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgLimits;
 
+/**
+ * @version 2024.07.04.00
+ */
 final class TblCommands{
   private array $Commands = [];
 
@@ -28,9 +31,15 @@ final class TblCommands{
     string $Description
   ):void{
     if(strlen($Command) > TgLimits::Command):
-      throw new TblException(TblError::LimitCommand, 'Command exceeds ' . TgLimits::Command);
+      throw new TblException(
+        TgError::LimitCommand,
+       'Command exceeds ' . TgLimits::Command . ' characters'
+      );
     elseif(strlen($Description) > TgLimits::CmdDescription):
-      throw new TblException(TblError::LimitCmdDescription, 'Description exceeds ' . TgLimits::CmdDescription);
+      throw new TblException(
+        TgError::LimitCmdDescription,
+        'Description exceeds ' . TgLimits::CmdDescription . ' characters'
+      );
     endif;
     $this->Commands[$Command] = $Description;
   }

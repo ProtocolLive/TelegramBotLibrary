@@ -5,15 +5,17 @@
 namespace ProtocolLive\TelegramBotLibrary\TgParams;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
   TblEntities,
-  TblError,
   TblException
 };
-use ProtocolLive\TelegramBotLibrary\TgEnums\TgParseMode;
+use ProtocolLive\TelegramBotLibrary\TgEnums\{
+  TgError,
+  TgParseMode
+};
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgLimits;
 
 /**
  * Represents a photo to be sent.
- * @version 2024.04.30.00
+ * @version 2024.07.04.00
  * @link https://core.telegram.org/bots/api#inputmediaphoto
  */
 final class TgPhotoGroup{
@@ -34,7 +36,10 @@ final class TgPhotoGroup{
     public bool $Spoiler = false
   ){
     if(mb_strlen(strip_tags($this->Caption)) > TgLimits::Caption):
-      throw new TblException(TblError::LimitCaption, 'Caption exceeds ' . TgLimits::Caption);
+      throw new TblException(
+        TgError::LimitCaption,
+        'Caption exceeds ' . TgLimits::Caption . ' characters'
+      );
     endif;
   }
 

@@ -29,6 +29,7 @@ use ProtocolLive\TelegramBotLibrary\TblTraits\{
   TblVideoTrait
 };
 use ProtocolLive\TelegramBotLibrary\TgEnums\{
+  TgError,
   TgMenuButton,
   TgMethods,
   TgParseMode,
@@ -67,7 +68,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2024.07.04.00
+ * @version 2024.07.04.01
  */
 final class TelegramBotLibrary
 extends TblBasics{
@@ -241,7 +242,10 @@ extends TblBasics{
     endif;
     if($Caption !== null):
       if(mb_strlen(strip_tags($Caption)) > TgLimits::Caption):
-        throw new TblException(TblError::LimitCaption, 'Caption bigger than ' . TgLimits::Caption);
+        throw new TblException(
+          TgError::LimitCaption,
+          'Caption bigger than ' . TgLimits::Caption . ' characters'
+        );
       endif;
       $param['caption'] = $Caption;
       if($ParseMode !== null):
@@ -526,7 +530,10 @@ extends TblBasics{
     endif;
     if($Caption !== null):
       if(mb_strlen(strip_tags($Caption)) > TgLimits::Caption):
-        throw new TblException(TblError::LimitCaption, 'Caption bigger than ' . TgLimits::Caption);
+        throw new TblException(
+          TgError::LimitCaption,
+          'Caption bigger than ' . TgLimits::Caption . ' characters'
+        );
       endif;
       $param['caption'] = $Caption;
       if($ParseMode !== null):

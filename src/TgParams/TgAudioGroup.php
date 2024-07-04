@@ -5,14 +5,16 @@
 namespace ProtocolLive\TelegramBotLibrary\TgParams;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
   TblEntities,
-  TblError,
   TblException
 };
-use ProtocolLive\TelegramBotLibrary\TgEnums\TgParseMode;
+use ProtocolLive\TelegramBotLibrary\TgEnums\{
+  TgError,
+  TgParseMode
+};
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgLimits;
 
 /**
- * @version 2024.04.30.00
+ * @version 2024.07.04.00
  * @link https://core.telegram.org/bots/api#inputmediaaudio
  */
 final class TgAudioGroup{
@@ -38,7 +40,10 @@ final class TgAudioGroup{
     public string|null $Title = null
   ){
     if(mb_strlen(strip_tags($this->Caption)) > TgLimits::Caption):
-      throw new TblException(TblError::LimitCaption, 'Caption exceeds ' . TgLimits::Caption);
+      throw new TblException(
+        TgError::LimitCaption,
+        'Caption exceeds ' . TgLimits::Caption . ' characters'
+      );
     endif;
   }
 

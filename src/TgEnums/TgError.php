@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TgEnums;
 
 /**
- * @version 2024.07.04.00
+ * @version 2024.07.04.01
  */
 enum TgError{
   case Admin;
@@ -38,6 +38,30 @@ enum TgError{
   case InlineKeyboardNone;
   case InvoiceLabel;
   case InvoiceLimits;
+  /**
+   * https://core.telegram.org/bots/api#sendphoto
+   */
+  case LimitCaption;
+  /**
+   * @link https://core.telegram.org/bots/api#botcommand
+   */
+  case LimitCommand;
+  /**
+   * @link https://core.telegram.org/bots/api#botcommand
+   */
+  case LimitCmdDescription;
+  /**
+   * @link https://core.telegram.org/bots/api#setmydescription
+   */
+  case LimitDescription;
+  /**
+   * @link https://core.telegram.org/bots/api#setmyshortdescription
+   */
+  case LimitDescriptionShort;
+  /**
+   * @link https://core.telegram.org/bots/api#setmyname
+   */
+  case LimitName;
   /**
    * @link https://core.telegram.org/bots/api#sendpoll
    */

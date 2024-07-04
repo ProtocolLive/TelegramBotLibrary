@@ -6,11 +6,11 @@ namespace ProtocolLive\TelegramBotLibrary\TblTraits;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
   TblCommands,
   TblDefaultPerms,
-  TblError,
   TblException
 };
 use ProtocolLive\TelegramBotLibrary\TgEnums\{
   TgCmdScope,
+  TgError,
   TgLanguages,
   TgMethods
 };
@@ -21,7 +21,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 };
 
 /**
- * @version 2024.01.01.00
+ * @version 2024.07.04.00
  */
 trait TblMyTrait{
   /**
@@ -57,7 +57,10 @@ trait TblMyTrait{
     $params = [];
     if($Description !== null):
       if(mb_strlen($Description) > TgLimits::Description):
-        throw new TblException(TblError::LimitDescription);
+        throw new TblException(
+          TgError::LimitDescription,
+          'Bot description exceeds ' . TgLimits::Description . ' characters'
+        );
       endif;
       $params['description'] = $Description;
     endif;
@@ -100,7 +103,10 @@ trait TblMyTrait{
     $params = [];
     if($Description !== null):
       if(mb_strlen($Description) > TgLimits::DescriptionShort):
-        throw new TblException(TblError::LimitDescriptionShort);
+        throw new TblException(
+          TgError::LimitDescriptionShort,
+          'Bot short description exceeds ' . TgLimits::DescriptionShort . ' characters'
+        );
       endif;
       $params['short_description'] = $Description;
     endif;
@@ -259,7 +265,7 @@ trait TblMyTrait{
   ):string{
     $params = [];
     if(strlen($Name) > TgLimits::Name):
-      throw new TblException(TblError::LimitName, 'Bot name exceeds ' . TgLimits::Name . ' characters');
+      throw new TblException(TgError::LimitName, 'Bot name exceeds ' . TgLimits::Name . ' characters');
     endif;
     if($Language !== null):
       $params['language_code'] = $Language->value;
