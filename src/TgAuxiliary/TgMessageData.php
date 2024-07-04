@@ -32,7 +32,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 
 /**
  * @link https://core.telegram.org/bots/api#message
- * @version 2024.05.30.01
+ * @version 2024.07.04.00
  */
 final readonly class TgMessageData{
   /**
@@ -80,7 +80,7 @@ final readonly class TgMessageData{
   /**
    * Inline keyboard attached to the message. login_url buttons are represented as ordinary url buttons.
    */
-  public array $Markup;
+  public array|null $Markup;
   /**
    * Bot through which the message was sent
    */
@@ -186,6 +186,8 @@ final readonly class TgMessageData{
         endforeach;
       endforeach;
       $this->Markup = $temp;
+    else:
+      $this->Markup = null;
     endif;
 
     if(isset($Data['forward_origin'])):

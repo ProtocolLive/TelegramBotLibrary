@@ -7,7 +7,7 @@ namespace ProtocolLive\TelegramBotLibrary\TgAuxiliary;
 /**
  * This object contains information about one answer option in a poll.
  * @link https://core.telegram.org/bots/api#polloption
- * @version 2024.05.06.00
+ * @version 2024.07.04.00
  */
 final readonly class TgPollOption{
   /**
@@ -34,6 +34,8 @@ final readonly class TgPollOption{
         $temp[] = new TgEntity($entity);
       endforeach;
       $this->Entities = $temp;
+    else:
+      $this->Entities = [];
     endif;
   }
 }
