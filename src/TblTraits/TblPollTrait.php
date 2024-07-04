@@ -22,7 +22,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2024.07.04.00
+ * @version 2024.07.04.01
  */
 trait TblPollTrait{
   /**
@@ -152,5 +152,30 @@ trait TblPollTrait{
       $param['reply_markup'] = $Markup->ToArray();
     endif;
     return new TgPoll($this->ServerMethod(TgMethods::PollSend, $param));
+  }
+
+  /**
+   * Use this method to stop a poll which was sent by the bot.
+   * @param int|string $Chat Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * @param int $Id Identifier of the original message with the poll
+   * @param string $BusinessId Unique identifier of the business connection on behalf of which the message to be edited was sent
+   * @param TblMarkup $Markup A object for a new message inline keyboard.
+   * @return TgPoll The stopped Poll is returned.
+   */
+  public function PollStop(
+    int|string $Chat,
+    int $Id,
+    string $BusinessId = null,
+    TblMarkup $Markup = null
+  ):TgPoll{
+    $param['chat_id'] = $Chat;
+    $param['message_id'] = $Id;
+    if($BusinessId !== null):
+      $param['business_connection_id'] = $BusinessId;
+    endif;
+    if($Markup !== null):
+      $param['reply_markup'] = $Markup->ToArray();
+    endif;
+    return new TgPoll($this->ServerMethod(TgMethods::PollStop, $param));
   }
 }

@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TgEnums;
 
 /**
- * @version 2024.07.04.00
+ * @version 2024.07.04.01
  */
 enum TgMethods:string{
   /**
@@ -300,6 +300,10 @@ enum TgMethods:string{
    * @link https://core.telegram.org/bots/api#sendpoll
    */
   case PollSend = 'sendPoll';
+  /**
+   * @link https://core.telegram.org/bots/api#stoppoll
+   */
+  case PollStop = 'stopPoll';
   /**
    * @link https://core.telegram.org/bots/api#getstartransactions
    */
