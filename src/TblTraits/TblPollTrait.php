@@ -22,7 +22,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2024.07.04.01
+ * @version 2024.07.04.02
  */
 trait TblPollTrait{
   /**
@@ -61,7 +61,7 @@ trait TblPollTrait{
     string $BusinessId = null,
     TgParseMode $ParseMode = null,
     TblEntities $Entities = null,
-    bool $Anonymous = false,
+    bool $Anonymous = true,
     TgPollType $Type = null,
     bool $MultipleAnswers = false,
     int $CorrectOption = null,
@@ -106,8 +106,8 @@ trait TblPollTrait{
     if($Entities !== null):
       $param['entities'] = $Entities->ToArray();
     endif;
-    if($Anonymous):
-      $param['is_anonymous'] = true;
+    if($Anonymous === false):
+      $param['is_anonymous'] = false;
     endif;
     if($Type !== null):
       $param['type'] = $Type->value;
