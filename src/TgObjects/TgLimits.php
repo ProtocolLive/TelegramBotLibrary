@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
- * @version 2024.01.26.00
+ * @version 2024.07.04.00
  */
 final class TgLimits{
   /**
@@ -47,6 +47,26 @@ final class TgLimits{
    * @link https://core.telegram.org/bots/api#setmyname
    */
   public const Name = 64;
+  /**
+   * @link https://core.telegram.org/bots/api#sendpoll
+   */
+  public const PollExplanation = 200;
+  /**
+   * @link https://core.telegram.org/bots/api#sendpoll
+   */
+  public const PollOptionsMax = 10;
+  /**
+   * @link https://core.telegram.org/bots/api#sendpoll
+   */
+  public const PollOptionsMin = 2;
+  /**
+   * https://core.telegram.org/bots/api#inputpolloption
+   */
+  public const PollOptionText = 100;
+  /**
+   * @link https://core.telegram.org/bots/api#sendpoll
+   */
+  public const PollQuestion = 300;
   /**
    * @link https://core.telegram.org/bots/api#replyparameters
    */

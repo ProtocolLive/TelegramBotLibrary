@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TgEnums;
 
 /**
- * @version 2024.07.01.00
+ * @version 2024.07.04.00
  */
 enum TgMethods:string{
   /**
@@ -296,6 +296,10 @@ enum TgMethods:string{
    * @link https://core.telegram.org/bots/api#getmyphoto
    */
   case PhotoSend = 'sendPhoto';
+  /**
+   * @link https://core.telegram.org/bots/api#sendpoll
+   */
+  case PollSend = 'sendPoll';
   /**
    * @link https://core.telegram.org/bots/api#getstartransactions
    */

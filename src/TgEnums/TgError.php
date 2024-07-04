@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TgEnums;
 
 /**
- * @version 2024.02.13.00
+ * @version 2024.07.04.00
  */
 enum TgError{
   case Admin;
@@ -38,6 +38,26 @@ enum TgError{
   case InlineKeyboardNone;
   case InvoiceLabel;
   case InvoiceLimits;
+  /**
+   * @link https://core.telegram.org/bots/api#sendpoll
+   */
+  case LimitPollExplanation;
+  /**
+   * @link https://core.telegram.org/bots/api#sendpoll
+   */
+  case LimitPollOptionsMax;
+  /**
+   * @link https://core.telegram.org/bots/api#sendpoll
+   */
+  case LimitPollOptionsMin;
+  /**
+   * @link https://core.telegram.org/bots/api#inputpolloption
+   */
+  case LimitPollOptionText;
+  /**
+   * @link https://core.telegram.org/bots/api#sendpoll
+   */
+  case LimitPollQuestion;
   case LinkPreview;
   case Markdown;
   case MessageIdInvalid;
