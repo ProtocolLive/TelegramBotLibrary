@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TgEnums;
 
 /**
- * @version 2024.07.04.01
+ * @version 2024.07.05.00
  */
 enum TgError{
   case Admin;
@@ -63,6 +63,10 @@ enum TgError{
    */
   case LimitName;
   /**
+   * @link https://core.telegram.org/bots/api#sendmediagroup
+   */
+  case LimitMediaGroup;
+  /**
    * @link https://core.telegram.org/bots/api#sendpoll
    */
   case LimitPollExplanation;
@@ -88,6 +92,8 @@ enum TgError{
   case MissingParameter;
   case NotMember;
   case NoMedia;
+  case PaidChannel;
+  case PaidType;
   case PermAdminManage;
   case Protected;
   case Quote;

@@ -12,6 +12,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgDice,
   TgDocument,
   TgLocation,
+  TgPaidMedia,
   TgPhoto,
   TgPoll,
   TgSticker,
@@ -30,7 +31,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
  * @param string|null $Signature In case of sender is a channel
  * @link https://core.telegram.org/bots/api#externalreplyinfo
  * @link https://core.telegram.org/bots/api#messageorigin
- * @version 2024.04.11.01
+ * @version 2024.07.05.00
  */
 final readonly class TgReplyExternal{
   public TgUser|TgChat|string $User;
@@ -82,6 +83,8 @@ final readonly class TgReplyExternal{
       $this->Object = new TgContact($Data['contact']);
     elseif(isset($Data['dice'])):
       $this->Object = new TgDice($Data['dice']);
+    elseif(isset($Data['paid_media'])):
+      $this->Object = new TgPaidMedia($Data['paid_media']);
     else:
       $this->Object = null;
     endif;

@@ -18,6 +18,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgDice,
   TgDocument,
   TgLocation,
+  TgPaidMedia,
   TgPhoto,
   TgPoll,
   TgQuote,
@@ -32,7 +33,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 
 /**
  * @link https://core.telegram.org/bots/api#message
- * @version 2024.07.04.00
+ * @version 2024.07.05.00
  */
 final readonly class TgMessageData{
   /**
@@ -170,6 +171,8 @@ final readonly class TgMessageData{
       $this->Reply = new TgContact($Data['reply_to_message']['contact']);
     elseif(isset($Data['reply_to_message']['dice'])):
       $this->Reply = new TgDice($Data['reply_to_message']['dice']);
+    elseif(isset($Data['reply_to_message']['paid_media'])):
+      $this->Reply = new TgPaidMedia($Data['reply_to_message']['paid_media']);
     else:
       $this->Reply = null;
     endif;

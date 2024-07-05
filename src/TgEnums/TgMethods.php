@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TgEnums;
 
 /**
- * @version 2024.07.04.01
+ * @version 2024.07.05.00
  */
 enum TgMethods:string{
   /**
@@ -292,6 +292,10 @@ enum TgMethods:string{
    * @link https://core.telegram.org/bots/api#setmyname
    */
   case NameSet = 'setMyName';
+  /**
+   * @link https://core.telegram.org/bots/api#sendpaidmedia
+   */
+  case PaidMediaSend = 'sendPaidMedia';
   /**
    * @link https://core.telegram.org/bots/api#getmyphoto
    */

@@ -6,7 +6,7 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgError;
 
 /**
- * @version 2024.02.13.00
+ * @version 2024.07.05.00
  */
 abstract class TgErrors{
   public static function Search(string $Description):TgError|false{
@@ -47,6 +47,7 @@ abstract class TgErrors{
       'Bad Request: can\'t parse keyboard button: ChatAdministratorRights must be an Object' => TgError::ChatAdministratorRightsObject,
       'Bad Request: can\'t parse labeled price: Can\'t find field "label"' => TgError::InvoiceLabel,
       'Bad Request: can\'t parse MessageEntity: Field "user" must be of type Object' => TgError::UserObject,
+      'Bad Request: can\'t use file of type Video as Photo' => TgError::PaidType,
       'Bad Request: chat not found' => TgError::ChatNotFound,
       'Bad Request: CURRENCY_TOTAL_AMOUNT_INVALID' => TgError::InvoiceLimits,
       'Bad Request: expected an Array of ReactionType' => TgError::MissingParameter,
@@ -63,6 +64,7 @@ abstract class TgErrors{
       'Bad Request: message to unpin not found' => TgError::UnpinNotFound,
       'Bad Request: MESSAGE_ID_INVALID' => TgError::MessageIdInvalid,
       'Bad Request: object expected as link preview options' => TgError::LinkPreview,
+      'Bad Request: paid media can be sent only in channel chats' => TgError::PaidChannel,
       'Bad Request: PHOTO_THUMB_URL_EMPTY' => TgError::InlineQueryThumbEmpty,
       'Bad Request: query is too old and response timeout expired or query ID is invalid' => TgError::CallbackQueryOld,
       'Bad Request: QUOTE_TEXT_INVALID' => TgError::Quote,

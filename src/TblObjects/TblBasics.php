@@ -34,6 +34,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgLocation,
   TgLocationEdited,
   TgLogin,
+  TgPaidMedia,
   TgPassport,
   TgPhoto,
   TgPhotoEdited,
@@ -69,7 +70,7 @@ use ProtocolLive\TelegramBotLibrary\TgService\{
 };
 
 /**
- * @version 2024.05.07.00
+ * @version 2024.07.05.00
  */
 abstract class TblBasics{
   protected TblData $BotData;
@@ -200,6 +201,8 @@ abstract class TblBasics{
       return new TgChatPhotoNew($Data);
     elseif(isset($Data['new_chat_title'])):
       return new TgChatTitle($Data);
+    elseif(isset($Data['paid_media'])):
+      return new TgPaidMedia($Data);
     elseif(isset($Data['passport_data'])):
       return new TgPassport($Data);
     elseif(isset($Data['photo'])):
