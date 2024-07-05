@@ -8,7 +8,7 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\TgChatType;
 
 /**
  * @link https://core.telegram.org/bots/api#chat
- * @version 2024.02.16.02
+ * @version 2024.07.05.00
  */
 final readonly class TgChat{
   /**
@@ -94,6 +94,10 @@ final readonly class TgChat{
    */
   public int $BoostCountUnrestrict;
   /**
+   * If paid media messages can be sent or forwarded to the channel chat. The field is available only for channel chats.
+   */
+  public bool $PaidMedia;
+  /**
    * If the bot can change the group sticker set. Returned only in getChat.
    */
   public bool $SetStickerSet;
@@ -171,5 +175,6 @@ final readonly class TgChat{
     $this->EmojiSet = $Data['custom_emoji_sticker_set_name'] ?? null;
     $this->StickerSet = $Data['sticker_set_name'] ?? null;
     $this->SetStickerSet = $Data['can_set_sticker_set'] ?? false;
+    $this->PaidMedia = $Data['can_send_paid_media'] ?? false;
   }
 }
