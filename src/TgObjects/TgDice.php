@@ -12,11 +12,11 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 
 /**
  * @link https://core.telegram.org/bots/api#dice
- * @version 2024.04.11.02
+ * @version 2024.07.05.00
  */
 final readonly class TgDice
 implements TgEventInterface,
-TgForwadableInterface
+TgForwadableInterface,
 TgMessageInterface{
   public TgMessageData $Data;
   /**
