@@ -6,9 +6,9 @@ namespace ProtocolLive\TelegramBotLibrary\TblTraits;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
   TblEntities,
   TblException,
+  TblInputPollOptions,
   TblMarkup
 };
-use ProtocolLive\TelegramBotLibrary\TgAuxiliary\TgInputPollOptions;
 use ProtocolLive\TelegramBotLibrary\TgEnums\{
   TgError,
   TgMethods,
@@ -33,7 +33,7 @@ trait TblPollTrait{
    * @param string $Question Poll question, 1-300 characters
    * @param TgParseMode $ParseMode Mode for parsing entities in the question. See formatting options for more details. Currently, only custom emoji entities are allowed
    * @param TblEntities $Entities A list of special entities that appear in the poll question. It can be specified instead of question_parse_mode
-   * @param TgInputPollOptions $Options A list of 2-10 answer options
+   * @param TblInputPollOptions $Options A list of 2-10 answer options
    * @param bool $Anonymous If the poll needs to be anonymous, defaults to True
    * @param TgPollType $Type Poll type, “quiz” or “regular”, defaults to “regular”
    * @param bool $MultipleAnswers If the poll allows multiple answers, ignored for polls in quiz mode, defaults to False
@@ -56,7 +56,7 @@ trait TblPollTrait{
   public function PollSend(
     int|string $Chat,
     string $Question,
-    TgInputPollOptions $Options,
+    TblInputPollOptions $Options,
     int $ThreadId = null,
     string $BusinessId = null,
     TgParseMode $ParseMode = null,

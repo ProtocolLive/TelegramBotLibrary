@@ -2,7 +2,7 @@
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
-namespace ProtocolLive\TelegramBotLibrary\TgAuxiliary;
+namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
   TblEntities,
   TblException
@@ -18,7 +18,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\TgLimits;
  * @version 2024.07.04.00
  * @link https://core.telegram.org/bots/api#inputpolloption
  */
-final class TgInputPollOptions{
+final class TblInputPollOptions{
   private array $Options = [];
 
   /**
