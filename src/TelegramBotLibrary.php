@@ -492,7 +492,7 @@ extends TblBasics{
   }
 
   /**
-   * Use this method to copy messages of any kind. Service messages, giveaway messages, giveaway winners messages, and invoice messages can't be copied. A quiz poll can be copied only if the value of the field correct_option_id is known to the bot. The method is analogous to the method forwardMessage, but the copied message doesn't have a link to the original message.
+   * Use this method to copy messages of any kind. Service messages, paid media messages, giveaway messages, giveaway winners messages, and invoice messages can't be copied. A quiz poll can be copied only if the value of the field correct_option_id is known to the bot. The method is analogous to the method forwardMessage, but the copied message doesn't have a link to the original message.
    * @param int $From Unique identifier for the chat where the original message was sent (or channel username in the format @channelusername)
    * @param int $Id Message identifier in the chat specified in from_chat_id
    * @param int $To Unique identifier for the target chat or username of the target channel (in the format @channelusername)
@@ -687,7 +687,7 @@ extends TblBasics{
   }
 
   /**
-   * Use this method to copy messages of any kind. If some of the specified messages can't be found or copied, they are skipped. Service messages, giveaway messages, giveaway winners messages, and invoice messages can't be copied. A quiz poll can be copied only if the value of the field correct_option_id is known to the bot. The method is analogous to the method forwardMessages, but the copied messages don't have a link to the original message. Album grouping is kept for copied messages
+   * Use this method to copy messages of any kind. Service messages, paid media messages, giveaway messages, giveaway winners messages, and invoice messages can't be copied. A quiz poll can be copied only if the value of the field correct_option_id is known to the bot. The method is analogous to the method forwardMessage, but the copied message doesn't have a link to the original message.
    * @param int|string $From Unique identifier for the chat where the original messages were sent (or channel username in the format @channelusername)
    * @param int[] $Ids Identifiers of 1-100 messages in the chat from_chat_id to copy. The identifiers must be specified in a strictly increasing order.
    * @param int|string $To Unique identifier for the target chat or username of the target channel (in the format @channelusername)
