@@ -15,7 +15,8 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\{
 };
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgLimits,
-  TgPaidMedia
+  TgPaidMedia,
+  TgStarTransaction
 };
 use ProtocolLive\TelegramBotLibrary\TgParams\{
   TgPaidMedias,
@@ -23,7 +24,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2024.07.05.00
+ * @version 2024.07.05.01
  */
 trait TblStarsTrait{
   /**
