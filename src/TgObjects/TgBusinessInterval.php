@@ -6,7 +6,7 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
  * @version 2024.03.31.00
- * @link https://core.telegram.org/bots/api#businesslocation
+ * @link https://core.telegram.org/bots/api#businessopeninghoursinterval
  */
 final readonly class TgBusinessInterval{
   /**
