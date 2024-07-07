@@ -16,7 +16,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 
 /**
  * @link https://core.telegram.org/bots/api#paidmediainfo
- * @version 2024.07.05.00
+ * @version 2024.07.07.00
  */
 final readonly class TgPaidMedia
 implements TgEventInterface,
@@ -36,9 +36,13 @@ TgMessageInterface{
     $this->Price = $Data['paid_media']['star_count'];
     $temp = [];
     foreach($Data['paid_media']['paid_media'] as $media):
-      if($media['type'] === TgPaidMediaType::Photo):
-        $temp[] = new TgPhotoSize($media);
-      elseif($media['type'] === TgPaidMediaType::Video):
+      if($media['type'] === TgPaidMediaType::Photo->value):
+        $temp2 = [];
+        foreach($media['photo'] as $photo):
+          $temp2[] = new TgPhotoSize($photo);
+        endforeach;
+        $temp[] = $temp2;
+      elseif($media['type'] === TgPaidMediaType::Video->value):
         $temp[] = new TgVideo($media);
       else:
         $temp[] = new TgPaidMediaPreview($media);
