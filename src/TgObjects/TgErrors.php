@@ -6,7 +6,7 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgError;
 
 /**
- * @version 2024.07.05.00
+ * @version 2024.07.07.00
  */
 abstract class TgErrors{
   public static function Search(string $Description):TgError|false{
@@ -48,6 +48,7 @@ abstract class TgErrors{
       'Bad Request: can\'t parse labeled price: Can\'t find field "label"' => TgError::InvoiceLabel,
       'Bad Request: can\'t parse MessageEntity: Field "user" must be of type Object' => TgError::UserObject,
       'Bad Request: can\'t use file of type Video as Photo' => TgError::PaidType,
+      'Bad Request: CHARGE_NOT_FOUND' => TgError::ChargeNotFound,
       'Bad Request: chat not found' => TgError::ChatNotFound,
       'Bad Request: CURRENCY_TOTAL_AMOUNT_INVALID' => TgError::InvoiceLimits,
       'Bad Request: expected an Array of ReactionType' => TgError::MissingParameter,
