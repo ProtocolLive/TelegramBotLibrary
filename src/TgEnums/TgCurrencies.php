@@ -5,9 +5,9 @@
 namespace ProtocolLive\TelegramBotLibrary\TgEnums;
 
 /**
- * @version 2024.05.28.00
+ * @version 2024.07.07.00
  */
-enum TgInvoiceCurrencies:string{
+enum TgCurrencies:string{
   case AED = 'AED';
   case AFN = 'AFN';
   case ALL = 'ALL';

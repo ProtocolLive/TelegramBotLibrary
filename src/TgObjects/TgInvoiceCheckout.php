@@ -4,16 +4,16 @@
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 use ProtocolLive\TelegramBotLibrary\TgAuxiliary\TgMessageData;
-use ProtocolLive\TelegramBotLibrary\TgEnums\TgInvoiceCurrencies;
+use ProtocolLive\TelegramBotLibrary\TgEnums\TgCurrencies;
 use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgEventInterface;
 
 /**
- * @version 2024.04.11.00
+ * @version 2024.07.07.00
  */
 final readonly class TgInvoiceCheckout
 implements TgEventInterface{
   public TgMessageData $Data;
-  public TgInvoiceCurrencies $Currency;
+  public TgCurrencies $Currency;
   public Int $Amount;
   public string $Payload;
   public TgInvoiceOrderInfo|null $OrderInfo;
@@ -22,7 +22,7 @@ implements TgEventInterface{
     array $Data
   ){
     $this->Data = new TgMessageData($Data);
-    $this->Currency = TgInvoiceCurrencies::tryFrom($Data['currency']);
+    $this->Currency = TgCurrencies::tryFrom($Data['currency']);
     $this->Amount = $Data['total_amount'];
     $this->Payload = $Data['invoice_payload'];
     if(isset($Data['order_info'])):

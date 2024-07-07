@@ -4,7 +4,7 @@
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 use ProtocolLive\TelegramBotLibrary\TgAuxiliary\TgMessageData;
-use ProtocolLive\TelegramBotLibrary\TgEnums\TgInvoiceCurrencies;
+use ProtocolLive\TelegramBotLibrary\TgEnums\TgCurrencies;
 use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
   TgEventInterface,
   TgServiceInterface
@@ -13,7 +13,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 /**
  * This object contains basic information about a successful payment.
  * @link https://core.telegram.org/bots/api#successfulpayment
- * @version 2024.04.11.00
+ * @version 2024.07.07.00
  */
 final readonly class TgInvoiceDone
 implements TgEventInterface,
@@ -22,7 +22,7 @@ TgServiceInterface{
   /**
    * Three-letter ISO 4217 currency code
    */
-  public TgInvoiceCurrencies $Currency;
+  public TgCurrencies $Currency;
   /**
    * Total price in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in currencies.json, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
    */
@@ -52,7 +52,7 @@ TgServiceInterface{
     array $Data
   ){
     $this->Data = new TgMessageData($Data);
-    $this->Currency = TgInvoiceCurrencies::tryFrom($Data['successful_payment']['currency']);
+    $this->Currency = TgCurrencies::tryFrom($Data['successful_payment']['currency']);
     $this->Amount = $Data['successful_payment']['total_amount'];
     $this->Payload = $Data['successful_payment']['invoice_payload'];
     if(isset($Data['successful_payment']['order_info'])):

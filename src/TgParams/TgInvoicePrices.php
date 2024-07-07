@@ -7,10 +7,10 @@ use ProtocolLive\TelegramBotLibrary\TblObjects\{
   TblError,
   TblException
 };
-use ProtocolLive\TelegramBotLibrary\TgEnums\TgInvoiceCurrencies;
+use ProtocolLive\TelegramBotLibrary\TgEnums\TgCurrencies;
 
 /**
- * @version 2024.04.08.00
+ * @version 2024.07.07.00
  */
 final class TgInvoicePrices{
   private array $Prices = [];
@@ -22,7 +22,7 @@ final class TgInvoicePrices{
     string $Name = null,
     int $Price = null,
     bool $IgnoreLimit = false,
-    private TgInvoiceCurrencies $Currency = TgInvoiceCurrencies::USD
+    private TgCurrencies $Currency = TgCurrencies::USD
   ){
     if($Name === null):
       return;

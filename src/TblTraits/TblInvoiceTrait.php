@@ -9,7 +9,7 @@ use ProtocolLive\TelegramBotLibrary\TblObjects\{
   TblMarkup
 };
 use ProtocolLive\TelegramBotLibrary\TgEnums\{
-  TgInvoiceCurrencies,
+  TgCurrencies,
   TgMethods
 };
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgInvoice;
@@ -19,7 +19,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2024.05.30.00
+ * @version 2024.07.07.00
  */
 trait TblInvoiceTrait{
   /**
@@ -50,7 +50,7 @@ trait TblInvoiceTrait{
    * @param string $Description Product description, 1-255 characters
    * @param string $Payload Bot-defined invoice payload, 1-128 bytes. This will not be displayed to the user, use for your internal processes.
    * @param string $Token Payment provider token, obtained via @BotFather. Pass an empty string for payments in Telegram Stars.
-   * @param TgInvoiceCurrencies $Currency Three-letter ISO 4217 currency code
+   * @param TgCurrencies $Currency Three-letter ISO 4217 currency code
    * @param TgInvoicePrices $Prices Price breakdown, a list of components (e.g. product price, tax, discount, delivery cost, delivery tax, bonus, etc.)
    * @param int $TipMax The maximum accepted amount for tips in the smallest units of the currency (integer, not float/double). For example, for a maximum tip of US$ 1.45 pass max_tip_amount = 145. See the exp parameter in currencies.json, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies). Defaults to 0
    * @param array $TipSuggested A array of suggested amounts of tips in the smallest units of the currency (integer, not float/double). At most 4 suggested tip amounts can be specified. The suggested tip amounts must be positive, passed in a strictly increased order and must not exceed max_tip_amount.
@@ -74,7 +74,7 @@ trait TblInvoiceTrait{
     string $Title,
     string $Description,
     string $Payload,
-    TgInvoiceCurrencies $Currency,
+    TgCurrencies $Currency,
     TgInvoicePrices $Prices,
     string $Token = null,
     int $TipMax = null,
@@ -153,7 +153,7 @@ trait TblInvoiceTrait{
    * @param string $Description Product description, 1-255 characters
    * @param string $Payload Bot-defined invoice payload, 1-128 bytes. This will not be displayed to the user, use for your internal processes.
    * @param string $Token Payment provider token, obtained via @BotFather. Pass an empty string for payments in Telegram Stars.
-   * @param TgInvoiceCurrencies $Currency Three-letter ISO 4217 currency code
+   * @param TgCurrencies $Currency Three-letter ISO 4217 currency code
    * @param TgInvoicePrices $Prices Price breakdown, a list of components (e.g. product price, tax, discount, delivery cost, delivery tax, bonus, etc.)
    * @param int $TipMax The maximum accepted amount for tips in the smallest units of the currency (integer, not float/double). For example, for a maximum tip of US$ 1.45 pass max_tip_amount = 145. See the exp parameter in currencies.json, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies). Defaults to 0
    * @param array $TipSuggested A array of suggested amounts of tips in the smallest units of the currency (integer, not float/double). At most 4 suggested tip amounts can be specified. The suggested tip amounts must be positive, passed in a strictly increased order and must not exceed max_tip_amount.
@@ -185,7 +185,7 @@ trait TblInvoiceTrait{
     string $Title,
     string $Description,
     string $Payload,
-    TgInvoiceCurrencies $Currency,
+    TgCurrencies $Currency,
     TgInvoicePrices $Prices,
     string $Token = null,
     int $TipMax = null,

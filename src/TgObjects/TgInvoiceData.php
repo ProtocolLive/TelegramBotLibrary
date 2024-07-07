@@ -3,17 +3,17 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
-use ProtocolLive\TelegramBotLibrary\TgEnums\TgInvoiceCurrencies;
+use ProtocolLive\TelegramBotLibrary\TgEnums\TgCurrencies;
 
 /**
  * @link https://core.telegram.org/bots/api#invoice
- * @version 2024.01.04.00
+ * @version 2024.07.07.00
  */
 final readonly class TgInvoiceData{
   public string $Title;
   public string $Description;
   public string $StartParam;
-  public TgInvoiceCurrencies $Currency;
+  public TgCurrencies $Currency;
   public int $Amount;
 
   public function __construct(
@@ -22,7 +22,7 @@ final readonly class TgInvoiceData{
     $this->Title = $Data['title'];
     $this->Description = $Data['description'];
     $this->StartParam = $Data['start_parameter'];
-    $this->Currency = TgInvoiceCurrencies::from($Data['currency']);
+    $this->Currency = TgCurrencies::from($Data['currency']);
     $this->Amount = $Data['total_amount'];
   }
 }
