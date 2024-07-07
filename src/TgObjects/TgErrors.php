@@ -6,7 +6,7 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgError;
 
 /**
- * @version 2024.07.07.00
+ * @version 2024.07.07.01
  */
 abstract class TgErrors{
   public static function Search(string $Description):TgError|false{
@@ -48,7 +48,6 @@ abstract class TgErrors{
       'Bad Request: can\'t parse labeled price: Can\'t find field "label"' => TgError::InvoiceLabel,
       'Bad Request: can\'t parse MessageEntity: Field "user" must be of type Object' => TgError::UserObject,
       'Bad Request: can\'t use file of type Video as Photo' => TgError::PaidType,
-      'Bad Request: CHARGE_NOT_FOUND' => TgError::ChargeNotFound,
       'Bad Request: chat not found' => TgError::ChatNotFound,
       'Bad Request: CURRENCY_TOTAL_AMOUNT_INVALID' => TgError::InvoiceLimits,
       'Bad Request: expected an Array of ReactionType' => TgError::MissingParameter,
@@ -79,6 +78,7 @@ abstract class TgErrors{
       'Bad Request: WEBDOCUMENT_URL_INVALID' => TgError::UrlInvalid,
       'Bad Request: wrong file identifier/HTTP URL specified' => TgError::FileId,
       'Bad Request: wrong remote file identifier specified: Wrong string length' => TgError::UrlShort,
+      'Forbidden: bot can\'t initiate conversation with a user' => TgError::DontStart,
       'Forbidden: bot can\'t send messages to bots' => TgError::BotBot,
       'Forbidden: bot is not a member of the channel chat' => TgError::NotMember,
       'Forbidden: bot was blocked by the user' => TgError::Blocked,
