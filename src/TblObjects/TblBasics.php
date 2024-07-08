@@ -39,6 +39,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgPhoto,
   TgPhotoEdited,
   TgPoll,
+  TgRefundedPayment,
   TgSticker,
   TgStickerEdited,
   TgStory,
@@ -70,7 +71,7 @@ use ProtocolLive\TelegramBotLibrary\TgService\{
 };
 
 /**
- * @version 2024.07.05.00
+ * @version 2024.07.07.00
  */
 abstract class TblBasics{
   protected TblData $BotData;
@@ -211,6 +212,8 @@ abstract class TblBasics{
       return new TgPinnedMsg($Data);
     elseif(isset($Data['poll'])):
       return new TgPoll($Data);
+    elseif(isset($Data['refunded_payment'])):
+      return new TgRefundedPayment($Data);
     elseif(isset($Data['successful_payment'])):
       return new TgInvoiceDone($Data);
     elseif(isset($Data['sticker'])):
