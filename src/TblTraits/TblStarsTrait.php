@@ -93,7 +93,7 @@ trait TblStarsTrait{
 
   /**
    * Returns the bot's Telegram Star transactions in chronological order.
-   * @return array On success, returns a StarTransactions object.
+   * @return TgStarTransaction[] On success, returns a StarTransactions object.
    * @link https://core.telegram.org/bots/api#getstartransactions
    */
   public function StarTransactionsGet(
