@@ -3,19 +3,17 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
+use ProtocolLive\TelegramBotLibrary\TgAuxiliary\TgMessageData;
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgBoostSource;
 use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgEventInterface;
 
 /**
  * @link https://core.telegram.org/bots/api#chatboostupdated
- * @version 2024.01.04.00
+ * @version 2024.07.07.00
  */
 final readonly class TgChatBoost
 implements TgEventInterface{
-  /**
-   * Chat which was boosted. Can be null in case of ChatBoostGet method
-   */
-  public TgChat|null $Chat;
+  public TgMessageData $Data;
   /**
    * Unique identifier of the boost
    */
@@ -48,11 +46,7 @@ implements TgEventInterface{
   public function __construct(
     array $Data
   ){
-    if(isset($Data['chat'])):
-      $this->Chat = new TgChat($Data['chat']);
-    else:
-      $this->Chat = null;
-    endif;
+    $this->Data = new TgMessageData($Data);
     $this->Id = $Data['boost']['boost_id'] ?? $Data['boost_id'];
     $this->Date = $Data['boost']['add_date'] ?? $Data['add_date'];
     $this->Expiration = $Data['boost']['expiration_date'] ?? $Data['expiration_date'];
