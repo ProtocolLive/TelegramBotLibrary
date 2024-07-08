@@ -14,7 +14,7 @@ use ProtocolLive\TelegramBotLibrary\TgAuxiliary\{
 /**
  * Describes a Telegram Star transaction.
  * @link https://core.telegram.org/bots/api#startransaction
- * @version 2024.07.01.00
+ * @version 2024.07.07.00
  */
 final readonly class TgStarTransaction{
   /**
@@ -44,14 +44,24 @@ final readonly class TgStarTransaction{
     $this->Id = $Data['id'];
     $this->Amount = $Data['amount'];
     $this->Date = $Data['date'];
-    if($Data['source']['type'] === 'user'):
-      $this->Source = new TgTransactionPartnerUser($Data['source']);
-    elseif($Data['source']['type'] === 'fragment'):
-      $this->Source = new TgTransactionPartnerFragment($Data['source']);
-    elseif($Data['source']['type'] === 'telegram_ads'):
-      $this->Source = new TgTransactionPartnerAds;
-    elseif($Data['source']['type'] === 'other'):
-      $this->Source = new TgTransactionPartnerOther;
+    if(isset($Data['receiver'])):
+      if($Data['receiver']['type'] === 'user'):
+        $this->Receiver = new TgTransactionPartnerUser($Data['receiver']);
+      elseif($Data['receiver']['type'] === 'fragment'):
+        $this->Receiver = new TgTransactionPartnerFragment($Data['receiver']);
+      endif; //missing withdrawal
+      $this->Source = null;
+    else:
+      if($Data['source']['type'] === 'user'):
+        $this->Source = new TgTransactionPartnerUser($Data['source']);
+      elseif($Data['source']['type'] === 'fragment'):
+        $this->Source = new TgTransactionPartnerFragment($Data['source']);
+      elseif($Data['source']['type'] === 'telegram_ads'):
+        $this->Source = new TgTransactionPartnerAds;
+      elseif($Data['source']['type'] === 'other'):
+        $this->Source = new TgTransactionPartnerOther;
+      endif;
+      $this->Receiver = null;
     endif;
   }
 }
