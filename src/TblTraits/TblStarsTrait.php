@@ -24,7 +24,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2024.07.05.01
+ * @version 2024.07.07.00
  */
 trait TblStarsTrait{
   /**
@@ -89,6 +89,22 @@ trait TblStarsTrait{
       $param['reply_markup'] = $Markup->ToArray();
     endif;
     return new TgPaidMedia($this->ServerMethod(TgMethods::PaidMediaSend, $param));
+  }
+
+  /**
+   * Refunds a successful payment in Telegram Stars.
+   * @param int $User Identifier of the user whose payment will be refunded
+   * @param string $ChargeId Telegram payment identifier
+   * @return true Returns True on success.
+   * @throws TblException
+   */
+  public function StarRefund(
+    int $User,
+    string $ChargeId
+  ):true{
+    $param['user_id'] = $User;
+    $param['telegram_payment_charge_id'] = $ChargeId;
+    return $this->ServerMethod(TgMethods::StarRefund, $param);
   }
 
   /**
