@@ -18,7 +18,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgEditedInterface;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgLimits;
 
 /**
- * @version 2024.07.04.00
+ * @version 2024.07.10.00
  */
 trait TblEditTrait{
   /**
@@ -129,11 +129,11 @@ trait TblEditTrait{
    * @link https://core.telegram.org/bots/api#editmessagemedia
    */
   public function MediaEdit(
+    TblMedia $Media,
     int $Chat = null,
     int $Id = null,
     string $InlineId = null,
     string $BusinessId = null,
-    TblMedia $Media,
     TblMarkup $Markup = null
   ):TgEditedInterface|true{
     if($InlineId === null
