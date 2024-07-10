@@ -51,7 +51,7 @@ trait TblVideoTrait{
    * @throws TblException
    */
   public function VideoSend(
-    int|string $Chat = null,
+    int|string $Chat,
     string $Video,
     int $Thread = null,
     string $BusinessId = null,
@@ -71,30 +71,29 @@ trait TblVideoTrait{
     TblMarkup $Markup = null,
     string $Effect = null
   ):TgVideo|TgVideoNote{
+    $param['chat_id'] = $Chat;
     if($BusinessId !== null):
       $param['business_connection_id'] = $BusinessId;
-    else:
-      $param['chat_id'] = $Chat;
     endif;
     if(is_file($Video)):
-      $params['video'] = new CURLFile($Video);
+      $param['video'] = new CURLFile($Video);
     else:
-      $params['video'] = $Video;
+      $param['video'] = $Video;
     endif;
     if($Thread !== null):
-      $params['message_thread_id'] = $Thread;
+      $param['message_thread_id'] = $Thread;
     endif;
     if($Duration !== null):
-      $params['duration'] = $Duration;
+      $param['duration'] = $Duration;
     endif;
     if($Width !== null):
-      $params['width'] = $Width;
+      $param['width'] = $Width;
     endif;
     if($Height !== null):
-      $params['height'] = $Height;
+      $param['height'] = $Height;
     endif;
     if($Thumbnail !== null):
-      $params['thumbnail'] = $Thumbnail;
+      $param['thumbnail'] = $Thumbnail;
     endif;
     if($Caption !== null):
       if(mb_strlen(strip_tags($Caption)) > TgLimits::Caption):
@@ -103,31 +102,31 @@ trait TblVideoTrait{
           'Caption bigger than ' . TgLimits::Caption . ' characters'
         );
       endif;
-      $params['caption'] = $Caption;
+      $param['caption'] = $Caption;
       if($ParseMode !== null):
-        $params['parse_mode'] = $ParseMode->value;
+        $param['parse_mode'] = $ParseMode->value;
       endif;
     endif;
     if($Entities !== null):
-      $params['caption_entities'] = $Entities->ToArray();
+      $param['caption_entities'] = $Entities->ToArray();
     endif;
     if($Spoiler):
-      $params['has_spoiler'] = true;
+      $param['has_spoiler'] = true;
     endif;
     if($Streaming):
-      $params['supports_streaming'] = true;
+      $param['supports_streaming'] = true;
     endif;
     if($DisableNotification):
-      $params['disable_notification'] = true;
+      $param['disable_notification'] = true;
     endif;
     if($Protect):
-      $params['protect_content'] = true;
+      $param['protect_content'] = true;
     endif;
     if($Reply !== null):
-      $params['reply_parameters'] = $Reply->ToArray();
+      $param['reply_parameters'] = $Reply->ToArray();
     endif;
     if($Markup !== null):
-      $params['reply_markup'] = $Markup->ToArray();
+      $param['reply_markup'] = $Markup->ToArray();
     endif;
     if($Effect !== null):
       $param['message_effect_id'] = $Effect;
@@ -137,7 +136,7 @@ trait TblVideoTrait{
     endif;
     return parent::DetectMessage($this->ServerMethod(
       TgMethods::VideoSend,
-      $params,
+      $param,
       is_file($Video) ? false : true
     ));
   }
@@ -161,7 +160,7 @@ trait TblVideoTrait{
    * @throws TblException
    */
   public function VideoNoteSend(
-    int|string $Chat = null,
+    int|string $Chat,
     string $Video,
     int $Thread = null,
     string $BusinessId = null,
@@ -174,39 +173,38 @@ trait TblVideoTrait{
     TblMarkup $Markup = null,
     string $Effect = null
   ):TgVideoNote|TgVideo{
+    $param['chat_id'] = $Chat;
     if($BusinessId !== null):
-      $params['business_connection_id'] = $BusinessId;
-    else:
-      $params['chat_id'] = $Chat;
+      $param['business_connection_id'] = $BusinessId;
     endif;
     if(is_file($Video)):
-      $params['video_note'] = new CURLFile($Video);
+      $param['video_note'] = new CURLFile($Video);
     else:
-      $params['video_note'] = $Video;
+      $param['video_note'] = $Video;
     endif;
     if($Thread !== null):
-      $params['message_thread_id'] = $Thread;
+      $param['message_thread_id'] = $Thread;
     endif;
     if($Duration !== null):
-      $params['duration'] = $Duration;
+      $param['duration'] = $Duration;
     endif;
     if($Length !== null):
-      $params['length'] = $Length;
+      $param['length'] = $Length;
     endif;
     if($Thumbnail !== null):
-      $params['thumbnail'] = $Thumbnail;
+      $param['thumbnail'] = $Thumbnail;
     endif;
     if($DisableNotification):
-      $params['disable_notification'] = true;
+      $param['disable_notification'] = true;
     endif;
     if($Protect):
-      $params['protect_content'] = true;
+      $param['protect_content'] = true;
     endif;
     if($Reply !== null):
-      $params['reply_parameters'] = $Reply;
+      $param['reply_parameters'] = $Reply;
     endif;
     if($Markup !== null):
-      $params['reply_markup'] = $Markup->ToArray();
+      $param['reply_markup'] = $Markup->ToArray();
     endif;
     if($Effect !== null):
       $param['message_effect_id'] = $Effect;
@@ -214,7 +212,7 @@ trait TblVideoTrait{
     
     return parent::DetectMessage($this->ServerMethod(
       TgMethods::VideoNoteSend,
-      $params,
+      $param,
       is_file($Video) ? false : true
     ));
   }
