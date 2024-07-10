@@ -18,7 +18,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\TgPhoto;
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2024.05.31.00
+ * @version 2024.07.10.00
  */
 trait TblPhotoTrait{
   /**
@@ -57,7 +57,7 @@ trait TblPhotoTrait{
    * @link https://core.telegram.org/bots/api#sendphoto
    */
   public function PhotoSend(
-    int|string $Chat = null,
+    int|string $Chat,
     string $Photo,
     int $Thread = null,
     string $BusinessId = null,

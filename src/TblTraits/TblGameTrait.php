@@ -15,7 +15,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2024.05.30.00
+ * @version 2024.07.10.00
  */
 trait TblGameTrait{
   /**
@@ -34,7 +34,7 @@ trait TblGameTrait{
    * @throws TblException
    */
   public function GameSend(
-    int|string $Chat = null,
+    int|string $Chat,
     string $Game,
     int $Thread = null,
     string $BusinessId = null,

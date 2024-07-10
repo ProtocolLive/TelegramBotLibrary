@@ -22,7 +22,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2024.07.04.00
+ * @version 2024.07.10.00
  */
 trait TblAudioTrait{
   /**
@@ -48,7 +48,7 @@ trait TblAudioTrait{
    * @throws TblException
    */
   public function AudioSend(
-    int|string $Chat = null,
+    int|string $Chat,
     string $Audio,
     int $Thread = null,
     string $BusinessId = null,
@@ -65,13 +65,12 @@ trait TblAudioTrait{
     TblMarkup $Markup = null,
     string $Effect = null
   ):TgAudio{
+    $param['chat_id'] = $Chat;
+    if($Thread !== null):
+      $param['message_thread_id'] = $Thread;
+    endif;
     if($BusinessId !== null):
       $param['business_connection_id'] = $BusinessId;
-    else:
-      $param['chat_id'] = $Chat;
-      if($Thread !== null):
-        $param['message_thread_id'] = $Thread;
-      endif;
     endif;
     if(is_file($Audio)):
       $param['audio'] = new CURLFile($Audio);
@@ -147,7 +146,7 @@ trait TblAudioTrait{
    * @throws TblException
    */
   public function VoiceSend(
-    int|string $Chat = null,
+    int|string $Chat,
     string $Voice,
     int $Thread = null,
     string $BusinessId = null,
@@ -161,13 +160,12 @@ trait TblAudioTrait{
     TblMarkup $Markup = null,
     string $Effect = null
   ):TgVoice{
+    $param['chat_id'] = $Chat;
+    if($Thread !== null):
+      $param['message_thread_id'] = $Thread;
+    endif;
     if($BusinessId !== null):
       $param['business_connection_id'] = $BusinessId;
-    else:
-      $param['chat_id'] = $Chat;
-      if($Thread !== null):
-        $param['message_thread_id'] = $Thread;
-      endif;
     endif;
     if(is_file($Voice)):
       $param['voice'] = new CURLFile($Voice);

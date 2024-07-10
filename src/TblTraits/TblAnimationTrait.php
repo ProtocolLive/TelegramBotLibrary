@@ -21,7 +21,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2024.07.04.00
+ * @version 2024.07.10.00
  */
 trait TblAnimationTrait{
   /**
@@ -49,7 +49,7 @@ trait TblAnimationTrait{
    * @link https://core.telegram.org/bots/api#sendanimation
    */
   public function AnimationSend(
-    int|string $Chat = null,
+    int|string $Chat,
     string $Animation,
     int $Thread = null,
     string $BusinessId = null,
@@ -68,10 +68,9 @@ trait TblAnimationTrait{
     TblMarkup $Markup = null,
     string $Effect = null
   ):TgAnimation{
+    $param['chat_id'] = $Chat;
     if($BusinessId !== null):
       $param['business_connection_id'] = $BusinessId;
-    else:
-      $param['chat_id'] = $Chat;
     endif;
     if(is_file($Animation)):
       $param['animation'] = new CURLFile($Animation);
