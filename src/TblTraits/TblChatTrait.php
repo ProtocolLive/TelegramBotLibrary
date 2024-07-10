@@ -19,7 +19,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 };
 
 /**
- * @version 2024.03.31.00
+ * @version 2024.07.10.00
  */
 trait TblChatTrait{
   /**
@@ -34,27 +34,26 @@ trait TblChatTrait{
    * @link https://core.telegram.org/bots/api#sendchataction
    */
   public function ChatActionSend(
-    int|string $Chat = null,
+    int|string $Chat,
     TgChatAction $Action,
     int $Thread = null,
     string $BusinessId = null
   ):bool{
+    $param['chat_id'] = $Chat;
+    $param['action'] = $Action->value;
     if($BusinessId !== null):
       $param['business_connection_id'] = $BusinessId;
-    else:
-      $param['chat_id'] = $Chat;
     endif;
-    $param['action'] = $Action->value;
     if($Thread !== null):
       $param['message_thread_id'] = $Chat;
     endif;
     return $this->ServerMethod(TgMethods::ChatAction, $param);
   }
 
-  /** MUDAR
-   * Use this method to get a list of administrators in a chat. On success, returns an Array of ChatMember objects that contains information about all chat administrators except other bots.
+  /**
+   * Use this method to get a list of administrators in a chat. On success
    * @param int|string $Chat Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername)
-   * @return TgMember[] If the chat is a group or a supergroup and no administrators were appointed, only the creator will be returned.
+   * @return TgMember[] Returns an Array of ChatMember objects that contains information about all chat administrators except other bots.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#getchatadministrators
    */
@@ -75,7 +74,7 @@ trait TblChatTrait{
    * @param int|string $Chat Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername)
    * @param int $User Unique identifier of the target user
    * @param bool $Anonymous If the administrator's presence in the chat is hidden
-   * @return bool Returns True on success.
+   * @return true Returns True on success.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#promotechatmember
    */
@@ -84,7 +83,7 @@ trait TblChatTrait{
     int $User,
     TgPermAdmin $Perms,
     bool $Anonymous = false
-  ):bool{
+  ):true{
     $param['chat_id'] = $Chat;
     $param['user_id'] = $User;
     foreach(TgPermAdmin::Array as $class => $json):
