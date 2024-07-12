@@ -22,7 +22,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2024.07.04.00
+ * @version 2024.07.10.00
  */
 trait TblVideoTrait{
   /**
