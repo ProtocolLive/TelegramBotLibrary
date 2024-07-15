@@ -35,6 +35,7 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\{
   TgParseMode,
   TgReactionType
 };
+use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgMessageInterface;
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgBusinessConnection,
   TgCallback,
@@ -69,7 +70,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2024.07.04.02
+ * @version 2024.07.15.00
  */
 final class TelegramBotLibrary
 extends TblBasics{
@@ -612,7 +613,7 @@ extends TblBasics{
     int $Thread = null,
     bool $DisableNotification = false,
     bool $Protect = false
-  ):object{
+  ):TgMessageInterface{
     $param['chat_id'] = $To;
     $param['from_chat_id'] = $From;
     $param['message_id'] = $Id;
