@@ -11,13 +11,13 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 };
 
 /**
- * @version 2024.04.09.01
+ * @version 2024.07.15.00
  */
 final readonly class TgForward{
   /**
    * For messages forwarded from channels or from anonymous administrators, information about the original sender chat
    */
-  public TgUser|TgBot|TgChat $From;
+  public TgUser|TgBot|TgChat|string $From;
   /**
    * For messages forwarded from channels, identifier of the original message in the channel
    */
