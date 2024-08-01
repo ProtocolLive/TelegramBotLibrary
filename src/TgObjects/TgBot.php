@@ -6,7 +6,7 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
  * @link https://core.telegram.org/bots/api#user
- * @version 2024.04.08.00
+ * @version 2024.07.31.00
  */
 final readonly class TgBot{
   /**
@@ -37,6 +37,10 @@ final readonly class TgBot{
    * If the bot can be connected to a Telegram Business account to receive its messages. Returned only in getMe.
    */
   public bool $Business;
+  /**
+   * If the bot has a main Web App. Returned only in getMe.
+   */
+  public bool $WebApp;
 
   public function __construct(
     array $Data
@@ -48,5 +52,6 @@ final readonly class TgBot{
     $this->Read = $Data['can_read_all_group_messages'] ?? false;
     $this->InlineQuery = $Data['supports_inline_queries'] ?? false;
     $this->Business = $Data['can_connect_to_business'] ?? false;
+    $this->WebApp = $Data['has_main_web_app'] ?? false;
   }
 }
