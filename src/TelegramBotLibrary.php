@@ -70,7 +70,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2024.07.15.00
+ * @version 2024.07.31.00
  */
 final class TelegramBotLibrary
 extends TblBasics{
@@ -635,19 +635,24 @@ extends TblBasics{
    * @param int|string $Chat Unique identifier for the target chat or username of the target channel (in the format @channelusername)
    * @param int $Id Identifier of a message to pin
    * @param bool $DisableNotification Pass True if it is not necessary to send a notification to all chat members about the new pinned message. Notifications are always disabled in channels and private chats.
-   * @return bool Returns True on success.
+   * @param string $BusinessId Unique identifier of the business connection on behalf of which the message will be pinned
+   * @return true Returns True on success.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#pinchatmessage
    */
   public function MessagePin(
     int|string $Chat,
     int $Id,
+    string $BusinessId = null,
     bool $DisableNotification = false
-  ):bool{
+  ):true{
     $param['chat_id'] = $Chat;
     $param['message_id'] = $Id;
     if($DisableNotification):
       $param['disable_notification'] = true;
+    endif;
+    if($BusinessId !== null):
+      $param['business_connection_id'] = $BusinessId;
     endif;
     return $this->ServerMethod(TgMethods::MessagePin, $param);
   }
@@ -791,17 +796,22 @@ extends TblBasics{
    * Use this method to remove a message from the list of pinned messages in a chat. If the chat is not a private chat, the bot must be an administrator in the chat for this to work and must have the 'can_pin_messages' administrator right in a supergroup or 'can_edit_messages' administrator right in a channel.
    * @param int|string $Chat Unique identifier for the target chat or username of the target channel (in the format @channelusername)
    * @param int $Id Identifier of a message to unpin. If not specified, the most recent pinned message (by sending date) will be unpinned.
-   * @return bool Returns True on success.
+   * @param string $BusinessId Unique identifier of the business connection on behalf of which the message will be unpinned
+   * @return true Returns True on success.
    * @link https://core.telegram.org/bots/api#unpinchatmessage
    * @throws TblException
    */
   public function MessageUnpin(
     int|string $Chat,
-    int $Id = null
-  ):bool{
+    int $Id = null,
+    string $BusinessId = null
+  ):true{
     $param['chat_id'] = $Chat;
     if($Id !== null):
       $param['message_id'] = $Id;
+    endif;
+    if($BusinessId !== null):
+      $param['business_connection_id'] = $BusinessId;
     endif;
     return $this->ServerMethod(TgMethods::MessageUnpin, $param);
   }
