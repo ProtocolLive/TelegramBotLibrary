@@ -6,9 +6,9 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgMemberStatus;
 
 /**
- * This object contains information about one member of a chat. Currently, the following 6 types of chat members are supported:
+ * This object contains information about one member of a chat. Currently, the following 6 types of chat members are supported: ChatMemberOwner, ChatMemberAdministrator, ChatMemberMember, ChatMemberRestricted, ChatMemberLeft, ChatMemberBanned
  * @link https://core.telegram.org/bots/api#chatmember
- * @version 2024.01.04.01
+ * @version 2024.08.14.00
  */
 final readonly class TgMember{
   /**
@@ -45,6 +45,11 @@ final readonly class TgMember{
    * @link https://core.telegram.org/bots/api#chatmemberbanned
    */
   public int|null $Expires;
+  /**
+   * Date when the user's subscription will expire; Unix time
+   * @link https://core.telegram.org/bots/api#chatmembermember
+   */
+  public int|null $SubscriptionExpires;
 
   public function __construct(
     array $Data
@@ -63,7 +68,17 @@ final readonly class TgMember{
     endif;
     $this->Anonymous = $Data['is_anonymous'] ?? false;
     $this->Title = $Data['custom_title'] ?? null;
-    $this->Expires = $Data['until_date'] ?? null;
+    if($this->Status === TgMemberStatus::Restricted
+    or $this->Status === TgMemberStatus::Banned):
+      $this->Expires = $Data['until_date'] ?? null;
+    else:
+      $this->Expires = null;
+    endif;
+    if($this->Status === TgMemberStatus::Member):
+      $this->SubscriptionExpires = $Data['until_date'] ?? null;
+    else:
+      $this->SubscriptionExpires = null;
+    endif;
     if($this->Status === TgMemberStatus::Creator):
       $this->AdminPerms = new TgPermAdmin(
         null,
