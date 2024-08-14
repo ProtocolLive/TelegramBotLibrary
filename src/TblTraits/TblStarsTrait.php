@@ -24,7 +24,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2024.07.07.00
+ * @version 2024.08.14.00
  */
 trait TblStarsTrait{
   /**
@@ -32,6 +32,7 @@ trait TblStarsTrait{
    * @param int|string $Chat Unique identifier for the target chat or username of the target channel (in the format @channelusername)
    * @param int $Price The number of Telegram Stars that must be paid to buy access to the media
    * @param TgPaidMedias $Media An object describing the media to be sent; up to 10 items
+   * @param string $BusinessId Unique identifier of the business connection on behalf of which the message will be sent
    * @param string $Caption Media caption, 0-1024 characters after entities parsing
    * @param bool $CaptionAbove If the caption must be shown above the message media
    * @param TgParseMode $ParseMode Mode for parsing entities in the media caption. See formatting options for more details.
@@ -46,6 +47,7 @@ trait TblStarsTrait{
     int|string $Chat,
     int $Price,
     TgPaidMedias $Media,
+    string $BusinessId = null,
     string $Caption = null,
     bool $CaptionAbove = false,
     TgParseMode $ParseMode = null,
@@ -63,6 +65,9 @@ trait TblStarsTrait{
         TgError::LimitMediaGroup,
         'The maximum number of media items in group is ' . TgLimits::MediaGroup
       );
+    endif;
+    if($BusinessId !== null):
+      $param['business_connection_id'] = $BusinessId;
     endif;
     if($Caption !== null):
       $param['caption'] = $Caption;
