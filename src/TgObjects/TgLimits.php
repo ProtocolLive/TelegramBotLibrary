@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
- * @version 2024.07.04.00
+ * @version 2024.08.14.00
  */
 final class TgLimits{
   /**
@@ -23,6 +23,14 @@ final class TgLimits{
    */
   public const CmdDescription = 256;
   /**
+   * @link https://core.telegram.org/bots/api#setmydescription
+   */
+  public const Description = 512;
+  /**
+   * @link https://core.telegram.org/bots/api#setmyshortdescription
+   */
+  public const DescriptionShort = 120;
+  /**
    * https://core.telegram.org/bots/api#copymessages
    */
   public const MessagesCopy = 100;
@@ -34,14 +42,6 @@ final class TgLimits{
    * https://core.telegram.org/bots/api#forwardmessages
    */
   public const MessagesForward = 100;
-  /**
-   * @link https://core.telegram.org/bots/api#setmydescription
-   */
-  public const Description = 512;
-  /**
-   * @link https://core.telegram.org/bots/api#setmyshortdescription
-   */
-  public const DescriptionShort = 120;
   public const MediaGroup = 10;
   /**
    * @link https://core.telegram.org/bots/api#setmyname
