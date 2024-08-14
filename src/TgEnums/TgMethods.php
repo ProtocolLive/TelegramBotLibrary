@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TgEnums;
 
 /**
- * @version 2024.07.07.00
+ * @version 2024.08.14.00
  */
 enum TgMethods:string{
   /**
@@ -208,6 +208,14 @@ enum TgMethods:string{
    * @link https://core.telegram.org/bots/api#answerinlinequery
    */
   case InlineQueryAnswer = 'answerInlineQuery';
+  /**
+   * @link https://core.telegram.org/bots/api#createchatsubscriptioninvitelink
+   */
+  case InviteLinkStarCreate = 'createChatSubscriptionInviteLink';
+  /**
+   * @link https://core.telegram.org/bots/api#editchatsubscriptioninvitelink
+   */
+  case InviteLinkStarEdit = 'editChatSubscriptionInviteLink';
   /**
    * @link https://core.telegram.org/bots/api#answerprecheckoutquery
    */

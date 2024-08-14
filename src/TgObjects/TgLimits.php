@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
- * @version 2024.08.14.00
+ * @version 2024.08.14.01
  */
 final class TgLimits{
   /**
@@ -14,6 +14,10 @@ final class TgLimits{
   public const CallbackAnswer = 200;
   public const CallbackData = 64;
   public const Caption = 1024;
+  /**
+   * @link https://core.telegram.org/bots/api#createchatsubscriptioninvitelink
+   */
+  public const ChannelSubscriptionPrice = 2500;
   /**
    * @link https://core.telegram.org/bots/api#botcommand
    */
@@ -30,6 +34,10 @@ final class TgLimits{
    * @link https://core.telegram.org/bots/api#setmyshortdescription
    */
   public const DescriptionShort = 120;
+  /**
+   * @link https://core.telegram.org/bots/api#createchatsubscriptioninvitelink
+   */
+  public const InviteLinkName = 32;
   /**
    * https://core.telegram.org/bots/api#copymessages
    */

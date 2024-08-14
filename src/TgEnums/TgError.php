@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TgEnums;
 
 /**
- * @version 2024.07.05.01
+ * @version 2024.08.14.00
  */
 enum TgError{
   case Admin;
@@ -16,6 +16,10 @@ enum TgError{
   case CallbackQueryOld;
   case CantDelete;
   case CantEdit;
+  /**
+   * @link https://core.telegram.org/bots/api#createchatsubscriptioninvitelink
+   */
+  case ChannelSubscriptionPrice;
   case ChatAdministratorRightsObject;
   case ChatNotFound;
   case CopyNotFound;
@@ -37,10 +41,14 @@ enum TgError{
   case InlineQueryThumbMiss;
   case InlineQueryThumbType;
   case InlineKeyboardNone;
+  /**
+   * @link https://core.telegram.org/bots/api#createchatsubscriptioninvitelink
+   */
+  case InviteLinkName;
   case InvoiceLabel;
   case InvoiceLimits;
   /**
-   * https://core.telegram.org/bots/api#sendphoto
+   * @link https://core.telegram.org/bots/api#sendphoto
    */
   case LimitCaption;
   /**
