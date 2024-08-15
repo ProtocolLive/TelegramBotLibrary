@@ -11,7 +11,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2024.07.03.00
+ * @version 2024.08.15.00
  */
 final class TblTextSendMulti
 extends TblServerMulti{
@@ -48,17 +48,17 @@ extends TblServerMulti{
       return;
     endif;
     $this->Args[$MultiControl ?? $Chat] = self::BuildArgs(
-      $Chat,
-      $Text,
-      $Thread,
-      $BusinessId,
-      $ParseMode,
-      $Entities,
-      $LinkPreview,
-      $DisableNotification,
-      $Protect,
-      $Reply,
-      $Markup
+      Chat: $Chat,
+      Text: $Text,
+      Thread: $Thread,
+      BusinessId: $BusinessId,
+      ParseMode: $ParseMode,
+      Entities: $Entities,
+      LinkPreview: $LinkPreview,
+      DisableNotification: $DisableNotification,
+      Protect: $Protect,
+      Reply: $Reply,
+      Markup: $Markup
     );
   }
 
@@ -77,7 +77,7 @@ extends TblServerMulti{
    * @link https://core.telegram.org/bots/api#sendmessage
    */
   public function Add(
-    int|string $Chat = null,
+    int|string $Chat,
     string $Text,
     int $Thread = null,
     string $BusinessId = null,
@@ -91,17 +91,17 @@ extends TblServerMulti{
     string $MultiControl = null
   ):void{
     $this->Args[$MultiControl ?? $Chat] = self::BuildArgs(
-      $Chat,
-      $Text,
-      $Thread,
-      $BusinessId,
-      $ParseMode,
-      $Entities,
-      $LinkPreview,
-      $DisableNotification,
-      $Protect,
-      $Reply,
-      $Markup
+      Chat: $Chat,
+      Text: $Text,
+      Thread: $Thread,
+      BusinessId: $BusinessId,
+      ParseMode: $ParseMode,
+      Entities: $Entities,
+      LinkPreview: $LinkPreview,
+      DisableNotification: $DisableNotification,
+      Protect: $Protect,
+      Reply: $Reply,
+      Markup: $Markup
     );
   }
 
@@ -123,8 +123,8 @@ extends TblServerMulti{
    * @link https://core.telegram.org/bots/api#sendmessage
    */
   public static function BuildArgs(
+    int|string $Chat,
     string $Text,
-    int|string $Chat = null,
     int $Thread = null,
     string $BusinessId = null,
     TgParseMode $ParseMode = null,
@@ -145,10 +145,9 @@ extends TblServerMulti{
     if(mb_strlen(strip_tags($Text)) > TgLimits::Text):
       throw new TblException(TblError::LimitText, 'Text exceed ' . TgLimits::Text . ' characters');
     endif;
+    $param['chat_id'] = $Chat;
     if($BusinessId !== null):
       $param['business_connection_id'] = $BusinessId;
-    else:
-      $param['chat_id'] = $Chat;
     endif;
     if($ParseMode === TgParseMode::Markdown2):
       $Text = preg_replace('/([>#+\-={}.!])/', '\\\\$1', $Text);

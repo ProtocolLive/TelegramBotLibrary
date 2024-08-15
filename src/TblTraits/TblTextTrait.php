@@ -25,7 +25,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2024.07.03.01
+ * @version 2024.08.15.00
  */
 trait TblTextTrait{
   /**
@@ -98,8 +98,8 @@ trait TblTextTrait{
    * @link https://core.telegram.org/bots/api#editmessagetext
    */
   public function TextEdit(
+    int|string $Chat,
     string $Text,
-    int|string $Chat = null,
     int $Id = null,
     string $InlineId = null,
     string $BusinessId = null,
@@ -111,15 +111,15 @@ trait TblTextTrait{
     $return = $this->ServerMethod(
       TgMethods::TextEdit,
       TblTextEditMulti::BuildArgs(
-        $Text,
-        $Chat,
-        $Id,
-        $InlineId,
-        $BusinessId,
-        $ParseMode,
-        $Entities,
-        $LinkPreview,
-        $Markup
+        Chat: $Chat,
+        Text: $Text,
+        Id: $Id,
+        InlineId: $InlineId,
+        BusinessId: $BusinessId,
+        ParseMode: $ParseMode,
+        Entities: $Entities,
+        LinkPreview: $LinkPreview,
+        Markup: $Markup
       )
     );
     if($return === true):
@@ -170,8 +170,8 @@ trait TblTextTrait{
    * @link https://core.telegram.org/bots/api#sendmessage
    */
   public function TextSend(
+    int|string $Chat,
     string $Text,
-    int|string $Chat = null,
     int $Thread = null,
     string $BusinessId = null,
     TgParseMode $ParseMode = null,
@@ -186,18 +186,18 @@ trait TblTextTrait{
     $return = $this->ServerMethod(
       TgMethods::TextSend,
       TblTextSendMulti::BuildArgs(
-        $Text,
-        $Chat,
-        $Thread,
-        $BusinessId,
-        $ParseMode,
-        $Entities,
-        $LinkPreview,
-        $DisableNotification,
-        $Protect,
-        $Reply,
-        $Markup,
-        $Effect
+        Chat: $Chat,
+        Text: $Text,
+        Thread: $Thread,
+        BusinessId: $BusinessId,
+        ParseMode: $ParseMode,
+        Entities: $Entities,
+        LinkPreview: $LinkPreview,
+        DisableNotification: $DisableNotification,
+        Protect: $Protect,
+        Reply: $Reply,
+        Markup: $Markup,
+        Effect: $Effect
       )
     );
     return new TgText($return);
