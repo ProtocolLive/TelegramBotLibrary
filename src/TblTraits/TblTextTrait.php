@@ -25,7 +25,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2024.08.15.00
+ * @version 2024.08.17.00
  */
 trait TblTextTrait{
   /**
@@ -84,7 +84,7 @@ trait TblTextTrait{
 
   /**
    * Use this method to edit text and game messages.
-   * @param int|string|null $Chat Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * @param int|string $Chat Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
    * @param int|null $Id Required if inline_message_id is not specified. Identifier of the message to edit
    * @param string $Text New text of the message, 1-4096 characters after entities parsing
    * @param string|null $InlineId Required if chat_id and message_id are not specified. Identifier of the inline message
