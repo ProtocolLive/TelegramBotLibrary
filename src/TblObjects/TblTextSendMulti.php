@@ -11,7 +11,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2024.08.15.00
+ * @version 2024.08.20.00
  */
 final class TblTextSendMulti
 extends TblServerMulti{
@@ -139,7 +139,7 @@ extends TblServerMulti{
     if($Chat === null):
       throw new TblException(TblError::MissingParameter, 'Chat is required');
     endif;
-    if($Text === null):
+    if($Text === ''):
       throw new TblException(TblError::MissingParameter, 'Text is required');
     endif;
     if(mb_strlen(strip_tags($Text)) > TgLimits::Text):
