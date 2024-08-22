@@ -143,7 +143,7 @@ a8044c0ce19a102ac84868472e070eb019fea907  TgObjects\TgLocation.php
 b90e63fd55da0cca4d22c23853a9b0dea541d35d  TgObjects\TgLocationEdited.php
 b280ff1ab486e1b27be4b3948d2b0613dfe49377  TgObjects\TgLogin.php
 a6ed1d2ac4f0e9b6681816142c7b98b1d581b4ed  TgObjects\TgMask.php
-9b6c2a3591223da86873a21dd793013e846aa799  TgObjects\TgMember.php
+f7dd47a6b6ac39c48446193ee83bcbf3d3261c6f  TgObjects\TgMember.php
 9eb0889e297bb745a932e48040c00bc24059eb43  TgObjects\TgPaidMedia.php
 ebaa1c3fa2bf6d862d6ad013d23fd8b3b0a41e1e  TgObjects\TgPaidMediaPreview.php
 d73c14e3465c358e6fbfdb974bb4578ab5f2d3a1  TgObjects\TgPassport.php
