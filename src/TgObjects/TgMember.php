@@ -8,7 +8,7 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\TgMemberStatus;
 /**
  * This object contains information about one member of a chat. Currently, the following 6 types of chat members are supported: ChatMemberOwner, ChatMemberAdministrator, ChatMemberMember, ChatMemberRestricted, ChatMemberLeft, ChatMemberBanned
  * @link https://core.telegram.org/bots/api#chatmember
- * @version 2024.08.14.00
+ * @version 2024.08.21.00
  */
 final readonly class TgMember{
   /**
@@ -81,40 +81,40 @@ final readonly class TgMember{
     endif;
     if($this->Status === TgMemberStatus::Creator):
       $this->AdminPerms = new TgPermAdmin(
-        null,
-        true,
-        true,
-        true,
-        true,
-        true,
-        true,
-        true,
-        true,
-        true,
-        true,
-        true,
-        true,
-        true,
-        true,
-        true
+        Data: null,
+        Manage: true,
+        Message: true,
+        Edited: true,
+        Edit: true,
+        Delete: true,
+        Invite: true,
+        Restrict: true,
+        Promote: true,
+        Video: true,
+        Info: true,
+        Pin: true,
+        Topics: true,
+        StoryCreate: true,
+        StoryEdit: true,
+        StoryDelete: true
       );
       $this->MemberPerms = new TgPermMember(
-        null,
-        true,
-        true,
-        true,
-        true,
-        true,
-        true,
-        true,
-        true,
-        true,
-        true,
-        true,
-        true,
-        true,
-        true,
-        true
+        Data: null,
+        Message: true,
+        Media: true,
+        Audio: true,
+        Documents: true,
+        Photos: true,
+        Videos: true,
+        VideoNote: true,
+        VoiceNote: true,
+        Poll: true,
+        Media2: true,
+        Preview: true,
+        Info: true,
+        Invite: true,
+        Pin: true,
+        Topics: true
       );
     else:
       $this->AdminPerms = new TgPermAdmin($Data);
