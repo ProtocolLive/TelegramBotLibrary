@@ -3,26 +3,26 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
+use SensitiveParameter;
 
 /**
- * @version 2024.01.30.00
+ * @version 2024.08.27.00
  */
 final readonly class TblData{
   public string $UrlApi;
   public string $UrlFiles;
-  public string|null $TokenWebhook;
   public object|string|array|null $LogHandler;
 
   /**
    * @throws TblException
    */
   public function __construct(
-    string $Token,
+    #[SensitiveParameter] string $Token,
     public string $DirLogs,
-    string|null $TokenWebhook = null,
+    #[SensitiveParameter] public string|null $TokenWebhook = null,
     public int $Log = TblLog::None,
     bool $TestServer = false,
-    callable $LogHandler = null
+    callable $LogHandler = null //Not promoted because types
   ){
     if($TestServer):
       $temp = '/test';
@@ -37,6 +37,5 @@ final readonly class TblData{
         throw new TblException(TblError::TokenWebhook);
       endif;
     endif;
-    $this->TokenWebhook = $TokenWebhook;
   }
 }
