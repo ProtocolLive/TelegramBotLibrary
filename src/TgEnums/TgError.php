@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TgEnums;
 
 /**
- * @version 2024.08.14.00
+ * @version 2024.09.06.00
  */
 enum TgError{
   case Admin;
@@ -75,6 +75,10 @@ enum TgError{
    * @link https://core.telegram.org/bots/api#sendmediagroup
    */
   case LimitMediaGroup;
+  /**
+   * @link https://core.telegram.org/bots/api#sendpaidmedia
+   */
+  case LimitPayload;
   /**
    * @link https://core.telegram.org/bots/api#sendpoll
    */

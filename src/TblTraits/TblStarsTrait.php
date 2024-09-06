@@ -25,7 +25,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2024.08.14.00
+ * @version 2024.09.06.00
  */
 trait TblStarsTrait{
   /**
@@ -98,12 +98,15 @@ trait TblStarsTrait{
    * @param bool $Protect Protects the contents of the sent message from forwarding and saving
    * @param TgReplyParams $Reply Description of the message to reply to
    * @param TblMarkup $Markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user
+   * @param string $Payload Bot-defined paid media payload, 0-128 bytes. This will not be displayed to the user, use it for your internal processes.
    * @return TgPaidMedia The sent Message is returned.
+   * @throws TblException
    */
   public function PaidMediaSend(
     int|string $Chat,
     int $Price,
     TgPaidMedias $Media,
+    string $Payload = null,
     string $BusinessId = null,
     string $Caption = null,
     bool $CaptionAbove = false,
@@ -127,6 +130,9 @@ trait TblStarsTrait{
       $param['business_connection_id'] = $BusinessId;
     endif;
     if($Caption !== null):
+      if(strlen($Caption) > TgLimits::Caption):
+        throw new TblException(TgError::LimitCaption);
+      endif;
       $param['caption'] = $Caption;
     endif;
     if($CaptionAbove):
@@ -149,6 +155,12 @@ trait TblStarsTrait{
     endif;
     if($Markup !== null):
       $param['reply_markup'] = $Markup->ToArray();
+    endif;
+    if($Payload !== null):
+      if(strlen($Payload) > TgLimits::Payload):
+        throw new TblException(TgError::LimitPayload);
+      endif;
+      $param['payload'] = $Payload;
     endif;
     return new TgPaidMedia($this->ServerMethod(TgMethods::PaidMediaSend, $param));
   }
