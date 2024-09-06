@@ -54,6 +54,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgInvoiceShipping,
   TgLimits,
   TgMessageDeleted,
+  TgPaidMediaPurchased,
   TgPoll,
   TgPollAnswer,
   TgProfilePhoto,
@@ -70,7 +71,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2024.07.31.00
+ * @version 2024.09.06.00
  */
 final class TelegramBotLibrary
 extends TblBasics{
@@ -293,12 +294,12 @@ extends TblBasics{
       return parent::DetectMessage($Data['channel_post']);
     elseif(isset($Data['edited_channel_post'])):
       return parent::DetectMessageEdited($Data['edited_channel_post']);
-    elseif(isset($Data['business_connection'])):
-      return new TgBusinessConnection($Data['business_connection']);
     elseif(isset($Data['business_message'])):
       return parent::DetectMessage($Data['business_message']);
     elseif(isset($Data['edited_business_message'])):
       return parent::DetectMessageEdited($Data['business_message']);
+    elseif(isset($Data['business_connection'])):
+      return new TgBusinessConnection($Data['business_connection']);
     elseif(isset($Data['deleted_business_messages'])):
       return new TgMessageDeleted($Data['deleted_business_messages']);
     elseif(isset($Data['callback_query']['game_short_name'])):
@@ -329,6 +330,8 @@ extends TblBasics{
       return new TgPollAnswer($Data['poll_answer']);
     elseif(isset($Data['pre_checkout_query'])):
       return new TgInvoiceCheckout($Data['pre_checkout_query']);
+    elseif(isset($Data['purchased_paid_media'])):
+      return new TgPaidMediaPurchased($Data['purchased_paid_media']);
     elseif(isset($Data['removed_chat_boost'])):
       return new TgChatBoostRemoved($Data['removed_chat_boost']);
     elseif(isset($Data['shipping_query'])):
