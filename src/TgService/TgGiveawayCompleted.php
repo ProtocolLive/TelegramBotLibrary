@@ -13,7 +13,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\TgGiveaway;
 /**
  * This object represents a service message about the completion of a giveaway without public winners.
  * @link https://core.telegram.org/bots/api#giveawaycompleted
- * @version 2024.04.11.00
+ * @version 2024.09.06.00
  */
 final readonly class TgGiveawayCompleted
 implements TgEventInterface, TgServiceInterface{
@@ -30,6 +30,10 @@ implements TgEventInterface, TgServiceInterface{
    * Message with the giveaway that was completed, if it wasn't deleted
    */
   public TgGiveaway|null $Message;
+  /**
+   * If the giveaway is a Telegram Star giveaway. Otherwise, currently, the giveaway is a Telegram Premium giveaway.
+   */
+  public bool $Star;
 
   public function __construct(
     array $Data
@@ -37,6 +41,7 @@ implements TgEventInterface, TgServiceInterface{
     $this->Data = new TgMessageData($Data);
     $this->Winners = $Data['giveaway_completed']['winner_count'];
     $this->Unclaimed = $Data['giveaway_completed']['unclaimed_prize_count'] ?? 0;
+    $this->Star = $Data['giveaway_completed']['is_star_giveaway'] ?? false;
     if(isset($Data['giveaway_completed']['giveaway_message'])):
       $this->Message = new TgGiveaway($Data['giveaway_completed']['unclaimed_prize_count']);
     else:

@@ -9,7 +9,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgEventInterface;
 
 /**
  * @link https://core.telegram.org/bots/api#chatboostupdated
- * @version 2024.07.07.00
+ * @version 2024.09.06.00
  */
 final readonly class TgChatBoost
 implements TgEventInterface{
@@ -42,6 +42,10 @@ implements TgEventInterface{
    * True, if the giveaway was completed, but there was no user to win the prize
    */
   public bool $Unclaimed;
+  /**
+   * The number of Telegram Stars to be split between giveaway winners; for Telegram Star giveaways only
+   */
+  public int|null $Stars;
   
   public function __construct(
     array $Data
@@ -54,5 +58,6 @@ implements TgEventInterface{
     $this->User = new TgUser($Data['boost']['source']['user'] ?? $Data['source']['user']);
     $this->Message = $Data['boost']['source']['giveaway_message_id'] ?? null;
     $this->Unclaimed = $Data['boost']['source']['is_unclaimed'] ?? false;
+    $this->Stars = $Data['boost']['source']['prize_star_count'] ?? null;
   }
 }

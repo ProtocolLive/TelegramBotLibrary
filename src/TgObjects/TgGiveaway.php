@@ -11,7 +11,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 
 /**
  * @link https://core.telegram.org/bots/api#giveaway
- * @version 2024.04.11.00
+ * @version 2024.09.06.00
  */
 final readonly class TgGiveaway
 implements TgEventInterface, TgForwadableInterface{
@@ -48,6 +48,10 @@ implements TgEventInterface, TgForwadableInterface{
    * Description of additional giveaway prize
    */
   public string|null $Additional;
+  /**
+   * The number of Telegram Stars to be split between giveaway winners; for Telegram Star giveaways only
+   */
+  public int|null $Stars;
 
   public function __construct(
     array $Data
@@ -65,5 +69,6 @@ implements TgEventInterface, TgForwadableInterface{
     $this->Additional = $Data['giveaway']['prize_description'] ?? null;
     $this->Countries = $Data['giveaway']['country_codes'] ?? [];
     $this->Months = $Data['giveaway']['premium_subscription_month_count'] ?? null;
+    $this->Stars = $Data['giveaway']['prize_star_count'] ?? null;
   }
 }

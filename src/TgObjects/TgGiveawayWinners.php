@@ -12,7 +12,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 /**
  * This object represents a message about the completion of a giveaway with public winners.
  * @link https://core.telegram.org/bots/api#giveawaywinners
- * @version 2024.04.11.00
+ * @version 2024.09.06.00
  */
 final readonly class TgGiveawayWinners
 implements TgEventInterface, TgForwadableInterface{
@@ -61,6 +61,10 @@ implements TgEventInterface, TgForwadableInterface{
    * Description of additional giveaway prize
    */
   public string $Additional;
+  /**
+   * The number of Telegram Stars that were split between giveaway winners; for Telegram Star giveaways only
+   */
+  public int|null $Stars;
 
   public function __construct(
     array $Data
@@ -81,5 +85,6 @@ implements TgEventInterface, TgForwadableInterface{
     $this->OnlyNew = $Data['only_new_members'] ?? false;
     $this->Refunded = $Data['refunded'] ?? false;
     $this->Additional = $Data['prize_description'] ?? null;
+    $this->Stars = $Data['prize_star_count'] ?? null;
   }
 }
