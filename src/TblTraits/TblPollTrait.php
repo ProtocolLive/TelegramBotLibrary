@@ -22,7 +22,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2024.07.04.02
+ * @version 2024.11.01.00
  */
 trait TblPollTrait{
   /**
@@ -49,6 +49,7 @@ trait TblPollTrait{
    * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
    * @param TgReplyParams $Reply Description of the message to reply to
    * @param TblMarkup $Markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user
+   * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
    * @return TgPoll The sent Message is returned.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#sendpoll
@@ -73,6 +74,7 @@ trait TblPollTrait{
     bool $Closed = false,
     bool $DisableNotification = false,
     bool $Protect = false,
+    bool $AllowPaid = false,
     string $Effect = null,
     TgReplyParams $Reply = null,
     TblMarkup $Markup = null
@@ -114,6 +116,9 @@ trait TblPollTrait{
     endif;
     if($MultipleAnswers):
       $param['allows_multiple_answers'] = true;
+    endif;
+    if($AllowPaid):
+      $param['allow_paid_broadcast'] = true;
     endif;
     if($CorrectOption !== null):
       $param['correct_option_id'] = $CorrectOption;

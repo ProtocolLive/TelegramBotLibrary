@@ -19,7 +19,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2024.07.07.00
+ * @version 2024.11.01.00
  */
 trait TblInvoiceTrait{
   /**
@@ -176,6 +176,7 @@ trait TblInvoiceTrait{
    * @param bool $SendWithoutRepliedMsg Pass True, if the message should be sent even if the specified replied-to message is not found
    * @param TblMarkup $Markup A object for an inline keyboard. If empty, one 'Pay total price' button will be shown. If not empty, the first button must be a Pay button.
    * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
+   * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
    * @return TgInvoice On success, the sent Message is returned.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#sendinvoice
@@ -207,6 +208,7 @@ trait TblInvoiceTrait{
     bool $Protect = false,
     int $RepliedMsg = null,
     bool $SendWithoutRepliedMsg = false,
+    bool $AllowPaid = false,
     TblMarkup $Markup = null,
     string $Effect = null
   ):TgInvoice{
@@ -267,6 +269,9 @@ trait TblInvoiceTrait{
     endif;
     if($Protect):
       $param['protect_content'] = true;
+    endif;
+    if($AllowPaid):
+      $param['allow_paid_broadcast'] = true;
     endif;
     if($RepliedMsg !== null):
       $param['reply_to_message_id'] = $RepliedMsg;

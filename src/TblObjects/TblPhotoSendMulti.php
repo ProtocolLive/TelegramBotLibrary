@@ -12,7 +12,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\TgLimits;
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2024.07.04.00
+ * @version 2024.11.01.00
  */
 final class TblPhotoSendMulti
 extends TblServerMulti{
@@ -47,6 +47,7 @@ extends TblServerMulti{
    * @param bool $Spoiler If the photo needs to be covered with a spoiler animation
    * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
    * @param bool $CaptionAbove If the caption must be shown above the message media
+   * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
    * @throws TblException
    * @link https://core.telegram.org/bots/api#sendphoto
    */
@@ -62,6 +63,7 @@ extends TblServerMulti{
     bool $DisableNotification = false,
     bool $Protect = false,
     bool $Spoiler = false,
+    bool $AllowPaid = false,
     TgReplyParams $Reply = null,
     TblMarkup $Markup = null,
     string $Effect = null,
@@ -72,20 +74,21 @@ extends TblServerMulti{
       return;
     endif;
     $this->Args[$MultiControl ?? $Chat] = self::BuildArgs(
-      $Chat,
-      $Photo,
-      $Thread,
-      $BusinessId,
-      $Caption,
-      $CaptionAbove,
-      $ParseMode,
-      $Entities,
-      $DisableNotification,
-      $Protect,
-      $Spoiler,
-      $Reply,
-      $Markup,
-      $Effect
+      Chat: $Chat,
+      Photo: $Photo,
+      Thread: $Thread,
+      BusinessId: $BusinessId,
+      Caption: $Caption,
+      CaptionAbove: $CaptionAbove,
+      ParseMode: $ParseMode,
+      Entities: $Entities,
+      DisableNotification: $DisableNotification,
+      Protect: $Protect,
+      Spoiler: $Spoiler,
+      Reply: $Reply,
+      Markup: $Markup,
+      Effect: $Effect,
+      AllowPaid: $AllowPaid
     );
   }
 
@@ -119,6 +122,7 @@ extends TblServerMulti{
    * @param bool $Spoiler If the photo needs to be covered with a spoiler animation
    * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
    * @param bool $CaptionAbove If the caption must be shown above the message media
+   * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
    * @return array Prepared parameters for the PhotoSendMulti method
    * @throws TblException
    * @link https://core.telegram.org/bots/api#sendphoto
@@ -135,26 +139,28 @@ extends TblServerMulti{
     bool $DisableNotification = false,
     bool $Protect = false,
     bool $Spoiler = false,
+    bool $AllowPaid = false,
     TgReplyParams $Reply = null,
     TblMarkup $Markup = null,
     string $Effect = null,
     string $MultiControl = null
   ):void{
     $this->Args[$MultiControl ?? $Chat] = self::BuildArgs(
-      $Chat,
-      $Photo,
-      $Thread,
-      $BusinessId,
-      $Caption,
-      $CaptionAbove,
-      $ParseMode,
-      $Entities,
-      $DisableNotification,
-      $Protect,
-      $Spoiler,
-      $Reply,
-      $Markup,
-      $Effect
+      Chat: $Chat,
+      Photo: $Photo,
+      Thread: $Thread,
+      BusinessId: $BusinessId,
+      Caption: $Caption,
+      CaptionAbove: $CaptionAbove,
+      ParseMode: $ParseMode,
+      Entities: $Entities,
+      DisableNotification: $DisableNotification,
+      Protect: $Protect,
+      Spoiler: $Spoiler,
+      Reply: $Reply,
+      Markup: $Markup,
+      Effect: $Effect,
+      AllowPaid: $AllowPaid
     );
   }
 
@@ -189,6 +195,7 @@ extends TblServerMulti{
    * @param bool $Spoiler If the photo needs to be covered with a spoiler animation
    * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
    * @param bool $CaptionAbove If the caption must be shown above the message media
+   * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
    * @return array Prepared parameters for the PhotoSendMulti method
    * @throws TblException
    * @link https://core.telegram.org/bots/api#sendphoto
@@ -205,6 +212,7 @@ extends TblServerMulti{
     bool $DisableNotification = false,
     bool $Protect = false,
     bool $Spoiler = false,
+    bool $AllowPaid = false,
     TgReplyParams $Reply = null,
     TblMarkup $Markup = null,
     string $Effect = null
@@ -233,13 +241,16 @@ extends TblServerMulti{
       $param['caption_entities'] = $Entities->ToArray();
     endif;
     if($DisableNotification):
-      $param['disable_notification'] = 'true';
+      $param['disable_notification'] = true;
     endif;
     if($Protect):
-      $param['protect_content'] = 'true';
+      $param['protect_content'] = true;
     endif;
     if($Spoiler):
-      $param['has_spoiler'] = 'true';
+      $param['has_spoiler'] = true;
+    endif;
+    if($AllowPaid):
+      $param['allow_paid_broadcast'] = true;
     endif;
     if($Reply !== null):
       $param['reply_to_message_id'] = $Reply->ToArray();

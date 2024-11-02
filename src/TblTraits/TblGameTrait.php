@@ -15,7 +15,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2024.07.10.00
+ * @version 2024.11.01.00
  */
 trait TblGameTrait{
   /**
@@ -29,6 +29,7 @@ trait TblGameTrait{
    * @param TgReplyParams $Reply Description of the message to reply to
    * @param TblMarkup $Markup A JSON-serialized object for an inline keyboard. If empty, one 'Play game_title' button will be shown. If not empty, the first button must launch the game.
    * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
+   * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
    * @return TgGame On success, the sent Message is returned.
    * @link https://core.telegram.org/bots/api#sendgame
    * @throws TblException
@@ -40,6 +41,7 @@ trait TblGameTrait{
     string $BusinessId = null,
     bool $DisableNotifications = false,
     bool $Protect = false,
+    bool $AllowPaid = false,
     TgReplyParams $Reply = null,
     TblMarkup $Markup = null,
     string $Effect = null
@@ -58,6 +60,9 @@ trait TblGameTrait{
     endif;
     if($Protect):
       $param['protect_content'] = true;
+    endif;
+    if($AllowPaid):
+      $param['allow_paid_broadcast'] = true;
     endif;
     if($Reply !== null):
       $param['reply_markup'] = $Reply->ToArray();

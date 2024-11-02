@@ -71,7 +71,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2024.09.06.00
+ * @version 2024.11.01.00
  */
 final class TelegramBotLibrary
 extends TblBasics{
@@ -208,6 +208,7 @@ extends TblBasics{
    * @param bool $SendWithoutRepliedMsg Pass True, if the message should be sent even if the specified replied-to message is not found
    * @param TblMarkup $Markup Additional interface options. A object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
    * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
+   * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
    * @return TgDocument On success, the sent Message is returned.
    * @link https://core.telegram.org/bots/api#senddocument
    */
@@ -224,6 +225,7 @@ extends TblBasics{
     bool $Protect = false,
     int $RepliedMsg = null,
     bool $SendWithoutRepliedMsg = false,
+    bool $AllowPaid = false,
     TblMarkup $Markup = null,
     string $Effect = null
   ):TgDocument{
@@ -259,19 +261,22 @@ extends TblBasics{
       $param['caption_entities'] = $Entities->ToArray();
     endif;
     if($DisableDetection):
-      $param['disable_content_type_detection'] = 'true';
+      $param['disable_content_type_detection'] = true;
     endif;
     if($DisableNotification):
-      $param['disable_notification'] = 'true';
+      $param['disable_notification'] = true;
     endif;
     if($Protect):
-      $param['protect_content'] = 'true';
+      $param['protect_content'] = true;
+    endif;
+    if($AllowPaid):
+      $param['allow_paid_broadcast'] = true;
     endif;
     if($RepliedMsg !== null):
       $param['reply_to_message_id'] = $RepliedMsg;
     endif;
     if($SendWithoutRepliedMsg):
-      $param['allow_sending_without_reply'] = 'true';
+      $param['allow_sending_without_reply'] = true;
     endif;
     if($Markup !== null):
       $param['reply_markup'] = $Markup->ToArray();
@@ -371,6 +376,13 @@ extends TblBasics{
   /**
    * Use this method to send a group of photos, videos, documents or audios as an album. Documents and audio files can be only grouped in an album with messages of the same type.
    * @param TgAudioGroup[]|TgDocumentGroup[]|TgPhotoGroup[]|TgVideoGroup[] $Objects
+   * @param int $Thread Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   * @param string $BusinessId Unique identifier of the business connection on behalf of which the message will be sent
+   * @param bool $DisableNotification Sends messages silently. Users will receive a notification with no sound.
+   * @param bool $Protect Protects the contents of the sent messages from forwarding and saving
+   * @param TgReplyParams $Reply Description of the message to reply to
+   * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
+   * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
    * @return array An array of Messages that were sent is returned.
    * @link https://core.telegram.org/bots/api#sendmediagroup
    */
@@ -381,17 +393,33 @@ extends TblBasics{
     string $BusinessId = null,
     bool $DisableNotification = false,
     bool $Protect = false,
+    bool $AllowPaid = false,
+    string $Effect = null,
     TgReplyParams $Reply = null,
   ):void{
     foreach($Objects as &$object):
       $object = $object->ToArray();
     endforeach;
     $param['chat_id'] = $Chat;
-    $param['thread_id'] = $Thread;
-    $param['business_id'] = $BusinessId;
     $param['media'] = $Objects;
-    $param['disable_notification'] = $DisableNotification;
-    $param['protect_content'] = $Protect;
+    if($Thread !== null):
+      $param['thread_id'] = $Thread;
+    endif;
+    if($BusinessId !== null):
+      $param['business_id'] = $BusinessId;
+    endif;
+    if($Effect !== null):
+      $param['message_effect_id'] = $Effect;
+    endif;
+    if($DisableNotification):
+      $param['disable_notification'] = true;
+    endif;
+    if($Protect):
+      $param['protect_content'] = true;
+    endif;
+    if($AllowPaid):
+      $param['allow_paid_broadcast'] = true;
+    endif;
     $param['reply_parameters'] = $Reply->ToArray();
     $this->ServerMethod(TgMethods::GroupSend, $param);
   }
@@ -510,6 +538,7 @@ extends TblBasics{
    * @param bool $SendWithoutRepliedMsg Pass True, if the message should be sent even if the specified replied-to message is not found
    * @param TblMarkup $Markup Additional interface options. A object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
    * @param bool $CaptionAbove If the caption must be shown above the message media
+   * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
    * @return int Returns the MessageId of the sent message on success.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#copymessage
@@ -527,6 +556,7 @@ extends TblBasics{
     bool $Protect = false,
     int $RepliedMsg = null,
     bool $SendWithoutRepliedMsg = false,
+    bool $AllowPaid = false,
     TblMarkup $Markup = null
   ):int{
     $param['chat_id'] = $To;
@@ -555,6 +585,9 @@ extends TblBasics{
     endif;
     if($Protect):
       $param['protect_content'] = true;
+    endif;
+    if($AllowPaid):
+      $param['allow_paid_broadcast'] = true;
     endif;
     if($RepliedMsg !== null):
       $param['reply_to_message_id'] = $RepliedMsg;
@@ -845,6 +878,7 @@ extends TblBasics{
    * @param bool $SendWithoutRepliedMsg If the message should be sent even if the specified replied-to message is not found
    * @param TblMarkup $Markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
    * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
+   * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
    * @return TgSticker The sent Message.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#sendsticker
@@ -858,6 +892,7 @@ extends TblBasics{
     bool $Protect = false,
     int $RepliedMsg = null,
     bool $SendWithoutRepliedMsg = false,
+    bool $AllowPaid = false,
     TblMarkup $Markup = null,
     string $Effect = null
   ):TgSticker{
@@ -867,13 +902,16 @@ extends TblBasics{
       $param['message_thread_id'] = $Thread;
     endif;
     if($DisableNotification):
-      $param['disable_notification'] = 'true';
+      $param['disable_notification'] = true;
     endif;
     if($Emoji !== null):
       $param['emoji'] = $Emoji;
     endif;
     if($Protect):
-      $param['protect_content'] = 'true';
+      $param['protect_content'] = true;
+    endif;
+    if($AllowPaid):
+      $param['allow_paid_broadcast'] = true;
     endif;
     if($RepliedMsg !== null):
       $param['reply_to_message_id'] = $RepliedMsg;

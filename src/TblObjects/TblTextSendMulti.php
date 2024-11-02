@@ -11,7 +11,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2024.08.20.00
+ * @version 2024.11.01.00
  */
 final class TblTextSendMulti
 extends TblServerMulti{
@@ -119,6 +119,7 @@ extends TblServerMulti{
    * @param TgReplyParams $Reply Description of the message to reply to
    * @param TblMarkup $Markup Additional interface options. A object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
    * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
+   * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
    * @return array Prepared parameters for the TextSendMulti method
    * @link https://core.telegram.org/bots/api#sendmessage
    */
@@ -132,6 +133,7 @@ extends TblServerMulti{
     TgLinkPreview $LinkPreview = null,
     bool $DisableNotification = false,
     bool $Protect = false,
+    bool $AllowPaid = false,
     TgReplyParams $Reply = null,
     TblMarkup $Markup = null,
     string $Effect = null
@@ -179,6 +181,9 @@ extends TblServerMulti{
     endif;
     if($Effect !== null):
       $param['message_effect_id'] = $Effect;
+    endif;
+    if($AllowPaid):
+      $param['allow_paid_broadcast'] = true;
     endif;
     return $param;
   }

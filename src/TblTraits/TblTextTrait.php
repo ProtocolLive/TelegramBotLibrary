@@ -25,7 +25,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2024.08.17.00
+ * @version 2024.11.01.00
  */
 trait TblTextTrait{
   /**
@@ -39,6 +39,7 @@ trait TblTextTrait{
    * @param TgReplyParams $Reply If the message is a reply, ID of the original message
    * @param TblMarkup $Markup Additional interface options. A object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
    * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
+   * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
    * @return TgText On success, the sent Message is returned.
    * @link https://core.telegram.org/bots/api#senddice
    */
@@ -49,6 +50,7 @@ trait TblTextTrait{
     string $BusinessId = null,
     bool $DisableNotification = false,
     bool $Protect = false,
+    bool $AllowPaid = false,
     TgReplyParams $Reply = null,
     TblMarkup $Markup = null,
     string $Effect = null
@@ -69,6 +71,9 @@ trait TblTextTrait{
     endif;
     if($Protect):
       $param['protect_content'] = true;
+    endif;
+    if($AllowPaid):
+      $param['allow_paid_broadcast'] = true;
     endif;
     if($Reply !== null):
       $param['reply_parameters'] = $Reply->ToArray();
@@ -165,6 +170,7 @@ trait TblTextTrait{
    * @param TgReplyParams $Reply If the message is a reply, ID of the original message
    * @param TblMarkup $Markup Additional interface options. A object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
    * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
+   * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
    * @return TgText On success, the sent Message is returned.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#sendmessage
@@ -179,6 +185,7 @@ trait TblTextTrait{
     TgLinkPreview $LinkPreview = null,
     bool $DisableNotification = false,
     bool $Protect = false,
+    bool $AllowPaid = false,
     TgReplyParams $Reply = null,
     TblMarkup $Markup = null,
     string $Effect = null
@@ -197,7 +204,8 @@ trait TblTextTrait{
         Protect: $Protect,
         Reply: $Reply,
         Markup: $Markup,
-        Effect: $Effect
+        Effect: $Effect,
+        AllowPaid: $AllowPaid
       )
     );
     return new TgText($return);

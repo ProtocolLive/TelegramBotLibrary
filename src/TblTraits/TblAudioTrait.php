@@ -22,7 +22,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2024.07.10.00
+ * @version 2024.11.01.00
  */
 trait TblAudioTrait{
   /**
@@ -43,6 +43,7 @@ trait TblAudioTrait{
    * @param TgReplyParams $Reply Description of the message to reply to
    * @param TblMarkup $Markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account
    * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
+   * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
    * @return TgAudio On success, the sent Message is returned.
    * @link https://core.telegram.org/bots/api#sendaudio
    * @throws TblException
@@ -61,6 +62,7 @@ trait TblAudioTrait{
     string $Thumbnail = null,
     bool $DisableNotification = false,
     bool $Protect = false,
+    bool $AllowPaid = false,
     TgReplyParams $Reply = null,
     TblMarkup $Markup = null,
     string $Effect = null
@@ -114,6 +116,9 @@ trait TblAudioTrait{
     if($Protect):
       $param['protect_content'] = true;
     endif;
+    if($AllowPaid):
+      $param['allow_paid_broadcast'] = true;
+    endif;
     if($Reply !== null):
       $param['reply_parameters'] = $Reply->ToArray();
     endif;
@@ -141,6 +146,7 @@ trait TblAudioTrait{
    * @param TgReplyParams $Reply Description of the message to reply to
    * @param TblMarkup $Markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account
    * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
+   * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
    * @return TgVoice On success, the sent Message is returned.
    * @link https://core.telegram.org/bots/api#sendvoice
    * @throws TblException
@@ -156,6 +162,7 @@ trait TblAudioTrait{
     int $Duration = null,
     bool $DisableNotification = false,
     bool $Protect = false,
+    bool $AllowPaid = false,
     TgReplyParams $Reply = null,
     TblMarkup $Markup = null,
     string $Effect = null
@@ -195,6 +202,9 @@ trait TblAudioTrait{
     endif;
     if($Protect):
       $param['protect_content'] = true;
+    endif;
+    if($AllowPaid):
+      $param['allow_paid_broadcast'] = true;
     endif;
     if($Reply !== null):
       $param['reply_parameters'] = $Reply->ToArray();

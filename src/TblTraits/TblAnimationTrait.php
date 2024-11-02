@@ -21,7 +21,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2024.07.10.00
+ * @version 2024.11.01.00
  */
 trait TblAnimationTrait{
   /**
@@ -44,6 +44,7 @@ trait TblAnimationTrait{
    * @param TblMarkup $Markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
    * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
    * @param bool $CaptionAbove If the caption must be shown above the message media
+   * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
    * @return TgAnimation On success, the sent Message is returned.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#sendanimation
@@ -64,6 +65,7 @@ trait TblAnimationTrait{
     bool $Spoiler = false,
     bool $DisableNotification = false,
     bool $Protect = false,
+    bool $AllowPaid = false,
     TgReplyParams $Reply = null,
     TblMarkup $Markup = null,
     string $Effect = null
@@ -113,6 +115,9 @@ trait TblAnimationTrait{
     endif;
     if($Spoiler):
       $param['has_spoiler'] = true;
+    endif;
+    if($AllowPaid):
+      $param['allow_paid_broadcast'] = true;
     endif;
     if($DisableNotification):
       $param['disable_notification'] = true;

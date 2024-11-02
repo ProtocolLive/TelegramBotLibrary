@@ -25,7 +25,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2024.09.06.00
+ * @version 2024.11.01.00
  */
 trait TblStarsTrait{
   /**
@@ -99,6 +99,7 @@ trait TblStarsTrait{
    * @param TgReplyParams $Reply Description of the message to reply to
    * @param TblMarkup $Markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user
    * @param string $Payload Bot-defined paid media payload, 0-128 bytes. This will not be displayed to the user, use it for your internal processes.
+   * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
    * @return TgPaidMedia The sent Message is returned.
    * @throws TblException
    */
@@ -112,8 +113,9 @@ trait TblStarsTrait{
     bool $CaptionAbove = false,
     TgParseMode $ParseMode = null,
     TblEntities $Entities = null,
-    bool $DisableNotification = null,
-    bool $Protect = null,
+    bool $DisableNotification = false,
+    bool $Protect = false,
+    bool $AllowPaid = false,
     TgReplyParams $Reply = null,
     TblMarkup $Markup = null
   ):TgPaidMedia{
@@ -144,11 +146,14 @@ trait TblStarsTrait{
     if($Entities !== null):
       $param['caption_entities'] = $Entities->ToArray();
     endif;
-    if($DisableNotification !== null):
-      $param['disable_notification'] = $DisableNotification;
+    if($DisableNotification):
+      $param['disable_notification'] = true;
     endif;
-    if($Protect !== null):
-      $param['protect_content'] = $Protect;
+    if($Protect):
+      $param['protect_content'] = true;
+    endif;
+    if($AllowPaid):
+      $param['allow_paid_broadcast'] = true;
     endif;
     if($Reply !== null):
       $param['reply_parameters'] = $Reply->ToArray();

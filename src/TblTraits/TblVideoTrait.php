@@ -22,7 +22,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2024.07.10.00
+ * @version 2024.11.01.00
  */
 trait TblVideoTrait{
   /**
@@ -46,6 +46,7 @@ trait TblVideoTrait{
    * @param TblMarkup $Markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
    * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
    * @param bool $CaptionAbove If the caption must be shown above the message media
+   * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
    * @return TgVideo On success, the sent Message is returned.
    * @link https://core.telegram.org/bots/api#sendvideo
    * @throws TblException
@@ -67,6 +68,7 @@ trait TblVideoTrait{
     bool $Streaming = false,
     bool $DisableNotification = false,
     bool $Protect = false,
+    bool $AllowPaid = false,
     TgReplyParams $Reply = null,
     TblMarkup $Markup = null,
     string $Effect = null
@@ -113,6 +115,9 @@ trait TblVideoTrait{
     if($Spoiler):
       $param['has_spoiler'] = true;
     endif;
+    if($AllowPaid):
+      $param['allow_paid_broadcast'] = true;
+    endif;
     if($Streaming):
       $param['supports_streaming'] = true;
     endif;
@@ -152,6 +157,7 @@ trait TblVideoTrait{
    * @param string $Thumbnail Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. More information on Sending Files
    * @param bool $DisableNotification Sends the message silently. Users will receive a notification with no sound.
    * @param bool $Protect Protects the contents of the sent message from forwarding and saving
+   * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
    * @param TgReplyParams $Reply If the message is a reply, ID of the original message
    * @param TblMarkup $Markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
    * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
@@ -169,6 +175,7 @@ trait TblVideoTrait{
     string $Thumbnail = null,
     bool $DisableNotification = false,
     bool $Protect = false,
+    bool $AllowPaid = false,
     TgReplyParams $Reply = null,
     TblMarkup $Markup = null,
     string $Effect = null
@@ -199,6 +206,9 @@ trait TblVideoTrait{
     endif;
     if($Protect):
       $param['protect_content'] = true;
+    endif;
+    if($Protect):
+      $param['allow_paid_broadcast'] = true;
     endif;
     if($Reply !== null):
       $param['reply_parameters'] = $Reply;

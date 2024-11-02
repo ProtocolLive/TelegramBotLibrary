@@ -18,7 +18,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\TgPhoto;
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2024.07.10.00
+ * @version 2024.11.01.00
  */
 trait TblPhotoTrait{
   /**
@@ -52,6 +52,7 @@ trait TblPhotoTrait{
    * @param bool $Spoiler If the photo needs to be covered with a spoiler animation
    * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
    * @param bool $CaptionAbove If the caption must be shown above the message media
+   * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
    * @return TgPhoto On success, the sent Message is returned.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#sendphoto
@@ -68,25 +69,27 @@ trait TblPhotoTrait{
     bool $DisableNotification = false,
     bool $Protect = false,
     bool $Spoiler = false,
+    bool $AllowPaid = false,
     TgReplyParams $Reply = null,
     TblMarkup $Markup = null,
     string $Effect = null
   ):TgPhoto{
     $param = TblPhotoSendMulti::BuildArgs(
-      $Chat,
-      $Photo,
-      $Thread,
-      $BusinessId,
-      $Caption,
-      $CaptionAbove,
-      $ParseMode,
-      $Entities,
-      $DisableNotification,
-      $Protect,
-      $Spoiler,
-      $Reply,
-      $Markup,
-      $Effect
+      Chat: $Chat,
+      Photo: $Photo,
+      Thread: $Thread,
+      BusinessId: $BusinessId,
+      Caption: $Caption,
+      CaptionAbove: $CaptionAbove,
+      ParseMode: $ParseMode,
+      Entities: $Entities,
+      DisableNotification: $DisableNotification,
+      Protect: $Protect,
+      Spoiler: $Spoiler,
+      Reply: $Reply,
+      Markup: $Markup,
+      Effect: $Effect,
+      AllowPaid: $AllowPaid
     );
     $return = $this->ServerMethod(
       TgMethods::PhotoSend,
