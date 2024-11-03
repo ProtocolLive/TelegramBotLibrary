@@ -71,7 +71,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2024.11.01.00
+ * @version 2024.11.02.00
  */
 final class TelegramBotLibrary
 extends TblBasics{
@@ -168,7 +168,7 @@ extends TblBasics{
       $param['text'] = $Text;
     endif;
     if($Alert):
-      $param['show_alert'] = 'true';
+      $param['show_alert'] = true;
     endif;
     if($Url !== null):
       $param['url'] = $Url;
@@ -457,7 +457,7 @@ extends TblBasics{
       $param['cache_time'] = $Cache;
     endif;
     if($Personal):
-      $param['is_personal'] = 'true';
+      $param['is_personal'] = true;
     endif;
     if($NextOffset !== null):
       $param['next_offset'] = $NextOffset;
@@ -916,7 +916,7 @@ extends TblBasics{
     if($RepliedMsg !== null):
       $param['reply_to_message_id'] = $RepliedMsg;
       if($SendWithoutRepliedMsg):
-        $param['allow_sending_without_reply'] = 'true';
+        $param['allow_sending_without_reply'] = true;
       endif;
     endif;
     if($Markup !== null):

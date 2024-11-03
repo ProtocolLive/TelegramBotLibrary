@@ -21,7 +21,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 };
 
 /**
- * @version 2024.07.04.00
+ * @version 2024.11.02.00
  */
 trait TblMyTrait{
   /**
@@ -286,7 +286,7 @@ trait TblMyTrait{
   ):TgPermAdmin{
     $param = [];
     if($Type === TblDefaultPerms::Channels):
-      $param['for_channels'] = 'true';
+      $param['for_channels'] = true;
     endif;
     $return = $this->ServerMethod(TgMethods::MyDefaultPermAdmGet, $param);
     return new TgPermAdmin($return);
@@ -309,7 +309,7 @@ trait TblMyTrait{
     endforeach;
     $param['rights'] = json_encode($param['rights']);
     if($Type === TblDefaultPerms::Channels):
-      $param['for_channels'] = 'true';
+      $param['for_channels'] = true;
     endif;
     return $this->ServerMethod(TgMethods::MyDefaultPermAdmSet, $param);
   }

@@ -19,7 +19,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 };
 
 /**
- * @version 2024.07.10.00
+ * @version 2024.11.02.00
  */
 trait TblChatTrait{
   /**
@@ -87,9 +87,9 @@ trait TblChatTrait{
     $param['chat_id'] = $Chat;
     $param['user_id'] = $User;
     foreach(TgPermAdmin::Array as $class => $json):
-      $param[$json] = $Perms->$class ? 'true' : 'false';
+      $param[$json] = $Perms->$class ? true : false;
     endforeach;
-    $param['is_anonymous'] = $Anonymous ? 'true' : 'false';
+    $param['is_anonymous'] = $Anonymous ? true : false;
     return $this->ServerMethod(TgMethods::ChatMemberPromote, $param);
   }
 

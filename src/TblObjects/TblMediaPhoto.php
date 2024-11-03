@@ -11,7 +11,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\TgLimits;
 
 /**
  * @link https://core.telegram.org/bots/api#inputmediaphoto
- * @version 2024.07.04.00
+ * @version 2024.11.02.00
  */
 final class TblMediaPhoto
 extends TblMedia{
@@ -44,7 +44,7 @@ extends TblMedia{
       $param['caption_entities'] = $this->Entities->ToArray();
     endif;
     if($this->Spoiler):
-      $param['has_spoiler'] = 'true';
+      $param['has_spoiler'] = true;
     endif;
     return $param;
   }

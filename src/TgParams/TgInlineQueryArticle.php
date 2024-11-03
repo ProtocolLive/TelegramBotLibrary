@@ -10,7 +10,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 };
 
 /**
- * @version 2024.01.12.00
+ * @version 2024.11.02.00
  */
 final class TgInlineQueryArticle
 implements TgInlineQueryInterface{
@@ -55,7 +55,7 @@ implements TgInlineQueryInterface{
       $param['url'] = $this->Url;
     endif;
     if($this->UrlHide):
-      $param['hide_url'] = 'true';
+      $param['hide_url'] = true;
     endif;
     if($this->Description !== null):
       $param['description'] = $this->Description;
