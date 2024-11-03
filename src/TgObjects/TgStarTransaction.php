@@ -5,16 +5,17 @@
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 use ProtocolLive\TelegramBotLibrary\TgAuxiliary\{
   TgTransactionPartner,
-  TgTransactionPartnerAds,
   TgTransactionPartnerFragment,
   TgTransactionPartnerOther,
+  TgTransactionPartnerTelegramAds,
+  TgTransactionPartnerTelegramApi,
   TgTransactionPartnerUser
 };
 
 /**
  * Describes a Telegram Star transaction.
  * @link https://core.telegram.org/bots/api#startransaction
- * @version 2024.07.07.00
+ * @version 2024.11.02.00
  */
 final readonly class TgStarTransaction{
   /**
@@ -57,7 +58,9 @@ final readonly class TgStarTransaction{
       elseif($Data['source']['type'] === 'fragment'):
         $this->Source = new TgTransactionPartnerFragment($Data['source']);
       elseif($Data['source']['type'] === 'telegram_ads'):
-        $this->Source = new TgTransactionPartnerAds;
+        $this->Source = new TgTransactionPartnerTelegramAds;
+      elseif($Data['source']['type'] === 'telegram_api'):
+        $this->Source = new TgTransactionPartnerTelegramApi($Data['source']);
       elseif($Data['source']['type'] === 'other'):
         $this->Source = new TgTransactionPartnerOther;
       endif;
