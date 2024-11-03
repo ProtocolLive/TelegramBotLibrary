@@ -6,7 +6,7 @@ namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgLimits;
 
 /**
- * @version 2024.01.26.00
+ * @version 2024.11.02.00
  */
 class TblMarkupInline
 extends TblMarkup{
@@ -17,6 +17,19 @@ extends TblMarkup{
   public function __construct(){
     $this->Markup['inline_keyboard'] = [];
     $this->Pointer = &$this->Markup['inline_keyboard'];
+  }
+
+  /**
+   * Description of the button that copies the specified text to the clipboard.
+   * @param string $Text The text to be copied to the clipboard; 1-256 characters
+   * @link https://core.telegram.org/bots/api#copytextbutton
+   */
+  public function ButtonCopy(
+    int $Line,
+    int $Column,
+    string $Text
+  ):void{
+    $this->Pointer[$Line][$Column]['copy_text']['text'] = $Text;
   }
 
   /**
