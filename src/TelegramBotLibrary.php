@@ -71,7 +71,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2024.11.02.00
+ * @version 2024.11.02.01
  */
 final class TelegramBotLibrary
 extends TblBasics{
@@ -274,9 +274,9 @@ extends TblBasics{
     endif;
     if($RepliedMsg !== null):
       $param['reply_to_message_id'] = $RepliedMsg;
-    endif;
-    if($SendWithoutRepliedMsg):
-      $param['allow_sending_without_reply'] = true;
+      if($SendWithoutRepliedMsg):
+        $param['allow_sending_without_reply'] = true;
+      endif;
     endif;
     if($Markup !== null):
       $param['reply_markup'] = $Markup->ToArray();
@@ -591,9 +591,9 @@ extends TblBasics{
     endif;
     if($RepliedMsg !== null):
       $param['reply_to_message_id'] = $RepliedMsg;
-    endif;
-    if($SendWithoutRepliedMsg):
-      $param['allow_sending_without_reply'] = true;
+      if($SendWithoutRepliedMsg):
+        $param['allow_sending_without_reply'] = true;
+      endif;
     endif;
     if($Markup !== null):
       $param['reply_markup'] = $Markup->ToArray();
