@@ -21,6 +21,7 @@ use ProtocolLive\TelegramBotLibrary\TblTraits\{
   TblForumTrait,
   TblGameTrait,
   TblInvoiceTrait,
+  TblLocationTrait,
   TblMyTrait,
   TblPhotoTrait,
   TblPollTrait,
@@ -71,7 +72,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2024.11.02.01
+ * @version 2024.11.04.00
  */
 final class TelegramBotLibrary
 extends TblBasics{
@@ -82,6 +83,7 @@ extends TblBasics{
   use TblForumTrait;
   use TblGameTrait;
   use TblInvoiceTrait;
+  use TblLocationTrait;
   use TblMyTrait;
   use TblPollTrait;
   use TblPhotoTrait;

@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TgEnums;
 
 /**
- * @version 2024.08.14.00
+ * @version 2024.11.04.00
  */
 enum TgMethods:string{
   /**
@@ -233,6 +233,18 @@ enum TgMethods:string{
    */
   case InvoiceShippingSend = 'answerShippingQuery';
   /**
+   * @link https://core.telegram.org/bots/api#editmessagelivelocation
+   */
+  case LocationEdit = 'editMessageLiveLocation';
+  /**
+   * @link https://core.telegram.org/bots/api#sendlocation
+   */
+  case LocationSend = 'sendLocation';
+  /**
+   * @link https://core.telegram.org/bots/api#editmessagelivelocation
+   */
+  case LocationStop = 'stopMessageLiveLocation';
+  /**
    * @link https://core.telegram.org/bots/api#editmessagereplymarkup
    */
   case MarkupEdit = 'editMessageReplyMarkup';
@@ -340,6 +352,10 @@ enum TgMethods:string{
    * @link https://core.telegram.org/bots/api#getuserprofilephotos
    */
   case UserPhotos = 'getUserProfilePhotos';
+  /**
+   * @link https://core.telegram.org/bots/api#sendvenue
+   */
+  case VenueSend = 'sendVenue';
   /**
    * @link https://core.telegram.org/bots/api#sendvideo
    */
