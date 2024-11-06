@@ -11,7 +11,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2024.11.01.00
+ * @version 2024.11.05.00
  */
 final class TblTextSendMulti
 extends TblServerMulti{
@@ -27,6 +27,7 @@ extends TblServerMulti{
    * @param bool $Protect Protects the contents of the sent message from forwarding and saving
    * @param TgReplyParams $Reply If the message is a reply, ID of the original message
    * @param TblMarkup $Markup Additional interface options. A object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
+   * @throws TblException
    * @link https://core.telegram.org/bots/api#sendmessage
    */
   public function __construct(
@@ -74,6 +75,7 @@ extends TblServerMulti{
    * @param bool $Protect Protects the contents of the sent message from forwarding and saving
    * @param TgReplyParams $Reply If the message is a reply, ID of the original message
    * @param TblMarkup $Markup Additional interface options. A object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
+   * @throws TblException
    * @link https://core.telegram.org/bots/api#sendmessage
    */
   public function Add(
@@ -121,6 +123,7 @@ extends TblServerMulti{
    * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
    * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
    * @return array Prepared parameters for the TextSendMulti method
+   * @throws TblException
    * @link https://core.telegram.org/bots/api#sendmessage
    */
   public static function BuildArgs(
