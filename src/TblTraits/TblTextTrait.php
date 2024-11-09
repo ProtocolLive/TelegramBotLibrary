@@ -25,7 +25,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2024.11.01.00
+ * @version 2024.11.08.00
  */
 trait TblTextTrait{
   /**
@@ -103,8 +103,8 @@ trait TblTextTrait{
    * @link https://core.telegram.org/bots/api#editmessagetext
    */
   public function TextEdit(
-    int|string $Chat,
     string $Text,
+    int|string $Chat = null,
     int $Id = null,
     string $InlineId = null,
     string $BusinessId = null,
