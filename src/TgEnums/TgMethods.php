@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TgEnums;
 
 /**
- * @version 2024.11.10.00
+ * @version 2024.11.11.00
  */
 enum TgMethods:string{
   /**
@@ -68,6 +68,18 @@ enum TgMethods:string{
    * @link https://core.telegram.org/bots/api#editchatinvitelink
    */
   case ChatInviteLinkEdit = 'editChatInviteLink';
+  /**
+   * @link https://core.telegram.org/bots/api#exportchatinvitelink
+   */
+  case ChatInviteExport = 'exportChatInviteLink';
+  /**
+   * @link https://core.telegram.org/bots/api#approvechatjoinrequest
+   */
+  case ChatJoinApprove = 'approveChatJoinRequest';
+  /**
+   * @link https://core.telegram.org/bots/api#declinechatjoinrequest
+   */
+  case ChatJoinDecline = 'declineChatJoinRequest';
   /**
    * @link https://core.telegram.org/bots/api#getchatmember
    */
