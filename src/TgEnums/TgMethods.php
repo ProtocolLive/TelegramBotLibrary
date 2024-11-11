@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TgEnums;
 
 /**
- * @version 2024.11.04.00
+ * @version 2024.11.10.00
  */
 enum TgMethods:string{
   /**
@@ -56,6 +56,18 @@ enum TgMethods:string{
    * @link https://core.telegram.org/bots/api#getuserchatboosts
    */
   case ChatBoosterGet = 'getUserChatBoosts';
+  /**
+   * @link https://core.telegram.org/bots/api#createchatinvitelink
+   */
+  case ChatInviteLinkCreate = 'createChatInviteLink';
+  /**
+   * @link https://core.telegram.org/bots/api#revokechatinvitelink
+   */
+  case ChatInviteLinkDel = 'revokeChatInviteLink';
+  /**
+   * @link https://core.telegram.org/bots/api#editchatinvitelink
+   */
+  case ChatInviteLinkEdit = 'editChatInviteLink';
   /**
    * @link https://core.telegram.org/bots/api#getchatmember
    */

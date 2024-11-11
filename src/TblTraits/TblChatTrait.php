@@ -12,6 +12,7 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\{
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgChat,
   TgChatBoost,
+  TgChatInviteLink,
   TgMember,
   TgPermAdmin,
   TgPermMember,
@@ -19,7 +20,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 };
 
 /**
- * @version 2024.11.02.00
+ * @version 2024.11.10.00
  */
 trait TblChatTrait{
   /**
@@ -243,6 +244,92 @@ trait TblChatTrait{
       return new TgChat($temp);
     endif;
   }
+
+  /**
+   * Use this method to create an additional invite link for a chat. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. The link can be revoked using the method revokeChatInviteLink.
+   * @param int|string $Chat Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * @param string $Name Invite link name; 0-32 characters
+   * @param int $Expire Point in time (Unix timestamp) when the link will expire
+   * @param int $Limit The maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999
+   * @param bool $NeedApproval If users joining the chat via the link need to be approved by chat administrators. If True, member_limit can't be specified
+   * @return TgChatInviteLink Returns the new invite link as ChatInviteLink object.
+   * @link https://core.telegram.org/bots/api#createchatinvitelink
+   */
+  public function ChatInviteCreate(
+    int|string $Chat,
+    string $Name = null,
+    int $Expire = null,
+    int $Limit = 0,
+    bool $NeedApproval = false
+  ):TgChatInviteLink{
+    $param['chat_id'] = $Chat;
+    if($Name !== null):
+      $param['name'] = $Name;
+    endif;
+    if($Expire !== null):
+      $param['expire_date'] = $Expire;
+    endif;
+    if($Limit > 0):
+      $param['member_limit'] = $Limit;
+    endif;
+    if($NeedApproval):
+      $param['creates_join_request'] = true;
+    endif;
+    return new TgChatInviteLink($this->ServerMethod(TgMethods::ChatInviteLinkCreate, $param));
+  }
+
+  /**
+   * Use this method to revoke an invite link created by the bot. If the primary link is revoked, a new link is automatically generated. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights.
+   * @param int|string $Chat Unique identifier of the target chat or username of the target channel (in the format @channelusername)
+   * @param string $Link The invite link to revoke
+   * @return TgChatInviteLink Returns the revoked invite link as ChatInviteLink object.
+   * @link https://core.telegram.org/bots/api#revokechatinvitelink
+   */
+  public function ChatInviteDel(
+    int|string $Chat,
+    string $Link
+  ):TgChatInviteLink{
+    $param['chat_id'] = $Chat;
+    $param['invite_link'] = $Link;
+    return new TgChatInviteLink($this->ServerMethod(TgMethods::ChatInviteLinkDel, $param));
+  }
+
+  /**
+   * Use this method to edit a non-primary invite link created by the bot. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights.
+   * @param int|string $Chat Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * @param string $Link The invite link to edit
+   * @param string $Name Invite link name; 0-32 characters
+   * @param int $Expire Point in time (Unix timestamp) when the link will expire
+   * @param int $Limit The maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999
+   * @param bool $NeedApproval If users joining the chat via the link need to be approved by chat administrators. If True, member_limit can't be specified
+   * @return TgChatInviteLink Returns the edited invite link as a ChatInviteLink object.
+   * @link https://core.telegram.org/bots/api#editchatinvitelink
+   */
+  public function ChatInviteEdit(
+    int|string $Chat,
+    string $Link,
+    string $Name = null,
+    int $Expire = null,
+    int $Limit = 0,
+    bool $NeedApproval = false
+  ):TgChatInviteLink{
+    $param['chat_id'] = $Chat;
+    $param['invite_link'] = $Link;
+    if($Name !== null):
+      $param['name'] = $Name;
+    endif;
+    if($Expire !== null):
+      $param['expire_date'] = $Expire;
+    endif;
+    if($Limit > 0):
+      $param['member_limit'] = $Limit;
+    endif;
+    if($NeedApproval):
+      $param['creates_join_request'] = true;
+    endif;
+    return new TgChatInviteLink($this->ServerMethod(TgMethods::ChatInviteLinkEdit, $param));
+  }
+
 
   /**
    * Use this method to get information about a member of a chat.
