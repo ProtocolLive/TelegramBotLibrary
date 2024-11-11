@@ -12,6 +12,7 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\{
   TgCmdScope,
   TgError,
   TgLanguages,
+  TgMenuButton,
   TgMethods
 };
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
@@ -21,7 +22,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 };
 
 /**
- * @version 2024.11.10.00
+ * @version 2024.11.10.01
  */
 trait TblMyTrait{
   /**
@@ -232,6 +233,55 @@ trait TblMyTrait{
   public function MyGet():TgBot{
     $return = $this->ServerMethod(TgMethods::MyGet);
     return new TgBot($return);
+  }
+
+  /**
+   * Use this method to get the current value of the bot's menu button in a private chat, or the default menu button.
+   * @param int $User Unique identifier for the target private chat. If not specified, default bot's menu button will be returned
+   * @return TgMenuButton Returns TgMenuButton on success.
+   * @throws TblException
+   * @link https://core.telegram.org/bots/api#getchatmenubutton
+   */
+  public function MyMenuButtonGet(
+    int $User = null
+  ):TgMenuButton{
+    $param = [];
+    if($User !== null):
+      $param['chat_id='] = $User;
+    endif;
+    $return = $this->ServerMethod(TgMethods::ChatMenuButtonGet, $param);
+    return TgMenuButton::from($return['type']);
+  }
+
+  /**
+   * Use this method to change the bot's menu button in a private chat, or the default menu button.
+   * @param TgMenuButton $Type A type for the new bot's menu button. Defaults to TgMenuButton::Default
+   * @param int $User Unique identifier for the target private chat. If not specified, default bot's menu button will be changed
+   * @param string $Text Text on the button
+   * @param string $Url URL of the Web App that will be launched when the user presses the button. The Web App will be able to send an arbitrary message on behalf of the user using the method answerWebAppQuery. An HTTPS URL of a Web App to be opened with additional data as specified in Initializing Web Apps
+   * @return bool Returns True on success.
+   * @throws TblException
+   * @link https://core.telegram.org/bots/api#setchatmenubutton
+   */
+  public function MyMenuButtonSet(
+    TgMenuButton $Type = null,
+    int $User = null,
+    string $Text = null,
+    string $Url = null
+  ):bool{
+    $param = [];
+    if($User !== null):
+      $param['chat_id'] = $User;
+    endif;
+    if($Type === TgMenuButton::WebApp):
+      $param['menu_button']['text'] = $Text;
+      $param['menu_button']['web_app'] = ['url' => $Url];
+    endif;
+    if($Type !== null):
+      $param['menu_button']['type'] = $Type->value;
+      $param['menu_button'] = json_encode($param['menu_button']);
+    endif;
+    return $this->ServerMethod(TgMethods::ChatMenuButtonSet, $param);
   }
 
   /**
