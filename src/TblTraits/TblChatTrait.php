@@ -3,6 +3,7 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TblTraits;
+use CURLFile;
 use ProtocolLive\TelegramBotLibrary\TblObjects\TblException;
 use ProtocolLive\TelegramBotLibrary\TgEnums\{
   TgChatAction,
@@ -20,7 +21,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 };
 
 /**
- * @version 2024.11.11.00
+ * @version 2024.11.11.01
  */
 trait TblChatTrait{
   /**
@@ -227,6 +228,22 @@ trait TblChatTrait{
   }
 
   /**
+   * Use this method to change the description of a group, a supergroup or a channel. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights.
+   * @param int|string $Chat Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * @param string $Description New chat description, 0-255 characters
+   * @return true Returns True on success.
+   * @link https://core.telegram.org/bots/api#setchatdescription
+   */
+  public function ChatDescription(
+    int|string $Chat,
+    string $Description
+  ):true{
+    $param['chat_id'] = $Chat;
+    $param['description'] = $Description;
+    return $this->ServerMethod(TgMethods::ChatDescription, $param);
+  }
+
+  /**
    * Use this method to get up to date information about the chat (current name of the user for one-on-one conversations, current username of a user, group or channel, etc.).
    * @param int|string $Chat Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername)
    * @return TgChat|TgUser Returns a Chat object on success.
@@ -375,6 +392,19 @@ trait TblChatTrait{
   }
 
   /**
+   * Use this method for your bot to leave a group, supergroup or channel.
+   * @param int|string $Chat Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername)
+   * @return true Returns True on success.
+   * @link https://core.telegram.org/bots/api#leavechat
+   */
+  public function ChatLeave(
+    int|string $Chat
+  ):true{
+    $param['chat_id'] = $Chat;
+    return $this->ServerMethod(TgMethods::ChatLeave, $param);
+  }
+
+  /**
    * Use this method to get information about a member of a chat.
    * @param int|string $Chat Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername)
    * @param int $User Unique identifier of the target user
@@ -440,5 +470,54 @@ trait TblChatTrait{
       $params['use_independent_chat_permissions'] = true;
     endif;
     return parent::ServerMethod(TgMethods::ChatPerm, $params);
+  }
+
+  /**
+   * Use this method to delete a chat photo. Photos can't be changed for private chats. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights.
+   * @param int|string $Chat Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * @return true Returns True on success.
+   * @link https://core.telegram.org/bots/api#deletechatphoto
+   */
+  public function ChatPhotoDel(
+    int|string $Chat
+  ):true{
+    $param['chat_id'] = $Chat;
+    return $this->ServerMethod(TgMethods::ChatPhotoDel, $param);
+  }
+
+  /**
+   * Use this method to set a new profile photo for the chat. Photos can't be changed for private chats. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights.
+   * @param int|string $Chat Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * @param string $Photo New chat photo, uploaded using multipart/form-data
+   * @return true Returns True on success.
+   * @link https://core.telegram.org/bots/api#setchatphoto
+   */
+  public function ChatPhotoSet(
+    int|string $Chat,
+    string $Photo
+  ):true{
+    $param['chat_id'] = $Chat;
+    if(is_file($Photo)):
+      $param['photo'] = new CURLFile($Photo);
+    else:
+      $param['photo'] = $Photo;
+    endif;
+    return $this->ServerMethod(TgMethods::ChatPhotoSet, $param);
+  }
+
+  /**
+   * Use this method to change the title of a chat. Titles can't be changed for private chats. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights.
+   * @param int|string $Chat Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * @param string $Title New chat title, 1-128 characters
+   * @return true Returns True on success.
+   * @link https://core.telegram.org/bots/api#setchattitle
+   */
+  public function ChatName(
+    int|string $Chat,
+    string $Name
+  ):true{
+    $param['chat_id'] = $Chat;
+    $param['title'] = $Name;
+    return $this->ServerMethod(TgMethods::ChatTitle, $param);
   }
 }

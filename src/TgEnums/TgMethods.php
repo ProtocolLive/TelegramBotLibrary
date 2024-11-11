@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TgEnums;
 
 /**
- * @version 2024.11.11.00
+ * @version 2024.11.11.01
  */
 enum TgMethods:string{
   /**
@@ -57,6 +57,10 @@ enum TgMethods:string{
    */
   case ChatBoosterGet = 'getUserChatBoosts';
   /**
+   * @link https://core.telegram.org/bots/api#setchatdescription
+   */
+  case ChatDescription = 'setChatDescription';
+  /**
    * @link https://core.telegram.org/bots/api#createchatinvitelink
    */
   case ChatInviteLinkCreate = 'createChatInviteLink';
@@ -80,6 +84,10 @@ enum TgMethods:string{
    * @link https://core.telegram.org/bots/api#declinechatjoinrequest
    */
   case ChatJoinDecline = 'declineChatJoinRequest';
+  /**
+   * @link https://core.telegram.org/bots/api#leavechat
+   */
+  case ChatLeave = 'leaveChat';
   /**
    * @link https://core.telegram.org/bots/api#getchatmember
    */
@@ -116,6 +124,18 @@ enum TgMethods:string{
    * @link https://core.telegram.org/bots/api#setchatpermissions
    */
   case ChatPerm = 'setChatPermissions';
+  /**
+   * @link https://core.telegram.org/bots/api#deletechatphoto
+   */
+  case ChatPhotoDel = 'deleteChatPhoto';
+  /**
+   * @link https://core.telegram.org/bots/api#setchatphoto
+   */
+  case ChatPhotoSet = 'setChatPhoto';
+  /**
+   * @link https://core.telegram.org/bots/api#setchattitle
+   */
+  case ChatTitle = 'setChatTitle';
   /**
    * @link https://core.telegram.org/bots/api#deletemycommands
    */
