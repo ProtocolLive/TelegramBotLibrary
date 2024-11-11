@@ -6,7 +6,7 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
  * @link https://core.telegram.org/bots/api#chatinvitelink
- * @version 2024.01.04.01
+ * @version 2024.11.09.00
  */
 final readonly class TgChatInviteLink{
   /**
@@ -45,6 +45,14 @@ final readonly class TgChatInviteLink{
    * The maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999
    */
   public int|null $Limit;
+  /**
+   * The number of seconds the subscription will be active for before the next payment
+   */
+  public int|null $SubscriptionPeriod;
+  /**
+   * The amount of Telegram Stars a user must pay initially and after each subsequent subscription period to be a member of the chat using the link
+   */
+  public int|null $Price;
 
   public function __construct(
     array $Data
@@ -58,5 +66,7 @@ final readonly class TgChatInviteLink{
     $this->Expire = $Data['expire_date'] ?? null;
     $this->Limit = $Data['member_limit'] ?? null;
     $this->Pending = $Data['pending_join_request_count'] ?? null;
+    $this->SubscriptionPeriod = $Data['subscription_period'] ?? null;
+    $this->Price = $Data['subscription_price'] ?? null;
   }
 }
