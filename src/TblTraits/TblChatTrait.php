@@ -21,7 +21,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 };
 
 /**
- * @version 2024.11.11.01
+ * @version 2024.11.12.00
  */
 trait TblChatTrait{
   /**
@@ -497,11 +497,7 @@ trait TblChatTrait{
     string $Photo
   ):true{
     $param['chat_id'] = $Chat;
-    if(is_file($Photo)):
-      $param['photo'] = new CURLFile($Photo);
-    else:
-      $param['photo'] = $Photo;
-    endif;
+    $param['photo'] = new CURLFile($Photo);
     return $this->ServerMethod(TgMethods::ChatPhotoSet, $param);
   }
 
