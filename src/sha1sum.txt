@@ -23,7 +23,7 @@ f55bc333fde3c765ffed659c2f11c1c18f287f67  TblObjects\TblServerMulti.php
 9afcf1e779412f11c5d1c70a237ce7d2199a5de4  TblObjects\TblWebhook.php
 1cd3409a9c24ea51d38fba078f8097c49b1cdd5f  TblTraits\TblAnimationTrait.php
 e159f61ae8dd9b30c11f5ae47f50c550fb559d6a  TblTraits\TblAudioTrait.php
-35b7533a12175f15042c213cec58e8f1ce8331f5  TblTraits\TblChatTrait.php
+feb3a7509af6b7c52d8eb32601a66ea5de92b4db  TblTraits\TblChatTrait.php
 2a63603fa3b5f903224463fe7da9ff335963e282  TblTraits\TblEditTrait.php
 f48564840001b4dec4886d02e9aafc4a78821bba  TblTraits\TblForumTrait.php
 9c476a9903908599c9b5ae81d848373632f670e9  TblTraits\TblGameTrait.php
@@ -69,7 +69,7 @@ b6c9db69f28953d4f4eb7d0c22c2618c196c1dd7  TgEnums\TgEffects.php
 6a235fa78bd721c0bedf2c16a33927d5554af5c1  TgEnums\TgMemberStatus.php
 c8113a8c85dcf45447e4a1a440d0a9f5f0d89247  TgEnums\TgMenuButton.php
 47c6c4c610d299c17801f81a71445d201fe58050  TgEnums\TgMessageDeleted.php
-43448c12784afd1c1cd0a649dbb8c7414bb7e382  TgEnums\TgMethods.php
+4ad8e0d2b6ef02670cc7eb2e17c70f2f6571acfd  TgEnums\TgMethods.php
 493a5b25bd6bb924f71069e87d38b727b367b21b  TgEnums\TgPaidMediaType.php
 3a40c033cdf0935ccaac0e4daf161746ffbb9fdd  TgEnums\TgParseMode.php
 02b26fcf6237ae0228477e92e3cd68ad1d64bd2c  TgEnums\TgPassportDataType.php
