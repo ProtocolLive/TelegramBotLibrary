@@ -8,7 +8,7 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\TgMethods;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgUpdateType;
 
 /**
- * @version 2024.03.04.01
+ * @version 2024.11.14.00
  */
 final class TblWebhook
 extends TblBasics{
@@ -49,7 +49,6 @@ extends TblBasics{
       foreach($Updates as $update):
         $param['allowed_updates'][] = $update->value;
       endforeach;
-      $param['allowed_updates'] = json_encode($param['allowed_updates']);
     endif;
     if($Certificate !== null):
       $param['certificate'] = new CURLFile($Certificate);

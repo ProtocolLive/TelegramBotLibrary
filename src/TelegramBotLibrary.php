@@ -71,7 +71,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2024.11.14.00
+ * @version 2024.11.14.01
  */
 final class TelegramBotLibrary
 extends TblBasics{
@@ -190,7 +190,7 @@ extends TblBasics{
   public function CustomEmojiGet(
     array $Ids
   ):array{
-    $param['custom_emoji_ids'] = json_encode($Ids);
+    $param['custom_emoji_ids'] = $Ids;
     return $this->ServerMethod(TgMethods::CustomEmojiGet, $param);
   }
 

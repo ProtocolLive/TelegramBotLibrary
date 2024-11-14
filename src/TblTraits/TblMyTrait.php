@@ -50,7 +50,6 @@ trait TblMyTrait{
       if($Scope === TgCmdScope::Member):
         $param['scope']['user_id'] = $User;
       endif;
-      $param['scope'] = json_encode($param['scope']);
     endif;
     if($Language !== null):
       $param['language_code'] = $Language->value;
@@ -84,7 +83,6 @@ trait TblMyTrait{
       if($Scope === TgCmdScope::Member):
         $param['scope']['user_id'] = $User;
       endif;
-      $param['scope'] = json_encode($param['scope']);
     endif;
     if($Language !== null):
       $param['language_code'] = $Language->value;
@@ -124,7 +122,6 @@ trait TblMyTrait{
       if($Scope === TgCmdScope::Member):
         $param['scope']['user_id'] = $User;
       endif;
-      $param['scope'] = json_encode($param['scope']);
     endif;
     if($Language !== null):
       $param['language_code'] = $Language->value;
@@ -279,7 +276,6 @@ trait TblMyTrait{
     endif;
     if($Type !== null):
       $param['menu_button']['type'] = $Type->value;
-      $param['menu_button'] = json_encode($param['menu_button']);
     endif;
     return $this->ServerMethod(TgMethods::ChatMenuButtonSet, $param);
   }
@@ -357,7 +353,6 @@ trait TblMyTrait{
     foreach(TgPermAdmin::Array as $class => $json):
       $param['rights'][$json] = $Perms->$class;
     endforeach;
-    $param['rights'] = json_encode($param['rights']);
     if($Type === TblDefaultPerms::Channels):
       $param['for_channels'] = true;
     endif;
