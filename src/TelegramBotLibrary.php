@@ -71,7 +71,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2024.11.10.00
+ * @version 2024.11.14.00
  */
 final class TelegramBotLibrary
 extends TblBasics{
@@ -182,7 +182,7 @@ extends TblBasics{
 
   /**
    * Use this method to get information about custom emoji stickers by their identifiers.
-   * @param string[] List of custom emoji identifiers. At most 200 custom emoji identifiers can be specified.
+   * @param string[] $Ids List of custom emoji identifiers. At most 200 custom emoji identifiers can be specified.
    * @return array Returns an Array of Sticker objects.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#getcustomemojistickers
