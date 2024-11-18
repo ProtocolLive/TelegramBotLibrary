@@ -9,7 +9,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\TgUser;
 /**
  * Describes a transaction with a user.
  * @link https://core.telegram.org/bots/api#transactionpartneruser
- * @version 2024.08.14.00
+ * @version 2024.11.17.00
  */
 final readonly class TgTransactionPartnerUser
 extends TgTransactionPartner{
@@ -26,12 +26,17 @@ extends TgTransactionPartner{
   * @var TgPaidMedia[]
    */
   public array|null $PaidMedia;
+  /**
+   * The duration of the paid subscription
+   */
+  public int|null $SubscriptionPeriod;
 
   public function __construct(
     array $Data
   ){
     $this->User = new TgUser($Data['user']);
     $this->Payload = $Data['invoice_payload'] ?? null;
+    $this->SubscriptionPeriod = $Data['subscription_period'] ?? null;
     if(isset($Data['paid_media'])):
       foreach($Data['paid_media'] as $media):
         $temp[] = new TgPaidMedia($media);

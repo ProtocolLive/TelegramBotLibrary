@@ -19,7 +19,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2024.11.02.00
+ * @version 2024.11.17.00
  */
 trait TblInvoiceTrait{
   /**
@@ -66,6 +66,8 @@ trait TblInvoiceTrait{
    * @param bool $ProviderPhone Pass True, if user's phone number should be sent to provider
    * @param bool $ProviderEmail Pass True, if user's email address should be sent to provider
    * @param bool $PriceWithShipping Pass True, if the final price depends on the shipping method
+   * @param int $SubscriptionPeriod The number of seconds the subscription will be active for before the next payment. The currency must be set to “XTR” (Telegram Stars) if the parameter is used. Currently, it must always be 2592000 (30 days) if specified.
+   * @param int $BusinessId Unique identifier of the business connection on behalf of which the link will be created
    * @return string Returns the created invoice link as String on success.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#createinvoicelink
@@ -76,6 +78,7 @@ trait TblInvoiceTrait{
     string $Payload,
     TgCurrencies $Currency,
     TgInvoicePrices $Prices,
+    string $BusinessId = null,
     string $Token = null,
     int $TipMax = null,
     array $TipSuggested = null,
@@ -90,7 +93,8 @@ trait TblInvoiceTrait{
     bool $NeedAddress = false,
     bool $ProviderPhone = false,
     bool $ProviderEmail = false,
-    bool $PriceWithShipping = false
+    bool $PriceWithShipping = false,
+    int $SubscriptionPeriod = null
   ):string{
     if($Prices->Count() === 0):
       throw new TblException(TblError::InvoicePriceEmpty);
@@ -101,6 +105,9 @@ trait TblInvoiceTrait{
     $param['provider_token'] = $Token;
     $param['currency'] = $Currency->value;
     $param['prices'] = $Prices->ToArray();
+    if($BusinessId !== null):
+      $param['business_connection_id'] = $BusinessId;
+    endif;
     if($TipMax !== null):
       $param['max_tip_amount'] = $TipMax;
     endif;
@@ -142,6 +149,9 @@ trait TblInvoiceTrait{
     endif;
     if($PriceWithShipping):
       $param['is_flexible'] = true;
+    endif;
+    if($SubscriptionPeriod !== null):
+      $param['subscription_period'] = $SubscriptionPeriod;
     endif;
     return $this->ServerMethod(TgMethods::InvoiceLink, $param);
   }

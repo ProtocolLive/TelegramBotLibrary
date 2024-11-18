@@ -13,7 +13,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 /**
  * This object contains basic information about a successful payment.
  * @link https://core.telegram.org/bots/api#successfulpayment
- * @version 2024.07.07.00
+ * @version 2024.11.17.00
  */
 final readonly class TgInvoiceDone
 implements TgEventInterface,
@@ -47,6 +47,18 @@ TgServiceInterface{
    * Identifier of the shipping option chosen by the user
    */
   public string $ShippingOption;
+  /**
+   * Expiration date of the subscription, in Unix time; for recurring payments only
+   */
+  public int|null $SubscriptionExpiration;
+  /**
+   * If the payment is a recurring payment for a subscription
+   */
+  public bool $RecurringPayment;
+  /**
+   * If the payment is the first payment for a subscription
+   */
+  public bool $FirstRecurring;
 
   public function __construct(
     array $Data
@@ -63,5 +75,8 @@ TgServiceInterface{
     $this->PayTelegramId = $Data['successful_payment']['telegram_payment_charge_id'];
     $this->PayProviderId = $Data['successful_payment']['provider_payment_charge_id'];
     $this->ShippingOption = $Data['successful_payment']['shipping_option_id'] ?? '';
+    $this->SubscriptionExpiration = $Data['successful_payment']['subscription_expiration_date'] ?? null;
+    $this->RecurringPayment = $Data['successful_payment']['is_recurring'] ?? false;
+    $this->FirstRecurring = $Data['successful_payment']['is_first_recurring'] ?? false;
   }
 }
