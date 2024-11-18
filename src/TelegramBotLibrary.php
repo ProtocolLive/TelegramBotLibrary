@@ -27,6 +27,7 @@ use ProtocolLive\TelegramBotLibrary\TblTraits\{
   TblPollTrait,
   TblStarsTrait,
   TblTextTrait,
+  TblUserTrait,
   TblVideoTrait
 };
 use ProtocolLive\TelegramBotLibrary\TgEnums\{
@@ -57,7 +58,6 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgPaidMediaPurchased,
   TgPoll,
   TgPollAnswer,
-  TgProfilePhoto,
   TgReactionUpdate,
   TgSticker
 };
@@ -71,7 +71,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2024.11.14.01
+ * @version 2024.11.17.00
  */
 final class TelegramBotLibrary
 extends TblBasics{
@@ -88,6 +88,7 @@ extends TblBasics{
   use TblPhotoTrait;
   use TblStarsTrait;
   use TblTextTrait;
+  use TblUserTrait;
   use TblVideoTrait;
 
   /**
@@ -101,31 +102,6 @@ extends TblBasics{
     endif;
     $this->BotData = $BotData;
     $_SERVER['HTTP_USER_AGENT'] ??= 'Protocol TelegramBotLibrary';
-  }
-
-  /**
-   * Use this method to get a list of profile pictures for a user.
-   * @param int $User Unique identifier of the target user
-   * @param int $Offset Sequential number of the first photo to be returned. By default, all photos are returned.
-   * @param int $Limit Limits the number of photos to be retrieved. Values between 1-100 are accepted. Defaults to 100.
-   * @return TgProfilePhoto
-   * @throws TblException
-   * @link https://core.telegram.org/bots/api#getuserprofilephotos
-   */
-  public function AvatarGet(
-    int $User,
-    int $Offset = null,
-    int $Limit = 100
-  ):TgProfilePhoto{
-    $param['user_id'] = $User;
-    if($Offset !== null):
-      $param['offset'] = $Offset;
-    endif;
-    if($Limit > 0 and $Limit < 100):
-      $param['limit'] = $Limit;
-    endif;
-    $return = $this->ServerMethod(TgMethods::UserPhotos, $param);
-    return new TgProfilePhoto($return);
   }
 
   /**
