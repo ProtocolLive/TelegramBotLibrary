@@ -8,7 +8,7 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\TgMethods;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgProfilePhoto;
 
 /**
- * @version 2024.11.17.00
+ * @version 2024.11.17.01
  */
 trait TblUserTrait{
   /**
@@ -34,5 +34,28 @@ trait TblUserTrait{
     endif;
     $return = $this->ServerMethod(TgMethods::UserPhotos, $param);
     return new TgProfilePhoto($return);
+  }
+
+  /**
+   * Changes the emoji status for a given user that previously allowed the bot to manage their emoji status via the Mini App method requestEmojiStatusAccess.
+   * @param int $User Unique identifier of the target user
+   * @param string $Emoji Custom emoji identifier of the emoji status to set. Pass an empty string to remove the status.
+   * @param int $Expiration Expiration date of the emoji status, if any
+   * @return true Returns True on success.
+   * @link https://core.telegram.org/bots/api#setuseremojistatus
+   */
+  public function StatusSet(
+    int $User,
+    string $Emoji = null,
+    int $Expiration = null
+  ):true{
+    $param['user_id'] = $User;
+    if($Emoji !== null):
+      $param['emoji_status_custom_emoji_id'] = $Emoji;
+    endif;
+    if($Expiration !== null):
+      $param['emoji_status_expiration_date'] = $Expiration;
+    endif;
+    return $this->ServerMethod(TgMethods::StatusSet, $param);
   }
 }

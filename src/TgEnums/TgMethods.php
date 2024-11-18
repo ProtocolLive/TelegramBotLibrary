@@ -385,6 +385,10 @@ enum TgMethods:string{
    */
   case StarTransactionsGet = 'getStarTransactions';
   /**
+   * @link https://core.telegram.org/bots/api#setuseremojistatus
+   */
+  case StatusSet = 'setUserEmojiStatus';
+  /**
    * @link https://core.telegram.org/bots/api#sendsticker
    */
   case StickerSend = 'sendSticker';
