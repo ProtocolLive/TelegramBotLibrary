@@ -15,6 +15,7 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\{
 };
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgChatInviteLink,
+  TgGifts,
   TgLimits,
   TgPaidMedia,
   TgStarTransaction
@@ -25,9 +26,43 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2024.11.17.00
+ * @version 2024.11.19.00
  */
 trait TblStarsTrait{
+  public function GiftAvailableGet():TgGifts{
+    return new TgGifts($this->ServerMethod(TgMethods::GiftAvailableGet));
+  }
+
+  /**
+   * Sends a gift to the given user. The gift can't be converted to Telegram Stars by the user.
+   * @param int $User Unique identifier of the target user that will receive the gift
+   * @param string $Gift Identifier of the gift
+   * @param string $Text Text that will be shown along with the gift; 0-255 characters
+   * @param TgParseMode $ParseMode Mode for parsing entities in the text. See formatting options for more details. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, and “custom_emoji” are ignored.
+   * @param TblEntities $Entities A JSON-serialized list of special entities that appear in the gift text. It can be specified instead of text_parse_mode. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, and “custom_emoji” are ignored.
+   * @return true Returns True on success.
+   */
+  public function GiftSend(
+    int $User,
+    string $Gift,
+    string $Text = null,
+    TgParseMode $ParseMode = null,
+    TblEntities $Entities = null
+  ):true{
+    $param['user_id'] = $User;
+    $param['gift_id'] = $Gift;
+    if($Text !== null):
+      $param['text'] = $Text;
+    endif;
+    if($ParseMode !== null):
+      $param['text_parse_mode'] = $ParseMode->value;
+    endif;
+    if($Entities !== null):
+      $param['entities'] = $Entities->ToArray();
+    endif;
+    return $this->ServerMethod(TgMethods::GiftSend, $param);
+  }
+
   /**
    * Use this method to create a subscription invite link for a channel chat. The bot must have the can_invite_users administrator rights. The link can be edited using the method editChatSubscriptionInviteLink or revoked using the method revokeChatInviteLink.
    * @param int|string $Chat Unique identifier for the target channel chat or username of the target channel (in the format @channelusername)
