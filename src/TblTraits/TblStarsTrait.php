@@ -26,7 +26,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2024.11.19.00
+ * @version 2024.11.19.01
  */
 trait TblStarsTrait{
   public function GiftAvailableGet():TgGifts{
@@ -138,7 +138,7 @@ trait TblStarsTrait{
    * @return TgPaidMedia The sent Message is returned.
    * @throws TblException
    */
-  public function PaidMediaSend(
+  public function MediaPaidSend(
     int|string $Chat,
     int $Price,
     TgPaidMedias $Media,
