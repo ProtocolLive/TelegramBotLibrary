@@ -36,7 +36,10 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\{
   TgParseMode,
   TgReactionType
 };
-use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgMessageInterface;
+use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
+  TgInlineQueryInterface,
+  TgMessageInterface
+};
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgBusinessConnection,
   TgCallback,
@@ -58,6 +61,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgPaidMediaPurchased,
   TgPoll,
   TgPollAnswer,
+  TgPreparedInlineMessage,
   TgReactionUpdate,
   TgSticker
 };
@@ -71,7 +75,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2024.11.17.00
+ * @version 2024.11.19.00
  */
 final class TelegramBotLibrary
 extends TblBasics{
@@ -792,6 +796,42 @@ extends TblBasics{
   ):bool{
     $param['chat_id'] = $Chat;
     return $this->ServerMethod(TgMethods::MessageUnpinAll, $param);
+  }
+
+  /**
+   * Stores a message that can be sent by a user of a Mini App.
+   * @param int $User Unique identifier of the target user that can use the prepared message
+   * @param TgInlineQueryInterface $Result A JSON-serialized object describing the message to be sent
+   * @param bool $Users Pass True if the message can be sent to private chats with users
+   * @param bool $Bots Pass True if the message can be sent to private chats with bots
+   * @param bool $Groups Pass True if the message can be sent to group and supergroup chats
+   * @param bool $Channels Pass True if the message can be sent to channel chats
+   * @return TgPreparedInlineMessage Returns a PreparedInlineMessage object.
+   * @link https://core.telegram.org/bots/api#savepreparedinlinemessage
+   */
+  public function PreparedInlineMessageSave(
+    int $User,
+    TgInlineQueryInterface $Result,
+    bool $Users = false,
+    bool $Bots = false,
+    bool $Groups = false,
+    bool $Channels = false
+  ):TgPreparedInlineMessage{
+    $param['user_id'] = $User;
+    $param['result'] = $Result->ToArray();
+    if($Users):
+      $param['allow_user_chats'] = true;
+    endif;
+    if($Bots):
+      $param['allow_bot_chats'] = true;
+    endif;
+    if($Groups):
+      $param['allow_group_chats'] = true;
+    endif;
+    if($Channels):
+      $param['allow_channel_chats'] = true;
+    endif;
+    return new TgPreparedInlineMessage($this->ServerMethod(TgMethods::PreparedInlineMessageSave, $param));
   }
 
   /**
