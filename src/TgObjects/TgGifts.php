@@ -7,6 +7,7 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 /**
  * This object represent a list of gifts.
  * @link https://core.telegram.org/bots/api#gifts
+ * @version 2024.11.19.01
  */
 final readonly class TgGifts{
   /**
