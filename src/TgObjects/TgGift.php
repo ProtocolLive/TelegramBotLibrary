@@ -7,17 +7,13 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 /**
  * This object represents a gift that can be sent by the bot.
  * @link https://core.telegram.org/bots/api#gift
- * @version 2014.11.20.00
+ * @version 2014.11.20.01
  */
 final readonly class TgGift{
   /**
    * Unique identifier of the gift
    */
   public string $Id;
-  /**
-   * The sticker that represents the gift
-   */
-  public TgSticker $Sticker;
   /**
    * The number of Telegram Stars that must be paid to send the sticker
    */
@@ -30,6 +26,10 @@ final readonly class TgGift{
    * The number of remaining gifts of this type that can be sent; for limited gifts only
    */
   public int|null $Remaining;
+  /**
+   * The sticker that represents the gift
+   */
+  public TgSticker $Sticker;
 
   public function __construct(
     array $Data
