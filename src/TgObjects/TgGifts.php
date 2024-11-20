@@ -7,7 +7,7 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 /**
  * This object represent a list of gifts.
  * @link https://core.telegram.org/bots/api#gifts
- * @version 2024.11.19.01
+ * @version 2024.11.20.00
  */
 final readonly class TgGifts{
   /**
@@ -19,7 +19,7 @@ final readonly class TgGifts{
   public function __construct(
     array $Data
   ){
-    foreach($Data as &$data):
+    foreach($Data['gifts'] as &$data):
       $data = new TgGift($data);
     endforeach;
     $this->Gifts = $Data;

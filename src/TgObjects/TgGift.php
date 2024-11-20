@@ -7,7 +7,7 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 /**
  * This object represents a gift that can be sent by the bot.
  * @link https://core.telegram.org/bots/api#gift
- * @version 2014.11.19.00
+ * @version 2014.11.20.00
  */
 final readonly class TgGift{
   /**
@@ -35,7 +35,7 @@ final readonly class TgGift{
     array $Data
   ){
     $this->Id = $Data['id'];
-    $this->Sticker = new TgSticker($Data['sticker']);
+    $this->Sticker = new TgSticker($Data);
     $this->Price = $Data['star_count'];
     $this->Count = $Data['total_count'] ?? null;
     $this->Remaining = $Data['remaining_count'] ?? null;
