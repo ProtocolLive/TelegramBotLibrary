@@ -6,7 +6,7 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgError;
 
 /**
- * @version 2024.07.07.01
+ * @version 2024.11.20.00
  */
 abstract class TgErrors{
   public static function Search(string $Description):TgError|false{
@@ -34,6 +34,7 @@ abstract class TgErrors{
     endif;
 
     return match($Description){
+      'Bad Request: BALANCE_TOO_LOW' => TgError::Balance,
       'Bad Request: BUTTON_ID_INVALID' => TgError::ButtonIdInvalid,
       'Bad Request: BOT_SCORE_NOT_MODIFIED' => TgError::GameScore,
       'Bad Request: can\'t parse ChatAdministratorRights: Field "can_manage_chat" must be of type Boolean' => TgError::PermAdminManage,

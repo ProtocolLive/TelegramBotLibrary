@@ -5,10 +5,11 @@
 namespace ProtocolLive\TelegramBotLibrary\TgEnums;
 
 /**
- * @version 2024.09.06.00
+ * @version 2024.11.20.00
  */
 enum TgError{
   case Admin;
+  case Balance;
   case Banned;
   case Blocked;
   case BotBot;
