@@ -65,7 +65,7 @@ e9c26d3f534aeb19ea60cce5ce5d2a092ba6bee0  TgEnums\TgCmdScope.php
 000bafe7f348701191f58cba6eac799650229ae1  TgEnums\TgCurrencies.php
 b6c9db69f28953d4f4eb7d0c22c2618c196c1dd7  TgEnums\TgEffects.php
 687fbf99465f0e67db9c4f18f98c807895432ea3  TgEnums\TgEntityType.php
-4fad2c6cfced3c0eb253d197d144160d99e92d63  TgEnums\TgError.php
+1cb93364a767e2ad0e0f8764e814a1d0210ce298  TgEnums\TgError.php
 46d0805bffdc5efbec156261f3911f05c38ab0ad  TgEnums\TgLanguages.php
 6a235fa78bd721c0bedf2c16a33927d5554af5c1  TgEnums\TgMemberStatus.php
 c8113a8c85dcf45447e4a1a440d0a9f5f0d89247  TgEnums\TgMenuButton.php
@@ -117,7 +117,7 @@ a9008714b01c35749bf929a6cdaf8a30ff66789a  TgObjects\TgChatMigrateFrom.php
 e118f0dd351b29dfda269c754489b0a6c7a94f74  TgObjects\TgDocument.php
 6f08611ca475e410b419e822dbcdfbff1ccbb5ec  TgObjects\TgDocumentEdited.php
 75233b0942e00bd6fd58f58226824f3ffd4704a3  TgObjects\TgEntity.php
-1f7fca66cf83962fea0b614950689f3bdf5a8a82  TgObjects\TgErrors.php
+ce33e0da5e2b40c5d01d6f329ae913ab248e04d3  TgObjects\TgErrors.php
 2ff9623b0ecedfa8d1c279c05828768edacba743  TgObjects\TgFile.php
 14d1c4303467b0337cd16110034d2605a6e77f80  TgObjects\TgForumClosed.php
 e46b53a3da09794089afbc8aa5b8764cb79f9994  TgObjects\TgForumCreated.php
@@ -127,8 +127,8 @@ e46b53a3da09794089afbc8aa5b8764cb79f9994  TgObjects\TgForumCreated.php
 b98e562d344f4aef3015643dc74315a8b170ce6e  TgObjects\TgGameEdited.php
 cdd80a6bea9f919cabac40cd177230cc2b3437e3  TgObjects\TgGameScore.php
 69f831af31ab0977c53b17e33c91a82c6bb839cc  TgObjects\TgGameStart.php
-2706a43ce33991933904c9fe2133493e08e22720  TgObjects\TgGift.php
-c11388bd93eb2482e8666cf09dede9253d68c4f3  TgObjects\TgGifts.php
+80c565f555e1ad49f82650c4432f725631d137a5  TgObjects\TgGift.php
+f566fdf972780ec93d4960ff41217d1e071db705  TgObjects\TgGifts.php
 c0252d5e0af6452807061a95a4a40a568dcadaee  TgObjects\TgGiveaway.php
 d41221df06c1c1c04d7374dbf76e71a2fa2e3fd3  TgObjects\TgGiveawayWinners.php
 f0006fed0c0b53f1a1fb1bab5a1a9086bd63526c  TgObjects\TgGroupCreated.php
