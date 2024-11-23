@@ -75,7 +75,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2024.11.19.00
+ * @version 2024.11.23.00
  */
 final class TelegramBotLibrary
 extends TblBasics{
@@ -178,7 +178,7 @@ extends TblBasics{
    * Use this method to send general files. Bots can currently send files of any type of up to 50 MB in size, this limit may be changed in the future.
    * @param int $Chat Unique identifier for the target chat
    * @param string $File File to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data.
-   * @param string $Thumb Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file
+   * @param string $Thumbnail Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file
    * @param string $Caption Document caption (may also be used when resending documents by file_id), 0-1024 characters after entities parsing
    * @param TgParseMode $ParseMode Mode for parsing entities in the document caption. See formatting options for more details.
    * @param TblEntities $Entities A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
@@ -197,7 +197,7 @@ extends TblBasics{
     int $Chat,
     string $File,
     int $Thread = null,
-    string $Thumb = null,
+    string $Thumbnail = null,
     string $Caption = null,
     TgParseMode $ParseMode = TgParseMode::Html,
     TblEntities $Entities = null,
@@ -219,11 +219,11 @@ extends TblBasics{
     if($Thread !== null):
       $param['message_thread_id'] = $Thread;
     endif;
-    if($Thumb !== null):
-      if(is_file($Thumb)):
-        $param['thumbnail'] = new CurlFile($File);
+    if($Thumbnail !== null):
+      if(is_file($Thumbnail)):
+        $param['thumbnail'] = new CurlFile($Thumbnail);
       else:
-        $param['thumbnail'] = $Thumb;
+        $param['thumbnail'] = $Thumbnail;
       endif;
     endif;
     if($Caption !== null):
