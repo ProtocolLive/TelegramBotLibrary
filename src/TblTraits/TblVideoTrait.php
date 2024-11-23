@@ -22,7 +22,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2024.11.01.00
+ * @version 2024.11.23.00
  */
 trait TblVideoTrait{
   /**
@@ -219,7 +219,9 @@ trait TblVideoTrait{
     if($Effect !== null):
       $param['message_effect_id'] = $Effect;
     endif;
-    
+    if($AllowPaid):
+      $param['allow_paid_broadcast'] = true;
+    endif;
     return parent::DetectMessage($this->ServerMethod(
       TgMethods::VideoNoteSend,
       $param,
