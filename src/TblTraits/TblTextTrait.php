@@ -25,7 +25,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2024.11.08.00
+ * @version 2024.11.23.00
  */
 trait TblTextTrait{
   /**
@@ -44,7 +44,7 @@ trait TblTextTrait{
    * @link https://core.telegram.org/bots/api#senddice
    */
   public function DiceSend(
-    int|string $Chat = null,
+    int|string $Chat,
     string $Emoji = null,
     int $Thread = null,
     string $BusinessId = null,
