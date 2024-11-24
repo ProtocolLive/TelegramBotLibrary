@@ -6,7 +6,7 @@ namespace ProtocolLive\TelegramBotLibrary\TgParams;
 use CURLFile;
 
 /**
- * @version 2024.07.05.00
+ * @version 2024.11.23.00
  * @link https://core.telegram.org/bots/api#inputpaidmediaphoto
  * @link https://core.telegram.org/bots/api#inputpaidmediavideo
  */
@@ -25,10 +25,10 @@ final class TgPaidMedias{
   public function __construct(
     bool $Photo,
     string $Media,
-    string $Thumbnail = null,
-    int $Width = null,
-    int $Height = null,
-    int $Duration = null,
+    string|null $Thumbnail = null,
+    int|null $Width = null,
+    int|null $Height = null,
+    int|null $Duration = null,
     bool $Streaming = false
   ){
     $this->Add($Photo, $Media, $Thumbnail, $Width, $Height, $Duration, $Streaming);
@@ -46,10 +46,10 @@ final class TgPaidMedias{
   public function Add(
     bool $Photo,
     string $Media,
-    string $Thumbnail = null,
-    int $Width = null,
-    int $Height = null,
-    int $Duration = null,
+    string|null $Thumbnail = null,
+    int|null $Width = null,
+    int|null $Height = null,
+    int|null $Duration = null,
     bool $Streaming = false
   ):void{
     $temp = ['media' => is_file($Media) ? new CURLFile($Media) : $Media];

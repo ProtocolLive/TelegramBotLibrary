@@ -21,7 +21,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2024.11.01.00
+ * @version 2024.11.23.00
  */
 trait TblAnimationTrait{
   /**
@@ -52,23 +52,23 @@ trait TblAnimationTrait{
   public function AnimationSend(
     int|string $Chat,
     string $Animation,
-    int $Thread = null,
-    string $BusinessId = null,
-    int $Duration = null,
-    int $Width = null,
-    int $Height = null,
-    int $Thumbnail = null,
-    string $Caption = null,
+    int|null $Thread = null,
+    string|null $BusinessId = null,
+    int|null $Duration = null,
+    int|null $Width = null,
+    int|null $Height = null,
+    int|null $Thumbnail = null,
+    string|null $Caption = null,
     bool $CaptionAbove = false,
-    TgParseMode $ParseMode = null,
-    TblEntities $Entities = null,
+    TgParseMode|null $ParseMode = null,
+    TblEntities|null $Entities = null,
     bool $Spoiler = false,
     bool $DisableNotification = false,
     bool $Protect = false,
     bool $AllowPaid = false,
-    TgReplyParams $Reply = null,
-    TblMarkup $Markup = null,
-    string $Effect = null
+    TgReplyParams|null $Reply = null,
+    TblMarkup|null $Markup = null,
+    string|null $Effect = null
   ):TgAnimation{
     $param['chat_id'] = $Chat;
     if($BusinessId !== null):

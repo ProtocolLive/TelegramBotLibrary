@@ -25,7 +25,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2024.11.23.00
+ * @version 2024.11.23.01
  */
 trait TblTextTrait{
   /**
@@ -45,15 +45,15 @@ trait TblTextTrait{
    */
   public function DiceSend(
     int|string $Chat,
-    string $Emoji = null,
-    int $Thread = null,
-    string $BusinessId = null,
+    string|null $Emoji = null,
+    int|null $Thread = null,
+    string|null $BusinessId = null,
     bool $DisableNotification = false,
     bool $Protect = false,
     bool $AllowPaid = false,
-    TgReplyParams $Reply = null,
-    TblMarkup $Markup = null,
-    string $Effect = null
+    TgReplyParams|null $Reply = null,
+    TblMarkup|null $Markup = null,
+    string|null $Effect = null
   ):TgDice{
     if($BusinessId !== null):
       $param['business_connection_id'] = $BusinessId;
@@ -104,14 +104,14 @@ trait TblTextTrait{
    */
   public function TextEdit(
     string $Text,
-    int|string $Chat = null,
-    int $Id = null,
-    string $InlineId = null,
-    string $BusinessId = null,
-    TgParseMode $ParseMode = null,
-    TblEntities $Entities = null,
-    TgLinkPreview $LinkPreview = null,
-    TblMarkup $Markup = null
+    int|string|null $Chat = null,
+    int|null $Id = null,
+    string|null $InlineId = null,
+    string|null $BusinessId = null,
+    TgParseMode|null $ParseMode = null,
+    TblEntities|null $Entities = null,
+    TgLinkPreview|null $LinkPreview = null,
+    TblMarkup|null $Markup = null
   ):TgText|true{
     $return = $this->ServerMethod(
       TgMethods::TextEdit,
@@ -178,17 +178,17 @@ trait TblTextTrait{
   public function TextSend(
     int|string $Chat,
     string $Text,
-    int $Thread = null,
-    string $BusinessId = null,
-    TgParseMode $ParseMode = null,
-    TblEntities $Entities = null,
-    TgLinkPreview $LinkPreview = null,
+    int|null $Thread = null,
+    string|null $BusinessId = null,
+    TgParseMode|null $ParseMode = null,
+    TblEntities|null $Entities = null,
+    TgLinkPreview|null $LinkPreview = null,
     bool $DisableNotification = false,
     bool $Protect = false,
     bool $AllowPaid = false,
-    TgReplyParams $Reply = null,
-    TblMarkup $Markup = null,
-    string $Effect = null
+    TgReplyParams|null $Reply = null,
+    TblMarkup|null $Markup = null,
+    string|null $Effect = null
   ):TgText{
     $return = $this->ServerMethod(
       TgMethods::TextSend,

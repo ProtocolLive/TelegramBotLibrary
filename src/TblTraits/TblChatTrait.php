@@ -21,7 +21,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 };
 
 /**
- * @version 2024.11.12.01
+ * @version 2024.11.23.00
  */
 trait TblChatTrait{
   /**
@@ -38,8 +38,8 @@ trait TblChatTrait{
   public function ChatActionSend(
     int|string $Chat,
     TgChatAction $Action,
-    int $Thread = null,
-    string $BusinessId = null
+    int|null $Thread = null,
+    string|null $BusinessId = null
   ):bool{
     $param['chat_id'] = $Chat;
     $param['action'] = $Action->value;
@@ -274,8 +274,8 @@ trait TblChatTrait{
    */
   public function ChatInviteCreate(
     int|string $Chat,
-    string $Name = null,
-    int $Expire = null,
+    string|null $Name = null,
+    int|null $Expire = null,
     int $Limit = 0,
     bool $NeedApproval = false
   ):TgChatInviteLink{
@@ -325,8 +325,8 @@ trait TblChatTrait{
   public function ChatInviteEdit(
     int|string $Chat,
     string $Link,
-    string $Name = null,
-    int $Expire = null,
+    string|null $Name = null,
+    int|null $Expire = null,
     int $Limit = 0,
     bool $NeedApproval = false
   ):TgChatInviteLink{
@@ -437,7 +437,7 @@ trait TblChatTrait{
     int|string $Chat,
     int $User,
     TgPermMember $Perms,
-    int $Period = null,
+    int|null $Period = null,
     bool $Independent = false
   ):bool{
     $param['chat_id'] = $Chat;

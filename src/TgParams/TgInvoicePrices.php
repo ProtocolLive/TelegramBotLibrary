@@ -10,7 +10,7 @@ use ProtocolLive\TelegramBotLibrary\TblObjects\{
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgCurrencies;
 
 /**
- * @version 2024.07.07.00
+ * @version 2024.11.23.00
  */
 final class TgInvoicePrices{
   private array $Prices = [];
@@ -19,8 +19,8 @@ final class TgInvoicePrices{
    * @throws TblException
    */
   public function __construct(
-    string $Name = null,
-    int $Price = null,
+    string|null $Name = null,
+    int|null $Price = null,
     bool $IgnoreLimit = false,
     private TgCurrencies $Currency = TgCurrencies::USD
   ){

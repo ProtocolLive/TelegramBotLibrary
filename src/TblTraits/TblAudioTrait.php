@@ -22,7 +22,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2024.11.01.00
+ * @version 2024.11.23.00
  */
 trait TblAudioTrait{
   /**
@@ -51,21 +51,21 @@ trait TblAudioTrait{
   public function AudioSend(
     int|string $Chat,
     string $Audio,
-    int $Thread = null,
-    string $BusinessId = null,
-    string $Caption = null,
-    TgParseMode $ParseMode = null,
-    TblEntities $Entities = null,
-    int $Duration = null,
-    string $Performer = null,
-    string $Title = null,
-    string $Thumbnail = null,
+    int|null $Thread = null,
+    string|null $BusinessId = null,
+    string|null $Caption = null,
+    TgParseMode|null $ParseMode = null,
+    TblEntities|null $Entities = null,
+    int|null $Duration = null,
+    string|null $Performer = null,
+    string|null $Title = null,
+    string|null $Thumbnail = null,
     bool $DisableNotification = false,
     bool $Protect = false,
     bool $AllowPaid = false,
-    TgReplyParams $Reply = null,
-    TblMarkup $Markup = null,
-    string $Effect = null
+    TgReplyParams|null $Reply = null,
+    TblMarkup|null $Markup = null,
+    string|null $Effect = null
   ):TgAudio{
     $param['chat_id'] = $Chat;
     if($Thread !== null):
@@ -154,18 +154,18 @@ trait TblAudioTrait{
   public function VoiceSend(
     int|string $Chat,
     string $Voice,
-    int $Thread = null,
-    string $BusinessId = null,
-    string $Caption = null,
-    TgParseMode $ParseMode = null,
-    TblEntities $Entities = null,
-    int $Duration = null,
+    int|null $Thread = null,
+    string|null $BusinessId = null,
+    string|null $Caption = null,
+    TgParseMode|null $ParseMode = null,
+    TblEntities|null $Entities = null,
+    int|null $Duration = null,
     bool $DisableNotification = false,
     bool $Protect = false,
     bool $AllowPaid = false,
-    TgReplyParams $Reply = null,
-    TblMarkup $Markup = null,
-    string $Effect = null
+    TgReplyParams|null $Reply = null,
+    TblMarkup|null $Markup = null,
+    string|null $Effect = null
   ):TgVoice{
     $param['chat_id'] = $Chat;
     if($Thread !== null):

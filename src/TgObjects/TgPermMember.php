@@ -7,7 +7,7 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 /**
  * Describes actions that a non-administrator user is allowed to take in a chat.
  * @link https://core.telegram.org/bots/api#chatpermissions
- * @version 2024.01.04.00
+ * @version 2024.11.23.00
  */
 final class TgPermMember{
   public const Array = [
@@ -48,7 +48,7 @@ final class TgPermMember{
    * @link https://core.telegram.org/bots/api#chatpermissions
    */
   public function __construct(
-    array $Data = null,
+    array|null $Data = null,
     public bool $Message = false,
     public bool $Media = false,
     public bool $Audio = false,

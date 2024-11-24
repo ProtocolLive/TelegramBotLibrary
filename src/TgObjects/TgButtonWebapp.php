@@ -5,14 +5,14 @@
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
- * @version 2024.01.04.00
+ * @version 2024.11.23.00
  */
 final readonly class TgButtonWebapp{
   public string $Text;
   public string $Url;
 
   public function __construct(
-    array $Data = null
+    array|null $Data = null
   ){
     $this->Text = $Data['text'];
     $this->Url = $Data['web_app']['url'];

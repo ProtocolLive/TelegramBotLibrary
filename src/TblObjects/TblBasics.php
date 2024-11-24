@@ -71,14 +71,14 @@ use ProtocolLive\TelegramBotLibrary\TgService\{
 };
 
 /**
- * @version 2024.07.07.00
+ * @version 2024.11.23.00
  */
 abstract class TblBasics{
   protected TblData $BotData;
 
   private function Curl(
     string $Url,
-    array $Params = null,
+    array|null $Params = null,
     bool $AsJson = true
   ):CurlHandle{
     $curl = curl_init($Url);
@@ -102,7 +102,7 @@ abstract class TblBasics{
   //Return string for method InvoiceLink
   private function CurlResponse(
     CurlHandle $Curl,
-    string $Log = null,
+    string|null $Log = null,
   ):array|bool|string|TblException{
     $error = null;
     $response = curl_multi_getcontent($Curl);
@@ -321,7 +321,7 @@ abstract class TblBasics{
    */
   protected function ServerMethod(
     TgMethods $Method,
-    array $Params = null,
+    array|null $Params = null,
     bool $AsJson = true
   ):mixed{
     $curl = $this->BotData->UrlApi . '/' . $Method->value;

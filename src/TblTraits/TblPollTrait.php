@@ -22,7 +22,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2024.11.01.00
+ * @version 2024.11.23.00
  */
 trait TblPollTrait{
   /**
@@ -58,26 +58,26 @@ trait TblPollTrait{
     int|string $Chat,
     string $Question,
     TblInputPollOptions $Options,
-    int $ThreadId = null,
-    string $BusinessId = null,
-    TgParseMode $ParseMode = null,
-    TblEntities $Entities = null,
+    int|null $ThreadId = null,
+    string|null $BusinessId = null,
+    TgParseMode|null $ParseMode = null,
+    TblEntities|null $Entities = null,
     bool $Anonymous = true,
-    TgPollType $Type = null,
+    TgPollType|null $Type = null,
     bool $MultipleAnswers = false,
-    int $CorrectOption = null,
-    string $Explanation = null,
-    TgParseMode $ExplanationParseMode = null,
-    TblEntities $ExplanationEntities = null,
-    int $OpenPeriod = null,
-    int $CloseDate = null,
+    int|null $CorrectOption = null,
+    string|null $Explanation = null,
+    TgParseMode|null $ExplanationParseMode = null,
+    TblEntities|null $ExplanationEntities = null,
+    int|null $OpenPeriod = null,
+    int|null $CloseDate = null,
     bool $Closed = false,
     bool $DisableNotification = false,
     bool $Protect = false,
     bool $AllowPaid = false,
-    string $Effect = null,
-    TgReplyParams $Reply = null,
-    TblMarkup $Markup = null
+    string|null $Effect = null,
+    TgReplyParams|null $Reply = null,
+    TblMarkup|null $Markup = null
   ):TgPoll{
     if(mb_strlen($Question) > TgLimits::PollQuestion):
       throw new TblException(
@@ -170,8 +170,8 @@ trait TblPollTrait{
   public function PollStop(
     int|string $Chat,
     int $Id,
-    string $BusinessId = null,
-    TblMarkup $Markup = null
+    string|null $BusinessId = null,
+    TblMarkup|null $Markup = null
   ):TgPoll{
     $param['chat_id'] = $Chat;
     $param['message_id'] = $Id;

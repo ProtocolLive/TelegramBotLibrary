@@ -12,7 +12,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2024.11.04.00
+ * @version 2024.11.23.00
  */
 trait TblLocationTrait{
   /**
@@ -34,15 +34,15 @@ trait TblLocationTrait{
   public function LocationEdit(
     float $Latitude,
     float $Longitude,
-    int|string $Chat = null,
-    int $Id = null,
-    string $InlineId = null,
-    string $BussinessId = null,
-    int $LivePeriod = null,
-    float $HorizontalAccuracy = null,
-    int $Heading = null,
-    int $ProximityAlertRadius = null,
-    TblMarkup $Markup = null
+    int|string|null $Chat = null,
+    int|null $Id = null,
+    string|null $InlineId = null,
+    string|null $BussinessId = null,
+    int|null $LivePeriod = null,
+    float|null $HorizontalAccuracy = null,
+    int|null $Heading = null,
+    int|null $ProximityAlertRadius = null,
+    TblMarkup|null $Markup = null
   ):TgLocation|true{
     $param['chat_id'] = $Chat;
     $param['latitude'] = $Latitude;
@@ -103,18 +103,18 @@ trait TblLocationTrait{
     int|string $Chat,
     float $Latitude,
     float $Longitude,
-    int $Thread = null,
-    string $BussinessId = null,
-    float $HorizontalAccuracy = null,
-    int $LivePeriod = null,
-    int $Heading = null,
-    int $ProximityAlertRadius = null,
+    int|null $Thread = null,
+    string|null $BussinessId = null,
+    float|null $HorizontalAccuracy = null,
+    int|null $LivePeriod = null,
+    int|null $Heading = null,
+    int|null $ProximityAlertRadius = null,
     bool $DisableNotification = false,
     bool $Protect = false,
     bool $AllowPaid = false,
-    string $Effect = null,
-    TgReplyParams $Reply = null,
-    TblMarkup $Markup = null
+    string|null $Effect = null,
+    TgReplyParams|null $Reply = null,
+    TblMarkup|null $Markup = null
   ):TgLocation{
     $param['chat_id'] = $Chat;
     $param['latitude'] = $Latitude;
@@ -163,16 +163,16 @@ trait TblLocationTrait{
    * @param int|string $Chat Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
    * @param int $Id Required if inline_message_id is not specified. Identifier of the message with live location to stop
    * @param string $InlineId Required if chat_id and message_id are not specified. Identifier of the inline message
-   * @param string $BussinessId Unique identifier of the business connection on behalf of which the message to be edited was sent
+   * @param string $BusinessId Unique identifier of the business connection on behalf of which the message to be edited was sent
    * @param TblMarkup $Markup A JSON-serialized object for a new inline keyboard.
    * @return TgLocation|true On success, if the message is not an inline message, the edited Message is returned, otherwise True is returned.
    */
   public function LocationStop(
-    int|string $Chat = null,
-    int $Id = null,
-    string $InlineId = null,
-    string $BussinessId = null,
-    TblMarkup $Markup = null
+    int|string|null $Chat = null,
+    int|null $Id = null,
+    string|null $InlineId = null,
+    string|null $BusinessId = null,
+    TblMarkup|null $Markup = null
   ):TgLocation|true{
     if($Chat === null):
       $param['inline_message_id'] = $InlineId;
@@ -180,8 +180,8 @@ trait TblLocationTrait{
       $param['chat_id'] = $Chat;
       $param['message_id'] = $Id;
     endif;
-    if($BussinessId !== null):
-      $param['business_connection_id'] = $BussinessId;
+    if($BusinessId !== null):
+      $param['business_connection_id'] = $BusinessId;
     endif;
     if($Markup !== null):
       $param['reply_markup'] = $Markup->ToArray();
@@ -198,7 +198,7 @@ trait TblLocationTrait{
    * Use this method to send information about a venue.
    * @param int|string $Chat Unique identifier for the target chat or username of the target channel (in the format @channelusername)
    * @param int $Thread Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
-   * @param string $BussinessId Unique identifier of the business connection on behalf of which the message will be sent
+   * @param string $BusinessId Unique identifier of the business connection on behalf of which the message will be sent
    * @param float $Latitude Latitude of the venue
    * @param float $Longitude Longitude of the venue
    * @param string $Title Name of the venue
@@ -221,18 +221,18 @@ trait TblLocationTrait{
     float $Longitude,
     string $Title,
     string $Address,
-    int $Thread = null,
-    string $BussinessId = null,
-    string $FoursquareId = null,
-    string $FoursquareType = null,
-    string $GooglePlaceId = null,
-    string $GooglePlaceType = null,
+    int|null $Thread = null,
+    string|null $BusinessId = null,
+    string|null $FoursquareId = null,
+    string|null $FoursquareType = null,
+    string|null $GooglePlaceId = null,
+    string|null $GooglePlaceType = null,
     bool $DisableNotification = false,
     bool $Protect = false,
     bool $AllowPaid = false,
-    string $Effect = null,
-    TgReplyParams $Reply = null,
-    TblMarkup $Markup = null
+    string|null $Effect = null,
+    TgReplyParams|null $Reply = null,
+    TblMarkup|null $Markup = null
   ):TgVenue{
     $param['chat_id'] = $Chat;
     $param['latitude'] = $Latitude;
@@ -242,8 +242,8 @@ trait TblLocationTrait{
     if($Thread !== null):
       $param['message_thread_id'] = $Thread;
     endif;
-    if($BussinessId !== null):
-      $param['business_connection_id'] = $BussinessId;
+    if($BusinessId !== null):
+      $param['business_connection_id'] = $BusinessId;
     endif;
     if($FoursquareId !== null):
       $param['foursquare_id'] = $FoursquareId;

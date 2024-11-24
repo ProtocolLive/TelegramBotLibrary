@@ -7,13 +7,13 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\TgError;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgLimits;
 
 /**
- * @version 2024.07.04.00
+ * @version 2024.11.23.00
  */
 final class TblCommands{
   private array $Commands = [];
 
   public function __construct(
-    array $Data = null
+    array|null $Data = null
   ){
     if($Data !== null):
       foreach($Data as $cmd):
@@ -58,7 +58,7 @@ final class TblCommands{
    * Returns all commands as an associative array, a specific command description or null if command are not found
    */
   public function Get(
-    string $Command = null
+    string|null $Command = null
   ):array|string|null{
     if($Command === null):
       return $this->Commands;

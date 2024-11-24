@@ -26,7 +26,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2024.11.19.01
+ * @version 2024.11.23.00
  */
 trait TblStarsTrait{
   public function GiftAvailableGet():TgGifts{
@@ -45,9 +45,9 @@ trait TblStarsTrait{
   public function GiftSend(
     int $User,
     string $Gift,
-    string $Text = null,
-    TgParseMode $ParseMode = null,
-    TblEntities $Entities = null
+    string|null $Text = null,
+    TgParseMode|null $ParseMode = null,
+    TblEntities|null $Entities = null
   ):true{
     $param['user_id'] = $User;
     $param['gift_id'] = $Gift;
@@ -77,7 +77,7 @@ trait TblStarsTrait{
     int|string $Chat,
     int $SubscriptionPeriod,
     int $SubscriptionPrice,
-    string $Name = null
+    string|null $Name = null
   ):TgChatInviteLink{
     if($SubscriptionPrice > TgLimits::ChannelSubscriptionPrice):
       throw new TblException(TgError::ChannelSubscriptionPrice);
@@ -106,7 +106,7 @@ trait TblStarsTrait{
   public function InviteLinkStarEdit(
     int|string $Chat,
     string $Link,
-    string $Name = null
+    string|null $Name = null
   ):TgChatInviteLink{
     $param['chat_id'] = $Chat;
     $param['invite_link'] = $Link;
@@ -142,17 +142,17 @@ trait TblStarsTrait{
     int|string $Chat,
     int $Price,
     TgPaidMedias $Media,
-    string $Payload = null,
-    string $BusinessId = null,
-    string $Caption = null,
+    string|null $Payload = null,
+    string|null $BusinessId = null,
+    string|null $Caption = null,
     bool $CaptionAbove = false,
-    TgParseMode $ParseMode = null,
-    TblEntities $Entities = null,
+    TgParseMode|null $ParseMode = null,
+    TblEntities|null $Entities = null,
     bool $DisableNotification = false,
     bool $Protect = false,
     bool $AllowPaid = false,
-    TgReplyParams $Reply = null,
-    TblMarkup $Markup = null
+    TgReplyParams|null $Reply = null,
+    TblMarkup|null $Markup = null
   ):TgPaidMedia{
     $param['chat_id'] = $Chat;
     $param['star_count'] = $Price;
@@ -247,8 +247,8 @@ trait TblStarsTrait{
    * @link https://core.telegram.org/bots/api#getstartransactions
    */
   public function StarTransactionsGet(
-    int $Offset = null,
-    int $Limit = null
+    int|null $Offset = null,
+    int|null $Limit = null
   ):array{
     if($Offset !== null):
       $param['offset'] = $Offset;

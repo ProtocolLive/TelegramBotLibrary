@@ -8,7 +8,7 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\TgMethods;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgUpdateType;
 
 /**
- * @version 2024.11.14.00
+ * @version 2024.11.23.00
  */
 final class TblWebhook
 extends TblBasics{
@@ -32,11 +32,11 @@ extends TblBasics{
    */
   public function Set(
     string $Url,
-    string $ServerIp = null,
-    int $MaxConnections = null,
-    array $Updates = null,
-    string $Certificate = null,
-    string $TokenWebhook = null
+    string|null $ServerIp = null,
+    int|null $MaxConnections = null,
+    array|null $Updates = null,
+    string|null $Certificate = null,
+    string|null $TokenWebhook = null
   ):bool{
     $param['url'] = $Url;
     if($ServerIp !== null):

@@ -18,7 +18,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgEditedInterface;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgLimits;
 
 /**
- * @version 2024.11.01.00
+ * @version 2024.11.23.00
  */
 trait TblEditTrait{
   /**
@@ -35,14 +35,14 @@ trait TblEditTrait{
    */
   public function CaptionEdit(
     string $Caption,
-    int|string $Chat = null,
-    int $Id = null,
-    string $InlineId = null,
-    string $BusinessId = null,
+    int|string|null $Chat = null,
+    int|null $Id = null,
+    string|null $InlineId = null,
+    string|null $BusinessId = null,
     bool $CaptionAbove = false,
-    TgParseMode $ParseMode = null,
-    TblEntities $Entities = null,
-    TblMarkup $Markup = null
+    TgParseMode|null $ParseMode = null,
+    TblEntities|null $Entities = null,
+    TblMarkup|null $Markup = null
   ):TgEditedInterface|true{
     if(mb_strlen(strip_tags($Caption)) > TgLimits::Caption):
       throw new TblException(
@@ -90,11 +90,11 @@ trait TblEditTrait{
    * @link https://core.telegram.org/bots/api#editmessagereplymarkup
    */
   public function MarkupEdit(
-    int $Chat = null,
-    int $Id = null,
-    string $IdInline = null,
-    string $BusinessId = null,
-    TblMarkup $Markup = null
+    int|null $Chat = null,
+    int|null $Id = null,
+    string|null $IdInline = null,
+    string|null $BusinessId = null,
+    TblMarkup|null $Markup = null
   ):TgEditedInterface|true{
     if($IdInline === null
     and $BusinessId === null):
@@ -130,11 +130,11 @@ trait TblEditTrait{
    */
   public function MediaEdit(
     TblMedia $Media,
-    int $Chat = null,
-    int $Id = null,
-    string $InlineId = null,
-    string $BusinessId = null,
-    TblMarkup $Markup = null
+    int|null $Chat = null,
+    int|null $Id = null,
+    string|null $InlineId = null,
+    string|null $BusinessId = null,
+    TblMarkup|null $Markup = null
   ):TgEditedInterface|true{
     if($InlineId === null
     and $BusinessId === null):

@@ -6,7 +6,7 @@ namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgLimits;
 
 /**
- * @version 2024.11.02.00
+ * @version 2024.11.23.00
  */
 class TblMarkupInline
 extends TblMarkup{
@@ -64,9 +64,9 @@ extends TblMarkup{
     int $Column,
     string $Text,
     string $Url,
-    bool $Write = null,
-    string $ForwardText = null,
-    string $BotName = null
+    bool $Write = false,
+    string|null $ForwardText = null,
+    string|null $BotName = null
   ):TblError|null{
     if(str_starts_with($Url, 'https') === false):
       return TblError::InlineButtonLoginSsl;
@@ -79,8 +79,8 @@ extends TblMarkup{
     if($BotName !== null):
       $this->Pointer[$Line][$Column]['login_url']['bot_username'] = $BotName;
     endif;
-    if($Write !== null):
-      $this->Pointer[$Line][$Column]['login_url']['request_write_access'] = $Write;
+    if($Write):
+      $this->Pointer[$Line][$Column]['login_url']['request_write_access'] = true;
     endif;
     return null;
   }
@@ -113,8 +113,8 @@ extends TblMarkup{
     int $Line,
     int $Column,
     string $Text,
-    string $Query = null,
-    string $QueryOtherChat = null
+    string|null $Query = null,
+    string|null $QueryOtherChat = null
   ):void{
     $this->Pointer[$Line][$Column]['text'] = $Text;
     if($Query !== null):

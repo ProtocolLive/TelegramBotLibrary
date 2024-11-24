@@ -22,7 +22,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 };
 
 /**
- * @version 2024.11.10.01
+ * @version 2024.11.23.00
  */
 trait TblMyTrait{
   /**
@@ -34,10 +34,10 @@ trait TblMyTrait{
    * @link https://core.telegram.org/bots/api#deletemycommands
    */
   public function MyCmdClear(
-    TgCmdScope $Scope = null,
-    TgLanguages $Language = null,
-    int $Chat = null,
-    int $User = null
+    TgCmdScope|null $Scope = null,
+    TgLanguages|null $Language = null,
+    int|null $Chat = null,
+    int|null $User = null
   ):bool{
     $param = [];
     if($Scope !== null):
@@ -67,10 +67,10 @@ trait TblMyTrait{
    * @link https://core.telegram.org/bots/api#getmycommands
    */
   public function MyCmdGet(
-    TgCmdScope $Scope = null,
-    TgLanguages $Language = null,
-    int $Chat = null,
-    int $User = null
+    TgCmdScope|null $Scope = null,
+    TgLanguages|null $Language = null,
+    int|null $Chat = null,
+    int|null $User = null
   ):TblCommands{
     $param = [];
     if($Scope !== null):
@@ -106,10 +106,10 @@ trait TblMyTrait{
    */
   public function MyCmdSet(
     TblCommands $Commands,
-    TgCmdScope $Scope = null,
-    TgLanguages $Language = null,
-    int $Chat = null,
-    int $User = null
+    TgCmdScope|null $Scope = null,
+    TgLanguages|null $Language = null,
+    int|null $Chat = null,
+    int|null $User = null
   ):bool{
     $param['commands'] = $Commands->ToArray();
     if($Scope !== null):
@@ -137,7 +137,7 @@ trait TblMyTrait{
    * @link https://core.telegram.org/bots/api#getmydescription
    */
   public function MyDescriptionGet(
-    TgLanguages $Language = null
+    TgLanguages|null $Language = null
   ):string{
     $params = [];
     if($Language !== null):
@@ -156,8 +156,8 @@ trait TblMyTrait{
    * @link https://core.telegram.org/bots/api#setmydescription
    */
   public function MyDescriptionSet(
-    string $Description = null,
-    TgLanguages $Language = null
+    string|null $Description = null,
+    TgLanguages|null $Language = null
   ):bool{
     $params = [];
     if($Description !== null):
@@ -183,7 +183,7 @@ trait TblMyTrait{
    * @link https://core.telegram.org/bots/api#getmyshortdescription
    */
   public function MyDescriptionShortGet(
-    TgLanguages $Language = null
+    TgLanguages|null $Language = null
   ):string{
     $params = [];
     if($Language !== null):
@@ -202,8 +202,8 @@ trait TblMyTrait{
    * @link https://core.telegram.org/bots/api#setmyshortdescription
    */
   public function MyDescriptionShortSet(
-    string $Description = null,
-    TgLanguages $Language = null
+    string|null $Description = null,
+    TgLanguages|null $Language = null
   ):bool{
     $params = [];
     if($Description !== null):
@@ -240,7 +240,7 @@ trait TblMyTrait{
    * @link https://core.telegram.org/bots/api#getchatmenubutton
    */
   public function MyMenuButtonGet(
-    int $User = null
+    int|null $User = null
   ):TgMenuButton{
     $param = [];
     if($User !== null):
@@ -261,10 +261,10 @@ trait TblMyTrait{
    * @link https://core.telegram.org/bots/api#setchatmenubutton
    */
   public function MyMenuButtonSet(
-    TgMenuButton $Type = null,
-    int $User = null,
-    string $Text = null,
-    string $Url = null
+    TgMenuButton|null $Type = null,
+    int|null $User = null,
+    string|null $Text = null,
+    string|null $Url = null
   ):bool{
     $param = [];
     if($User !== null):
@@ -287,7 +287,7 @@ trait TblMyTrait{
    * @link https://core.telegram.org/bots/api#getmyname
    */
   public function MyNameGet(
-    TgLanguages $Language = null
+    TgLanguages|null $Language = null
   ):string{
     $params = [];
     if($Language !== null):
@@ -306,8 +306,8 @@ trait TblMyTrait{
    * @link https://core.telegram.org/bots/api#getmyname
    */
   public function MyNameSet(
-    string $Name = null,
-    TgLanguages $Language = null
+    string|null $Name = null,
+    TgLanguages|null $Language = null
   ):string{
     $params = [];
     if(strlen($Name) > TgLimits::Name):

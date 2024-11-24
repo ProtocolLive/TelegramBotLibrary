@@ -15,7 +15,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2024.11.01.00
+ * @version 2024.11.23.00
  */
 trait TblGameTrait{
   /**
@@ -37,14 +37,14 @@ trait TblGameTrait{
   public function GameSend(
     int|string $Chat,
     string $Game,
-    int $Thread = null,
-    string $BusinessId = null,
+    int|null $Thread = null,
+    string|null $BusinessId = null,
     bool $DisableNotifications = false,
     bool $Protect = false,
     bool $AllowPaid = false,
-    TgReplyParams $Reply = null,
-    TblMarkup $Markup = null,
-    string $Effect = null
+    TgReplyParams|null $Reply = null,
+    TblMarkup|null $Markup = null,
+    string|null $Effect = null
   ):TgGame{
     if($BusinessId !== null):
       $param['business_connection_id'] = $BusinessId;
@@ -88,9 +88,9 @@ trait TblGameTrait{
    */
   public function GameScoreGet(
     int $User,
-    int $Chat = null,
-    int $MessageId = null,
-    string $InlineMessageId = null
+    int|null $Chat = null,
+    int|null $MessageId = null,
+    string|null $InlineMessageId = null
   ):array{
     $param['user_id'] = $User;
     if($InlineMessageId === null):
@@ -124,9 +124,9 @@ trait TblGameTrait{
     int $Score,
     bool $Force = false,
     bool $DisableAutoEdit = false,
-    int|string $Chat = null,
-    int $MessageId = null,
-    string $InlineMessageId = null
+    int|string|null $Chat = null,
+    int|null $MessageId = null,
+    string|null $InlineMessageId = null
   ):true|TgGame{
     $param['user_id'] = $User;
     $param['score'] = $Score;

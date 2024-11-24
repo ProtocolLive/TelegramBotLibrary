@@ -10,7 +10,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgEventInterface;
 
 /**
  * @link https://core.telegram.org/passport
- * @version 2024.08.25.00
+ * @version 2024.11.23.00
  */
 final class TgPassport
 implements TgEventInterface{
@@ -57,7 +57,7 @@ implements TgEventInterface{
   public string $Nonce;
 
   public function __construct(
-    array $Data = null
+    array|null $Data = null
   ){
     if($Data === null):
       return;

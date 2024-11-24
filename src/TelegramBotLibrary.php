@@ -75,7 +75,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2024.11.23.00
+ * @version 2024.11.23.01
  */
 final class TelegramBotLibrary
 extends TblBasics{
@@ -136,10 +136,10 @@ extends TblBasics{
    */
   public function CallbackAnswer(
     string $Id,
-    string $Text = null,
+    string|null $Text = null,
     bool $Alert = false,
-    string $Url = null,
-    int $Cache = null
+    string|null $Url = null,
+    int|null $Cache = null
   ):bool{
     $param['callback_query_id'] = $Id;
     if($Text !== null):
@@ -196,19 +196,19 @@ extends TblBasics{
   public function DocumentSend(
     int $Chat,
     string $File,
-    int $Thread = null,
-    string $Thumbnail = null,
-    string $Caption = null,
+    int|null $Thread = null,
+    string|null $Thumbnail = null,
+    string|null $Caption = null,
     TgParseMode $ParseMode = TgParseMode::Html,
-    TblEntities $Entities = null,
+    TblEntities|null $Entities = null,
     bool $DisableDetection = false,
     bool $DisableNotification = false,
     bool $Protect = false,
-    int $RepliedMsg = null,
+    int|null $RepliedMsg = null,
     bool $SendWithoutRepliedMsg = false,
     bool $AllowPaid = false,
-    TblMarkup $Markup = null,
-    string $Effect = null
+    TblMarkup|null $Markup = null,
+    string|null $Effect = null
   ):TgDocument{
     $param['chat_id'] = $Chat;
     if(is_file($File)):
@@ -368,15 +368,15 @@ extends TblBasics{
    * @link https://core.telegram.org/bots/api#sendmediagroup
    */
   public function GroupSend(
-    int|string $Chat = null,
+    int|string $Chat,
     array $Objects,
-    int $Thread = null,
-    string $BusinessId = null,
+    int|null $Thread = null,
+    string|null $BusinessId = null,
     bool $DisableNotification = false,
     bool $Protect = false,
     bool $AllowPaid = false,
-    string $Effect = null,
-    TgReplyParams $Reply = null,
+    string|null $Effect = null,
+    TgReplyParams|null $Reply = null
   ):void{
     foreach($Objects as &$object):
       $object = $object->ToArray();
@@ -425,13 +425,13 @@ extends TblBasics{
   public function InlineQueryAnswer(
     string $Id,
     TgInlineQueryResults $Results,
-    int $Cache = null,
+    int|null $Cache = null,
     bool $Personal = false,
-    string $NextOffset = null,
-    string $ButtonText = null,
-    string $ButtonWebapp = null,
-    string $StartParam = null
-  ){
+    string|null $NextOffset = null,
+    string|null $ButtonText = null,
+    string|null $ButtonWebapp = null,
+    string|null $StartParam = null
+  ):true{
     $param['inline_query_id'] = $Id;
     $param['results'] = $Results->ToArray();
     if($Cache !== null):
@@ -479,17 +479,17 @@ extends TblBasics{
     int $From,
     int $Id,
     int $To,
-    int $Thread = null,
-    string $Caption = null,
+    int|null $Thread = null,
+    string|null $Caption = null,
     bool $CaptionAbove = false,
-    TblEntities $Entities = null,
-    TgParseMode $ParseMode = null,
+    TblEntities|null $Entities = null,
+    TgParseMode|null $ParseMode = null,
     bool $DisableNotification = false,
     bool $Protect = false,
-    int $RepliedMsg = null,
+    int|null $RepliedMsg = null,
     bool $SendWithoutRepliedMsg = false,
     bool $AllowPaid = false,
-    TblMarkup $Markup = null
+    TblMarkup|null $Markup = null
   ):int{
     $param['chat_id'] = $To;
     $param['from_chat_id'] = $From;
@@ -578,7 +578,7 @@ extends TblBasics{
     int $From,
     int $Id,
     int $To,
-    int $Thread = null,
+    int|null $Thread = null,
     bool $DisableNotification = false,
     bool $Protect = false
   ):TgMessageInterface{
@@ -611,7 +611,7 @@ extends TblBasics{
   public function MessagePin(
     int|string $Chat,
     int $Id,
-    string $BusinessId = null,
+    string|null $BusinessId = null,
     bool $DisableNotification = false
   ):true{
     $param['chat_id'] = $Chat;
@@ -677,7 +677,7 @@ extends TblBasics{
     int|string $From,
     array $Ids,
     int|string $To,
-    int $Thread = null,
+    int|null $Thread = null,
     bool $DisableNotification = false,
     bool $Protect = false,
     bool $RemoveCaption = false
@@ -738,7 +738,7 @@ extends TblBasics{
     int|string $From,
     array $Ids,
     int|string $To,
-    int $Thread = null,
+    int|null $Thread = null,
     bool $DisableNotification = false,
     bool $Protect = false
   ):array{
@@ -771,8 +771,8 @@ extends TblBasics{
    */
   public function MessageUnpin(
     int|string $Chat,
-    int $Id = null,
-    string $BusinessId = null
+    int|null $Id = null,
+    string|null $BusinessId = null
   ):true{
     $param['chat_id'] = $Chat;
     if($Id !== null):
@@ -854,15 +854,15 @@ extends TblBasics{
   public function StickerSend(
     int $Chat,
     string $Sticker,
-    int $Thread = null,
-    string $Emoji = null,
+    int|null $Thread = null,
+    string|null $Emoji = null,
     bool $DisableNotification = false,
     bool $Protect = false,
-    int $RepliedMsg = null,
+    int|null $RepliedMsg = null,
     bool $SendWithoutRepliedMsg = false,
     bool $AllowPaid = false,
-    TblMarkup $Markup = null,
-    string $Effect = null
+    TblMarkup|null $Markup = null,
+    string|null $Effect = null
   ):TgSticker{
     $param['chat_id'] = $Chat;
     $param['sticker'] = $Sticker;

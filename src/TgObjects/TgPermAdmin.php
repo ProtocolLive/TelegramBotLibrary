@@ -7,7 +7,7 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 /**
  * Represents a chat member that has some additional privileges.
  * @link https://core.telegram.org/bots/api#chatmemberadministrator
- * @version 2024.01.26.00
+ * @version 2024.11.23.00
  */
 final class TgPermAdmin{
   public const Array = [
@@ -46,7 +46,7 @@ final class TgPermAdmin{
    * @link https://core.telegram.org/bots/api#chatmemberadministrator
    */
   public function __construct(
-    array $Data = null,
+    array|null $Data = null,
     public bool $Manage = false,
     public bool $Message = false,
     public bool $Edited = true,

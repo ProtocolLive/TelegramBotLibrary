@@ -6,13 +6,13 @@ namespace ProtocolLive\TelegramBotLibrary\TgParams;
 use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgInlineQueryInterface;
 
 /**
- * @version 2024.01.02.00
+ * @version 2024.11.23.00
  */
 final class TgInlineQueryResults{
   private array $Results = [];
 
   public function __construct(
-    TgInlineQueryInterface $Result = null
+    TgInlineQueryInterface|null $Result = null
   ){
     if($Result !== null):
       $this->Add($Result);

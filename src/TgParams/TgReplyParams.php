@@ -13,7 +13,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\TgLimits;
 
 /**
  * @link https://core.telegram.org/bots/api#replyparameters
- * @version 2024.01.02.01
+ * @version 2024.11.23.00
  */
 class TgReplyParams{
   private array $Array = [];
@@ -29,12 +29,12 @@ class TgReplyParams{
    */
   public function __construct(
     int $Message,
-    int|string $Chat = null,
+    int|string|null $Chat = null,
     bool $SendWithouReply = false,
-    string $Quote = null,
-    int $Position = null,
-    TgParseMode $ParseMode = null,
-    TblEntities $Entities = null
+    string|null $Quote = null,
+    int|null $Position = null,
+    TgParseMode|null $ParseMode = null,
+    TblEntities|null $Entities = null
   ){
     $this->Array['message_id'] = $Message;
     if($Chat !== null):

@@ -8,7 +8,7 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\TgMethods;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgProfilePhoto;
 
 /**
- * @version 2024.11.17.01
+ * @version 2024.11.23.00
  */
 trait TblUserTrait{
   /**
@@ -22,7 +22,7 @@ trait TblUserTrait{
    */
   public function AvatarGet(
     int $User,
-    int $Offset = null,
+    int|null $Offset = null,
     int $Limit = 100
   ):TgProfilePhoto{
     $param['user_id'] = $User;
@@ -46,8 +46,8 @@ trait TblUserTrait{
    */
   public function StatusSet(
     int $User,
-    string $Emoji = null,
-    int $Expiration = null
+    string|null $Emoji = null,
+    int|null $Expiration = null
   ):true{
     $param['user_id'] = $User;
     if($Emoji !== null):

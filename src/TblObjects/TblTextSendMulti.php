@@ -11,7 +11,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2024.11.05.00
+ * @version 2024.11.23.00
  */
 final class TblTextSendMulti
 extends TblServerMulti{
@@ -31,18 +31,18 @@ extends TblServerMulti{
    * @link https://core.telegram.org/bots/api#sendmessage
    */
   public function __construct(
-    int|string $Chat = null,
-    string $Text = null,
-    int $Thread = null,
-    string $BusinessId = null,
-    TgParseMode $ParseMode = null,
-    TblEntities $Entities = null,
-    TgLinkPreview $LinkPreview = null,
+    int|string|null $Chat = null,
+    string|null $Text = null,
+    int|null $Thread = null,
+    string|null $BusinessId = null,
+    TgParseMode|null $ParseMode = null,
+    TblEntities|null $Entities = null,
+    TgLinkPreview|null $LinkPreview = null,
     bool $DisableNotification = false,
     bool $Protect = false,
-    TgReplyParams $Reply = null,
-    TblMarkup $Markup = null,
-    string $MultiControl = null
+    TgReplyParams|null $Reply = null,
+    TblMarkup|null $Markup = null,
+    string|null $MultiControl = null
   ){
     if($Chat === null
     or $Text === null):
@@ -81,16 +81,16 @@ extends TblServerMulti{
   public function Add(
     int|string $Chat,
     string $Text,
-    int $Thread = null,
-    string $BusinessId = null,
-    TgParseMode $ParseMode = null,
-    TblEntities $Entities = null,
-    TgLinkPreview $LinkPreview = null,
+    int|null $Thread = null,
+    string|null $BusinessId = null,
+    TgParseMode|null $ParseMode = null,
+    TblEntities|null $Entities = null,
+    TgLinkPreview|null $LinkPreview = null,
     bool $DisableNotification = false,
     bool $Protect = false,
-    TgReplyParams $Reply = null,
-    TblMarkup $Markup = null,
-    string $MultiControl = null
+    TgReplyParams|null $Reply = null,
+    TblMarkup|null $Markup = null,
+    string|null $MultiControl = null
   ):void{
     $this->Args[$MultiControl ?? $Chat] = self::BuildArgs(
       Chat: $Chat,
@@ -129,17 +129,17 @@ extends TblServerMulti{
   public static function BuildArgs(
     int|string $Chat,
     string $Text,
-    int $Thread = null,
-    string $BusinessId = null,
-    TgParseMode $ParseMode = null,
-    TblEntities $Entities = null,
-    TgLinkPreview $LinkPreview = null,
+    int|null $Thread = null,
+    string|null $BusinessId = null,
+    TgParseMode|null $ParseMode = null,
+    TblEntities|null $Entities = null,
+    TgLinkPreview|null $LinkPreview = null,
     bool $DisableNotification = false,
     bool $Protect = false,
     bool $AllowPaid = false,
-    TgReplyParams $Reply = null,
-    TblMarkup $Markup = null,
-    string $Effect = null
+    TgReplyParams|null $Reply = null,
+    TblMarkup|null $Markup = null,
+    string|null $Effect = null
   ):array{
     if($Chat === null):
       throw new TblException(TblError::MissingParameter, 'Chat is required');

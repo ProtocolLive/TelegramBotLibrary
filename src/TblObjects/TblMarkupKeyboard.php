@@ -7,7 +7,7 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\TgPollType;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgPermAdmin;
 
 /**
- * @version 2024.01.26.00
+ * @version 2024.11.23.00
  */
 class TblMarkupKeyboard
 extends TblMarkup{
@@ -25,7 +25,7 @@ extends TblMarkup{
     bool $Persistent = false,
     bool $Resize = false,
     bool $OneTime = false,
-    string $Placeholder = null,
+    string|null $Placeholder = null,
     bool $Selective = false
   ){
     $this->Markup['keyboard'] = [];
@@ -73,8 +73,8 @@ extends TblMarkup{
     string $Text,
     bool $RequestContact = false,
     bool $RequestLocation = false,
-    TgPollType $RequestPoll = null,
-    string $RequestWebapp = null
+    TgPollType|null $RequestPoll = null,
+    string|null $RequestWebapp = null
   ):void{
     $this->Pointer[$Line][$Column]['text'] = $Text;
     if($RequestContact):
@@ -113,8 +113,8 @@ extends TblMarkup{
     bool|null $Forum = null,
     bool|null $Public = null,
     bool $Owner = false,
-    TgPermAdmin $UserPerms = null,
-    TgPermAdmin $BotPerms = null,
+    TgPermAdmin|null $UserPerms = null,
+    TgPermAdmin|null $BotPerms = null,
     bool $Member = false
   ):void{
     $this->Pointer[$Line][$Column]['text'] = $Text;
@@ -154,7 +154,7 @@ extends TblMarkup{
     int $Line,
     int $Column,
     string $Text,
-    int $Id = null,
+    int|null $Id = null,
     int $Quantity = 1,
     bool|null $Bot = null,
     bool|null $Premium = null

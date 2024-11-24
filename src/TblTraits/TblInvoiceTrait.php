@@ -19,7 +19,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2024.11.17.00
+ * @version 2024.11.23.00
  */
 trait TblInvoiceTrait{
   /**
@@ -34,7 +34,7 @@ trait TblInvoiceTrait{
   public function InvoiceCheckoutSend(
     string $Id,
     bool $Confirm,
-    string $ErrorMsg = null
+    string|null $ErrorMsg = null
   ):bool{
     $param['pre_checkout_query_id'] = $Id;
     $param['ok'] = $Confirm;
@@ -78,15 +78,15 @@ trait TblInvoiceTrait{
     string $Payload,
     TgCurrencies $Currency,
     TgInvoicePrices $Prices,
-    string $BusinessId = null,
-    string $Token = null,
-    int $TipMax = null,
-    array $TipSuggested = null,
-    string $ProviderData = null,
-    string $Photo = null,
-    int $PhotoSize = null,
-    int $PhotoWidth = null,
-    int $PhotoHeight = null,
+    string|null $BusinessId = null,
+    string|null $Token = null,
+    int|null $TipMax = null,
+    array|null $TipSuggested = null,
+    string|null $ProviderData = null,
+    string|null $Photo = null,
+    int|null $PhotoSize = null,
+    int|null $PhotoWidth = null,
+    int|null $PhotoHeight = null,
     bool $NeedName = false,
     bool $NeedPhone = false,
     bool $NeedEmail = false,
@@ -94,7 +94,7 @@ trait TblInvoiceTrait{
     bool $ProviderPhone = false,
     bool $ProviderEmail = false,
     bool $PriceWithShipping = false,
-    int $SubscriptionPeriod = null
+    int|null $SubscriptionPeriod = null
   ):string{
     if($Prices->Count() === 0):
       throw new TblException(TblError::InvoicePriceEmpty);
@@ -198,15 +198,15 @@ trait TblInvoiceTrait{
     string $Payload,
     TgCurrencies $Currency,
     TgInvoicePrices $Prices,
-    string $Token = null,
-    int $TipMax = null,
-    array $TipSuggested = null,
-    string $StartParam = null,
-    string $ProviderData = null,
-    string $Photo = null,
-    int $PhotoSize = null,
-    int $PhotoWidth = null,
-    int $PhotoHeight = null,
+    string|null $Token = null,
+    int|null $TipMax = null,
+    array|null $TipSuggested = null,
+    string|null $StartParam = null,
+    string|null $ProviderData = null,
+    string|null $Photo = null,
+    int|null $PhotoSize = null,
+    int|null $PhotoWidth = null,
+    int|null $PhotoHeight = null,
     bool $NeedName = false,
     bool $NeedPhone = false,
     bool $NeedEmail = false,
@@ -216,11 +216,11 @@ trait TblInvoiceTrait{
     bool $PriceWithShipping = false,
     bool $DisableNotification = false,
     bool $Protect = false,
-    int $RepliedMsg = null,
+    int|null $RepliedMsg = null,
     bool $SendWithoutRepliedMsg = false,
     bool $AllowPaid = false,
-    TblMarkup $Markup = null,
-    string $Effect = null
+    TblMarkup|null $Markup = null,
+    string|null $Effect = null
   ):TgInvoice{
     $param['chat_id'] = $Chat;
     $param['title'] = $Title;
@@ -303,7 +303,7 @@ trait TblInvoiceTrait{
    * If you sent an invoice requesting a shipping address and the parameter is_flexible was specified, the Bot API will send an Update with a shipping_query field to the bot. Use this method to reply to shipping queries.
    * @param string $Id Unique identifier for the query to be answered
    * @param bool $Confirm Specify True if delivery to the specified address is possible and False if there are any problems (for example, if delivery to the specified address is not possible)
-   * @param TblInvoiceShippingOptions $Options Required if ok is True. A JSON-serialized array of available shipping options.
+   * @param TgInvoiceShippingOptions $Options Required if ok is True. A JSON-serialized array of available shipping options.
    * @param string $Error Required if ok is False. Error message in human readable form that explains why it is impossible to complete the order (e.g. "Sorry, delivery to your desired address is unavailable'). Telegram will display this message to the user.
    * @return bool On success, True is returned.
    * @throws TblException
@@ -312,8 +312,8 @@ trait TblInvoiceTrait{
   public function InvoiceShippingSend(
     string $Id,
     bool $Confirm,
-    TgInvoiceShippingOptions $Options = null,
-    string $Error = null
+    TgInvoiceShippingOptions|null $Options = null,
+    string|null $Error = null
   ):bool{
     $param['shipping_query_id'] = $Id;
     $param['ok'] = $Confirm;

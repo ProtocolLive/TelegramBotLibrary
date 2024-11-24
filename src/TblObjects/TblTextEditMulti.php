@@ -8,7 +8,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\TgLimits;
 use ProtocolLive\TelegramBotLibrary\TgParams\TgLinkPreview;
 
 /**
- * @version 2024.07.03.02
+ * @version 2024.11.23.00
  */
 final class TblTextEditMulti
 extends TblServerMulti{
@@ -26,16 +26,16 @@ extends TblServerMulti{
    * @link https://core.telegram.org/bots/api#editmessagetext
    */
   public function __construct(
-    string $Text,
-    int|string $Chat = null,
-    int $Id = null,
-    string $InlineId = null,
-    string $BusinessId = null,
-    TgParseMode $ParseMode = null,
-    TblEntities $Entities = null,
-    TgLinkPreview $LinkPreview = null,
-    TblMarkup $Markup = null,
-    int|string $MultiControl = null
+    string|null $Text = null,
+    int|string|null $Chat = null,
+    int|null $Id = null,
+    string|null $InlineId = null,
+    string|null $BusinessId = null,
+    TgParseMode|null $ParseMode = null,
+    TblEntities|null $Entities = null,
+    TgLinkPreview|null $LinkPreview = null,
+    TblMarkup|null $Markup = null,
+    int|string|null $MultiControl = null
   ){
     if($Id === null
     and $InlineId === null
@@ -70,15 +70,15 @@ extends TblServerMulti{
    */
   public function Add(
     string $Text,
-    int|string $Chat = null,
-    int $Id = null,
-    string $InlineId = null,
-    string $BusinessId = null,
-    TgParseMode $ParseMode = null,
-    TblEntities $Entities = null,
-    TgLinkPreview $LinkPreview = null,
-    TblMarkup $Markup = null,
-    int|string $MultiControl = null
+    int|string|null $Chat = null,
+    int|null $Id = null,
+    string|null $InlineId = null,
+    string|null $BusinessId = null,
+    TgParseMode|null $ParseMode = null,
+    TblEntities|null $Entities = null,
+    TgLinkPreview|null $LinkPreview = null,
+    TblMarkup|null $Markup = null,
+    int|string|null $MultiControl = null
   ):void{
     $this->Args[$MultiControl ?? $Chat] = self::BuildArgs(
       $Text,
@@ -108,14 +108,14 @@ extends TblServerMulti{
    */
   public static function BuildArgs(
     string $Text,
-    int|string $Chat = null,
-    int $Id = null,
-    string $InlineId = null,
-    string $BusinessId = null,
-    TgParseMode $ParseMode = null,
-    TblEntities $Entities = null,
-    TgLinkPreview $LinkPreview = null,
-    TblMarkup $Markup = null
+    int|string|null $Chat = null,
+    int|null $Id = null,
+    string|null $InlineId = null,
+    string|null $BusinessId = null,
+    TgParseMode|null $ParseMode = null,
+    TblEntities|null $Entities = null,
+    TgLinkPreview|null $LinkPreview = null,
+    TblMarkup|null $Markup = null
   ):array{
     if($InlineId === null
     and $BusinessId === null):

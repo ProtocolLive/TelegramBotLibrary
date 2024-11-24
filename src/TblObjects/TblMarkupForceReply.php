@@ -1,10 +1,12 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.02.01.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 
+/**
+ * @version 2024.11.23.00
+ */
 class TblMarkupForceReply
 extends TblMarkup{
   /**
@@ -26,7 +28,7 @@ extends TblMarkup{
    * @link https://core.telegram.org/bots/api#forcereply
    */
   public function __construct(
-    string $Placeholder = null,
+    string|null $Placeholder = null,
     bool $Selective = false
   ){
     $this->Markup['force_reply'] = true;

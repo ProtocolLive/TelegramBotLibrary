@@ -18,7 +18,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\TgPhoto;
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2024.11.01.00
+ * @version 2024.11.23.00
  */
 trait TblPhotoTrait{
   /**
@@ -60,19 +60,19 @@ trait TblPhotoTrait{
   public function PhotoSend(
     int|string $Chat,
     string $Photo,
-    int $Thread = null,
-    string $BusinessId = null,
-    string $Caption = null,
+    int|null $Thread = null,
+    string|null $BusinessId = null,
+    string|null $Caption = null,
     bool $CaptionAbove = false,
     TgParseMode $ParseMode = TgParseMode::Html,
-    TblEntities $Entities = null,
+    TblEntities|null $Entities = null,
     bool $DisableNotification = false,
     bool $Protect = false,
     bool $Spoiler = false,
     bool $AllowPaid = false,
-    TgReplyParams $Reply = null,
-    TblMarkup $Markup = null,
-    string $Effect = null
+    TgReplyParams|null $Reply = null,
+    TblMarkup|null $Markup = null,
+    string|null $Effect = null
   ):TgPhoto{
     $param = TblPhotoSendMulti::BuildArgs(
       Chat: $Chat,

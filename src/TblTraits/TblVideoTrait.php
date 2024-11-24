@@ -22,7 +22,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2024.11.23.00
+ * @version 2024.11.23.01
  */
 trait TblVideoTrait{
   /**
@@ -54,24 +54,24 @@ trait TblVideoTrait{
   public function VideoSend(
     int|string $Chat,
     string $Video,
-    int $Thread = null,
-    string $BusinessId = null,
-    int $Duration = null,
-    int $Width = null,
-    int $Height = null,
-    string $Thumbnail = null,
-    string $Caption = null,
+    int|null $Thread = null,
+    string|null $BusinessId = null,
+    int|null $Duration = null,
+    int|null $Width = null,
+    int|null $Height = null,
+    string|null $Thumbnail = null,
+    string|null $Caption = null,
     bool $CaptionAbove = false,
-    TgParseMode $ParseMode = null,
-    TblEntities $Entities = null,
+    TgParseMode|null $ParseMode = null,
+    TblEntities|null $Entities = null,
     bool $Spoiler = false,
     bool $Streaming = false,
     bool $DisableNotification = false,
     bool $Protect = false,
     bool $AllowPaid = false,
-    TgReplyParams $Reply = null,
-    TblMarkup $Markup = null,
-    string $Effect = null
+    TgReplyParams|null $Reply = null,
+    TblMarkup|null $Markup = null,
+    string|null $Effect = null
   ):TgVideo|TgVideoNote{
     $param['chat_id'] = $Chat;
     if($BusinessId !== null):
@@ -168,17 +168,17 @@ trait TblVideoTrait{
   public function VideoNoteSend(
     int|string $Chat,
     string $Video,
-    int $Thread = null,
-    string $BusinessId = null,
-    int $Duration = null,
-    int $Length = null,
-    string $Thumbnail = null,
+    int|null $Thread = null,
+    string|null $BusinessId = null,
+    int|null $Duration = null,
+    int|null $Length = null,
+    string|null $Thumbnail = null,
     bool $DisableNotification = false,
     bool $Protect = false,
     bool $AllowPaid = false,
-    TgReplyParams $Reply = null,
-    TblMarkup $Markup = null,
-    string $Effect = null
+    TgReplyParams|null $Reply = null,
+    TblMarkup|null $Markup = null,
+    string|null $Effect = null
   ):TgVideoNote|TgVideo{
     $param['chat_id'] = $Chat;
     if($BusinessId !== null):

@@ -11,7 +11,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 };
 
 /**
- * @version 2024.07.10.00
+ * @version 2024.11.23.00
  */
 trait TblForumTrait{
   /**
@@ -44,8 +44,8 @@ trait TblForumTrait{
   public function ForumCreate(
     int $Chat,
     string $Name,
-    string $Color = null,
-    string $Emoji = null
+    string|null $Color = null,
+    string|null $Emoji = null
   ):TgForumTopic{
     $param['chat_id'] = $Chat;
     $param['name'] = $Name;

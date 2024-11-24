@@ -15,8 +15,8 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\TgLimits;
 
 /**
  * This object contains information about one answer option in a poll to be sent.
- * @version 2024.07.04.00
  * @link https://core.telegram.org/bots/api#inputpolloption
+ * @version 2024.11.23.00
  */
 final class TblInputPollOptions{
   private array $Options = [];
@@ -26,8 +26,8 @@ final class TblInputPollOptions{
    */
   public function __construct(
     string $Text,
-    TgParseMode $ParseMode = null,
-    TblEntities $Entities = null
+    TgParseMode|null $ParseMode = null,
+    TblEntities|null $Entities = null
   ){
     $this->Add($Text, $ParseMode, $Entities);
   }
@@ -37,8 +37,8 @@ final class TblInputPollOptions{
    */
   public function Add(
     string $Text,
-    TgParseMode $ParseMode = null,
-    TblEntities $Entities = null
+    TgParseMode|null $ParseMode = null,
+    TblEntities|null $Entities = null
   ):void{
     if(count($this->Options) === TgLimits::PollOptionsMax):
       throw new TblException(
