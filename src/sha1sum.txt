@@ -211,4 +211,4 @@ fb691e15ce039a722373e758c31a542888d5168c  TgService\TgPinnedMsg.php
 dd5d27a5e5b9ed63ce5e8d0fdedef540f8a0fe03  TgService\TgVideoChatEnded.php
 e5293be5e2fa2bd08334ca73918f3302fbdf85d7  TgService\TgVideoChatScheduled.php
 55d84467221ebc9a75076595a33edba023520832  TgService\TgVideoChatStarted.php
-d0d0d490eae5cfcadad8341b34a33325c6cc4eb1  cacert.pem
+b0a93c92a2358cd0d9e9d202b6d60b69df9dab0b  cacert.pem
