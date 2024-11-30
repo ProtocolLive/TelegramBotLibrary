@@ -1,4 +1,4 @@
-948c993fd384bb0dc7640d9c57e8edeb648d1697  TblObjects\TblBasics.php
+e2f42ea0c8eecaa6b9a03fc8982382d319d4ff88  TblObjects\TblBasics.php
 98348c771bd7d82d69792d9ca69a09a1d3435517  TblObjects\TblCmd.php
 5163ad9681ab892adaf1a90afc9fc19b2a421b34  TblObjects\TblCmdEdited.php
 4423b1c2db62083995221a554c8ee4eafbc4f7f4  TblObjects\TblCommands.php
@@ -21,6 +21,7 @@ f55bc333fde3c765ffed659c2f11c1c18f287f67  TblObjects\TblServerMulti.php
 9c642da2b2c89d1d89563448d1966d16b3513f33  TblObjects\TblTextEditMulti.php
 da22d56754cc420bc6358285dc1c96d80357f324  TblObjects\TblTextSendMulti.php
 5f9ca90dd20914f32ca00c9fcae5e82d1183d0e7  TblObjects\TblWebhook.php
+06a81626bffb18a0b6386309608e55de2d6ffc2c  TblObjects\TgForumEdited.php
 f8cfc8a460c12878706682aebf53d50b0d600346  TblTraits\TblAnimationTrait.php
 8e783e1a42d1266fb1b3daa60855bc37fd7e938f  TblTraits\TblAudioTrait.php
 2fe15e8f89d7d3458e8fa4463a500442254fffc5  TblTraits\TblChatTrait.php
