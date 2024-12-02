@@ -5,10 +5,11 @@
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 use ProtocolLive\TelegramBotLibrary\TblObjects\TblBasics;
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgChatType;
+use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgMessageInterface;
 
 /**
  * @link https://core.telegram.org/bots/api#chat
- * @version 2024.07.05.00
+ * @version 2024.12.01.00
  */
 final readonly class TgChat{
   /**
@@ -124,7 +125,7 @@ final readonly class TgChat{
   /**
    * The most recent pinned message (by sending date). Returned only in getChat.
    */
-  public array $Pinned;
+  public TgMessageInterface|null $Pinned;
   /**
    * List of available reactions allowed in the chat. If omitted, then all emoji reactions are allowed. Returned only in getChat.
    */
@@ -161,11 +162,9 @@ final readonly class TgChat{
     else:
       $this->Photo = null;
     endif;
-    $temp = [];
-    foreach($Data['pinned_message'] ?? [] as $pinned):
-      $temp[] = TblBasics::DetectMessage($pinned);
-    endforeach;
-    $this->Pinned = $temp;
+    if(isset($Data['pinned_message'])):
+      $this->Pinned = TblBasics::DetectMessage($Data['pinned_message']);
+    endif;
     $temp = [];
     foreach($Data['available_reactions'] ?? [] as $reaction):
       $temp = new TgReaction($reaction);
