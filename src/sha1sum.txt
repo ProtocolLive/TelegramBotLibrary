@@ -21,7 +21,6 @@ f55bc333fde3c765ffed659c2f11c1c18f287f67  TblObjects\TblServerMulti.php
 9c642da2b2c89d1d89563448d1966d16b3513f33  TblObjects\TblTextEditMulti.php
 da22d56754cc420bc6358285dc1c96d80357f324  TblObjects\TblTextSendMulti.php
 5f9ca90dd20914f32ca00c9fcae5e82d1183d0e7  TblObjects\TblWebhook.php
-06a81626bffb18a0b6386309608e55de2d6ffc2c  TblObjects\TgForumEdited.php
 f8cfc8a460c12878706682aebf53d50b0d600346  TblTraits\TblAnimationTrait.php
 8e783e1a42d1266fb1b3daa60855bc37fd7e938f  TblTraits\TblAudioTrait.php
 2fe15e8f89d7d3458e8fa4463a500442254fffc5  TblTraits\TblChatTrait.php
@@ -102,7 +101,7 @@ cd33f37149cb362bc248790730591f2a899c202f  TgObjects\TgBusinessOpen.php
 a16cc2a56d5b36492a25f0fc4cde9997c70a034c  TgObjects\TgButtonCallback.php
 3fae94b1ded9e8f81bbedb83a20b1af177ef0f5c  TgObjects\TgButtonWebapp.php
 c7923387d126677423f5179ebb6897f9890992a1  TgObjects\TgCallback.php
-558d2b508fc00373b36e7d7bf42dad7727fe2b0f  TgObjects\TgChat.php
+4bab4b60316f39ebfdfeb74a2900a1dcd70eb374  TgObjects\TgChat.php
 9c57c2b67841a64a226982af551d4ce926a25c3f  TgObjects\TgChatBoost.php
 1de8a1a88c77f9b8b4c6bbaf7671b6a6578f3a1a  TgObjects\TgChatBoostAdded.php
 ccd4fd79493ef3ab18c1061b8967f6dab5f0d5af  TgObjects\TgChatBoostRemoved.php
@@ -122,6 +121,7 @@ ce33e0da5e2b40c5d01d6f329ae913ab248e04d3  TgObjects\TgErrors.php
 2ff9623b0ecedfa8d1c279c05828768edacba743  TgObjects\TgFile.php
 14d1c4303467b0337cd16110034d2605a6e77f80  TgObjects\TgForumClosed.php
 e46b53a3da09794089afbc8aa5b8764cb79f9994  TgObjects\TgForumCreated.php
+06a81626bffb18a0b6386309608e55de2d6ffc2c  TgObjects\TgForumEdited.php
 9558f3e51dc1159cf04fc6b922c251abb37b869e  TgObjects\TgForumReopened.php
 34ce59c98e6276ea44a3d80fb474b6e45cca52a6  TgObjects\TgForumTopic.php
 31d11915a0c37dd567eae7940310bc7432b04806  TgObjects\TgGame.php
