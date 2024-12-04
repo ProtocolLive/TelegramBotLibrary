@@ -30,6 +30,10 @@ extends TgTransactionPartner{
    * The duration of the paid subscription
    */
   public int|null $SubscriptionPeriod;
+  /**
+   * Information about the affiliate that received a commission via this transaction
+   */
+  public TgAffiliateInfo|null $Affiliate;
 
   public function __construct(
     array $Data

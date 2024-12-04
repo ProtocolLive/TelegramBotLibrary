@@ -5,7 +5,7 @@ A library to simplify and agregate the Telegram API functions.
 
 This library is developed in conjunction with the [SimpleTelegramBot](https://github.com/ProtocolLive/SimpleTelegramBot) project.
 
-Updated with Telegram Bot API 8.0 (2024-11-17)
+Updated with Telegram Bot API 8.1 (2024-12-04)
 
 ## Dependencies
 

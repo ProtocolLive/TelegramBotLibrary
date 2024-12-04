@@ -5,6 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 use ProtocolLive\TelegramBotLibrary\TgAuxiliary\{
   TgTransactionPartner,
+  TgTransactionPartnerAffiliateProgram,
   TgTransactionPartnerFragment,
   TgTransactionPartnerOther,
   TgTransactionPartnerTelegramAds,
@@ -15,7 +16,7 @@ use ProtocolLive\TelegramBotLibrary\TgAuxiliary\{
 /**
  * Describes a Telegram Star transaction.
  * @link https://core.telegram.org/bots/api#startransaction
- * @version 2024.11.02.00
+ * @version 2024.12.04.00
  */
 final readonly class TgStarTransaction{
   /**
@@ -26,6 +27,10 @@ final readonly class TgStarTransaction{
    * Number of Telegram Stars transferred by the transaction
    */
   public int $Amount;
+  /**
+   * The number of 1/1000000000 shares of Telegram Stars transferred by the transaction; from 0 to 999999999
+   */
+  public int $Nano;
   /**
    * Date the transaction was created in Unix time
    */
@@ -44,13 +49,14 @@ final readonly class TgStarTransaction{
   ){
     $this->Id = $Data['id'];
     $this->Amount = $Data['amount'];
+    $this->Nano = $Data['nanostar_amount'];
     $this->Date = $Data['date'];
     if(isset($Data['receiver'])):
       if($Data['receiver']['type'] === 'user'):
         $this->Receiver = new TgTransactionPartnerUser($Data['receiver']);
       elseif($Data['receiver']['type'] === 'fragment'):
         $this->Receiver = new TgTransactionPartnerFragment($Data['receiver']);
-      endif; //missing withdrawal
+      endif;
       $this->Source = null;
     else:
       if($Data['source']['type'] === 'user'):
@@ -63,6 +69,8 @@ final readonly class TgStarTransaction{
         $this->Source = new TgTransactionPartnerTelegramApi($Data['source']);
       elseif($Data['source']['type'] === 'other'):
         $this->Source = new TgTransactionPartnerOther;
+      elseif($Data['receiver']['type'] === 'affiliate_program'):
+        $this->Receiver = new TgTransactionPartnerAffiliateProgram($Data['receiver']);
       endif;
       $this->Receiver = null;
     endif;
