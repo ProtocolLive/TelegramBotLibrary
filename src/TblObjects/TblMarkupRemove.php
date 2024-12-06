@@ -1,10 +1,12 @@
 <?php
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
-//2023.02.05.00
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 
+/**
+ * @version 2023.02.05.00
+ */
 class TblMarkupRemove extends TblMarkup{
   /**
    * Upon receiving a message with this object, Telegram clients will remove the current custom keyboard and display the default letter-keyboard. By default, custom keyboards are displayed until a new keyboard is sent by a bot. An exception is made for one-time keyboards that are hidden immediately after the user presses a button (see ReplyKeyboardMarkup).
