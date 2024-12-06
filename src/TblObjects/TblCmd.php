@@ -13,7 +13,6 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgEntity;
 
 /**
- * Note: Extends TgObject to be a listener
  * @version 2024.04.22.00
  */
 readonly class TblCmd
