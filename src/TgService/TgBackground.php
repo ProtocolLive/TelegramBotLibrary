@@ -2,12 +2,12 @@
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
-namespace ProtocolLive\TelegramBotLibrary\TgObjects;
+namespace ProtocolLive\TelegramBotLibrary\TgService;
 use ProtocolLive\TelegramBotLibrary\TgAuxiliary\{
   TgBackgroundType,
-    TgBackgroundTypeChatTheme,
-    TgBackgroundTypeWallpaper,
-    TgMessageData
+  TgBackgroundTypeChatTheme,
+  TgBackgroundTypeWallpaper,
+  TgMessageData
 };
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgBackgroundType as TgBackgroundTypeEnum;
 use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
@@ -18,7 +18,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 /**
  * @link https://core.telegram.org/bots/api#chatbackground
  * 
- * @version 2024.05.07.00
+ * @version 2024.12.13.00
  */
 final readonly class TgBackground
 implements TgEventInterface,

@@ -2,7 +2,7 @@
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
-namespace ProtocolLive\TelegramBotLibrary\TgObjects;
+namespace ProtocolLive\TelegramBotLibrary\TgService;
 use ProtocolLive\TelegramBotLibrary\TgAuxiliary\TgMessageData;
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgCurrencies;
 use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
@@ -13,7 +13,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 /**
  * This object contains basic information about a successful payment.
  * @link https://core.telegram.org/bots/api#successfulpayment
- * @version 2024.11.17.00
+ * @version 2024.12.13.00
  */
 final readonly class TgInvoiceDone
 implements TgEventInterface,
