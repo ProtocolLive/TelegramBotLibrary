@@ -9,7 +9,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgMessageInterface;
 
 /**
  * @link https://core.telegram.org/bots/api#chat
- * @version 2024.12.01.00
+ * @version 2024.12.29.00
  */
 final readonly class TgChat{
   /**
@@ -128,6 +128,7 @@ final readonly class TgChat{
   public TgMessageInterface|null $Pinned;
   /**
    * List of available reactions allowed in the chat. If omitted, then all emoji reactions are allowed. Returned only in getChat.
+   * @var TgReaction[]
    */
   public array $Reactions;
 
@@ -167,7 +168,7 @@ final readonly class TgChat{
     endif;
     $temp = [];
     foreach($Data['available_reactions'] ?? [] as $reaction):
-      $temp = new TgReaction($reaction);
+      $temp[] = new TgReaction($reaction);
     endforeach;
     $this->Reactions = $temp;
     $this->BoostCountUnrestrict = $Data['unrestrict_boost_count'] ?? 0;
