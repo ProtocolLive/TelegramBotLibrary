@@ -10,7 +10,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 };
 
 /**
- * @version 2024.11.02.00
+ * @version 2025.01.02.00
  */
 final class TgInlineQueryArticle
 implements TgInlineQueryInterface{
@@ -21,7 +21,6 @@ implements TgInlineQueryInterface{
    * @param TgInlineQueryContentInterface $Message Content of the message to be sent
    * @param TblMarkup $Markup Inline keyboard attached to the message
    * @param string $Url URL of the result
-   * @param bool $UrlHide Pass True, if you don't want the URL to be shown in the message
    * @param string $Description Short description of the result
    * @param string $Thumb Url of the thumbnail for the result
    * @param int $ThumbWidth Thumbnail width
@@ -34,7 +33,6 @@ implements TgInlineQueryInterface{
     public TgInlineQueryContentInterface $Message,
     public TblMarkup|null $Markup = null,
     public string|null $Url = null,
-    public bool|null $UrlHide = false,
     public string|null $Description = null,
     public string|null $Thumb = null,
     public int|null $ThumbWidth = null,
@@ -53,9 +51,6 @@ implements TgInlineQueryInterface{
     endif;
     if($this->Url !== null):
       $param['url'] = $this->Url;
-    endif;
-    if($this->UrlHide):
-      $param['hide_url'] = true;
     endif;
     if($this->Description !== null):
       $param['description'] = $this->Description;
