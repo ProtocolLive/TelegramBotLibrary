@@ -26,7 +26,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2024.11.23.00
+ * @version 2025.01.02.00
  */
 trait TblStarsTrait{
   public function GiftAvailableGet():TgGifts{
@@ -47,7 +47,8 @@ trait TblStarsTrait{
     string $Gift,
     string|null $Text = null,
     TgParseMode|null $ParseMode = null,
-    TblEntities|null $Entities = null
+    TblEntities|null $Entities = null,
+    bool $Upgrade = false
   ):true{
     $param['user_id'] = $User;
     $param['gift_id'] = $Gift;
@@ -59,6 +60,9 @@ trait TblStarsTrait{
     endif;
     if($Entities !== null):
       $param['entities'] = $Entities->ToArray();
+    endif;
+    if($Upgrade):
+      $param['pay_for_upgrade'] = true;
     endif;
     return $this->ServerMethod(TgMethods::GiftSend, $param);
   }

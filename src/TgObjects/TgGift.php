@@ -7,7 +7,7 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 /**
  * This object represents a gift that can be sent by the bot.
  * @link https://core.telegram.org/bots/api#gift
- * @version 2014.11.20.01
+ * @version 2025.01.02.00
  */
 final readonly class TgGift{
   /**
@@ -27,6 +27,10 @@ final readonly class TgGift{
    */
   public int|null $Remaining;
   /**
+   * The number of Telegram Stars that must be paid to upgrade the gift to a unique one
+   */
+  public int|null $Upgrade;
+  /**
    * The sticker that represents the gift
    */
   public TgSticker $Sticker;
@@ -39,5 +43,6 @@ final readonly class TgGift{
     $this->Price = $Data['star_count'];
     $this->Count = $Data['total_count'] ?? null;
     $this->Remaining = $Data['remaining_count'] ?? null;
+    $this->Upgrade = $Data['upgrade_star_count'] ?? null;
   }
 }
