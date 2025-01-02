@@ -28,6 +28,7 @@ use ProtocolLive\TelegramBotLibrary\TblTraits\{
   TblStarsTrait,
   TblTextTrait,
   TblUserTrait,
+  TblVerifyTrait,
   TblVideoTrait
 };
 use ProtocolLive\TelegramBotLibrary\TgEnums\{
@@ -75,7 +76,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2024.11.23.01
+ * @version 2025.01.02.00
  */
 final class TelegramBotLibrary
 extends TblBasics{
@@ -93,6 +94,7 @@ extends TblBasics{
   use TblStarsTrait;
   use TblTextTrait;
   use TblUserTrait;
+  use TblVerifyTrait;
   use TblVideoTrait;
 
   /**

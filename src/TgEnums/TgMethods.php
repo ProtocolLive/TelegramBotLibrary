@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TgEnums;
 
 /**
- * @version 2024.11.19.01
+ * @version 2025.01.02.00
  */
 enum TgMethods:string{
   /**
@@ -420,6 +420,22 @@ enum TgMethods:string{
    * @link https://core.telegram.org/bots/api#sendvenue
    */
   case VenueSend = 'sendVenue';
+  /**
+   * @link https://core.telegram.org/bots/api#verifychat
+   */
+  case VerifyChat = 'verifyChat';
+  /**
+   * @link https://core.telegram.org/bots/api#removechatverification
+   */
+  case VerifyChatDel = 'removeChatVerification';
+  /**
+   * @link https://core.telegram.org/bots/api#verifyuser
+   */
+  case VerifyUser = 'verifyUser';
+  /**
+   * @link https://core.telegram.org/bots/api#removeuserverification
+   */
+  case VerifyUserDel = 'removeUserVerification';
   /**
    * @link https://core.telegram.org/bots/api#sendvideo
    */
