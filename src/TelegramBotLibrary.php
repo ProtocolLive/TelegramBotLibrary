@@ -473,6 +473,7 @@ extends TblBasics{
    * @param TblMarkup $Markup Additional interface options. A object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
    * @param bool $CaptionAbove If the caption must be shown above the message media
    * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+   * @param int $VideoStart New start timestamp for the copied video in the message
    * @return int Returns the MessageId of the sent message on success.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#copymessage
@@ -484,6 +485,7 @@ extends TblBasics{
     int|null $Thread = null,
     string|null $Caption = null,
     bool $CaptionAbove = false,
+    int $VideoStart = 0,
     TblEntities|null $Entities = null,
     TgParseMode|null $ParseMode = null,
     bool $DisableNotification = false,
@@ -535,6 +537,9 @@ extends TblBasics{
     if($CaptionAbove):
       $param['show_caption_above_media'] = true;
     endif;
+    if($VideoStart > 0):
+      $param['video_start_timestamp'] = $VideoStart;
+    endif;
     $return = $this->ServerMethod(TgMethods::MessageCopy, $param);
     return $return['message_id'];
   }
@@ -572,6 +577,7 @@ extends TblBasics{
    * @param int $Thread Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
    * @param bool $DisableNotification Sends the message silently. Users will receive a notification with no sound.
    * @param bool $Protect Protects the contents of the forwarded message from forwarding and saving
+   * @param int $VideoStart New start timestamp for the forwarded video in the message
    * @return object On success, the sent Message is returned.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#forwardmessage
@@ -580,6 +586,7 @@ extends TblBasics{
     int $From,
     int $Id,
     int $To,
+    int $VideoStart = 0,
     int|null $Thread = null,
     bool $DisableNotification = false,
     bool $Protect = false
@@ -595,6 +602,9 @@ extends TblBasics{
     endif;
     if($Protect):
       $param['protect_content'] = true;
+    endif;
+    if($VideoStart > 0):
+      $param['video_start_timestamp'] = $VideoStart;
     endif;
     $return = $this->ServerMethod(TgMethods::MessageForward, $param);
     return $this->DetectReturn(['message' => $return]);

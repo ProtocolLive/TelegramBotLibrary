@@ -22,7 +22,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2024.11.23.01
+ * @version 2025.02.13.00
  */
 trait TblVideoTrait{
   /**
@@ -47,6 +47,8 @@ trait TblVideoTrait{
    * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
    * @param bool $CaptionAbove If the caption must be shown above the message media
    * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+   * @param string $Cover Cover for the video in the message. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://<file_attach_name>” to upload a new one using multipart/form-data under <file_attach_name> name.
+   * @param int $Start Start timestamp for the video in the message
    * @return TgVideo On success, the sent Message is returned.
    * @link https://core.telegram.org/bots/api#sendvideo
    * @throws TblException
@@ -62,6 +64,8 @@ trait TblVideoTrait{
     string|null $Thumbnail = null,
     string|null $Caption = null,
     bool $CaptionAbove = false,
+    string $Cover = null,
+    string $Start = 0,
     TgParseMode|null $ParseMode = null,
     TblEntities|null $Entities = null,
     bool $Spoiler = false,
@@ -138,6 +142,12 @@ trait TblVideoTrait{
     endif;
     if($CaptionAbove):
       $param['show_caption_above_media'] = true;
+    endif;
+    if($Cover !== null):
+      $param['cover'] = is_file($Cover) ? new CURLFile($Cover) : $Cover;
+    endif;
+    if($Start > 0):
+      $param['start_timestamp'] = $Start;
     endif;
     return parent::DetectMessage($this->ServerMethod(
       TgMethods::VideoSend,

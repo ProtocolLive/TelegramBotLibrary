@@ -15,8 +15,8 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\TgLimits;
 
 /**
  * Represents a video to be sent.
- * @version 2024.07.04.00
  * @link https://core.telegram.org/bots/api#inputmediavideo
+ * @version 2025.02.13.00
  */
 final class TgVideoGroup{
   /**
@@ -30,11 +30,15 @@ final class TgVideoGroup{
    * @param int $Duration Optional. Video duration in seconds
    * @param bool $Streaming Optional. Pass True if the uploaded video is suitable for streaming
    * @param bool $Spoiler Optional. Pass True if the photo needs to be covered with a spoiler animation
+   * @param string $Cover Cover for the video in the message. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://<file_attach_name>” to upload a new one using multipart/form-data under <file_attach_name> name.
+   * @param int $Start Start timestamp for the video in the message
    */
   public function __construct(
     public string $Document,
     public string|null $Thumbnail = null,
     public string|null $Caption = null,
+    public string|null $Cover = null,
+    public int|null $Start = null,
     public TgParseMode|null $ParseMode = null,
     public TblEntities|null $Entities = null,
     public int|null $Width = null,
@@ -77,6 +81,12 @@ final class TgVideoGroup{
     endif;
     if($this->Spoiler):
       $param['has_spoiler'] = true;
+    endif;
+    if($this->Cover !== null):
+      $param['cover'] = $this->Cover;
+    endif;
+    if($this->Start !== null):
+      $param['start_timestamp'] = $this->Start;
     endif;
     return $param;
   }

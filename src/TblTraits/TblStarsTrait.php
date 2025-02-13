@@ -26,7 +26,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2025.01.02.00
+ * @version 2025.02.13.00
  */
 trait TblStarsTrait{
   public function GiftAvailableGet():TgGifts{
@@ -35,7 +35,8 @@ trait TblStarsTrait{
 
   /**
    * Sends a gift to the given user. The gift can't be converted to Telegram Stars by the user.
-   * @param int $User Unique identifier of the target user that will receive the gift
+   * @param int $User Required if chat_id is not specified. Unique identifier of the target user who will receive the gift.
+   * @param int|string $Chat Required if user_id is not specified. Unique identifier for the chat or username of the channel (in the format @channelusername) that will receive the gift.
    * @param string $Gift Identifier of the gift
    * @param string $Text Text that will be shown along with the gift; 0-255 characters
    * @param TgParseMode $ParseMode Mode for parsing entities in the text. See formatting options for more details. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, and “custom_emoji” are ignored.
@@ -44,13 +45,18 @@ trait TblStarsTrait{
    */
   public function GiftSend(
     int $User,
+    int|string $Chat,
     string $Gift,
     string|null $Text = null,
     TgParseMode|null $ParseMode = null,
     TblEntities|null $Entities = null,
     bool $Upgrade = false
   ):true{
-    $param['user_id'] = $User;
+    if($User !== null):
+      $param['user_id'] = $User;
+    else:
+      $param['chat_id'] = $Chat;
+    endif;
     $param['gift_id'] = $Gift;
     if($Text !== null):
       $param['text'] = $Text;

@@ -16,7 +16,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 
 /**
  * @link https://core.telegram.org/bots/api#video
- * @version 2024.04.11.01
+ * @version 2025.02.13.00
  */
 readonly class TgVideo
 implements TgCaptionableInterface,
@@ -59,6 +59,15 @@ TgMessageInterface{
    * MIME type of the file as defined by sender
    */
   public string $Mime;
+  /**
+   * Available sizes of the cover of the video in the message
+   * @var TgPhotoSize[]
+   */
+  public array $Cover;
+  /**
+   * Timestamp in seconds from which the video will play in the message
+   */
+  public int $Start;
 
   public function __construct(
     array $Data
@@ -81,5 +90,10 @@ TgMessageInterface{
     $this->Duration = $Data['video']['duration'] ?? $Data['duration'];
     $this->Size = $Data['video']['file_size'] ?? $Data['file_size'];
     $this->Mime = $Data['video']['mime_type'] ?? $Data['mime_type'];
+    foreach($Data['video']['cover'] as $cover):
+      $temp[] = new TgPhotoSize($cover);
+    endforeach;
+    $this->Cover = $temp;
+    $this->Start = $Data['video']['start'] ?? 0;
   }
 }

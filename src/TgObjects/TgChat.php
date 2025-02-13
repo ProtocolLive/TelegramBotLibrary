@@ -9,7 +9,8 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgMessageInterface;
 
 /**
  * @link https://core.telegram.org/bots/api#chat
- * @version 2024.12.29.00
+ * @link https://core.telegram.org/bots/api#chatfullinfo
+ * @version 2025.02.13.00
  */
 final readonly class TgChat{
   /**
@@ -131,6 +132,10 @@ final readonly class TgChat{
    * @var TgReaction[]
    */
   public array $Reactions;
+  /**
+   * If gifts can be sent to the chat
+   */
+  public bool $Gifts;
 
   public function __construct(
     array $Data
@@ -176,5 +181,6 @@ final readonly class TgChat{
     $this->StickerSet = $Data['sticker_set_name'] ?? null;
     $this->SetStickerSet = $Data['can_set_sticker_set'] ?? false;
     $this->PaidMedia = $Data['can_send_paid_media'] ?? false;
+    $this->Gifts = $Data['can_send_gift'] ?? false;
   }
 }
