@@ -22,7 +22,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2025.02.13.00
+ * @version 2025.02.21.00
  */
 trait TblVideoTrait{
   /**
@@ -65,7 +65,7 @@ trait TblVideoTrait{
     string|null $Caption = null,
     bool $CaptionAbove = false,
     string $Cover = null,
-    string $Start = 0,
+    int $Start = 0,
     TgParseMode|null $ParseMode = null,
     TblEntities|null $Entities = null,
     bool $Spoiler = false,
