@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TgEnums;
 
 /**
- * @version 2025.01.02.00
+ * @version 2025.04.11.00
  */
 enum TgMethods:string{
   /**
@@ -17,9 +17,37 @@ enum TgMethods:string{
    */
   case AudioSend = 'sendAudio';
   /**
+   * @link https://core.telegram.org/bots/api#deletebusinessmessages
+   */
+  case BusinessDel = 'deleteBusinessMessages';
+  /**
+   * @link https://core.telegram.org/bots/api#removebusinessaccountprofilephoto
+   */
+  case BusinessDelPhoto = 'removeBusinessAccountProfilePhoto';
+  /**
    * @link https://core.telegram.org/bots/api#getbusinessconnection
    */
   case BusinessGet = 'getBusinessConnection';
+  /**
+   * @link https://core.telegram.org/bots/api#readbusinessmessage
+   */
+  case BusinessRead = 'readBusinessMessage';
+  /**
+   * @link https://core.telegram.org/bots/api#setbusinessaccountbio
+   */
+  case BusinessSetBio = 'setBusinessAccountBio';
+  /**
+   * @link https://core.telegram.org/bots/api#setbusinessaccountusername
+   */
+  case BusinessSetNick = 'setBusinessAccountUsername';
+  /**
+   * @link https://core.telegram.org/bots/api#setbusinessaccountname
+   */
+  case BusinessSetName = 'setBusinessAccountName';
+  /**
+   * @link https://core.telegram.org/bots/api#setbusinessaccountprofilephoto
+   */
+  case BusinessSetPhoto = 'setBusinessAccountProfilePhoto';
   /**
    * @link https://core.telegram.org/bots/api#answercallbackquery
    */
