@@ -3,7 +3,10 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
-use ProtocolLive\TelegramBotLibrary\TgAuxiliary\TgMessageData;
+use ProtocolLive\TelegramBotLibrary\TgAuxiliary\{
+  TgBusinessRights,
+  TgMessageData
+};
 use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgEventInterface;
 
 /**
@@ -22,13 +25,13 @@ implements TgEventInterface{
    */
   public int $Date;
   /**
-   * If the bot can act on behalf of the business account in chats that were active in the last 24 hours
-   */
-  public bool $Reply;
-  /**
    * If the connection is active
    */
   public bool $Enabled;
+  /**
+   * Rights of the business bot
+   */
+  public TgBusinessRights $Rights;
 
   public function __construct(
     array $Data
@@ -36,7 +39,7 @@ implements TgEventInterface{
     $this->Data = new TgMessageData($Data);
     $this->UserId = $Data['user_chat_id'];
     $this->Date = $Data['date'];
-    $this->Reply = $Data['can_reply'];
     $this->Enabled = $Data['is_enabled'];
+    $this->Rights = new TgBusinessRights($Data['rights']);
   }
 }
