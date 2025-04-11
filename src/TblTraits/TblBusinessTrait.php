@@ -4,10 +4,12 @@
 
 namespace ProtocolLive\TelegramBotLibrary\TblTraits;
 use CURLFile;
+use ProtocolLive\TelegramBotLibrary\TblObjects\TblException;
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgMethods;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgBusinessConnection;
 
 /**
- * @version 2025.04.11.00
+ * @version 2025.04.11.01
  */
 trait TblBusinessTrait{
   /**
@@ -58,6 +60,20 @@ trait TblBusinessTrait{
     $param['business_connection_id'] = $BusinessId;
     $param['public'] = $Public;
     return $this->ServerMethod(TgMethods::BusinessDelPhoto, $param);
+  }
+
+  /**
+   * Use this method to get information about the connection of the bot with a business account. Returns a BusinessConnection object on success.
+   * @param string $Id Unique identifier for the business account
+   * @throws TblException
+   * @link https://core.telegram.org/bots/api#getbusinessconnection
+   */
+  public function BusinessGet(
+    string $Id
+  ):TgBusinessConnection{
+    return new TgBusinessConnection(
+      $this->ServerMethod(TgMethods::BusinessGet, ['business_connection_id' => $Id])
+    );
   }
 
   /**

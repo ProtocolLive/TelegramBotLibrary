@@ -77,7 +77,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2025.04.11.00
+ * @version 2025.04.11.01
  */
 final class TelegramBotLibrary
 extends TblBasics{
@@ -110,20 +110,6 @@ extends TblBasics{
     endif;
     $this->BotData = $BotData;
     $_SERVER['HTTP_USER_AGENT'] ??= 'Protocol TelegramBotLibrary';
-  }
-
-  /**
-   * Use this method to get information about the connection of the bot with a business account. Returns a BusinessConnection object on success.
-   * @param string $Id Unique identifier for the business account
-   * @throws TblException
-   * @link https://core.telegram.org/bots/api#getbusinessconnection
-   */
-  public function BusinessGet(
-    string $Id
-  ):TgBusinessConnection{
-    return new TgBusinessConnection(
-      $this->ServerMethod(TgMethods::BusinessGet, ['business_connection_id' => $Id])
-    );
   }
 
   /**
