@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TgEnums;
 
 /**
- * @version 2025.04.11.00
+ * @version 2025.04.11.01
  */
 enum TgMethods:string{
   /**
@@ -29,6 +29,14 @@ enum TgMethods:string{
    */
   case BusinessGet = 'getBusinessConnection';
   /**
+   * @link https://core.telegram.org/bots/api#getbusinessaccountstarbalance
+   */
+  case BusinessGetStars = 'getBusinessAccountStarBalance';
+  /**
+   * @link https://core.telegram.org/bots/api#setbusinessaccountgiftsettings
+   */
+  case BusinessGiftPrivacy = 'setBusinessAccountGiftSettings';
+  /**
    * @link https://core.telegram.org/bots/api#readbusinessmessage
    */
   case BusinessRead = 'readBusinessMessage';
@@ -48,6 +56,10 @@ enum TgMethods:string{
    * @link https://core.telegram.org/bots/api#setbusinessaccountprofilephoto
    */
   case BusinessSetPhoto = 'setBusinessAccountProfilePhoto';
+  /**
+   * @link https://core.telegram.org/bots/api#transferbusinessaccountstars
+   */
+  case BusinessTransfer = 'transferBusinessAccountStars';
   /**
    * @link https://core.telegram.org/bots/api#answercallbackquery
    */

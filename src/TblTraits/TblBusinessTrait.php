@@ -6,10 +6,13 @@ namespace ProtocolLive\TelegramBotLibrary\TblTraits;
 use CURLFile;
 use ProtocolLive\TelegramBotLibrary\TblObjects\TblException;
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgMethods;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgBusinessConnection;
+use ProtocolLive\TelegramBotLibrary\TgObjects\{
+  TgBusinessConnection,
+  TgStarAmount
+};
 
 /**
- * @version 2025.04.11.01
+ * @version 2025.04.11.02
  */
 trait TblBusinessTrait{
   /**
@@ -74,6 +77,48 @@ trait TblBusinessTrait{
     return new TgBusinessConnection(
       $this->ServerMethod(TgMethods::BusinessGet, ['business_connection_id' => $Id])
     );
+  }
+
+  /**
+   * Returns the amount of Telegram Stars owned by a managed business account. Requires the can_view_gifts_and_stars business bot right.
+   * @param string $BusinessId Unique identifier of the business connection
+   * @return TgStarAmount
+   * @link https://core.telegram.org/bots/api#getbusinessaccountstarbalance
+   */
+  public function BusinessGetStars(
+    string $BusinessId
+  ):TgStarAmount{
+    $param['business_connection_id'] = $BusinessId;
+    return new TgStarAmount($this->ServerMethod(TgMethods::BusinessGetStars, $param));
+  }
+
+  /**
+   * Changes the privacy settings pertaining to incoming gifts in a managed business account. Requires the can_change_gift_settings business bot right.
+   * @param string $BusinessId Unique identifier of the business connection
+   * @param bool $Button If a button for sending a gift to the user or by the business account must always be shown in the input field
+   * @param bool $Unlimited If unlimited regular gifts are accepted
+   * @param bool $Limited If limited regular gifts are accepted
+   * @param bool $Unique If unique gifts or gifts that can be upgraded to unique for free are accepted
+   * @param bool $Premium If a Telegram Premium subscription is accepted
+   * @return true
+   * @link https://core.telegram.org/bots/api#setbusinessaccountgiftsettings
+   * @link https://core.telegram.org/bots/api#acceptedgifttypes
+   */
+  public function BusinessGiftPrivacy(
+    string $BusinessId,
+    bool $Button,
+    bool $Unlimited,
+    bool $Limited,
+    bool $Unique,
+    bool $Premium
+  ):true{
+    $param['business_connection_id'] = $BusinessId;
+    $param['show_gift_button'] = $Button;
+    $param['accepted_gift_types']['unlimited_gifts'] = $Unlimited;
+    $param['accepted_gift_types']['limited_gifts'] = $Limited;
+    $param['accepted_gift_types']['unique_gifts'] = $Unique;
+    $param['accepted_gift_types']['premium_subscription'] = $Premium;
+    return $this->ServerMethod(TgMethods::BusinessGiftPrivacy, $param);
   }
 
   /**
@@ -168,5 +213,21 @@ trait TblBusinessTrait{
     endif;
     $param['is_public'] = $Public;
     return $this->ServerMethod(TgMethods::BusinessSetPhoto, $param, false);
+  }
+
+  /**
+   * Transfers Telegram Stars from the business account balance to the bot's balance. Requires the can_transfer_stars business bot right.
+   * @param string $BusinessId Unique identifier of the business connection
+   * @param int $Stars Number of Telegram Stars to transfer; 1-10000
+   * @return true
+   * @link https://core.telegram.org/bots/api#transferbusinessaccountstars
+   */
+  public function BusinessTransfer(
+    string $BusinessId,
+    int $Stars
+  ):true{
+    $param['business_connection_id'] = $BusinessId;
+    $param['star_count'] = $Stars;
+    return $this->ServerMethod(TgMethods::BusinessTransfer, $param);
   }
 }
