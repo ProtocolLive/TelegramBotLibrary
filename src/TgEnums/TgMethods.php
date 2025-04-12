@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TgEnums;
 
 /**
- * @version 2025.04.11.01
+ * @version 2025.04.12.00
  */
 enum TgMethods:string{
   /**
@@ -28,6 +28,10 @@ enum TgMethods:string{
    * @link https://core.telegram.org/bots/api#getbusinessconnection
    */
   case BusinessGet = 'getBusinessConnection';
+  /**
+   * @link https://core.telegram.org/bots/api#getbusinessaccountgifts
+   */
+  case BusinessGetGifts = 'getBusinessAccountGifts';
   /**
    * @link https://core.telegram.org/bots/api#getbusinessaccountstarbalance
    */

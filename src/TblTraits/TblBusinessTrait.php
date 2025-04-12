@@ -8,11 +8,12 @@ use ProtocolLive\TelegramBotLibrary\TblObjects\TblException;
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgMethods;
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgBusinessConnection,
+  TgGiftsOwned,
   TgStarAmount
 };
 
 /**
- * @version 2025.04.11.02
+ * @version 2025.04.12.00
  */
 trait TblBusinessTrait{
   /**
@@ -77,6 +78,60 @@ trait TblBusinessTrait{
     return new TgBusinessConnection(
       $this->ServerMethod(TgMethods::BusinessGet, ['business_connection_id' => $Id])
     );
+  }
+
+  /**
+   * Returns the gifts received and owned by a managed business account. Requires the can_view_gifts_and_stars business bot right.
+   * @param string $BusinessId Unique identifier of the business connection
+   * @param bool $Unsaved To include gifts that aren't saved to the account's profile page
+   * @param bool $Saved To include gifts that are saved to the account's profile page
+   * @param bool $Unlimited To include gifts that can be purchased an unlimited number of times
+   * @param bool $Limited To include gifts that can be purchased a limited number of times
+   * @param bool $Unique To include unique gifts
+   * @param bool $SortByPrice To sort results by gift price instead of send date. Sorting is applied before pagination.
+   * @param string|null $Offset Offset of the first entry to return as received from the previous request; use empty string to get the first chunk of results
+   * @param int $Limit The maximum number of gifts to be returned; 1-100. Defaults to 100
+   * @return TgGiftsOwned
+   * @link https://core.telegram.org/bots/api#getbusinessaccountgifts
+   */
+  public function BusinessGetGifts(
+    string $BusinessId,
+    bool $Unsaved = true,
+    bool $Saved = true,
+    bool $Unlimited = true,
+    bool $Limited = true,
+    bool $Unique = true,
+    bool $SortByPrice = true,
+    string|null $Offset = null,
+    int $Limit = 100,
+  ):TgGiftsOwned{
+    $param['business_connection_id'] = $BusinessId;
+    if($Unsaved === false):
+      $param['exclude_unsaved'] = true;
+    endif;
+    if($Saved === false):
+      $param['exclude_saved'] = true;
+    endif;
+    if($Unlimited === false):
+      $param['exclude_unlimited'] = true;
+    endif;
+    if($Limited === false):
+      $param['exclude_limited'] = true;
+    endif;
+    if($Unique === false):
+      $param['exclude_unique'] = true;
+    endif;
+    if($SortByPrice):
+      $param['sort_by_price'] = true;
+    endif;
+    if($Offset !== null):
+      $param['offset'] = $Offset;
+    endif;
+    if($Limit > 0
+    and $Limit < 100):
+      $param['limit'] = $Limit;
+    endif;
+    return new TgGiftsOwned($this->ServerMethod(TgMethods::BusinessGetGifts, $param));
   }
 
   /**
