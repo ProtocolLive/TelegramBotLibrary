@@ -2,11 +2,11 @@
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
-namespace ProtocolLive\TelegramBotLibrary\TgObjects;
+namespace ProtocolLive\TelegramBotLibrary\TgAuxiliary;
 
 /**
- * @version 2024.03.31.00
  * @link https://core.telegram.org/bots/api#businessopeninghoursinterval
+ * @version 2025.04.12.00
  */
 final readonly class TgBusinessInterval{
   /**

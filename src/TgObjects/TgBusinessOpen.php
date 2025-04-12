@@ -3,10 +3,11 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
+use ProtocolLive\TelegramBotLibrary\TgAuxiliary\TgBusinessInterval;
 
 /**
- * @version 2024.03.31.00
  * @link https://core.telegram.org/bots/api#businessopeninghours
+ * @version 2025.04.12.00
  */
 final readonly class TgBusinessOpen{
   /**
@@ -15,6 +16,7 @@ final readonly class TgBusinessOpen{
   public string $TimeZone;
   /**
    * List of time intervals describing business opening hours
+   * @var TgBusinessInterval[]
    */
   public array $Hours;
 
