@@ -12,7 +12,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 
 /**
  * @link https://core.telegram.org/bots/api#message
- * @version 2024.04.16.00
+ * @version 2025.04.12.00
  */
 readonly class TgText
 implements TgEventInterface,
@@ -20,6 +20,9 @@ TgForwadableInterface,
 TgMessageInterface{
   public TgMessageData $Data;
   public string $Text;
+  /**
+   * @var TgEntity[]
+   */
   public array $Entities;
 
   /**
