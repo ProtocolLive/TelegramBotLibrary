@@ -11,7 +11,7 @@ use ProtocolLive\TelegramBotLibrary\TgAuxiliary\{
 /**
  * Contains the list of gifts received and owned by a user or a chat.
  * @link https://core.telegram.org/bots/api#ownedgifts
- * @version 2025.04.12.00
+ * @version 2025.04.12.01
  */
 final readonly class TgGiftsOwned{
   /**
@@ -24,6 +24,7 @@ final readonly class TgGiftsOwned{
   public string|null $NextOffset;
   /**
    * The list of gifts
+   * @var TgGiftOwnedRegular[]|TgGiftOwnedUnique[]
    */
   public array $Gifts;
 
