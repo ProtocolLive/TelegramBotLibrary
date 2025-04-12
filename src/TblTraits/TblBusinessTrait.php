@@ -13,7 +13,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 };
 
 /**
- * @version 2025.04.12.00
+ * @version 2025.04.12.01
  */
 trait TblBusinessTrait{
   /**
@@ -78,6 +78,23 @@ trait TblBusinessTrait{
     return new TgBusinessConnection(
       $this->ServerMethod(TgMethods::BusinessGet, ['business_connection_id' => $Id])
     );
+  }
+
+
+  /**
+   * Converts a given regular gift to Telegram Stars. Requires the can_convert_gifts_to_stars business bot right.
+   * @param string $BusinessId Unique identifier of the business connection
+   * @param int $GiftId Unique identifier of the regular gift that should be converted to Telegram Stars
+   * @return true
+   * @link https://core.telegram.org/bots/api#convertgifttostars
+   */
+  public function BusinessGiftToStars(
+    string $BusinessId,
+    int $GiftId
+  ):true{
+    $param['business_connection_id'] = $BusinessId;
+    $param['owned_gift_id'] = $GiftId;
+    return $this->ServerMethod(TgMethods::BusinessGiftToStars, $param);
   }
 
   /**
