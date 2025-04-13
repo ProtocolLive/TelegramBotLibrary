@@ -13,7 +13,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 };
 
 /**
- * @version 2025.04.13.01
+ * @version 2025.04.13.02
  */
 trait TblBusinessTrait{
   /**
@@ -122,6 +122,57 @@ trait TblBusinessTrait{
     $param['business_connection_id'] = $BusinessId;
     $param['owned_gift_id'] = $GiftId;
     return $this->ServerMethod(TgMethods::BusinessGiftToStars, $param);
+  }
+
+  /**
+   * Upgrades a given regular gift to a unique gift. Requires the can_transfer_and_upgrade_gifts business bot right. Additionally requires the can_transfer_stars business bot right if the upgrade is paid.
+   * @param string $BusinessId Unique identifier of the business connection
+   * @param string $Id Unique identifier of the regular gift that should be upgraded to a unique one
+   * @param bool $KeepDetails Pass True to keep the original gift text, sender and receiver in the upgraded gift
+   * @param int|null $Stars The amount of Telegram Stars that will be paid for the upgrade from the business account balance. If gift.prepaid_upgrade_star_count > 0, then pass 0, otherwise, the can_transfer_stars business bot right is required and gift.upgrade_star_count must be passed.
+   * @return true
+   * @link https://core.telegram.org/bots/api#upgradegift
+   */
+  public function BusinessGiftUpgrade(
+    string $BusinessId,
+    string $Id,
+    bool $KeepDetails = false,
+    int|null $Stars = null
+  ):true{
+    $param['business_connection_id'] = $BusinessId;
+    $param['owned_gift_id'] = $Id;
+    if($KeepDetails):
+      $param['keep_original_details'] = $KeepDetails;
+    endif;
+    if($Stars !== null
+    and $Stars >= 0):
+      $param['star_count'] = $Stars;
+    endif;
+    return $this->ServerMethod(TgMethods::BusinessGiftUpgrade, $param);
+  }
+
+  /**
+   * Transfers an owned unique gift to another user. Requires the can_transfer_and_upgrade_gifts business bot right. Requires can_transfer_stars business bot right if the transfer is paid.
+   * @param string $BusinessId Unique identifier of the business connection
+   * @param string $Id Unique identifier of the regular gift that should be transferred
+   * @param int $Chat Unique identifier of the chat which will own the gift. The chat must be active in the last 24 hours.
+   * @param int|null $Stars The amount of Telegram Stars that will be paid for the transfer from the business account balance. If positive, then the can_transfer_stars business bot right is required.
+   * @return true
+   * @link https://core.telegram.org/bots/api#transfergift
+   */
+  public function BusinessGiftSend(
+    string $BusinessId,
+    string $Id,
+    int $Chat,
+    int|null $Stars = null
+  ):true{
+    $param['business_connection_id'] = $BusinessId;
+    $param['owned_gift_id'] = $Id;
+    $param['new_owner_chat_id'] = $Chat;
+    if($Stars !== null):
+      $param['star_count'] = $Stars;
+    endif;
+    return $this->ServerMethod(TgMethods::BusinessGiftSend, $param);
   }
 
   /**

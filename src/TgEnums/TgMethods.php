@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TgEnums;
 
 /**
- * @version 2025.04.13.00
+ * @version 2025.04.13.01
  */
 enum TgMethods:string{
   /**
@@ -33,6 +33,10 @@ enum TgMethods:string{
    */
   case BusinessGiftPrivacy = 'setBusinessAccountGiftSettings';
   /**
+   * @link https://core.telegram.org/bots/api#transfergift
+   */
+  case BusinessGiftSend = 'transferGift';
+  /**
    * @link https://core.telegram.org/bots/api#getbusinessaccountgifts
    */
   case BusinessGiftsGet = 'getBusinessAccountGifts';
@@ -40,6 +44,10 @@ enum TgMethods:string{
    * @link https://core.telegram.org/bots/api#convertgifttostars
    */
   case BusinessGiftToStars = 'convertGiftToStars';
+  /**
+   * @link https://core.telegram.org/bots/api#upgradegift
+   */
+  case BusinessGiftUpgrade = 'upgradeGift';
   /**
    * @link https://core.telegram.org/bots/api#readbusinessmessage
    */
