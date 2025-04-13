@@ -13,7 +13,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 };
 
 /**
- * @version 2025.04.13.00
+ * @version 2025.04.13.01
  */
 trait TblBusinessTrait{
   /**
@@ -175,7 +175,7 @@ trait TblBusinessTrait{
     and $Limit < 100):
       $param['limit'] = $Limit;
     endif;
-    return new TgGiftsOwned($this->ServerMethod(TgMethods::BusinessGetGifts, $param));
+    return new TgGiftsOwned($this->ServerMethod(TgMethods::BusinessGiftsGet, $param));
   }
 
   /**
@@ -282,7 +282,7 @@ trait TblBusinessTrait{
     string $BusinessId
   ):TgStarAmount{
     $param['business_connection_id'] = $BusinessId;
-    return new TgStarAmount($this->ServerMethod(TgMethods::BusinessGetStars, $param));
+    return new TgStarAmount($this->ServerMethod(TgMethods::BusinessStarsGet, $param));
   }
 
   /**
@@ -298,6 +298,6 @@ trait TblBusinessTrait{
   ):true{
     $param['business_connection_id'] = $BusinessId;
     $param['star_count'] = $Stars;
-    return $this->ServerMethod(TgMethods::BusinessTransfer, $param);
+    return $this->ServerMethod(TgMethods::BusinessStarsSend, $param);
   }
 }
