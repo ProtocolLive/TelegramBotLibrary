@@ -13,7 +13,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 };
 
 /**
- * @version 2025.04.12.02
+ * @version 2025.04.13.00
  */
 trait TblBusinessTrait{
   /**
@@ -68,16 +68,15 @@ trait TblBusinessTrait{
 
   /**
    * Use this method to get information about the connection of the bot with a business account. Returns a BusinessConnection object on success.
-   * @param string $Id Unique identifier for the business account
+   * @param string $BusinessId Unique identifier for the business account
    * @throws TblException
    * @link https://core.telegram.org/bots/api#getbusinessconnection
    */
   public function BusinessGet(
-    string $Id
+    string $BusinessId
   ):TgBusinessConnection{
-    return new TgBusinessConnection(
-      $this->ServerMethod(TgMethods::BusinessGet, ['business_connection_id' => $Id])
-    );
+    $param['business_connection_id'] = $BusinessId;
+    return new TgBusinessConnection($this->ServerMethod(TgMethods::BusinessGet, $param));
   }
 
   /**
