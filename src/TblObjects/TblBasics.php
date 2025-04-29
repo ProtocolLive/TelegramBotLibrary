@@ -72,7 +72,7 @@ use ProtocolLive\TelegramBotLibrary\TgService\{
 };
 
 /**
- * @version 2024.12.13.00
+ * @version 2025.04.29.00
  */
 abstract class TblBasics{
   protected TblData $BotData;
@@ -263,6 +263,8 @@ abstract class TblBasics{
       return new TgGameEdited($Data);
     elseif(isset($Data['location'])):
       return new TgLocationEdited($Data);
+    elseif(isset($Data['new_chat_members']))://?
+      return new TgMemberNew($Data);
     elseif(isset($Data['photo'])):
       return new TgPhotoEdited($Data);
     elseif(isset($Data['sticker'])):
