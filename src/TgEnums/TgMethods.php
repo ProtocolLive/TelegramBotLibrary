@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TgEnums;
 
 /**
- * @version 2025.04.13.01
+ * @version 2025.04.30.00
  */
 enum TgMethods:string{
   /**
@@ -17,13 +17,13 @@ enum TgMethods:string{
    */
   case AudioSend = 'sendAudio';
   /**
+   * @link https://core.telegram.org/bots/api#setbusinessaccountbio
+   */
+  case BusinessBioSet = 'setBusinessAccountBio';
+  /**
    * @link https://core.telegram.org/bots/api#deletebusinessmessages
    */
   case BusinessDel = 'deleteBusinessMessages';
-  /**
-   * @link https://core.telegram.org/bots/api#removebusinessaccountprofilephoto
-   */
-  case BusinessDelPhoto = 'removeBusinessAccountProfilePhoto';
   /**
    * @link https://core.telegram.org/bots/api#getbusinessconnection
    */
@@ -49,25 +49,25 @@ enum TgMethods:string{
    */
   case BusinessGiftUpgrade = 'upgradeGift';
   /**
-   * @link https://core.telegram.org/bots/api#readbusinessmessage
+   * @link https://core.telegram.org/bots/api#setbusinessaccountname
    */
-  case BusinessRead = 'readBusinessMessage';
-  /**
-   * @link https://core.telegram.org/bots/api#setbusinessaccountbio
-   */
-  case BusinessSetBio = 'setBusinessAccountBio';
+  case BusinessNameSet = 'setBusinessAccountName';
   /**
    * @link https://core.telegram.org/bots/api#setbusinessaccountusername
    */
-  case BusinessSetNick = 'setBusinessAccountUsername';
+  case BusinessNickSet = 'setBusinessAccountUsername';
   /**
-   * @link https://core.telegram.org/bots/api#setbusinessaccountname
+   * @link https://core.telegram.org/bots/api#removebusinessaccountprofilephoto
    */
-  case BusinessSetName = 'setBusinessAccountName';
+  case BusinessPhotoDel = 'removeBusinessAccountProfilePhoto';
   /**
    * @link https://core.telegram.org/bots/api#setbusinessaccountprofilephoto
    */
-  case BusinessSetPhoto = 'setBusinessAccountProfilePhoto';
+  case BusinessPhotoSet = 'setBusinessAccountProfilePhoto';
+  /**
+   * @link https://core.telegram.org/bots/api#readbusinessmessage
+   */
+  case BusinessRead = 'readBusinessMessage';
   /**
    * @link https://core.telegram.org/bots/api#getbusinessaccountstarbalance
    */

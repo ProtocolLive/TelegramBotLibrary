@@ -13,9 +13,28 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 };
 
 /**
- * @version 2025.04.13.02
+ * @version 2025.04.30.00
  */
 trait TblBusinessTrait{
+  /**
+   * Changes the bio of a managed business account. Requires the can_change_bio business bot right.
+   * @param string $BusinessId Unique identifier of the business connection
+   * @param string|null $Bio The new value of the bio for the business account; 0-140 characters
+   * @return true
+   * @link https://core.telegram.org/bots/api#setbusinessaccountbio
+   */
+  public function BusinessBioSet(
+    string $BusinessId,
+    string|null $Bio = null
+  ):true{
+    $param['business_connection_id'] = $BusinessId;
+    if($Bio !== null
+    and $Bio !== ''):
+      $param['bio'] = $Bio;
+    endif;
+    return $this->ServerMethod(TgMethods::BusinessBioSet, $param);
+  }
+
   /**
    * Delete messages on behalf of a business account. Requires the can_delete_outgoing_messages business bot right to delete messages sent by the bot itself, or the can_delete_all_messages business bot right to delete any message.
    * @param string $BusinessId Unique identifier of the business connection on behalf of which to delete the messages
@@ -29,41 +48,6 @@ trait TblBusinessTrait{
     $param['business_connection_id'] = $BusinessId;
     $param['message_ids'] = $Ids;
     return $this->ServerMethod(TgMethods::BusinessDel, $param);
-  }
-
-  /**
-   * Marks incoming message as read on behalf of a business account. Requires the can_read_messages business bot right.
-   * @param string $BusinessId Unique identifier of the business connection on behalf of which to read the message
-   * @param int $Chat Unique identifier of the chat in which the message was received. The chat must have been active in the last 24 hours.
-   * @param int $Id Unique identifier of the message to mark as read
-   * @return true
-   * @link https://core.telegram.org/bots/api#readbusinessmessage
-   */
-  public function BusinessRead(
-    string $BusinessId,
-    int $Chat,
-    int $Id
-  ):true{
-    $param['business_connection_id'] = $BusinessId;
-    $param['chat_id'] = $Chat;
-    $param['message_id'] = $Id;
-    return $this->ServerMethod(TgMethods::BusinessRead, $param);
-  }
-
-  /**
-   * Removes the current profile photo of a managed business account. Requires the can_edit_profile_photo business bot right.
-   * @param string $BusinessId Unique identifier of the business connection
-   * @param bool $Public Pass True to remove the public photo, which is visible even if the main photo is hidden by the business account's privacy settings. After the main photo is removed, the previous profile photo (if present) becomes the main photo.
-   * @return true
-   * @link https://core.telegram.org/bots/api#removebusinessaccountprofilephoto
-   */
-  public function BusinessDelPhoto(
-    string $BusinessId,
-    bool $Public = true
-  ):true{
-    $param['business_connection_id'] = $BusinessId;
-    $param['public'] = $Public;
-    return $this->ServerMethod(TgMethods::BusinessDelPhoto, $param);
   }
 
   /**
@@ -106,49 +90,6 @@ trait TblBusinessTrait{
     $param['accepted_gift_types']['unique_gifts'] = $Unique;
     $param['accepted_gift_types']['premium_subscription'] = $Premium;
     return $this->ServerMethod(TgMethods::BusinessGiftPrivacy, $param);
-  }
-
-  /**
-   * Converts a given regular gift to Telegram Stars. Requires the can_convert_gifts_to_stars business bot right.
-   * @param string $BusinessId Unique identifier of the business connection
-   * @param int $GiftId Unique identifier of the regular gift that should be converted to Telegram Stars
-   * @return true
-   * @link https://core.telegram.org/bots/api#convertgifttostars
-   */
-  public function BusinessGiftToStars(
-    string $BusinessId,
-    int $GiftId
-  ):true{
-    $param['business_connection_id'] = $BusinessId;
-    $param['owned_gift_id'] = $GiftId;
-    return $this->ServerMethod(TgMethods::BusinessGiftToStars, $param);
-  }
-
-  /**
-   * Upgrades a given regular gift to a unique gift. Requires the can_transfer_and_upgrade_gifts business bot right. Additionally requires the can_transfer_stars business bot right if the upgrade is paid.
-   * @param string $BusinessId Unique identifier of the business connection
-   * @param string $Id Unique identifier of the regular gift that should be upgraded to a unique one
-   * @param bool $KeepDetails Pass True to keep the original gift text, sender and receiver in the upgraded gift
-   * @param int|null $Stars The amount of Telegram Stars that will be paid for the upgrade from the business account balance. If gift.prepaid_upgrade_star_count > 0, then pass 0, otherwise, the can_transfer_stars business bot right is required and gift.upgrade_star_count must be passed.
-   * @return true
-   * @link https://core.telegram.org/bots/api#upgradegift
-   */
-  public function BusinessGiftUpgrade(
-    string $BusinessId,
-    string $Id,
-    bool $KeepDetails = false,
-    int|null $Stars = null
-  ):true{
-    $param['business_connection_id'] = $BusinessId;
-    $param['owned_gift_id'] = $Id;
-    if($KeepDetails):
-      $param['keep_original_details'] = $KeepDetails;
-    endif;
-    if($Stars !== null
-    and $Stars >= 0):
-      $param['star_count'] = $Stars;
-    endif;
-    return $this->ServerMethod(TgMethods::BusinessGiftUpgrade, $param);
   }
 
   /**
@@ -230,22 +171,46 @@ trait TblBusinessTrait{
   }
 
   /**
-   * Changes the bio of a managed business account. Requires the can_change_bio business bot right.
+   * Converts a given regular gift to Telegram Stars. Requires the can_convert_gifts_to_stars business bot right.
    * @param string $BusinessId Unique identifier of the business connection
-   * @param string|null $Bio The new value of the bio for the business account; 0-140 characters
+   * @param int $GiftId Unique identifier of the regular gift that should be converted to Telegram Stars
    * @return true
-   * @link https://core.telegram.org/bots/api#setbusinessaccountbio
+   * @link https://core.telegram.org/bots/api#convertgifttostars
    */
-  public function BusinessSetBio(
+  public function BusinessGiftToStars(
     string $BusinessId,
-    string|null $Bio = null
+    int $GiftId
   ):true{
     $param['business_connection_id'] = $BusinessId;
-    if($Bio !== null
-    and $Bio !== ''):
-      $param['bio'] = $Bio;
+    $param['owned_gift_id'] = $GiftId;
+    return $this->ServerMethod(TgMethods::BusinessGiftToStars, $param);
+  }
+
+  /**
+   * Upgrades a given regular gift to a unique gift. Requires the can_transfer_and_upgrade_gifts business bot right. Additionally requires the can_transfer_stars business bot right if the upgrade is paid.
+   * @param string $BusinessId Unique identifier of the business connection
+   * @param string $Id Unique identifier of the regular gift that should be upgraded to a unique one
+   * @param bool $KeepDetails Pass True to keep the original gift text, sender and receiver in the upgraded gift
+   * @param int|null $Stars The amount of Telegram Stars that will be paid for the upgrade from the business account balance. If gift.prepaid_upgrade_star_count > 0, then pass 0, otherwise, the can_transfer_stars business bot right is required and gift.upgrade_star_count must be passed.
+   * @return true
+   * @link https://core.telegram.org/bots/api#upgradegift
+   */
+  public function BusinessGiftUpgrade(
+    string $BusinessId,
+    string $Id,
+    bool $KeepDetails = false,
+    int|null $Stars = null
+  ):true{
+    $param['business_connection_id'] = $BusinessId;
+    $param['owned_gift_id'] = $Id;
+    if($KeepDetails):
+      $param['keep_original_details'] = $KeepDetails;
     endif;
-    return $this->ServerMethod(TgMethods::BusinessSetBio, $param);
+    if($Stars !== null
+    and $Stars >= 0):
+      $param['star_count'] = $Stars;
+    endif;
+    return $this->ServerMethod(TgMethods::BusinessGiftUpgrade, $param);
   }
 
   /**
@@ -256,7 +221,7 @@ trait TblBusinessTrait{
    * @return true
    * @link https://core.telegram.org/bots/api#setbusinessaccountname
    */
-  public function BusinessSetName(
+  public function BusinessNameSet(
     string $BusinessId,
     string $Name,
     string|null $NameLast = null
@@ -267,7 +232,7 @@ trait TblBusinessTrait{
     and $NameLast !== ''):
       $param['last_name'] = $NameLast;
     endif;
-    return $this->ServerMethod(TgMethods::BusinessSetName, $param);
+    return $this->ServerMethod(TgMethods::BusinessNameSet, $param);
   }
 
   /**
@@ -277,7 +242,7 @@ trait TblBusinessTrait{
    * @return true
    * @link https://core.telegram.org/bots/api#setbusinessaccountusername
    */
-  public function BusinessSetNick(
+  public function BusinessNickSet(
     string $BusinessId,
     string|null $Nick = null
   ):true{
@@ -286,7 +251,23 @@ trait TblBusinessTrait{
     and $Nick !== ''):
       $param['username'] = $Nick;
     endif;
-    return $this->ServerMethod(TgMethods::BusinessSetNick, $param);
+    return $this->ServerMethod(TgMethods::BusinessNickSet, $param);
+  }
+
+  /**
+   * Removes the current profile photo of a managed business account. Requires the can_edit_profile_photo business bot right.
+   * @param string $BusinessId Unique identifier of the business connection
+   * @param bool $Public Pass True to remove the public photo, which is visible even if the main photo is hidden by the business account's privacy settings. After the main photo is removed, the previous profile photo (if present) becomes the main photo.
+   * @return true
+   * @link https://core.telegram.org/bots/api#removebusinessaccountprofilephoto
+   */
+  public function BusinessPhotoDel(
+    string $BusinessId,
+    bool $Public = true
+  ):true{
+    $param['business_connection_id'] = $BusinessId;
+    $param['public'] = $Public;
+    return $this->ServerMethod(TgMethods::BusinessPhotoDel, $param);
   }
 
   /**
@@ -299,7 +280,7 @@ trait TblBusinessTrait{
    * @return true
    * @link https://core.telegram.org/bots/api#inputprofilephoto
    */
-  public function BusinessSetPhoto(
+  public function BusinessPhotoSet(
     string $BusinessId,
     string $Photo,
     bool $Public = true,
@@ -320,7 +301,26 @@ trait TblBusinessTrait{
       ];
     endif;
     $param['is_public'] = $Public;
-    return $this->ServerMethod(TgMethods::BusinessSetPhoto, $param, false);
+    return $this->ServerMethod(TgMethods::BusinessPhotoSet, $param, false);
+  }
+
+  /**
+   * Marks incoming message as read on behalf of a business account. Requires the can_read_messages business bot right.
+   * @param string $BusinessId Unique identifier of the business connection on behalf of which to read the message
+   * @param int $Chat Unique identifier of the chat in which the message was received. The chat must have been active in the last 24 hours.
+   * @param int $Id Unique identifier of the message to mark as read
+   * @return true
+   * @link https://core.telegram.org/bots/api#readbusinessmessage
+   */
+  public function BusinessRead(
+    string $BusinessId,
+    int $Chat,
+    int $Id
+  ):true{
+    $param['business_connection_id'] = $BusinessId;
+    $param['chat_id'] = $Chat;
+    $param['message_id'] = $Id;
+    return $this->ServerMethod(TgMethods::BusinessRead, $param);
   }
 
   /**
