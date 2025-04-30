@@ -117,6 +117,10 @@ enum TgMethods:string{
    */
   case ChatDescription = 'setChatDescription';
   /**
+   * @link https://core.telegram.org/bots/api#exportchatinvitelink
+   */
+  case ChatInviteExport = 'exportChatInviteLink';
+  /**
    * @link https://core.telegram.org/bots/api#createchatinvitelink
    */
   case ChatInviteLinkCreate = 'createChatInviteLink';
@@ -128,10 +132,6 @@ enum TgMethods:string{
    * @link https://core.telegram.org/bots/api#editchatinvitelink
    */
   case ChatInviteLinkEdit = 'editChatInviteLink';
-  /**
-   * @link https://core.telegram.org/bots/api#exportchatinvitelink
-   */
-  case ChatInviteExport = 'exportChatInviteLink';
   /**
    * @link https://core.telegram.org/bots/api#approvechatjoinrequest
    */
