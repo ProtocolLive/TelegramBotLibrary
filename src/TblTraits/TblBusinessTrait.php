@@ -4,16 +4,28 @@
 
 namespace ProtocolLive\TelegramBotLibrary\TblTraits;
 use CURLFile;
-use ProtocolLive\TelegramBotLibrary\TblObjects\TblException;
-use ProtocolLive\TelegramBotLibrary\TgEnums\TgMethods;
+use ProtocolLive\TelegramBotLibrary\TblObjects\{
+  TblEntities,
+  TblException
+};
+use ProtocolLive\TelegramBotLibrary\TgAuxiliary\{
+  TgStoryArea,
+  TgStoryInputContentPhoto,
+  TgStoryInputContentVideo
+};
+use ProtocolLive\TelegramBotLibrary\TgEnums\{
+  TgMethods,
+  TgParseMode
+};
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgBusinessConnection,
   TgGiftsOwned,
-  TgStarAmount
+  TgStarAmount,
+  TgStory
 };
 
 /**
- * @version 2025.04.30.00
+ * @version 2025.05.11.00
  */
 trait TblBusinessTrait{
   /**
@@ -350,5 +362,116 @@ trait TblBusinessTrait{
     $param['business_connection_id'] = $BusinessId;
     $param['star_count'] = $Stars;
     return $this->ServerMethod(TgMethods::BusinessStarsSend, $param);
+  }
+
+  /**
+   * Deletes a story previously posted by the bot on behalf of a managed business account. Requires the can_manage_stories business bot right.
+   * @param string $BusinessId Unique identifier of the business connection
+   * @param int $Id Unique identifier of the story to delete
+   * @return true Returns True on success.
+   * @link https://core.telegram.org/bots/api#deletestory
+   */
+  public function BusinessStoryDel(
+    string $BusinessId,
+    int $Id
+  ):true{
+    $param['business_connection_id'] = $BusinessId;
+    $param['story_id'] = $Id;
+    return $this->ServerMethod(TgMethods::BusinessStoryDel, $param);
+  }
+
+  /**
+   * Edits a story previously posted by the bot on behalf of a managed business account. Requires the can_manage_stories business bot right.
+   * @param string $BusinessId Unique identifier of the business connection
+   * @param int $Id Unique identifier of the story to edit
+   * @param TgStoryInputContentPhoto|TgStoryInputContentVideo $Content Content of the story
+   * @param string $Caption Caption of the story, 0-2048 characters after entities parsing
+   * @param TgParseMode $ParseMode Mode for parsing entities in the story caption. See formatting options for more details.
+   * @param TblEntities $Entities List of special entities that appear in story caption, which can be specified instead of parse_mode
+   * @param TgStoryArea[] $Areas A JSON-serialized list of clickable areas to be shown on the story
+   * @return TgStory Returns Story on success.
+   * @link https://core.telegram.org/bots/api#editstory
+   */
+  public function BusinessStoryEdit(
+    string $BusinessId,
+    int $Id,
+    TgStoryInputContentPhoto|TgStoryInputContentVideo $Content,
+    string|null $Caption = null,
+    TgParseMode|null $ParseMode = null,
+    TblEntities|null $Entities = null,
+    array|null $Areas = null
+  ):TgStory{
+    $param['business_connection_id'] = $BusinessId;
+    $param['story_id'] = $Id;
+    $param['content'] = $Content->ToArray();
+    if(empty($Caption) === false):
+      $param['caption'] = $Caption;
+    endif;
+    if($ParseMode !== null):
+      $param['parse_mode'] = $ParseMode->value;
+    endif;
+    if($Entities !== null):
+      $param['caption_entities'] = $Entities->ToArray();
+    endif;
+    if(empty($Areas) === false):
+      foreach($Areas as &$Area):
+        $Area = $Area->ToArray();
+      endforeach;
+      $param['areas'] = $Areas;
+    endif;
+    return new TgStory($this->ServerMethod(TgMethods::BusinessStoryEdit, $param, false));
+  }
+
+  /**
+   * Posts a story on behalf of a managed business account. Requires the can_manage_stories business bot right.
+   * @param string $BusinessId Unique identifier of the business connection
+   * @param TgStoryInputContentPhoto|TgStoryInputContentVideo $Content Content of the story
+   * @param int $Period Period after which the story is moved to the archive, in seconds; must be one of 6 * 3600, 12 * 3600, 86400, or 2 * 86400
+   * @param string $Caption Caption of the story, 0-2048 characters after entities parsing
+   * @param TgParseMode $ParseMode Mode for parsing entities in the story caption. See formatting options for more details.
+   * @param TblEntities $Entities A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
+   * @param TgStoryArea[] $Areas A JSON-serialized list of clickable areas to be shown on the story
+   * @param bool $Keep To keep the story accessible after it expires
+   * @param bool $Protect If the content of the story must be protected from forwarding and screenshotting
+   * @return TgStory Returns Story on success.
+   * @throws TblException
+   * @link https://core.telegram.org/bots/api#poststory
+   */
+  public function BusinessStoryPost(
+    string $BusinessId,
+    TgStoryInputContentPhoto|TgStoryInputContentVideo $Content,
+    int $Period,
+    string|null $Caption = null,
+    TgParseMode|null $ParseMode = null,
+    TblEntities|null $Entities = null,
+    array|null $Areas = null,
+    bool $Keep = false,
+    bool $Protect = false
+  ):TgStory{
+    $param['business_connection_id'] = $BusinessId;
+    $param['content'] = $Content->ToArray();
+    $param['active_period'] = $Period;
+    if(empty($Caption) === false):
+      $param['caption'] = $Caption;
+    endif;
+    if($ParseMode !== null):
+      $param['parse_mode'] = $ParseMode->value;
+    endif;
+    if($Entities !== null):
+      $param['caption_entities'] = $Entities->ToArray();
+    endif;
+    if(empty($Areas) === false):
+      foreach($Areas as &$Area):
+        $Area = $Area->ToArray();
+      endforeach;
+      $param['areas'] = $Areas;
+    endif;
+    if($Keep):
+      $param['post_to_chat_page'] = true;
+    endif;
+    if($Protect):
+      $param['protect_content'] = true;
+    endif;
+    return new TgStory($this->ServerMethod(TgMethods::BusinessStoryPost, $param, false));
   }
 }

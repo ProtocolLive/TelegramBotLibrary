@@ -6,17 +6,20 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgReactionType;
 
 /**
+ * This object describes the type of a reaction.
  * @link https://core.telegram.org/bots/api#reactiontype
- * @version 2024.08.14.00
+ * @version 2025.05.11.00
  */
-final readonly class TgReaction{
-  public TgReactionType $Type;
-  public string|null $Emoji;
-
+final class TgReaction{
   public function __construct(
-    array $Data,
+    array|null $Data = null,
+    public TgReactionType|null $Type = null,
+    public string|null $Emoji = null,
     public int|null $Count = null
   ){
+    if($Data === null):
+      return;
+    endif;
     $this->Type = TgReactionType::from($Data['type']);
     if($this->Type === TgReactionType::Normal):
       $this->Emoji = $Data['emoji'];
@@ -25,5 +28,12 @@ final readonly class TgReaction{
     else:
       $this->Emoji = null;
     endif;
+  }
+
+  public function ToArray():array{
+    return [
+      'type' => $this->Type->value,
+      'emoji' => $this->Emoji
+    ];
   }
 }

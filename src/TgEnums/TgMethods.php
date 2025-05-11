@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TgEnums;
 
 /**
- * @version 2025.04.30.00
+ * @version 2025.05.11.00
  */
 enum TgMethods:string{
   /**
@@ -76,6 +76,18 @@ enum TgMethods:string{
    * @link https://core.telegram.org/bots/api#transferbusinessaccountstars
    */
   case BusinessStarsSend = 'transferBusinessAccountStars';
+  /**
+   * @link https://core.telegram.org/bots/api#deletestory
+   */
+  case BusinessStoryDel = 'deleteStory';
+  /**
+   * @link https://core.telegram.org/bots/api#editstory
+   */
+  case BusinessStoryEdit = 'editStory';
+  /**
+   * @link https://core.telegram.org/bots/api#poststory
+   */
+  case BusinessStoryPost = 'postStory';
   /**
    * @link https://core.telegram.org/bots/api#answercallbackquery
    */
