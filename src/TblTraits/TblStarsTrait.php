@@ -27,7 +27,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2025.05.11.00
+ * @version 2025.05.11.01
  */
 trait TblStarsTrait{
   public function GiftAvailableGet():TgGifts{
@@ -193,6 +193,7 @@ trait TblStarsTrait{
    * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
    * @return TgPaidMedia The sent Message is returned.
    * @throws TblException
+   * @link https://core.telegram.org/bots/api#sendpaidmedia
    */
   public function MediaPaidSend(
     int|string $Chat,
