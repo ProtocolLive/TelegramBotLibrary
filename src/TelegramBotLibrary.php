@@ -63,6 +63,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgLimits,
   TgMessageDeleted,
   TgPaidMediaPurchased,
+  TgPaidMessagePriceChanged,
   TgPoll,
   TgPollAnswer,
   TgPreparedInlineMessage,
@@ -79,7 +80,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2025.05.11.00
+ * @version 2025.05.11.01
  */
 final class TelegramBotLibrary
 extends TblBasics{
@@ -306,6 +307,8 @@ extends TblBasics{
       return new TgReactionUpdate($Data['message_reaction_count']);
     elseif(isset($Data['my_chat_member'])):
       return new TgGroupStatusMy($Data['my_chat_member']);
+    elseif(isset($Data['paid_message_price_changed'])):
+      return new TgPaidMessagePriceChanged($Data['paid_message_price_changed']);
     elseif(isset($Data['poll'])):
       return new TgPoll($Data['poll']);
     elseif(isset($Data['poll_answer'])):
