@@ -4,13 +4,14 @@
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 use ProtocolLive\TelegramBotLibrary\TblObjects\TblBasics;
+use ProtocolLive\TelegramBotLibrary\TgAuxiliary\TgGiftAcceptedTypes;
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgChatType;
 use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgMessageInterface;
 
 /**
  * @link https://core.telegram.org/bots/api#chat
  * @link https://core.telegram.org/bots/api#chatfullinfo
- * @version 2025.02.13.00
+ * @version 2025.05.11.00
  */
 final readonly class TgChat{
   /**
@@ -133,9 +134,9 @@ final readonly class TgChat{
    */
   public array $Reactions;
   /**
-   * If gifts can be sent to the chat
+   * Information about types of gifts that are accepted by the chat or by the corresponding user for private chats
    */
-  public bool $Gifts;
+  public TgGiftAcceptedTypes|null $Gifts;
 
   public function __construct(
     array $Data
@@ -181,6 +182,10 @@ final readonly class TgChat{
     $this->StickerSet = $Data['sticker_set_name'] ?? null;
     $this->SetStickerSet = $Data['can_set_sticker_set'] ?? false;
     $this->PaidMedia = $Data['can_send_paid_media'] ?? false;
-    $this->Gifts = $Data['can_send_gift'] ?? false;
+    if(isset($Data['accepted_gift_types'])):
+      $this->Gifts = new TgGiftAcceptedTypes($Data['accepted_gift_types']);
+    else:
+      $this->Gifts = null;
+    endif;
   }
 }
