@@ -51,6 +51,8 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgDocument,
   TgFile,
   TgGameStart,
+  TgGiftInfo,
+  TgGiftUniqueInfo,
   TgGroupStatus,
   TgGroupStatusMy,
   TgInlineQuery,
@@ -77,7 +79,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2025.04.11.01
+ * @version 2025.05.11.00
  */
 final class TelegramBotLibrary
 extends TblBasics{
@@ -286,6 +288,10 @@ extends TblBasics{
       return new TgChatBoost($Data['chat_boost']);
     elseif(isset($Data['chat_join_request'])):
       return new TgChatRequest($Data['chat_join_request']);
+    elseif(isset($Data['gift'])):
+      return new TgGiftInfo($Data['gift']);
+    elseif(isset($Data['unique_gift'])):
+      return new TgGiftUniqueInfo($Data['unique_gift']);
     elseif(isset($Data['chat_member'])):
       return new TgGroupStatus($Data['chat_member']);
     elseif(isset($Data['chosen_inline_result'])):
