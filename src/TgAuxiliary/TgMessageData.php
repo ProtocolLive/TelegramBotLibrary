@@ -33,7 +33,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 
 /**
  * @link https://core.telegram.org/bots/api#message
- * @version 2024.07.05.00
+ * @version 2025.05.11.00
  */
 final readonly class TgMessageData{
   /**
@@ -110,6 +110,10 @@ final readonly class TgMessageData{
    * True, if the caption must be shown above the message media
    */
   public bool $CaptionAbove;
+  /**
+   * The number of Telegram Stars that were paid by the sender of the message to send it
+   */
+  public int|null $Paid;
 
   public function __construct(
     array $Data
@@ -221,5 +225,6 @@ final readonly class TgMessageData{
     $this->Offline = $Data['is_from_offline'] ?? false;
     $this->Effect = $Data['effect_id'] ?? null;
     $this->CaptionAbove = $Data['show_caption_above_media'] ?? false;
+    $this->Paid = $Data['paid_star_count'] ?? null;
   }
 }
