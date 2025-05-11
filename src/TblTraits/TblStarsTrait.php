@@ -3,6 +3,7 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TblTraits;
+use Exception;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
   TblEntities,
   TblException,
@@ -26,11 +27,56 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2025.02.13.00
+ * @version 2025.05.11.00
  */
 trait TblStarsTrait{
   public function GiftAvailableGet():TgGifts{
     return new TgGifts($this->ServerMethod(TgMethods::GiftAvailableGet));
+  }
+
+  /**
+   * Gifts a Telegram Premium subscription to the given user.
+   * @param int $User Unique identifier of the target user who will receive a Telegram Premium subscription
+   * @param int $Months Number of months the Telegram Premium subscription will be active for the user; must be one of 3, 6, or 12
+   * @param int $Starts Number of Telegram Stars to pay for the Telegram Premium subscription; must be 1000 for 3 months, 1500 for 6 months, and 2500 for 12 months
+   * @param string $Text Text that will be shown along with the service message about the subscription; 0-128 characters
+   * @param TgParseMode $ParseMode Mode for parsing entities in the text. See formatting options for more details. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, and “custom_emoji” are ignored.
+   * @param TblEntities $Entities A JSON-serialized list of special entities that appear in the gift text. It can be specified instead of text_parse_mode. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, and “custom_emoji” are ignored.
+   * @return true Returns True on success.
+   * @link https://core.telegram.org/bots/api#giftpremiumsubscription
+   * @throws Exception|TblException
+   */
+  public function GiftPremium(
+    int $User,
+    int $Months,
+    string|null $Text = null,
+    TgParseMode|null $ParseMode = null,
+    TblEntities|null $Entities = null
+  ):true{
+    $param['user_id'] = $User;
+    if($Months !== 3
+    and $Months !== 6
+    and $Months !== 12):
+      throw new Exception('The number of months must be one of 3, 6, or 12');
+    endif;
+    $param['month_count'] = $Months;
+    if($Months === 3):
+      $param['star_count'] = 1000;
+    elseif($Months === 6):
+      $param['star_count'] = 1500;
+    elseif($Months === 12):
+      $param['star_count'] = 2500;
+    endif;
+    if($Text !== null):
+      $param['text'] = $Text;
+      if($ParseMode !== null):
+        $param['text_parse_mode'] = $ParseMode->value;
+      endif;
+      if($Entities !== null):
+        $param['text_entities'] = $Entities->ToArray();
+      endif;
+    endif;
+    return $this->ServerMethod(TgMethods::GiftPremium, $param);
   }
 
   /**
