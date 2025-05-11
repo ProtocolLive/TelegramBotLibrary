@@ -4,8 +4,11 @@
 
 namespace ProtocolLive\TelegramBotLibrary\TgAuxiliary;
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgTransactionType;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgPaidMedia;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgUser;
+use ProtocolLive\TelegramBotLibrary\TgObjects\{
+  TgGift,
+  TgPaidMedia,
+  TgUser
+};
 
 /**
  * Describes a transaction with a user.
@@ -23,29 +26,46 @@ extends TgTransactionPartner{
    */
   public TgUser $User;
   /**
-   * Bot-specified invoice payload
+   * Information about the affiliate that received a commission via this transaction. Can be available only for “invoice_payment” and “paid_media_payment” transactions.
    */
-  public string|null $Payload;
+  public TgAffiliateInfo|null $Affiliate;
   /**
-   * Information about the paid media bought by the user
-  * @var TgPaidMedia[]
+   * Bot-specified invoice payload. Can be available only for “invoice_payment” transactions.
    */
-  public array|null $PaidMedia;
+  public string|null $PayloadInvoice;
   /**
-   * The duration of the paid subscription
+   * The duration of the paid subscription. Can be available only for “invoice_payment” transactions.
    */
   public int|null $SubscriptionPeriod;
   /**
-   * Information about the affiliate that received a commission via this transaction
+   * Information about the paid media bought by the user; for “paid_media_payment” transactions only
+   * @var TgPaidMedia[]
    */
-  public TgAffiliateInfo|null $Affiliate;
+  public array|null $PaidMedia;
+  /**
+   * Bot-specified paid media payload. Can be available only for “paid_media_payment” transactions.
+   */
+  public string|null $PayloadPaidMedia;
+  /**
+   * The gift sent to the user by the bot; for “gift_purchase” transactions only
+   */
+  public TgGift|null $Gift;
+  /**
+   * Number of months the gifted Telegram Premium subscription will be active for; for “premium_purchase” transactions only
+   */
+  public int|null $PremiumMonths;
 
   public function __construct(
     array $Data
   ){
     $this->Type = TgTransactionType::from($Data['transaction_type']);
     $this->User = new TgUser($Data['user']);
-    $this->Payload = $Data['invoice_payload'] ?? null;
+    if(isset($this->Affiliate)):
+      $this->Affiliate = new TgAffiliateInfo($Data['affiliate']);
+    else:
+      $this->Affiliate = null;
+    endif;
+    $this->PayloadInvoice = $Data['invoice_payload'] ?? null;
     $this->SubscriptionPeriod = $Data['subscription_period'] ?? null;
     if(isset($Data['paid_media'])):
       foreach($Data['paid_media'] as $media):
@@ -55,5 +75,12 @@ extends TgTransactionPartner{
     else:
       $this->PaidMedia = null;
     endif;
+    $this->PayloadPaidMedia = $Data['paid_media_payload'] ?? null;
+    if(isset($Gift)):
+      $this->Gift = new TgGift($Data['gift']);
+    else:
+      $this->Gift = null;
+    endif;
+    $this->PremiumMonths = $Data['premium_subscription_duration'] ?? null;
   }
 }

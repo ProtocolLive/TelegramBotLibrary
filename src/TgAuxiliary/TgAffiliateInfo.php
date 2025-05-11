@@ -3,16 +3,15 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgAuxiliary;
-
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgChat;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgUser;
 
 /**
  * Contains information about the affiliate that received a commission via this transaction.
  * @link https://core.telegram.org/bots/api#affiliateinfo
- * @version 2024.12.04.00
+ * @version 2025.05.11.00
  */
-abstract readonly class TgAffiliateInfo{
+final readonly class TgAffiliateInfo{
   /**
    * The bot or the user that received an affiliate commission if it was received by a bot or a user
    */
