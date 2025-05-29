@@ -2,14 +2,14 @@
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
-namespace ProtocolLive\TelegramBotLibrary\TgObjects;
+namespace ProtocolLive\TelegramBotLibrary\TgService;
 use ProtocolLive\TelegramBotLibrary\TgAuxiliary\TgMessageData;
 use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgServiceInterface;
 
 /**
  * Describes a service message about a change in the price of paid messages within a chat.
  * @link https://core.telegram.org/bots/api#paidmessagepricechanged
- * @version 2025.05.11.00
+ * @version 2025.05.29.00
  */
 final readonly class TgPaidMessagePriceChanged
 implements TgServiceInterface{

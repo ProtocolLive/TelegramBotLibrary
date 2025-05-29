@@ -51,8 +51,6 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgDocument,
   TgFile,
   TgGameStart,
-  TgGiftInfo,
-  TgGiftUniqueInfo,
   TgGroupStatus,
   TgGroupStatusMy,
   TgInlineQuery,
@@ -63,7 +61,6 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgLimits,
   TgMessageDeleted,
   TgPaidMediaPurchased,
-  TgPaidMessagePriceChanged,
   TgPoll,
   TgPollAnswer,
   TgPreparedInlineMessage,
@@ -78,9 +75,14 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
   TgReplyParams,
   TgVideoGroup
 };
+use ProtocolLive\TelegramBotLibrary\TgService\{
+  TgGiftInfo,
+  TgGiftUniqueInfo,
+  TgPaidMessagePriceChanged
+};
 
 /**
- * @version 2025.05.11.01
+ * @version 2025.05.29.00
  */
 final class TelegramBotLibrary
 extends TblBasics{

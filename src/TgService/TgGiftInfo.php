@@ -2,16 +2,24 @@
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
-namespace ProtocolLive\TelegramBotLibrary\TgObjects;
-use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgServiceInterface;
+namespace ProtocolLive\TelegramBotLibrary\TgService;
+use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
+  TgEventInterface,
+  TgServiceInterface
+};
+use ProtocolLive\TelegramBotLibrary\TgObjects\{
+  TgEntity,
+  TgGift
+};
 
 /**
  * Describes a service message about a regular gift that was sent or received.
  * @link https://core.telegram.org/bots/api#giftinfo
- * @version 2025.05.11.00
+ * @version 2025.05.29.00
  */
 final readonly class TgGiftInfo
-implements TgServiceInterface{
+implements TgEventInterface,
+TgServiceInterface{
   /**
    * Information about the gift
    */

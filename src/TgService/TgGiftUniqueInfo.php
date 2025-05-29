@@ -2,7 +2,7 @@
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
-namespace ProtocolLive\TelegramBotLibrary\TgObjects;
+namespace ProtocolLive\TelegramBotLibrary\TgService;
 use ProtocolLive\TelegramBotLibrary\TgAuxiliary\TgGiftUnique;
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgGiftUniqueOrigin;
 use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgServiceInterface;
@@ -10,7 +10,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgServiceInterface;
 /**
  * Describes a service message about a unique gift that was sent or received.
  * @link https://core.telegram.org/bots/api#uniquegiftinfo
- * @version 2025.05.11.00
+ * @version 2025.05.29.00
  */
 final readonly class TgGiftUniqueInfo
 implements TgServiceInterface{
