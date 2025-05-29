@@ -35,6 +35,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgPaidMedia,
   TgPassport,
   TgPhoto,
+  TgPhotoDel,
   TgPhotoEdited,
   TgPoll,
   TgRefundedPayment,
@@ -72,7 +73,7 @@ use ProtocolLive\TelegramBotLibrary\TgService\{
 };
 
 /**
- * @version 2025.04.29.00
+ * @version 2025.05.29.00
  */
 abstract class TblBasics{
   protected TblData $BotData;
@@ -163,6 +164,8 @@ abstract class TblBasics{
       return new TgLogin($Data);
     elseif(isset($Data['contact'])):
       return new TgContact($Data);
+    elseif(isset($Data['delete_chat_photo'])):
+      return new TgPhotoDel($Data);
     elseif(isset($Data['document'])):
       return new TgDocument($Data);
     elseif(isset($Data['forum_topic_closed'])):
