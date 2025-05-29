@@ -1,4 +1,4 @@
-d607e1ec73f91fa78fbaae8c880e563c32ff09c8  TblObjects\TblBasics.php
+f62b5b7fc83f5f8ce712fb595f541d28b538d5c8  TblObjects\TblBasics.php
 600af0b331aab756a04e6929b56453f7e35b378d  TblObjects\TblCmd.php
 5163ad9681ab892adaf1a90afc9fc19b2a421b34  TblObjects\TblCmdEdited.php
 4423b1c2db62083995221a554c8ee4eafbc4f7f4  TblObjects\TblCommands.php
@@ -20,7 +20,7 @@ fb48a3d23f27ac5b60189a7b6ece4ae4a08a01e2  TblObjects\TblPhotoSendMulti.php
 3e4b135a261d89cd267e1674237a2b1ebaef5722  TblObjects\TblServerMulti.php
 9c642da2b2c89d1d89563448d1966d16b3513f33  TblObjects\TblTextEditMulti.php
 da22d56754cc420bc6358285dc1c96d80357f324  TblObjects\TblTextSendMulti.php
-5f9ca90dd20914f32ca00c9fcae5e82d1183d0e7  TblObjects\TblWebhook.php
+3673258b15ed6dc1aa18a36e8d09d2f6cabbeb42  TblObjects\TblWebhook.php
 f8cfc8a460c12878706682aebf53d50b0d600346  TblTraits\TblAnimationTrait.php
 8e783e1a42d1266fb1b3daa60855bc37fd7e938f  TblTraits\TblAudioTrait.php
 a048e3befa3c3a22e7776002947ba245a890a285  TblTraits\TblBusinessTrait.php
@@ -189,6 +189,7 @@ fd95fe9b5c3c2a23314fb7ce5edd752432447b72  TgObjects\TgPassportDataPersonal.php
 24e8a8277119998d5dd3e9990049010ad8e5041e  TgObjects\TgPermAdmin.php
 022c7f31ee7b0267c406f62930b9285c9ad768dd  TgObjects\TgPermMember.php
 eb41ae2ca5ba08345c5e6b5c7301bfac798cc682  TgObjects\TgPhoto.php
+9f7baf67a7f096a8ee46e49f8c2087cb8adbbbf7  TgObjects\TgPhotoDel.php
 d58f02efc8d0b5fddaca5ffbad59ee3392c8d3d0  TgObjects\TgPhotoEdited.php
 cb251b9b90903d09c738c2f69e953310bbf65d8e  TgObjects\TgPoll.php
 d8b2fe86c43727f59804d1af258b8e0f4f686377  TgObjects\TgPollAnswer.php
@@ -196,7 +197,7 @@ d8b2fe86c43727f59804d1af258b8e0f4f686377  TgObjects\TgPollAnswer.php
 317b2153b30a7d85b19431118865818b752ddb22  TgObjects\TgProfilePhoto.php
 210201ded85833f42953dca9713ec9ea970c02c2  TgObjects\TgQuote.php
 6728f3ccd98d069510f48b1b6a3b0138389ec0d7  TgObjects\TgReaction.php
-a0cacd9e85031321721f4498a3a1a76e90d570e7  TgObjects\TgReactionUpdate.php
+3c5eb152e83f1bffb16f612ce7a9317e7682f42a  TgObjects\TgReactionUpdate.php
 18576cda42f70554ccedff04d225c5a66ee4e9fe  TgObjects\TgRefundedPayment.php
 f646a78899dcba9325b9f7b10f2ea52a7b22a304  TgObjects\TgStarAmount.php
 156a260efc5663e5d47bc010cdce0f35b960b781  TgObjects\TgStarTransaction.php
@@ -244,4 +245,4 @@ fb691e15ce039a722373e758c31a542888d5168c  TgService\TgPinnedMsg.php
 dd5d27a5e5b9ed63ce5e8d0fdedef540f8a0fe03  TgService\TgVideoChatEnded.php
 e5293be5e2fa2bd08334ca73918f3302fbdf85d7  TgService\TgVideoChatScheduled.php
 55d84467221ebc9a75076595a33edba023520832  TgService\TgVideoChatStarted.php
-19820cf6648bed32b56ece4f8d8ab5e50919defe  cacert.pem
+1ce4172ad9f7207c9c7ddcd43b14769a177294c9  cacert.pem
