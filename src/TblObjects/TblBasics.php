@@ -35,7 +35,6 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgPaidMedia,
   TgPassport,
   TgPhoto,
-  TgPhotoDel,
   TgPhotoEdited,
   TgPoll,
   TgRefundedPayment,
@@ -66,6 +65,7 @@ use ProtocolLive\TelegramBotLibrary\TgService\{
   TgInvoiceDone,
   TgMemberLeft,
   TgMemberNew,
+  TgPhotoDel,
   TgPinnedMsg,
   TgVideoChatEnded,
   TgVideoChatScheduled,
@@ -73,7 +73,7 @@ use ProtocolLive\TelegramBotLibrary\TgService\{
 };
 
 /**
- * @version 2025.05.29.00
+ * @version 2025.05.29.01
  */
 abstract class TblBasics{
   protected TblData $BotData;
