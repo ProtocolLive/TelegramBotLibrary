@@ -4,11 +4,13 @@
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 use CURLFile;
-use ProtocolLive\TelegramBotLibrary\TgEnums\TgMethods;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgUpdateType;
+use ProtocolLive\TelegramBotLibrary\TgEnums\{
+  TgMethods,
+  TgUpdateType
+};
 
 /**
- * @version 2024.11.23.00
+ * @version 2025.05.29.00
  */
 final class TblWebhook
 extends TblBasics{
@@ -53,7 +55,7 @@ extends TblBasics{
     if($Certificate !== null):
       $param['certificate'] = new CURLFile($Certificate);
     endif;
-    if($TokenWebhook !== null):
+    if(empty($TokenWebhook) === false):
       $param['secret_token'] = $TokenWebhook;
     endif;
     return $this->ServerMethod(TgMethods::WebhookSet, $param);
