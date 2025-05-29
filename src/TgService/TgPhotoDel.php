@@ -4,15 +4,19 @@
 
 namespace ProtocolLive\TelegramBotLibrary\TgService;
 use ProtocolLive\TelegramBotLibrary\TgAuxiliary\TgMessageData;
-use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgServiceInterface;
+use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
+  TgEventInterface,
+  TgServiceInterface
+};
 
 /**
  * Service message: the chat photo was deleted
  * @link https://core.telegram.org/bots/api#message
- * @version 2025.05.29.01
+ * @version 2025.05.29.02
  */
 final readonly class TgPhotoDel
-implements TgServiceInterface{
+implements TgEventInterface,
+TgServiceInterface{
   public TgMessageData $Data;
 
   public function __construct(
