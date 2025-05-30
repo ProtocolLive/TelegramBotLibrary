@@ -5,6 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TblTraits;
 use CURLFile;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
+  TblCurlResponse,
   TblEntities,
   TblException,
   TblMarkup
@@ -14,14 +15,11 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\{
   TgMethods,
   TgParseMode
 };
-use ProtocolLive\TelegramBotLibrary\TgObjects\{
-  TgAnimation,
-  TgLimits
-};
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgLimits;
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2024.11.23.00
+ * @version 2025.05.29.00
  */
 trait TblAnimationTrait{
   /**
@@ -45,7 +43,7 @@ trait TblAnimationTrait{
    * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
    * @param bool $CaptionAbove If the caption must be shown above the message media
    * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
-   * @return TgAnimation On success, the sent Message is returned.
+   * @return TblCurlResponse On success, the sent Message is returned.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#sendanimation
    */
@@ -69,7 +67,7 @@ trait TblAnimationTrait{
     TgReplyParams|null $Reply = null,
     TblMarkup|null $Markup = null,
     string|null $Effect = null
-  ):TgAnimation{
+  ):TblCurlResponse{
     $param['chat_id'] = $Chat;
     if($BusinessId !== null):
       $param['business_connection_id'] = $BusinessId;
@@ -137,6 +135,6 @@ trait TblAnimationTrait{
     if($CaptionAbove):
       $param['show_caption_above_media'] = true;
     endif;
-    return new TgAnimation($this->ServerMethod(TgMethods::AnimationSend, $param));
+    return $this->ServerMethod(TgMethods::AnimationSend, $param);
   }
 }

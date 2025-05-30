@@ -10,7 +10,7 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\{
 };
 
 /**
- * @version 2025.05.29.00
+ * @version 2025.05.29.01
  */
 final class TblWebhook
 extends TblBasics{
@@ -28,7 +28,7 @@ extends TblBasics{
    * @param TgUpdateType[] $Updates A list of the update types you want your bot to receive. For example, specify [“message”, “edited_channel_post”, “callback_query”] to only receive updates of these types. See Update for a complete list of available update types. Specify an empty list to receive all update types except chat_member (default). If not specified, the previous setting will be used. Please note that this parameter doesn't affect updates created before the call to the setWebhook, so unwanted updates may be received for a short period of time.
    * @param string $Certificate Upload your public key certificate so that the root certificate in use can be checked. See our self-signed guide for details.
    * @param string $TokenWebhook A secret token to be sent in a header “X-Telegram-Bot-Api-Secret-Token” in every webhook request, 1-256 characters. Only characters A-Z, a-z, 0-9, _ and - are allowed. The header is useful to ensure that the request comes from a webhook set by you.
-   * @return bool|null Returns True on success.
+   * @return TblCurlResponse True on success.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#setwebhook
    */
@@ -39,7 +39,7 @@ extends TblBasics{
     array|null $Updates = null,
     string|null $Certificate = null,
     string|null $TokenWebhook = null
-  ):bool{
+  ):TblCurlResponse{
     $param['url'] = $Url;
     if($ServerIp !== null):
       $param['ip_address'] = $ServerIp;
@@ -65,7 +65,7 @@ extends TblBasics{
    * @throws TblException
    * @link https://core.telegram.org/bots/api#getwebhookinfo
    */
-  public function Get():array{
+  public function Get():TblCurlResponse{
     return $this->ServerMethod(TgMethods::WebhookGet);
   }
 
@@ -76,7 +76,7 @@ extends TblBasics{
    */
   public function Del(
     bool $Drop = false
-  ):bool{
+  ):TblCurlResponse{
     $param = [];
     if($Drop):
       $param['drop_pending_updates'] = true;

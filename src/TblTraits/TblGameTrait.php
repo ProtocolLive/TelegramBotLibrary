@@ -4,6 +4,7 @@
 
 namespace ProtocolLive\TelegramBotLibrary\TblTraits;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
+  TblCurlResponse,
   TblException,
   TblMarkup
 };
@@ -15,7 +16,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2024.11.23.00
+ * @version 2025.05.29.00
  */
 trait TblGameTrait{
   /**
@@ -30,7 +31,7 @@ trait TblGameTrait{
    * @param TblMarkup $Markup A JSON-serialized object for an inline keyboard. If empty, one 'Play game_title' button will be shown. If not empty, the first button must launch the game.
    * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
    * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
-   * @return TgGame On success, the sent Message is returned.
+   * @return TblCurlResponse On success, the sent Message is returned.
    * @link https://core.telegram.org/bots/api#sendgame
    * @throws TblException
    */
@@ -45,7 +46,7 @@ trait TblGameTrait{
     TgReplyParams|null $Reply = null,
     TblMarkup|null $Markup = null,
     string|null $Effect = null
-  ):TgGame{
+  ):TblCurlResponse{
     if($BusinessId !== null):
       $param['business_connection_id'] = $BusinessId;
     else:
@@ -73,8 +74,7 @@ trait TblGameTrait{
     if($Effect !== null):
       $param['message_effect_id'] = $Effect;
     endif;
-    $return = $this->ServerMethod(TgMethods::GameSend, $param);
-    return new TgGame($return);
+    return $this->ServerMethod(TgMethods::GameSend, $param);
   }
 
   /**
@@ -99,7 +99,7 @@ trait TblGameTrait{
     else:
       $param['inline_message_id'] = $InlineMessageId;
     endif;
-    $return = $this->ServerMethod(TgMethods::GameScoreGet, $param);
+    $return = $this->ServerMethod(TgMethods::GameScoreGet, $param)->Response;
     foreach($return as &$score):
       $score = new TgGameScore($score);
     endforeach;
@@ -115,7 +115,7 @@ trait TblGameTrait{
    * @param int|string $Chat Required if InlineMessageId is not specified. Unique identifier for the target chat
    * @param int $MessageId Required if InlineMessageId is not specified. Identifier of the sent message
    * @param string $InlineMessageId Required if Chat is not specified. Identifier of the inline message
-   * @return true|TgGame On success, if the message is not an inline message, the Message is returned, otherwise True is returned. Returns an error, if the new score is not greater than the user's current score in the chat and force is False.
+   * @return TblCurlResponse On success, if the message is not an inline message, the Message is returned, otherwise True is returned. Returns an error, if the new score is not greater than the user's current score in the chat and force is False.
    * @link https://core.telegram.org/bots/api#setgamescore
    * @throws TblException
    */
@@ -127,7 +127,7 @@ trait TblGameTrait{
     int|string|null $Chat = null,
     int|null $MessageId = null,
     string|null $InlineMessageId = null
-  ):true|TgGame{
+  ):TblCurlResponse{
     $param['user_id'] = $User;
     $param['score'] = $Score;
     if($Force):
@@ -142,11 +142,6 @@ trait TblGameTrait{
       $param['chat_id'] = $Chat;
       $param['message_id'] = $MessageId;
     endif;
-    $return = $this->ServerMethod(TgMethods::GameScoreSet, $param);
-    if($return):
-      return true;
-    else:
-      return new TgGame($return);
-    endif;
+    return $this->ServerMethod(TgMethods::GameScoreSet, $param);
   }
 }

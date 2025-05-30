@@ -4,6 +4,7 @@
 
 namespace ProtocolLive\TelegramBotLibrary\TblTraits;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
+  TblCurlResponse,
   TblEntities,
   TblException,
   TblMarkup,
@@ -18,10 +19,11 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgEditedInterface;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgLimits;
 
 /**
- * @version 2024.11.23.00
+ * @version 2025.05.29.00
  */
 trait TblEditTrait{
   /**
+   * Use this method to edit captions of messages. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within 48 hours from the time they were sent.
    * @param string $Caption New caption of the message, 0-1024 characters after entities parsing
    * @param int|string $Chat Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
    * @param int $Id Required if inline_message_id is not specified. Identifier of the message to edit
@@ -31,6 +33,7 @@ trait TblEditTrait{
    * @param TgParseMode $ParseMode Mode for parsing entities in the message caption. See formatting options for more details.
    * @param TblEntities $Entities A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
    * @param TblMarkup $Markup A JSON-serialized object for an inline keyboard.
+   * @return TblCurlResponse On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned.
    * @link https://core.telegram.org/bots/api#editmessagecaption
    */
   public function CaptionEdit(
@@ -43,7 +46,7 @@ trait TblEditTrait{
     TgParseMode|null $ParseMode = null,
     TblEntities|null $Entities = null,
     TblMarkup|null $Markup = null
-  ):TgEditedInterface|true{
+  ):TblCurlResponse{
     if(mb_strlen(strip_tags($Caption)) > TgLimits::Caption):
       throw new TblException(
         TgError::LimitCaption,
@@ -70,12 +73,7 @@ trait TblEditTrait{
     if($CaptionAbove):
       $param['show_caption_above_media'] = true;
     endif;
-    $return = parent::ServerMethod(TgMethods::CaptionEdit, $param);
-    if($return === true):
-      return true;
-    else:
-      return parent::DetectMessageEdited($return);
-    endif;
+    return parent::ServerMethod(TgMethods::CaptionEdit, $param);
   }
 
   /**
@@ -85,7 +83,7 @@ trait TblEditTrait{
    * @param string $IdInline Required if chat_id and message_id are not specified. Identifier of the inline message
    * @param string $BusinessId Unique identifier of the business connection on behalf of which the message to be edited was sent
    * @param TblMarkup $Markup A object for an inline keyboard.
-   * @return TgEditedInterface|true On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned.
+   * @return TblCurlResponse On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#editmessagereplymarkup
    */
@@ -95,7 +93,7 @@ trait TblEditTrait{
     string|null $IdInline = null,
     string|null $BusinessId = null,
     TblMarkup|null $Markup = null
-  ):TgEditedInterface|true{
+  ):TblCurlResponse{
     if($IdInline === null
     and $BusinessId === null):
       $param['chat_id'] = $Chat;
@@ -108,12 +106,7 @@ trait TblEditTrait{
     if($Markup !== null):
       $param['reply_markup'] = $Markup->ToArray();
     endif;
-    $return = $this->ServerMethod(TgMethods::MarkupEdit, $param);
-    if($return === true):
-      return $return;
-    else:
-      return parent::DetectMessageEdited($return);
-    endif;
+    return $this->ServerMethod(TgMethods::MarkupEdit, $param);
   }
 
   /**
@@ -124,7 +117,7 @@ trait TblEditTrait{
    * @param string $BusinessId Unique identifier of the business connection on behalf of which the message to be edited was sent
    * @param TblMedia $Media A JSON-serialized object for a new media content of the message
    * @param TblMarkup $Markup A JSON-serialized object for a new inline keyboard.
-   * @return TgEditedInterface|true On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned.
+   * @return TblCurlResponse On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#editmessagemedia
    */
@@ -135,7 +128,7 @@ trait TblEditTrait{
     string|null $InlineId = null,
     string|null $BusinessId = null,
     TblMarkup|null $Markup = null
-  ):TgEditedInterface|true{
+  ):TblCurlResponse{
     if($InlineId === null
     and $BusinessId === null):
       $param['chat_id'] = $Chat;
@@ -149,11 +142,6 @@ trait TblEditTrait{
     if($Markup !== null):
       $param['reply_markup'] = $Markup->ToArray();
     endif;
-    $return = parent::ServerMethod(TgMethods::MediaEdit, $param);
-    if($return === true):
-      return true;
-    else:
-      return parent::DetectMessageEdited($return);
-    endif;
+    return parent::ServerMethod(TgMethods::MediaEdit, $param);
   }
 }

@@ -5,6 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TblTraits;
 use CURLFile;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
+  TblCurlResponse,
   TblEntities,
   TblException,
   TblMarkup
@@ -14,15 +15,11 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\{
   TgMethods,
   TgParseMode
 };
-use ProtocolLive\TelegramBotLibrary\TgObjects\{
-  TgLimits,
-  TgVideo,
-  TgVideoNote
-};
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgLimits;
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2025.05.04.00
+ * @version 2025.05.29.00
  */
 trait TblVideoTrait{
   /**
@@ -49,7 +46,7 @@ trait TblVideoTrait{
    * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
    * @param string $Cover Cover for the video in the message. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://<file_attach_name>” to upload a new one using multipart/form-data under <file_attach_name> name.
    * @param int $Start Start timestamp for the video in the message
-   * @return TgVideo On success, the sent Message is returned.
+   * @return TblCurlResponse On success, the sent Message is returned.
    * @link https://core.telegram.org/bots/api#sendvideo
    * @throws TblException
    */
@@ -76,7 +73,7 @@ trait TblVideoTrait{
     TgReplyParams|null $Reply = null,
     TblMarkup|null $Markup = null,
     string|null $Effect = null
-  ):TgVideo|TgVideoNote{
+  ):TblCurlResponse{
     $param['chat_id'] = $Chat;
     if($BusinessId !== null):
       $param['business_connection_id'] = $BusinessId;
@@ -149,11 +146,11 @@ trait TblVideoTrait{
     if($Start > 0):
       $param['start_timestamp'] = $Start;
     endif;
-    return parent::DetectMessage($this->ServerMethod(
+    return $this->ServerMethod(
       TgMethods::VideoSend,
       $param,
       is_file($Video) ? false : true
-    ));
+    );
   }
 
   /**
@@ -171,7 +168,7 @@ trait TblVideoTrait{
    * @param TgReplyParams $Reply If the message is a reply, ID of the original message
    * @param TblMarkup $Markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
    * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
-   * @return TgVideoNote The sent Message is returned.
+   * @return TblCurlResponse The sent Message is returned.
    * @link https://core.telegram.org/bots/api#sendvideonote
    * @throws TblException
    */
@@ -189,7 +186,7 @@ trait TblVideoTrait{
     TgReplyParams|null $Reply = null,
     TblMarkup|null $Markup = null,
     string|null $Effect = null
-  ):TgVideoNote|TgVideo{
+  ):TblCurlResponse{
     $param['chat_id'] = $Chat;
     if($BusinessId !== null):
       $param['business_connection_id'] = $BusinessId;
@@ -232,10 +229,10 @@ trait TblVideoTrait{
     if($AllowPaid):
       $param['allow_paid_broadcast'] = true;
     endif;
-    return parent::DetectMessage($this->ServerMethod(
+    return $this->ServerMethod(
       TgMethods::VideoNoteSend,
       $param,
       is_file($Video) ? false : true
-    ));
+    );
   }
 }

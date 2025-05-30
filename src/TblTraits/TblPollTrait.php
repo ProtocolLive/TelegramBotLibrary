@@ -4,6 +4,7 @@
 
 namespace ProtocolLive\TelegramBotLibrary\TblTraits;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
+  TblCurlResponse,
   TblEntities,
   TblException,
   TblInputPollOptions,
@@ -15,14 +16,11 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\{
   TgParseMode,
   TgPollType
 };
-use ProtocolLive\TelegramBotLibrary\TgObjects\{
-  TgLimits,
-  TgPoll
-};
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgLimits;
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2024.11.23.00
+ * @version 2025.05.29.00
  */
 trait TblPollTrait{
   /**
@@ -50,7 +48,7 @@ trait TblPollTrait{
    * @param TgReplyParams $Reply Description of the message to reply to
    * @param TblMarkup $Markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user
    * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
-   * @return TgPoll The sent Message is returned.
+   * @return TblCurlResponse The sent Message is returned.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#sendpoll
    */
@@ -78,7 +76,7 @@ trait TblPollTrait{
     string|null $Effect = null,
     TgReplyParams|null $Reply = null,
     TblMarkup|null $Markup = null
-  ):TgPoll{
+  ):TblCurlResponse{
     if(mb_strlen($Question) > TgLimits::PollQuestion):
       throw new TblException(
         TgError::LimitPollQuestion,
@@ -156,7 +154,7 @@ trait TblPollTrait{
     if($Markup !== null):
       $param['reply_markup'] = $Markup->ToArray();
     endif;
-    return new TgPoll($this->ServerMethod(TgMethods::PollSend, $param));
+    return $this->ServerMethod(TgMethods::PollSend, $param);
   }
 
   /**
@@ -165,14 +163,15 @@ trait TblPollTrait{
    * @param int $Id Identifier of the original message with the poll
    * @param string $BusinessId Unique identifier of the business connection on behalf of which the message to be edited was sent
    * @param TblMarkup $Markup A object for a new message inline keyboard.
-   * @return TgPoll The stopped Poll is returned.
+   * @return TblCurlResponse The stopped Poll is returned.
+   * @link https://core.telegram.org/bots/api#stoppoll
    */
   public function PollStop(
     int|string $Chat,
     int $Id,
     string|null $BusinessId = null,
     TblMarkup|null $Markup = null
-  ):TgPoll{
+  ):TblCurlResponse{
     $param['chat_id'] = $Chat;
     $param['message_id'] = $Id;
     if($BusinessId !== null):
@@ -181,6 +180,6 @@ trait TblPollTrait{
     if($Markup !== null):
       $param['reply_markup'] = $Markup->ToArray();
     endif;
-    return new TgPoll($this->ServerMethod(TgMethods::PollStop, $param));
+    return $this->ServerMethod(TgMethods::PollStop, $param);
   }
 }

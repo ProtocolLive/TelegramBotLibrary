@@ -6,6 +6,7 @@ namespace ProtocolLive\TelegramBotLibrary;
 use CurlFile;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
   TblBasics,
+  TblCurlResponse,
   TblData,
   TblEntities,
   TblError,
@@ -82,7 +83,7 @@ use ProtocolLive\TelegramBotLibrary\TgService\{
 };
 
 /**
- * @version 2025.05.29.00
+ * @version 2025.05.29.01
  */
 final class TelegramBotLibrary
 extends TblBasics{
@@ -125,7 +126,7 @@ extends TblBasics{
    * @param bool $Alert If True, an alert will be shown by the client instead of a notification at the top of the chat screen. Defaults to false.
    * @param string $Url URL that will be opened by the user's client. If you have created a Game and accepted the conditions via @BotFather, specify the URL that opens your game — note that this will only work if the query comes from a callback_game button. Otherwise, you may use links like t.me/your_bot?start=XXXX that open your bot with a parameter.
    * @param int $Cache The maximum amount of time in seconds that the result of the callback query may be cached client-side. Telegram apps will support caching starting in version 3.14. Defaults to 0.
-   * @return bool On success, True is returned.
+   * @return TblCurlResponse On success, True is returned.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#answercallbackquery
    */
@@ -135,7 +136,7 @@ extends TblBasics{
     bool $Alert = false,
     string|null $Url = null,
     int|null $Cache = null
-  ):bool{
+  ):TblCurlResponse{
     $param['callback_query_id'] = $Id;
     if($Text !== null):
       if(mb_strlen($Text) > TgLimits::CallbackAnswer):
@@ -158,13 +159,13 @@ extends TblBasics{
   /**
    * Use this method to get information about custom emoji stickers by their identifiers.
    * @param string[] $Ids List of custom emoji identifiers. At most 200 custom emoji identifiers can be specified.
-   * @return array Returns an Array of Sticker objects.
+   * @return TblCurlResponse Returns an Array of Sticker objects.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#getcustomemojistickers
    */
   public function CustomEmojiGet(
     array $Ids
-  ):array{
+  ):TblCurlResponse{
     $param['custom_emoji_ids'] = $Ids;
     return $this->ServerMethod(TgMethods::CustomEmojiGet, $param);
   }
@@ -185,7 +186,7 @@ extends TblBasics{
    * @param TblMarkup $Markup Additional interface options. A object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
    * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
    * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
-   * @return TgDocument On success, the sent Message is returned.
+   * @return TblCurlResponse On success, the sent Message is returned.
    * @link https://core.telegram.org/bots/api#senddocument
    */
   public function DocumentSend(
@@ -204,7 +205,7 @@ extends TblBasics{
     bool $AllowPaid = false,
     TblMarkup|null $Markup = null,
     string|null $Effect = null
-  ):TgDocument{
+  ):TblCurlResponse{
     $param['chat_id'] = $Chat;
     if(is_file($File)):
       $param['document'] = new CurlFile($File);
@@ -260,8 +261,7 @@ extends TblBasics{
     if($Effect !== null):
       $param['message_effect_id'] = $Effect;
     endif;
-    $return = $this->ServerMethod(TgMethods::DocumentSend, $param);
-    return new TgDocument($return);
+    return $this->ServerMethod(TgMethods::DocumentSend, $param);
   }
 
   private function DetectReturn(
@@ -329,7 +329,6 @@ extends TblBasics{
   /**
    * Return the URL to download a file from Telegram
    * @param string $Id The file Id or IdUnique
-   * @return string
    * @throws TblException
    */
   public function FileGet(
@@ -351,8 +350,7 @@ extends TblBasics{
     string $Id
   ):TgFile{
     $param['file_id'] = $Id;
-    $return = $this->ServerMethod(TgMethods::FileGet, $param);
-    return new TgFile($return);
+    return new TgFile($this->ServerMethod(TgMethods::FileGet, $param)->Response);
   }
 
   /**
@@ -417,7 +415,7 @@ extends TblBasics{
    * @param string $ButtonWebapp An HTTPS URL of a Web App to be opened with additional data as specified in Initializing Web Apps
    * @param string $StartParam Deep-linking parameter for the /start message sent to the bot when a user presses the button. 1-64 characters, only A-Z, a-z, 0-9, _ and - are allowed.
    * Example: An inline bot that sends YouTube videos can ask the user to connect the bot to their YouTube account to adapt search results accordingly. To do this, it displays a 'Connect your YouTube account' button above the results, or even before showing any. The user presses the button, switches to a private chat with the bot and, in doing so, passes a start parameter that instructs the bot to return an OAuth link. Once done, the bot can offer a switch_inline button so that the user can easily return to the chat where they wanted to use the bot's inline capabilities.
-   * @return bool On success, True is returned
+   * @return TblCurlResponse On success, True is returned
    * @throws TblException
    * @link https://core.telegram.org/bots/api#answerinlinequery
    * @link https://core.telegram.org/bots/api#inlinequeryresultsbutton
@@ -432,7 +430,7 @@ extends TblBasics{
     string|null $ButtonText = null,
     string|null $ButtonWebapp = null,
     string|null $StartParam = null
-  ):true{
+  ):TblCurlResponse{
     $param['inline_query_id'] = $Id;
     $param['results'] = $Results->ToArray();
     if($Cache !== null):
@@ -473,7 +471,7 @@ extends TblBasics{
    * @param bool $CaptionAbove If the caption must be shown above the message media
    * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
    * @param int $VideoStart New start timestamp for the copied video in the message
-   * @return int Returns the MessageId of the sent message on success.
+   * @return TblCurlResponse Returns the MessageId of the sent message on success.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#copymessage
    */
@@ -493,7 +491,7 @@ extends TblBasics{
     bool $SendWithoutRepliedMsg = false,
     bool $AllowPaid = false,
     TblMarkup|null $Markup = null
-  ):int{
+  ):TblCurlResponse{
     $param['chat_id'] = $To;
     $param['from_chat_id'] = $From;
     $param['message_id'] = $Id;
@@ -539,8 +537,7 @@ extends TblBasics{
     if($VideoStart > 0):
       $param['video_start_timestamp'] = $VideoStart;
     endif;
-    $return = $this->ServerMethod(TgMethods::MessageCopy, $param);
-    return $return['message_id'];
+    return $this->ServerMethod(TgMethods::MessageCopy, $param);
   }
 
   /**
@@ -555,17 +552,17 @@ extends TblBasics{
    * - If the bot has can_delete_messages permission in a supergroup or a channel, it can delete any message there.
    * @param int $Chat Unique identifier for the target chat
    * @param int $Id Identifier of the message to delete
-   * @return bool Returns True on success.
+   * @return TblCurlResponse Returns True on success.
    * @link https://core.telegram.org/bots/api#deletemessage
    * @throws TblException
    */
   public function MessageDelete(
     int $Chat,
     int $Id
-  ):bool{
+  ):TblCurlResponse{
     $param['chat_id'] = $Chat;
     $param['message_id'] = $Id;
-    return parent::ServerMethod(TgMethods::MessageDelete, $param);
+    return $this->ServerMethod(TgMethods::MessageDelete, $param);
   }
 
   /**
@@ -615,7 +612,7 @@ extends TblBasics{
    * @param int $Id Identifier of a message to pin
    * @param bool $DisableNotification Pass True if it is not necessary to send a notification to all chat members about the new pinned message. Notifications are always disabled in channels and private chats.
    * @param string $BusinessId Unique identifier of the business connection on behalf of which the message will be pinned
-   * @return true Returns True on success.
+   * @return TblCurlResponse Returns True on success.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#pinchatmessage
    */
@@ -624,7 +621,7 @@ extends TblBasics{
     int $Id,
     string|null $BusinessId = null,
     bool $DisableNotification = false
-  ):true{
+  ):TblCurlResponse{
     $param['chat_id'] = $Chat;
     $param['message_id'] = $Id;
     if($DisableNotification):
@@ -638,16 +635,16 @@ extends TblBasics{
 
   /**
    * Use this method to change the chosen reactions on a message. Service messages can't be reacted to. Automatically forwarded messages from a channel to its discussion group have the same available reactions as messages in the channel. In albums, bots must react to the first message.
-   * @return true on success.
-   * @link https://core.telegram.org/bots/api#setmessagereaction
+   * @return TblCurlResponse True on success.
    * @throws TblException
+   * @link https://core.telegram.org/bots/api#setmessagereaction
    */
   public function MessageReaction(
     int|string $Chat,
     int $Message,
     string|null $Emoji,
     bool $Big = true
-  ):true{
+  ):TblCurlResponse{
     $default = ['👍','👎','❤','🔥','🥰','👏','😁','🤔','🤯','😱','🤬','😢','🎉','🤩','🤮','💩','🙏','👌','🕊',
       '🤡','🥱','🥴','😍','🐳','❤‍🔥','🌚','🌭','💯','🤣','⚡','🍌','🏆','💔','🤨','😐','🍓','🍾','💋','🖕','😈',
       '😴','😭','🤓','👻','👨‍💻','👀','🎃','🙈','😇','😨','🤝','✍','🤗','🫡','🎅','🎄','☃','💅','🤪','🗿','🆒',
@@ -680,7 +677,7 @@ extends TblBasics{
    * @param bool $DisableNotification Sends the messages silently. Users will receive a notification with no sound.
    * @param bool $Protect Protects the contents of the sent messages from forwarding and saving
    * @param bool $RemoveCaption Pass True to copy the messages without their captions
-   * @return array On success, an array of MessageId of the sent messages is returned.
+   * @return TblCurlResponse On success, an array of MessageId of the sent messages is returned.
    * @link https://core.telegram.org/bots/api#copymessages
    * @throws TblException
    */
@@ -692,7 +689,7 @@ extends TblBasics{
     bool $DisableNotification = false,
     bool $Protect = false,
     bool $RemoveCaption = false
-  ):array{
+  ):TblCurlResponse{
     if(count($Ids) > TgLimits::MessagesCopy):
       throw new TblException(TblError::MessagesCopy, 'Cant copy more than ' . TgLimits::MessagesCopy . ' messages');
     endif;
@@ -718,14 +715,14 @@ extends TblBasics{
    * Use this method to delete multiple messages simultaneously. If some of the specified messages can't be found, they are skipped.
    * @param int|string $Chat Unique identifier for the target chat or username of the target channel (in the format @channelusername)
    * @param int[] $Messages Identifiers of 1-100 messages to delete. See deleteMessage for limitations on which messages can be deleted
-   * @return true on success
+   * @return TblCurlResponse True on success
    * @throws TblException
    * @link https://core.telegram.org/bots/api#deletemessages
    */
   public function MessagesDelete(
     int|string $Chat,
     array $Messages
-  ):true{
+  ):TblCurlResponse{
     if(count($Messages) > TgLimits::MessagesDelete):
       throw new TblException(TblError::MessagesDelete, 'Cant delete more than ' . TgLimits::MessagesDelete . ' messages');
     endif;
@@ -742,7 +739,7 @@ extends TblBasics{
    * @param int $Thread Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
    * @param bool $DisableNotification Sends the messages silently. Users will receive a notification with no sound.
    * @param bool $Protect Protects the contents of the forwarded messages from forwarding and saving
-   * @return array On success, an array of MessageId of the sent messages is returned.
+   * @return TblCurlResponse On success, an array of MessageId of the sent messages is returned.
    * @throws TblException
    */
   public function MessagesForward(
@@ -752,7 +749,7 @@ extends TblBasics{
     int|null $Thread = null,
     bool $DisableNotification = false,
     bool $Protect = false
-  ):array{
+  ):TblCurlResponse{
     if(count($Ids) > TgLimits::MessagesForward):
       throw new TblException(TblError::MessagesForward, 'Cant forward more than ' . TgLimits::MessagesForward . ' messages');
     endif;
@@ -776,7 +773,7 @@ extends TblBasics{
    * @param int|string $Chat Unique identifier for the target chat or username of the target channel (in the format @channelusername)
    * @param int $Id Identifier of a message to unpin. If not specified, the most recent pinned message (by sending date) will be unpinned.
    * @param string $BusinessId Unique identifier of the business connection on behalf of which the message will be unpinned
-   * @return true Returns True on success.
+   * @return TblCurlResponse Returns True on success.
    * @link https://core.telegram.org/bots/api#unpinchatmessage
    * @throws TblException
    */
@@ -784,7 +781,7 @@ extends TblBasics{
     int|string $Chat,
     int|null $Id = null,
     string|null $BusinessId = null
-  ):true{
+  ):TblCurlResponse{
     $param['chat_id'] = $Chat;
     if($Id !== null):
       $param['message_id'] = $Id;
@@ -798,13 +795,13 @@ extends TblBasics{
   /**
    * Use this method to clear the list of pinned messages in a chat. If the chat is not a private chat, the bot must be an administrator in the chat for this to work and must have the 'can_pin_messages' administrator right in a supergroup or 'can_edit_messages' administrator right in a channel.
    * @param int|string $Chat Unique identifier for the target chat or username of the target channel (in the format @channelusername)
-   * @return bool Returns True on success.
+   * @return TblCurlResponse Returns True on success.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#unpinallchatmessages
    */
   public function MessageUnpinAll(
     int|string $Chat
-  ):bool{
+  ):TblCurlResponse{
     $param['chat_id'] = $Chat;
     return $this->ServerMethod(TgMethods::MessageUnpinAll, $param);
   }
@@ -842,7 +839,7 @@ extends TblBasics{
     if($Channels):
       $param['allow_channel_chats'] = true;
     endif;
-    return new TgPreparedInlineMessage($this->ServerMethod(TgMethods::PreparedInlineMessageSave, $param));
+    return new TgPreparedInlineMessage($this->ServerMethod(TgMethods::PreparedInlineMessageSave, $param)->Response);
   }
 
   /**
@@ -858,7 +855,7 @@ extends TblBasics{
    * @param TblMarkup $Markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
    * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
    * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
-   * @return TgSticker The sent Message.
+   * @return TblCurlResponse The sent Message.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#sendsticker
    */
@@ -874,7 +871,7 @@ extends TblBasics{
     bool $AllowPaid = false,
     TblMarkup|null $Markup = null,
     string|null $Effect = null
-  ):TgSticker{
+  ):TblCurlResponse{
     $param['chat_id'] = $Chat;
     $param['sticker'] = $Sticker;
     if($Thread !== null):
@@ -904,8 +901,7 @@ extends TblBasics{
     if($Effect !== null):
       $param['message_effect_id'] = $Effect;
     endif;
-    $return = parent::ServerMethod(TgMethods::StickerSend, $param);
-    return new TgSticker($return);
+    return $this->ServerMethod(TgMethods::StickerSend, $param);
   }
 
   /**

@@ -4,7 +4,10 @@
 
 namespace ProtocolLive\TelegramBotLibrary\TblTraits;
 use CURLFile;
-use ProtocolLive\TelegramBotLibrary\TblObjects\TblException;
+use ProtocolLive\TelegramBotLibrary\TblObjects\{
+  TblCurlResponse,
+  TblException
+};
 use ProtocolLive\TelegramBotLibrary\TgEnums\{
   TgChatAction,
   TgChatType,
@@ -21,7 +24,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 };
 
 /**
- * @version 2024.11.23.00
+ * @version 2025.05.29.00
  */
 trait TblChatTrait{
   /**
@@ -31,7 +34,7 @@ trait TblChatTrait{
    * @param TgChatAction $Action Type of action to broadcast.
    * @param int $Thread Unique identifier for the target message thread; supergroups only
    * @param string $BusinessId Unique identifier of the business connection on behalf of which the action will be sent
-   * @return bool Returns True on success.
+   * @return TblCurlResponse Returns True on success.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#sendchataction
    */
@@ -40,7 +43,7 @@ trait TblChatTrait{
     TgChatAction $Action,
     int|null $Thread = null,
     string|null $BusinessId = null
-  ):bool{
+  ):TblCurlResponse{
     $param['chat_id'] = $Chat;
     $param['action'] = $Action->value;
     if($BusinessId !== null):
@@ -76,7 +79,7 @@ trait TblChatTrait{
    * @param int|string $Chat Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername)
    * @param int $User Unique identifier of the target user
    * @param bool $Anonymous If the administrator's presence in the chat is hidden
-   * @return true Returns True on success.
+   * @return TblCurlResponse Returns True on success.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#promotechatmember
    */
@@ -85,13 +88,15 @@ trait TblChatTrait{
     int $User,
     TgPermAdmin $Perms,
     bool $Anonymous = false
-  ):true{
+  ):TblCurlResponse{
     $param['chat_id'] = $Chat;
     $param['user_id'] = $User;
     foreach(TgPermAdmin::Array as $class => $json):
       $param[$json] = $Perms->$class ? true : false;
     endforeach;
-    $param['is_anonymous'] = $Anonymous ? true : false;
+    if($Anonymous):
+      $param['is_anonymous'] = true;
+    endif;
     return $this->ServerMethod(TgMethods::ChatMemberPromote, $param);
   }
 
@@ -100,7 +105,7 @@ trait TblChatTrait{
    * @param int|string $Chat Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername)
    * @param int $User Unique identifier of the target user
    * @param string $Title New custom title for the administrator; 0-16 characters, emoji are not allowed
-   * @return bool Returns True on success.
+   * @return TblCurlResponse Returns True on success.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#setchatadministratorcustomtitle
    */
@@ -108,7 +113,7 @@ trait TblChatTrait{
     int|string $Chat,
     int $User,
     string $Title
-  ):bool{
+  ):TblCurlResponse{
     $param['chat_id'] = $Chat;
     $param['user_id'] = $User;
     $param['custom_title'] = $Title;
@@ -121,7 +126,7 @@ trait TblChatTrait{
    * @param int $User Unique identifier of the target user
    * @param int $Date Date when the user will be unbanned, unix time. If user is banned for more than 366 days or less than 30 seconds from the current time they are considered to be banned forever. Applied for supergroups and channels only.
    * @param bool $DelMsg Pass True to delete all messages from the chat for the user that is being removed. If False, the user will be able to see messages in the group that were sent before the user was removed. Always True for supergroups and channels.
-   * @return bool Returns True on success.
+   * @return TblCurlResponse Returns True on success.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#banchatmember
    */
@@ -130,7 +135,7 @@ trait TblChatTrait{
     int $User,
     int $Date,
     bool $DelMsg = false
-  ):bool{
+  ):TblCurlResponse{
     $param['chat_id'] = $Chat;
     $param['user_id'] = $User;
     $param['until_date'] = $Date;
@@ -142,14 +147,14 @@ trait TblChatTrait{
    * Use this method to ban a channel chat in a supergroup or a channel. Until the chat is unbanned, the owner of the banned chat won't be able to send messages on behalf of any of their channels. The bot must be an administrator in the supergroup or channel for this to work and must have the appropriate administrator rights.
    * @param string|int $Chat Unique identifier for the target chat or username of the target channel (in the format @channelusername)
    * @param int $SenderChat Unique identifier of the target sender chat
-   * @return true on success.
+   * @return TblCurlResponse True on success.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#banchatsenderchat
    */
   public function ChatBanChannel(
     string|int $Chat,
     int $SenderChat
-  ):true{
+  ):TblCurlResponse{
     $param['chat_id'] = $Chat;
     $param['sender_chat_id'] = $SenderChat;
     return $this->ServerMethod(TgMethods::ChatBanChannel, $param);
@@ -160,7 +165,7 @@ trait TblChatTrait{
    * @param int|string $Chat Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername)
    * @param int $User Unique identifier of the target user
    * @param bool $OnlyIfBanned Do nothing if the user is not banned
-   * @return bool Returns True on success.
+   * @return TblCurlResponse Returns True on success.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#unbanchatmember
    */
@@ -168,7 +173,7 @@ trait TblChatTrait{
     int|string $Chat,
     int $User,
     bool $OnlyIfBanned = true
-  ):bool{
+  ):TblCurlResponse{
     $param['chat_id'] = $Chat;
     $param['user_id'] = $User;
     $param['only_if_banned'] = $OnlyIfBanned;
@@ -179,14 +184,14 @@ trait TblChatTrait{
    * Use this method to unban a previously banned channel chat in a supergroup or channel. The bot must be an administrator for this to work and must have the appropriate administrator rights.
    * @param string|int $Chat Unique identifier for the target chat or username of the target channel (in the format @channelusername)
    * @param int $SenderChat Unique identifier of the target sender chat
-   * @return true on success.
+   * @return TblCurlResponse True on success.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#unbanchatsenderchat
    */
   public function ChatBanUndoChannel(
     string|int $Chat,
     int $SenderChat
-  ):true{
+  ):TblCurlResponse{
     $param['chat_id'] = $Chat;
     $param['sender_chat_id'] = $SenderChat;
     return $this->ServerMethod(TgMethods::ChatBanChannelUndo, $param);
@@ -205,12 +210,11 @@ trait TblChatTrait{
   ):array{
     $param['chat_id'] = $Chat;
     $param['user_id'] = $User;
-    $temp = $this->ServerMethod(TgMethods::ChatBoosterGet, $param);
-    $return = [];
-    foreach($temp['boosts'] as $boost):
-      $return[] = new TgChatBoost($boost);
+    $return = $this->ServerMethod(TgMethods::ChatBoosterGet, $param)->Response;
+    foreach($return['boosts'] as &$boost):
+      $boost = new TgChatBoost($boost);
     endforeach;
-    return $return;
+    return $return['boosts'];
   }
 
   /**
@@ -224,20 +228,20 @@ trait TblChatTrait{
     int|string $Chat
   ):int{
     $param['chat_id'] = $Chat;
-    return $this->ServerMethod(TgMethods::ChatMemberCount, $param);
+    return $this->ServerMethod(TgMethods::ChatMemberCount, $param)->Response;
   }
 
   /**
    * Use this method to change the description of a group, a supergroup or a channel. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights.
    * @param int|string $Chat Unique identifier for the target chat or username of the target channel (in the format @channelusername)
    * @param string $Description New chat description, 0-255 characters
-   * @return true Returns True on success.
+   * @return TblCurlResponse Returns True on success.
    * @link https://core.telegram.org/bots/api#setchatdescription
    */
   public function ChatDescription(
     int|string $Chat,
     string $Description
-  ):true{
+  ):TblCurlResponse{
     $param['chat_id'] = $Chat;
     $param['description'] = $Description;
     return $this->ServerMethod(TgMethods::ChatDescription, $param);
@@ -254,7 +258,7 @@ trait TblChatTrait{
     int|string $Chat
   ):TgChat|TgUser{
     $param['chat_id'] = $Chat;
-    $temp = $this->ServerMethod(TgMethods::Chat, $param);
+    $temp = $this->ServerMethod(TgMethods::Chat, $param)->Response;
     if($temp['type'] === TgChatType::Private->value):
       return new TgUser($temp);
     else:
@@ -292,23 +296,23 @@ trait TblChatTrait{
     if($NeedApproval):
       $param['creates_join_request'] = true;
     endif;
-    return new TgChatInviteLink($this->ServerMethod(TgMethods::ChatInviteLinkCreate, $param));
+    return new TgChatInviteLink($this->ServerMethod(TgMethods::ChatInviteLinkCreate, $param)->Response);
   }
 
   /**
    * Use this method to revoke an invite link created by the bot. If the primary link is revoked, a new link is automatically generated. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights.
    * @param int|string $Chat Unique identifier of the target chat or username of the target channel (in the format @channelusername)
    * @param string $Link The invite link to revoke
-   * @return TgChatInviteLink Returns the revoked invite link as ChatInviteLink object.
+   * @return TblCurlResponse Returns the revoked invite link as ChatInviteLink object.
    * @link https://core.telegram.org/bots/api#revokechatinvitelink
    */
   public function ChatInviteDel(
     int|string $Chat,
     string $Link
-  ):TgChatInviteLink{
+  ):TblCurlResponse{
     $param['chat_id'] = $Chat;
     $param['invite_link'] = $Link;
-    return new TgChatInviteLink($this->ServerMethod(TgMethods::ChatInviteLinkDel, $param));
+    return $this->ServerMethod(TgMethods::ChatInviteLinkDel, $param);
   }
 
   /**
@@ -319,7 +323,7 @@ trait TblChatTrait{
    * @param int $Expire Point in time (Unix timestamp) when the link will expire
    * @param int $Limit The maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999
    * @param bool $NeedApproval If users joining the chat via the link need to be approved by chat administrators. If True, member_limit can't be specified
-   * @return TgChatInviteLink Returns the edited invite link as a ChatInviteLink object.
+   * @return TblCurlResponse Returns the edited invite link as a ChatInviteLink object.
    * @link https://core.telegram.org/bots/api#editchatinvitelink
    */
   public function ChatInviteEdit(
@@ -329,7 +333,7 @@ trait TblChatTrait{
     int|null $Expire = null,
     int $Limit = 0,
     bool $NeedApproval = false
-  ):TgChatInviteLink{
+  ):TblCurlResponse{
     $param['chat_id'] = $Chat;
     $param['invite_link'] = $Link;
     if($Name !== null):
@@ -344,7 +348,7 @@ trait TblChatTrait{
     if($NeedApproval):
       $param['creates_join_request'] = true;
     endif;
-    return new TgChatInviteLink($this->ServerMethod(TgMethods::ChatInviteLinkEdit, $param));
+    return $this->ServerMethod(TgMethods::ChatInviteLinkEdit, $param);
   }
 
   /**
@@ -357,19 +361,19 @@ trait TblChatTrait{
     int|string $Chat
   ):string{
     $param['chat_id'] = $Chat;
-    return $this->ServerMethod(TgMethods::ChatInviteExport, $param);
+    return $this->ServerMethod(TgMethods::ChatInviteExport, $param)->Response;
   }
 
   /**
    * Use this method to approve a chat join request. The bot must be an administrator in the chat for this to work and must have the can_invite_users administrator right.
    * @param int|string $Chat Unique identifier for the target chat or username of the target channel (in the format @channelusername)
    * @param int $User Unique identifier of the target user
-   * @return true Returns True on success.
+   * @return TblCurlResponse Returns True on success.
    */
   public function ChatJoinAprove(
     int|string $Chat,
     int $User
-  ):true{
+  ):TblCurlResponse{
     $param['chat_id'] = $Chat;
     $param['user_id'] = $User;
     return $this->ServerMethod(TgMethods::ChatJoinApprove, $param);
@@ -379,13 +383,13 @@ trait TblChatTrait{
    * Use this method to decline a chat join request. The bot must be an administrator in the chat for this to work and must have the can_invite_users administrator right.
    * @param int|string $Chat Unique identifier for the target chat or username of the target channel (in the format @channelusername)
    * @param int $User Unique identifier of the target user
-   * @return true Returns True on success.
+   * @return TblCurlResponse Returns True on success.
    * @link https://core.telegram.org/bots/api#declinechatjoinrequest
    */
   public function ChatJoinDecline(
     int|string $Chat,
     int $User
-  ):true{
+  ):TblCurlResponse{
     $param['chat_id'] = $Chat;
     $param['user_id'] = $User;
     return $this->ServerMethod(TgMethods::ChatJoinDecline, $param);
@@ -394,12 +398,12 @@ trait TblChatTrait{
   /**
    * Use this method for your bot to leave a group, supergroup or channel.
    * @param int|string $Chat Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername)
-   * @return true Returns True on success.
+   * @return TblCurlResponse Returns True on success.
    * @link https://core.telegram.org/bots/api#leavechat
    */
   public function ChatLeave(
     int|string $Chat
-  ):true{
+  ):TblCurlResponse{
     $param['chat_id'] = $Chat;
     return $this->ServerMethod(TgMethods::ChatLeave, $param);
   }
@@ -418,8 +422,7 @@ trait TblChatTrait{
   ):TgMember{
     $param['chat_id'] = $Chat;
     $param['user_id'] = $User;
-    $temp = $this->ServerMethod(TgMethods::ChatMember, $param);
-    return new TgMember($temp);
+    return new TgMember($this->ServerMethod(TgMethods::ChatMember, $param)->Response);
   }
 
   /**
@@ -429,7 +432,7 @@ trait TblChatTrait{
    * @param TgPermMember $Perms A object for new user permissions
    * @param int $Period Date when restrictions will be lifted for the user, unix time. If user is restricted for more than 366 days or less than 30 seconds from the current time, they are considered to be restricted forever
    * @param bool $Independent Pass True if chat permissions are set independently. Otherwise, the can_send_other_messages and can_add_web_page_previews permissions will imply the can_send_messages, can_send_audios, can_send_documents, can_send_photos, can_send_videos, can_send_video_notes, and can_send_voice_notes permissions; the can_send_polls permission will imply the can_send_messages permission.
-   * @return bool Returns True on success.
+   * @return TblCurlResponse Returns True on success.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#restrictchatmember
    */
@@ -439,7 +442,7 @@ trait TblChatTrait{
     TgPermMember $Perms,
     int|null $Period = null,
     bool $Independent = false
-  ):bool{
+  ):TblCurlResponse{
     $param['chat_id'] = $Chat;
     $param['user_id'] = $User;
     $param['permissions'] = $Perms->ToArray();
@@ -455,7 +458,7 @@ trait TblChatTrait{
    * @param int|string $Chat Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
    * @param TgPermMember $Perms A JSON-serialized object for new default chat permissions
    * @param bool $Independent Pass True if chat permissions are set independently. Otherwise, the can_send_other_messages and can_add_web_page_previews permissions will imply the can_send_messages, can_send_audios, can_send_documents, can_send_photos, can_send_videos, can_send_video_notes, and can_send_voice_notes permissions; the can_send_polls permission will imply the can_send_messages permission.
-   * @return bool Returns True on success.
+   * @return TblCurlResponse Returns True on success.
    * @link https://core.telegram.org/bots/api#setchatpermissions
    * @throws TblException
    */
@@ -463,7 +466,7 @@ trait TblChatTrait{
     int|string $Chat,
     TgPermMember $Perms,
     bool $Independent = false
-  ):bool{
+  ):TblCurlResponse{
     $params['chat_id'] = $Chat;
     $params['permissions'] = $Perms->ToArray();
     if($Independent):
@@ -475,12 +478,12 @@ trait TblChatTrait{
   /**
    * Use this method to delete a chat photo. Photos can't be changed for private chats. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights.
    * @param int|string $Chat Unique identifier for the target chat or username of the target channel (in the format @channelusername)
-   * @return true Returns True on success.
+   * @return TblCurlResponse Returns True on success.
    * @link https://core.telegram.org/bots/api#deletechatphoto
    */
   public function ChatPhotoDel(
     int|string $Chat
-  ):true{
+  ):TblCurlResponse{
     $param['chat_id'] = $Chat;
     return $this->ServerMethod(TgMethods::ChatPhotoDel, $param);
   }
@@ -489,13 +492,13 @@ trait TblChatTrait{
    * Use this method to set a new profile photo for the chat. Photos can't be changed for private chats. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights.
    * @param int|string $Chat Unique identifier for the target chat or username of the target channel (in the format @channelusername)
    * @param string $Photo New chat photo, uploaded using multipart/form-data
-   * @return true Returns True on success.
+   * @return TblCurlResponse Returns True on success.
    * @link https://core.telegram.org/bots/api#setchatphoto
    */
   public function ChatPhotoSet(
     int|string $Chat,
     string $Photo
-  ):true{
+  ):TblCurlResponse{
     $param['chat_id'] = $Chat;
     $param['photo'] = new CURLFile($Photo);
     return $this->ServerMethod(TgMethods::ChatPhotoSet, $param, false);
@@ -505,13 +508,13 @@ trait TblChatTrait{
    * Use this method to change the title of a chat. Titles can't be changed for private chats. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights.
    * @param int|string $Chat Unique identifier for the target chat or username of the target channel (in the format @channelusername)
    * @param string $Title New chat title, 1-128 characters
-   * @return true Returns True on success.
+   * @return TblCurlResponse Returns True on success.
    * @link https://core.telegram.org/bots/api#setchattitle
    */
   public function ChatName(
     int|string $Chat,
     string $Name
-  ):true{
+  ):TblCurlResponse{
     $param['chat_id'] = $Chat;
     $param['title'] = $Name;
     return $this->ServerMethod(TgMethods::ChatTitle, $param);
