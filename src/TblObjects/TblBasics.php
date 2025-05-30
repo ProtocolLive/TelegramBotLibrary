@@ -74,7 +74,7 @@ use ProtocolLive\TelegramBotLibrary\TgService\{
 use ReflectionClass;
 
 /**
- * @version 2025.05.29.02
+ * @version 2025.05.30.00
  */
 abstract class TblBasics{
   protected TblData $BotData;
@@ -104,19 +104,13 @@ abstract class TblBasics{
 
   //Return string for method InvoiceLink
   private function CurlResponse(
-    CurlHandle $Curl,
-    string|null $Log = null,
+    CurlHandle $Curl
   ):array|bool|string|TblException{
-    $error = null;
     $response = curl_multi_getcontent($Curl);
     $json = json_decode($response, true);
     if(json_last_error() > 0):
       $error = 'Json error: ' . json_last_error_msg() . PHP_EOL;
       $error .= 'Response: ' . $response;
-    endif;
-    if($this->BotData->Log & TblLog::Send
-    and $Log !== null):
-      $this->Log(TblLog::Send, $Log);
     endif;
     if($this->BotData->Log & TblLog::Response):
       $this->Log(
@@ -127,7 +121,7 @@ abstract class TblBasics{
         )
       );
     endif;
-    if($error !== null):
+    if(isset($error)):
       return new TblException(TblError::JsonError, $error);
     elseif($json['ok'] === false):
       $search = TgErrors::Search($json['description']);
@@ -341,18 +335,18 @@ abstract class TblBasics{
         JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
       );
       $log = str_replace('<', '&lt;', $log);
+      $this->Log(TblLog::Send, $log);
     endif;
     $curl = $this->Curl($curl, $Params, $AsJson);
     $mh = curl_multi_init();
     curl_multi_add_handle($mh, $curl);
-    curl_multi_exec($mh, $run);
+    do{
+      curl_multi_exec($mh, $run);
+      curl_multi_select($mh);
+    }while($run > 0);
     return new ReflectionClass(TblCurlResponse::class)
-    ->newLazyGhost(function(TblCurlResponse $Response) use($mh, $curl, $log):void{
-      do{
-        curl_multi_exec($mh, $run);
-        curl_multi_select($mh);
-      }while($run > 0);
-      $response = $this->CurlResponse($curl, $log ?? null);
+    ->newLazyGhost(function(TblCurlResponse $Response) use($curl):void{
+      $response = $this->CurlResponse($curl);
       if(is_object($response)):
         throw $response;
       else:
@@ -369,7 +363,6 @@ abstract class TblBasics{
     TgMethods $Method,
     array $Params
   ):array{
-    $MultiLog = [];
     $mh = curl_multi_init();
     $url = $this->BotData->UrlApi . '/' . $Method->value;
     foreach($Params as $id => &$params):
@@ -379,20 +372,19 @@ abstract class TblBasics{
           $params,
           JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
         );
-        $MultiLog[$id] = $log;
+        $this->Log(TblLog::Send, $log);
       endif;
       $params = $this->Curl($url, $params);
       curl_multi_add_handle($mh, $params);
     endforeach;
-    curl_multi_exec($mh, $run);
+    do{
+      curl_multi_exec($mh, $run);
+      curl_multi_select($mh);
+    }while($run > 0);
     foreach($Params as $id => &$params):
       $params = new ReflectionClass(TblCurlResponse::class)
-      ->newLazyGhost(function(TblCurlResponse $Response) use($mh, $params, $MultiLog, $id):void{
-        do{
-          curl_multi_exec($mh, $run);
-          curl_multi_select($mh);
-        }while($run > 0);
-        $Response->Response = $this->CurlResponse($params, $MultiLog[$id]);
+      ->newLazyGhost(function(TblCurlResponse $Response) use($params):void{
+        $Response->Response = $this->CurlResponse($params);
       });
     endforeach;
     return $Params;
