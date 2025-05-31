@@ -11,18 +11,22 @@ use ProtocolLive\TelegramBotLibrary\TblObjects\{
   TblTextEditMulti,
   TblTextSendMulti
 };
+use ProtocolLive\TelegramBotLibrary\TelegramBotLibrary;
 use ProtocolLive\TelegramBotLibrary\TgEnums\{
   TgMethods,
   TgParseMode
 };
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgText;
+use ProtocolLive\TelegramBotLibrary\TgObjects\{
+  TgDice,
+  TgText
+};
 use ProtocolLive\TelegramBotLibrary\TgParams\{
   TgLinkPreview,
   TgReplyParams
 };
 
 /**
- * @version 2025.05.30.00
+ * @version 2025.05.29.00
  */
 trait TblTextTrait{
   /**
@@ -196,11 +200,14 @@ trait TblTextTrait{
   /**
    * Send text to many chats at once.
    * Carefully with server limits: https://core.telegram.org/bots/faq#my-bot-is-hitting-limits-how-do-i-avoid-this
-   * @return TblCurlResponse[]
+   * @return TgText[]|TblException[]
    */
   public function TextSendMulti(
     TblTextSendMulti $Params
   ):array{
+    /**
+     * @var TelegramBotLibrary $this
+     */
     return $this->ServerMethodMulti(
       TgMethods::TextSend,
       $Params->GetArray()

@@ -14,10 +14,11 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\{
   TgMethods,
   TgParseMode
 };
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgPhoto;
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2025.05.30.00
+ * @version 2025.05.29.00
  */
 trait TblPhotoTrait{
   /**
@@ -100,7 +101,7 @@ trait TblPhotoTrait{
   /**
    * Send photo to many chats at once. Carefully with server limits.
    * https://core.telegram.org/bots/faq#my-bot-is-hitting-limits-how-do-i-avoid-this
-   * @return TblCurlResponse[]
+   * @return TgPhoto[]
    */
   public function PhotoSendMulti(
     TblPhotoSendMulti $Params
