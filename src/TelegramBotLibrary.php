@@ -83,7 +83,7 @@ use ProtocolLive\TelegramBotLibrary\TgService\{
 };
 
 /**
- * @version 2025.05.29.01
+ * @version 2025.05.31.00
  */
 final class TelegramBotLibrary
 extends TblBasics{
@@ -168,6 +168,68 @@ extends TblBasics{
   ):TblCurlResponse{
     $param['custom_emoji_ids'] = $Ids;
     return $this->ServerMethod(TgMethods::CustomEmojiGet, $param);
+  }
+
+  public static function DetectUpdate(
+    array $Data
+  ):object{
+    if(isset($Data['message'])):
+      return parent::DetectMessage($Data['message']);
+    elseif(isset($Data['edited_message'])):
+      return parent::DetectMessageEdited($Data['edited_message']);
+    elseif(isset($Data['channel_post'])):
+      return parent::DetectMessage($Data['channel_post']);
+    elseif(isset($Data['edited_channel_post'])):
+      return parent::DetectMessageEdited($Data['edited_channel_post']);
+    elseif(isset($Data['business_message'])):
+      return parent::DetectMessage($Data['business_message']);
+    elseif(isset($Data['edited_business_message'])):
+      return parent::DetectMessageEdited($Data['business_message']);
+    elseif(isset($Data['business_connection'])):
+      return new TgBusinessConnection($Data['business_connection']);
+    elseif(isset($Data['deleted_business_messages'])):
+      return new TgMessageDeleted($Data['deleted_business_messages']);
+    elseif(isset($Data['callback_query']['game_short_name'])):
+      return new TgGameStart($Data['callback_query']);
+    elseif(isset($Data['callback_query'])):
+      return new TgCallback($Data['callback_query']);
+    elseif(isset($Data['chat_boost'])):
+      return new TgChatBoost($Data['chat_boost']);
+    elseif(isset($Data['chat_join_request'])):
+      return new TgChatRequest($Data['chat_join_request']);
+    elseif(isset($Data['gift'])):
+      return new TgGiftInfo($Data['gift']);
+    elseif(isset($Data['unique_gift'])):
+      return new TgGiftUniqueInfo($Data['unique_gift']);
+    elseif(isset($Data['chat_member'])):
+      return new TgGroupStatus($Data['chat_member']);
+    elseif(isset($Data['chosen_inline_result'])):
+      return new TgInlineQueryFeedback($Data['chosen_inline_result']);
+    elseif(isset($Data['invoice'])): //Suspect unnecessary
+      return new TgInvoice($Data['invoice']);
+    elseif(isset($Data['inline_query'])):
+      return new TgInlineQuery($Data['inline_query']);
+    elseif(isset($Data['message_reaction'])):
+      return new TgReactionUpdate($Data['message_reaction']);
+    elseif(isset($Data['message_reaction_count'])):
+      return new TgReactionUpdate($Data['message_reaction_count']);
+    elseif(isset($Data['my_chat_member'])):
+      return new TgGroupStatusMy($Data['my_chat_member']);
+    elseif(isset($Data['paid_message_price_changed'])):
+      return new TgPaidMessagePriceChanged($Data['paid_message_price_changed']);
+    elseif(isset($Data['poll'])):
+      return new TgPoll($Data['poll']);
+    elseif(isset($Data['poll_answer'])):
+      return new TgPollAnswer($Data['poll_answer']);
+    elseif(isset($Data['pre_checkout_query'])):
+      return new TgInvoiceCheckout($Data['pre_checkout_query']);
+    elseif(isset($Data['purchased_paid_media'])):
+      return new TgPaidMediaPurchased($Data['purchased_paid_media']);
+    elseif(isset($Data['removed_chat_boost'])):
+      return new TgChatBoostRemoved($Data['removed_chat_boost']);
+    elseif(isset($Data['shipping_query'])):
+      return new TgInvoiceShipping($Data['shipping_query']);
+    endif;
   }
 
   /**
@@ -262,68 +324,6 @@ extends TblBasics{
       $param['message_effect_id'] = $Effect;
     endif;
     return $this->ServerMethod(TgMethods::DocumentSend, $param);
-  }
-
-  private function DetectReturn(
-    array $Data
-  ):object{
-    if(isset($Data['message'])):
-      return parent::DetectMessage($Data['message']);
-    elseif(isset($Data['edited_message'])):
-      return parent::DetectMessageEdited($Data['edited_message']);
-    elseif(isset($Data['channel_post'])):
-      return parent::DetectMessage($Data['channel_post']);
-    elseif(isset($Data['edited_channel_post'])):
-      return parent::DetectMessageEdited($Data['edited_channel_post']);
-    elseif(isset($Data['business_message'])):
-      return parent::DetectMessage($Data['business_message']);
-    elseif(isset($Data['edited_business_message'])):
-      return parent::DetectMessageEdited($Data['business_message']);
-    elseif(isset($Data['business_connection'])):
-      return new TgBusinessConnection($Data['business_connection']);
-    elseif(isset($Data['deleted_business_messages'])):
-      return new TgMessageDeleted($Data['deleted_business_messages']);
-    elseif(isset($Data['callback_query']['game_short_name'])):
-      return new TgGameStart($Data['callback_query']);
-    elseif(isset($Data['callback_query'])):
-      return new TgCallback($Data['callback_query']);
-    elseif(isset($Data['chat_boost'])):
-      return new TgChatBoost($Data['chat_boost']);
-    elseif(isset($Data['chat_join_request'])):
-      return new TgChatRequest($Data['chat_join_request']);
-    elseif(isset($Data['gift'])):
-      return new TgGiftInfo($Data['gift']);
-    elseif(isset($Data['unique_gift'])):
-      return new TgGiftUniqueInfo($Data['unique_gift']);
-    elseif(isset($Data['chat_member'])):
-      return new TgGroupStatus($Data['chat_member']);
-    elseif(isset($Data['chosen_inline_result'])):
-      return new TgInlineQueryFeedback($Data['chosen_inline_result']);
-    elseif(isset($Data['invoice'])): //Suspect unnecessary
-      return new TgInvoice($Data['invoice']);
-    elseif(isset($Data['inline_query'])):
-      return new TgInlineQuery($Data['inline_query']);
-    elseif(isset($Data['message_reaction'])):
-      return new TgReactionUpdate($Data['message_reaction']);
-    elseif(isset($Data['message_reaction_count'])):
-      return new TgReactionUpdate($Data['message_reaction_count']);
-    elseif(isset($Data['my_chat_member'])):
-      return new TgGroupStatusMy($Data['my_chat_member']);
-    elseif(isset($Data['paid_message_price_changed'])):
-      return new TgPaidMessagePriceChanged($Data['paid_message_price_changed']);
-    elseif(isset($Data['poll'])):
-      return new TgPoll($Data['poll']);
-    elseif(isset($Data['poll_answer'])):
-      return new TgPollAnswer($Data['poll_answer']);
-    elseif(isset($Data['pre_checkout_query'])):
-      return new TgInvoiceCheckout($Data['pre_checkout_query']);
-    elseif(isset($Data['purchased_paid_media'])):
-      return new TgPaidMediaPurchased($Data['purchased_paid_media']);
-    elseif(isset($Data['removed_chat_boost'])):
-      return new TgChatBoostRemoved($Data['removed_chat_boost']);
-    elseif(isset($Data['shipping_query'])):
-      return new TgInvoiceShipping($Data['shipping_query']);
-    endif;
   }
 
   /**
@@ -603,7 +603,7 @@ extends TblBasics{
       $param['video_start_timestamp'] = $VideoStart;
     endif;
     $return = $this->ServerMethod(TgMethods::MessageForward, $param);
-    return $this->DetectReturn(['message' => $return]);
+    return self::DetectUpdate(['message' => $return]);
   }
 
   /**
@@ -926,7 +926,7 @@ extends TblBasics{
         )
       );
     endif;
-    $return = $this->DetectReturn($update);
+    $return = self::DetectUpdate($update);
     if($this->BotData->Log & TblLog::WebhookObject):
       ob_start();
       var_dump($return);
