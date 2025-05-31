@@ -4,7 +4,6 @@
 
 namespace ProtocolLive\TelegramBotLibrary\TblTraits;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
-  TblCurlResponse,
   TblEntities,
   TblException,
   TblMarkup,
@@ -26,7 +25,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2025.05.29.00
+ * @version 2024.11.23.01
  */
 trait TblTextTrait{
   /**
@@ -41,7 +40,7 @@ trait TblTextTrait{
    * @param TblMarkup $Markup Additional interface options. A object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
    * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
    * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
-   * @return TblCurlResponse On success, the sent Message is returned.
+   * @return TgText On success, the sent Message is returned.
    * @link https://core.telegram.org/bots/api#senddice
    */
   public function DiceSend(
@@ -55,7 +54,7 @@ trait TblTextTrait{
     TgReplyParams|null $Reply = null,
     TblMarkup|null $Markup = null,
     string|null $Effect = null
-  ):TblCurlResponse{
+  ):TgDice{
     if($BusinessId !== null):
       $param['business_connection_id'] = $BusinessId;
     else:
@@ -85,7 +84,7 @@ trait TblTextTrait{
     if($Effect !== null):
       $param['message_effect_id'] = $Effect;
     endif;
-    return $this->ServerMethod(TgMethods::DiceSend, $param);
+    return new TgDice($this->ServerMethod(TgMethods::DiceSend, $param));
   }
 
   /**
@@ -99,7 +98,7 @@ trait TblTextTrait{
    * @param TblEntities $Entities A list of special entities that appear in message text, which can be specified instead of parse_mode
    * @param TgLinkPreview $LinkPreview Link preview generation options for the message
    * @param TblMarkup $Markup A object for an inline keyboard.
-   * @return TblCurlResponse On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned.
+   * @return TgText|true On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#editmessagetext
    */
@@ -113,8 +112,8 @@ trait TblTextTrait{
     TblEntities|null $Entities = null,
     TgLinkPreview|null $LinkPreview = null,
     TblMarkup|null $Markup = null
-  ):TblCurlResponse{
-    return $this->ServerMethod(
+  ):TgText|true{
+    $return = $this->ServerMethod(
       TgMethods::TextEdit,
       TblTextEditMulti::BuildArgs(
         Chat: $Chat,
@@ -128,6 +127,11 @@ trait TblTextTrait{
         Markup: $Markup
       )
     );
+    if($return === true):
+      return true;
+    else:
+      return new TgText($return);
+    endif;
   }
 
   /**
@@ -137,10 +141,19 @@ trait TblTextTrait{
   public function TextEditMulti(
     TblTextEditMulti $Params
   ):array{
-    return $this->ServerMethodMulti(
+    /**
+     * @var TelegramBotLibrary $this
+     */
+    $return = $this->ServerMethodMulti(
       TgMethods::TextEdit,
       $Params->GetArray()
     );
+    foreach($return as &$answer):
+      if(is_object($answer) === false):
+        $answer = new TgText($answer);
+      endif;
+    endforeach;
+    return $return;
   }
 
   /**
@@ -158,7 +171,7 @@ trait TblTextTrait{
    * @param TblMarkup $Markup Additional interface options. A object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
    * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
    * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
-   * @return TblCurlResponse On success, the sent Message is returned.
+   * @return TgText On success, the sent Message is returned.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#sendmessage
    */
@@ -176,8 +189,8 @@ trait TblTextTrait{
     TgReplyParams|null $Reply = null,
     TblMarkup|null $Markup = null,
     string|null $Effect = null
-  ):TblCurlResponse{
-    return $this->ServerMethod(
+  ):TgText{
+    $return = $this->ServerMethod(
       TgMethods::TextSend,
       TblTextSendMulti::BuildArgs(
         Chat: $Chat,
@@ -195,6 +208,7 @@ trait TblTextTrait{
         AllowPaid: $AllowPaid
       )
     );
+    return new TgText($return);
   }
 
   /**
@@ -208,9 +222,15 @@ trait TblTextTrait{
     /**
      * @var TelegramBotLibrary $this
      */
-    return $this->ServerMethodMulti(
+    $return = $this->ServerMethodMulti(
       TgMethods::TextSend,
       $Params->GetArray()
     );
+    foreach($return as &$answer):
+      if(is_object($answer) === false):
+        $answer = new TgText($answer);
+      endif;
+    endforeach;
+    return $return;
   }
 }

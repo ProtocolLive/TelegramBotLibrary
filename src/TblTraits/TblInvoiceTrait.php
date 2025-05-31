@@ -4,7 +4,6 @@
 
 namespace ProtocolLive\TelegramBotLibrary\TblTraits;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
-  TblCurlResponse,
   TblError,
   TblException,
   TblMarkup
@@ -13,13 +12,14 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\{
   TgCurrencies,
   TgMethods
 };
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgInvoice;
 use ProtocolLive\TelegramBotLibrary\TgParams\{
   TgInvoicePrices,
   TgInvoiceShippingOptions
 };
 
 /**
- * @version 2025.05.29.00
+ * @version 2024.11.23.00
  */
 trait TblInvoiceTrait{
   /**
@@ -27,7 +27,7 @@ trait TblInvoiceTrait{
    * @param string $Id Unique identifier for the query to be answered
    * @param bool $Confirm Specify True if everything is alright (goods are available, etc.) and the bot is ready to proceed with the order. Use False if there are any problems.
    * @param string $ErrorMsg Required if $Confirm is False. Error message in human readable form that explains the reason for failure to proceed with the checkout (e.g. "Sorry, somebody just bought the last of our amazing black T-shirts while you were busy filling out your payment details. Please choose a different color or garment!"). Telegram will display this message to the user.
-   * @return TblCurlResponse On success, True is returned.
+   * @return bool On success, True is returned.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#answerprecheckoutquery
    */
@@ -35,7 +35,7 @@ trait TblInvoiceTrait{
     string $Id,
     bool $Confirm,
     string|null $ErrorMsg = null
-  ):TblCurlResponse{
+  ):bool{
     $param['pre_checkout_query_id'] = $Id;
     $param['ok'] = $Confirm;
     if($Confirm === false):
@@ -153,7 +153,7 @@ trait TblInvoiceTrait{
     if($SubscriptionPeriod !== null):
       $param['subscription_period'] = $SubscriptionPeriod;
     endif;
-    return $this->ServerMethod(TgMethods::InvoiceLink, $param)->Response;
+    return $this->ServerMethod(TgMethods::InvoiceLink, $param);
   }
 
   /**
@@ -187,7 +187,7 @@ trait TblInvoiceTrait{
    * @param TblMarkup $Markup A object for an inline keyboard. If empty, one 'Pay total price' button will be shown. If not empty, the first button must be a Pay button.
    * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
    * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
-   * @return TblCurlResponse On success, the sent Message is returned.
+   * @return TgInvoice On success, the sent Message is returned.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#sendinvoice
    */
@@ -221,7 +221,7 @@ trait TblInvoiceTrait{
     bool $AllowPaid = false,
     TblMarkup|null $Markup = null,
     string|null $Effect = null
-  ):TblCurlResponse{
+  ):TgInvoice{
     $param['chat_id'] = $Chat;
     $param['title'] = $Title;
     $param['description'] = $Description;
@@ -295,7 +295,8 @@ trait TblInvoiceTrait{
     if($Effect !== null):
       $param['message_effect_id'] = $Effect;
     endif;
-    return $this->ServerMethod(TgMethods::InvoiceSend, $param);
+    $return = $this->ServerMethod(TgMethods::InvoiceSend, $param);
+    return new TgInvoice($return);
   }
 
   /**
@@ -304,7 +305,7 @@ trait TblInvoiceTrait{
    * @param bool $Confirm Specify True if delivery to the specified address is possible and False if there are any problems (for example, if delivery to the specified address is not possible)
    * @param TgInvoiceShippingOptions $Options Required if ok is True. A JSON-serialized array of available shipping options.
    * @param string $Error Required if ok is False. Error message in human readable form that explains why it is impossible to complete the order (e.g. "Sorry, delivery to your desired address is unavailable'). Telegram will display this message to the user.
-   * @return TblCurlResponse On success, True is returned.
+   * @return bool On success, True is returned.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#answershippingquery
    */
@@ -313,7 +314,7 @@ trait TblInvoiceTrait{
     bool $Confirm,
     TgInvoiceShippingOptions|null $Options = null,
     string|null $Error = null
-  ):TblCurlResponse{
+  ):bool{
     $param['shipping_query_id'] = $Id;
     $param['ok'] = $Confirm;
     if($Confirm):

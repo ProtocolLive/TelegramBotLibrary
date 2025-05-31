@@ -4,7 +4,7 @@
 
 namespace ProtocolLive\TelegramBotLibrary\TblTraits;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
-  TblCurlResponse,
+  TblBasics,
   TblEntities,
   TblException,
   TblMarkup,
@@ -18,7 +18,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\TgPhoto;
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2025.05.29.00
+ * @version 2024.11.23.00
  */
 trait TblPhotoTrait{
   /**
@@ -53,7 +53,7 @@ trait TblPhotoTrait{
    * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
    * @param bool $CaptionAbove If the caption must be shown above the message media
    * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
-   * @return TblCurlResponse On success, the sent Message is returned.
+   * @return TgPhoto On success, the sent Message is returned.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#sendphoto
    */
@@ -73,7 +73,7 @@ trait TblPhotoTrait{
     TgReplyParams|null $Reply = null,
     TblMarkup|null $Markup = null,
     string|null $Effect = null
-  ):TblCurlResponse{
+  ):TgPhoto{
     $param = TblPhotoSendMulti::BuildArgs(
       Chat: $Chat,
       Photo: $Photo,
@@ -91,11 +91,12 @@ trait TblPhotoTrait{
       Effect: $Effect,
       AllowPaid: $AllowPaid
     );
-    return $this->ServerMethod(
+    $return = $this->ServerMethod(
       TgMethods::PhotoSend,
       $param,
       is_file($Photo) ? false : true
     );
+    return new TgPhoto($return);
   }
 
   /**
@@ -106,9 +107,18 @@ trait TblPhotoTrait{
   public function PhotoSendMulti(
     TblPhotoSendMulti $Params
   ):array{
-    return $this->ServerMethodMulti(
+    /**
+     * @var TblBasics $this
+     */
+    $return = $this->ServerMethodMulti(
       TgMethods::PhotoSend,
       $Params->GetArray()
     );
+    foreach($return as &$answer):
+      if(($answer instanceof TblException) === false):
+        $answer = new TgPhoto($answer);
+      endif;
+    endforeach;
+    return $return;
   }
 }

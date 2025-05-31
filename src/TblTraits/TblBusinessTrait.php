@@ -5,7 +5,6 @@
 namespace ProtocolLive\TelegramBotLibrary\TblTraits;
 use CURLFile;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
-  TblCurlResponse,
   TblEntities,
   TblException
 };
@@ -26,20 +25,20 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 };
 
 /**
- * @version 2025.05.29.00
+ * @version 2025.05.11.00
  */
 trait TblBusinessTrait{
   /**
    * Changes the bio of a managed business account. Requires the can_change_bio business bot right.
    * @param string $BusinessId Unique identifier of the business connection
    * @param string|null $Bio The new value of the bio for the business account; 0-140 characters
-   * @return TblCurlResponse Returns True on success.
+   * @return true
    * @link https://core.telegram.org/bots/api#setbusinessaccountbio
    */
   public function BusinessBioSet(
     string $BusinessId,
     string|null $Bio = null
-  ):TblCurlResponse{
+  ):true{
     $param['business_connection_id'] = $BusinessId;
     if($Bio !== null
     and $Bio !== ''):
@@ -52,13 +51,12 @@ trait TblBusinessTrait{
    * Delete messages on behalf of a business account. Requires the can_delete_outgoing_messages business bot right to delete messages sent by the bot itself, or the can_delete_all_messages business bot right to delete any message.
    * @param string $BusinessId Unique identifier of the business connection on behalf of which to delete the messages
    * @param int[] $Ids A JSON-serialized list of 1-100 identifiers of messages to delete. All messages must be from the same chat. See deleteMessage for limitations on which messages can be deleted
-   * @return TblCurlResponse
-   * @link https://core.telegram.org/bots/api#deletebusinessmessages
+   * @return true
    */
   public function BusinessDel(
     string $BusinessId,
     array $Ids
-  ):TblCurlResponse{
+  ):true{
     $param['business_connection_id'] = $BusinessId;
     $param['message_ids'] = $Ids;
     return $this->ServerMethod(TgMethods::BusinessDel, $param);
@@ -68,14 +66,13 @@ trait TblBusinessTrait{
    * Use this method to get information about the connection of the bot with a business account. Returns a BusinessConnection object on success.
    * @param string $BusinessId Unique identifier for the business account
    * @throws TblException
-   * @return TblCurlResponse Returns a BusinessConnection object on success.
    * @link https://core.telegram.org/bots/api#getbusinessconnection
    */
   public function BusinessGet(
     string $BusinessId
-  ):TblCurlResponse{
+  ):TgBusinessConnection{
     $param['business_connection_id'] = $BusinessId;
-    return $this->ServerMethod(TgMethods::BusinessGet, $param);
+    return new TgBusinessConnection($this->ServerMethod(TgMethods::BusinessGet, $param));
   }
 
   /**
@@ -86,7 +83,7 @@ trait TblBusinessTrait{
    * @param bool $Limited If limited regular gifts are accepted
    * @param bool $Unique If unique gifts or gifts that can be upgraded to unique for free are accepted
    * @param bool $Premium If a Telegram Premium subscription is accepted
-   * @return TblCurlResponse Returns True on success.
+   * @return true
    * @link https://core.telegram.org/bots/api#setbusinessaccountgiftsettings
    * @link https://core.telegram.org/bots/api#acceptedgifttypes
    */
@@ -97,7 +94,7 @@ trait TblBusinessTrait{
     bool $Limited,
     bool $Unique,
     bool $Premium
-  ):TblCurlResponse{
+  ):true{
     $param['business_connection_id'] = $BusinessId;
     $param['show_gift_button'] = $Button;
     $param['accepted_gift_types']['unlimited_gifts'] = $Unlimited;
@@ -113,7 +110,7 @@ trait TblBusinessTrait{
    * @param string $Id Unique identifier of the regular gift that should be transferred
    * @param int $Chat Unique identifier of the chat which will own the gift. The chat must be active in the last 24 hours.
    * @param int|null $Stars The amount of Telegram Stars that will be paid for the transfer from the business account balance. If positive, then the can_transfer_stars business bot right is required.
-   * @return TblCurlResponse Returns True on success.
+   * @return true
    * @link https://core.telegram.org/bots/api#transfergift
    */
   public function BusinessGiftSend(
@@ -121,7 +118,7 @@ trait TblBusinessTrait{
     string $Id,
     int $Chat,
     int|null $Stars = null
-  ):TblCurlResponse{
+  ):true{
     $param['business_connection_id'] = $BusinessId;
     $param['owned_gift_id'] = $Id;
     $param['new_owner_chat_id'] = $Chat;
@@ -142,7 +139,7 @@ trait TblBusinessTrait{
    * @param bool $SortByPrice To sort results by gift price instead of send date. Sorting is applied before pagination.
    * @param string|null $Offset Offset of the first entry to return as received from the previous request; use empty string to get the first chunk of results
    * @param int $Limit The maximum number of gifts to be returned; 1-100. Defaults to 100
-   * @return TblCurlResponse Returns OwnedGifts on success.
+   * @return TgGiftsOwned
    * @link https://core.telegram.org/bots/api#getbusinessaccountgifts
    */
   public function BusinessGiftsGet(
@@ -155,7 +152,7 @@ trait TblBusinessTrait{
     bool $SortByPrice = true,
     string|null $Offset = null,
     int $Limit = 100,
-  ):TblCurlResponse{
+  ):TgGiftsOwned{
     $param['business_connection_id'] = $BusinessId;
     if($Unsaved === false):
       $param['exclude_unsaved'] = true;
@@ -182,20 +179,20 @@ trait TblBusinessTrait{
     and $Limit < 100):
       $param['limit'] = $Limit;
     endif;
-    return $this->ServerMethod(TgMethods::BusinessGiftsGet, $param);
+    return new TgGiftsOwned($this->ServerMethod(TgMethods::BusinessGiftsGet, $param));
   }
 
   /**
    * Converts a given regular gift to Telegram Stars. Requires the can_convert_gifts_to_stars business bot right.
    * @param string $BusinessId Unique identifier of the business connection
    * @param int $GiftId Unique identifier of the regular gift that should be converted to Telegram Stars
-   * @return TblCurlResponse Returns True on success.
+   * @return true
    * @link https://core.telegram.org/bots/api#convertgifttostars
    */
   public function BusinessGiftToStars(
     string $BusinessId,
     int $GiftId
-  ):TblCurlResponse{
+  ):true{
     $param['business_connection_id'] = $BusinessId;
     $param['owned_gift_id'] = $GiftId;
     return $this->ServerMethod(TgMethods::BusinessGiftToStars, $param);
@@ -207,7 +204,7 @@ trait TblBusinessTrait{
    * @param string $Id Unique identifier of the regular gift that should be upgraded to a unique one
    * @param bool $KeepDetails Pass True to keep the original gift text, sender and receiver in the upgraded gift
    * @param int|null $Stars The amount of Telegram Stars that will be paid for the upgrade from the business account balance. If gift.prepaid_upgrade_star_count > 0, then pass 0, otherwise, the can_transfer_stars business bot right is required and gift.upgrade_star_count must be passed.
-   * @return TblCurlResponse Returns True on success.
+   * @return true
    * @link https://core.telegram.org/bots/api#upgradegift
    */
   public function BusinessGiftUpgrade(
@@ -215,7 +212,7 @@ trait TblBusinessTrait{
     string $Id,
     bool $KeepDetails = false,
     int|null $Stars = null
-  ):TblCurlResponse{
+  ):true{
     $param['business_connection_id'] = $BusinessId;
     $param['owned_gift_id'] = $Id;
     if($KeepDetails):
@@ -233,14 +230,14 @@ trait TblBusinessTrait{
    * @param string $BusinessId Unique identifier of the business connection
    * @param string $Name The new value of the first name for the business account; 1-64 characters
    * @param string|null $NameLast The new value of the last name for the business account; 0-64 characters
-   * @return TblCurlResponse Returns True on success.
+   * @return true
    * @link https://core.telegram.org/bots/api#setbusinessaccountname
    */
   public function BusinessNameSet(
     string $BusinessId,
     string $Name,
     string|null $NameLast = null
-  ):TblCurlResponse{
+  ):true{
     $param['business_connection_id'] = $BusinessId;
     $param['first_name'] = $Name;
     if($NameLast !== null
@@ -254,13 +251,13 @@ trait TblBusinessTrait{
    * Changes the username of a managed business account. Requires the can_change_username business bot right.
    * @param string $BusinessId Unique identifier of the business connection
    * @param string|null $Nick The new value of the username for the business account; 0-32 characters
-   * @return TblCurlResponse Returns True on success.
+   * @return true
    * @link https://core.telegram.org/bots/api#setbusinessaccountusername
    */
   public function BusinessNickSet(
     string $BusinessId,
     string|null $Nick = null
-  ):TblCurlResponse{
+  ):true{
     $param['business_connection_id'] = $BusinessId;
     if($Nick !== null
     and $Nick !== ''):
@@ -273,13 +270,13 @@ trait TblBusinessTrait{
    * Removes the current profile photo of a managed business account. Requires the can_edit_profile_photo business bot right.
    * @param string $BusinessId Unique identifier of the business connection
    * @param bool $Public Pass True to remove the public photo, which is visible even if the main photo is hidden by the business account's privacy settings. After the main photo is removed, the previous profile photo (if present) becomes the main photo.
-   * @return TblCurlResponse Returns True on success.
+   * @return true
    * @link https://core.telegram.org/bots/api#removebusinessaccountprofilephoto
    */
   public function BusinessPhotoDel(
     string $BusinessId,
     bool $Public = true
-  ):TblCurlResponse{
+  ):true{
     $param['business_connection_id'] = $BusinessId;
     $param['public'] = $Public;
     return $this->ServerMethod(TgMethods::BusinessPhotoDel, $param);
@@ -292,8 +289,7 @@ trait TblBusinessTrait{
    * @param bool $Public Pass True to set the public photo, which will be visible even if the main photo is hidden by the business account's privacy settings. An account can have only one public photo.
    * @param bool $Animated A static profile photo in the .JPG format or an animated profile photo in the MPEG4 format.
    * @param int $Static Timestamp in seconds of the frame that will be used as the static profile photo. Defaults to 0.0.
-   * @return TblCurlResponse Returns True on success.
-   * @link https://core.telegram.org/bots/api#setbusinessaccountprofilephoto
+   * @return true
    * @link https://core.telegram.org/bots/api#inputprofilephoto
    */
   public function BusinessPhotoSet(
@@ -302,7 +298,7 @@ trait TblBusinessTrait{
     bool $Public = true,
     bool $Animated = false,
     int $Static = 0
-  ):TblCurlResponse{
+  ):true{
     $param['business_connection_id'] = $BusinessId;
     if($Animated):
       $param['photo'] = [
@@ -325,14 +321,14 @@ trait TblBusinessTrait{
    * @param string $BusinessId Unique identifier of the business connection on behalf of which to read the message
    * @param int $Chat Unique identifier of the chat in which the message was received. The chat must have been active in the last 24 hours.
    * @param int $Id Unique identifier of the message to mark as read
-   * @return TblCurlResponse Returns True on success.
+   * @return true
    * @link https://core.telegram.org/bots/api#readbusinessmessage
    */
   public function BusinessRead(
     string $BusinessId,
     int $Chat,
     int $Id
-  ):TblCurlResponse{
+  ):true{
     $param['business_connection_id'] = $BusinessId;
     $param['chat_id'] = $Chat;
     $param['message_id'] = $Id;
@@ -342,27 +338,27 @@ trait TblBusinessTrait{
   /**
    * Returns the amount of Telegram Stars owned by a managed business account. Requires the can_view_gifts_and_stars business bot right.
    * @param string $BusinessId Unique identifier of the business connection
-   * @return TblCurlResponse Returns StarAmount on success.
+   * @return TgStarAmount
    * @link https://core.telegram.org/bots/api#getbusinessaccountstarbalance
    */
   public function BusinessStarsGet(
     string $BusinessId
-  ):TblCurlResponse{
+  ):TgStarAmount{
     $param['business_connection_id'] = $BusinessId;
-    return $this->ServerMethod(TgMethods::BusinessStarsGet, $param);
+    return new TgStarAmount($this->ServerMethod(TgMethods::BusinessStarsGet, $param));
   }
 
   /**
    * Transfers Telegram Stars from the business account balance to the bot's balance. Requires the can_transfer_stars business bot right.
    * @param string $BusinessId Unique identifier of the business connection
    * @param int $Stars Number of Telegram Stars to transfer; 1-10000
-   * @return TblCurlResponse Returns True on success.
+   * @return true
    * @link https://core.telegram.org/bots/api#transferbusinessaccountstars
    */
   public function BusinessStarsSend(
     string $BusinessId,
     int $Stars
-  ):TblCurlResponse{
+  ):true{
     $param['business_connection_id'] = $BusinessId;
     $param['star_count'] = $Stars;
     return $this->ServerMethod(TgMethods::BusinessStarsSend, $param);
@@ -372,13 +368,13 @@ trait TblBusinessTrait{
    * Deletes a story previously posted by the bot on behalf of a managed business account. Requires the can_manage_stories business bot right.
    * @param string $BusinessId Unique identifier of the business connection
    * @param int $Id Unique identifier of the story to delete
-   * @return TblCurlResponse Returns True on success.
+   * @return true Returns True on success.
    * @link https://core.telegram.org/bots/api#deletestory
    */
   public function BusinessStoryDel(
     string $BusinessId,
     int $Id
-  ):TblCurlResponse{
+  ):true{
     $param['business_connection_id'] = $BusinessId;
     $param['story_id'] = $Id;
     return $this->ServerMethod(TgMethods::BusinessStoryDel, $param);
@@ -393,7 +389,7 @@ trait TblBusinessTrait{
    * @param TgParseMode $ParseMode Mode for parsing entities in the story caption. See formatting options for more details.
    * @param TblEntities $Entities List of special entities that appear in story caption, which can be specified instead of parse_mode
    * @param TgStoryArea[] $Areas A JSON-serialized list of clickable areas to be shown on the story
-   * @return TblCurlResponse Returns Story on success.
+   * @return TgStory Returns Story on success.
    * @link https://core.telegram.org/bots/api#editstory
    */
   public function BusinessStoryEdit(
@@ -404,7 +400,7 @@ trait TblBusinessTrait{
     TgParseMode|null $ParseMode = null,
     TblEntities|null $Entities = null,
     array|null $Areas = null
-  ):TblCurlResponse{
+  ):TgStory{
     $param['business_connection_id'] = $BusinessId;
     $param['story_id'] = $Id;
     $param['content'] = $Content->ToArray();
@@ -423,7 +419,7 @@ trait TblBusinessTrait{
       endforeach;
       $param['areas'] = $Areas;
     endif;
-    return $this->ServerMethod(TgMethods::BusinessStoryEdit, $param, false);
+    return new TgStory($this->ServerMethod(TgMethods::BusinessStoryEdit, $param, false));
   }
 
   /**
@@ -437,7 +433,7 @@ trait TblBusinessTrait{
    * @param TgStoryArea[] $Areas A JSON-serialized list of clickable areas to be shown on the story
    * @param bool $Keep To keep the story accessible after it expires
    * @param bool $Protect If the content of the story must be protected from forwarding and screenshotting
-   * @return TblCurlResponse Returns Story on success.
+   * @return TgStory Returns Story on success.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#poststory
    */
@@ -451,7 +447,7 @@ trait TblBusinessTrait{
     array|null $Areas = null,
     bool $Keep = false,
     bool $Protect = false
-  ):TblCurlResponse{
+  ):TgStory{
     $param['business_connection_id'] = $BusinessId;
     $param['content'] = $Content->ToArray();
     $param['active_period'] = $Period;
@@ -476,6 +472,6 @@ trait TblBusinessTrait{
     if($Protect):
       $param['protect_content'] = true;
     endif;
-    return $this->ServerMethod(TgMethods::BusinessStoryPost, $param, false);
+    return new TgStory($this->ServerMethod(TgMethods::BusinessStoryPost, $param, false));
   }
 }

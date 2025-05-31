@@ -5,7 +5,6 @@
 namespace ProtocolLive\TelegramBotLibrary\TblTraits;
 use CURLFile;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
-  TblCurlResponse,
   TblEntities,
   TblMarkup
 };
@@ -16,13 +15,14 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\{
   TgParseMode
 };
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
+  TgAudio,
   TgLimits,
   TgVoice
 };
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2025.05.29.00
+ * @version 2024.11.23.00
  */
 trait TblAudioTrait{
   /**
@@ -44,7 +44,7 @@ trait TblAudioTrait{
    * @param TblMarkup $Markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account
    * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
    * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
-   * @return TblCurlResponse On success, the sent Message is returned.
+   * @return TgAudio On success, the sent Message is returned.
    * @link https://core.telegram.org/bots/api#sendaudio
    * @throws TblException
    */
@@ -66,7 +66,7 @@ trait TblAudioTrait{
     TgReplyParams|null $Reply = null,
     TblMarkup|null $Markup = null,
     string|null $Effect = null
-  ):TblCurlResponse{
+  ):TgAudio{
     $param['chat_id'] = $Chat;
     if($Thread !== null):
       $param['message_thread_id'] = $Thread;
@@ -128,7 +128,7 @@ trait TblAudioTrait{
     if($Effect !== null):
       $param['message_effect_id'] = $Effect;
     endif;
-    return $this->ServerMethod(TgMethods::AudioSend, $param);
+    return new TgAudio($this->ServerMethod(TgMethods::AudioSend, $param));
   }
 
   /**
@@ -147,7 +147,7 @@ trait TblAudioTrait{
    * @param TblMarkup $Markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account
    * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
    * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
-   * @return TblCurlResponse On success, the sent Message is returned.
+   * @return TgVoice On success, the sent Message is returned.
    * @link https://core.telegram.org/bots/api#sendvoice
    * @throws TblException
    */
@@ -166,7 +166,7 @@ trait TblAudioTrait{
     TgReplyParams|null $Reply = null,
     TblMarkup|null $Markup = null,
     string|null $Effect = null
-  ):TblCurlResponse{
+  ):TgVoice{
     $param['chat_id'] = $Chat;
     if($Thread !== null):
       $param['message_thread_id'] = $Thread;
@@ -215,6 +215,6 @@ trait TblAudioTrait{
     if($Effect !== null):
       $param['message_effect_id'] = $Effect;
     endif;
-    return $this->ServerMethod(TgMethods::VoiceSend, $param);
+    return new TgVoice($this->ServerMethod(TgMethods::VoiceSend, $param));
   }
 }

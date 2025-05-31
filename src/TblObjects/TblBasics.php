@@ -71,10 +71,9 @@ use ProtocolLive\TelegramBotLibrary\TgService\{
   TgVideoChatScheduled,
   TgVideoChatStarted
 };
-use ReflectionClass;
 
 /**
- * @version 2025.05.29.02
+ * @version 2025.05.29.01
  */
 abstract class TblBasics{
   protected TblData $BotData;
@@ -332,7 +331,7 @@ abstract class TblBasics{
     TgMethods $Method,
     array|null $Params = null,
     bool $AsJson = true
-  ):TblCurlResponse{
+  ):mixed{
     $curl = $this->BotData->UrlApi . '/' . $Method->value;
     if($this->BotData->Log & TblLog::Send):
       $log = 'Url: ' . $curl . PHP_EOL;
@@ -343,27 +342,22 @@ abstract class TblBasics{
       $log = str_replace('<', '&lt;', $log);
     endif;
     $curl = $this->Curl($curl, $Params, $AsJson);
-    $mh = curl_multi_init();
-    curl_multi_add_handle($mh, $curl);
-    curl_multi_exec($mh, $run);
-    return new ReflectionClass(TblCurlResponse::class)
-    ->newLazyGhost(function(TblCurlResponse $Response) use($mh, $curl, $log):void{
-      do{
-        curl_multi_exec($mh, $run);
-        curl_multi_select($mh);
-      }while($run > 0);
-      $response = $this->CurlResponse($curl, $log ?? null);
-      if(is_object($response)):
-        throw $response;
-      else:
-        $Response->Response = $response;
-      endif;
-    });
+    $return = curl_exec($curl);
+    if($return === false):
+      $temp = 'cURL error #' . curl_errno($curl) . ' ' . curl_error($curl);
+      $this->Log(TblLog::Curl, $temp);
+      throw new TblException(TblError::Curl, $temp);
+    endif;
+    $return = $this->CurlResponse($curl, $log ?? null);
+    if(is_object($return)):
+      throw $return;
+    else:
+      return $return;
+    endif;
   }
 
   /**
    * Use the cURL multi resource to send many messages at once. This method are now public. See the parameters in each method or in official documentation
-   * @return TblCurlResponse[]
    */
   public function ServerMethodMulti(
     TgMethods $Method,
@@ -384,16 +378,12 @@ abstract class TblBasics{
       $params = $this->Curl($url, $params);
       curl_multi_add_handle($mh, $params);
     endforeach;
-    curl_multi_exec($mh, $run);
+    do{
+      curl_multi_exec($mh, $active);
+      curl_multi_select($mh);
+    }while($active > 0);
     foreach($Params as $id => &$params):
-      $params = new ReflectionClass(TblCurlResponse::class)
-      ->newLazyGhost(function(TblCurlResponse $Response) use($mh, $params, $MultiLog, $id):void{
-        do{
-          curl_multi_exec($mh, $run);
-          curl_multi_select($mh);
-        }while($run > 0);
-        $Response->Response = $this->CurlResponse($params, $MultiLog[$id]);
-      });
+      $params = $this->CurlResponse($params, $MultiLog[$id]);
     endforeach;
     return $Params;
   }

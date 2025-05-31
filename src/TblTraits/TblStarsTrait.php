@@ -3,9 +3,8 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TblTraits;
-use InvalidArgumentException;
+use Exception;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
-  TblCurlResponse,
   TblEntities,
   TblException,
   TblMarkup
@@ -28,11 +27,11 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2025.05.29.00
+ * @version 2025.05.11.01
  */
 trait TblStarsTrait{
   public function GiftAvailableGet():TgGifts{
-    return new TgGifts($this->ServerMethod(TgMethods::GiftAvailableGet)->Response);
+    return new TgGifts($this->ServerMethod(TgMethods::GiftAvailableGet));
   }
 
   /**
@@ -43,9 +42,9 @@ trait TblStarsTrait{
    * @param string $Text Text that will be shown along with the service message about the subscription; 0-128 characters
    * @param TgParseMode $ParseMode Mode for parsing entities in the text. See formatting options for more details. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, and “custom_emoji” are ignored.
    * @param TblEntities $Entities A JSON-serialized list of special entities that appear in the gift text. It can be specified instead of text_parse_mode. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, and “custom_emoji” are ignored.
-   * @return TblCurlResponse Returns True on success.
+   * @return true Returns True on success.
    * @link https://core.telegram.org/bots/api#giftpremiumsubscription
-   * @throws InvalidArgumentException|TblException
+   * @throws Exception|TblException
    */
   public function GiftPremium(
     int $User,
@@ -53,12 +52,12 @@ trait TblStarsTrait{
     string|null $Text = null,
     TgParseMode|null $ParseMode = null,
     TblEntities|null $Entities = null
-  ):TblCurlResponse{
+  ):true{
     $param['user_id'] = $User;
     if($Months !== 3
     and $Months !== 6
     and $Months !== 12):
-      throw new InvalidArgumentException('The number of months must be one of 3, 6, or 12');
+      throw new Exception('The number of months must be one of 3, 6, or 12');
     endif;
     $param['month_count'] = $Months;
     if($Months === 3):
@@ -88,8 +87,7 @@ trait TblStarsTrait{
    * @param string $Text Text that will be shown along with the gift; 0-255 characters
    * @param TgParseMode $ParseMode Mode for parsing entities in the text. See formatting options for more details. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, and “custom_emoji” are ignored.
    * @param TblEntities $Entities A JSON-serialized list of special entities that appear in the gift text. It can be specified instead of text_parse_mode. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, and “custom_emoji” are ignored.
-   * @return TblCurlResponse Returns True on success.
-   * @link https://core.telegram.org/bots/api#sendgift
+   * @return true Returns True on success.
    */
   public function GiftSend(
     int $User,
@@ -99,7 +97,7 @@ trait TblStarsTrait{
     TgParseMode|null $ParseMode = null,
     TblEntities|null $Entities = null,
     bool $Upgrade = false
-  ):TblCurlResponse{
+  ):true{
     if($User !== null):
       $param['user_id'] = $User;
     else:
@@ -149,7 +147,7 @@ trait TblStarsTrait{
       endif;
       $param['name'] = $Name;
     endif;
-    return new TgChatInviteLink($this->ServerMethod(TgMethods::InviteLinkStarCreate, $param)->Response);
+    return new TgChatInviteLink($this->ServerMethod(TgMethods::InviteLinkStarCreate, $param));
   }
 
   /**
@@ -157,7 +155,7 @@ trait TblStarsTrait{
    * @param int|string $Chat Unique identifier for the target chat or username of the target channel (in the format @channelusername)
    * @param string $Link The invite link to edit
    * @param string $Name Invite link name; 0-32 characters
-   * @return TblCurlResponse Returns the edited invite link as a TgChatInviteLink object.
+   * @return TgChatInviteLink Returns the edited invite link as a TgChatInviteLink object.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#editchatsubscriptioninvitelink
    */
@@ -165,7 +163,7 @@ trait TblStarsTrait{
     int|string $Chat,
     string $Link,
     string|null $Name = null
-  ):TblCurlResponse{
+  ):TgChatInviteLink{
     $param['chat_id'] = $Chat;
     $param['invite_link'] = $Link;
     if($Name !== null):
@@ -174,7 +172,7 @@ trait TblStarsTrait{
       endif;
       $param['name'] = $Name;
     endif;
-    return $this->ServerMethod(TgMethods::InviteLinkStarEdit, $param);
+    return new TgChatInviteLink($this->ServerMethod(TgMethods::InviteLinkStarEdit, $param));
   }
 
   /**
@@ -193,7 +191,7 @@ trait TblStarsTrait{
    * @param TblMarkup $Markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user
    * @param string $Payload Bot-defined paid media payload, 0-128 bytes. This will not be displayed to the user, use it for your internal processes.
    * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
-   * @return TblCurlResponse The sent Message is returned.
+   * @return TgPaidMedia The sent Message is returned.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#sendpaidmedia
    */
@@ -212,7 +210,7 @@ trait TblStarsTrait{
     bool $AllowPaid = false,
     TgReplyParams|null $Reply = null,
     TblMarkup|null $Markup = null
-  ):TblCurlResponse{
+  ):TgPaidMedia{
     $param['chat_id'] = $Chat;
     $param['star_count'] = $Price;
     $param['media'] = $Media->ToArray();
@@ -261,20 +259,20 @@ trait TblStarsTrait{
       endif;
       $param['payload'] = $Payload;
     endif;
-    return $this->ServerMethod(TgMethods::PaidMediaSend, $param);
+    return new TgPaidMedia($this->ServerMethod(TgMethods::PaidMediaSend, $param));
   }
 
   /**
    * Refunds a successful payment in Telegram Stars.
    * @param int $User Identifier of the user whose payment will be refunded
    * @param string $ChargeId Telegram payment identifier
-   * @return TblCurlResponse Returns True on success.
+   * @return true Returns True on success.
    * @throws TblException
    */
   public function StarRefund(
     int $User,
     string $ChargeId
-  ):TblCurlResponse{
+  ):true{
     $param['user_id'] = $User;
     $param['telegram_payment_charge_id'] = $ChargeId;
     return $this->ServerMethod(TgMethods::StarRefund, $param);
@@ -285,7 +283,7 @@ trait TblStarsTrait{
    * @param int $User Identifier of the user whose subscription will be edited
    * @param string $ChargeId Telegram payment identifier for the subscription
    * @param bool $Cancelled Pass True to cancel extension of the user subscription; the subscription must be active up to the end of the current subscription period. Pass False to allow the user to re-enable a subscription that was previously canceled by the bot.
-   * @return TblCurlResponse Returns True on success.
+   * @return true Returns True on success.
    * @see TblInvoiceTrait::InvoiceLink
    * @link https://core.telegram.org/bots/api#edituserstarsubscription
    */
@@ -293,7 +291,7 @@ trait TblStarsTrait{
     int $User,
     string $ChargeId,
     bool $Cancelled
-  ):TblCurlResponse{
+  ):true{
     $param['user_id'] = $User;
     $param['telegram_payment_charge_id'] = $ChargeId;
     $param['is_canceled'] = $Cancelled;
@@ -315,7 +313,7 @@ trait TblStarsTrait{
     if($Limit !== null):
       $param['limit'] = $Limit;
     endif;
-    $return = $this->ServerMethod(TgMethods::StarTransactionsGet, $param ?? null)->Response;
+    $return = $this->ServerMethod(TgMethods::StarTransactionsGet, $param ?? null);
     $return = $return['transactions'];
     if($return === []):
       return [];

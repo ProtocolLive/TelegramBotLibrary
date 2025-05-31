@@ -3,15 +3,12 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TblTraits;
-use ProtocolLive\TelegramBotLibrary\TblObjects\{
-  TblCurlResponse,
-  TblException
-};
+use ProtocolLive\TelegramBotLibrary\TblObjects\TblException;
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgMethods;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgProfilePhoto;
 
 /**
- * @version 2025.05.29.00
+ * @version 2024.11.23.00
  */
 trait TblUserTrait{
   /**
@@ -35,7 +32,7 @@ trait TblUserTrait{
     if($Limit > 0 and $Limit < 100):
       $param['limit'] = $Limit;
     endif;
-    $return = $this->ServerMethod(TgMethods::UserPhotos, $param)->Response;
+    $return = $this->ServerMethod(TgMethods::UserPhotos, $param);
     return new TgProfilePhoto($return);
   }
 
@@ -44,14 +41,14 @@ trait TblUserTrait{
    * @param int $User Unique identifier of the target user
    * @param string $Emoji Custom emoji identifier of the emoji status to set. Pass an empty string to remove the status.
    * @param int $Expiration Expiration date of the emoji status, if any
-   * @return TblCurlResponse Returns True on success.
+   * @return true Returns True on success.
    * @link https://core.telegram.org/bots/api#setuseremojistatus
    */
   public function StatusSet(
     int $User,
     string|null $Emoji = null,
     int|null $Expiration = null
-  ):TblCurlResponse{
+  ):true{
     $param['user_id'] = $User;
     if($Emoji !== null):
       $param['emoji_status_custom_emoji_id'] = $Emoji;
