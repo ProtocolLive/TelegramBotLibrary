@@ -76,15 +76,15 @@ use ProtocolLive\TelegramBotLibrary\TgService\{
   TgChatPhotoNew,
   TgChatTitle,
   TgForumEdited,
-    TgGiftInfo,
-    TgGiftUniqueInfo,
-    TgGiveawayCompleted,
+  TgGiftInfo,
+  TgGiftUniqueInfo,
+  TgGiveawayCompleted,
   TgGiveawayCreated,
   TgInvoiceDone,
   TgMemberLeft,
   TgMemberNew,
-    TgPaidMessagePriceChanged,
-    TgPhotoDel,
+  TgPaidMessagePriceChanged,
+  TgPhotoDel,
   TgPinnedMsg,
   TgVideoChatEnded,
   TgVideoChatScheduled,
@@ -92,7 +92,7 @@ use ProtocolLive\TelegramBotLibrary\TgService\{
 };
 
 /**
- * @version 2025.05.31.00
+ * @version 2025.06.01.00
  */
 abstract class TblBasics{
   protected TblData $BotData;
@@ -304,6 +304,9 @@ abstract class TblBasics{
     endif;
   }
 
+  /**
+   * @throws TblException
+   */
   public static function DetectUpdate(
     array $Data
   ):object{
@@ -363,6 +366,8 @@ abstract class TblBasics{
       return new TgChatBoostRemoved($Data['removed_chat_boost']);
     elseif(isset($Data['shipping_query'])):
       return new TgInvoiceShipping($Data['shipping_query']);
+    else:
+      throw new TblException(TblError::UnknownUpdate, 'Unknown update');
     endif;
   }
 

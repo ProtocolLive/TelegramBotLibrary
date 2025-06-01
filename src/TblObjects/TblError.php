@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 
 /**
- * @version 2024.07.04.00
+ * @version 2025.06.01.00
  */
 enum TblError{
   case Curl;
@@ -36,4 +36,5 @@ enum TblError{
   case NoEvent;
   case Quote;
   case TokenWebhook;
+  case UnknownUpdate;
 }
