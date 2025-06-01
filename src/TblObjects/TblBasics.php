@@ -92,7 +92,7 @@ use ProtocolLive\TelegramBotLibrary\TgService\{
 };
 
 /**
- * @version 2025.06.01.01
+ * @version 2025.06.01.02
  */
 abstract class TblBasics{
   protected TblData $BotData;
@@ -125,23 +125,25 @@ abstract class TblBasics{
     CurlHandle $Curl,
     string|null $Log = null,
   ):array|bool|string|TblException{
-    $error = null;
-    $response = curl_multi_getcontent($Curl);
-    $json = json_decode($response, true);
-    if(json_last_error() > 0):
-      $error = 'Json error: ' . json_last_error_msg() . PHP_EOL;
-      $error .= 'Response: ' . $response;
-    endif;
     if($this->BotData->Log & TblLog::Send
     and $Log !== null):
       $this->Log(TblLog::Send, $Log);
     endif;
-    if($this->BotData->Log & TblLog::Response):
-      $this->Log(TblLog::Response, $error ?? $json);
+    $response = curl_multi_getcontent($Curl);
+    $json = json_decode($response, true);
+    if(json_last_error() > 0):
+      if($this->BotData->Log & TblLog::Response):
+        $this->Log(
+          TblLog::Response,
+          'Json error: ' . json_last_error_msg() . PHP_EOL . 'Response: ' . $response
+        );
+      endif;
+      return new TblException(TblError::JsonError, json_last_error_msg());
     endif;
-    if($error !== null):
-      return new TblException(TblError::JsonError, $error);
-    elseif($json['ok'] === false):
+    if($this->BotData->Log & TblLog::Response):
+      $this->Log(TblLog::Response, $json);
+    endif;
+    if($json['ok'] === false):
       $search = TgErrors::Search($json['description']);
       if($search === false):
         return new TblException(TblError::Custom, $json['description']);
