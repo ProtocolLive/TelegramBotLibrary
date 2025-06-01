@@ -92,7 +92,7 @@ use ProtocolLive\TelegramBotLibrary\TgService\{
 };
 
 /**
- * @version 2025.06.01.00
+ * @version 2025.06.01.01
  */
 abstract class TblBasics{
   protected TblData $BotData;
@@ -137,13 +137,7 @@ abstract class TblBasics{
       $this->Log(TblLog::Send, $Log);
     endif;
     if($this->BotData->Log & TblLog::Response):
-      $this->Log(
-        TblLog::Response,
-        $error ?? json_encode(
-          $json,
-          JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
-        )
-      );
+      $this->Log(TblLog::Response, $error ?? $json);
     endif;
     if($error !== null):
       return new TblException(TblError::JsonError, $error);
@@ -385,13 +379,19 @@ abstract class TblBasics{
 
   protected function Log(
     int $Type,
-    string $Msg,
+    string|array $Msg,
     bool $SkipLogHandler = false
   ):void{
     if($this->BotData->LogHandler !== null
     and $SkipLogHandler === false):
       call_user_func_array($this->BotData->LogHandler, func_get_args());
       return;
+    endif;
+    if(is_array($Msg)):
+      $Msg = json_encode(
+        $Msg,
+        JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
+      );
     endif;
     $log = date('Y-m-d H:i:s') . PHP_EOL;
     $log .= $Msg . PHP_EOL;
