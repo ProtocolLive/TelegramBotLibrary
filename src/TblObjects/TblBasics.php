@@ -92,7 +92,7 @@ use ProtocolLive\TelegramBotLibrary\TgService\{
 };
 
 /**
- * @version 2025.06.01.02
+ * @version 2025.06.01.03
  */
 abstract class TblBasics{
   protected TblData $BotData;
@@ -384,6 +384,12 @@ abstract class TblBasics{
     string|array $Msg,
     bool $SkipLogHandler = false
   ):void{
+    //Prevent infinite loop
+    $funcs = array_column(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS), 'function');
+    unset($funcs[0]);
+    if(array_search(__FUNCTION__, $funcs) !== false):
+      return;
+    endif;
     if($this->BotData->LogHandler !== null
     and $SkipLogHandler === false):
       call_user_func_array($this->BotData->LogHandler, func_get_args());
