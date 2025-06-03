@@ -92,7 +92,7 @@ use ProtocolLive\TelegramBotLibrary\TgService\{
 };
 
 /**
- * @version 2025.06.01.03
+ * @version 2025.06.03.00
  */
 abstract class TblBasics{
   protected TblData $BotData;
@@ -225,6 +225,8 @@ abstract class TblBasics{
       return new TgChatTitle($Data);
     elseif(isset($Data['paid_media'])):
       return new TgPaidMedia($Data);
+    elseif(isset($Data['paid_message_price_changed'])):
+      return new TgPaidMessagePriceChanged($Data);
     elseif(isset($Data['passport_data'])):
       return new TgPassport($Data);
     elseif(isset($Data['photo'])):
