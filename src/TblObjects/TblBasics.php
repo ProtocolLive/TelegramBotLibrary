@@ -76,6 +76,7 @@ use ProtocolLive\TelegramBotLibrary\TgService\{
   TgChatPhotoNew,
   TgChatTitle,
   TgForumEdited,
+  TgForumGeneralHidden,
   TgGiftInfo,
   TgGiftUniqueInfo,
   TgGiveawayCompleted,
@@ -92,7 +93,7 @@ use ProtocolLive\TelegramBotLibrary\TgService\{
 };
 
 /**
- * @version 2025.06.03.00
+ * @version 2025.06.14.00
  */
 abstract class TblBasics{
   protected TblData $BotData;
@@ -193,6 +194,8 @@ abstract class TblBasics{
       return new TgForumReopened($Data);
     elseif(isset($Data['game'])):
       return new TgGame($Data);
+    elseif(isset($Data['general_forum_topic_hidden'])):
+      return new TgForumGeneralHidden($Data);
     elseif(isset($Data['giveaway'])):
       return new TgGiveaway($Data);
     elseif(isset($Data['giveaway_created'])):
