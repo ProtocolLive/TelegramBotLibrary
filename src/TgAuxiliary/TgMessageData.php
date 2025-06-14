@@ -33,7 +33,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 
 /**
  * @link https://core.telegram.org/bots/api#message
- * @version 2025.06.14.00
+ * @version 2025.06.14.01
  */
 final readonly class TgMessageData{
   /**
@@ -160,15 +160,15 @@ final readonly class TgMessageData{
     elseif(isset($Data['reply_to_message']['video'])):
       $this->Reply = new TgVideo($Data['reply_to_message']['video']);
     elseif(isset($Data['reply_to_message']['voice'])):
-      $this->Reply = new TgVoice($Data['reply_to_message']['voice']);
+      $this->Reply = new TgVoice($Data['reply_to_message']);
     elseif(isset($Data['reply_to_message']['sticker'])):
-      $this->Reply = new TgSticker($Data['reply_to_message']['sticker']);
+      $this->Reply = new TgSticker($Data['reply_to_message']);
     elseif(isset($Data['reply_to_message']['venue'])):
       $this->Reply = new TgVenue($Data['reply_to_message']['venue']);
     elseif(isset($Data['reply_to_message']['location'])):
       $this->Reply = new TgLocation($Data['reply_to_message']['location']);
     elseif(isset($Data['reply_to_message']['video_note'])):
-      $this->Reply = new TgVideoNote($Data['reply_to_message']['video_note']);
+      $this->Reply = new TgVideoNote($Data['reply_to_message']);
     elseif(isset($Data['reply_to_message']['poll'])):
       $this->Reply = new TgPoll($Data['reply_to_message']['poll']);
     elseif(isset($Data['reply_to_message']['contact'])):
