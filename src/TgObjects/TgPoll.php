@@ -18,9 +18,9 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
  * This object contains information about a poll.
  * Param Answer: 0-based identifier of the correct answer option. Available only for polls in the quiz mode, which are closed, or was sent (not forwarded) by the bot or to the private chat with the bot.
  * @link https://core.telegram.org/bots/api#poll
- * @version 2024.07.04.00
+ * @version 2025.06.14.00
  */
-final readonly class TgPoll
+readonly class TgPoll
 implements TgEventInterface,
 TgForwadableInterface,
 TgMessageInterface{

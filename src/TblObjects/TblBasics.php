@@ -52,6 +52,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgPhotoEdited,
   TgPoll,
   TgPollAnswer,
+  TgPollEdited,
   TgReactionUpdate,
   TgRefundedPayment,
   TgSticker,
@@ -290,6 +291,8 @@ abstract class TblBasics{
       return new TgMemberNew($Data);
     elseif(isset($Data['photo'])):
       return new TgPhotoEdited($Data);
+    elseif(isset($Data['poll'])):
+      return new TgPollEdited($Data);
     elseif(isset($Data['sticker'])):
       return new TgStickerEdited($Data);
     elseif(isset($Data['text'])):
