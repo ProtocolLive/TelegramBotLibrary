@@ -9,7 +9,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgEventInterface;
 
 /**
  * @link https://core.telegram.org/bots/api#chatboostupdated
- * @version 2024.09.06.00
+ * @version 2025.06.14.00
  */
 final readonly class TgChatBoost
 implements TgEventInterface{
@@ -18,10 +18,6 @@ implements TgEventInterface{
    * Unique identifier of the boost
    */
   public string $Id;
-  /**
-   * Point in time (Unix timestamp) when the chat was boosted
-   */
-  public string $Date;
   /**
    * 	Point in time (Unix timestamp) when the boost will automatically expire, unless the booster's Telegram Premium subscription is prolonged
    */
@@ -52,7 +48,6 @@ implements TgEventInterface{
   ){
     $this->Data = new TgMessageData($Data);
     $this->Id = $Data['boost']['boost_id'] ?? $Data['boost_id'];
-    $this->Date = $Data['boost']['add_date'] ?? $Data['add_date'];
     $this->Expiration = $Data['boost']['expiration_date'] ?? $Data['expiration_date'];
     $this->Source = TgBoostSource::from($Data['boost']['source']['source'] ?? $Data['source']['source']);
     $this->User = new TgUser($Data['boost']['source']['user'] ?? $Data['source']['user']);

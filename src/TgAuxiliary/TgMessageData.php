@@ -33,7 +33,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 
 /**
  * @link https://core.telegram.org/bots/api#message
- * @version 2025.05.11.00
+ * @version 2025.06.14.00
  */
 final readonly class TgMessageData{
   /**
@@ -213,8 +213,12 @@ final readonly class TgMessageData{
       $this->Quote = null;
     endif;
 
-    $this->Id = $Data['id'] ?? $Data['message_id'] ?? null;//$Data['id'] form Callback
-    $this->Date = $Data['date'] ?? null; //callback
+    //$Data['id'] - Callback
+    $this->Id = $Data['id'] ?? $Data['message_id'] ?? null;
+    //$Data['add_date'] - Chat boost added
+    //$Data['remove_date'] - Chat boost removed
+    //null - Callback
+    $this->Date = $Data['date'] ?? $Data['boost']['add_date'] ?? $Data['remove_date'] ?? null;
     $this->Protected = $Data['has_protected_content'] ?? false;
     $this->Topic = $Data['is_topic_message'] ?? false;
     $this->Spoiler = $Data['has_media_spoiler'] ?? false;
