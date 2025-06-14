@@ -9,7 +9,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgServiceInterface;
 /**
  * Describes a service message about a change in the price of paid messages within a chat.
  * @link https://core.telegram.org/bots/api#paidmessagepricechanged
- * @version 2025.05.29.00
+ * @version 2025.06.14.00
  */
 final readonly class TgPaidMessagePriceChanged
 implements TgServiceInterface{
@@ -23,6 +23,6 @@ implements TgServiceInterface{
     array $Data
   ){
     $this->Data = new TgMessageData($Data);
-    $this->Price = $Data['paid_message_star_count'];
+    $this->Price = $Data['paid_message_price_changed']['paid_message_star_count'];
   }
 }
