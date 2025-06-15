@@ -12,7 +12,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgEventInterface;
  * @param TgReaction|TgReaction[]|null $New
  * @link https://core.telegram.org/bots/api#messagereactionupdated
  * @link https://core.telegram.org/bots/api#messagereactioncountupdated
- * @version 2025.06.04.00
+ * @version 2025.06.15.00
  */
 final readonly class TgReactionUpdate
 implements TgEventInterface{
@@ -31,6 +31,7 @@ implements TgEventInterface{
       foreach($Data['reactions'] as $reaction):
         $temp[] = new TgReaction(
           Type: TgReactionType::from($reaction['type']['type']),
+          Emoji: $reaction['type']['emoji'],
           Count: $reaction['total_count']
         );
       endforeach;
