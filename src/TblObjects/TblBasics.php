@@ -22,6 +22,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgChatRequest,
   TgChatShared,
   TgContact,
+  TgDice,
   TgDocument,
   TgDocumentEdited,
   TgErrors,
@@ -94,7 +95,7 @@ use ProtocolLive\TelegramBotLibrary\TgService\{
 };
 
 /**
- * @version 2025.06.14.00
+ * @version 2025.06.17.00
  */
 abstract class TblBasics{
   protected TblData $BotData;
@@ -183,6 +184,8 @@ abstract class TblBasics{
       return new TgContact($Data);
     elseif(isset($Data['delete_chat_photo'])):
       return new TgPhotoDel($Data);
+    elseif(isset($Data['dice'])):
+      return new TgDice($Data);
     elseif(isset($Data['document'])):
       return new TgDocument($Data);
     elseif(isset($Data['forum_topic_closed'])):
