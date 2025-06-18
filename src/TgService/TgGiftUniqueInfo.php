@@ -5,15 +5,19 @@
 namespace ProtocolLive\TelegramBotLibrary\TgService;
 use ProtocolLive\TelegramBotLibrary\TgAuxiliary\TgGiftUnique;
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgGiftUniqueOrigin;
-use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgServiceInterface;
+use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
+  TgEventInterface,
+  TgServiceInterface
+};
 
 /**
  * Describes a service message about a unique gift that was sent or received.
  * @link https://core.telegram.org/bots/api#uniquegiftinfo
- * @version 2025.05.29.00
+ * @version 2025.06.17.00
  */
 final readonly class TgGiftUniqueInfo
-implements TgServiceInterface{
+implements TgEventInterface,
+TgServiceInterface{
   /**
    * Information about the gift
    */

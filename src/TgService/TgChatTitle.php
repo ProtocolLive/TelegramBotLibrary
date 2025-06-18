@@ -12,10 +12,11 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 /**
  * A chat title was changed to this value
  * @link https://core.telegram.org/bots/api#message
- * @version 2024.04.11.00
+ * @version 2025.06.17.00
  */
 final readonly class TgChatTitle
-implements TgServiceInterface, TgEventInterface{
+implements TgEventInterface,
+TgServiceInterface{
   public TgMessageData $Data;
   /**
    * A chat title was changed to this value

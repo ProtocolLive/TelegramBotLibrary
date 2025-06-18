@@ -13,10 +13,11 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 
 /**
  * @link https://core.telegram.org/bots/api#photosize
- * @version 2024.04.11.00
+ * @version 2025.06.17.00
  */
 final readonly class TgPinnedMsg
-implements TgEventInterface, TgServiceInterface{
+implements TgEventInterface,
+TgServiceInterface{
   public TgMessageData $Data;
   public TgMessageInterface $Pinned;
 

@@ -13,10 +13,11 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\TgGiveaway;
 /**
  * This object represents a service message about the completion of a giveaway without public winners.
  * @link https://core.telegram.org/bots/api#giveawaycompleted
- * @version 2024.09.06.00
+ * @version 2025.06.17.00
  */
 final readonly class TgGiveawayCompleted
-implements TgEventInterface, TgServiceInterface{
+implements TgEventInterface,
+TgServiceInterface{
   public TgMessageData $Data;
   /**
    * Number of winners in the giveaway

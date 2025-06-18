@@ -12,10 +12,11 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\TgUser;
 
 /**
  * New members that were added to the group or supergroup and information about them (the bot itself may be one of these members)
- * @version 2024.04.11.00
+ * @version 2025.06.17.00
  */
 final readonly class TgMemberNew
-implements TgEventInterface, TgServiceInterface{
+implements TgEventInterface,
+TgServiceInterface{
   public TgMessageData $Data;
   public TgUser $Member;
 

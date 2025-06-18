@@ -4,15 +4,19 @@
 
 namespace ProtocolLive\TelegramBotLibrary\TgService;
 use ProtocolLive\TelegramBotLibrary\TgAuxiliary\TgMessageData;
-use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgServiceInterface;
+use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
+  TgEventInterface,
+  TgServiceInterface
+};
 
 /**
  * Describes a service message about a change in the price of paid messages within a chat.
  * @link https://core.telegram.org/bots/api#paidmessagepricechanged
- * @version 2025.06.14.00
+ * @version 2025.06.17.00
  */
 final readonly class TgPaidMessagePriceChanged
-implements TgServiceInterface{
+implements TgEventInterface,
+TgServiceInterface{
   public TgMessageData $Data;
   /**
    * The new number of Telegram Stars that must be paid by non-administrator users of the supergroup chat for each sent message

@@ -11,10 +11,11 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 
 /**
  * @link https://core.telegram.org/bots/api#giveawaycreated
- * @version 2024.09.06.00
+ * @version 2025.06.17.00
  */
 final readonly class TgGiveawayCreated
-implements TgEventInterface, TgServiceInterface{
+implements TgEventInterface,
+TgServiceInterface{
   public TgMessageData $Data;
   /**
    * The number of Telegram Stars to be split between giveaway winners; for Telegram Star giveaways only

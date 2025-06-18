@@ -15,10 +15,11 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 /**
  * This object represents a chat photo.
  * @link https://core.telegram.org/bots/api#chatphoto
- * @version 2024.04.11.00
+ * @version 2025.06.17.00
  */
 final readonly class TgChatPhotoNew
-implements TgEventInterface, TgServiceInterface{
+implements TgEventInterface,
+TgServiceInterface{
   public TgMessageData $Data;
   public array $Photo;
 
