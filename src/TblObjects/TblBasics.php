@@ -4,6 +4,7 @@
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 use CurlHandle;
+use ProtocolLive\TelegramBotLibrary\TblInterfaces\TblLogInterface;
 use ProtocolLive\TelegramBotLibrary\TgEnums\{
   TgEntityType,
   TgMethods
@@ -95,7 +96,7 @@ use ProtocolLive\TelegramBotLibrary\TgService\{
 };
 
 /**
- * @version 2025.06.28.02
+ * @version 2025.06.29.00
  */
 abstract class TblBasics{
   protected TblData $BotData;
@@ -116,7 +117,7 @@ abstract class TblBasics{
       curl_setopt($curl, CURLOPT_HTTPHEADER, ['Content-Type: multipart/form-data']);
       curl_setopt($curl, CURLOPT_POSTFIELDS, $Params);
     endif;
-    if($this->BotData->Log & TblLog::Curl):
+    if(in_array(TblLog::Curl, $this->BotData->Log)):
       curl_setopt($curl, CURLOPT_VERBOSE, true);
       curl_setopt($curl, CURLOPT_STDERR, fopen($this->BotData->DirLogs . '/curl.log', 'a'));
     endif;
@@ -393,11 +394,10 @@ abstract class TblBasics{
 
   public static function Log(
     TblData $BotData,
-    int $Type,
+    TblLogInterface $Type,
     string|array $Msg,
     object|null $Msg2 = null,
-    bool $SkipLogHandler = false,
-    string|null $CustomLogName = null
+    bool $SkipLogHandler = false
   ):void{
     //Prevent infinite loop
     $funcs = array_column(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS), 'function');
@@ -406,7 +406,7 @@ abstract class TblBasics{
       return;
     endif;
     //Must be logged?
-    if(($BotData->Log & $Type) === false):
+    if(in_array($Type, $BotData->Log) === false):
       return;
     endif;
     //Log handler
@@ -425,14 +425,12 @@ abstract class TblBasics{
     $log .= $Msg . PHP_EOL;
     if($Type === TblLog::Send
     or $Type === TblLog::Response):
-      $file = 'send';
+      $file = TblLog::Send->name;
     elseif($Type === TblLog::Webhook
     or $Type === TblLog::WebhookObject):
-      $file = 'webhook';
-    elseif($Type === TblLog::Curl):
-      $file = 'curl';
+      $file = TblLog::Webhook->name;
     else:
-      $file = $CustomLogName;
+      $file = $Type->name;
     endif;
     $file = $BotData->DirLogs . '/' . $file . '.log';
     self::DirCreate(dirname($file));
@@ -449,7 +447,7 @@ abstract class TblBasics{
     bool $AsJson = true
   ):mixed{
     $curl = $this->BotData->UrlApi . '/' . $Method->value;
-    if($this->BotData->Log & TblLog::Send):
+    if(in_array(TblLog::Send, $this->BotData->Log)):
       $log = 'Url: ' . $curl . PHP_EOL;
       $log .= 'Params: ' . json_encode(
         $Params,
@@ -483,7 +481,7 @@ abstract class TblBasics{
     $mh = curl_multi_init();
     $url = $this->BotData->UrlApi . '/' . $Method->value;
     foreach($Params as $id => &$params):
-      if($this->BotData->Log & TblLog::Send):
+      if(in_array(TblLog::Send, $this->BotData->Log)):
         $log = 'Url: ' . $url . PHP_EOL;
         $log .= 'Params: ' . json_encode(
           $params,

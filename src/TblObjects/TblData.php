@@ -6,7 +6,7 @@ namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 use SensitiveParameter;
 
 /**
- * @version 2024.11.23.00
+ * @version 2025.06.29.00
  */
 final readonly class TblData{
   public string $UrlApi;
@@ -20,7 +20,7 @@ final readonly class TblData{
     #[SensitiveParameter] string $Token,
     public string $DirLogs,
     #[SensitiveParameter] public string|null $TokenWebhook = null,
-    public int $Log = TblLog::None,
+    public array $Log = [],
     bool $TestServer = false,
     callable|null $LogHandler = null //Not promoted because types
   ){

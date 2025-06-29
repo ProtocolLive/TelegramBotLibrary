@@ -3,16 +3,17 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
+use ProtocolLive\TelegramBotLibrary\TblInterfaces\TblLogInterface;
 
 /**
- * @version 2024.01.26.00
+ * @version 2025.06.29.00
  */
-final class TblLog{
-  public const All = -1;
-  public const None = 0;
-  public const Send = 1;
-  public const Response = 2;
-  public const Webhook = 4;
-  public const WebhookObject = 8;
-  public const Curl = 16;
+enum TblLog
+implements TblLogInterface{
+  case All;
+  case Send;
+  case Response;
+  case Webhook;
+  case WebhookObject;
+  case Curl;
 }
