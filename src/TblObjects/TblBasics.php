@@ -96,7 +96,7 @@ use ProtocolLive\TelegramBotLibrary\TgService\{
 };
 
 /**
- * @version 2025.06.29.00
+ * @version 2025.06.29.01
  */
 abstract class TblBasics{
   protected TblData $BotData;
@@ -142,12 +142,20 @@ abstract class TblBasics{
       );
       return new TblException(TblError::JsonError, json_last_error_msg());
     endif;
-    try{
-      $object = self::DetectUpdate(['message' => $json['result']]);
-      $this->Log($this->BotData, TblLog::Response, $json, $object);
-    }catch(TblException){
+    if($json['result'] === true):
       $this->Log($this->BotData, TblLog::Response, $json);
-    }
+    else:
+      try{
+        $this->Log(
+          $this->BotData,
+          TblLog::Response,
+          $json,
+          self::DetectUpdate(['message' => $json['result']])
+        );
+      }catch(TblException){
+        $this->Log($this->BotData, TblLog::Response, $json);
+      }
+    endif;
     if($json['ok'] === false):
       $search = TgErrors::Search($json['description']);
       if($search === false):
