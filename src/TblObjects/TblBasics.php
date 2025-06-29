@@ -95,7 +95,7 @@ use ProtocolLive\TelegramBotLibrary\TgService\{
 };
 
 /**
- * @version 2025.06.17.00
+ * @version 2025.06.28.00
  */
 abstract class TblBasics{
   protected TblData $BotData;
@@ -128,24 +128,20 @@ abstract class TblBasics{
     CurlHandle $Curl,
     string|null $Log = null,
   ):array|bool|string|TblException{
-    if($this->BotData->Log & TblLog::Send
-    and $Log !== null):
-      $this->Log(TblLog::Send, $Log);
+    if($Log !== null):
+      $this->Log($this->BotData, TblLog::Send, $Log);
     endif;
     $response = curl_multi_getcontent($Curl);
     $json = json_decode($response, true);
     if(json_last_error() > 0):
-      if($this->BotData->Log & TblLog::Response):
-        $this->Log(
-          TblLog::Response,
-          'Json error: ' . json_last_error_msg() . PHP_EOL . 'Response: ' . $response
-        );
-      endif;
+      $this->Log(
+        $this->BotData,
+        TblLog::Response,
+        'Json error: ' . json_last_error_msg() . PHP_EOL . 'Response: ' . $response
+      );
       return new TblException(TblError::JsonError, json_last_error_msg());
     endif;
-    if($this->BotData->Log & TblLog::Response):
-      $this->Log(TblLog::Response, $json);
-    endif;
+    $this->Log($this->BotData, TblLog::Response, $json);
     if($json['ok'] === false):
       $search = TgErrors::Search($json['description']);
       if($search === false):
@@ -378,7 +374,7 @@ abstract class TblBasics{
     endif;
   }
 
-  protected function DirCreate(
+  protected static function DirCreate(
     string $Dir,
     int $Perm = 0755,
     bool $Recursive = true
@@ -390,10 +386,12 @@ abstract class TblBasics{
     endif;
   }
 
-  protected function Log(
+  public static function Log(
+    TblData $BotData,
     int $Type,
-    string|array $Msg,
-    bool $SkipLogHandler = false
+    string|array|object $Msg,
+    bool $SkipLogHandler = false,
+    string|null $CustomLogName = null
   ):void{
     //Prevent infinite loop
     $funcs = array_column(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS), 'function');
@@ -401,12 +399,17 @@ abstract class TblBasics{
     if(array_search(__FUNCTION__, $funcs) !== false):
       return;
     endif;
-    if($this->BotData->LogHandler !== null
-    and $SkipLogHandler === false):
-      call_user_func_array($this->BotData->LogHandler, func_get_args());
+    //Must be logged?
+    if(($BotData->Log & $Type) === false):
       return;
     endif;
-    if(is_array($Msg)):
+    //Log handler
+    if($BotData->LogHandler !== null
+    and $SkipLogHandler === false):
+      call_user_func_array($BotData->LogHandler, func_get_args());
+      return;
+    endif;
+    if(is_string($Msg) === false):
       $Msg = json_encode(
         $Msg,
         JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
@@ -422,9 +425,11 @@ abstract class TblBasics{
       $file = 'webhook';
     elseif($Type === TblLog::Curl):
       $file = 'curl';
+    else:
+      $file = $CustomLogName;
     endif;
-    $file = $this->BotData->DirLogs . '/' . $file . '.log';
-    $this->DirCreate(dirname($file));
+    $file = $BotData->DirLogs . '/' . $file . '.log';
+    self::DirCreate(dirname($file));
     file_put_contents($file, $log, FILE_APPEND);
   }
 
@@ -450,7 +455,7 @@ abstract class TblBasics{
     $return = curl_exec($curl);
     if($return === false):
       $temp = 'cURL error #' . curl_errno($curl) . ' ' . curl_error($curl);
-      $this->Log(TblLog::Curl, $temp);
+      $this->Log($this->BotData, TblLog::Curl, $temp);
       throw new TblException(TblError::Curl, $temp);
     endif;
     $return = $this->CurlResponse($curl, $log ?? null);

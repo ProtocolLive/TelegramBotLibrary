@@ -59,7 +59,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2025.06.01.00
+ * @version 2025.06.28.00
  */
 final class TelegramBotLibrary
 extends TblBasics{
@@ -836,16 +836,14 @@ extends TblBasics{
       throw new TblException(TblError::NoEvent, 'No event found');
     endif;
     $update = json_decode($update, true);
-    if($this->BotData->Log & TblLog::Webhook):
-      $this->Log(TblLog::Webhook, $update);
-    endif;
+    $this->Log($this->BotData, TblLog::Webhook, $update);
     $return = parent::DetectUpdate($update);
     if($this->BotData->Log & TblLog::WebhookObject):
       ob_start();
       var_dump($return);
       $temp = ob_get_contents();
       ob_end_clean();
-      $this->Log(TblLog::WebhookObject, $temp);
+      $this->Log($this->BotData, TblLog::WebhookObject, $temp);
     endif;
     return $return;
   }
