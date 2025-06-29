@@ -95,7 +95,7 @@ use ProtocolLive\TelegramBotLibrary\TgService\{
 };
 
 /**
- * @version 2025.06.28.00
+ * @version 2025.06.28.01
  */
 abstract class TblBasics{
   protected TblData $BotData;
@@ -389,7 +389,8 @@ abstract class TblBasics{
   public static function Log(
     TblData $BotData,
     int $Type,
-    string|array|object $Msg,
+    string|array $Msg,
+    object|null $Msg2 = null,
     bool $SkipLogHandler = false,
     string|null $CustomLogName = null
   ):void{
