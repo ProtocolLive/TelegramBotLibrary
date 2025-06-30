@@ -2,11 +2,11 @@
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
-namespace ProtocolLive\TelegramBotLibrary\TblObjects;
+namespace ProtocolLive\TelegramBotLibrary\TblEnums;
 use ProtocolLive\TelegramBotLibrary\TblInterfaces\TblLogInterface;
 
 /**
- * @version 2025.06.29.00
+ * @version 2025.06.30.00
  */
 enum TblLog
 implements TblLogInterface{
