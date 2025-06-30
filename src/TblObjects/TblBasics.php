@@ -4,6 +4,7 @@
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 use CurlHandle;
+use ProtocolLive\TelegramBotLibrary\TblEnums\TblError;
 use ProtocolLive\TelegramBotLibrary\TblInterfaces\TblLogInterface;
 use ProtocolLive\TelegramBotLibrary\TgEnums\{
   TgEntityType,
@@ -96,7 +97,7 @@ use ProtocolLive\TelegramBotLibrary\TgService\{
 };
 
 /**
- * @version 2025.06.29.01
+ * @version 2025.06.30.00
  */
 abstract class TblBasics{
   protected TblData $BotData;

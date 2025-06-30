@@ -2,10 +2,10 @@
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
-namespace ProtocolLive\TelegramBotLibrary\TblObjects;
+namespace ProtocolLive\TelegramBotLibrary\TblEnums;
 
 /**
- * @version 2025.06.01.00
+ * @version 2025.06.30.00
  */
 enum TblError{
   case Curl;

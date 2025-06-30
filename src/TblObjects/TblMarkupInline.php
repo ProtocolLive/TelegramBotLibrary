@@ -3,10 +3,11 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
+use ProtocolLive\TelegramBotLibrary\TblEnums\TblError;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgLimits;
 
 /**
- * @version 2024.11.23.00
+ * @version 2025.06.30.00
  */
 class TblMarkupInline
 extends TblMarkup{

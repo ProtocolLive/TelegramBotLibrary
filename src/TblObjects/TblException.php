@@ -4,10 +4,11 @@
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 use Exception;
+use ProtocolLive\TelegramBotLibrary\TblEnums\TblError;
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgError;
 
 /**
- * version 2024.07.04.00
+ * version 2025.06.30.00
  */
 class TblException
 extends Exception{

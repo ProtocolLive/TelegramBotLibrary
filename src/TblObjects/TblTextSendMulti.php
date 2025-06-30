@@ -3,6 +3,7 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
+use ProtocolLive\TelegramBotLibrary\TblEnums\TblError;
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgParseMode;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgLimits;
 use ProtocolLive\TelegramBotLibrary\TgParams\{
@@ -11,7 +12,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2024.11.23.00
+ * @version 2025.06.30.00
  */
 final class TblTextSendMulti
 extends TblServerMulti{

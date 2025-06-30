@@ -3,8 +3,8 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TblTraits;
+use ProtocolLive\TelegramBotLibrary\TblEnums\TblError;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
-  TblError,
   TblException,
   TblMarkup
 };
@@ -19,7 +19,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2024.11.23.00
+ * @version 2025.06.30.00
  */
 trait TblInvoiceTrait{
   /**

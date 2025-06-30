@@ -4,11 +4,11 @@
 
 namespace ProtocolLive\TelegramBotLibrary;
 use CurlFile;
+use ProtocolLive\TelegramBotLibrary\TblEnums\TblError;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
   TblBasics,
   TblData,
   TblEntities,
-  TblError,
   TblException,
   TblLog,
   TblMarkup
@@ -59,7 +59,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2025.06.29.00
+ * @version 2025.06.30.00
  */
 final class TelegramBotLibrary
 extends TblBasics{

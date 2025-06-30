@@ -3,14 +3,12 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgParams;
-use ProtocolLive\TelegramBotLibrary\TblObjects\{
-  TblError,
-  TblException
-};
+use ProtocolLive\TelegramBotLibrary\TblEnums\TblError;
+use ProtocolLive\TelegramBotLibrary\TblObjects\TblException;
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgCurrencies;
 
 /**
- * @version 2024.11.23.00
+ * @version 2025.06.30.00
  */
 final class TgInvoicePrices{
   private array $Prices = [];

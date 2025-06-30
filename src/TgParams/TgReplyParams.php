@@ -3,9 +3,9 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgParams;
+use ProtocolLive\TelegramBotLibrary\TblEnums\TblError;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
   TblEntities,
-  TblError,
   TblException
 };
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgParseMode;
@@ -13,7 +13,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\TgLimits;
 
 /**
  * @link https://core.telegram.org/bots/api#replyparameters
- * @version 2024.11.23.00
+ * @version 2025.06.30.00
  */
 class TgReplyParams{
   private array $Array = [];
