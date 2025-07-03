@@ -25,7 +25,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2024.11.23.01
+ * @version 2025.07.03.00
  */
 trait TblTextTrait{
   /**
@@ -55,13 +55,12 @@ trait TblTextTrait{
     TblMarkup|null $Markup = null,
     string|null $Effect = null
   ):TgDice{
+    $param['chat_id'] = $Chat;
+    if($Thread !== null):
+      $param['message_thread_id'] = $Thread;
+    endif;
     if($BusinessId !== null):
       $param['business_connection_id'] = $BusinessId;
-    else:
-      $param['chat_id'] = $Chat;
-      if($Thread !== null):
-        $param['message_thread_id'] = $Thread;
-      endif;
     endif;
     if($Emoji !== null):
       $param['emoji'] = $Emoji;
