@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TgEnums;
 
 /**
- * @version 2025.05.11.01
+ * @version 2025.07.03.00
  */
 enum TgMethods:string{
   /**
@@ -204,6 +204,10 @@ enum TgMethods:string{
    * @link https://core.telegram.org/bots/api#setchattitle
    */
   case ChatTitle = 'setChatTitle';
+  /**
+   * @link https://core.telegram.org/bots/api#sendchecklist
+   */
+  case ChecklistSend = 'sendChecklist';
   /**
    * @link https://core.telegram.org/bots/api#deletemycommands
    */
