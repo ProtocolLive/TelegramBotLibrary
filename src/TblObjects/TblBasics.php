@@ -26,6 +26,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgChatMigrateTo,
   TgChatRequest,
   TgChatShared,
+  TgChecklist,
   TgContact,
   TgDice,
   TgDocument,
@@ -100,7 +101,7 @@ use ProtocolLive\TelegramBotLibrary\TgService\{
 };
 
 /**
- * @version 2025.07.03.00
+ * @version 2025.07.03.01
  */
 abstract class TblBasics{
   protected TblData $BotData;
@@ -146,29 +147,28 @@ abstract class TblBasics{
       );
       return new TblException(TblError::JsonError, json_last_error_msg());
     endif;
-    if($json['result'] === true):
-      $this->Log($this->BotData, TblLog::Response, $json);
-    else:
-      try{
-        $this->Log(
-          $this->BotData,
-          TblLog::Response,
-          $json,
-          self::DetectUpdate(['message' => $json['result']])
-        );
-      }catch(TblException){
+    if($json['ok'] === true):
+      if($json['result'] === true):
         $this->Log($this->BotData, TblLog::Response, $json);
-      }
-    endif;
-    if($json['ok'] === false):
+      else:
+        try{
+          $this->Log(
+            $this->BotData,
+            TblLog::Response,
+            $json,
+            self::DetectUpdate(['message' => $json['result']])
+          );
+        }catch(TblException){
+          $this->Log($this->BotData, TblLog::Response, $json);
+        }
+      endif;
+      return $json['result'];
+    else:
       $search = TgErrors::Search($json['description']);
       if($search === false):
         return new TblException(TblError::Custom, $json['description']);
-      else:
-        return new TblException($search, $json['description']);
       endif;
-    else:
-      return $json['result'];
+      return new TblException($search, $json['description']);
     endif;
   }
 
@@ -192,6 +192,8 @@ abstract class TblBasics{
       return new TgBackground($Data['chat_background_set']);
     elseif(isset($Data['chat_shared'])):
       return new TgChatShared($Data);
+    elseif(isset($Data['checklist'])):
+      return new TgChecklist($Data);
     elseif(isset($Data['connected_website'])):
       return new TgLogin($Data);
     elseif(isset($Data['contact'])):

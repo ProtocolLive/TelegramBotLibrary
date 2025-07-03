@@ -6,7 +6,7 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgError;
 
 /**
- * @version 2025.07.03.01
+ * @version 2025.07.03.02
  */
 abstract class TgErrors{
   public static function Search(string $Description):TgError|false{
@@ -35,8 +35,9 @@ abstract class TgErrors{
 
     return match($Description){
       'Bad Request: BALANCE_TOO_LOW' => TgError::Balance,
-      'Bad Request: BUTTON_ID_INVALID' => TgError::ButtonIdInvalid,
       'Bad Request: BOT_SCORE_NOT_MODIFIED' => TgError::GameScore,
+      'Bad Request: BUSINESS_PEER_INVALID' => TgError::BusinessInvalid,
+      'Bad Request: BUTTON_ID_INVALID' => TgError::ButtonIdInvalid,
       'Bad Request: can\'t parse ChatAdministratorRights: Field "can_manage_chat" must be of type Boolean' => TgError::PermAdminManage,
       'Bad Request: can\'t parse inline keyboard button: Text buttons are unallowed in the inline keyboard' => TgError::TextButtonNo,
       'Bad Request: can\'t parse inline query result: Can\'t find field "message_text"' => TgError::InlineQueryMessage,
@@ -50,6 +51,7 @@ abstract class TgErrors{
       'Bad Request: can\'t parse labeled price: Can\'t find field "label"' => TgError::InvoiceLabel,
       'Bad Request: can\'t parse MessageEntity: Field "user" must be of type Object' => TgError::UserObject,
       'Bad Request: can\'t use file of type Video as Photo' => TgError::PaidType,
+      'Bad Request: chat must be a private chat' => TgError::BusinessPrivate,
       'Bad Request: chat not found' => TgError::ChatNotFound,
       'Bad Request: CURRENCY_TOTAL_AMOUNT_INVALID' => TgError::InvoiceLimits,
       'Bad Request: expected an Array of ReactionType' => TgError::MissingParameter,

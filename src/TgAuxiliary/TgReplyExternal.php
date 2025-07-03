@@ -8,6 +8,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgMessageInterface;
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgAudio,
   TgChat,
+  TgChecklist,
   TgContact,
   TgDice,
   TgDocument,
@@ -31,7 +32,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
  * @param string|null $Signature In case of sender is a channel
  * @link https://core.telegram.org/bots/api#externalreplyinfo
  * @link https://core.telegram.org/bots/api#messageorigin
- * @version 2024.07.05.00
+ * @version 2025.07.03.00
  */
 final readonly class TgReplyExternal{
   public TgUser|TgChat|string $User;
@@ -63,6 +64,8 @@ final readonly class TgReplyExternal{
       $this->Object = new TgPhoto($Data);
     elseif(isset($Data['audio'])):
       $this->Object = new TgAudio($Data['audio']);
+    elseif(isset($Data['checklist'])):
+      $this->Object = new TgChecklist($Data['checklist']);
     elseif(isset($Data['document'])):
       $this->Object = new TgDocument($Data['document']);
     elseif(isset($Data['video'])):
