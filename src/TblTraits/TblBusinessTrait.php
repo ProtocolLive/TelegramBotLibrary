@@ -15,6 +15,7 @@ use ProtocolLive\TelegramBotLibrary\TgAuxiliary\{
   TgStoryInputContentVideo
 };
 use ProtocolLive\TelegramBotLibrary\TgEnums\{
+  TgError,
   TgMethods,
   TgParseMode
 };
@@ -23,13 +24,14 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgChecklist,
   TgChecklistTask,
   TgGiftsOwned,
+  TgLimits,
   TgStarAmount,
   TgStory
 };
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2025.07.03.01
+ * @version 2025.07.03.02
  */
 trait TblBusinessTrait{
   /**
@@ -93,6 +95,9 @@ trait TblBusinessTrait{
     TblEntities|null $Entities = null,
     TblMarkup|null $Markup = null
   ):TgChecklist{
+    if(mb_strlen($Title) > TgLimits::ChecklistTitle):
+      throw new TblException(TgError::LimitChecklistTitle, 'Title length exceeds ' . TgLimits::ChecklistTitle . ' characters');
+    endif;
     $param['chat_id'] = $Chat;
     $param['business_connection_id'] = $BusinessId;
     $param['message_id'] = $Id;
@@ -153,6 +158,9 @@ trait TblBusinessTrait{
     TgReplyParams|null $Reply = null,
     TblMarkup|null $Markup = null
   ):TgChecklist{
+    if(mb_strlen($Title) > TgLimits::ChecklistTitle):
+      throw new TblException(TgError::LimitChecklistTitle, 'Title length exceeds ' . TgLimits::ChecklistTitle . ' characters');
+    endif;
     $param['chat_id'] = $Chat;
     $param['business_connection_id'] = $BusinessId;
     $param['checklist']['title'] = $Title;

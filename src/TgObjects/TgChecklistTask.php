@@ -3,15 +3,21 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
-use ProtocolLive\TelegramBotLibrary\TblObjects\TblEntities;
+use ProtocolLive\TelegramBotLibrary\TblObjects\{
+  TblEntities,
+  TblException
+};
 use ProtocolLive\TelegramBotLibrary\TgAuxiliary\TgEntity;
-use ProtocolLive\TelegramBotLibrary\TgEnums\TgParseMode;
+use ProtocolLive\TelegramBotLibrary\TgEnums\{
+  TgError,
+  TgParseMode
+};
 
 /**
  * Describes a task in a checklist.
  * @link https://core.telegram.org/bots/api#checklisttask
  * @link https://core.telegram.org/bots/api#inputchecklisttask
- * @version 2025.07.03.02
+ * @version 2025.07.03.03
  */
 final class TgChecklistTask{
   /**
@@ -35,16 +41,20 @@ final class TgChecklistTask{
    * @param string $Text Text of the task
    * @param TgParseMode $ParseMode Mode for parsing entities in the text. See formatting options for more details. Used in method ChecklistSend
    * @param TgEntity[]|TblEntities Special entities that appear in the task text. TblEntities in case of use the method ChecklistSend
+   * @throws TblException
    */
   public function __construct(
     public int|null $Id = null,
     public string|null $Text = null,
     public TgParseMode|null $ParseMode = null,
     public array|TblEntities|null $Entities = null,
-    array|null $Data = null,
+    array|null $Data = null
   ){
     if($Data === null):
       return;
+    endif;
+    if(mb_strlen($Text) > TgLimits::ChecklistTaskText):
+      throw new TblException(TgError::LimitChecklistTaskText, 'Text length exceeds ' . TgLimits::ChecklistTaskText . ' characters');
     endif;
     $this->Id = $Data['id'];
     $this->Text = $Data['text'];
@@ -63,8 +73,12 @@ final class TgChecklistTask{
 
   /**
    * @link https://core.telegram.org/bots/api#inputchecklisttask
+   * @throws TblException
    */
   public function ToArray():array{
+    if(mb_strlen($this->Text) > TgLimits::ChecklistTaskText):
+      throw new TblException(TgError::LimitChecklistTaskText, 'Text length exceeds ' . TgLimits::ChecklistTaskText . ' characters');
+    endif;
     $return['id'] = $this->Id;
     $return['text'] = $this->Text;
     if(isset($this->ParseMode)):
