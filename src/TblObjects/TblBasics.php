@@ -100,7 +100,7 @@ use ProtocolLive\TelegramBotLibrary\TgService\{
 };
 
 /**
- * @version 2025.06.30.01
+ * @version 2025.07.03.00
  */
 abstract class TblBasics{
   protected TblData $BotData;
@@ -285,7 +285,7 @@ abstract class TblBasics{
     elseif(isset($Data['web_app_data'])):
       return new TgWebappData($Data);
     else:
-      return null;
+      throw new TblException(TblError::UnknownUpdate, 'Unknown message');
     endif;
   }
 
