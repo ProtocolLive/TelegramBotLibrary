@@ -6,7 +6,8 @@ namespace ProtocolLive\TelegramBotLibrary\TblTraits;
 use CURLFile;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
   TblEntities,
-  TblException
+  TblException,
+  TblMarkup
 };
 use ProtocolLive\TelegramBotLibrary\TgAuxiliary\{
   TgStoryArea,
@@ -19,13 +20,16 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\{
 };
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgBusinessConnection,
+  TgChecklist,
+  TgChecklistTask,
   TgGiftsOwned,
   TgStarAmount,
   TgStory
 };
+use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2025.05.11.00
+ * @version 2025.07.03.00
  */
 trait TblBusinessTrait{
   /**
@@ -60,6 +64,77 @@ trait TblBusinessTrait{
     $param['business_connection_id'] = $BusinessId;
     $param['message_ids'] = $Ids;
     return $this->ServerMethod(TgMethods::BusinessDel, $param);
+  }
+
+  /**
+   * Use this method to send a checklist on behalf of a connected business account.
+   * @param int $Chat Unique identifier for the target chat
+   * @param string $BusinessId Unique identifier of the business connection on behalf of which the message will be sent
+   * @param string $Title Title of the checklist; 1-255 characters after entities parsing
+   * @param TgChecklistTask[] $Tasks List of 1-30 tasks in the checklist
+   * @param bool $TaskAdd If other users can add tasks to the checklist
+   * @param bool $TaskDone If other users can mark tasks as done or not done in the checklist
+   * @param TgParseMode|null $ParseMode Mode for parsing entities in the title. See formatting options for more details.
+   * @param TblEntities|null $Entities List of special entities that appear in the title, which can be specified instead of parse_mode. Currently, only bold, italic, underline, strikethrough, spoiler, and custom_emoji entities are allowed.
+   * @param bool $DisableNotification Sends the message silently. Users will receive a notification with no sound.
+   * @param bool $Protect Protects the contents of the sent message from forwarding and saving
+   * @param string|null $Effect Unique identifier of the message effect to be added to the message
+   * @param TgReplyParams|null $Reply A JSON-serialized object for description of the message to reply to
+   * @param TblMarkup|null $Markup A JSON-serialized object for an inline keyboard
+   * @return TgChecklist On success, the sent Message is returned.
+   * @link https://core.telegram.org/bots/api#sendchecklist
+   * @link https://core.telegram.org/bots/api#inputchecklist
+   */
+  public function BusinessChecklistSend(
+    int $Chat,
+    string $BusinessId,
+    string $Title,
+    array $Tasks,
+    bool $TaskAdd = false,
+    bool $TaskDone = false,
+    TgParseMode|null $ParseMode = null,
+    TblEntities|null $Entities = null,
+    bool $DisableNotification = false,
+    bool $Protect = false,
+    string|null $Effect = null,
+    TgReplyParams|null $Reply = null,
+    TblMarkup|null $Markup = null
+  ):TgChecklist{
+    $param['chat_id'] = $Chat;
+    $param['business_connection_id'] = $BusinessId;
+    $param['checklist']['title'] = $Title;
+    foreach($Tasks as &$task):
+      $task = $task->ToArray();
+    endforeach;
+    $param['checklist']['tasks'] = $Tasks;
+    if($TaskAdd):
+      $param['checklist']['others_can_add_tasks'] = true;
+    endif;
+    if($TaskDone):
+      $param['checklist']['others_can_mark_tasks_as_done'] = true;
+    endif;
+    if($ParseMode !== null):
+      $param['parse_mode'] = $ParseMode->value;
+    endif;
+    if($Entities !== null):
+      $param['title_entities'] = $Entities->ToArray();
+    endif;
+    if($DisableNotification):
+      $param['disable_notification'] = true;
+    endif;
+    if($Protect):
+      $param['protect_content'] = true;
+    endif;
+    if($Effect !== null):
+      $param['message_effect_id'] = $Effect;
+    endif;
+    if($Reply !== null):
+      $param['reply_parameters'] = $Reply->toArray();
+    endif;
+    if($Markup !== null):
+      $param['reply_markup'] = $Markup->toArray();
+    endif;
+    return new TgChecklist($this->ServerMethod(TgMethods::ChecklistSend, $param));
   }
 
   /**
