@@ -4,7 +4,6 @@
 
 namespace ProtocolLive\TelegramBotLibrary\TgAuxiliary;
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
-  TgEntity,
   TgGift,
   TgUser
 };
@@ -12,7 +11,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 /**
  * Describes a regular gift owned by a user or a chat.
  * @link https://core.telegram.org/bots/api#ownedgiftregular
- * @version 2025.04.12.00
+ * @version 2025.07.03.00
  */
 final readonly class TgGiftOwnedRegular{
   /**

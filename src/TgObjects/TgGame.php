@@ -4,6 +4,7 @@
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 use ProtocolLive\TelegramBotLibrary\TgAuxiliary\{
+  TgEntity,
   TgMessageData,
   TgPhotoSize
 };
@@ -15,7 +16,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 /**
  * Message is a game, information about the game.
  * @link https://core.telegram.org/bots/api#game
- * @version 2024.04.11.00
+ * @version 2025.07.03.00
  */
 readonly class TgGame
 implements TgEventInterface, TgForwadableInterface{

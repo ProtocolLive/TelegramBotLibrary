@@ -3,11 +3,12 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
+use ProtocolLive\TelegramBotLibrary\TgAuxiliary\TgEntity;
 
 /**
  * This object contains information about the quoted part of a message that is replied to by the given message.
  * @link https://core.telegram.org/bots/api#textquote
- * @version 20234.02.12.00
+ * @version 2025.07.03.00
  */
 final readonly class TgQuote{
   /**

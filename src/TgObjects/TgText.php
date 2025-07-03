@@ -3,7 +3,10 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
-use ProtocolLive\TelegramBotLibrary\TgAuxiliary\TgMessageData;
+use ProtocolLive\TelegramBotLibrary\TgAuxiliary\{
+  TgEntity,
+  TgMessageData
+};
 use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
   TgEventInterface,
   TgForwadableInterface,
@@ -12,7 +15,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 
 /**
  * @link https://core.telegram.org/bots/api#message
- * @version 2025.04.12.00
+ * @version 2025.07.03.00
  */
 readonly class TgText
 implements TgEventInterface,

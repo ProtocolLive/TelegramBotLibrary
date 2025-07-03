@@ -3,12 +3,11 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgAuxiliary;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgEntity;
 
 /**
  * This object contains information about one answer option in a poll.
  * @link https://core.telegram.org/bots/api#polloption
- * @version 2024.07.05.00
+ * @version 2025.07.03.00
  */
 final readonly class TgPollOption{
   /**

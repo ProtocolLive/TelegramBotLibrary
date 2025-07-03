@@ -2,12 +2,13 @@
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
-namespace ProtocolLive\TelegramBotLibrary\TgObjects;
+namespace ProtocolLive\TelegramBotLibrary\TgAuxiliary;
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgEntityType;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgUser;
 
 /**
  * @link https://core.telegram.org/bots/api#messageentity
- * @version 2024.01.02.00
+ * @version 2025.07.03.00
  */
 final readonly class TgEntity{
   public TgEntityType $Type;

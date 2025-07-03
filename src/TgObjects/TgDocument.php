@@ -4,6 +4,7 @@
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 use ProtocolLive\TelegramBotLibrary\TgAuxiliary\{
+  TgEntity,
   TgMessageData,
   TgPhotoSize
 };
@@ -16,7 +17,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 
 /**
  * @link https://core.telegram.org/bots/api#document
- * @version 2024.05.07.00
+ * @version 2025.07.03.00
  */
 readonly class TgDocument
 implements TgCaptionableInterface,
