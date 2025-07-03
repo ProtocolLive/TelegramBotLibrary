@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TgEnums;
 
 /**
- * @version 2025.07.03.00
+ * @version 2025.07.03.01
  */
 enum TgMethods:string{
   /**
@@ -20,6 +20,14 @@ enum TgMethods:string{
    * @link https://core.telegram.org/bots/api#setbusinessaccountbio
    */
   case BusinessBioSet = 'setBusinessAccountBio';
+  /**
+   * @link https://core.telegram.org/bots/api#editmessagechecklist
+   */
+  case BusinessChecklistEdit = 'editMessageChecklist';
+  /**
+   * @link https://core.telegram.org/bots/api#sendchecklist
+   */
+  case BusinessChecklistSend = 'sendChecklist';
   /**
    * @link https://core.telegram.org/bots/api#deletebusinessmessages
    */
@@ -204,10 +212,6 @@ enum TgMethods:string{
    * @link https://core.telegram.org/bots/api#setchattitle
    */
   case ChatTitle = 'setChatTitle';
-  /**
-   * @link https://core.telegram.org/bots/api#sendchecklist
-   */
-  case ChecklistSend = 'sendChecklist';
   /**
    * @link https://core.telegram.org/bots/api#deletemycommands
    */

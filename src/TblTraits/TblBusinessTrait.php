@@ -29,7 +29,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2025.07.03.00
+ * @version 2025.07.03.01
  */
 trait TblBusinessTrait{
   /**
@@ -64,6 +64,59 @@ trait TblBusinessTrait{
     $param['business_connection_id'] = $BusinessId;
     $param['message_ids'] = $Ids;
     return $this->ServerMethod(TgMethods::BusinessDel, $param);
+  }
+
+  /**
+   * Use this method to edit a checklist on behalf of a connected business account.
+   * @param int $Chat Unique identifier for the target chat
+   * @param int $Id Unique identifier for the target message
+   * @param string $BusinessId Unique identifier of the business connection on behalf of which the message will be sent
+   * @param string $Title Title of the checklist; 1-255 characters after entities parsing
+   * @param TgChecklistTask[] $Tasks List of 1-30 tasks in the checklist
+   * @param bool $TaskAdd If other users can add tasks to the checklist
+   * @param bool $TaskDone If other users can mark tasks as done or not done in the checklist
+   * @param TgParseMode $ParseMode Mode for parsing entities in the title. See formatting options for more details.
+   * @param TblEntities $Entities List of special entities that appear in the title, which can be specified instead of parse_mode. Currently, only bold, italic, underline, strikethrough, spoiler, and custom_emoji entities are allowed.
+   * @param TblMarkup|null $Markup A JSON-serialized object for the new inline keyboard for the message
+   * @return TgChecklist On success, the edited Message is returned.
+   * @link https://core.telegram.org/bots/api#editmessagechecklist
+   */
+  public function BusinessChecklistEdit(
+    int $Chat,
+    int $Id,
+    string $BusinessId,
+    string $Title,
+    array $Tasks,
+    bool $TaskAdd = false,
+    bool $TaskDone = false,
+    TgParseMode|null $ParseMode = null,
+    TblEntities|null $Entities = null,
+    TblMarkup|null $Markup = null
+  ):TgChecklist{
+    $param['chat_id'] = $Chat;
+    $param['business_connection_id'] = $BusinessId;
+    $param['message_id'] = $Id;
+    $param['checklist']['title'] = $Title;
+    foreach($Tasks as &$task):
+      $task = $task->ToArray();
+    endforeach;
+    $param['checklist']['tasks'] = $Tasks;
+    if($TaskAdd):
+      $param['checklist']['others_can_add_tasks'] = true;
+    endif;
+    if($TaskDone):
+      $param['checklist']['others_can_mark_tasks_as_done'] = true;
+    endif;
+    if($ParseMode !== null):
+      $param['parse_mode'] = $ParseMode->value;
+    endif;
+    if($Entities !== null):
+      $param['title_entities'] = $Entities->ToArray();
+    endif;
+    if($Markup !== null):
+      $param['reply_markup'] = $Markup->toArray();
+    endif;
+    return new TgChecklist($this->ServerMethod(TgMethods::BusinessChecklistEdit, $param));
   }
 
   /**
@@ -134,7 +187,7 @@ trait TblBusinessTrait{
     if($Markup !== null):
       $param['reply_markup'] = $Markup->toArray();
     endif;
-    return new TgChecklist($this->ServerMethod(TgMethods::ChecklistSend, $param));
+    return new TgChecklist($this->ServerMethod(TgMethods::BusinessChecklistSend, $param));
   }
 
   /**
