@@ -3,33 +3,17 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
+use ProtocolLive\TelegramBotLibrary\TgEnums\TgPermAdmin as TgPermAdminEnum;
 
 /**
  * Represents a chat member that has some additional privileges.
  * @link https://core.telegram.org/bots/api#chatmemberadministrator
- * @version 2024.11.23.00
+ * @version 2025.07.02.00
  */
 final class TgPermAdmin{
-  public const Array = [
-    'Manage' => 'can_manage_chat',
-    'Message' => 'can_post_messages',
-    'Edit' => 'can_edit_messages',
-    'Delete' => 'can_delete_messages',
-    'Invite' => 'can_invite_users',
-    'Restrict' => 'can_restrict_members',
-    'Promote' => 'can_promote_members',
-    'Video' => 'can_manage_video_chats',
-    'Info' => 'can_change_info',
-    'Pin' => 'can_pin_messages',
-    'Topics' => 'can_manage_topics',
-    'StoryCreate' => 'can_post_stories',
-    'StoryEdit' => 'can_edit_stories',
-    'StoryDelete' => 'can_delete_stories'
-  ];
-
   /**
-   * @param bool $Manage If the administrator can access the chat event log, chat statistics, message statistics in channels, see channel members, see anonymous administrators in supergroups and ignore slow mode. Implied by any other administrator privilege
-   * @param bool $Message If the administrator can post in the channel; channels only
+   * @param bool $Manage If the administrator can access the chat event log, get boost list, see hidden supergroup and channel members, report spam messages and ignore slow mode. Implied by any other administrator privilege.
+   * @param bool $Message If the administrator can post messages in the channel, or access channel statistics; for channels only
    * @param bool $Edited If the bot is allowed to edit administrator privileges of that user
    * @param bool $Edit If the administrator can edit messages of other users and can pin messages; channels only
    * @param bool $Delete If the administrator can delete messages of other users
@@ -38,11 +22,11 @@ final class TgPermAdmin{
    * @param bool $Promote If the administrator can add new administrators with a subset of their own privileges or demote administrators that he has promoted, directly or indirectly (promoted by administrators that were appointed by the user)
    * @param bool $Video If the administrator can manage video chats
    * @param bool $Info If the administrator can change chat title, photo and other settings
-   * @param bool $Pin If the administrator can pin messages, supergroups only
+   * @param bool $Pin If the user is allowed to pin messages; for groups and supergroups only
    * @param bool $Topics If the user is allowed to create, rename, close, and reopen forum topics; supergroups only,
-   * @param bool $StoryCreate Pass True if the administrator can post stories in the channel; channels only
-   * @param bool $StoryEdit Pass True if the administrator can edit stories posted by other users; channels only
-   * @param bool $StoryDelete Pass True if the administrator can edit stories posted by other users; channels only
+   * @param bool $StoryCreate If the administrator can post stories in the channel; channels only
+   * @param bool $StoryEdit If the administrator can edit stories posted by other users, post stories to the chat page, pin chat stories, and access the chat's story archive
+   * @param bool $StoryDelete If the administrator can edit stories posted by other users; channels only
    * @link https://core.telegram.org/bots/api#chatmemberadministrator
    */
   public function __construct(
@@ -63,17 +47,18 @@ final class TgPermAdmin{
     public bool $StoryEdit = false,
     public bool $StoryDelete = false
   ){
-    if($Data !== null):
-      foreach(self::Array as $perm => $vector):
-        $this->$perm = $Data[$vector] ?? false;
-      endforeach;
+    if($Data === null):
+      return;
     endif;
+    foreach(TgPermAdminEnum::cases() as $perm):
+      $this->{$perm->name} = $Data[$perm->value] ?? false;
+    endforeach;
   }
 
   public function ToArray():array{
     $return = [];
-    foreach(self::Array as $perm => $vector):
-      $return[$vector] = $this->$perm;
+    foreach(TgPermAdminEnum::cases() as $perm):
+      $return[$perm->value] = $this->{$perm->name};
     endforeach;
     return $return;
   }
