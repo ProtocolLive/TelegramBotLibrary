@@ -31,7 +31,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2025.07.03.02
+ * @version 2025.07.03.03
  */
 trait TblBusinessTrait{
   /**
@@ -98,6 +98,9 @@ trait TblBusinessTrait{
     if(mb_strlen($Title) > TgLimits::ChecklistTitle):
       throw new TblException(TgError::LimitChecklistTitle, 'Title length exceeds ' . TgLimits::ChecklistTitle . ' characters');
     endif;
+    if(count($Tasks) > TgLimits::ChecklistTasks):
+      throw new TblException(TgError::LimitChecklistTasks, 'The number of tasks exceeds ' . TgLimits::ChecklistTasks);
+    endif;
     $param['chat_id'] = $Chat;
     $param['business_connection_id'] = $BusinessId;
     $param['message_id'] = $Id;
@@ -160,6 +163,9 @@ trait TblBusinessTrait{
   ):TgChecklist{
     if(mb_strlen($Title) > TgLimits::ChecklistTitle):
       throw new TblException(TgError::LimitChecklistTitle, 'Title length exceeds ' . TgLimits::ChecklistTitle . ' characters');
+    endif;
+    if(count($Tasks) > TgLimits::ChecklistTasks):
+      throw new TblException(TgError::LimitChecklistTasks, 'The number of tasks exceeds ' . TgLimits::ChecklistTasks);
     endif;
     $param['chat_id'] = $Chat;
     $param['business_connection_id'] = $BusinessId;

@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
- * @version 2025.07.03.00
+ * @version 2025.07.03.01
  */
 final class TgLimits{
   /**
@@ -18,6 +18,10 @@ final class TgLimits{
    * @link https://core.telegram.org/bots/api#createchatsubscriptioninvitelink
    */
   public const ChannelSubscriptionPrice = 2500;
+  /**
+   * @link https://core.telegram.org/bots/api#inputchecklist
+   */
+  public const int ChecklistTasks = 30;
   /**
    * @link https://core.telegram.org/bots/api#inputchecklisttask
    */
