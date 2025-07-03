@@ -11,7 +11,7 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\TgParseMode;
  * Describes a task in a checklist.
  * @link https://core.telegram.org/bots/api#checklisttask
  * @link https://core.telegram.org/bots/api#inputchecklisttask
- * @version 2025.07.03.01
+ * @version 2025.07.03.02
  */
 final class TgChecklistTask{
   /**
@@ -31,7 +31,10 @@ final class TgChecklistTask{
   public int|null $CompletedDate;
 
   /**
+   * @param int $Id Unique identifier of the task
    * @param string $Text Text of the task
+   * @param TgParseMode $ParseMode Mode for parsing entities in the text. See formatting options for more details. Used in method ChecklistSend
+   * @param TgEntity[]|TblEntities Special entities that appear in the task text. TblEntities in case of use the method ChecklistSend
    */
   public function __construct(
     public int|null $Id = null,
