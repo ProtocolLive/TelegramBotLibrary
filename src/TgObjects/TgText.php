@@ -15,7 +15,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 
 /**
  * @link https://core.telegram.org/bots/api#message
- * @version 2025.07.03.00
+ * @version 2025.07.03.01
  */
 readonly class TgText
 implements TgEventInterface,
@@ -36,14 +36,10 @@ TgMessageInterface{
   ){
     $this->Data = new TgMessageData($Data);
     $this->Text = $Data['text'];
-    if(isset($Data['entities'])):
-      $temp = [];
-      foreach($Data['entities'] as $entity):
-        $temp[] = new TgEntity($entity);
-      endforeach;
-      $this->Entities = $temp;
-    else:
-      $this->Entities = [];
-    endif;
+
+    foreach($Data['entities'] ?? [] as &$entity):
+      $entity = new TgEntity($entity);
+    endforeach;
+    $this->Entities = $Data['entities'] ?? [];
   }
 }

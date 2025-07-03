@@ -19,7 +19,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
  * This object contains information about a poll.
  * Param Answer: 0-based identifier of the correct answer option. Available only for polls in the quiz mode, which are closed, or was sent (not forwarded) by the bot or to the private chat with the bot.
  * @link https://core.telegram.org/bots/api#poll
- * @version 2025.07.03.00
+ * @version 2025.07.03.01
  */
 readonly class TgPoll
 implements TgEventInterface,
@@ -64,16 +64,16 @@ TgMessageInterface{
   public int|null $Answer;
   /**
    * Text that is shown when a user chooses an incorrect answer or taps on the lamp icon in a quiz-style poll, 0-200 characters
-   */
+  */
   public string|null $Explanation;
-  /**
-   * Special entities like usernames, URLs, bot commands, etc. that appear in the explanation
-   */
-  public array $ExplanationEntities;
   /**
    * Special entities that appear in the question. Currently, only custom emoji entities are allowed in poll questions
    */
   public array $QuestionEntities;
+  /**
+   * Special entities like usernames, URLs, bot commands, etc. that appear in the explanation
+   */
+  public array $ExplanationEntities;
 
   public function __construct(
     array $Data
@@ -88,34 +88,26 @@ TgMessageInterface{
     $this->PollId = $pointer['id'];
     $this->Question = $pointer['question'];
     $this->Type = TgPollType::tryFrom($pointer['type']);
-    $temp = [];
-    foreach($pointer['options'] as $option):
-      $temp[] = new TgPollOption($option);
-    endforeach;
-    $this->Options = $temp;
     $this->Multiple = $pointer['allows_multiple_answers'];
     $this->Votes = $pointer['total_voter_count'];
     $this->Closed = $pointer['is_closed'];
     $this->Anonymous = $pointer['is_anonymous'];
     $this->Answer = $pointer['correct_option_id'] ?? null;
     $this->Explanation = $pointer['explanation'] ?? null;
-    if(isset($pointer['explanation_entities'])):
-      $temp = [];
-      foreach($pointer['explanation_entities'] as $entity):
-        $temp[] = new TgEntity($entity);
-      endforeach;
-      $this->ExplanationEntities = $temp;
-    else:
-      $this->ExplanationEntities = [];
-    endif;
-    if(isset($pointer['question_entities'])):
-      $temp = [];
-      foreach($pointer['question_entities'] as $entity):
-        $temp[] = new TgEntity($entity);
-      endforeach;
-      $this->QuestionEntities = $temp;
-    else:
-      $this->QuestionEntities = [];
-    endif;
+
+    foreach($pointer['options'] as &$option):
+      $option = new TgPollOption($option);
+    endforeach;
+    $this->Options = $pointer['options'];
+
+    foreach($pointer['question_entities'] ?? [] as &$entity):
+      $entity = new TgEntity($entity);
+    endforeach;
+    $this->QuestionEntities = $pointer['question_entities'] ?? [];
+
+    foreach($pointer['explanation_entities'] ?? [] as &$entity):
+      $entity = new TgEntity($entity);
+    endforeach;
+    $this->ExplanationEntities = $pointer['explanation_entities'] ?? [];
   }
 }

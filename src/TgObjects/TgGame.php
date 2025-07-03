@@ -16,7 +16,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 /**
  * Message is a game, information about the game.
  * @link https://core.telegram.org/bots/api#game
- * @version 2025.07.03.00
+ * @version 2025.07.03.01
  */
 readonly class TgGame
 implements TgEventInterface, TgForwadableInterface{
@@ -52,23 +52,21 @@ implements TgEventInterface, TgForwadableInterface{
     $this->Data = new TgMessageData($Data);
     $this->Title = $Data['game']['title'];
     $this->Description = $Data['game']['description'];
-    $temp = [];
-    foreach($Data['game']['photo'] as $photo):
-      $temp[] = new TgPhotoSize($photo);
-    endforeach;
-    $this->Photo = $temp;
     $this->Text = $Data['game']['text'] ?? null;
-    $temp = [];
-    if(isset($Data['game']['entities'])):
-      foreach($Data['game']['entities'] as $entity):
-        $temp[] = new TgEntity($entity);
-      endforeach;
-    endif;
-    $this->Entities = $temp;
     if(isset($Data['game']['animation'])):
       $this->Animation = new TgAnimation($Data['game']);
     else:
       $this->Animation = null;
     endif;
+
+    foreach($Data['game']['photo'] ?? [] as &$photo):
+      $photo = new TgPhotoSize($photo);
+    endforeach;
+    $this->Photo = $Data['game']['photo'] ?? [];
+
+    foreach($Data['game']['entities'] ?? [] as &$entity):
+      $entity = new TgEntity($entity);
+    endforeach;
+    $this->Entities = $Data['game']['entities'] ?? [];
   }
 }

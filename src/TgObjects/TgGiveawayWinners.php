@@ -12,7 +12,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 /**
  * This object represents a message about the completion of a giveaway with public winners.
  * @link https://core.telegram.org/bots/api#giveawaywinners
- * @version 2024.09.06.00
+ * @version 2025.07.03.00
  */
 final readonly class TgGiveawayWinners
 implements TgEventInterface, TgForwadableInterface{
@@ -74,11 +74,6 @@ implements TgEventInterface, TgForwadableInterface{
     $this->Message = $Data['giveaway_message_id'];
     $this->Date = $Data['winners_selection_date'];
     $this->Count = $Data['winner_count'];
-    $temp = [];
-    foreach($Data['winners'] as $winner):
-      $temp[] = new TgUser($winner);
-    endforeach;
-    $this->Winners = $temp;
     $this->AdditionalChatCount = $Data['additional_chat_count'] ?? 0;
     $this->Months = $Data['premium_subscription_month_count'] ?? null;
     $this->Unclaimed = $Data['unclaimed_prize_count'] ?? 0;
@@ -86,5 +81,10 @@ implements TgEventInterface, TgForwadableInterface{
     $this->Refunded = $Data['refunded'] ?? false;
     $this->Additional = $Data['prize_description'] ?? null;
     $this->Stars = $Data['prize_star_count'] ?? null;
+
+    foreach($Data['winners'] ?? [] as &$winner):
+      $winner = new TgUser($winner);
+    endforeach;
+    $this->Winners = $Data['winners'] ?? [];
   }
 }

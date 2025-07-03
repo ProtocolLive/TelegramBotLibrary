@@ -18,7 +18,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 /**
  * Message is a photo, available sizes of the photo
  * @link https://core.telegram.org/bots/api#message
- * @version 2025.07.03.00
+ * @version 2025.07.03.01
  */
 readonly class TgPhoto
 implements TgCaptionableInterface,
@@ -41,21 +41,17 @@ TgMessageInterface{
     array $Data
   ){
     $this->Data = new TgMessageData($Data);
-    $temp = [];
-    foreach($Data['photo'] as $file):
-      $temp[] = new TgPhotoSize($file);
-    endforeach;
-    $this->Files = $temp;
     $this->MediaGroup = $Data['media_group_id'] ?? null;
     $this->Caption = $Data['caption'] ?? null;
-    if(isset($Data['caption_entities'])):
-      $temp = [];
-      foreach($Data['caption_entities'] as $entity):
-        $temp[] = new TgEntity($entity);
-      endforeach;
-      $this->Entities = $temp;
-    else:
-      $this->Entities = [];
-    endif;
+
+    foreach($Data['photo'] as &$photo):
+      $photo = new TgPhotoSize($photo);
+    endforeach;
+    $this->Files = $Data['photo'];
+
+    foreach($Data['caption_entities'] ?? [] as &$entity):
+      $entity = new TgEntity($entity);
+    endforeach;
+    $this->Entities = $Data['caption_entities'] ?? [] ;
   }
 }

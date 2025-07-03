@@ -15,7 +15,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 /**
  * This object represents a chat photo.
  * @link https://core.telegram.org/bots/api#chatphoto
- * @version 2025.06.17.00
+ * @version 2025.07.03.00
  */
 final readonly class TgChatPhotoNew
 implements TgEventInterface,
@@ -27,10 +27,9 @@ TgServiceInterface{
     array $Data
   ){
     $this->Data = new TgMessageData($Data);
-    $temp = [];
-    foreach($Data['new_chat_photo'] as $photo):
-      $temp[] = new TgPhotoSize($photo);
+    foreach($Data['new_chat_photo'] ?? [] as &$photo):
+      $photo = new TgPhotoSize($photo);
     endforeach;
-    $this->Photo = $temp;
+    $this->Photo = $Data['new_chat_photo'] ?? [];
   }
 }

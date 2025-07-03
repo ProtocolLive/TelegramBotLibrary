@@ -13,7 +13,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 /**
  * Describes a transaction with a user.
  * @link https://core.telegram.org/bots/api#transactionpartneruser
- * @version 2025.05.11.00
+ * @version 2025.07.03.00
  */
 final readonly class TgTransactionPartnerUser
 extends TgTransactionPartner{
@@ -41,7 +41,7 @@ extends TgTransactionPartner{
    * Information about the paid media bought by the user; for “paid_media_payment” transactions only
    * @var TgPaidMedia[]
    */
-  public array|null $PaidMedia;
+  public array $PaidMedia;
   /**
    * Bot-specified paid media payload. Can be available only for “paid_media_payment” transactions.
    */
@@ -67,14 +67,6 @@ extends TgTransactionPartner{
     endif;
     $this->PayloadInvoice = $Data['invoice_payload'] ?? null;
     $this->SubscriptionPeriod = $Data['subscription_period'] ?? null;
-    if(isset($Data['paid_media'])):
-      foreach($Data['paid_media'] as $media):
-        $temp[] = new TgPaidMedia($media);
-      endforeach;
-      $this->PaidMedia = $temp;
-    else:
-      $this->PaidMedia = null;
-    endif;
     $this->PayloadPaidMedia = $Data['paid_media_payload'] ?? null;
     if(isset($Gift)):
       $this->Gift = new TgGift($Data['gift']);
@@ -82,5 +74,10 @@ extends TgTransactionPartner{
       $this->Gift = null;
     endif;
     $this->PremiumMonths = $Data['premium_subscription_duration'] ?? null;
+
+    foreach($Data['paid_media'] as &$media):
+      $media = new TgPaidMedia($media);
+    endforeach;
+    $this->PaidMedia = $Data['paid_media'];
   }
 }

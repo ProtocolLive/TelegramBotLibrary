@@ -11,7 +11,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 
 /**
  * @link https://core.telegram.org/bots/api#giveaway
- * @version 2024.09.06.00
+ * @version 2025.07.03.00
  */
 final readonly class TgGiveaway
 implements TgEventInterface, TgForwadableInterface{
@@ -57,11 +57,6 @@ implements TgEventInterface, TgForwadableInterface{
     array $Data
   ){
     $this->Data = new TgMessageData($Data);
-    $temp = [];
-    foreach($Data['giveaway']['chats'] as $chat):
-      $temp[] = new TgChat($chat);
-    endforeach;
-    $this->Chats = $temp;
     $this->Date = $Data['giveaway']['winners_selection_date'];
     $this->Winners = $Data['giveaway']['winner_count'];
     $this->OnlyNew = $Data['giveaway']['only_new_members'] ?? false;
@@ -70,5 +65,10 @@ implements TgEventInterface, TgForwadableInterface{
     $this->Countries = $Data['giveaway']['country_codes'] ?? [];
     $this->Months = $Data['giveaway']['premium_subscription_month_count'] ?? null;
     $this->Stars = $Data['giveaway']['prize_star_count'] ?? null;
+
+    foreach($Data['giveaway']['chats'] ?? [] as &$chat):
+      $chat = new TgChat($chat);
+    endforeach;
+    $this->Chats = $Data['giveaway']['chats'] ?? [];
   }
 }

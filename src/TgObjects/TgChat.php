@@ -11,7 +11,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgMessageInterface;
 /**
  * @link https://core.telegram.org/bots/api#chat
  * @link https://core.telegram.org/bots/api#chatfullinfo
- * @version 2025.05.11.00
+ * @version 2025.07.03.00
  */
 final readonly class TgChat{
   /**
@@ -172,11 +172,6 @@ final readonly class TgChat{
     if(isset($Data['pinned_message'])):
       $this->Pinned = TblBasics::DetectMessage($Data['pinned_message']);
     endif;
-    $temp = [];
-    foreach($Data['available_reactions'] ?? [] as $reaction):
-      $temp[] = new TgReaction($reaction);
-    endforeach;
-    $this->Reactions = $temp;
     $this->BoostCountUnrestrict = $Data['unrestrict_boost_count'] ?? 0;
     $this->EmojiSet = $Data['custom_emoji_sticker_set_name'] ?? null;
     $this->StickerSet = $Data['sticker_set_name'] ?? null;
@@ -187,5 +182,10 @@ final readonly class TgChat{
     else:
       $this->Gifts = null;
     endif;
+
+    foreach($Data['available_reactions'] ?? [] as &$reaction):
+      $reaction = new TgReaction($reaction);
+    endforeach;
+    $this->Reactions = $Data['available_reactions'] ?? [];
   }
 }

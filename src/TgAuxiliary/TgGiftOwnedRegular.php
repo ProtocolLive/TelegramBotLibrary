@@ -11,7 +11,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 /**
  * Describes a regular gift owned by a user or a chat.
  * @link https://core.telegram.org/bots/api#ownedgiftregular
- * @version 2025.07.03.00
+ * @version 2025.07.03.01
  */
 final readonly class TgGiftOwnedRegular{
   /**
@@ -76,20 +76,16 @@ final readonly class TgGiftOwnedRegular{
     endif;
     $this->Date = $Data['send_date'];
     $this->Message = $Data['text'] ?? null;
-    if(isset($Data['entities'])):
-      $temp = [];
-      foreach($Data['entities'] as $entity):
-        $temp[] = new TgEntity($entity);
-      endforeach;
-      $this->Entities = $temp;
-    else:
-      $this->Entities = [];
-    endif;
     $this->Private = $Data['is_private'] ?? false;
     $this->Saved = $Data['is_saved'] ?? false;
     $this->Upgradable = $Data['can_be_upgraded'] ?? false;
     $this->Refunded = $Data['was_refunded'] ?? false;
     $this->StarCount = $Data['convert_star_count'] ?? null;
     $this->PrepaidStars = $Data['prepaid_upgrade_star_count'] ?? null;
+    
+    foreach($Data['entities'] ?? [] as &$entity):
+      $entity = new TgEntity($entity);
+    endforeach;
+    $this->Entities = $Data['entities'] ?? [];
   }
 }

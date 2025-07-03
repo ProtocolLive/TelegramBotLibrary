@@ -13,7 +13,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\TgGift;
 /**
  * Describes a service message about a regular gift that was sent or received.
  * @link https://core.telegram.org/bots/api#giftinfo
- * @version 2025.07.03.00
+ * @version 2025.07.03.01
  */
 final readonly class TgGiftInfo
 implements TgEventInterface,
@@ -61,15 +61,11 @@ TgServiceInterface{
     $this->PrepaidStars = $Data['prepaid_upgrade_star_count'] ?? null;
     $this->Upgradable = $Data['can_be_upgraded'] ?? false;
     $this->Message = $Data['text'] ?? null;
-    if(isset($Data['entities'])):
-      $temp = [];
-      foreach($Data['entities'] as $entity):
-        $temp[] = new TgEntity($entity);
-      endforeach;
-      $this->Entities = $temp;
-    else:
-      $this->Entities = [];
-    endif;
     $this->Private = $Data['is_private'] ?? false;
+
+    foreach($Data['entities'] ?? [] as &$entity):
+      $entity = new TgEntity($entity);
+    endforeach;
+    $this->Entities = $Data['entities'] ?? [];
   }
 }

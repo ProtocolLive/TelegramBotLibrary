@@ -8,7 +8,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgEventInterface;
 
 /**
  * @link https://core.telegram.org/bots/api#forumtopicclosed
- * @version 2024.04.11.00
+ * @version 2025.07.03.00
  */
 final readonly class TgVideoChatInvite
 implements TgEventInterface{
@@ -19,10 +19,9 @@ implements TgEventInterface{
     array $Data
   ){
     $this->Data = new TgMessageData($Data);
-    $temp = [];
-    foreach($Data['video_chat_participants_invited']['users'] as $user):
-      $temp[] = new TgUser($user);
+    foreach($Data['video_chat_participants_invited']['users'] ?? [] as &$user):
+      $user = new TgUser($user);
     endforeach;
-    $this->Users = $temp;
+    $this->Users = $Data['video_chat_participants_invited']['users'] ?? [];
   }
 }

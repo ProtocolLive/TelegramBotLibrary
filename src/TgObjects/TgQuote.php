@@ -8,7 +8,7 @@ use ProtocolLive\TelegramBotLibrary\TgAuxiliary\TgEntity;
 /**
  * This object contains information about the quoted part of a message that is replied to by the given message.
  * @link https://core.telegram.org/bots/api#textquote
- * @version 2025.07.03.00
+ * @version 2025.07.03.01
  */
 final readonly class TgQuote{
   /**
@@ -32,14 +32,12 @@ final readonly class TgQuote{
     array $Data
   ){
     $this->Text = $Data['text'];
-    if(isset($Data['entities'])):
-      $temp = [];
-      foreach($Data['entities'] as $entity):
-        $temp[] = new TgEntity($entity);
-      endforeach;
-      $this->Entities = $temp;
-    endif;
     $this->Position = $Data['position'];
     $this->Manual = $Data['is_manual'] ?? false;
+
+    foreach($Data['entities'] ?? [] as &$entity):
+      $entity = new TgEntity($entity);
+    endforeach;
+    $this->Entities = $Data['entities'] ?? [];
   }
 }

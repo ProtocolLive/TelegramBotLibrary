@@ -17,7 +17,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 
 /**
  * @link https://core.telegram.org/bots/api#document
- * @version 2025.07.03.00
+ * @version 2025.07.03.01
  */
 readonly class TgDocument
 implements TgCaptionableInterface,
@@ -86,14 +86,10 @@ TgMessageInterface{
     else:
       $this->Thumbnail = null;
     endif;
-    if(isset($Data['caption_entities'])):
-      $temp = [];
-      foreach($Data['caption_entities'] as $entity):
-        $temp[] = new TgEntity($entity);
-      endforeach;
-      $this->Entities = $temp;
-    else:
-      $this->Entities = null;
-    endif;
+
+    foreach($Data['caption_entities'] ?? [] as &$entity):
+      $entity = new TgEntity($entity);
+    endforeach;
+    $this->Entities = $Data['caption_entities'] ?? [];
   }
 }
