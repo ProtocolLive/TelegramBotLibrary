@@ -27,6 +27,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgChatRequest,
   TgChatShared,
   TgChecklist,
+  TgChecklistTasksDone,
   TgContact,
   TgDice,
   TgDocument,
@@ -101,7 +102,7 @@ use ProtocolLive\TelegramBotLibrary\TgService\{
 };
 
 /**
- * @version 2025.07.03.01
+ * @version 2025.07.03.02
  */
 abstract class TblBasics{
   protected TblData $BotData;
@@ -194,6 +195,8 @@ abstract class TblBasics{
       return new TgChatShared($Data);
     elseif(isset($Data['checklist'])):
       return new TgChecklist($Data);
+    elseif(isset($Data['checklist_tasks_done'])):
+      return new TgChecklistTasksDone($Data);
     elseif(isset($Data['connected_website'])):
       return new TgLogin($Data);
     elseif(isset($Data['contact'])):
