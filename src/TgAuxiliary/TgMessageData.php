@@ -33,7 +33,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 
 /**
  * @link https://core.telegram.org/bots/api#message
- * @version 2025.06.14.01
+ * @version 2025.07.03.00
  */
 final readonly class TgMessageData{
   /**
@@ -95,7 +95,7 @@ final readonly class TgMessageData{
    */
   public int $Boost;
   /**
-   * Not implemented in production yet
+   * Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
    */
   public string|null $BusinessConnection;
   /**
