@@ -6,7 +6,7 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgError;
 
 /**
- * @version 2024.11.20.00
+ * @version 2025.07.03.01
  */
 abstract class TgErrors{
   public static function Search(string $Description):TgError|false{
@@ -43,6 +43,7 @@ abstract class TgErrors{
       'Bad Request: can\'t parse inline query result: Can\'t find field "thumb_url"' => TgError::InlineQueryThumbMiss,
       'Bad Request: can\'t parse inline query result: Field \"thumb_url\" must be of type String' => TgError::InlineQueryThumbType,
       'Bad Request: can\'t parse inline query result: Inline query result must be an object' => TgError::InlineQueryResult,
+      'Bad Request: can\'t parse InputChecklist: Can\'t parse InputChecklistTask: Can\'t find field "id"' => TgError::ChecklistTaskId,
       'Bad Request: can\'t parse JSON encoded inline query results: Closing \'"\' not found' => TgError::InlineQueryClosing,
       'Bad Request: can\'t parse JSON encoded inline query results: Expected string end' => TgError::InlineQueryStringEnd,
       'Bad Request: can\'t parse keyboard button: ChatAdministratorRights must be an Object' => TgError::ChatAdministratorRightsObject,
@@ -63,9 +64,11 @@ abstract class TgErrors{
       'Bad Request: message to edit not found' => TgError::EditNotFound,
       'Bad Request: message to react not found' => TgError::ReactionMsgNotFound,
       'Bad Request: message to unpin not found' => TgError::UnpinNotFound,
+      'Bad Request: messages must not be sent to self' => TgError::BusinessSelf,
       'Bad Request: MESSAGE_ID_INVALID' => TgError::MessageIdInvalid,
       'Bad Request: object expected as link preview options' => TgError::LinkPreview,
       'Bad Request: paid media can be sent only in channel chats' => TgError::PaidChannel,
+      'Bad Request: PEER_ID_INVALID' => TgError::ChatNotFound,
       'Bad Request: PHOTO_THUMB_URL_EMPTY' => TgError::InlineQueryThumbEmpty,
       'Bad Request: query is too old and response timeout expired or query ID is invalid' => TgError::CallbackQueryOld,
       'Bad Request: QUOTE_TEXT_INVALID' => TgError::Quote,

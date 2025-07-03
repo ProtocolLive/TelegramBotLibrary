@@ -11,19 +11,16 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\TgParseMode;
  * Describes a task in a checklist.
  * @link https://core.telegram.org/bots/api#checklisttask
  * @link https://core.telegram.org/bots/api#inputchecklisttask
- * @version 2025.07.03.00
+ * @version 2025.07.03.01
  */
 final class TgChecklistTask{
   /**
+   * @property int $Id Unique identifier of the task
    * @property string $Text Text of the task
    * @property TgParseMode $ParseMode Mode for parsing entities in the text. See formatting options for more details. Used in method ChecklistSend
    * @property TgEntity[]|TblEntities Special entities that appear in the task text. TblEntities in case of use the method ChecklistSend
    */
 
-  /**
-   * Unique identifier of the task
-   */
-  public int $Id;
   /**
    * User that completed the task; omitted if the task wasn't completed
   */
@@ -37,10 +34,11 @@ final class TgChecklistTask{
    * @param string $Text Text of the task
    */
   public function __construct(
-    array|null $Data = null,
+    public int|null $Id = null,
     public string|null $Text = null,
     public TgParseMode|null $ParseMode = null,
-    public array|TblEntities|null $Entities = null
+    public array|TblEntities|null $Entities = null,
+    array|null $Data = null,
   ){
     if($Data === null):
       return;
@@ -64,6 +62,7 @@ final class TgChecklistTask{
    * @link https://core.telegram.org/bots/api#inputchecklisttask
    */
   public function ToArray():array{
+    $return['id'] = $this->Id;
     $return['text'] = $this->Text;
     if(isset($this->ParseMode)):
       $return['parse_mode'] = $this->ParseMode->value;
