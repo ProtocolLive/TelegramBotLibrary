@@ -61,7 +61,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2025.06.30.01
+ * @version 2025.07.03.00
  */
 final class TelegramBotLibrary
 extends TblBasics{
@@ -159,11 +159,12 @@ extends TblBasics{
    * @param bool $DisableDetection Disables automatic server-side content type detection for files uploaded using multipart/form-data
    * @param bool $DisableNotification Sends the message silently. Users will receive a notification with no sound.
    * @param bool $Protect Protects the contents of the sent message from forwarding and saving
-   * @param int $RepliedMsg If the message is a reply, ID of the original message
-   * @param bool $SendWithoutRepliedMsg Pass True, if the message should be sent even if the specified replied-to message is not found
+   * @param TgReplyParams $Reply Description of the message to reply to
    * @param TblMarkup $Markup Additional interface options. A object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
    * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
    * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+   * @param string $BusinessId Unique identifier of the business connection on behalf of which the message will be sent
+   * @param int $Thread Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
    * @return TgDocument On success, the sent Message is returned.
    * @link https://core.telegram.org/bots/api#senddocument
    */
@@ -171,6 +172,7 @@ extends TblBasics{
     int $Chat,
     string $File,
     int|null $Thread = null,
+    string|null $BusinessId = null,
     string|null $Thumbnail = null,
     string|null $Caption = null,
     TgParseMode $ParseMode = TgParseMode::Html,
@@ -178,8 +180,7 @@ extends TblBasics{
     bool $DisableDetection = false,
     bool $DisableNotification = false,
     bool $Protect = false,
-    int|null $RepliedMsg = null,
-    bool $SendWithoutRepliedMsg = false,
+    TgReplyParams|null $Reply = null,
     bool $AllowPaid = false,
     TblMarkup|null $Markup = null,
     string|null $Effect = null
@@ -192,6 +193,9 @@ extends TblBasics{
     endif;
     if($Thread !== null):
       $param['message_thread_id'] = $Thread;
+    endif;
+    if($BusinessId !== null):
+      $param['business_connection_id'] = $BusinessId;
     endif;
     if($Thumbnail !== null):
       if(is_file($Thumbnail)):
@@ -227,11 +231,8 @@ extends TblBasics{
     if($AllowPaid):
       $param['allow_paid_broadcast'] = true;
     endif;
-    if($RepliedMsg !== null):
-      $param['reply_to_message_id'] = $RepliedMsg;
-      if($SendWithoutRepliedMsg):
-        $param['allow_sending_without_reply'] = true;
-      endif;
+    if($Reply !== null):
+      $param['reply_parameters'] = $Reply->ToArray();
     endif;
     if($Markup !== null):
       $param['reply_markup'] = $Markup->ToArray();
