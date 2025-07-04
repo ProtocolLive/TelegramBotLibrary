@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TgEnums;
 
 /**
- * @version 2025.07.03.01
+ * @version 2025.07.04.00
  */
 enum TgMethods:string{
   /**
@@ -464,6 +464,10 @@ enum TgMethods:string{
    * @link https://core.telegram.org/bots/api#savepreparedinlinemessage
    */
   case PreparedInlineMessageSave = 'savePreparedInlineMessage';
+  /**
+   * @link https://core.telegram.org/bots/api#getmystarbalance
+   */
+  case StarBalance = 'getMyStarBalance';
   /**
    * @link https://core.telegram.org/bots/api#refundstarpayment
    */

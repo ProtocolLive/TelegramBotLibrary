@@ -19,6 +19,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgGifts,
   TgLimits,
   TgPaidMedia,
+  TgStarAmount,
   TgStarTransaction
 };
 use ProtocolLive\TelegramBotLibrary\TgParams\{
@@ -27,7 +28,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2025.05.11.01
+ * @version 2025.07.04.00
  */
 trait TblStarsTrait{
   public function GiftAvailableGet():TgGifts{
@@ -260,6 +261,14 @@ trait TblStarsTrait{
       $param['payload'] = $Payload;
     endif;
     return new TgPaidMedia($this->ServerMethod(TgMethods::PaidMediaSend, $param));
+  }
+
+  /**
+   * A method to get the current Telegram Stars balance of the bot. Requires no parameters.
+   * @return void On success, returns a StarAmount object.
+   */
+  public function StarBalance():TgStarAmount{
+    return new TgStarAmount($this->ServerMethod(TgMethods::StarBalance));
   }
 
   /**
