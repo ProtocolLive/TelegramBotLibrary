@@ -5,13 +5,16 @@
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
- * @version 2025.07.04.01
+ * @version 2025.07.04.02
  */
 final class TgLimits{
   /**
    * @link https://core.telegram.org/bots/api#answercallbackquery
    */
   public const int CallbackAnswer = 200;
+  /**
+   * @link https://core.telegram.org/bots/api#inlinekeyboardbutton
+   */
   public const int CallbackData = 64;
   public const int Caption = 1024;
   /**

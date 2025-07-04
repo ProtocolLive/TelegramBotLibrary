@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TgEnums;
 
 /**
- * @version 2025.07.03.04
+ * @version 2025.07.04.00
  */
 enum TgError{
   case Admin;
@@ -37,7 +37,7 @@ enum TgError{
   case GameScore;
   case FileId;
   case Html;
-  case InlineId;
+  case InlineMessageId;
   case InlineQueryClosing;
   case InlineQueryMessage;
   case InlineQueryResult;
@@ -116,6 +116,10 @@ enum TgError{
    * @link https://core.telegram.org/bots/api#sendpoll
    */
   case LimitPollQuestion;
+  /**
+   * @link https://core.telegram.org/bots/api#replyparameters
+   */
+  case LimitQuote;
   case LinkPreview;
   case Markdown;
   case MessageIdInvalid;

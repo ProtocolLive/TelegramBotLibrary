@@ -21,7 +21,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 };
 
 /**
- * @version 2024.11.23.00
+ * @version 2025.07.04.00
  */
 trait TblChatTrait{
   /**
@@ -43,7 +43,7 @@ trait TblChatTrait{
   ):bool{
     $param['chat_id'] = $Chat;
     $param['action'] = $Action->value;
-    if($BusinessId !== null):
+    if(empty($BusinessId) === false):
       $param['business_connection_id'] = $BusinessId;
     endif;
     if($Thread !== null):

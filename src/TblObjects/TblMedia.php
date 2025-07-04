@@ -5,8 +5,8 @@
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 
 /**
- * @version 2023.01.20.00
+ * @version 2025.07.04.00
  */
 abstract class TblMedia{
-  abstract function Get():array;
+  abstract function ToArray():array;
 }

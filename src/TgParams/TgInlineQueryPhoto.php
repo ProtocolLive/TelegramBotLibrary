@@ -9,19 +9,16 @@ use ProtocolLive\TelegramBotLibrary\TblObjects\{
   TblException,
   TblMarkup
 };
-use ProtocolLive\TelegramBotLibrary\TgEnums\{
-  TgError,
-  TgParseMode
-};
+use ProtocolLive\TelegramBotLibrary\TgEnums\TgParseMode;
 use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
   TgInlineQueryContentInterface,
   TgInlineQueryInterface
 };
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgLimits;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgCaptionable;
 
 /**
  * @link https://core.telegram.org/bots/api#inlinequeryresultphoto
- * @version 2024.07.04.00
+ * @version 2025.07.04.00
  */
 class TgInlineQueryPhoto
 implements TgInlineQueryInterface{
@@ -39,6 +36,7 @@ implements TgInlineQueryInterface{
    * @param TgParseMode $ParseMode Mode for parsing entities in the photo caption. See formatting options for more details.
    * @param TblEntities $Entities List of special entities that appear in the caption, which can be specified instead of parse_mode
    * @param TblMarkup $Markup Inline keyboard attached to the message
+   * @throws TblException
    * @link https://core.telegram.org/bots/api#inlinequeryresultcachedphoto
    * @link https://core.telegram.org/bots/api#inlinequeryresultphoto
    */
@@ -56,7 +54,9 @@ implements TgInlineQueryInterface{
     public TblEntities|null $Entities = null,
     public TblMarkup|null $Markup = null,
     public TgInlineQueryContentInterface|null $Message = null
-  ){}
+  ){
+    TgCaptionable::CheckLimitCaption($Caption);
+  }
 
   public function ToArray():array{
     $param['type'] = 'photo';
@@ -80,19 +80,13 @@ implements TgInlineQueryInterface{
       $param['description'] = $this->Description;
     endif;
     if($this->Caption !== null):
-      if(mb_strlen(strip_tags($this->Caption)) > TgLimits::Caption):
-        throw new TblException(
-          TgError::LimitCaption,
-          'Caption exceeds ' . TgLimits::Caption . ' characters'
-        );
-      endif;
       $param['caption'] = $this->Caption;
       if($this->ParseMode !== null):
         $param['parse_mode'] = $this->ParseMode->value;
       endif;
-    endif;
-    if($this->Entities !== null):
-      $param['caption_entities'] = $this->Entities->ToArray();
+      if($this->Entities !== null):
+        $param['caption_entities'] = $this->Entities->ToArray();
+      endif;
     endif;
     if($this->Markup !== null):
       $param['reply_markup'] = $this->Markup->ToArray();

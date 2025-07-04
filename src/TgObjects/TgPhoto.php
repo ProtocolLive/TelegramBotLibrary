@@ -9,7 +9,6 @@ use ProtocolLive\TelegramBotLibrary\TgAuxiliary\{
   TgPhotoSize
 };
 use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
-  TgCaptionableInterface,
   TgEventInterface,
   TgForwadableInterface,
   TgMessageInterface
@@ -21,8 +20,8 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
  * @version 2025.07.03.01
  */
 readonly class TgPhoto
-implements TgCaptionableInterface,
-TgEventInterface,
+extends TgCaptionable
+implements TgEventInterface,
 TgForwadableInterface,
 TgMessageInterface{
   /**
@@ -34,24 +33,21 @@ TgMessageInterface{
    */
   public array $Files;
   public string|null $MediaGroup;
-  public string|null $Caption;
-  public array $Entities;
 
   public function __construct(
     array $Data
   ){
-    $this->Data = new TgMessageData($Data);
+    parent::__construct($Data);
+    if(isset($Data['message_id'])):
+      $this->Data = new TgMessageData($Data);
+    else:
+      $this->Data = null;
+    endif;
     $this->MediaGroup = $Data['media_group_id'] ?? null;
-    $this->Caption = $Data['caption'] ?? null;
 
     foreach($Data['photo'] as &$photo):
       $photo = new TgPhotoSize($photo);
     endforeach;
     $this->Files = $Data['photo'];
-
-    foreach($Data['caption_entities'] ?? [] as &$entity):
-      $entity = new TgEntity($entity);
-    endforeach;
-    $this->Entities = $Data['caption_entities'] ?? [] ;
   }
 }

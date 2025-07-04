@@ -15,11 +15,12 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\{
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgInvoice;
 use ProtocolLive\TelegramBotLibrary\TgParams\{
   TgInvoicePrices,
-  TgInvoiceShippingOptions
+  TgInvoiceShippingOptions,
+  TgReplyParams
 };
 
 /**
- * @version 2025.06.30.00
+ * @version 2025.07.04.00
  */
 trait TblInvoiceTrait{
   /**
@@ -105,7 +106,7 @@ trait TblInvoiceTrait{
     $param['provider_token'] = $Token;
     $param['currency'] = $Currency->value;
     $param['prices'] = $Prices->ToArray();
-    if($BusinessId !== null):
+    if(empty($BusinessId) === false):
       $param['business_connection_id'] = $BusinessId;
     endif;
     if($TipMax !== null):
@@ -182,8 +183,7 @@ trait TblInvoiceTrait{
    * @param bool $PriceWithShipping Pass True, if the final price depends on the shipping method
    * @param bool $DisableNotification Sends the message silently. Users will receive a notification with no sound.
    * @param bool $Protect Protects the contents of the sent message from forwarding and saving
-   * @param int $RepliedMsg If the message is a reply, ID of the original message
-   * @param bool $SendWithoutRepliedMsg Pass True, if the message should be sent even if the specified replied-to message is not found
+   * @param TgReplyParams $Reply Description of the message to reply to
    * @param TblMarkup $Markup A object for an inline keyboard. If empty, one 'Pay total price' button will be shown. If not empty, the first button must be a Pay button.
    * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
    * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
@@ -216,8 +216,7 @@ trait TblInvoiceTrait{
     bool $PriceWithShipping = false,
     bool $DisableNotification = false,
     bool $Protect = false,
-    int|null $RepliedMsg = null,
-    bool $SendWithoutRepliedMsg = false,
+    TgReplyParams|null $Reply = null,
     bool $AllowPaid = false,
     TblMarkup|null $Markup = null,
     string|null $Effect = null
@@ -283,11 +282,8 @@ trait TblInvoiceTrait{
     if($AllowPaid):
       $param['allow_paid_broadcast'] = true;
     endif;
-    if($RepliedMsg !== null):
-      $param['reply_to_message_id'] = $RepliedMsg;
-      if($SendWithoutRepliedMsg):
-        $param['allow_sending_without_reply'] = true;
-      endif;
+    if($Reply !== null):
+      $param['reply_parameters'] = $Reply->ToArray();
     endif;
     if($Markup !== null):
       $param['reply_markup'] = $Markup->ToArray();

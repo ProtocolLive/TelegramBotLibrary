@@ -15,7 +15,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2024.11.23.00
+ * @version 2025.07.04.00
  */
 trait TblGameTrait{
   /**
@@ -46,10 +46,9 @@ trait TblGameTrait{
     TblMarkup|null $Markup = null,
     string|null $Effect = null
   ):TgGame{
-    if($BusinessId !== null):
+    $param['chat_id'] = $Chat;
+    if(empty($BusinessId) === false):
       $param['business_connection_id'] = $BusinessId;
-    else:
-      $param['chat_id'] = $Chat;
     endif;
     $param['game_short_name'] = $Game;
     if($Thread !== null):
@@ -93,7 +92,7 @@ trait TblGameTrait{
     string|null $InlineMessageId = null
   ):array{
     $param['user_id'] = $User;
-    if($InlineMessageId === null):
+    if(empty($InlineMessageId)):
       $param['chat_id'] = $Chat;
       $param['message_id'] = $MessageId;
     else:
@@ -136,11 +135,11 @@ trait TblGameTrait{
     if($DisableAutoEdit):
       $param['disable_edit_message'] = true;
     endif;
-    if($InlineMessageId !== null):
-      $param['inline_message_id'] = $InlineMessageId;
-    else:
+    if(empty($InlineMessageId)):
       $param['chat_id'] = $Chat;
       $param['message_id'] = $MessageId;
+    else:
+      $param['inline_message_id'] = $InlineMessageId;
     endif;
     $return = $this->ServerMethod(TgMethods::GameScoreSet, $param);
     if($return):

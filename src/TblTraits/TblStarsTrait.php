@@ -15,6 +15,7 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\{
   TgParseMode
 };
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
+  TgCaptionable,
   TgChatInviteLink,
   TgGifts,
   TgLimits,
@@ -28,7 +29,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2025.07.04.00
+ * @version 2025.07.04.01
  */
 trait TblStarsTrait{
   public function GiftAvailableGet():TgGifts{
@@ -137,14 +138,20 @@ trait TblStarsTrait{
     string|null $Name = null
   ):TgChatInviteLink{
     if($SubscriptionPrice > TgLimits::ChannelSubscriptionPrice):
-      throw new TblException(TgError::ChannelSubscriptionPrice);
+      throw new TblException(
+        TgError::ChannelSubscriptionPrice,
+        'Subscription price must be less than ' . TgLimits::ChannelSubscriptionPrice
+      );
     endif;
     $param['chat_id'] = $Chat;
     $param['subscription_period'] = $SubscriptionPeriod;
     $param['subscription_price'] = $SubscriptionPrice;
     if($Name !== null):
       if(strlen($Name) > TgLimits::InviteLinkName):
-        throw new TblException(TgError::InviteLinkName);
+        throw new TblException(
+          TgError::InviteLinkName,
+          'Invite link name exceeds ' . TgLimits::InviteLinkName . ' characters'
+        );
       endif;
       $param['name'] = $Name;
     endif;
@@ -169,7 +176,10 @@ trait TblStarsTrait{
     $param['invite_link'] = $Link;
     if($Name !== null):
       if(strlen($Name) > TgLimits::InviteLinkName):
-        throw new TblException(TgError::InviteLinkName);
+        throw new TblException(
+          TgError::InviteLinkName,
+          'Invite link name exceeds ' . TgLimits::InviteLinkName . ' characters'
+        );
       endif;
       $param['name'] = $Name;
     endif;
@@ -221,23 +231,21 @@ trait TblStarsTrait{
         'The maximum number of media items in group is ' . TgLimits::MediaGroup
       );
     endif;
-    if($BusinessId !== null):
+    if(empty($BusinessId) === false):
       $param['business_connection_id'] = $BusinessId;
     endif;
-    if($Caption !== null):
-      if(strlen($Caption) > TgLimits::Caption):
-        throw new TblException(TgError::LimitCaption);
-      endif;
+    if(empty($Caption) === false):
+      TgCaptionable::CheckLimitCaption($Caption);
       $param['caption'] = $Caption;
-    endif;
-    if($CaptionAbove):
-      $param['show_caption_above_media'] = true;
-    endif;
-    if($ParseMode !== null):
-      $param['parse_mode'] = $ParseMode->value;
-    endif;
-    if($Entities !== null):
-      $param['caption_entities'] = $Entities->ToArray();
+      if($ParseMode !== null):
+        $param['parse_mode'] = $ParseMode->value;
+      endif;
+      if($Entities !== null):
+        $param['caption_entities'] = $Entities->ToArray();
+      endif;
+      if($CaptionAbove):
+        $param['show_caption_above_media'] = true;
+      endif;
     endif;
     if($DisableNotification):
       $param['disable_notification'] = true;
@@ -256,7 +264,10 @@ trait TblStarsTrait{
     endif;
     if($Payload !== null):
       if(strlen($Payload) > TgLimits::Payload):
-        throw new TblException(TgError::LimitPayload);
+        throw new TblException(
+          TgError::LimitPayload,
+          'The maximum length of the payload is ' . TgLimits::Payload
+        );
       endif;
       $param['payload'] = $Payload;
     endif;

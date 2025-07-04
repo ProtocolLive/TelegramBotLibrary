@@ -12,7 +12,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2024.11.23.00
+ * @version 2025.07.04.00
  */
 trait TblLocationTrait{
   /**
@@ -36,7 +36,7 @@ trait TblLocationTrait{
     float $Longitude,
     int|string|null $Chat = null,
     int|null $Id = null,
-    string|null $InlineId = null,
+    string|null $InlineMessageId = null,
     string|null $BussinessId = null,
     int|null $LivePeriod = null,
     float|null $HorizontalAccuracy = null,
@@ -48,7 +48,7 @@ trait TblLocationTrait{
     $param['latitude'] = $Latitude;
     $param['longitude'] = $Longitude;
     if($Chat === null):
-      $param['inline_message_id'] = $InlineId;
+      $param['inline_message_id'] = $InlineMessageId;
     else:
       $param['chat_id'] = $Chat;
       $param['message_id'] = $Id;
@@ -162,7 +162,7 @@ trait TblLocationTrait{
    * Use this method to stop updating a live location message before live_period expires.
    * @param int|string $Chat Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
    * @param int $Id Required if inline_message_id is not specified. Identifier of the message with live location to stop
-   * @param string $InlineId Required if chat_id and message_id are not specified. Identifier of the inline message
+   * @param string $InlineMessageId Required if chat_id and message_id are not specified. Identifier of the inline message
    * @param string $BusinessId Unique identifier of the business connection on behalf of which the message to be edited was sent
    * @param TblMarkup $Markup A JSON-serialized object for a new inline keyboard.
    * @return TgLocation|true On success, if the message is not an inline message, the edited Message is returned, otherwise True is returned.
@@ -170,17 +170,17 @@ trait TblLocationTrait{
   public function LocationStop(
     int|string|null $Chat = null,
     int|null $Id = null,
-    string|null $InlineId = null,
+    string|null $InlineMessageId = null,
     string|null $BusinessId = null,
     TblMarkup|null $Markup = null
   ):TgLocation|true{
     if($Chat === null):
-      $param['inline_message_id'] = $InlineId;
+      $param['inline_message_id'] = $InlineMessageId;
     else:
       $param['chat_id'] = $Chat;
       $param['message_id'] = $Id;
     endif;
-    if($BusinessId !== null):
+    if(empty($BusinessId) === false):
       $param['business_connection_id'] = $BusinessId;
     endif;
     if($Markup !== null):
@@ -242,7 +242,7 @@ trait TblLocationTrait{
     if($Thread !== null):
       $param['message_thread_id'] = $Thread;
     endif;
-    if($BusinessId !== null):
+    if(empty($BusinessId) === false):
       $param['business_connection_id'] = $BusinessId;
     endif;
     if($FoursquareId !== null):

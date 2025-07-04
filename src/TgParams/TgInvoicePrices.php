@@ -8,7 +8,7 @@ use ProtocolLive\TelegramBotLibrary\TblObjects\TblException;
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgCurrencies;
 
 /**
- * @version 2025.06.30.00
+ * @version 2025.07.04.00
  */
 final class TgInvoicePrices{
   private array $Prices = [];
@@ -46,10 +46,16 @@ final class TgInvoicePrices{
       if(isset($_SESSION['Currencies'])):
         if($Price > 0):
           if($Price <= $_SESSION['Currencies'][$this->Currency->value]['min_amount']):
-            throw new TblException(TblError::InvoicePriceLow, 'Price must be bigger than ' . $_SESSION['Currencies'][$this->Currency->value]['min_amount']);
+            throw new TblException(
+              TblError::InvoicePriceLow,
+              'Price must be bigger than ' . $_SESSION['Currencies'][$this->Currency->value]['min_amount']
+            );
           endif;
           if($Price > $_SESSION['Currencies'][$this->Currency->value]['max_amount']):
-            throw new TblException(TblError::InvoicePriceHigh, 'Price must be smaller than ' . $_SESSION['Currencies'][$this->Currency->value]['max_amount']);
+            throw new TblException(
+              TblError::InvoicePriceHigh,
+              'Price must be smaller than ' . $_SESSION['Currencies'][$this->Currency->value]['max_amount']
+            );
           endif;
         endif;
       endif;

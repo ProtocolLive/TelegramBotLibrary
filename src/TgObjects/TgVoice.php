@@ -12,9 +12,10 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 
 /**
  * @link https://core.telegram.org/bots/api#voice
- * @version 2024.04.11.01
+ * @version 2025.07.04.00
  */
 readonly class TgVoice
+extends TgCaptionable
 implements TgEventInterface,
 TgForwadableInterface,
 TgMessageInterface{
@@ -43,6 +44,7 @@ TgMessageInterface{
   public function __construct(
     array $Data
   ){
+    parent::__construct($Data);
     $this->Data = new TgMessageData($Data);
     $this->Id = $Data['voice']['file_id'];
     $this->IdUnique = $Data['voice']['file_unique_id'];

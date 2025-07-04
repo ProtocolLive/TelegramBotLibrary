@@ -21,6 +21,7 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\{
 };
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgBusinessConnection,
+  TgCaptionable,
   TgChecklist,
   TgGiftsOwned,
   TgLimits,
@@ -33,7 +34,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2025.07.04.00
+ * @version 2025.07.04.01
  */
 trait TblBusinessTrait{
   /**
@@ -97,11 +98,17 @@ trait TblBusinessTrait{
     TblEntities|null $Entities = null,
     TblMarkup|null $Markup = null
   ):TgChecklist{
-    if(mb_strlen($Title) > TgLimits::ChecklistTitle):
-      throw new TblException(TgError::LimitChecklistTitle, 'Title length exceeds ' . TgLimits::ChecklistTitle . ' characters');
+    if(mb_strlen(strip_tags($Title)) > TgLimits::ChecklistTitle):
+      throw new TblException(
+        TgError::LimitChecklistTitle, 
+        'Title length exceeds ' . TgLimits::ChecklistTitle . ' characters'
+      );
     endif;
     if(count($Tasks) > TgLimits::ChecklistTasks):
-      throw new TblException(TgError::LimitChecklistTasks, 'The number of tasks exceeds ' . TgLimits::ChecklistTasks);
+      throw new TblException(
+        TgError::LimitChecklistTasks,
+        'The number of tasks exceeds ' . TgLimits::ChecklistTasks
+      );
     endif;
     $param['chat_id'] = $Chat;
     $param['business_connection_id'] = $BusinessId;
@@ -163,11 +170,17 @@ trait TblBusinessTrait{
     TgReplyParams|null $Reply = null,
     TblMarkup|null $Markup = null
   ):TgChecklist{
-    if(mb_strlen($Title) > TgLimits::ChecklistTitle):
-      throw new TblException(TgError::LimitChecklistTitle, 'Title length exceeds ' . TgLimits::ChecklistTitle . ' characters');
+    if(mb_strlen(strip_tags($Title)) > TgLimits::ChecklistTitle):
+      throw new TblException(
+        TgError::LimitChecklistTitle,
+        'Title length exceeds ' . TgLimits::ChecklistTitle . ' characters'
+      );
     endif;
     if(count($Tasks) > TgLimits::ChecklistTasks):
-      throw new TblException(TgError::LimitChecklistTasks, 'The number of tasks exceeds ' . TgLimits::ChecklistTasks);
+      throw new TblException(
+        TgError::LimitChecklistTasks,
+        'The number of tasks exceeds ' . TgLimits::ChecklistTasks
+      );
     endif;
     $param['chat_id'] = $Chat;
     $param['business_connection_id'] = $BusinessId;
@@ -534,6 +547,7 @@ trait TblBusinessTrait{
    * @param TblEntities $Entities List of special entities that appear in story caption, which can be specified instead of parse_mode
    * @param TgStoryArea[] $Areas A JSON-serialized list of clickable areas to be shown on the story
    * @return TgStory Returns Story on success.
+   * @throws TblException
    * @link https://core.telegram.org/bots/api#editstory
    */
   public function BusinessStoryEdit(
@@ -549,13 +563,14 @@ trait TblBusinessTrait{
     $param['story_id'] = $Id;
     $param['content'] = $Content->ToArray();
     if(empty($Caption) === false):
+      TgCaptionable::CheckLimitCaption($Caption);
       $param['caption'] = $Caption;
-    endif;
-    if($ParseMode !== null):
-      $param['parse_mode'] = $ParseMode->value;
-    endif;
-    if($Entities !== null):
-      $param['caption_entities'] = $Entities->ToArray();
+      if($ParseMode !== null):
+        $param['parse_mode'] = $ParseMode->value;
+      endif;
+      if($Entities !== null):
+        $param['caption_entities'] = $Entities->ToArray();
+      endif;
     endif;
     if(empty($Areas) === false):
       foreach($Areas as &$Area):
@@ -596,13 +611,14 @@ trait TblBusinessTrait{
     $param['content'] = $Content->ToArray();
     $param['active_period'] = $Period;
     if(empty($Caption) === false):
+      TgCaptionable::CheckLimitCaption($Caption);
       $param['caption'] = $Caption;
-    endif;
-    if($ParseMode !== null):
-      $param['parse_mode'] = $ParseMode->value;
-    endif;
-    if($Entities !== null):
-      $param['caption_entities'] = $Entities->ToArray();
+      if($ParseMode !== null):
+        $param['parse_mode'] = $ParseMode->value;
+      endif;
+      if($Entities !== null):
+        $param['caption_entities'] = $Entities->ToArray();
+      endif;
     endif;
     if(empty($Areas) === false):
       foreach($Areas as &$Area):

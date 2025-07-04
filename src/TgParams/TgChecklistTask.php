@@ -21,7 +21,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
  * Describes a task in a checklist.
  * @link https://core.telegram.org/bots/api#checklisttask
  * @link https://core.telegram.org/bots/api#inputchecklisttask
- * @version 2025.07.04.00
+ * @version 2025.07.04.01
  */
 final class TgChecklistTask{
   /**
@@ -58,7 +58,10 @@ final class TgChecklistTask{
       return;
     endif;
     if(mb_strlen($Text) > TgLimits::ChecklistTaskText):
-      throw new TblException(TgError::LimitChecklistTaskText, 'Text length exceeds ' . TgLimits::ChecklistTaskText . ' characters');
+      throw new TblException(
+        TgError::LimitChecklistTaskText,
+        'Text length exceeds ' . TgLimits::ChecklistTaskText . ' characters'
+      );
     endif;
     $this->Id = $Data['id'];
     $this->Text = $Data['text'];
@@ -80,8 +83,11 @@ final class TgChecklistTask{
    * @throws TblException
    */
   public function ToArray():array{
-    if(mb_strlen($this->Text) > TgLimits::ChecklistTaskText):
-      throw new TblException(TgError::LimitChecklistTaskText, 'Text length exceeds ' . TgLimits::ChecklistTaskText . ' characters');
+    if(mb_strlen(strip_tags($this->Text)) > TgLimits::ChecklistTaskText):
+      throw new TblException(
+        TgError::LimitChecklistTaskText,
+        'Text length exceeds ' . TgLimits::ChecklistTaskText . ' characters'
+      );
     endif;
     $return['id'] = $this->Id;
     $return['text'] = $this->Text;

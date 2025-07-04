@@ -7,16 +7,13 @@ use ProtocolLive\TelegramBotLibrary\TblObjects\{
   TblEntities,
   TblException
 };
-use ProtocolLive\TelegramBotLibrary\TgEnums\{
-  TgError,
-  TgParseMode
-};
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgLimits;
+use ProtocolLive\TelegramBotLibrary\TgEnums\TgParseMode;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgCaptionable;
 
 /**
  * Represents a video to be sent.
  * @link https://core.telegram.org/bots/api#inputmediavideo
- * @version 2025.02.13.00
+ * @version 2025.07.04.00
  */
 final class TgVideoGroup{
   /**
@@ -32,6 +29,7 @@ final class TgVideoGroup{
    * @param bool $Spoiler Optional. Pass True if the photo needs to be covered with a spoiler animation
    * @param string $Cover Cover for the video in the message. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://<file_attach_name>” to upload a new one using multipart/form-data under <file_attach_name> name.
    * @param int $Start Start timestamp for the video in the message
+   * @throws TblException
    */
   public function __construct(
     public string $Document,
@@ -47,9 +45,7 @@ final class TgVideoGroup{
     public bool $Streaming = false,
     public bool $Spoiler = false
   ){
-    if(mb_strlen(strip_tags($this->Caption)) > TgLimits::Caption):
-      throw new TblException(TgError::LimitCaption, 'Caption exceeds ' . TgLimits::Caption);
-    endif;
+    TgCaptionable::CheckLimitCaption($Caption);
   }
 
   public function ToArray():array{

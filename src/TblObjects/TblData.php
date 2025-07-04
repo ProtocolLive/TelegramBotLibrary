@@ -7,7 +7,7 @@ use ProtocolLive\TelegramBotLibrary\TblEnums\TblError;
 use SensitiveParameter;
 
 /**
- * @version 2025.06.30.00
+ * @version 2025.07.04.00
  */
 final readonly class TblData{
   public string $UrlApi;
@@ -35,7 +35,10 @@ final readonly class TblData{
     $this->LogHandler = $LogHandler;
     if($TokenWebhook !== null):
       if(preg_match('/^[a-zA-z0-9_-]{1,256}$/', $TokenWebhook) === false):
-        throw new TblException(TblError::TokenWebhook);
+        throw new TblException(
+          TblError::TokenWebhook,
+          'Token must be alphanumeric and between 1 and 256 characters long'
+        );
       endif;
     endif;
   }

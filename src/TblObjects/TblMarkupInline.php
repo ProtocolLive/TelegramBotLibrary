@@ -7,7 +7,7 @@ use ProtocolLive\TelegramBotLibrary\TblEnums\TblError;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgLimits;
 
 /**
- * @version 2025.06.30.00
+ * @version 2025.07.04.00
  */
 class TblMarkupInline
 extends TblMarkup{
@@ -98,7 +98,10 @@ extends TblMarkup{
     string $Data
   ):bool{
     if(strlen($Data) > TgLimits::CallbackData):
-      throw new TblException(TblError::LimitCallbackData);
+      throw new TblException(
+        TblError::LimitCallbackData,
+        'Data exceeds ' . TgLimits::CallbackData . ' characters'
+      );
     endif;
     $this->Pointer[$Line][$Column]['text'] = $Text;
     $this->Pointer[$Line][$Column]['callback_data'] = $Data;

@@ -25,7 +25,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2025.07.03.00
+ * @version 2025.07.04.00
  */
 trait TblTextTrait{
   /**
@@ -59,7 +59,7 @@ trait TblTextTrait{
     if($Thread !== null):
       $param['message_thread_id'] = $Thread;
     endif;
-    if($BusinessId !== null):
+    if(empty($BusinessId) === false):
       $param['business_connection_id'] = $BusinessId;
     endif;
     if($Emoji !== null):
@@ -91,7 +91,7 @@ trait TblTextTrait{
    * @param int|string $Chat Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
    * @param int|null $Id Required if inline_message_id is not specified. Identifier of the message to edit
    * @param string $Text New text of the message, 1-4096 characters after entities parsing
-   * @param string|null $InlineId Required if chat_id and message_id are not specified. Identifier of the inline message
+   * @param string|null $InlineMessageId Required if chat_id and message_id are not specified. Identifier of the inline message
    * @param string $BusinessId Unique identifier of the business connection on behalf of which the message to be edited was sent
    * @param TgParseMode $ParseMode Mode for parsing entities in the message text.
    * @param TblEntities $Entities A list of special entities that appear in message text, which can be specified instead of parse_mode
@@ -105,7 +105,7 @@ trait TblTextTrait{
     string $Text,
     int|string|null $Chat = null,
     int|null $Id = null,
-    string|null $InlineId = null,
+    string|null $InlineMessageId = null,
     string|null $BusinessId = null,
     TgParseMode|null $ParseMode = null,
     TblEntities|null $Entities = null,
@@ -118,7 +118,7 @@ trait TblTextTrait{
         Chat: $Chat,
         Text: $Text,
         Id: $Id,
-        InlineId: $InlineId,
+        InlineMessageId: $InlineMessageId,
         BusinessId: $BusinessId,
         ParseMode: $ParseMode,
         Entities: $Entities,

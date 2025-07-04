@@ -7,16 +7,13 @@ use ProtocolLive\TelegramBotLibrary\TblObjects\{
   TblEntities,
   TblException
 };
-use ProtocolLive\TelegramBotLibrary\TgEnums\{
-  TgError,
-  TgParseMode
-};
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgLimits;
+use ProtocolLive\TelegramBotLibrary\TgEnums\TgParseMode;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgCaptionable;
 
 /**
  * Represents a photo to be sent.
- * @version 2024.07.04.00
  * @link https://core.telegram.org/bots/api#inputmediaphoto
+ * @version 2025.07.04.00
  */
 final class TgPhotoGroup{
   /**
@@ -26,6 +23,7 @@ final class TgPhotoGroup{
    * @param TgParseMode $ParseMode Optional. Mode for parsing entities in the document caption. See formatting options for more details.
    * @param TblEntities $Entities Optional. List of special entities that appear in the caption, which can be specified instead of parse_mode
    * @param bool $Spoiler Optional. Pass True if the photo needs to be covered with a spoiler animation
+   * @throws TblException
    */
   public function __construct(
     public string $Document,
@@ -35,12 +33,7 @@ final class TgPhotoGroup{
     public TblEntities|null $Entities = null,
     public bool $Spoiler = false
   ){
-    if(mb_strlen(strip_tags($this->Caption)) > TgLimits::Caption):
-      throw new TblException(
-        TgError::LimitCaption,
-        'Caption exceeds ' . TgLimits::Caption . ' characters'
-      );
-    endif;
+    TgCaptionable::CheckLimitCaption($Caption);
   }
 
   public function ToArray():array{

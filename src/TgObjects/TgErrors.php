@@ -6,7 +6,7 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgError;
 
 /**
- * @version 2025.07.03.02
+ * @version 2025.07.04.00
  */
 abstract class TgErrors{
   public static function Search(string $Description):TgError|false{
@@ -57,7 +57,7 @@ abstract class TgErrors{
       'Bad Request: expected an Array of ReactionType' => TgError::MissingParameter,
       'Bad Request: failed to get HTTP URL content' => TgError::UrlFailed,
       'Bad Request: inline keyboard expected' => TgError::InlineKeyboardNone,
-      'Bad Request: invalid inline message identifier specified' => TgError::InlineId,
+      'Bad Request: invalid inline message identifier specified' => TgError::InlineMessageId,
       'Bad Request: message can\'t be deleted for everyone' => TgError::CantDelete,
       'Bad Request: message can\'t be edited' => TgError::CantEdit,
       'Bad Request: message has protected content and can\'t be forwarded' => TgError::Protected,

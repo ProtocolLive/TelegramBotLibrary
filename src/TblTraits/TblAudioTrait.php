@@ -10,19 +10,18 @@ use ProtocolLive\TelegramBotLibrary\TblObjects\{
 };
 use ProtocolLive\TelegramBotLibrary\TblObjects\TblException;
 use ProtocolLive\TelegramBotLibrary\TgEnums\{
-  TgError,
   TgMethods,
   TgParseMode
 };
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgAudio,
-  TgLimits,
+  TgCaptionable,
   TgVoice
 };
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2024.11.23.00
+ * @version 2025.07.04.00
  */
 trait TblAudioTrait{
   /**
@@ -68,31 +67,26 @@ trait TblAudioTrait{
     string|null $Effect = null
   ):TgAudio{
     $param['chat_id'] = $Chat;
-    if($Thread !== null):
-      $param['message_thread_id'] = $Thread;
-    endif;
-    if($BusinessId !== null):
-      $param['business_connection_id'] = $BusinessId;
-    endif;
     if(is_file($Audio)):
       $param['audio'] = new CURLFile($Audio);
     else:
       $param['audio'] = $Audio;
     endif;
-    if($Caption !== null):
-      if(mb_strlen(strip_tags($Caption)) > TgLimits::Caption):
-        throw new TblException(
-          TgError::LimitCaption,
-          'Caption bigger than ' . TgLimits::Caption . ' characters'
-        );
-      endif;
+    if($Thread !== null):
+      $param['message_thread_id'] = $Thread;
+    endif;
+    if(empty($BusinessId) === false):
+      $param['business_connection_id'] = $BusinessId;
+    endif;
+    if(empty($Caption) === false):
+      TgCaptionable::CheckLimitCaption($Caption);
       $param['caption'] = $Caption;
       if($ParseMode !== null):
         $param['parse_mode'] = $ParseMode;
       endif;
-    endif;
-    if($Entities !== null):
-      $param['caption_entities'] = $Entities->ToArray();
+      if($Entities !== null):
+        $param['caption_entities'] = $Entities->ToArray();
+      endif;
     endif;
     if($Duration !== null):
       $param['duration'] = $Duration;
@@ -104,11 +98,7 @@ trait TblAudioTrait{
       $param['title'] = $Title;
     endif;
     if($Thumbnail !== null):
-      if(is_file($Thumbnail)):
         $param['thumb'] = new CURLFile($Thumbnail);
-      else:
-        $param['thumb'] = $Thumbnail;
-      endif;
     endif;
     if($DisableNotification):
       $param['disable_notification'] = true;
@@ -128,7 +118,7 @@ trait TblAudioTrait{
     if($Effect !== null):
       $param['message_effect_id'] = $Effect;
     endif;
-    return new TgAudio($this->ServerMethod(TgMethods::AudioSend, $param));
+    return new TgAudio($this->ServerMethod(TgMethods::AudioSend, $param, false));
   }
 
   /**
@@ -148,8 +138,8 @@ trait TblAudioTrait{
    * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
    * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
    * @return TgVoice On success, the sent Message is returned.
-   * @link https://core.telegram.org/bots/api#sendvoice
    * @throws TblException
+   * @link https://core.telegram.org/bots/api#sendvoice
    */
   public function VoiceSend(
     int|string $Chat,
@@ -168,31 +158,26 @@ trait TblAudioTrait{
     string|null $Effect = null
   ):TgVoice{
     $param['chat_id'] = $Chat;
-    if($Thread !== null):
-      $param['message_thread_id'] = $Thread;
-    endif;
-    if($BusinessId !== null):
-      $param['business_connection_id'] = $BusinessId;
-    endif;
     if(is_file($Voice)):
       $param['voice'] = new CURLFile($Voice);
     else:
       $param['voice'] = $Voice;
     endif;
-    if($Caption !== null):
-      if(mb_strlen(strip_tags($Caption)) > TgLimits::Caption):
-        throw new TblException(
-          TgError::LimitCaption,
-          'Caption bigger than ' . TgLimits::Caption . ' characters'
-        );
-      endif;
+    if($Thread !== null):
+      $param['message_thread_id'] = $Thread;
+    endif;
+    if(empty($BusinessId) === false):
+      $param['business_connection_id'] = $BusinessId;
+    endif;
+    if(empty($Caption) === false):
+      TgCaptionable::CheckLimitCaption($Caption);
       $param['caption'] = $Caption;
       if($ParseMode !== null):
         $param['parse_mode'] = $ParseMode;
       endif;
-    endif;
-    if($Entities !== null):
-      $param['caption_entities'] = $Entities->ToArray();
+      if($Entities !== null):
+        $param['caption_entities'] = $Entities->ToArray();
+      endif;
     endif;
     if($Duration !== null):
       $param['duration'] = $Duration;
@@ -215,6 +200,6 @@ trait TblAudioTrait{
     if($Effect !== null):
       $param['message_effect_id'] = $Effect;
     endif;
-    return new TgVoice($this->ServerMethod(TgMethods::VoiceSend, $param));
+    return new TgVoice($this->ServerMethod(TgMethods::VoiceSend, $param, false));
   }
 }

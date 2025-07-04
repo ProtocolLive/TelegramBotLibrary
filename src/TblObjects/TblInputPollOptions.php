@@ -16,7 +16,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\TgLimits;
 /**
  * This object contains information about one answer option in a poll to be sent.
  * @link https://core.telegram.org/bots/api#inputpolloption
- * @version 2024.11.23.00
+ * @version 2025.07.04.00
  */
 final class TblInputPollOptions{
   private array $Options = [];
@@ -46,7 +46,7 @@ final class TblInputPollOptions{
         'Poll exceeds ' . TgLimits::PollOptionsMax . ' options'
       );
     endif;
-    if(mb_strlen($Text) > TgLimits::PollOptionText):
+    if(mb_strlen(strip_tags($Text)) > TgLimits::PollOptionText):
       throw new TblException(
         TgError::LimitPollOptionText,
         'Text length exceeds ' . TgLimits::PollOptionText . ' characters'

@@ -16,22 +16,32 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 
 /**
  * @link https://core.telegram.org/bots/api#paidmediainfo
- * @version 2025.07.03.00
+ * @version 2025.07.04.00
  */
 final readonly class TgPaidMedia
+extends TgCaptionable
 implements TgEventInterface,
 TgForwadableInterface,
 TgMessageInterface{
   public TgMessageData $Data;
+  /**
+   * Caption for the paid media
+   */
+  public string|null $Caption;
+  /**
+   * The number of Telegram Stars that must be paid to buy access to the media
+   */
   public int $Price;
   /**
-   * @var TgVideo|TgPhotoSize[]|TgPaidMediaPreview[]
+   * Information about the paid media
+   * @var TgVideo[]|TgPhotoSize[]|TgPaidMediaPreview[]
    */
   public array $Medias;
 
   public function __construct(
     array $Data
   ){
+    parent::__construct($Data);
     $this->Data = new TgMessageData($Data);
     $this->Price = $Data['paid_media']['star_count'];
     foreach($Data['paid_media']['paid_media'] as &$media):
@@ -39,7 +49,7 @@ TgMessageInterface{
         foreach($media['photo'] as &$photo):
           $photo = new TgPhotoSize($photo);
         endforeach;
-        $media = $photo;
+        $media = $media['photo'];
       elseif($media['type'] === TgPaidMediaType::Video->value):
         $media = new TgVideo($media);
       else:

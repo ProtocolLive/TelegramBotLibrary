@@ -10,22 +10,21 @@ use ProtocolLive\TelegramBotLibrary\TblObjects\{
   TblMedia
 };
 use ProtocolLive\TelegramBotLibrary\TgEnums\{
-  TgError,
   TgMethods,
   TgParseMode
 };
 use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgEditedInterface;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgLimits;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgCaptionable;
 
 /**
- * @version 2024.11.23.00
+ * @version 2025.07.04.00
  */
 trait TblEditTrait{
   /**
    * @param string $Caption New caption of the message, 0-1024 characters after entities parsing
    * @param int|string $Chat Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
    * @param int $Id Required if inline_message_id is not specified. Identifier of the message to edit
-   * @param string $InlineId Required if chat_id and message_id are not specified. Identifier of the inline message
+   * @param string $InlineMessageId Required if chat_id and message_id are not specified. Identifier of the inline message
    * @param string $BusinessId Unique identifier of the business connection on behalf of which the message to be edited was sent
    * @param bool $CaptionAbove If the caption must be shown above the message media. Supported only for animation, photo and video messages.
    * @param TgParseMode $ParseMode Mode for parsing entities in the message caption. See formatting options for more details.
@@ -37,30 +36,27 @@ trait TblEditTrait{
     string $Caption,
     int|string|null $Chat = null,
     int|null $Id = null,
-    string|null $InlineId = null,
+    string|null $InlineMessageId = null,
     string|null $BusinessId = null,
     bool $CaptionAbove = false,
     TgParseMode|null $ParseMode = null,
     TblEntities|null $Entities = null,
     TblMarkup|null $Markup = null
   ):TgEditedInterface|true{
-    if(mb_strlen(strip_tags($Caption)) > TgLimits::Caption):
-      throw new TblException(
-        TgError::LimitCaption,
-        'Caption bigger than ' . TgLimits::Caption . ' characters'
-      );
+    TgCaptionable::CheckLimitCaption($Caption);
+    $param['caption'] = $Caption;
+    if($ParseMode !== null):
+      $param['parse_mode'] = $ParseMode->value;
     endif;
-    if($InlineId === null
-    and $BusinessId === null):
+    if(empty($InlineMessageId)):
       $param['chat_id'] = $Chat;
       $param['message_id'] = $Id;
-    elseif($BusinessId !== null):
-      $param['business_connection_id'] = $BusinessId;
     else:
-      $param['inline_message_id'] = $InlineId;
+      $param['inline_message_id'] = $InlineMessageId;
     endif;
-    $param['caption'] = $Caption;
-    $param['parse_mode'] = $ParseMode->value;
+    if(empty($BusinessId) === false):
+      $param['business_connection_id'] = $BusinessId;
+    endif;
     if($Entities !== null):
       $param['caption_entities'] = $Entities->ToArray();
     endif;
@@ -73,9 +69,8 @@ trait TblEditTrait{
     $return = parent::ServerMethod(TgMethods::CaptionEdit, $param);
     if($return === true):
       return true;
-    else:
-      return parent::DetectMessageEdited($return);
     endif;
+    return parent::DetectMessageEdited($return);
   }
 
   /**
@@ -96,14 +91,14 @@ trait TblEditTrait{
     string|null $BusinessId = null,
     TblMarkup|null $Markup = null
   ):TgEditedInterface|true{
-    if($IdInline === null
-    and $BusinessId === null):
+    if(empty($IdInline)):
       $param['chat_id'] = $Chat;
       $param['message_id'] = $Id;
-    elseif($BusinessId !== null):
-      $param['business_connection_id'] = $BusinessId;
     else:
       $param['inline_message_id'] = $IdInline;
+    endif;
+    if(empty($BusinessId) === false):
+      $param['business_connection_id'] = $BusinessId;
     endif;
     if($Markup !== null):
       $param['reply_markup'] = $Markup->ToArray();
@@ -132,20 +127,20 @@ trait TblEditTrait{
     TblMedia $Media,
     int|null $Chat = null,
     int|null $Id = null,
-    string|null $InlineId = null,
+    string|null $InlineMessageId = null,
     string|null $BusinessId = null,
     TblMarkup|null $Markup = null
   ):TgEditedInterface|true{
-    if($InlineId === null
-    and $BusinessId === null):
+    if(empty($IdInline)):
       $param['chat_id'] = $Chat;
       $param['message_id'] = $Id;
-    elseif($BusinessId !== null):
-      $param['business_connection_id'] = $BusinessId;
     else:
-      $param['inline_message_id'] = $InlineId;
+      $param['inline_message_id'] = $InlineMessageId;
     endif;
-    $param['media'] = $Media->Get();
+    if(empty($BusinessId) === false):
+      $param['business_connection_id'] = $BusinessId;
+    endif;
+    $param['media'] = $Media->ToArray();
     if($Markup !== null):
       $param['reply_markup'] = $Markup->ToArray();
     endif;

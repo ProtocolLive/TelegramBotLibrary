@@ -22,7 +22,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2024.11.23.00
+ * @version 2025.07.04.00
  */
 trait TblPollTrait{
   /**
@@ -79,7 +79,7 @@ trait TblPollTrait{
     TgReplyParams|null $Reply = null,
     TblMarkup|null $Markup = null
   ):TgPoll{
-    if(mb_strlen($Question) > TgLimits::PollQuestion):
+    if(mb_strlen(strip_tags($Question)) > TgLimits::PollQuestion):
       throw new TblException(
         TgError::LimitPollQuestion,
         'Question length exceeds ' . TgLimits::PollQuestion . ' characters'
@@ -87,7 +87,7 @@ trait TblPollTrait{
     endif;
     $Options->CheckMin();
     if($Explanation !== null
-    and mb_strlen($Explanation) > TgLimits::PollExplanation):
+    and mb_strlen(strip_tags($Explanation)) > TgLimits::PollExplanation):
       throw new TblException(
         TgError::LimitPollExplanation,
         'Explanation length exceeds ' . TgLimits::PollExplanation . ' characters'
@@ -99,14 +99,14 @@ trait TblPollTrait{
     if($ThreadId !== null):
       $param['message_thread_id'] = $ThreadId;
     endif;
-    if($BusinessId !== null):
+    if(empty($BusinessId) === false):
       $param['business_connection_id'] = $BusinessId;
     endif;
     if($ParseMode !== null):
-      $param['parse_mode'] = $ParseMode->value;
+      $param['question_parse_mode'] = $ParseMode->value;
     endif;
     if($Entities !== null):
-      $param['entities'] = $Entities->ToArray();
+      $param['question_entities'] = $Entities->ToArray();
     endif;
     if($Anonymous === false):
       $param['is_anonymous'] = false;
@@ -125,12 +125,12 @@ trait TblPollTrait{
     endif;
     if($Explanation !== null):
       $param['explanation'] = $Explanation;
-    endif;
-    if($ExplanationParseMode !== null):
-      $param['explanation_parse_mode'] = $ExplanationParseMode->value;
-    endif;
-    if($ExplanationEntities !== null):
-      $param['explanation_entities'] = $ExplanationEntities->ToArray();
+      if($ExplanationParseMode !== null):
+        $param['explanation_parse_mode'] = $ExplanationParseMode->value;
+      endif;
+      if($ExplanationEntities !== null):
+        $param['explanation_entities'] = $ExplanationEntities->ToArray();
+      endif;
     endif;
     if($OpenPeriod !== null):
       $param['open_period'] = $OpenPeriod;
@@ -175,7 +175,7 @@ trait TblPollTrait{
   ):TgPoll{
     $param['chat_id'] = $Chat;
     $param['message_id'] = $Id;
-    if($BusinessId !== null):
+    if(empty($BusinessId) === false):
       $param['business_connection_id'] = $BusinessId;
     endif;
     if($Markup !== null):

@@ -8,7 +8,6 @@ use ProtocolLive\TelegramBotLibrary\TgAuxiliary\{
   TgPhotoSize
 };
 use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
-  TgCaptionableInterface,
   TgEventInterface,
   TgForwadableInterface,
   TgMessageInterface
@@ -16,11 +15,11 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 
 /**
  * @link https://core.telegram.org/bots/api#video
- * @version 2025.07.03.00
+ * @version 2025.07.04.00
  */
 readonly class TgVideo
-implements TgCaptionableInterface,
-TgEventInterface,
+extends TgCaptionable
+implements TgEventInterface,
 TgForwadableInterface,
 TgMessageInterface{
   /**
@@ -72,6 +71,7 @@ TgMessageInterface{
   public function __construct(
     array $Data
   ){
+    parent::__construct($Data);
     if(isset($Data['message_id'])):
       $this->Data = new TgMessageData($Data);
     else:

@@ -12,7 +12,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2025.06.30.00
+ * @version 2025.07.04.00
  */
 final class TblTextSendMulti
 extends TblServerMulti{
@@ -149,16 +149,19 @@ extends TblServerMulti{
       throw new TblException(TblError::MissingParameter, 'Text is required');
     endif;
     if(mb_strlen(strip_tags($Text)) > TgLimits::Text):
-      throw new TblException(TblError::LimitText, 'Text exceed ' . TgLimits::Text . ' characters');
+      throw new TblException(
+        TblError::LimitText,
+        'Text exceed ' . TgLimits::Text . ' characters'
+      );
     endif;
     $param['chat_id'] = $Chat;
-    if($BusinessId !== null):
-      $param['business_connection_id'] = $BusinessId;
-    endif;
     if($ParseMode === TgParseMode::Markdown2):
       $Text = preg_replace('/([>#+\-={}.!])/', '\\\\$1', $Text);
     endif;
     $param['text'] = $Text;
+    if(empty($BusinessId) === false):
+      $param['business_connection_id'] = $BusinessId;
+    endif;
     if($Thread !== null):
       $param['message_thread_id'] = $Thread;
     endif;

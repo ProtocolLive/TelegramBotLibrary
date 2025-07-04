@@ -9,21 +9,20 @@ use ProtocolLive\TelegramBotLibrary\TgAuxiliary\{
   TgPhotoSize
 };
 use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
-  TgCaptionableInterface,
   TgEventInterface,
   TgForwadableInterface
 };
 
 /**
  * @link https://core.telegram.org/bots/api#animation
- * @version 2025.07.03.01
+ * @version 2025.07.04.00
  */
 readonly class TgAnimation
-implements TgCaptionableInterface,
-TgEventInterface,
+extends TgCaptionable
+implements TgEventInterface,
 TgForwadableInterface{
   /**
-   * The game message have a animation inside, turning this null
+   * Can be null in case of command, external reply or game message with a animation inside
    */
   public TgMessageData|null $Data;
   /**
@@ -62,18 +61,11 @@ TgForwadableInterface{
    * File size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value.
    */
   public int|null $Size;
-  /**
-   * Caption for the document
-   */
-  public string|null $Caption;
-  /**
-   * For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption
-   */
-  public array|null $Entities;
 
   public function __construct(
     array $Data
   ){
+    parent::__construct($Data);
     if(isset($Data['message_id'])):
       $this->Data = new TgMessageData($Data);
     else:

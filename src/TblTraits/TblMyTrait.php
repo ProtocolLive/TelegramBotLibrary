@@ -22,7 +22,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 };
 
 /**
- * @version 2024.11.23.00
+ * @version 2025.07.04.00
  */
 trait TblMyTrait{
   /**
@@ -311,7 +311,10 @@ trait TblMyTrait{
   ):string{
     $params = [];
     if(strlen($Name) > TgLimits::Name):
-      throw new TblException(TgError::LimitName, 'Bot name exceeds ' . TgLimits::Name . ' characters');
+      throw new TblException(
+        TgError::LimitName,
+        'Bot name exceeds ' . TgLimits::Name . ' characters'
+      );
     endif;
     if($Language !== null):
       $params['language_code'] = $Language->value;
@@ -328,32 +331,29 @@ trait TblMyTrait{
    * @link https://core.telegram.org/bots/api#getmydefaultadministratorrights
    */
   public function MyPermDefaultGet(
-    TblDefaultPerms $Type = TblDefaultPerms::Groups
+    bool $Channels = false
   ):TgPermAdmin{
-    $param = [];
-    if($Type === TblDefaultPerms::Channels):
+    if($Channels):
       $param['for_channels'] = true;
     endif;
-    $return = $this->ServerMethod(TgMethods::MyDefaultPermAdmGet, $param);
+    $return = $this->ServerMethod(TgMethods::MyDefaultPermAdmGet, $param ?? null);
     return new TgPermAdmin($return);
   }
 
   /**
    * Use this method to change the default administrator rights requested by the bot when it's added as an administrator to groups or channels. These rights will be suggested to users, but they are are free to modify the list before adding the bot.
    * @param TgPermAdmin $Perms An object describing new default administrator rights. If not specified, the default administrator rights will be cleared.
-   * @param TblDefaultPerms $Type Pass Channels to change the default administrator rights of the bot in channels. Otherwise, the default administrator rights of the bot for groups and supergroups will be changed.
+   * @param bool $Channels Pass true to change the default administrator rights of the bot in channels. Otherwise, the default administrator rights of the bot for groups and supergroups will be changed.
    * @return bool Returns True on success.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#setmydefaultadministratorrights
    */
   public function MyPermDefaultSet(
     TgPermAdmin $Perms,
-    TblDefaultPerms $Type = TblDefaultPerms::Groups
+    bool $Channels = false
   ):bool{
-    foreach(TgPermAdmin::Array as $class => $json):
-      $param['rights'][$json] = $Perms->$class;
-    endforeach;
-    if($Type === TblDefaultPerms::Channels):
+    $param['rights'] = $Perms->ToArray();
+    if($Channels):
       $param['for_channels'] = true;
     endif;
     return $this->ServerMethod(TgMethods::MyDefaultPermAdmSet, $param);

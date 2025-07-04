@@ -4,15 +4,12 @@
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 use CURLFile;
-use ProtocolLive\TelegramBotLibrary\TgEnums\{
-  TgError,
-  TgParseMode
-};
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgLimits;
+use ProtocolLive\TelegramBotLibrary\TgEnums\TgParseMode;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgCaptionable;
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2024.11.23.00
+ * @version 2025.07.04.00
  */
 final class TblPhotoSendMulti
 extends TblServerMulti{
@@ -217,7 +214,7 @@ extends TblServerMulti{
     TblMarkup|null $Markup = null,
     string|null $Effect = null
   ):array{
-    if($BusinessId !== null):
+    if(empty($BusinessId) === false):
       $param['business_connection_id'] = $BusinessId;
     else:
       $param['chat_id'] = $Chat;
@@ -225,20 +222,18 @@ extends TblServerMulti{
     if($Thread !== null):
       $param['message_thread_id'] = $Thread;
     endif;
-    if($Caption !== null):
-      if(mb_strlen(strip_tags($Caption)) > TgLimits::Caption):
-        throw new TblException(
-          TgError::LimitCaption,
-          'Caption bigger than ' . TgLimits::Caption . ' characters'
-        );
-      endif;
+    if(empty($Caption) === false):
+      TgCaptionable::CheckLimitCaption($Caption);
       $param['caption'] = $Caption;
       if($ParseMode !== null):
         $param['parse_mode'] = $ParseMode->value;
       endif;
-    endif;
-    if($Entities !== null):
-      $param['caption_entities'] = $Entities->ToArray();
+      if($Entities !== null):
+        $param['caption_entities'] = $Entities->ToArray();
+      endif;
+      if($CaptionAbove):
+        $param['show_caption_above_media'] = true;
+      endif;
     endif;
     if($DisableNotification):
       $param['disable_notification'] = true;
@@ -253,16 +248,13 @@ extends TblServerMulti{
       $param['allow_paid_broadcast'] = true;
     endif;
     if($Reply !== null):
-      $param['reply_to_message_id'] = $Reply->ToArray();
+      $param['reply_parameters'] = $Reply->ToArray();
     endif;
     if($Markup !== null):
       $param['reply_markup'] = $Markup->ToArray();
     endif;
     if($Effect !== null):
       $param['message_effect_id'] = $Effect;
-    endif;
-    if($CaptionAbove):
-      $param['show_caption_above_media'] = true;
     endif;
     if(is_file($Photo)):
       $param['photo'] = new CURLFile($Photo);

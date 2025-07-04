@@ -35,7 +35,6 @@ use ProtocolLive\TelegramBotLibrary\TblTraits\{
   TblVideoTrait
 };
 use ProtocolLive\TelegramBotLibrary\TgEnums\{
-  TgError,
   TgMethods,
   TgParseMode,
   TgReactionType
@@ -45,6 +44,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
   TgMessageInterface
 };
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
+  TgCaptionable,
   TgDocument,
   TgFile,
   TgLimits,
@@ -61,7 +61,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2025.07.04.00
+ * @version 2025.07.04.01
  */
 final class TelegramBotLibrary
 extends TblBasics{
@@ -118,7 +118,10 @@ extends TblBasics{
     $param['callback_query_id'] = $Id;
     if($Text !== null):
       if(mb_strlen($Text) > TgLimits::CallbackAnswer):
-        throw new TblException(TblError::LimitCallbackAnswer);
+        throw new TblException(
+          TblError::LimitCallbackAnswer,
+          'Answer exceeds limit of ' . TgLimits::CallbackAnswer . ' characters'
+        );
       endif;
       $param['text'] = $Text;
     endif;
@@ -166,6 +169,7 @@ extends TblBasics{
    * @param string $BusinessId Unique identifier of the business connection on behalf of which the message will be sent
    * @param int $Thread Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
    * @return TgDocument On success, the sent Message is returned.
+   * @throws TblException
    * @link https://core.telegram.org/bots/api#senddocument
    */
   public function DocumentSend(
@@ -194,7 +198,7 @@ extends TblBasics{
     if($Thread !== null):
       $param['message_thread_id'] = $Thread;
     endif;
-    if($BusinessId !== null):
+    if(empty($BusinessId) === false):
       $param['business_connection_id'] = $BusinessId;
     endif;
     if($Thumbnail !== null):
@@ -204,20 +208,15 @@ extends TblBasics{
         $param['thumbnail'] = $Thumbnail;
       endif;
     endif;
-    if($Caption !== null):
-      if(mb_strlen(strip_tags($Caption)) > TgLimits::Caption):
-        throw new TblException(
-          TgError::LimitCaption,
-          'Caption bigger than ' . TgLimits::Caption . ' characters'
-        );
-      endif;
+    if(empty($Caption) === false):
+      TgCaptionable::CheckLimitCaption($Caption);
       $param['caption'] = $Caption;
       if($ParseMode !== null):
         $param['parse_mode'] = $ParseMode->value;
       endif;
-    endif;
-    if($Entities !== null):
-      $param['caption_entities'] = $Entities->ToArray();
+      if($Entities !== null):
+        $param['caption_entities'] = $Entities->ToArray();
+      endif;
     endif;
     if($DisableDetection):
       $param['disable_content_type_detection'] = true;
@@ -305,7 +304,7 @@ extends TblBasics{
     if($Thread !== null):
       $param['thread_id'] = $Thread;
     endif;
-    if($BusinessId !== null):
+    if(empty($BusinessId) === false):
       $param['business_id'] = $BusinessId;
     endif;
     if($Effect !== null):
@@ -385,8 +384,7 @@ extends TblBasics{
    * @param TgParseMode $ParseMode Mode for parsing entities in the new caption.
    * @param bool $DisableNotification Sends the message silently. Users will receive a notification with no sound.
    * @param bool $Protect Protects the contents of the sent message from forwarding and saving
-   * @param int $RepliedMsg If the message is a reply, ID of the original message
-   * @param bool $SendWithoutRepliedMsg Pass True, if the message should be sent even if the specified replied-to message is not found
+   * @param TgReplyParams $Reply Description of the message to reply to
    * @param TblMarkup $Markup Additional interface options. A object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
    * @param bool $CaptionAbove If the caption must be shown above the message media
    * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
@@ -407,8 +405,7 @@ extends TblBasics{
     TgParseMode|null $ParseMode = null,
     bool $DisableNotification = false,
     bool $Protect = false,
-    int|null $RepliedMsg = null,
-    bool $SendWithoutRepliedMsg = false,
+    TgReplyParams|null $Reply = null,
     bool $AllowPaid = false,
     TblMarkup|null $Markup = null
   ):int{
@@ -418,20 +415,18 @@ extends TblBasics{
     if($Thread !== null):
       $param['message_thread_id'] = $Thread;
     endif;
-    if($Caption !== null):
-      if(mb_strlen(strip_tags($Caption)) > TgLimits::Caption):
-        throw new TblException(
-          TgError::LimitCaption,
-          'Caption bigger than ' . TgLimits::Caption . ' characters'
-        );
-      endif;
+    if(empty($Caption) === false):
+      TgCaptionable::CheckLimitCaption($Caption);
       $param['caption'] = $Caption;
       if($ParseMode !== null):
         $param['parse_mode'] = $ParseMode->value;
       endif;
-    endif;
-    if($Entities !== null):
-      $param['caption_entities'] = $Entities->ToArray();
+      if($Entities !== null):
+        $param['caption_entities'] = $Entities->ToArray();
+      endif;
+      if($CaptionAbove):
+        $param['show_caption_above_media'] = true;
+      endif;
     endif;
     if($DisableNotification):
       $param['disable_notification'] = true;
@@ -442,17 +437,11 @@ extends TblBasics{
     if($AllowPaid):
       $param['allow_paid_broadcast'] = true;
     endif;
-    if($RepliedMsg !== null):
-      $param['reply_to_message_id'] = $RepliedMsg;
-      if($SendWithoutRepliedMsg):
-        $param['allow_sending_without_reply'] = true;
-      endif;
+    if($Reply !== null):
+      $param['reply_parameters'] = $Reply->ToArray();
     endif;
     if($Markup !== null):
       $param['reply_markup'] = $Markup->ToArray();
-    endif;
-    if($CaptionAbove):
-      $param['show_caption_above_media'] = true;
     endif;
     if($VideoStart > 0):
       $param['video_start_timestamp'] = $VideoStart;
@@ -548,7 +537,7 @@ extends TblBasics{
     if($DisableNotification):
       $param['disable_notification'] = true;
     endif;
-    if($BusinessId !== null):
+    if(empty($BusinessId) === false):
       $param['business_connection_id'] = $BusinessId;
     endif;
     return $this->ServerMethod(TgMethods::MessagePin, $param);
@@ -612,7 +601,10 @@ extends TblBasics{
     bool $RemoveCaption = false
   ):array{
     if(count($Ids) > TgLimits::MessagesCopy):
-      throw new TblException(TblError::MessagesCopy, 'Cant copy more than ' . TgLimits::MessagesCopy . ' messages');
+      throw new TblException(
+        TblError::MessagesCopy,
+        'Can\'t copy more than ' . TgLimits::MessagesCopy . ' messages'
+      );
     endif;
     $param['from_chat_id'] = $From;
     $param['message_ids'] = $Ids;
@@ -645,7 +637,9 @@ extends TblBasics{
     array $Messages
   ):true{
     if(count($Messages) > TgLimits::MessagesDelete):
-      throw new TblException(TblError::MessagesDelete, 'Cant delete more than ' . TgLimits::MessagesDelete . ' messages');
+      throw new TblException(
+        TblError::MessagesDelete, 
+        'Can\'t delete more than ' . TgLimits::MessagesDelete . ' messages');
     endif;
     $param['chat_id'] = $Chat;
     $param['message_ids'] = $Messages;
@@ -672,7 +666,10 @@ extends TblBasics{
     bool $Protect = false
   ):array{
     if(count($Ids) > TgLimits::MessagesForward):
-      throw new TblException(TblError::MessagesForward, 'Cant forward more than ' . TgLimits::MessagesForward . ' messages');
+      throw new TblException(
+        TblError::MessagesForward, 
+        'Can\'t forward more than ' . TgLimits::MessagesForward . ' messages'
+      );
     endif;
     $param['chat_id'] = $To;
     $param['from_chat_id'] = $From;
@@ -707,7 +704,7 @@ extends TblBasics{
     if($Id !== null):
       $param['message_id'] = $Id;
     endif;
-    if($BusinessId !== null):
+    if(empty($BusinessId) === false):
       $param['business_connection_id'] = $BusinessId;
     endif;
     return $this->ServerMethod(TgMethods::MessageUnpin, $param);
@@ -771,8 +768,7 @@ extends TblBasics{
    * @param string $Emoji Emoji associated with the sticker; only for just uploaded stickers
    * @param bool $DisableNotification Sends the message silently. Users will receive a notification with no sound.
    * @param bool $Protect Protects the contents of the sent message from forwarding and saving
-   * @param int $RepliedMsg If the message is a reply, ID of the original message
-   * @param bool $SendWithoutRepliedMsg If the message should be sent even if the specified replied-to message is not found
+   * @param TgReplyParams $Reply Description of the message to reply to
    * @param TblMarkup $Markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
    * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
    * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
@@ -787,8 +783,7 @@ extends TblBasics{
     string|null $Emoji = null,
     bool $DisableNotification = false,
     bool $Protect = false,
-    int|null $RepliedMsg = null,
-    bool $SendWithoutRepliedMsg = false,
+    TgReplyParams|null $Reply = null,
     bool $AllowPaid = false,
     TblMarkup|null $Markup = null,
     string|null $Effect = null
@@ -810,11 +805,8 @@ extends TblBasics{
     if($AllowPaid):
       $param['allow_paid_broadcast'] = true;
     endif;
-    if($RepliedMsg !== null):
-      $param['reply_to_message_id'] = $RepliedMsg;
-      if($SendWithoutRepliedMsg):
-        $param['allow_sending_without_reply'] = true;
-      endif;
+    if($Reply !== null):
+      $param['reply_parameters'] = $Reply->ToArray();
     endif;
     if($Markup !== null):
       $param['reply_markup'] = $Markup->ToArray();

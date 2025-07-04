@@ -10,19 +10,18 @@ use ProtocolLive\TelegramBotLibrary\TblObjects\{
   TblMarkup
 };
 use ProtocolLive\TelegramBotLibrary\TgEnums\{
-  TgError,
   TgMethods,
   TgParseMode
 };
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
-  TgLimits,
+  TgCaptionable,
   TgVideo,
   TgVideoNote
 };
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2025.05.04.00
+ * @version 2025.05.04.01
  */
 trait TblVideoTrait{
   /**
@@ -78,7 +77,7 @@ trait TblVideoTrait{
     string|null $Effect = null
   ):TgVideo|TgVideoNote{
     $param['chat_id'] = $Chat;
-    if($BusinessId !== null):
+    if(empty($BusinessId) === false):
       $param['business_connection_id'] = $BusinessId;
     endif;
     if(is_file($Video)):
@@ -101,20 +100,18 @@ trait TblVideoTrait{
     if($Thumbnail !== null):
       $param['thumbnail'] = $Thumbnail;
     endif;
-    if($Caption !== null):
-      if(mb_strlen(strip_tags($Caption)) > TgLimits::Caption):
-        throw new TblException(
-          TgError::LimitCaption,
-          'Caption bigger than ' . TgLimits::Caption . ' characters'
-        );
-      endif;
+    if(empty($Caption) === false):
+      TgCaptionable::CheckLimitCaption($Caption);
       $param['caption'] = $Caption;
       if($ParseMode !== null):
         $param['parse_mode'] = $ParseMode->value;
       endif;
-    endif;
-    if($Entities !== null):
-      $param['caption_entities'] = $Entities->ToArray();
+      if($Entities !== null):
+        $param['caption_entities'] = $Entities->ToArray();
+      endif;
+      if($CaptionAbove):
+        $param['show_caption_above_media'] = true;
+      endif;
     endif;
     if($Spoiler):
       $param['has_spoiler'] = true;
@@ -140,20 +137,17 @@ trait TblVideoTrait{
     if($Effect !== null):
       $param['message_effect_id'] = $Effect;
     endif;
-    if($CaptionAbove):
-      $param['show_caption_above_media'] = true;
-    endif;
     if($Cover !== null):
-      $param['cover'] = is_file($Cover) ? new CURLFile($Cover) : $Cover;
+      if(is_file($Cover)):
+        $param['cover'] = new CURLFile($Cover);
+      else:
+        $param['cover'] = $Cover;
+      endif;
     endif;
     if($Start > 0):
       $param['start_timestamp'] = $Start;
     endif;
-    return parent::DetectMessage($this->ServerMethod(
-      TgMethods::VideoSend,
-      $param,
-      is_file($Video) ? false : true
-    ));
+    return parent::DetectMessage($this->ServerMethod(TgMethods::VideoSend, $param, false));
   }
 
   /**
@@ -191,13 +185,13 @@ trait TblVideoTrait{
     string|null $Effect = null
   ):TgVideoNote|TgVideo{
     $param['chat_id'] = $Chat;
-    if($BusinessId !== null):
-      $param['business_connection_id'] = $BusinessId;
-    endif;
     if(is_file($Video)):
       $param['video_note'] = new CURLFile($Video);
     else:
       $param['video_note'] = $Video;
+    endif;
+    if(empty($BusinessId) === false):
+      $param['business_connection_id'] = $BusinessId;
     endif;
     if($Thread !== null):
       $param['message_thread_id'] = $Thread;
@@ -232,10 +226,6 @@ trait TblVideoTrait{
     if($AllowPaid):
       $param['allow_paid_broadcast'] = true;
     endif;
-    return parent::DetectMessage($this->ServerMethod(
-      TgMethods::VideoNoteSend,
-      $param,
-      is_file($Video) ? false : true
-    ));
+    return parent::DetectMessage($this->ServerMethod(TgMethods::VideoNoteSend, $param, false));
   }
 }

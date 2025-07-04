@@ -7,11 +7,8 @@ use ProtocolLive\TelegramBotLibrary\TblObjects\{
   TblEntities,
   TblException
 };
-use ProtocolLive\TelegramBotLibrary\TgEnums\{
-  TgError,
-  TgParseMode
-};
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgLimits;
+use ProtocolLive\TelegramBotLibrary\TgEnums\TgParseMode;
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgCaptionable;
 
 /**
  * @version 2024.07.04.00
@@ -39,12 +36,7 @@ final class TgAudioGroup{
     public string|null $Performer = null,
     public string|null $Title = null
   ){
-    if(mb_strlen(strip_tags($this->Caption)) > TgLimits::Caption):
-      throw new TblException(
-        TgError::LimitCaption,
-        'Caption exceeds ' . TgLimits::Caption . ' characters'
-      );
-    endif;
+    TgCaptionable::CheckLimitCaption($Caption);
   }
 
   public function ToArray():array{

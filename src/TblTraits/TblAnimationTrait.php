@@ -10,18 +10,17 @@ use ProtocolLive\TelegramBotLibrary\TblObjects\{
   TblMarkup
 };
 use ProtocolLive\TelegramBotLibrary\TgEnums\{
-  TgError,
   TgMethods,
   TgParseMode
 };
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgAnimation,
-  TgLimits
+  TgCaptionable
 };
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2024.11.23.00
+ * @version 2025.07.04.00
  */
 trait TblAnimationTrait{
   /**
@@ -71,7 +70,7 @@ trait TblAnimationTrait{
     string|null $Effect = null
   ):TgAnimation{
     $param['chat_id'] = $Chat;
-    if($BusinessId !== null):
+    if(empty($BusinessId) === false):
       $param['business_connection_id'] = $BusinessId;
     endif;
     if(is_file($Animation)):
@@ -98,20 +97,18 @@ trait TblAnimationTrait{
         $param['thumbnail'] = $Thumbnail;
       endif;
     endif;
-    if($Caption !== null):
-      if(mb_strlen(strip_tags($Caption)) > TgLimits::Caption):
-        throw new TblException(
-          TgError::LimitCaption,
-          'Caption exceeds ' . TgLimits::Caption . ' characters'
-        );
-      endif;
+    if(empty($Caption) === false):
+      TgCaptionable::CheckLimitCaption($Caption);
       $param['caption'] = $Caption;
       if($ParseMode !== null):
         $param['parse_mode'] = $ParseMode->value;
       endif;
-    endif;
-    if($Entities !== null):
-      $param['caption_entities'] = $Entities->toArray();
+      if($Entities !== null):
+        $param['caption_entities'] = $Entities->toArray();
+      endif;
+      if($CaptionAbove):
+        $param['show_caption_above_media'] = true;
+      endif;
     endif;
     if($Spoiler):
       $param['has_spoiler'] = true;
@@ -126,7 +123,7 @@ trait TblAnimationTrait{
       $param['protect_content'] = true;
     endif;
     if($Reply !== null):
-      $param['reply_to_message_id'] = $Reply->ToArray();
+      $param['reply_parameters'] = $Reply->ToArray();
     endif;
     if($Markup !== null):
       $param['reply_markup'] = $Markup->ToArray();
@@ -134,9 +131,6 @@ trait TblAnimationTrait{
     if($Effect !== null):
       $param['message_effect_id'] = $Effect;
     endif;
-    if($CaptionAbove):
-      $param['show_caption_above_media'] = true;
-    endif;
-    return new TgAnimation($this->ServerMethod(TgMethods::AnimationSend, $param));
+    return new TgAnimation($this->ServerMethod(TgMethods::AnimationSend, $param, false));
   }
 }

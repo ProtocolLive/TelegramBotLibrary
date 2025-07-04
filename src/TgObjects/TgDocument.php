@@ -9,19 +9,19 @@ use ProtocolLive\TelegramBotLibrary\TgAuxiliary\{
   TgPhotoSize
 };
 use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
-  TgCaptionableInterface,
   TgEventInterface,
   TgForwadableInterface,
   TgMessageInterface
 };
 
 /**
+ * This object represents a general file (as opposed to photos, voice messages and audio files).
  * @link https://core.telegram.org/bots/api#document
- * @version 2025.07.03.01
+ * @version 2025.07.04.00
  */
 readonly class TgDocument
-implements TgCaptionableInterface,
-TgEventInterface,
+extends TgCaptionable
+implements TgEventInterface,
 TgForwadableInterface,
 TgMessageInterface{
   /**
@@ -56,18 +56,11 @@ TgMessageInterface{
    * The unique identifier of a media message group this message belongs to
    */
   public string|null $MediaGroup;
-  /**
-   * Caption for the document
-   */
-  public string|null $Caption;
-  /**
-   * For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption
-   */
-  public array|null $Entities;
 
   public function __construct(
     array $Data
   ){
+    parent::__construct($Data);
     if(isset($Data['message_id'])):
       $this->Data = new TgMessageData($Data);
     else:
