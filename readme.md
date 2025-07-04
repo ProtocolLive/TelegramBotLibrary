@@ -1,4 +1,4 @@
-![Slide2](https://github.com/ProtocolLive/TelegramBotLibrary/assets/39626142/f1a358dc-3c8d-440d-93f3-ae60791a0479)
+![TelegramBotLibrary](https://repository-images.githubusercontent.com/466533286/30dca381-4e17-4115-8c04-3852d7188852)
 # Telegram Bot Library
 
 A library to simplify and aggregate the Telegram API functions.
