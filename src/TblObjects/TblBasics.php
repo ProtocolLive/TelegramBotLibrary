@@ -27,7 +27,6 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgChatRequest,
   TgChatShared,
   TgChecklist,
-  TgChecklistTasksDone,
   TgContact,
   TgDice,
   TgDocument,
@@ -84,6 +83,7 @@ use ProtocolLive\TelegramBotLibrary\TgService\{
   TgChatAutoDel,
   TgChatPhotoNew,
   TgChatTitle,
+  TgChecklistTasksDone,
   TgForumEdited,
   TgForumGeneralHidden,
   TgGiftInfo,
@@ -102,7 +102,7 @@ use ProtocolLive\TelegramBotLibrary\TgService\{
 };
 
 /**
- * @version 2025.07.03.02
+ * @version 2025.07.04.00
  */
 abstract class TblBasics{
   protected TblData $BotData;

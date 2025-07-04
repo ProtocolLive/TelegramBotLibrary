@@ -2,17 +2,18 @@
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
-namespace ProtocolLive\TelegramBotLibrary\TgObjects;
+namespace ProtocolLive\TelegramBotLibrary\TgService;
 use ProtocolLive\TelegramBotLibrary\TgAuxiliary\TgMessageData;
 use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
   TgEventInterface,
   TgServiceInterface
 };
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgChecklist;
 
 /**
  * Describes a service message about checklist tasks marked as done or not done.
  * @link https://core.telegram.org/bots/api#checklisttasksdone
- * @version 2025.07.03.00
+ * @version 2025.07.04.00
  */
 final readonly class TgChecklistTasksDone
 implements TgEventInterface,

@@ -22,16 +22,18 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\{
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgBusinessConnection,
   TgChecklist,
-  TgChecklistTask,
   TgGiftsOwned,
   TgLimits,
   TgStarAmount,
   TgStory
 };
-use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
+use ProtocolLive\TelegramBotLibrary\TgParams\{
+  TgChecklistTask,
+  TgReplyParams
+};
 
 /**
- * @version 2025.07.03.03
+ * @version 2025.07.04.00
  */
 trait TblBusinessTrait{
   /**

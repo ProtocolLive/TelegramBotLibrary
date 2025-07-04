@@ -12,11 +12,12 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
   TgForwadableInterface,
   TgMessageInterface
 };
+use ProtocolLive\TelegramBotLibrary\TgParams\TgChecklistTask;
 
 /**
  * Describes a task in a checklist.
  * @link https://core.telegram.org/bots/api#checklist
- * @version 2025.07.03.00
+ * @version 2025.07.04.00
  */
 final readonly class TgChecklist
 implements TgEventInterface,

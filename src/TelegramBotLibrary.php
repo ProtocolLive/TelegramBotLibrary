@@ -45,8 +45,6 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
   TgMessageInterface
 };
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
-  TgChecklist,
-  TgChecklistTask,
   TgDocument,
   TgFile,
   TgLimits,
@@ -63,7 +61,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2025.07.03.02
+ * @version 2025.07.04.00
  */
 final class TelegramBotLibrary
 extends TblBasics{

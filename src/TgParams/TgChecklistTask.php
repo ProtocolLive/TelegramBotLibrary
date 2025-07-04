@@ -2,7 +2,7 @@
 //Protocol Corporation Ltda.
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
-namespace ProtocolLive\TelegramBotLibrary\TgObjects;
+namespace ProtocolLive\TelegramBotLibrary\TgParams;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
   TblEntities,
   TblException
@@ -12,12 +12,16 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\{
   TgError,
   TgParseMode
 };
+use ProtocolLive\TelegramBotLibrary\TgObjects\{
+  TgLimits,
+  TgUser
+};
 
 /**
  * Describes a task in a checklist.
  * @link https://core.telegram.org/bots/api#checklisttask
  * @link https://core.telegram.org/bots/api#inputchecklisttask
- * @version 2025.07.03.03
+ * @version 2025.07.04.00
  */
 final class TgChecklistTask{
   /**
