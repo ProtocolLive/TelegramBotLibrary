@@ -8,7 +8,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\TgUser;
 /**
  * Describes a unique gift received and owned by a user or a chat.
  * @link https://core.telegram.org/bots/api#ownedgiftunique
- * @version 2025.04.12.00
+ * @version 2025.07.04.00
  */
 final readonly class TgGiftOwnedUnique{
   /**
@@ -39,6 +39,10 @@ final readonly class TgGiftOwnedUnique{
    * Number of Telegram Stars that must be paid to transfer the gift; omitted if the bot cannot transfer the gift
    */
   public int|null $TransferCost;
+  /**
+   * Point in time (Unix timestamp) when the gift can be transferred. If it is in the past, then the gift can be transferred now
+   */
+  public int|null $TransferBefore;
 
   public function __construct(
     array $Data
@@ -54,5 +58,6 @@ final readonly class TgGiftOwnedUnique{
     $this->Saved = $Data['is_saved'] ?? false;
     $this->Transfer = $Data['can_be_transferred'] ?? false;
     $this->TransferCost = $Data['transfer_star_count'] ?? null;
+    $this->TransferBefore = $Data['next_transfer_date'] ?? null;
   }
 }

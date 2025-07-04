@@ -6,9 +6,10 @@ namespace ProtocolLive\TelegramBotLibrary\TgEnums;
 
 /**
  * @link https://core.telegram.org/bots/api#uniquegiftinfo
- * @version 2025.05.11.00
+ * @version 2025.07.04.00
  */
 enum TgGiftUniqueOrigin:string{
+  case Resale = 'resale';
   case Transfer = 'transfer';
   case Upgrade = 'upgrade';
 }
