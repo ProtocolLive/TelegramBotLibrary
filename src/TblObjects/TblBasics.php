@@ -83,6 +83,7 @@ use ProtocolLive\TelegramBotLibrary\TgService\{
   TgChatAutoDel,
   TgChatPhotoNew,
   TgChatTitle,
+  TgChecklistTasksAdded,
   TgChecklistTasksDone,
   TgForumEdited,
   TgForumGeneralHidden,
@@ -102,7 +103,7 @@ use ProtocolLive\TelegramBotLibrary\TgService\{
 };
 
 /**
- * @version 2025.07.04.00
+ * @version 2025.07.04.01
  */
 abstract class TblBasics{
   protected TblData $BotData;
@@ -195,6 +196,8 @@ abstract class TblBasics{
       return new TgChatShared($Data);
     elseif(isset($Data['checklist'])):
       return new TgChecklist($Data);
+    elseif(isset($Data['checklist_tasks_added'])):
+      return new TgChecklistTasksAdded($Data);
     elseif(isset($Data['checklist_tasks_done'])):
       return new TgChecklistTasksDone($Data);
     elseif(isset($Data['connected_website'])):
