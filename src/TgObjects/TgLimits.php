@@ -5,19 +5,19 @@
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
- * @version 2025.07.04.00
+ * @version 2025.07.04.01
  */
 final class TgLimits{
   /**
    * @link https://core.telegram.org/bots/api#answercallbackquery
    */
-  public const CallbackAnswer = 200;
-  public const CallbackData = 64;
-  public const Caption = 1024;
+  public const int CallbackAnswer = 200;
+  public const int CallbackData = 64;
+  public const int Caption = 1024;
   /**
    * @link https://core.telegram.org/bots/api#createchatsubscriptioninvitelink
    */
-  public const ChannelSubscriptionPrice = 2500;
+  public const int ChannelSubscriptionPrice = 2500;
   /**
    * @link https://core.telegram.org/bots/api#inputchecklist
    */
@@ -33,67 +33,67 @@ final class TgLimits{
   /**
    * @link https://core.telegram.org/bots/api#botcommand
    */
-  public const Command = 32;
+  public const int Command = 32;
   /**
    * @link https://core.telegram.org/bots/api#botcommand
    */
-  public const CmdDescription = 256;
+  public const int CmdDescription = 256;
   /**
    * @link https://core.telegram.org/bots/api#setmydescription
    */
-  public const Description = 512;
+  public const int Description = 512;
   /**
    * @link https://core.telegram.org/bots/api#setmyshortdescription
    */
-  public const DescriptionShort = 120;
+  public const int DescriptionShort = 120;
   /**
    * @link https://core.telegram.org/bots/api#createchatsubscriptioninvitelink
    */
-  public const InviteLinkName = 32;
+  public const int InviteLinkName = 32;
   /**
    * https://core.telegram.org/bots/api#copymessages
    */
-  public const MessagesCopy = 100;
+  public const int MessagesCopy = 100;
   /**
    * @link https://core.telegram.org/bots/api#deletemessages
    */
-  public const MessagesDelete = 100;
+  public const int MessagesDelete = 100;
   /**
    * https://core.telegram.org/bots/api#forwardmessages
    */
-  public const MessagesForward = 100;
-  public const MediaGroup = 10;
+  public const int MessagesForward = 100;
+  public const int MediaGroup = 10;
   /**
    * @link https://core.telegram.org/bots/api#setmyname
    */
-  public const Name = 64;
+  public const int Name = 64;
   /**
    * @link https://core.telegram.org/bots/api#sendpaidmedia
    */
-  public const Payload = 128;
+  public const int Payload = 128;
   /**
    * @link https://core.telegram.org/bots/api#sendpoll
    */
-  public const PollExplanation = 200;
+  public const int PollExplanation = 200;
   /**
    * @link https://core.telegram.org/bots/api#sendpoll
    */
-  public const PollOptionsMax = 12;
+  public const int PollOptionsMax = 12;
   /**
    * @link https://core.telegram.org/bots/api#sendpoll
    */
-  public const PollOptionsMin = 2;
+  public const int PollOptionsMin = 2;
   /**
    * https://core.telegram.org/bots/api#inputpolloption
    */
-  public const PollOptionText = 100;
+  public const int PollOptionText = 100;
   /**
    * @link https://core.telegram.org/bots/api#sendpoll
    */
-  public const PollQuestion = 300;
+  public const int PollQuestion = 300;
   /**
    * @link https://core.telegram.org/bots/api#replyparameters
    */
-  public const Quote = 1024;
-  public const Text = 4096;
+  public const int Quote = 1024;
+  public const int Text = 4096;
 }

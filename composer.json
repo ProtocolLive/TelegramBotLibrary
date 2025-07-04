@@ -3,7 +3,7 @@
   "description": "A library to easy handling with Telegram bot API",
   "type": "library",
   "require": {
-    "php": ">=8.2",
+    "php": ">=8.3",
     "ext-openssl": "*",
     "ext-curl": "*",
     "ext-mbstring": "*"
