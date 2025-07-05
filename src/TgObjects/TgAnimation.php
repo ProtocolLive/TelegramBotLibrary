@@ -4,7 +4,6 @@
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 use ProtocolLive\TelegramBotLibrary\TgAuxiliary\{
-  TgEntity,
   TgMessageData,
   TgPhotoSize
 };
@@ -15,7 +14,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 
 /**
  * @link https://core.telegram.org/bots/api#animation
- * @version 2025.07.04.00
+ * @version 2025.07.05.00
  */
 readonly class TgAnimation
 extends TgCaptionable
@@ -85,10 +84,5 @@ TgForwadableInterface{
     $this->Mime = $Data['animation']['mime_type'] ?? null;
     $this->Size = $Data['animation']['file_size'] ?? null;
     $this->Caption = $Data['caption'] ?? null;
-
-    foreach($Data['caption_entities'] ?? [] as &$entity):
-      $entity = new TgEntity($entity);
-    endforeach;
-    $this->Entities = $Data['caption_entities'] ?? [];
   }
 }

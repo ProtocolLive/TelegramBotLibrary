@@ -4,7 +4,6 @@
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 use ProtocolLive\TelegramBotLibrary\TgAuxiliary\{
-  TgEntity,
   TgMessageData,
   TgPhotoSize
 };
@@ -17,7 +16,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 /**
  * This object represents a general file (as opposed to photos, voice messages and audio files).
  * @link https://core.telegram.org/bots/api#document
- * @version 2025.07.04.00
+ * @version 2025.07.05.00
  */
 readonly class TgDocument
 extends TgCaptionable
@@ -79,10 +78,5 @@ TgMessageInterface{
     else:
       $this->Thumbnail = null;
     endif;
-
-    foreach($Data['caption_entities'] ?? [] as &$entity):
-      $entity = new TgEntity($entity);
-    endforeach;
-    $this->Entities = $Data['caption_entities'] ?? [];
   }
 }
