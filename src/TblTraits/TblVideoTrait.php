@@ -21,7 +21,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2025.05.04.01
+ * @version 2025.08.15.00
  */
 trait TblVideoTrait{
   /**
@@ -48,6 +48,7 @@ trait TblVideoTrait{
    * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
    * @param string $Cover Cover for the video in the message. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://<file_attach_name>” to upload a new one using multipart/form-data under <file_attach_name> name.
    * @param int $Start Start timestamp for the video in the message
+   * @param int $DirectTopic Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
    * @return TgVideo On success, the sent Message is returned.
    * @link https://core.telegram.org/bots/api#sendvideo
    * @throws TblException
@@ -57,6 +58,7 @@ trait TblVideoTrait{
     string $Video,
     int|null $Thread = null,
     string|null $BusinessId = null,
+    int|null $DirectTopic = null,
     int|null $Duration = null,
     int|null $Width = null,
     int|null $Height = null,
@@ -147,6 +149,9 @@ trait TblVideoTrait{
     if($Start > 0):
       $param['start_timestamp'] = $Start;
     endif;
+    if($DirectTopic !== null):
+      $param['direct_messages_topic_id'] = $DirectTopic;
+    endif;
     return parent::DetectMessage($this->ServerMethod(TgMethods::VideoSend, $param, false));
   }
 
@@ -165,6 +170,7 @@ trait TblVideoTrait{
    * @param TgReplyParams $Reply If the message is a reply, ID of the original message
    * @param TblMarkup $Markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
    * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
+   * @param int $DirectTopic Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
    * @return TgVideoNote The sent Message is returned.
    * @link https://core.telegram.org/bots/api#sendvideonote
    * @throws TblException
@@ -174,6 +180,7 @@ trait TblVideoTrait{
     string $Video,
     int|null $Thread = null,
     string|null $BusinessId = null,
+    int|null $DirectTopic = null,
     int|null $Duration = null,
     int|null $Length = null,
     string|null $Thumbnail = null,
@@ -225,6 +232,9 @@ trait TblVideoTrait{
     endif;
     if($AllowPaid):
       $param['allow_paid_broadcast'] = true;
+    endif;
+    if($DirectTopic !== null):
+      $param['direct_messages_topic_id'] = $DirectTopic;
     endif;
     return parent::DetectMessage($this->ServerMethod(TgMethods::VideoNoteSend, $param, false));
   }

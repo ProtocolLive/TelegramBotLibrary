@@ -20,7 +20,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2025.07.04.00
+ * @version 2025.08.15.00
  */
 trait TblInvoiceTrait{
   /**
@@ -187,6 +187,7 @@ trait TblInvoiceTrait{
    * @param TblMarkup $Markup A object for an inline keyboard. If empty, one 'Pay total price' button will be shown. If not empty, the first button must be a Pay button.
    * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
    * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+   * @param int $DirectTopic Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
    * @return TgInvoice On success, the sent Message is returned.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#sendinvoice
@@ -198,6 +199,7 @@ trait TblInvoiceTrait{
     string $Payload,
     TgCurrencies $Currency,
     TgInvoicePrices $Prices,
+    int|null $DirectTopic = null,
     string|null $Token = null,
     int|null $TipMax = null,
     array|null $TipSuggested = null,
@@ -290,6 +292,9 @@ trait TblInvoiceTrait{
     endif;
     if($Effect !== null):
       $param['message_effect_id'] = $Effect;
+    endif;
+    if($DirectTopic !== null):
+      $param['direct_messages_topic_id'] = $DirectTopic;
     endif;
     $return = $this->ServerMethod(TgMethods::InvoiceSend, $param);
     return new TgInvoice($return);

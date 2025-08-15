@@ -29,7 +29,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2025.07.04.01
+ * @version 2025.08.15.00
  */
 trait TblStarsTrait{
   public function GiftAvailableGet():TgGifts{
@@ -202,6 +202,7 @@ trait TblStarsTrait{
    * @param TblMarkup $Markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user
    * @param string $Payload Bot-defined paid media payload, 0-128 bytes. This will not be displayed to the user, use it for your internal processes.
    * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+   * @param int $DirectTopic Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
    * @return TgPaidMedia The sent Message is returned.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#sendpaidmedia
@@ -212,6 +213,7 @@ trait TblStarsTrait{
     TgPaidMedias $Media,
     string|null $Payload = null,
     string|null $BusinessId = null,
+    int|null $DirectTopic = null,
     string|null $Caption = null,
     bool $CaptionAbove = false,
     TgParseMode|null $ParseMode = null,
@@ -261,6 +263,9 @@ trait TblStarsTrait{
     endif;
     if($Markup !== null):
       $param['reply_markup'] = $Markup->ToArray();
+    endif;
+    if($DirectTopic !== null):
+      $param['direct_messages_topic_id'] = $DirectTopic;
     endif;
     if($Payload !== null):
       if(strlen($Payload) > TgLimits::Payload):

@@ -9,7 +9,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\TgCaptionable;
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2025.07.04.00
+ * @version 2025.08.15.00
  */
 final class TblPhotoSendMulti
 extends TblServerMulti{
@@ -45,6 +45,7 @@ extends TblServerMulti{
    * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
    * @param bool $CaptionAbove If the caption must be shown above the message media
    * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+   * @param int $DirectTopic Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
    * @throws TblException
    * @link https://core.telegram.org/bots/api#sendphoto
    */
@@ -53,6 +54,7 @@ extends TblServerMulti{
     string|null $Photo = null,
     int|null $Thread = null,
     string|null $BusinessId = null,
+    int|null $DirectTopic = null,
     string|null $Caption = null,
     bool $CaptionAbove = false,
     TgParseMode $ParseMode = TgParseMode::Html,
@@ -85,7 +87,8 @@ extends TblServerMulti{
       Reply: $Reply,
       Markup: $Markup,
       Effect: $Effect,
-      AllowPaid: $AllowPaid
+      AllowPaid: $AllowPaid,
+      DirectTopic: $DirectTopic
     );
   }
 
@@ -120,6 +123,7 @@ extends TblServerMulti{
    * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
    * @param bool $CaptionAbove If the caption must be shown above the message media
    * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+   * @param int $DirectTopic Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
    * @return array Prepared parameters for the PhotoSendMulti method
    * @throws TblException
    * @link https://core.telegram.org/bots/api#sendphoto
@@ -129,6 +133,7 @@ extends TblServerMulti{
     string $Photo,
     int|null $Thread = null,
     string|null $BusinessId = null,
+    int|null $DirectTopic = null,
     string|null $Caption = null,
     bool $CaptionAbove = false,
     TgParseMode $ParseMode = TgParseMode::Html,
@@ -157,7 +162,8 @@ extends TblServerMulti{
       Reply: $Reply,
       Markup: $Markup,
       Effect: $Effect,
-      AllowPaid: $AllowPaid
+      AllowPaid: $AllowPaid,
+      DirectTopic: $DirectTopic
     );
   }
 
@@ -193,6 +199,7 @@ extends TblServerMulti{
    * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
    * @param bool $CaptionAbove If the caption must be shown above the message media
    * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+   * @param int $DirectTopic Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
    * @return array Prepared parameters for the PhotoSendMulti method
    * @throws TblException
    * @link https://core.telegram.org/bots/api#sendphoto
@@ -202,6 +209,7 @@ extends TblServerMulti{
     string $Photo,
     int|null $Thread = null,
     string|null $BusinessId = null,
+    int|null $DirectTopic = null,
     string|null $Caption = null,
     bool $CaptionAbove = false,
     TgParseMode $ParseMode = TgParseMode::Html,
@@ -260,6 +268,9 @@ extends TblServerMulti{
       $param['photo'] = new CURLFile($Photo);
     else:
       $param['photo'] = $Photo;
+    endif;
+    if($DirectTopic !== null):
+      $param['direct_messages_topic_id'] = $DirectTopic;
     endif;
     return $param;
   }

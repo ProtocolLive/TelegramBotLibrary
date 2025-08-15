@@ -12,7 +12,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2025.07.04.00
+ * @version 2025.08.15.00
  */
 trait TblLocationTrait{
   /**
@@ -96,6 +96,7 @@ trait TblLocationTrait{
    * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
    * @param TgReplyParams $Reply Description of the message to reply to
    * @param TblMarkup $Markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user
+   * @param int $DirectTopic Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
    * @return TgLocation On success, the sent Message is returned.
    * @link https://core.telegram.org/bots/api#sendlocation
    */
@@ -105,6 +106,7 @@ trait TblLocationTrait{
     float $Longitude,
     int|null $Thread = null,
     string|null $BussinessId = null,
+    int|null $DirectTopic = null,
     float|null $HorizontalAccuracy = null,
     int|null $LivePeriod = null,
     int|null $Heading = null,
@@ -154,6 +156,9 @@ trait TblLocationTrait{
     endif;
     if($Markup !== null):
       $param['reply_markup'] = $Markup->ToArray();
+    endif;
+    if($DirectTopic !== null):
+      $param['direct_messages_topic_id'] = $DirectTopic;
     endif;
     return new TgLocation($this->SendRequest(TgMethods::LocationSend, $param));
   }
@@ -213,6 +218,7 @@ trait TblLocationTrait{
    * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
    * @param TgReplyParams $Reply Description of the message to reply to
    * @param TblMarkup $Markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user
+   * @param int $DirectTopic Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
    * @return TgVenue On success, the sent Message is returned.
    */
   public function VenueSend(
@@ -223,6 +229,7 @@ trait TblLocationTrait{
     string $Address,
     int|null $Thread = null,
     string|null $BusinessId = null,
+    int|null $DirectTopic = null,
     string|null $FoursquareId = null,
     string|null $FoursquareType = null,
     string|null $GooglePlaceId = null,
@@ -270,6 +277,9 @@ trait TblLocationTrait{
     endif;
     if($Markup !== null):
       $param['reply_markup'] = $Markup->ToArray();
+    endif;
+    if($DirectTopic !== null):
+      $param['direct_messages_topic_id'] = $DirectTopic;
     endif;
     return new TgVenue($this->SendRequest(TgMethods::VenueSend, $param));
   }

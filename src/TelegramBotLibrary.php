@@ -61,7 +61,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2025.07.04.01
+ * @version 2025.08.15.00
  */
 final class TelegramBotLibrary
 extends TblBasics{
@@ -168,6 +168,7 @@ extends TblBasics{
    * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
    * @param string $BusinessId Unique identifier of the business connection on behalf of which the message will be sent
    * @param int $Thread Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   * @param int $DirectTopic Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
    * @return TgDocument On success, the sent Message is returned.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#senddocument
@@ -177,6 +178,7 @@ extends TblBasics{
     string $File,
     int|null $Thread = null,
     string|null $BusinessId = null,
+    int|null $DirectTopic = null,
     string|null $Thumbnail = null,
     string|null $Caption = null,
     TgParseMode $ParseMode = TgParseMode::Html,
@@ -239,6 +241,9 @@ extends TblBasics{
     if($Effect !== null):
       $param['message_effect_id'] = $Effect;
     endif;
+    if($DirectTopic !== null):
+      $param['direct_messages_topic_id'] = $DirectTopic;
+    endif;
     $return = $this->ServerMethod(TgMethods::DocumentSend, $param);
     return new TgDocument($return);
   }
@@ -282,6 +287,7 @@ extends TblBasics{
    * @param TgReplyParams $Reply Description of the message to reply to
    * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
    * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+   * @param int $DirectTopic Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
    * @return array An array of Messages that were sent is returned.
    * @link https://core.telegram.org/bots/api#sendmediagroup
    */
@@ -290,6 +296,7 @@ extends TblBasics{
     array $Objects,
     int|null $Thread = null,
     string|null $BusinessId = null,
+    int|null $DirectTopic = null,
     bool $DisableNotification = false,
     bool $Protect = false,
     bool $AllowPaid = false,
@@ -318,6 +325,9 @@ extends TblBasics{
     endif;
     if($AllowPaid):
       $param['allow_paid_broadcast'] = true;
+    endif;
+    if($DirectTopic):
+      $param['direct_messages_topic_id'] = $DirectTopic;
     endif;
     $param['reply_parameters'] = $Reply->ToArray();
     $this->ServerMethod(TgMethods::GroupSend, $param);
@@ -389,6 +399,7 @@ extends TblBasics{
    * @param bool $CaptionAbove If the caption must be shown above the message media
    * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
    * @param int $VideoStart New start timestamp for the copied video in the message
+   * @param int $DirectTopic Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
    * @return int Returns the MessageId of the sent message on success.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#copymessage
@@ -398,6 +409,7 @@ extends TblBasics{
     int $Id,
     int $To,
     int|null $Thread = null,
+    int|null $DirectTopic = null,
     string|null $Caption = null,
     bool $CaptionAbove = false,
     int $VideoStart = 0,
@@ -446,6 +458,9 @@ extends TblBasics{
     if($VideoStart > 0):
       $param['video_start_timestamp'] = $VideoStart;
     endif;
+    if($DirectTopic !== null):
+      $param['direct_messages_topic_id'] = $DirectTopic;
+    endif;
     $return = $this->ServerMethod(TgMethods::MessageCopy, $param);
     return $return['message_id'];
   }
@@ -484,6 +499,7 @@ extends TblBasics{
    * @param bool $DisableNotification Sends the message silently. Users will receive a notification with no sound.
    * @param bool $Protect Protects the contents of the forwarded message from forwarding and saving
    * @param int $VideoStart New start timestamp for the forwarded video in the message
+   * @param int $DirectTopic Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
    * @return object On success, the sent Message is returned.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#forwardmessage
@@ -494,6 +510,7 @@ extends TblBasics{
     int $To,
     int $VideoStart = 0,
     int|null $Thread = null,
+    int|null $DirectTopic = null,
     bool $DisableNotification = false,
     bool $Protect = false
   ):TgMessageInterface{
@@ -511,6 +528,9 @@ extends TblBasics{
     endif;
     if($VideoStart > 0):
       $param['video_start_timestamp'] = $VideoStart;
+    endif;
+    if($DirectTopic !== null):
+      $param['direct_messages_topic_id'] = $DirectTopic;
     endif;
     $return = $this->ServerMethod(TgMethods::MessageForward, $param);
     return parent::DetectUpdate(['message' => $return]);
@@ -587,6 +607,7 @@ extends TblBasics{
    * @param bool $DisableNotification Sends the messages silently. Users will receive a notification with no sound.
    * @param bool $Protect Protects the contents of the sent messages from forwarding and saving
    * @param bool $RemoveCaption Pass True to copy the messages without their captions
+   * @param int $DirectTopic Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
    * @return array On success, an array of MessageId of the sent messages is returned.
    * @link https://core.telegram.org/bots/api#copymessages
    * @throws TblException
@@ -596,6 +617,7 @@ extends TblBasics{
     array $Ids,
     int|string $To,
     int|null $Thread = null,
+    int|null $DirectTopic = null,
     bool $DisableNotification = false,
     bool $Protect = false,
     bool $RemoveCaption = false
@@ -620,6 +642,9 @@ extends TblBasics{
     endif;
     if($RemoveCaption):
       $param['remove_caption'] = true;
+    endif;
+    if($DirectTopic !== null):
+      $param['direct_messages_topic_id'] = $DirectTopic;
     endif;
     return $this->ServerMethod(TgMethods::MessagesCopy, $param);
   }
@@ -654,6 +679,7 @@ extends TblBasics{
    * @param int $Thread Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
    * @param bool $DisableNotification Sends the messages silently. Users will receive a notification with no sound.
    * @param bool $Protect Protects the contents of the forwarded messages from forwarding and saving
+   * @param int $DirectTopic Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
    * @return array On success, an array of MessageId of the sent messages is returned.
    * @throws TblException
    */
@@ -662,6 +688,7 @@ extends TblBasics{
     array $Ids,
     int|string $To,
     int|null $Thread = null,
+    int|null $DirectTopic = null,
     bool $DisableNotification = false,
     bool $Protect = false
   ):array{
@@ -682,6 +709,9 @@ extends TblBasics{
     endif;
     if($Protect):
       $param['protect_content'] = true;
+    endif;
+    if($DirectTopic !== null):
+      $param['direct_messages_topic_id'] = $DirectTopic;
     endif;
     return $this->ServerMethod(TgMethods::MessagesForward, $param);
   }
@@ -772,6 +802,7 @@ extends TblBasics{
    * @param TblMarkup $Markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
    * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
    * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+   * @param int $DirectTopic Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
    * @return TgSticker The sent Message.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#sendsticker
@@ -780,6 +811,7 @@ extends TblBasics{
     int $Chat,
     string $Sticker,
     int|null $Thread = null,
+    int|null $DirectTopic = null,
     string|null $Emoji = null,
     bool $DisableNotification = false,
     bool $Protect = false,
@@ -813,6 +845,9 @@ extends TblBasics{
     endif;
     if($Effect !== null):
       $param['message_effect_id'] = $Effect;
+    endif;
+    if($DirectTopic !== null):
+      $param['direct_messages_topic_id'] = $DirectTopic;
     endif;
     $return = parent::ServerMethod(TgMethods::StickerSend, $param);
     return new TgSticker($return);

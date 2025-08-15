@@ -25,7 +25,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2025.07.04.00
+ * @version 2025.08.15.00
  */
 trait TblTextTrait{
   /**
@@ -40,6 +40,7 @@ trait TblTextTrait{
    * @param TblMarkup $Markup Additional interface options. A object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
    * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
    * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+   * @param int $DirectTopic Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
    * @return TgText On success, the sent Message is returned.
    * @link https://core.telegram.org/bots/api#senddice
    */
@@ -48,6 +49,7 @@ trait TblTextTrait{
     string|null $Emoji = null,
     int|null $Thread = null,
     string|null $BusinessId = null,
+    int|null $DirectTopic = null,
     bool $DisableNotification = false,
     bool $Protect = false,
     bool $AllowPaid = false,
@@ -82,6 +84,9 @@ trait TblTextTrait{
     endif;
     if($Effect !== null):
       $param['message_effect_id'] = $Effect;
+    endif;
+    if($DirectTopic !== null):
+      $param['direct_messages_topic_id'] = $DirectTopic;
     endif;
     return new TgDice($this->ServerMethod(TgMethods::DiceSend, $param));
   }
@@ -170,6 +175,7 @@ trait TblTextTrait{
    * @param TblMarkup $Markup Additional interface options. A object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
    * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
    * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+   * @param int $DirectTopic Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
    * @return TgText On success, the sent Message is returned.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#sendmessage
@@ -179,6 +185,7 @@ trait TblTextTrait{
     string $Text,
     int|null $Thread = null,
     string|null $BusinessId = null,
+    int|null $DirectTopic = null,
     TgParseMode|null $ParseMode = null,
     TblEntities|null $Entities = null,
     TgLinkPreview|null $LinkPreview = null,
@@ -204,7 +211,8 @@ trait TblTextTrait{
         Reply: $Reply,
         Markup: $Markup,
         Effect: $Effect,
-        AllowPaid: $AllowPaid
+        AllowPaid: $AllowPaid,
+        DirectTopic: $DirectTopic
       )
     );
     return new TgText($return);

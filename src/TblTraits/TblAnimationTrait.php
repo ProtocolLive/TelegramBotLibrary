@@ -20,7 +20,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2025.07.04.00
+ * @version 2025.08.15.00
  */
 trait TblAnimationTrait{
   /**
@@ -44,6 +44,7 @@ trait TblAnimationTrait{
    * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
    * @param bool $CaptionAbove If the caption must be shown above the message media
    * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+   * @param int $DirectTopic Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
    * @return TgAnimation On success, the sent Message is returned.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#sendanimation
@@ -53,6 +54,7 @@ trait TblAnimationTrait{
     string $Animation,
     int|null $Thread = null,
     string|null $BusinessId = null,
+    int|null $DirectTopic = null,
     int|null $Duration = null,
     int|null $Width = null,
     int|null $Height = null,
@@ -130,6 +132,9 @@ trait TblAnimationTrait{
     endif;
     if($Effect !== null):
       $param['message_effect_id'] = $Effect;
+    endif;
+    if($DirectTopic !== null):
+      $param['direct_messages_topic_id'] = $DirectTopic;
     endif;
     return new TgAnimation($this->ServerMethod(TgMethods::AnimationSend, $param, false));
   }

@@ -11,7 +11,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgMessageInterface;
 /**
  * @link https://core.telegram.org/bots/api#chat
  * @link https://core.telegram.org/bots/api#chatfullinfo
- * @version 2025.07.03.00
+ * @version 2025.08.15.00
  */
 final readonly class TgChat{
   /**
@@ -137,6 +137,14 @@ final readonly class TgChat{
    * Information about types of gifts that are accepted by the chat or by the corresponding user for private chats
    */
   public TgGiftAcceptedTypes|null $Gifts;
+  /**
+   * If the chat is the direct messages chat of a channel
+   */
+  public bool $DirectMessages;
+  /**
+   * Information about the corresponding channel chat; for direct messages chats only
+   */
+  public TgChat|null $DirectParent;
 
   public function __construct(
     array $Data
@@ -171,12 +179,20 @@ final readonly class TgChat{
     endif;
     if(isset($Data['pinned_message'])):
       $this->Pinned = TblBasics::DetectMessage($Data['pinned_message']);
+    else:
+      $this->Pinned = null;
+    endif;
+    if(isset($Data['parent_chat'])):
+      $this->DirectParent = new TgChat($Data['parent_chat']);
+    else:
+      $this->DirectParent = null;
     endif;
     $this->BoostCountUnrestrict = $Data['unrestrict_boost_count'] ?? 0;
     $this->EmojiSet = $Data['custom_emoji_sticker_set_name'] ?? null;
     $this->StickerSet = $Data['sticker_set_name'] ?? null;
     $this->SetStickerSet = $Data['can_set_sticker_set'] ?? false;
     $this->PaidMedia = $Data['can_send_paid_media'] ?? false;
+    $this->DirectMessages = $Data['is_direct_messages'] ?? false;
     if(isset($Data['accepted_gift_types'])):
       $this->Gifts = new TgGiftAcceptedTypes($Data['accepted_gift_types']);
     else:

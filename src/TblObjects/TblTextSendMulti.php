@@ -12,7 +12,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2025.07.04.00
+ * @version 2025.08.15.00
  */
 final class TblTextSendMulti
 extends TblServerMulti{
@@ -28,6 +28,7 @@ extends TblServerMulti{
    * @param bool $Protect Protects the contents of the sent message from forwarding and saving
    * @param TgReplyParams $Reply If the message is a reply, ID of the original message
    * @param TblMarkup $Markup Additional interface options. A object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
+   * @param int $DirectTopic Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
    * @throws TblException
    * @link https://core.telegram.org/bots/api#sendmessage
    */
@@ -36,6 +37,7 @@ extends TblServerMulti{
     string|null $Text = null,
     int|null $Thread = null,
     string|null $BusinessId = null,
+    int|null $DirectTopic = null,
     TgParseMode|null $ParseMode = null,
     TblEntities|null $Entities = null,
     TgLinkPreview|null $LinkPreview = null,
@@ -60,7 +62,8 @@ extends TblServerMulti{
       DisableNotification: $DisableNotification,
       Protect: $Protect,
       Reply: $Reply,
-      Markup: $Markup
+      Markup: $Markup,
+      DirectTopic: $DirectTopic
     );
   }
 
@@ -76,6 +79,7 @@ extends TblServerMulti{
    * @param bool $Protect Protects the contents of the sent message from forwarding and saving
    * @param TgReplyParams $Reply If the message is a reply, ID of the original message
    * @param TblMarkup $Markup Additional interface options. A object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
+   * @param int $DirectTopic Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
    * @throws TblException
    * @link https://core.telegram.org/bots/api#sendmessage
    */
@@ -84,6 +88,7 @@ extends TblServerMulti{
     string $Text,
     int|null $Thread = null,
     string|null $BusinessId = null,
+    int|null $DirectTopic = null,
     TgParseMode|null $ParseMode = null,
     TblEntities|null $Entities = null,
     TgLinkPreview|null $LinkPreview = null,
@@ -104,7 +109,8 @@ extends TblServerMulti{
       DisableNotification: $DisableNotification,
       Protect: $Protect,
       Reply: $Reply,
-      Markup: $Markup
+      Markup: $Markup,
+      DirectTopic: $DirectTopic
     );
   }
 
@@ -123,6 +129,7 @@ extends TblServerMulti{
    * @param TblMarkup $Markup Additional interface options. A object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
    * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
    * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+   * @param int $DirectTopic Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
    * @return array Prepared parameters for the TextSendMulti method
    * @throws TblException
    * @link https://core.telegram.org/bots/api#sendmessage
@@ -132,6 +139,7 @@ extends TblServerMulti{
     string $Text,
     int|null $Thread = null,
     string|null $BusinessId = null,
+    int|null $DirectTopic = null,
     TgParseMode|null $ParseMode = null,
     TblEntities|null $Entities = null,
     TgLinkPreview|null $LinkPreview = null,
@@ -191,6 +199,9 @@ extends TblServerMulti{
     endif;
     if($AllowPaid):
       $param['allow_paid_broadcast'] = true;
+    endif;
+    if($DirectTopic !== null):
+      $param['direct_messages_topic_id'] = $DirectTopic;
     endif;
     return $param;
   }

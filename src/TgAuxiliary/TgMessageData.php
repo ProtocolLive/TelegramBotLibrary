@@ -33,7 +33,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 
 /**
  * @link https://core.telegram.org/bots/api#message
- * @version 2025.08.15.00
+ * @version 2025.08.15.01
  */
 final readonly class TgMessageData{
   /**
@@ -118,6 +118,10 @@ final readonly class TgMessageData{
    * Identifier of the specific checklist task that is being replied to
    */
   public int|null $Checklist;
+  /**
+   * Information about the direct messages chat topic that contains the message
+   */
+  public TgDirectMessagesTopic|null $Direct;
 
   public function __construct(
     array $Data
@@ -215,6 +219,11 @@ final readonly class TgMessageData{
       $this->Quote = new TgQuote($Data['quote']);
     else:
       $this->Quote = null;
+    endif;
+    if(isset($Data['direct_messages_topic'])):
+      $this->Direct = new TgDirectMessagesTopic($Data['direct_messages_topic']);
+    else:
+      $this->Direct = null;
     endif;
 
     //$Data['id'] - Callback

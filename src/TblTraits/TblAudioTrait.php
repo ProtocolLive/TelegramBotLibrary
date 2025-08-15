@@ -21,7 +21,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2025.07.04.00
+ * @version 2025.08.15.00
  */
 trait TblAudioTrait{
   /**
@@ -43,6 +43,7 @@ trait TblAudioTrait{
    * @param TblMarkup $Markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account
    * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
    * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+   * @param int $DirectTopic Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
    * @return TgAudio On success, the sent Message is returned.
    * @link https://core.telegram.org/bots/api#sendaudio
    * @throws TblException
@@ -52,6 +53,7 @@ trait TblAudioTrait{
     string $Audio,
     int|null $Thread = null,
     string|null $BusinessId = null,
+    int|null $DirectTopic = null,
     string|null $Caption = null,
     TgParseMode|null $ParseMode = null,
     TblEntities|null $Entities = null,
@@ -118,6 +120,9 @@ trait TblAudioTrait{
     if($Effect !== null):
       $param['message_effect_id'] = $Effect;
     endif;
+    if($DirectTopic !== null):
+      $param['direct_messages_topic_id'] = $DirectTopic;
+    endif;
     return new TgAudio($this->ServerMethod(TgMethods::AudioSend, $param, false));
   }
 
@@ -137,6 +142,7 @@ trait TblAudioTrait{
    * @param TblMarkup $Markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account
    * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
    * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+   * @param int $DirectTopic Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
    * @return TgVoice On success, the sent Message is returned.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#sendvoice
@@ -146,6 +152,7 @@ trait TblAudioTrait{
     string $Voice,
     int|null $Thread = null,
     string|null $BusinessId = null,
+    int|null $DirectTopic = null,
     string|null $Caption = null,
     TgParseMode|null $ParseMode = null,
     TblEntities|null $Entities = null,
@@ -199,6 +206,9 @@ trait TblAudioTrait{
     endif;
     if($Effect !== null):
       $param['message_effect_id'] = $Effect;
+    endif;
+    if($DirectTopic !== null):
+      $param['direct_messages_topic_id'] = $DirectTopic;
     endif;
     return new TgVoice($this->ServerMethod(TgMethods::VoiceSend, $param, false));
   }
