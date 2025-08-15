@@ -4,10 +4,12 @@
 
 namespace ProtocolLive\TelegramBotLibrary\TgAuxiliary;
 
+use ProtocolLive\TelegramBotLibrary\TgObjects\TgChat;
+
 /**
  * This object describes a unique gift that was upgraded from a regular gift.
  * @link https://core.telegram.org/bots/api#uniquegift
- * @version 2025.04.12.00
+ * @version 2025.08.15.00
  */
 final readonly class TgGiftUnique{
   /**
@@ -34,6 +36,10 @@ final readonly class TgGiftUnique{
    * Backdrop of the gift
    */
   public TgGiftUniqueBackdrop $Backdrop;
+  /**
+   * Information about the chat that published the gift
+   */
+  public TgChat|null $Chat;
 
   public function __construct(
     array $Data
@@ -44,5 +50,10 @@ final readonly class TgGiftUnique{
     $this->Model = new TgGiftUniqueModel($Data['model']);
     $this->Symbol = new TgGiftUniqueSymbol($Data['symbol']);
     $this->Backdrop = new TgGiftUniqueBackdrop($Data['backdrop']);
+    if($Data['publisher_chat'] !== null):
+      $this->Chat = new TgChat($Data['publisher_chat']);
+    else:
+      $this->Chat = null;
+    endif;
   }
 }

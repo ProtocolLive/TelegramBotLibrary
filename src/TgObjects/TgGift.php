@@ -7,7 +7,7 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 /**
  * This object represents a gift that can be sent by the bot.
  * @link https://core.telegram.org/bots/api#gift
- * @version 2025.01.02.00
+ * @version 2025.08.15.00
  */
 final readonly class TgGift{
   /**
@@ -34,6 +34,10 @@ final readonly class TgGift{
    * The sticker that represents the gift
    */
   public TgSticker $Sticker;
+  /**
+   * Information about the chat that published the gift
+   */
+  public TgChat|null $Chat;
 
   public function __construct(
     array $Data
@@ -44,5 +48,10 @@ final readonly class TgGift{
     $this->Count = $Data['total_count'] ?? null;
     $this->Remaining = $Data['remaining_count'] ?? null;
     $this->Upgrade = $Data['upgrade_star_count'] ?? null;
+    if($Data['publisher_chat'] !== null):
+      $this->Chat = new TgChat($Data['publisher_chat']);
+    else:
+      $this->Chat = null;
+    endif;
   }
 }
