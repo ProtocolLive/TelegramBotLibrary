@@ -33,7 +33,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 
 /**
  * @link https://core.telegram.org/bots/api#message
- * @version 2025.07.03.00
+ * @version 2025.08.15.00
  */
 final readonly class TgMessageData{
   /**
@@ -114,6 +114,10 @@ final readonly class TgMessageData{
    * The number of Telegram Stars that were paid by the sender of the message to send it
    */
   public int|null $Paid;
+  /**
+   * Identifier of the specific checklist task that is being replied to
+   */
+  public int|null $Checklist;
 
   public function __construct(
     array $Data
@@ -230,5 +234,6 @@ final readonly class TgMessageData{
     $this->Effect = $Data['effect_id'] ?? null;
     $this->CaptionAbove = $Data['show_caption_above_media'] ?? false;
     $this->Paid = $Data['paid_star_count'] ?? null;
+    $this->Paid = $Data['reply_to_checklist_task_id'] ?? null;
   }
 }

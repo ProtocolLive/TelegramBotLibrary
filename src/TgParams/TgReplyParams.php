@@ -14,7 +14,7 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\{
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgLimits;
 
 /**
- * @version 2025.07.04.00
+ * @version 2025.08.15.00
  */
 class TgReplyParams{
   /**
@@ -25,12 +25,14 @@ class TgReplyParams{
    * @param TgParseMode $ParseMode Mode for parsing entities in the quote. See formatting options for more details.
    * @param TblEntities $Entities A JSON-serialized list of special entities that appear in the quote. It can be specified instead of quote_parse_mode.
    * @param int $Position Position of the quote in the original message in UTF-16 code units
+   * @param int $Checklist Identifier of the specific checklist task to be replied to
    * @link https://core.telegram.org/bots/api#replyparameters
    */
   public function __construct(
     public int $Message,
     public int|string|null $Chat = null,
     public bool $SendWithoutReply = false,
+    public int|null $Checklist = null,
     public string|null $Quote = null,
     public int|null $Position = null,
     public TgParseMode|null $ParseMode = null,
@@ -64,6 +66,9 @@ class TgReplyParams{
     endif;
     if($this->SendWithoutReply):
       $return['allow_sending_without_reply'] = true;
+    endif;
+    if($this->Checklist !== null):
+      $return['checklist_task_id'] = $this->Checklist;
     endif;
     return $return;
   }
