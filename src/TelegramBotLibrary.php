@@ -45,6 +45,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 };
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgCaptionable,
+  TgContact,
   TgDocument,
   TgFile,
   TgLimits,
@@ -61,7 +62,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2025.08.15.00
+ * @version 2025.08.16.00
  */
 final class TelegramBotLibrary
 extends TblBasics{
@@ -135,6 +136,80 @@ extends TblBasics{
       $param['cache_time'] = $Cache;
     endif;
     return $this->ServerMethod(TgMethods::CallbackAnswer, $param);
+  }
+
+  /**
+   * Use this method to send phone contacts.
+   * @param int $Chat Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * @param string $Phone Contact's phone number
+   * @param string $Name Contact's first name
+   * @param string $NameLast Contact's last name
+   * @param string $Vcard Additional data about the contact in the form of a vCard, 0-2048 bytes
+   * @param string $BusinessId Unique identifier of the business connection on behalf of which the message will be sent
+   * @param int $Thread Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   * @param int $DirectTopic Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
+   * @param bool $DisableNotification Sends the message silently. Users will receive a notification with no sound.
+   * @param bool $Protect Protects the contents of the sent message from forwarding and saving
+   * @param bool $AllowPaid Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+   * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
+   * @param TgReplyParams $Reply Description of the message to reply to
+   * @param TblMarkup $Markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user
+   * @link https://core.telegram.org/bots/api#sendcontact
+   * @return TgContact The sent Message is returned.
+   */
+  public function ContactSend(
+    int|string $Chat,
+    string $Phone,
+    string $Name,
+    string|null $NameLast = null,
+    string|null $Vcard = null,
+    string|null $BusinessId = null,
+    int|null $Thread = null,
+    int|null $DirectTopic = null,
+    bool $DisableNotification = false,
+    bool $Protect = false,
+    bool $AllowPaid = false,
+    string|null $Effect = null,
+    TgReplyParams|null $Reply = null,
+    TblMarkup|null $Markup = null
+  ):TgContact{
+    $param['chat_id'] = $Chat;
+    $param['phone_number'] = $Phone;
+    $param['first_name'] = $Name;
+    if($NameLast !== null):
+      $param['last_name'] = $NameLast;
+    endif;
+    if($Vcard !== null):
+      $param['vcard'] = $Vcard;
+    endif;
+    if($BusinessId !== null):
+      $param['business_connection_id'] = $BusinessId;
+    endif;
+    if($Thread !== null):
+      $param['message_thread_id'] = $Thread;
+    endif;
+    if($DirectTopic !== null):
+      $param['direct_messages_topic_id'] = $DirectTopic;
+    endif;
+    if($DisableNotification):
+      $param['disable_notification'] = true;
+    endif;
+    if($Protect):
+      $param['protect_content'] = true;
+    endif;
+    if($AllowPaid):
+      $param['allow_paid_broadcast'] = true;
+    endif;
+    if($Effect !== null):
+      $param['message_effect_id'] = $Effect;
+    endif;
+    if($Reply !== null):
+      $param['reply_parameters'] = $Reply->ToArray();
+    endif;
+    if($Markup !== null):
+      $param['reply_markup'] = $Markup->ToArray();
+    endif;
+    return new TgContact($this->ServerMethod(TgMethods::ContactSend, $param));
   }
 
   /**

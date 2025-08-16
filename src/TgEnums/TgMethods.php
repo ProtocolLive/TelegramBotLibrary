@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TgEnums;
 
 /**
- * @version 2025.07.04.00
+ * @version 2025.08.16.00
  */
 enum TgMethods:string{
   /**
@@ -224,6 +224,10 @@ enum TgMethods:string{
    * @link https://core.telegram.org/bots/api#setmycommands
    */
   case CommandsSet = 'setMyCommands';
+  /**
+   * @link https://core.telegram.org/bots/api#sendcontact
+   */
+  case ContactSend = 'sendContact';
   /**
    * @link https://core.telegram.org/bots/api#getcustomemojistickers
    */
