@@ -9,10 +9,13 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgLocation,
   TgVenue
 };
-use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
+use ProtocolLive\TelegramBotLibrary\TgParams\{
+  TgReplyParams,
+  TgSuggestedPostParameters
+};
 
 /**
- * @version 2025.08.15.00
+ * @version 2025.08.16.00
  */
 trait TblLocationTrait{
   /**
@@ -97,6 +100,7 @@ trait TblLocationTrait{
    * @param TgReplyParams $Reply Description of the message to reply to
    * @param TblMarkup $Markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user
    * @param int $DirectTopic Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
+   * @param TgSuggestedPostParameters $SuggestedPost A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
    * @return TgLocation On success, the sent Message is returned.
    * @link https://core.telegram.org/bots/api#sendlocation
    */
@@ -115,6 +119,7 @@ trait TblLocationTrait{
     bool $Protect = false,
     bool $AllowPaid = false,
     string|null $Effect = null,
+    TgSuggestedPostParameters|null $SuggestedPost = null,
     TgReplyParams|null $Reply = null,
     TblMarkup|null $Markup = null
   ):TgLocation{
@@ -159,6 +164,9 @@ trait TblLocationTrait{
     endif;
     if($DirectTopic !== null):
       $param['direct_messages_topic_id'] = $DirectTopic;
+    endif;
+    if($SuggestedPost !== null):
+      $param['suggested_post_parameters'] = $SuggestedPost->ToArray();
     endif;
     return new TgLocation($this->SendRequest(TgMethods::LocationSend, $param));
   }
@@ -219,6 +227,7 @@ trait TblLocationTrait{
    * @param TgReplyParams $Reply Description of the message to reply to
    * @param TblMarkup $Markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user
    * @param int $DirectTopic Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
+   * @param TgSuggestedPostParameters $SuggestedPost A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
    * @return TgVenue On success, the sent Message is returned.
    */
   public function VenueSend(
@@ -238,6 +247,7 @@ trait TblLocationTrait{
     bool $Protect = false,
     bool $AllowPaid = false,
     string|null $Effect = null,
+    TgSuggestedPostParameters|null $SuggestedPost = null,
     TgReplyParams|null $Reply = null,
     TblMarkup|null $Markup = null
   ):TgVenue{
@@ -280,6 +290,9 @@ trait TblLocationTrait{
     endif;
     if($DirectTopic !== null):
       $param['direct_messages_topic_id'] = $DirectTopic;
+    endif;
+    if($SuggestedPost !== null):
+      $param['suggested_post_parameters'] = $SuggestedPost->ToArray();
     endif;
     return new TgVenue($this->SendRequest(TgMethods::VenueSend, $param));
   }

@@ -25,7 +25,8 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 };
 use ProtocolLive\TelegramBotLibrary\TgParams\{
   TgPaidMedias,
-  TgReplyParams
+  TgReplyParams,
+    TgSuggestedPostParameters
 };
 
 /**
@@ -203,6 +204,7 @@ trait TblStarsTrait{
    * @param string $Payload Bot-defined paid media payload, 0-128 bytes. This will not be displayed to the user, use it for your internal processes.
    * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
    * @param int $DirectTopic Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
+   * @param TgSuggestedPostParameters $SuggestedPost A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
    * @return TgPaidMedia The sent Message is returned.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#sendpaidmedia
@@ -221,6 +223,7 @@ trait TblStarsTrait{
     bool $DisableNotification = false,
     bool $Protect = false,
     bool $AllowPaid = false,
+    TgSuggestedPostParameters|null $SuggestedPost = null,
     TgReplyParams|null $Reply = null,
     TblMarkup|null $Markup = null
   ):TgPaidMedia{
@@ -275,6 +278,9 @@ trait TblStarsTrait{
         );
       endif;
       $param['payload'] = $Payload;
+    endif;
+    if($SuggestedPost !== null):
+      $param['suggested_post_parameters'] = $SuggestedPost->ToArray();
     endif;
     return new TgPaidMedia($this->ServerMethod(TgMethods::PaidMediaSend, $param));
   }

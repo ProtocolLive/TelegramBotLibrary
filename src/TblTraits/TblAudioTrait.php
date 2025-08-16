@@ -18,10 +18,13 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgCaptionable,
   TgVoice
 };
-use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
+use ProtocolLive\TelegramBotLibrary\TgParams\{
+  TgReplyParams,
+  TgSuggestedPostParameters
+};
 
 /**
- * @version 2025.08.15.00
+ * @version 2025.08.16.00
  */
 trait TblAudioTrait{
   /**
@@ -44,6 +47,7 @@ trait TblAudioTrait{
    * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
    * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
    * @param int $DirectTopic Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
+   * @param TgSuggestedPostParameters $SuggestedPost A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
    * @return TgAudio On success, the sent Message is returned.
    * @link https://core.telegram.org/bots/api#sendaudio
    * @throws TblException
@@ -66,7 +70,8 @@ trait TblAudioTrait{
     bool $AllowPaid = false,
     TgReplyParams|null $Reply = null,
     TblMarkup|null $Markup = null,
-    string|null $Effect = null
+    string|null $Effect = null,
+    TgSuggestedPostParameters|null $SuggestedPost = null
   ):TgAudio{
     $param['chat_id'] = $Chat;
     if(is_file($Audio)):
@@ -123,6 +128,9 @@ trait TblAudioTrait{
     if($DirectTopic !== null):
       $param['direct_messages_topic_id'] = $DirectTopic;
     endif;
+    if($SuggestedPost !== null):
+      $param['suggested_post_parameters'] = $SuggestedPost->ToArray();
+    endif;
     return new TgAudio($this->ServerMethod(TgMethods::AudioSend, $param, false));
   }
 
@@ -143,6 +151,7 @@ trait TblAudioTrait{
    * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
    * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
    * @param int $DirectTopic Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
+   * @param TgSuggestedPostParameters $SuggestedPost A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
    * @return TgVoice On success, the sent Message is returned.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#sendvoice
@@ -162,7 +171,8 @@ trait TblAudioTrait{
     bool $AllowPaid = false,
     TgReplyParams|null $Reply = null,
     TblMarkup|null $Markup = null,
-    string|null $Effect = null
+    string|null $Effect = null,
+    TgSuggestedPostParameters|null $SuggestedPost = null
   ):TgVoice{
     $param['chat_id'] = $Chat;
     if(is_file($Voice)):
@@ -209,6 +219,9 @@ trait TblAudioTrait{
     endif;
     if($DirectTopic !== null):
       $param['direct_messages_topic_id'] = $DirectTopic;
+    endif;
+    if($SuggestedPost !== null):
+      $param['suggested_post_parameters'] = $SuggestedPost->ToArray();
     endif;
     return new TgVoice($this->ServerMethod(TgMethods::VoiceSend, $param, false));
   }

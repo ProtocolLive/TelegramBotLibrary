@@ -21,11 +21,12 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 };
 use ProtocolLive\TelegramBotLibrary\TgParams\{
   TgLinkPreview,
-  TgReplyParams
+  TgReplyParams,
+  TgSuggestedPostParameters
 };
 
 /**
- * @version 2025.08.15.00
+ * @version 2025.08.16.00
  */
 trait TblTextTrait{
   /**
@@ -41,6 +42,7 @@ trait TblTextTrait{
    * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
    * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
    * @param int $DirectTopic Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
+   * @param TgSuggestedPostParameters $SuggestedPost A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
    * @return TgText On success, the sent Message is returned.
    * @link https://core.telegram.org/bots/api#senddice
    */
@@ -55,7 +57,8 @@ trait TblTextTrait{
     bool $AllowPaid = false,
     TgReplyParams|null $Reply = null,
     TblMarkup|null $Markup = null,
-    string|null $Effect = null
+    string|null $Effect = null,
+    TgSuggestedPostParameters|null $SuggestedPost = null
   ):TgDice{
     $param['chat_id'] = $Chat;
     if($Thread !== null):
@@ -87,6 +90,9 @@ trait TblTextTrait{
     endif;
     if($DirectTopic !== null):
       $param['direct_messages_topic_id'] = $DirectTopic;
+    endif;
+    if($SuggestedPost !== null):
+      $param['suggested_post_parameters'] = $SuggestedPost->ToArray();
     endif;
     return new TgDice($this->ServerMethod(TgMethods::DiceSend, $param));
   }

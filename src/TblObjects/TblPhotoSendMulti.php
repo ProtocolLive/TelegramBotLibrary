@@ -6,10 +6,13 @@ namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 use CURLFile;
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgParseMode;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgCaptionable;
-use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
+use ProtocolLive\TelegramBotLibrary\TgParams\{
+  TgReplyParams,
+  TgSuggestedPostParameters
+};
 
 /**
- * @version 2025.08.15.00
+ * @version 2025.08.16.00
  */
 final class TblPhotoSendMulti
 extends TblServerMulti{
@@ -46,6 +49,7 @@ extends TblServerMulti{
    * @param bool $CaptionAbove If the caption must be shown above the message media
    * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
    * @param int $DirectTopic Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
+   * @param TgSuggestedPostParameters $SuggestedPost A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#sendphoto
    */
@@ -66,6 +70,7 @@ extends TblServerMulti{
     TgReplyParams|null $Reply = null,
     TblMarkup|null $Markup = null,
     string|null $Effect = null,
+    TgSuggestedPostParameters|null $SuggestedPost = null,
     string|null $MultiControl = null
   ){
     if($Chat === null
@@ -124,6 +129,7 @@ extends TblServerMulti{
    * @param bool $CaptionAbove If the caption must be shown above the message media
    * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
    * @param int $DirectTopic Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
+   * @param TgSuggestedPostParameters $SuggestedPost A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
    * @return array Prepared parameters for the PhotoSendMulti method
    * @throws TblException
    * @link https://core.telegram.org/bots/api#sendphoto
@@ -145,6 +151,7 @@ extends TblServerMulti{
     TgReplyParams|null $Reply = null,
     TblMarkup|null $Markup = null,
     string|null $Effect = null,
+    TgSuggestedPostParameters|null $SuggestedPost = null,
     string|null $MultiControl = null
   ):void{
     $this->Args[$MultiControl ?? $Chat] = self::BuildArgs(
@@ -200,6 +207,7 @@ extends TblServerMulti{
    * @param bool $CaptionAbove If the caption must be shown above the message media
    * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
    * @param int $DirectTopic Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
+   * @param TgSuggestedPostParameters $SuggestedPost A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
    * @return array Prepared parameters for the PhotoSendMulti method
    * @throws TblException
    * @link https://core.telegram.org/bots/api#sendphoto
@@ -220,7 +228,8 @@ extends TblServerMulti{
     bool $AllowPaid = false,
     TgReplyParams|null $Reply = null,
     TblMarkup|null $Markup = null,
-    string|null $Effect = null
+    string|null $Effect = null,
+    TgSuggestedPostParameters|null $SuggestedPost = null
   ):array{
     if(empty($BusinessId) === false):
       $param['business_connection_id'] = $BusinessId;
@@ -271,6 +280,9 @@ extends TblServerMulti{
     endif;
     if($DirectTopic !== null):
       $param['direct_messages_topic_id'] = $DirectTopic;
+    endif;
+    if($SuggestedPost !== null):
+      $param['suggested_post_parameters'] = $SuggestedPost->ToArray();
     endif;
     return $param;
   }

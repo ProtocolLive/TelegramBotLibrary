@@ -58,11 +58,12 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
   TgInlineQueryResults,
   TgPhotoGroup,
   TgReplyParams,
+  TgSuggestedPostParameters,
   TgVideoGroup
 };
 
 /**
- * @version 2025.08.16.00
+ * @version 2025.08.16.01
  */
 final class TelegramBotLibrary
 extends TblBasics{
@@ -154,8 +155,9 @@ extends TblBasics{
    * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
    * @param TgReplyParams $Reply Description of the message to reply to
    * @param TblMarkup $Markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user
-   * @link https://core.telegram.org/bots/api#sendcontact
+   * @param TgSuggestedPostParameters $SuggestedPost A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
    * @return TgContact The sent Message is returned.
+   * @link https://core.telegram.org/bots/api#sendcontact
    */
   public function ContactSend(
     int|string $Chat,
@@ -170,6 +172,7 @@ extends TblBasics{
     bool $Protect = false,
     bool $AllowPaid = false,
     string|null $Effect = null,
+    TgSuggestedPostParameters|null $SuggestedPost = null,
     TgReplyParams|null $Reply = null,
     TblMarkup|null $Markup = null
   ):TgContact{
@@ -209,6 +212,9 @@ extends TblBasics{
     if($Markup !== null):
       $param['reply_markup'] = $Markup->ToArray();
     endif;
+    if($SuggestedPost !== null):
+      $param['suggested_post_parameters'] = $SuggestedPost->ToArray();
+    endif;
     return new TgContact($this->ServerMethod(TgMethods::ContactSend, $param));
   }
 
@@ -244,6 +250,7 @@ extends TblBasics{
    * @param string $BusinessId Unique identifier of the business connection on behalf of which the message will be sent
    * @param int $Thread Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
    * @param int $DirectTopic Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
+   * @param TgSuggestedPostParameters $SuggestedPost A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
    * @return TgDocument On success, the sent Message is returned.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#senddocument
@@ -264,7 +271,8 @@ extends TblBasics{
     TgReplyParams|null $Reply = null,
     bool $AllowPaid = false,
     TblMarkup|null $Markup = null,
-    string|null $Effect = null
+    string|null $Effect = null,
+    TgSuggestedPostParameters|null $SuggestedPost = null
   ):TgDocument{
     $param['chat_id'] = $Chat;
     if(is_file($File)):
@@ -318,6 +326,9 @@ extends TblBasics{
     endif;
     if($DirectTopic !== null):
       $param['direct_messages_topic_id'] = $DirectTopic;
+    endif;
+    if($SuggestedPost !== null):
+      $param['suggested_post_parameters'] = $SuggestedPost->ToArray();
     endif;
     $return = $this->ServerMethod(TgMethods::DocumentSend, $param);
     return new TgDocument($return);
@@ -475,6 +486,7 @@ extends TblBasics{
    * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
    * @param int $VideoStart New start timestamp for the copied video in the message
    * @param int $DirectTopic Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
+   * @param TgSuggestedPostParameters $SuggestedPost A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
    * @return int Returns the MessageId of the sent message on success.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#copymessage
@@ -492,8 +504,9 @@ extends TblBasics{
     TgParseMode|null $ParseMode = null,
     bool $DisableNotification = false,
     bool $Protect = false,
-    TgReplyParams|null $Reply = null,
     bool $AllowPaid = false,
+    TgSuggestedPostParameters|null $SuggestedPost = null,
+    TgReplyParams|null $Reply = null,
     TblMarkup|null $Markup = null
   ):int{
     $param['chat_id'] = $To;
@@ -536,6 +549,9 @@ extends TblBasics{
     if($DirectTopic !== null):
       $param['direct_messages_topic_id'] = $DirectTopic;
     endif;
+    if($SuggestedPost !== null):
+      $param['suggested_post_parameters'] = $SuggestedPost->ToArray();
+    endif;
     $return = $this->ServerMethod(TgMethods::MessageCopy, $param);
     return $return['message_id'];
   }
@@ -575,6 +591,7 @@ extends TblBasics{
    * @param bool $Protect Protects the contents of the forwarded message from forwarding and saving
    * @param int $VideoStart New start timestamp for the forwarded video in the message
    * @param int $DirectTopic Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
+   * @param TgSuggestedPostParameters $SuggestedPost A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
    * @return object On success, the sent Message is returned.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#forwardmessage
@@ -587,7 +604,8 @@ extends TblBasics{
     int|null $Thread = null,
     int|null $DirectTopic = null,
     bool $DisableNotification = false,
-    bool $Protect = false
+    bool $Protect = false,
+    TgSuggestedPostParameters|null $SuggestedPost = null
   ):TgMessageInterface{
     $param['chat_id'] = $To;
     $param['from_chat_id'] = $From;
@@ -606,6 +624,9 @@ extends TblBasics{
     endif;
     if($DirectTopic !== null):
       $param['direct_messages_topic_id'] = $DirectTopic;
+    endif;
+    if($SuggestedPost !== null):
+      $param['suggested_post_parameters'] = $SuggestedPost->ToArray();
     endif;
     $return = $this->ServerMethod(TgMethods::MessageForward, $param);
     return parent::DetectUpdate(['message' => $return]);
@@ -683,6 +704,7 @@ extends TblBasics{
    * @param bool $Protect Protects the contents of the sent messages from forwarding and saving
    * @param bool $RemoveCaption Pass True to copy the messages without their captions
    * @param int $DirectTopic Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
+   * @param TgSuggestedPostParameters $SuggestedPost A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
    * @return array On success, an array of MessageId of the sent messages is returned.
    * @link https://core.telegram.org/bots/api#copymessages
    * @throws TblException
@@ -695,7 +717,8 @@ extends TblBasics{
     int|null $DirectTopic = null,
     bool $DisableNotification = false,
     bool $Protect = false,
-    bool $RemoveCaption = false
+    bool $RemoveCaption = false,
+    TgSuggestedPostParameters|null $SuggestedPost = null
   ):array{
     if(count($Ids) > TgLimits::MessagesCopy):
       throw new TblException(
@@ -720,6 +743,9 @@ extends TblBasics{
     endif;
     if($DirectTopic !== null):
       $param['direct_messages_topic_id'] = $DirectTopic;
+    endif;
+    if($SuggestedPost !== null):
+      $param['suggested_post_parameters'] = $SuggestedPost->ToArray();
     endif;
     return $this->ServerMethod(TgMethods::MessagesCopy, $param);
   }
@@ -755,6 +781,7 @@ extends TblBasics{
    * @param bool $DisableNotification Sends the messages silently. Users will receive a notification with no sound.
    * @param bool $Protect Protects the contents of the forwarded messages from forwarding and saving
    * @param int $DirectTopic Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
+   * @param TgSuggestedPostParameters $SuggestedPost A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
    * @return array On success, an array of MessageId of the sent messages is returned.
    * @throws TblException
    */
@@ -765,7 +792,8 @@ extends TblBasics{
     int|null $Thread = null,
     int|null $DirectTopic = null,
     bool $DisableNotification = false,
-    bool $Protect = false
+    bool $Protect = false,
+    TgSuggestedPostParameters|null $SuggestedPost = null
   ):array{
     if(count($Ids) > TgLimits::MessagesForward):
       throw new TblException(
@@ -787,6 +815,9 @@ extends TblBasics{
     endif;
     if($DirectTopic !== null):
       $param['direct_messages_topic_id'] = $DirectTopic;
+    endif;
+    if($SuggestedPost !== null):
+      $param['suggested_post_parameters'] = $SuggestedPost->ToArray();
     endif;
     return $this->ServerMethod(TgMethods::MessagesForward, $param);
   }
@@ -878,6 +909,7 @@ extends TblBasics{
    * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
    * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
    * @param int $DirectTopic Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
+   * @param TgSuggestedPostParameters $SuggestedPost A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
    * @return TgSticker The sent Message.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#sendsticker
@@ -893,7 +925,8 @@ extends TblBasics{
     TgReplyParams|null $Reply = null,
     bool $AllowPaid = false,
     TblMarkup|null $Markup = null,
-    string|null $Effect = null
+    string|null $Effect = null,
+    TgSuggestedPostParameters|null $SuggestedPost = null
   ):TgSticker{
     $param['chat_id'] = $Chat;
     $param['sticker'] = $Sticker;
@@ -923,6 +956,9 @@ extends TblBasics{
     endif;
     if($DirectTopic !== null):
       $param['direct_messages_topic_id'] = $DirectTopic;
+    endif;
+    if($SuggestedPost !== null):
+      $param['suggested_post_parameters'] = $SuggestedPost->ToArray();
     endif;
     $return = parent::ServerMethod(TgMethods::StickerSend, $param);
     return new TgSticker($return);

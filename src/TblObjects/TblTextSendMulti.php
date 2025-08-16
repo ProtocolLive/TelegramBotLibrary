@@ -8,11 +8,12 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\TgParseMode;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgLimits;
 use ProtocolLive\TelegramBotLibrary\TgParams\{
   TgLinkPreview,
-  TgReplyParams
+  TgReplyParams,
+  TgSuggestedPostParameters
 };
 
 /**
- * @version 2025.08.15.00
+ * @version 2025.08.16.00
  */
 final class TblTextSendMulti
 extends TblServerMulti{
@@ -29,6 +30,7 @@ extends TblServerMulti{
    * @param TgReplyParams $Reply If the message is a reply, ID of the original message
    * @param TblMarkup $Markup Additional interface options. A object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
    * @param int $DirectTopic Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
+   * @param TgSuggestedPostParameters $SuggestedPost A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#sendmessage
    */
@@ -45,7 +47,8 @@ extends TblServerMulti{
     bool $Protect = false,
     TgReplyParams|null $Reply = null,
     TblMarkup|null $Markup = null,
-    string|null $MultiControl = null
+    string|null $MultiControl = null,
+    TgSuggestedPostParameters|null $SuggestedPost = null
   ){
     if($Chat === null
     or $Text === null):
@@ -63,7 +66,8 @@ extends TblServerMulti{
       Protect: $Protect,
       Reply: $Reply,
       Markup: $Markup,
-      DirectTopic: $DirectTopic
+      DirectTopic: $DirectTopic,
+      SuggestedPost: $SuggestedPost
     );
   }
 
@@ -80,6 +84,7 @@ extends TblServerMulti{
    * @param TgReplyParams $Reply If the message is a reply, ID of the original message
    * @param TblMarkup $Markup Additional interface options. A object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
    * @param int $DirectTopic Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
+   * @param TgSuggestedPostParameters $SuggestedPost A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#sendmessage
    */
@@ -96,6 +101,7 @@ extends TblServerMulti{
     bool $Protect = false,
     TgReplyParams|null $Reply = null,
     TblMarkup|null $Markup = null,
+    TgSuggestedPostParameters|null $SuggestedPost = null,
     string|null $MultiControl = null
   ):void{
     $this->Args[$MultiControl ?? $Chat] = self::BuildArgs(
@@ -110,7 +116,8 @@ extends TblServerMulti{
       Protect: $Protect,
       Reply: $Reply,
       Markup: $Markup,
-      DirectTopic: $DirectTopic
+      DirectTopic: $DirectTopic,
+      SuggestedPost: $SuggestedPost
     );
   }
 
@@ -130,6 +137,7 @@ extends TblServerMulti{
    * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
    * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
    * @param int $DirectTopic Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
+   * @param TgSuggestedPostParameters $SuggestedPost A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
    * @return array Prepared parameters for the TextSendMulti method
    * @throws TblException
    * @link https://core.telegram.org/bots/api#sendmessage
@@ -148,7 +156,8 @@ extends TblServerMulti{
     bool $AllowPaid = false,
     TgReplyParams|null $Reply = null,
     TblMarkup|null $Markup = null,
-    string|null $Effect = null
+    string|null $Effect = null,
+    TgSuggestedPostParameters|null $SuggestedPost = null
   ):array{
     if($Chat === null):
       throw new TblException(TblError::MissingParameter, 'Chat is required');
@@ -202,6 +211,9 @@ extends TblServerMulti{
     endif;
     if($DirectTopic !== null):
       $param['direct_messages_topic_id'] = $DirectTopic;
+    endif;
+    if($SuggestedPost !== null):
+      $param['suggested_post_parameters'] = $SuggestedPost->ToArray();
     endif;
     return $param;
   }
