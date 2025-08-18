@@ -33,7 +33,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 
 /**
  * @link https://core.telegram.org/bots/api#message
- * @version 2025.08.15.01
+ * @version 2025.08.17.00
  */
 final readonly class TgMessageData{
   /**
@@ -113,7 +113,7 @@ final readonly class TgMessageData{
   /**
    * The number of Telegram Stars that were paid by the sender of the message to send it
    */
-  public int|null $Paid;
+  public int|null $PaidAmount;
   /**
    * Identifier of the specific checklist task that is being replied to
    */
@@ -122,6 +122,14 @@ final readonly class TgMessageData{
    * Information about the direct messages chat topic that contains the message
    */
   public TgDirectMessagesTopic|null $Direct;
+  /**
+   * If the message is a paid post. Note that such posts must not be deleted for 24 hours to receive the payment and can't be edited.
+   */
+  public bool $Paid;
+  /**
+   * Information about suggested post parameters if the message is a suggested post in a channel direct messages chat. If the message is an approved or declined suggested post, then it can't be edited.
+   */
+  public TgSuggestedPostInfo|null $SuggestedPost;
 
   public function __construct(
     array $Data
@@ -225,6 +233,11 @@ final readonly class TgMessageData{
     else:
       $this->Direct = null;
     endif;
+    if(isset($Data['suggested_post_info'])):
+      $this->SuggestedPost = new TgSuggestedPostInfo($Data['suggested_post_info']);
+    else:
+      $this->SuggestedPost = null;
+    endif;
 
     //$Data['id'] - Callback
     $this->Id = $Data['id'] ?? $Data['message_id'] ?? null;
@@ -242,7 +255,8 @@ final readonly class TgMessageData{
     $this->Offline = $Data['is_from_offline'] ?? false;
     $this->Effect = $Data['effect_id'] ?? null;
     $this->CaptionAbove = $Data['show_caption_above_media'] ?? false;
-    $this->Paid = $Data['paid_star_count'] ?? null;
-    $this->Paid = $Data['reply_to_checklist_task_id'] ?? null;
+    $this->PaidAmount = $Data['paid_star_count'] ?? null;
+    $this->Checklist = $Data['reply_to_checklist_task_id'] ?? null;
+    $this->Paid = $Data['is_paid_post'] ?? false;
   }
 }

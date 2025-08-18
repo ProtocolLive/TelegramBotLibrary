@@ -65,6 +65,11 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgSticker,
   TgStickerEdited,
   TgStory,
+  TgSuggestedApproved,
+  TgSuggestedDeclined,
+  TgSuggestedFailed,
+  TgSuggestedPaid,
+  TgSuggestedRefunded,
   TgText,
   TgTextEdited,
   TgUsersShared,
@@ -103,7 +108,7 @@ use ProtocolLive\TelegramBotLibrary\TgService\{
 };
 
 /**
- * @version 2025.07.04.01
+ * @version 2025.08.18.00
  */
 abstract class TblBasics{
   protected TblData $BotData;
@@ -268,6 +273,16 @@ abstract class TblBasics{
       return new TgRefundedPayment($Data);
     elseif(isset($Data['successful_payment'])):
       return new TgInvoiceDone($Data);
+    elseif(isset($Data['suggested_post_approved'])):
+      return new TgSuggestedApproved($Data);
+    elseif(isset($Data['suggested_post_approval_failed'])):
+      return new TgSuggestedFailed($Data);
+    elseif(isset($Data['suggested_post_declined'])):
+      return new TgSuggestedDeclined($Data);
+    elseif(isset($Data['suggested_post_paid'])):
+      return new TgSuggestedPaid($Data);
+    elseif(isset($Data['suggested_post_refunded'])):
+      return new TgSuggestedRefunded($Data);
     elseif(isset($Data['sticker'])):
       return new TgSticker($Data);
     elseif(isset($Data['story'])):

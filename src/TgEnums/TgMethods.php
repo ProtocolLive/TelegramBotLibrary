@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TgEnums;
 
 /**
- * @version 2025.08.16.00
+ * @version 2025.08.17.00
  */
 enum TgMethods:string{
   /**
@@ -492,6 +492,14 @@ enum TgMethods:string{
    * @link https://core.telegram.org/bots/api#sendsticker
    */
   case StickerSend = 'sendSticker';
+  /**
+   * @link https://core.telegram.org/bots/api#approvesuggestedpost
+   */
+  case SuggestionApprove = 'approveSuggestedPost';
+  /**
+   * @link https://core.telegram.org/bots/api#declinesuggestedpost
+   */
+  case SuggestionDecline = 'declineSuggestedPost';
   /**
    * @link https://core.telegram.org/bots/api#editmessagetext
    */

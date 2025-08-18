@@ -6,7 +6,7 @@ namespace ProtocolLive\TelegramBotLibrary\TgEnums;
 
 /**
  * @link https://core.telegram.org/bots/api#chatmemberadministrator
- * @version 2025.07.02.00
+ * @version 2025.08.17.00
  */
 enum TgPermAdmin:string{
   /**
@@ -65,4 +65,8 @@ enum TgPermAdmin:string{
    * If the administrator can manage video chats
    */
   case Video = 'can_manage_video_chats';
+  /**
+   * If the administrator can manage direct messages of the channel and decline suggested posts; for channels only
+   */
+  case Direct = 'can_manage_direct_messages';
 }
