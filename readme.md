@@ -1,4 +1,4 @@
-![TelegramBotLibrary](https://repository-images.githubusercontent.com/466533286/30dca381-4e17-4115-8c04-3852d7188852)
+![TelegramBotLibrary](https://repository-images.githubusercontent.com/466533286/adb3fcef-2317-487c-af0f-c1e1c9f60e08)
 # Telegram Bot Library
 
 A library to simplify and aggregate the Telegram API functions.
