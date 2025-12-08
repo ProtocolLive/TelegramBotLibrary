@@ -4,7 +4,6 @@
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 use ProtocolLive\TelegramBotLibrary\TgAuxiliary\{
-  TgEntity,
   TgMessageData,
   TgPhotoSize
 };
@@ -17,7 +16,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 /**
  * Message is a photo, available sizes of the photo
  * @link https://core.telegram.org/bots/api#message
- * @version 2025.07.03.01
+ * @version 2025.12.08.00
  */
 readonly class TgPhoto
 extends TgCaptionable
@@ -31,7 +30,7 @@ TgMessageInterface{
   /**
    * @var TgPhotoSize[]
    */
-  public array $Files;
+  public array|TgChatPhoto $Files;
   public string|null $MediaGroup;
 
   public function __construct(
@@ -45,9 +44,14 @@ TgMessageInterface{
     endif;
     $this->MediaGroup = $Data['media_group_id'] ?? null;
 
-    foreach($Data['photo'] as &$photo):
-      $photo = new TgPhotoSize($photo);
-    endforeach;
-    $this->Files = $Data['photo'];
+    if(isset($Data['photo'][0])):
+      foreach($Data['photo'] as &$photo):
+        $photo = new TgPhotoSize($photo);
+      endforeach;
+      $this->Files = $Data['photo'];
+    else:
+      //Channels only have 1 photo
+      $this->Files = new TgChatPhoto($Data['photo']);
+    endif;
   }
 }
