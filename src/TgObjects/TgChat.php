@@ -11,7 +11,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgMessageInterface;
 /**
  * @link https://core.telegram.org/bots/api#chat
  * @link https://core.telegram.org/bots/api#chatfullinfo
- * @version 2025.08.15.00
+ * @version 2025.12.08.00
  */
 final readonly class TgChat{
   /**
@@ -171,6 +171,8 @@ final readonly class TgChat{
     $this->History = $Data['has_visible_history'] ?? $this->Type === TgChatType::Channel ? null : false;
     if(isset($Data['permissions'])):
       $this->Permissions = new TgPermMember($Data['permissions']);
+    else:
+      $this->Permissions = null;
     endif;
     if(isset($Data['photo'])):
       $this->Photo = new TgChatPhoto($Data['photo']);
