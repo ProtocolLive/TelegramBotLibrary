@@ -134,7 +134,7 @@ a16cc2a56d5b36492a25f0fc4cde9997c70a034c  TgObjects\TgButtonCallback.php
 3fae94b1ded9e8f81bbedb83a20b1af177ef0f5c  TgObjects\TgButtonWebapp.php
 c7923387d126677423f5179ebb6897f9890992a1  TgObjects\TgCallback.php
 0efc7f4f3251f7e1b1b09a96a94f91a5eebc4bd3  TgObjects\TgCaptionable.php
-9b68c99e8b583714ac2ab54c410d77a8fd3c800a  TgObjects\TgChat.php
+61245179f1beaa9e8d65822663d6ad54d3c975fa  TgObjects\TgChat.php
 d4dda7a589def7d76e67d3d7b19c1851f166687d  TgObjects\TgChatBoost.php
 1de8a1a88c77f9b8b4c6bbaf7671b6a6578f3a1a  TgObjects\TgChatBoostAdded.php
 ccd4fd79493ef3ab18c1061b8967f6dab5f0d5af  TgObjects\TgChatBoostRemoved.php
@@ -192,7 +192,7 @@ fd95fe9b5c3c2a23314fb7ce5edd752432447b72  TgObjects\TgPassportDataPersonal.php
 94620763da202271824b5a820361f5268aa02c37  TgObjects\TgPassportFile.php
 a4751898996e2bcf2878eb524a40b46886e8f48a  TgObjects\TgPermAdmin.php
 446a6671e97a9331da1fccda781356ef0996144a  TgObjects\TgPermMember.php
-1ad8dd1748bcb8b70f893d4ebc30439df1395d6d  TgObjects\TgPhoto.php
+1cda406292c9f4d34a4950bde8616ba828e44a71  TgObjects\TgPhoto.php
 d58f02efc8d0b5fddaca5ffbad59ee3392c8d3d0  TgObjects\TgPhotoEdited.php
 c7216bb41d7b290a2cffad108a76877d74418034  TgObjects\TgPoll.php
 d8b2fe86c43727f59804d1af258b8e0f4f686377  TgObjects\TgPollAnswer.php
@@ -265,4 +265,4 @@ abc8080ede25856a4c83244c6a83e0ff74f77a40  TgService\TgMemberNew.php
 afae5552b5ac64f1c6f5050c0a234700f8659467  TgService\TgVideoChatEnded.php
 41761d44d03800f8f572c591da1e8a6a45bd3785  TgService\TgVideoChatScheduled.php
 9d44b137d4029d9f5d258e64378fde4c239316eb  TgService\TgVideoChatStarted.php
-b4d7062cd418a22d31b8fd7a5ee1dc984750c51a  cacert.pem
+2c726881aca61ca4e06ed9fc87506f944de421f3  cacert.pem
