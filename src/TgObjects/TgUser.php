@@ -6,7 +6,7 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
  * @link https://core.telegram.org/bots/api#user
- * @version 2024.03.31.02
+ * @version 2026.01.01.00
  */
 final readonly class TgUser{
   /**
@@ -82,6 +82,10 @@ final readonly class TgUser{
    * For private chats, the date of birth of the user. Returned only in getChat.
    */
   public string|null $Birthdate;
+  /**
+   * If the bot has forum topic mode enabled in private chats. Returned only in getMe.
+   */
+  public bool|null $Topics;
 
   /**
    * @link https://core.telegram.org/bots/api#user
@@ -126,6 +130,11 @@ final readonly class TgUser{
       $this->Channel = new TgChat($Data['personal_chat']);
     else:
       $this->Channel = null;
+    endif;
+    if(isset($Data['has_topics_enabled'])):
+      $this->Topics = $Data['has_topics_enabled'];
+    else:
+      $this->Topics = false;
     endif;
     if(isset($Data['birthdate'])):
       if(isset($Data['birthdate']['year'])):
