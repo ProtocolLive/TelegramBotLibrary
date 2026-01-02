@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TgEnums;
 
 /**
- * @version 2025.08.17.00
+ * @version 2026.01.01.00
  */
 enum TgMethods:string{
   /**
@@ -256,6 +256,10 @@ enum TgMethods:string{
    * @link https://core.telegram.org/bots/api#senddocument
    */
   case DocumentSend = 'sendDocument';
+  /**
+   * @link https://core.telegram.org/bots/api#sendmessagedraft
+   */
+  case DraftSend = 'sendMessageDraft';
   /**
    * @link https://core.telegram.org/bots/api#getfile
    */

@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TgEnums;
 
 /**
- * @version 2025.07.04.00
+ * @version 2026.01.01.00
  */
 enum TgError{
   case Admin;
@@ -30,6 +30,10 @@ enum TgError{
   case CopyNotFound;
   case Deleted;
   case DontStart;
+  /**
+   * @link https://core.telegram.org/bots/api#sendmessagedraft
+   */
+  case DraftId;
   case EditNotFound;
   case EditSame;
   case EntityParse;

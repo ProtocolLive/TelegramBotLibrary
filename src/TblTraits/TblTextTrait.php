@@ -3,6 +3,7 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TblTraits;
+use ProtocolLive\TelegramBotLibrary\TblEnums\TblError;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
   TblEntities,
   TblException,
@@ -12,11 +13,13 @@ use ProtocolLive\TelegramBotLibrary\TblObjects\{
 };
 use ProtocolLive\TelegramBotLibrary\TelegramBotLibrary;
 use ProtocolLive\TelegramBotLibrary\TgEnums\{
+  TgError,
   TgMethods,
   TgParseMode
 };
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgDice,
+  TgLimits,
   TgText
 };
 use ProtocolLive\TelegramBotLibrary\TgParams\{
@@ -26,7 +29,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2025.08.16.00
+ * @version 2026.01.01.00
  */
 trait TblTextTrait{
   /**
@@ -95,6 +98,50 @@ trait TblTextTrait{
       $param['suggested_post_parameters'] = $SuggestedPost->ToArray();
     endif;
     return new TgDice($this->ServerMethod(TgMethods::DiceSend, $param));
+  }
+
+  /**
+   * Use this method to stream a partial message to a user while the message is being generated; supported only for bots with forum topic mode enabled.
+   * @param int $Chat Unique identifier for the target private chat
+   * @param int $DaftId Unique identifier of the message draft; must be non-zero. Changes of drafts with the same identifier are animated
+   * @param string $Text Text of the message to be sent, 1-4096 characters after entities parsing
+   * @param int|null $Thread Unique identifier for the target message thread
+   * @param TgParseMode|null $ParseMode Mode for parsing entities in the message text. See formatting options for more details.
+   * @param TblEntities|null $Entities A JSON-serialized list of special entities that appear in message text, which can be specified instead of parse_mode
+   * @return true
+   * @throws TblException
+   */
+  public function DraftSend(
+    int $Chat,
+    int $DaftId,
+    string $Text,
+    int|null $Thread = null,
+    TgParseMode|null $ParseMode = null,
+    TblEntities|null $Entities = null
+  ):true{
+    if(mb_strlen(strip_tags($Text)) > TgLimits::Text):
+      throw new TblException(
+        TblError::LimitText,
+        'Text exceed ' . TgLimits::Text . ' characters'
+      );
+    endif;
+    if($DaftId < 1):
+      throw new TblException(
+        TgError::DraftId,
+        'Draft id must be greater than 0'
+      );
+    endif;
+    $param['chat_id'] = $Chat;
+    $param['message_thread_id'] = $Thread;
+    $param['draft_id'] = $DaftId;
+    $param['text'] = $Text;
+    if($ParseMode !== null):
+      $param['parse_mode'] = $ParseMode->value;
+    endif;
+    if($Entities !== null):
+      $param['entities'] = $Entities->ToArray();
+    endif;
+    return $this->ServerMethod(TgMethods::DraftSend, $param);
   }
 
   /**
