@@ -7,8 +7,9 @@ use ProtocolLive\TelegramBotLibrary\TgAuxiliary\TgMessageData;
 use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgEventInterface;
 
 /**
+ * This object represents a service message about a new forum topic created in the chat.
  * @link https://core.telegram.org/bots/api#forumtopiccreated
- * @version 2024.04.11.00
+ * @version 2026.01.05.00
  */
 final readonly class TgForumCreated
 implements TgEventInterface{
@@ -25,6 +26,10 @@ implements TgEventInterface{
    * Unique identifier of the custom emoji shown as the topic icon
    */
   public string|null $Emoji;
+  /**
+   * If the name of the topic wasn't specified explicitly by its creator and likely needs to be changed by the bot
+   */
+  public bool $NameImplicit;
 
   public function __construct(
     array $Data
@@ -33,5 +38,6 @@ implements TgEventInterface{
     $this->Name = $Data['forum_topic_created']['name'];
     $this->Color = $Data['forum_topic_created']['icon_color'];
     $this->Emoji = $Data['forum_topic_created']['icon_custom_emoji_id'] ?? null;
+    $this->NameImplicit = $Data['forum_topic_created']['is_name_implicit'] ?? false;
   }
 }
