@@ -15,14 +15,14 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2025.07.04.00
+ * @version 2026.01.05.00
  */
 trait TblGameTrait{
   /**
    * Use this method to send a game
    * @param int|string $Chat Unique identifier for the target chat
    * @param string $Game Short name of the game, serves as the unique identifier for the game. Set up your games via @BotFather.
-   * @param int $Thread Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   * @param int $Thread Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
    * @param string $BusinessId Unique identifier of the business connection on behalf of which the message will be sent
    * @param bool $DisableNotifications Sends the message silently. Users will receive a notification with no sound.
    * @param bool $Protect Protects the contents of the sent message from forwarding and saving

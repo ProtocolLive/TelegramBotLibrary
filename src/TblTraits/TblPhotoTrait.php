@@ -18,7 +18,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\TgPhoto;
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2024.11.23.00
+ * @version 2026.01.05.00
  */
 trait TblPhotoTrait{
   /**
@@ -40,7 +40,7 @@ trait TblPhotoTrait{
    * Sending by URL
    * - When sending by URL the target file must have the correct MIME type (e.g., audio/mpeg for sendAudio, etc.).
    * - Other configurations may work but we can't guarantee that they will.
-   * @param int $Thread Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   * @param int $Thread Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
    * @param string $BusinessId Unique identifier of the business connection on behalf of which the message will be sent
    * @param string $Caption Photo caption (may also be used when resending photos by file_id), 0-1024 characters after entities parsing
    * @param TgParseMode $ParseMode Mode for parsing entities in the photo caption. See formatting options for more details.

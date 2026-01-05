@@ -13,14 +13,14 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2025.08.16.00
+ * @version 2026.01.05.00
  */
 final class TblTextSendMulti
 extends TblServerMulti{
   /**
    * @param int|string $Chat Unique identifier for the target chat or username of the target channel (in the format @channelusername)
    * @param string $Text Text of the message to be sent, 1-4096 characters after entities parsing
-   * @param int $Thread Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   * @param int $Thread Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
    * @param string $BusinessId Unique identifier of the business connection on behalf of which the message will be sent
    * @param TgParseMode $ParseMode Mode for parsing entities in the message text. See formatting options for more details.
    * @param TblEntities $Entities A  list of special entities that appear in message text, which can be specified instead of parse_mode
@@ -74,7 +74,7 @@ extends TblServerMulti{
   /**
    * @param int|string $Chat Unique identifier for the target chat or username of the target channel (in the format @channelusername)
    * @param string $Text Text of the message to be sent, 1-4096 characters after entities parsing
-   * @param int $Thread Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   * @param int $Thread Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
    * @param string $BusinessId Unique identifier of the business connection on behalf of which the message will be sent
    * @param TgParseMode $ParseMode Mode for parsing entities in the message text. See formatting options for more details.
    * @param TblEntities $Entities A list of special entities that appear in message text, which can be specified instead of parse_mode
@@ -125,7 +125,7 @@ extends TblServerMulti{
    * Use this method with TextSendMulti
    * @param int|string $Chat Unique identifier for the target chat or username of the target channel (in the format @channelusername)
    * @param string $Text Text of the message to be sent, 1-4096 characters after entities parsing
-   * @param int $Thread Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   * @param int $Thread Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
    * @param string $BusinessId Unique identifier of the business connection on behalf of which the message will be sent
    * @param TgParseMode $ParseMode Mode for parsing entities in the message text. See formatting options for more details.
    * @param TblEntities $Entities A list of special entities that appear in message text, which can be specified instead of parse_mode

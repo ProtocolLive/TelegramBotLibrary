@@ -24,14 +24,14 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2025.08.16.00
+ * @version 2026.01.05.00
  */
 trait TblVideoTrait{
   /**
    * Use this method to send video files, Telegram clients support MPEG4 videos (other formats may be sent as Document). Bots can currently send video files of up to 50 MB in size, this limit may be changed in the future.
    * @param int|string $Chat Unique identifier for the target chat or username of the target channel (in the format @channelusername)
    * @param string $Video Video to send. Pass a file_id as String to send a video that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a video from the Internet, or upload a new video using multipart/form-data. More information on Sending Files
-   * @param int $Thread Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   * @param int $Thread Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
    * @param string $BusinessId Unique identifier of the business connection on behalf of which the message will be sent
    * @param int $Duration Duration of sent video in seconds
    * @param int $Width Video width
@@ -167,7 +167,7 @@ trait TblVideoTrait{
    * As of v.4.0, Telegram clients support rounded square MPEG4 videos of up to 1 minute long. Use this method to send video messages.
    * @param int|string $Chat Unique identifier for the target chat or username of the target channel (in the format @channelusername)
    * @param string $Video Video note to send. Pass a file_id as String to send a video note that exists on the Telegram servers (recommended) or upload a new video using multipart/form-data. More information on Sending Files ». Sending video notes by a URL is currently unsupported
-   * @param int $Thread Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   * @param int $Thread Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
    * @param string $BusinessId Unique identifier of the business connection on behalf of which the message will be sent
    * @param int $Duration Duration of sent video in seconds
    * @param int $Length Video width and height, i.e. diameter of the video message

@@ -21,7 +21,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 };
 
 /**
- * @version 2025.08.17.00
+ * @version 2026.01.05.00
  */
 trait TblChatTrait{
   /**
@@ -29,7 +29,7 @@ trait TblChatTrait{
    * Example: The ImageBot needs some time to process a request and upload the image. Instead of sending a text message along the lines of “Retrieving image, please wait…”, the bot may use sendChatAction with action = upload_photo. The user will see a “sending photo” status for the bot.
    * @param int|string $Chat Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername)
    * @param TgChatAction $Action Type of action to broadcast.
-   * @param int $Thread Unique identifier for the target message thread; supergroups only
+   * @param int $Thread Unique identifier for the target message thread or topic of a forum; for supergroups and private chats of bots with forum topic mode enabled only
    * @param string $BusinessId Unique identifier of the business connection on behalf of which the action will be sent
    * @return bool Returns True on success.
    * @throws TblException
@@ -46,7 +46,7 @@ trait TblChatTrait{
     if(empty($BusinessId) === false):
       $param['business_connection_id'] = $BusinessId;
     endif;
-    if($Thread !== null):
+    if($Thread > 0):
       $param['message_thread_id'] = $Chat;
     endif;
     return $this->ServerMethod(TgMethods::ChatAction, $param);

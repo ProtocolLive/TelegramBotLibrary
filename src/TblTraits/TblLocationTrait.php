@@ -15,7 +15,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2025.08.16.00
+ * @version 2026.01.05.00
  */
 trait TblLocationTrait{
   /**
@@ -87,7 +87,7 @@ trait TblLocationTrait{
    * @param int|string $Chat Unique identifier for the target chat or username of the target channel (in the format @channelusername)
    * @param float $Latitude Latitude of the location
    * @param float $Longitude Latitude of the location
-   * @param int $Thread Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   * @param int $Thread Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
    * @param string $BussinessId Unique identifier of the business connection on behalf of which the message will be sent
    * @param float $HorizontalAccuracy The radius of uncertainty for the location, measured in meters; 0-1500
    * @param int $LivePeriod Period in seconds during which the location will be updated (see Live Locations, should be between 60 and 86400, or 0x7FFFFFFF for live locations that can be edited indefinitely.
@@ -210,7 +210,7 @@ trait TblLocationTrait{
   /**
    * Use this method to send information about a venue.
    * @param int|string $Chat Unique identifier for the target chat or username of the target channel (in the format @channelusername)
-   * @param int $Thread Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   * @param int $Thread Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
    * @param string $BusinessId Unique identifier of the business connection on behalf of which the message will be sent
    * @param float $Latitude Latitude of the venue
    * @param float $Longitude Longitude of the venue

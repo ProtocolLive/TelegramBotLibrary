@@ -29,14 +29,14 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2026.01.01.00
+ * @version 2026.01.05.00
  */
 trait TblTextTrait{
   /**
    * Use this method to send an animated emoji that will display a random value.
    * @param int|string $Chat Unique identifier for the target chat or username of the target channel (in the format @channelusername)
    * @param string $Emoji Emoji on which the dice throw animation is based. Currently, must be one of “🎲”, “🎯”, “🏀”, “⚽”, “🎳”, or “🎰”. Dice can have values 1-6 for “🎲”, “🎯” and “🎳”, values 1-5 for “🏀” and “⚽”, and values 1-64 for “🎰”. Defaults to “🎲”
-   * @param int $Thread Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   * @param int $Thread Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
    * @param string $BusinessId Unique identifier of the business connection on behalf of which the message will be sent
    * @param bool $DisableNotification Sends the message silently. Users will receive a notification with no sound.
    * @param bool $Protect Protects the contents of the sent message from forwarding and saving
@@ -105,7 +105,7 @@ trait TblTextTrait{
    * @param int $Chat Unique identifier for the target private chat
    * @param int $DaftId Unique identifier of the message draft; must be non-zero. Changes of drafts with the same identifier are animated
    * @param string $Text Text of the message to be sent, 1-4096 characters after entities parsing
-   * @param int|null $Thread Unique identifier for the target message thread
+   * @param int|null $Thread Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
    * @param TgParseMode|null $ParseMode Mode for parsing entities in the message text. See formatting options for more details.
    * @param TblEntities|null $Entities A JSON-serialized list of special entities that appear in message text, which can be specified instead of parse_mode
    * @return true
@@ -217,7 +217,7 @@ trait TblTextTrait{
    * Use this method to send text messages for one or multiple chats. The Telegram API have some limits, but don't have a official docs for this.
    * @param int|string $Chat Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
    * @param string $Text Text of the message to be sent, 1-4096 characters after entities parsing
-   * @param int $Thread Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   * @param int $Thread Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
    * @param string $BusinessId Unique identifier of the business connection on behalf of which the message will be sent
    * @param TgParseMode $ParseMode Mode for parsing entities in the message text.
    * @param TblEntities $Entities A list of special entities that appear in message text, which can be specified instead of parse_mode

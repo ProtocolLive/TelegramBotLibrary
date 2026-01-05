@@ -64,7 +64,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2025.08.17.00
+ * @version 2026.01.05.00
  */
 final class TelegramBotLibrary
 extends TblBasics{
@@ -149,7 +149,7 @@ extends TblBasics{
    * @param string $NameLast Contact's last name
    * @param string $Vcard Additional data about the contact in the form of a vCard, 0-2048 bytes
    * @param string $BusinessId Unique identifier of the business connection on behalf of which the message will be sent
-   * @param int $Thread Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   * @param int $Thread Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
    * @param int $DirectTopic Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
    * @param bool $DisableNotification Sends the message silently. Users will receive a notification with no sound.
    * @param bool $Protect Protects the contents of the sent message from forwarding and saving
@@ -250,7 +250,7 @@ extends TblBasics{
    * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
    * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
    * @param string $BusinessId Unique identifier of the business connection on behalf of which the message will be sent
-   * @param int $Thread Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   * @param int $Thread Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
    * @param int $DirectTopic Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
    * @param TgSuggestedPostParameters $SuggestedPost A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
    * @return TgDocument On success, the sent Message is returned.
@@ -368,7 +368,7 @@ extends TblBasics{
   /**
    * Use this method to send a group of photos, videos, documents or audios as an album. Documents and audio files can be only grouped in an album with messages of the same type.
    * @param TgAudioGroup[]|TgDocumentGroup[]|TgPhotoGroup[]|TgVideoGroup[] $Objects
-   * @param int $Thread Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   * @param int $Thread Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
    * @param string $BusinessId Unique identifier of the business connection on behalf of which the message will be sent
    * @param bool $DisableNotification Sends messages silently. Users will receive a notification with no sound.
    * @param bool $Protect Protects the contents of the sent messages from forwarding and saving
@@ -476,7 +476,7 @@ extends TblBasics{
    * @param int $From Unique identifier for the chat where the original message was sent (or channel username in the format @channelusername)
    * @param int $Id Message identifier in the chat specified in from_chat_id
    * @param int $To Unique identifier for the target chat or username of the target channel (in the format @channelusername)
-   * @param int $Thread Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   * @param int $Thread Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
    * @param string $Caption New caption for media, 0-1024 characters after entities parsing. If not specified, the original caption is kept
    * @param TblEntities $Entities A list of special entities that appear in the new caption, which can be specified instead of parse_mode
    * @param TgParseMode $ParseMode Mode for parsing entities in the new caption.
@@ -588,7 +588,7 @@ extends TblBasics{
    * @param int $To Unique identifier for the target chat or username of the target channel
    * @param int $From Unique identifier for the chat where the original message was sent
    * @param int $Id Message identifier in the chat specified in from_chat_id
-   * @param int $Thread Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   * @param int $Thread Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
    * @param bool $DisableNotification Sends the message silently. Users will receive a notification with no sound.
    * @param bool $Protect Protects the contents of the forwarded message from forwarding and saving
    * @param int $VideoStart New start timestamp for the forwarded video in the message
@@ -701,7 +701,7 @@ extends TblBasics{
    * @param int|string $From Unique identifier for the chat where the original messages were sent (or channel username in the format @channelusername)
    * @param int[] $Ids Identifiers of 1-100 messages in the chat from_chat_id to copy. The identifiers must be specified in a strictly increasing order.
    * @param int|string $To Unique identifier for the target chat or username of the target channel (in the format @channelusername)
-   * @param int $Thread Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   * @param int $Thread Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
    * @param bool $DisableNotification Sends the messages silently. Users will receive a notification with no sound.
    * @param bool $Protect Protects the contents of the sent messages from forwarding and saving
    * @param bool $RemoveCaption Pass True to copy the messages without their captions
@@ -779,7 +779,7 @@ extends TblBasics{
    * @param int|string $From Unique identifier for the chat where the original messages were sent (or channel username in the format @channelusername)
    * @param int[] $Ids Identifiers of 1-100 messages in the chat from_chat_id to forward. The identifiers must be specified in a strictly increasing order.
    * @param int|string $To Unique identifier for the target chat or username of the target channel (in the format @channelusername)
-   * @param int $Thread Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   * @param int $Thread Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
    * @param bool $DisableNotification Sends the messages silently. Users will receive a notification with no sound.
    * @param bool $Protect Protects the contents of the forwarded messages from forwarding and saving
    * @param int $DirectTopic Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
@@ -902,7 +902,7 @@ extends TblBasics{
    * Use this method to send static .WEBP, animated .TGS, or video .WEBM stickers.
    * @param int $Chat Unique identifier for the target chat
    * @param string $Sticker Sticker to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a .WEBP file from the Internet, or upload a new one using multipart/form-data.
-   * @param int $Thread Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   * @param int $Thread Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
    * @param string $Emoji Emoji associated with the sticker; only for just uploaded stickers
    * @param bool $DisableNotification Sends the message silently. Users will receive a notification with no sound.
    * @param bool $Protect Protects the contents of the sent message from forwarding and saving

@@ -33,7 +33,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 
 /**
  * @link https://core.telegram.org/bots/api#message
- * @version 2025.08.17.00
+ * @version 2026.01.05.00
  */
 final readonly class TgMessageData{
   /**
@@ -67,11 +67,11 @@ final readonly class TgMessageData{
    */
   public TgQuote|null $Quote;
   /**
-   * If the message is sent to a forum topic
+   * If the message is sent to a topic in a forum supergroup or a private chat with the bot
    */
   public bool $Topic;
   /**
-   * Unique identifier of a message thread to which the message belongs; for supergroups only
+   * Unique identifier of a message thread or forum topic to which the message belongs; for supergroups and private chats only
    */
   public int|null $Thread;
   /**

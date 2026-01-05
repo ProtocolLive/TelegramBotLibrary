@@ -21,7 +21,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2025.08.16.00
+ * @version 2026.01.05.00
  */
 trait TblInvoiceTrait{
   /**
@@ -190,6 +190,7 @@ trait TblInvoiceTrait{
    * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
    * @param int $DirectTopic Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
    * @param TgSuggestedPostParameters $SuggestedPost A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
+   * @param int $Thread Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
    * @return TgInvoice On success, the sent Message is returned.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#sendinvoice
@@ -201,6 +202,7 @@ trait TblInvoiceTrait{
     string $Payload,
     TgCurrencies $Currency,
     TgInvoicePrices $Prices,
+    int|null $Thread = null,
     int|null $DirectTopic = null,
     string|null $Token = null,
     int|null $TipMax = null,
@@ -235,6 +237,9 @@ trait TblInvoiceTrait{
     $param['prices'] = $Prices->ToArray();
     if($TipMax !== null):
       $param['max_tip_amount'] = $TipMax;
+    endif;
+    if($Thread > 0):
+      $param['message_thread_id'] = $Thread;
     endif;
     if($TipSuggested !== null):
       $param['suggested_tip_amounts'] = $TipSuggested;

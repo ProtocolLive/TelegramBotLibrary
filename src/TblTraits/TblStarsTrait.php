@@ -26,11 +26,11 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 use ProtocolLive\TelegramBotLibrary\TgParams\{
   TgPaidMedias,
   TgReplyParams,
-    TgSuggestedPostParameters
+  TgSuggestedPostParameters
 };
 
 /**
- * @version 2025.08.15.00
+ * @version 2026.01.05.00
  */
 trait TblStarsTrait{
   public function GiftAvailableGet():TgGifts{
@@ -205,6 +205,7 @@ trait TblStarsTrait{
    * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
    * @param int $DirectTopic Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
    * @param TgSuggestedPostParameters $SuggestedPost A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
+   * @param int $Thread Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
    * @return TgPaidMedia The sent Message is returned.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#sendpaidmedia
@@ -213,6 +214,7 @@ trait TblStarsTrait{
     int|string $Chat,
     int $Price,
     TgPaidMedias $Media,
+    int|null $Thread = null,
     string|null $Payload = null,
     string|null $BusinessId = null,
     int|null $DirectTopic = null,
@@ -251,6 +253,9 @@ trait TblStarsTrait{
       if($CaptionAbove):
         $param['show_caption_above_media'] = true;
       endif;
+    endif;
+    if($Thread > 0):
+      $param['message_thread_id'] = $Thread;
     endif;
     if($DisableNotification):
       $param['disable_notification'] = true;

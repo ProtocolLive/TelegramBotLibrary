@@ -22,14 +22,14 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2025.07.04.00
+ * @version 2026.01.05.00
  */
 trait TblPollTrait{
   /**
    * Use this method to send a native poll.
    * @param string $BusinessId Unique identifier of the business connection on behalf of which the message will be sent
    * @param int|string $Chat Unique identifier for the target chat or username of the target channel (in the format @channelusername)
-   * @param int $ThreadId Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   * @param int $Thread Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
    * @param string $Question Poll question, 1-300 characters
    * @param TgParseMode $ParseMode Mode for parsing entities in the question. See formatting options for more details. Currently, only custom emoji entities are allowed
    * @param TblEntities $Entities A list of special entities that appear in the poll question. It can be specified instead of question_parse_mode
@@ -58,7 +58,7 @@ trait TblPollTrait{
     int|string $Chat,
     string $Question,
     TblInputPollOptions $Options,
-    int|null $ThreadId = null,
+    int|null $Thread = null,
     string|null $BusinessId = null,
     TgParseMode|null $ParseMode = null,
     TblEntities|null $Entities = null,
@@ -96,8 +96,8 @@ trait TblPollTrait{
     $param['chat_id'] = $Chat;
     $param['question'] = $Question;
     $param['options'] = $Options->ToArray();
-    if($ThreadId !== null):
-      $param['message_thread_id'] = $ThreadId;
+    if($Thread > 0):
+      $param['message_thread_id'] = $Thread;
     endif;
     if(empty($BusinessId) === false):
       $param['business_connection_id'] = $BusinessId;
