@@ -11,7 +11,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 };
 
 /**
- * @version 2024.11.23.00
+ * @version 2026.01.05.00
  */
 trait TblForumTrait{
   /**
@@ -60,42 +60,46 @@ trait TblForumTrait{
   }
 
   /**
-   * Use this method to delete a forum topic along with all its messages in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_delete_messages administrator rights.
-   * @param int $Chat Unique identifier for the target chat
+   * Use this method to delete a forum topic along with all its messages in a forum supergroup chat or a private chat with a user. In the case of a supergroup chat the bot must be an administrator in the chat for this to work and must have the can_delete_messages administrator rights.
+   * @param int|string $Chat Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
    * @param int $Id Unique identifier for the target message thread of the forum topic
-   * @return bool Returns True on success.
+   * @return true Returns True on success.
    * @link https://core.telegram.org/bots/api#deleteforumtopic
    * @throws TblException
    */
   public function ForumDelete(
-    int $Chat,
+    int|string $Chat,
     int $Id
-  ):bool{
+  ):true{
     $param['chat_id'] = $Chat;
     $param['message_thread_id'] = $Id;
     return $this->ServerMethod(TgMethods::ForumDel, $param);
   }
 
   /**
-   * Use this method to edit name and icon of a topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have can_manage_topics administrator rights, unless it is the creator of the topic.
-   * @param int $Chat Unique identifier for the target chat
+   * Use this method to edit name and icon of a topic in a forum supergroup chat or a private chat with a user. In the case of a supergroup chat the bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights, unless it is the creator of the topic.
+   * @param int|string $Chat Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
    * @param int $Id Unique identifier for the target message thread of the forum topic
-   * @param string $New topic name, 1-128 characters
-   * @param string $Emoji New unique identifier of the custom emoji shown as the topic icon. Use getForumTopicIconStickers to get all allowed custom emoji identifiers
-   * @return bool Returns True on success.
+   * @param string $Name New topic name, 0-128 characters. If not specified or empty, the current name of the topic will be kept
+   * @param string $Emoji New unique identifier of the custom emoji shown as the topic icon. Use getForumTopicIconStickers to get all allowed custom emoji identifiers. Pass an empty string to remove the icon. If not specified, the current icon will be kept
+   * @return true Returns True on success.
    * @link https://core.telegram.org/bots/api#editforumtopic
    * @throws TblException
    */
   public function ForumEdit(
-    int $Chat,
+    int|string $Chat,
     int $Id,
-    string $Name,
-    string $Emoji
-  ):bool{
+    string|null $Name = null,
+    string|null $Emoji = null
+  ):true{
     $param['chat_id'] = $Chat;
     $param['message_thread_id'] = $Id;
-    $param['name'] = $Name;
-    $param['icon_custom_emoji_id'] = $Emoji;
+    if(empty($Name) === false):
+      $param['name'] = $Name;
+    endif;
+    if(empty($Emoji) === false):
+      $param['icon_custom_emoji_id'] = $Emoji;
+    endif;
     return $this->ServerMethod(TgMethods::ForumEdit, $param);
   }
 
@@ -221,7 +225,7 @@ trait TblForumTrait{
   }
 
   /**
-   * Use this method to clear the list of pinned messages in a General forum topic. The bot must be an administrator in the chat for this to work and must have the can_pin_messages administrator right in the supergroup.
+   * Use this method to clear the list of pinned messages in a forum topic in a forum supergroup chat or a private chat with a user. In the case of a supergroup chat the bot must be an administrator in the chat for this to work and must have the can_pin_messages administrator right in the supergroup. 
    * @param string|int $Chat Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
    * @return true Returns True on success.
    * @throws TblException
