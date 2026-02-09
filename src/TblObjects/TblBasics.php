@@ -108,7 +108,7 @@ use ProtocolLive\TelegramBotLibrary\TgService\{
 };
 
 /**
- * @version 2025.08.18.00
+ * @version 2026.02.09.00
  */
 abstract class TblBasics{
   protected TblData $BotData;
@@ -227,6 +227,8 @@ abstract class TblBasics{
       return new TgGame($Data);
     elseif(isset($Data['general_forum_topic_hidden'])):
       return new TgForumGeneralHidden($Data);
+    elseif(isset($Data['gift_upgrade_sent'])):
+      return new TgGiftInfo($Data);
     elseif(isset($Data['giveaway'])):
       return new TgGiveaway($Data);
     elseif(isset($Data['giveaway_created'])):
