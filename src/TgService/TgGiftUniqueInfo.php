@@ -4,7 +4,10 @@
 
 namespace ProtocolLive\TelegramBotLibrary\TgService;
 use ProtocolLive\TelegramBotLibrary\TgAuxiliary\TgGiftUnique;
-use ProtocolLive\TelegramBotLibrary\TgEnums\TgGiftUniqueOrigin;
+use ProtocolLive\TelegramBotLibrary\TgEnums\{
+  TgCurrencies,
+  TgGiftUniqueOrigin
+};
 use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
   TgEventInterface,
   TgServiceInterface
@@ -13,7 +16,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 /**
  * Describes a service message about a unique gift that was sent or received.
  * @link https://core.telegram.org/bots/api#uniquegiftinfo
- * @version 2025.07.04.00
+ * @version 2026.02.09.00
  */
 final readonly class TgGiftUniqueInfo
 implements TgEventInterface,
@@ -39,10 +42,13 @@ TgServiceInterface{
    */
   public int|null $TransferBefore;
   /**
-   * For gifts bought from other users, the price paid for the gift
+   * For gifts bought from other users, the price paid for the gift in either Telegram Stars or nanotoncoins
    */
   public float|null $PriceLast;
-  
+  /**
+   * For gifts bought from other users, the currency in which the payment for the gift was done. Currently, one of “XTR” for Telegram Stars or “TON” for toncoins.
+   */
+  public TgCurrencies|null $CurrencyLast;
 
   public function __construct(
     array $Data
@@ -52,6 +58,7 @@ TgServiceInterface{
     $this->Id = $Data['owned_gift_id'] ?? null;
     $this->Stars = $Data['convert_star_count'] ?? null;
     $this->TransferBefore = $Data['next_transfer_date'] ?? null;
-    $this->PriceLast = $Data['last_resale_star_count'] ?? null;
+    $this->PriceLast = $Data['last_resale_amount '] ?? null;
+    $this->CurrencyLast = TgCurrencies::tryFrom($Data['last_resale_currency']);
   }
 }
