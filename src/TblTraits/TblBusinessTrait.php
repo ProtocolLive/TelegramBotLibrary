@@ -34,7 +34,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2025.07.04.01
+ * @version 2026.02.09.00
  */
 trait TblBusinessTrait{
   /**
@@ -288,11 +288,12 @@ trait TblBusinessTrait{
   /**
    * Returns the gifts received and owned by a managed business account. Requires the can_view_gifts_and_stars business bot right.
    * @param string $BusinessId Unique identifier of the business connection
-   * @param bool $Unsaved To include gifts that aren't saved to the account's profile page
-   * @param bool $Saved To include gifts that are saved to the account's profile page
-   * @param bool $Unlimited To include gifts that can be purchased an unlimited number of times
-   * @param bool $Limited To include gifts that can be purchased a limited number of times
-   * @param bool $Unique To include unique gifts
+   * @param bool $ExcludeUnsaved Pass True to exclude gifts that aren't saved to the account's profile page
+   * @param bool $ExcludeSaved Pass True to exclude gifts that are saved to the account's profile page
+   * @param bool $ExcludeUnlimited Pass True to exclude gifts that can be purchased an unlimited number of times
+   * @param bool $ExcludeLimitedUpgradable Pass True to exclude gifts that can be purchased a limited number of times and can be upgraded to unique
+   * @param bool $ExcludeLimitedNonUpgradable Pass True to exclude gifts that can be purchased a limited number of times and can't be upgraded to unique
+   * @param bool $ExcludeUnique Pass True to exclude unique gifts
    * @param bool $SortByPrice To sort results by gift price instead of send date. Sorting is applied before pagination.
    * @param string|null $Offset Offset of the first entry to return as received from the previous request; use empty string to get the first chunk of results
    * @param int $Limit The maximum number of gifts to be returned; 1-100. Defaults to 100
@@ -301,35 +302,39 @@ trait TblBusinessTrait{
    */
   public function BusinessGiftsGet(
     string $BusinessId,
-    bool $Unsaved = true,
-    bool $Saved = true,
-    bool $Unlimited = true,
-    bool $Limited = true,
-    bool $Unique = true,
-    bool $SortByPrice = true,
+    bool $ExcludeUnsaved = false,
+    bool $ExcludeSaved = false,
+    bool $ExcludeUnlimited = false,
+    bool $ExcludeLimitedUpgradable = false,
+    bool $ExcludeLimitedNonUpgradable = false,
+    bool $ExcludeUnique = false,
+    bool $SortByPrice = false,
     string|null $Offset = null,
     int $Limit = 100,
   ):TgGiftsOwned{
     $param['business_connection_id'] = $BusinessId;
-    if($Unsaved === false):
+    if($ExcludeUnsaved):
       $param['exclude_unsaved'] = true;
     endif;
-    if($Saved === false):
+    if($ExcludeSaved):
       $param['exclude_saved'] = true;
     endif;
-    if($Unlimited === false):
+    if($ExcludeUnlimited):
       $param['exclude_unlimited'] = true;
     endif;
-    if($Limited === false):
-      $param['exclude_limited'] = true;
+    if($ExcludeLimitedUpgradable):
+      $param['exclude_limited_upgradable'] = true;
     endif;
-    if($Unique === false):
+    if($ExcludeLimitedNonUpgradable):
+      $param['exclude_limited_non_upgradable'] = true;
+    endif;
+    if($ExcludeUnique):
       $param['exclude_unique'] = true;
     endif;
     if($SortByPrice):
       $param['sort_by_price'] = true;
     endif;
-    if($Offset !== null):
+    if(empty($Offset) === false):
       $param['offset'] = $Offset;
     endif;
     if($Limit > 0
