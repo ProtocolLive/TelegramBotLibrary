@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TgEnums;
 
 /**
- * @version 2026.01.01.00
+ * @version 2026.02.09.00
  */
 enum TgMethods:string{
   /**
@@ -340,6 +340,10 @@ enum TgMethods:string{
    * @link https://core.telegram.org/bots/api#sendgift
    */
   case GiftSend = 'sendGift';
+  /**
+   * @link https://core.telegram.org/bots/api#getusergifts
+   */
+  case GiftUserGet = 'getUserGifts';
   /**
    * @link https://core.telegram.org/bots/api#sendmediagroup
    */
