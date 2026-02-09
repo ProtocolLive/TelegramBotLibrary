@@ -9,7 +9,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\TgChat;
 /**
  * This object describes a unique gift that was upgraded from a regular gift.
  * @link https://core.telegram.org/bots/api#uniquegift
- * @version 2026.02.09.00
+ * @version 2026.02.09.01
  */
 final readonly class TgGiftUnique{
   /**
@@ -48,6 +48,10 @@ final readonly class TgGiftUnique{
    * If the gift is assigned from the TON blockchain and can't be resold or transferred in Telegram
    */
   public bool $FromBlockchain;
+  /**
+   * If the gift can only be purchased by Telegram Premium subscribers
+   */
+  public bool $PremiumOnly;
 
   public function __construct(
     array $Data
@@ -57,6 +61,7 @@ final readonly class TgGiftUnique{
     $this->NameUnique = $Data['name'];
     $this->Number = $Data['number'];
     $this->FromBlockchain = $Data['is_from_blockchain'] ?? false;
+    $this->PremiumOnly = $Data['is_premium'] ?? false;
     $this->Model = new TgGiftUniqueModel($Data['model']);
     $this->Symbol = new TgGiftUniqueSymbol($Data['symbol']);
     $this->Backdrop = new TgGiftUniqueBackdrop($Data['backdrop']);

@@ -7,7 +7,7 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 /**
  * This object represents a gift that can be sent by the bot.
  * @link https://core.telegram.org/bots/api#gift
- * @version 2025.08.15.00
+ * @version 2026.02.09.00
  */
 final readonly class TgGift{
   /**
@@ -38,6 +38,18 @@ final readonly class TgGift{
    * Information about the chat that published the gift
    */
   public TgChat|null $Chat;
+  /**
+   * The total number of gifts of this type that can be sent by the bot; for limited gifts only
+   */
+  public int|null $BotCount;
+  /**
+   * The number of remaining gifts of this type that can be sent by the bot; for limited gifts only
+   */
+  public int|null $BotRemaining;
+  /**
+   * If the gift can only be purchased by Telegram Premium subscribers
+   */
+  public bool $PremiumOnly;
 
   public function __construct(
     array $Data
@@ -48,6 +60,9 @@ final readonly class TgGift{
     $this->Count = $Data['total_count'] ?? null;
     $this->Remaining = $Data['remaining_count'] ?? null;
     $this->Upgrade = $Data['upgrade_star_count'] ?? null;
+    $this->BotCount = $Data['personal_total_count'] ?? null;
+    $this->BotRemaining = $Data['personal_remaining_count'] ?? null;
+    $this->PremiumOnly = $Data['is_premium'] ?? null;
     if($Data['publisher_chat'] !== null):
       $this->Chat = new TgChat($Data['publisher_chat']);
     else:

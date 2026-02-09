@@ -34,7 +34,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2026.02.09.00
+ * @version 2026.02.09.01
  */
 trait TblBusinessTrait{
   /**
@@ -308,6 +308,7 @@ trait TblBusinessTrait{
     bool $ExcludeLimitedUpgradable = false,
     bool $ExcludeLimitedNonUpgradable = false,
     bool $ExcludeUnique = false,
+    bool $ExcludeBlockchain = false,
     bool $SortByPrice = false,
     string|null $Offset = null,
     int $Limit = 100,
@@ -330,6 +331,9 @@ trait TblBusinessTrait{
     endif;
     if($ExcludeUnique):
       $param['exclude_unique'] = true;
+    endif;
+    if($ExcludeBlockchain):
+      $param['exclude_from_blockchain'] = true;
     endif;
     if($SortByPrice):
       $param['sort_by_price'] = true;

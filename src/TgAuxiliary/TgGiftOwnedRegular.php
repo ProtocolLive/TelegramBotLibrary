@@ -11,7 +11,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 /**
  * Describes a regular gift owned by a user or a chat.
  * @link https://core.telegram.org/bots/api#ownedgiftregular
- * @version 2025.07.03.01
+ * @version 2026.02.09.00
  */
 final readonly class TgGiftOwnedRegular{
   /**
@@ -63,6 +63,10 @@ final readonly class TgGiftOwnedRegular{
    * Number of Telegram Stars that were paid by the sender for the ability to upgrade the gift
    */
   public int|null $PrepaidStars;
+  /**
+   * If the gift's upgrade was purchased after the gift was sent
+   */
+  public bool $UpgradeSeparate;
 
   public function __construct(
     array $Data
@@ -82,6 +86,7 @@ final readonly class TgGiftOwnedRegular{
     $this->Refunded = $Data['was_refunded'] ?? false;
     $this->StarCount = $Data['convert_star_count'] ?? null;
     $this->PrepaidStars = $Data['prepaid_upgrade_star_count'] ?? null;
+    $this->UpgradeSeparate = $Data['is_upgrade_separate'] ?? null;
     
     foreach($Data['entities'] ?? [] as &$entity):
       $entity = new TgEntity($entity);
