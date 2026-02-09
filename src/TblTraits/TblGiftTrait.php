@@ -18,7 +18,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 };
 
 /**
- * @version 2026.02.09.00
+ * @version 2026.02.09.01
  */
 trait TblGiftTrait{
   /**
@@ -165,5 +165,68 @@ trait TblGiftTrait{
       $param['limit'] = $Limit;
     endif;
     return new TgGiftsOwned($this->ServerMethod(TgMethods::GiftUserGet, $param));
+  }
+
+  /**
+   * Returns the gifts owned by a chat.
+   * @param int $Chat Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * @param bool $ExcludeUnsaved Pass True to exclude gifts that aren't saved to the chat's profile page. Always True, unless the bot has the can_post_messages administrator right in the channel.
+   * @param bool $ExcludeSaved Pass True to exclude gifts that are saved to the chat's profile page. Always False, unless the bot has the can_post_messages administrator right in the channel.
+   * @param bool $ExcludeUnlimited Pass True to exclude gifts that can be purchased an unlimited number of times
+   * @param bool $ExcludeLimitedUpgradable Pass True to exclude gifts that can be purchased a limited number of times and can be upgraded to unique
+   * @param bool $ExcludeLimitedNonUpgradable Pass True to exclude gifts that can be purchased a limited number of times and can't be upgraded to unique
+   * @param bool $ExcludeBlockchain Pass True to exclude gifts that were assigned from the TON blockchain and can't be resold or transferred in Telegram
+   * @param bool $ExcludeUnique Pass True to exclude unique gifts
+   * @param bool $SortByPrice Pass True to sort results by gift price instead of send date. Sorting is applied before pagination.
+   * @param string $Offset Offset of the first entry to return as received from the previous request; use an empty string to get the first chunk of results
+   * @param int $Limit The maximum number of gifts to be returned; 1-100. Defaults to 100
+   * @return TgGiftsOwned OwnedGifts on success.
+   * @link https://core.telegram.org/bots/api#getchatgifts
+   */
+  public function GiftChatGet(
+    int|string $Chat,
+    bool $ExcludeUnsaved = false,
+    bool $ExcludeSaved = false,
+    bool $ExcludeUnlimited = false,
+    bool $ExcludeLimitedUpgradable = false,
+    bool $ExcludeLimitedNonUpgradable = false,
+    bool $ExcludeBlockchain = false,
+    bool $ExcludeUnique = false,
+    bool $SortByPrice = false,
+    string|null $Offset = null,
+    int|null $Limit = null
+  ):TgGiftsOwned{
+    $param['chat_id'] = $Chat;
+    if($ExcludeUnsaved):
+      $param['exclude_unsaved'] = true;
+    endif;
+    if($ExcludeSaved):
+      $param['exclude_saved'] = true;
+    endif;
+    if($ExcludeUnlimited):
+      $param['exclude_unlimited'] = true;
+    endif;
+    if($ExcludeLimitedUpgradable):
+      $param['exclude_limited_upgradable'] = true;
+    endif;
+    if($ExcludeLimitedNonUpgradable):
+      $param['exclude_limited_non_upgradable'] = true;
+    endif;
+    if($ExcludeBlockchain):
+      $param['exclude_from_blockchain'] = true;
+    endif;
+    if($ExcludeUnique):
+      $param['exclude_unique'] = true;
+    endif;
+    if($SortByPrice):
+      $param['sort_by_price'] = true;
+    endif;
+    if(empty($Offset) === false):
+      $param['offset'] = $Offset;
+    endif;
+    if($Limit !== null):
+      $param['limit'] = $Limit;
+    endif;
+    return new TgGiftsOwned($this->ServerMethod(TgMethods::GiftChatGet, $param));
   }
 }
