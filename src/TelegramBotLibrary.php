@@ -65,7 +65,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2026.02.09.00
+ * @version 2026.02.09.01
  */
 final class TelegramBotLibrary
 extends TblBasics{
@@ -491,6 +491,7 @@ extends TblBasics{
    * @param int $VideoStart New start timestamp for the copied video in the message
    * @param int $DirectTopic Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
    * @param TgSuggestedPostParameters $SuggestedPost A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
+   * @param string $Effect Unique identifier of the message effect to be added to the message; only available when forwarding to private chats
    * @return int Returns the MessageId of the sent message on success.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#copymessage
@@ -509,6 +510,7 @@ extends TblBasics{
     bool $DisableNotification = false,
     bool $Protect = false,
     bool $AllowPaid = false,
+    string|null $Effect = null,
     TgSuggestedPostParameters|null $SuggestedPost = null,
     TgReplyParams|null $Reply = null,
     TblMarkup|null $Markup = null
@@ -556,6 +558,9 @@ extends TblBasics{
     if($SuggestedPost !== null):
       $param['suggested_post_parameters'] = $SuggestedPost->ToArray();
     endif;
+    if(empty($Effect) === false):
+      $param['message_effect_id'] = $Effect;
+    endif;
     $return = $this->ServerMethod(TgMethods::MessageCopy, $param);
     return $return['message_id'];
   }
@@ -596,7 +601,8 @@ extends TblBasics{
    * @param int $VideoStart New start timestamp for the forwarded video in the message
    * @param int $DirectTopic Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
    * @param TgSuggestedPostParameters $SuggestedPost A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
-   * @return object On success, the sent Message is returned.
+   * @param string $Effect Unique identifier of the message effect to be added to the message; only available when forwarding to private chats
+   * @return TgMessageInterface On success, the sent Message is returned.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#forwardmessage
    */
@@ -607,6 +613,7 @@ extends TblBasics{
     int $VideoStart = 0,
     int|null $Thread = null,
     int|null $DirectTopic = null,
+    string|null $Effect = null,
     bool $DisableNotification = false,
     bool $Protect = false,
     TgSuggestedPostParameters|null $SuggestedPost = null
@@ -631,6 +638,9 @@ extends TblBasics{
     endif;
     if($SuggestedPost !== null):
       $param['suggested_post_parameters'] = $SuggestedPost->ToArray();
+    endif;
+    if(empty($Effect) === false):
+      $param['message_effect_id'] = $Effect;
     endif;
     $return = $this->ServerMethod(TgMethods::MessageForward, $param);
     return parent::DetectUpdate(['message' => $return]);
