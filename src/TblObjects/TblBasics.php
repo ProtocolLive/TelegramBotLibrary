@@ -24,6 +24,8 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgChatBoostRemoved,
   TgChatMigrateFrom,
   TgChatMigrateTo,
+  TgChatOwnerChanged,
+  TgChatOwnerLeft,
   TgChatRequest,
   TgChatShared,
   TgChecklist,
@@ -108,7 +110,7 @@ use ProtocolLive\TelegramBotLibrary\TgService\{
 };
 
 /**
- * @version 2026.02.09.00
+ * @version 2026.02.10.00
  */
 abstract class TblBasics{
   protected TblData $BotData;
@@ -253,6 +255,10 @@ abstract class TblBasics{
       return new TgChatMigrateFrom($Data);
     elseif(isset($Data['migrate_to_chat_id'])):
       return new TgChatMigrateTo($Data);
+    elseif(isset($Data['chat_owner_changed'])):
+      return new TgChatOwnerChanged($Data);
+    elseif(isset($Data['chat_owner_left'])):
+      return new TgChatOwnerLeft($Data);
     elseif(isset($Data['new_chat_member'])):
       return new TgMemberNew($Data);
     elseif(isset($Data['new_chat_photo'])):
