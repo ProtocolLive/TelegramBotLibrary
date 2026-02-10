@@ -34,7 +34,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2026.02.09.02
+ * @version 2026.02.10.00
  */
 trait TblBusinessTrait{
   /**
@@ -453,7 +453,7 @@ trait TblBusinessTrait{
    * @param string $BusinessId Unique identifier of the business connection
    * @param string $Photo The new profile photo to set
    * @param bool $Public Pass True to set the public photo, which will be visible even if the main photo is hidden by the business account's privacy settings. An account can have only one public photo.
-   * @param bool $Animated A static profile photo in the .JPG format or an animated profile photo in the MPEG4 format.
+   * @param bool $Animated If photo are static (JPS/PNG) or animated (MPEG4)
    * @param int $Static Timestamp in seconds of the frame that will be used as the static profile photo. Defaults to 0.0.
    * @return true
    * @link https://core.telegram.org/bots/api#inputprofilephoto
