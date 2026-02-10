@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TgEnums;
 
 /**
- * @version 2026.02.09.02
+ * @version 2026.02.10.00
  */
 enum TgMethods:string{
   /**
@@ -456,6 +456,14 @@ enum TgMethods:string{
    * @link https://core.telegram.org/bots/api#getme
    */
   case MyGet = 'getMe';
+  /**
+   * @link https://core.telegram.org/bots/api#removemyprofilephoto
+   */
+  case MyPhotoDel = 'removeMyProfilePhoto';
+  /**
+   * @link https://core.telegram.org/bots/api#setmyprofilephoto
+   */
+  case MyPhotoSet = 'setMyProfilePhoto';
   /**
    * @link https://core.telegram.org/bots/api#getmyname
    */

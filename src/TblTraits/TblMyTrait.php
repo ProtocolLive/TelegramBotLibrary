@@ -3,6 +3,7 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TblTraits;
+use CURLFile;
 use ProtocolLive\TelegramBotLibrary\TblObjects\{
   TblCommands,
   TblDefaultPerms,
@@ -22,7 +23,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 };
 
 /**
- * @version 2025.07.04.00
+ * @version 2026.02.10.00
  */
 trait TblMyTrait{
   /**
@@ -357,5 +358,42 @@ trait TblMyTrait{
       $param['for_channels'] = true;
     endif;
     return $this->ServerMethod(TgMethods::MyDefaultPermAdmSet, $param);
+  }
+
+  /**
+   * Removes the profile photo of the bot. Requires no parameters.
+   * @return true Returns True on success.
+   * @link https://core.telegram.org/bots/api#removemyprofilephoto
+   */
+  public function MyPhotoDel():true{
+    return $this->ServerMethod(TgMethods::MyPhotoDel);
+  }
+
+  /**
+   * Changes the profile photo of the bot.
+   * @param string $Photo The new profile photo to set
+   * @param bool $Animated If photo are static (JPS/PNG) or animated (MPEG4)
+   * @param int $Static Timestamp in seconds of the frame that will be used as the static profile photo. Defaults to 0.0.
+   * @return true Returns True on success.
+   * @link https://core.telegram.org/bots/api#setmyprofilephoto
+   */
+  public function MyPhotoSet(
+    string $Photo,
+    bool $Animated = false,
+    int $Static = 0
+  ):true{
+    if($Animated):
+      $param['photo'] = [
+        'type' => 'animated',
+        'animation' => new CURLFile($Photo),
+        'main_frame_timestamp' => $Static
+      ];
+    else:
+      $param['photo'] = [
+        'type' => 'static',
+        'photo' => new CURLFile($Photo)
+      ];
+    endif;
+    return $this->ServerMethod(TgMethods::MyPhotoSet, $param, false);
   }
 }
