@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TgEnums;
 
 /**
- * @version 2026.02.09.01
+ * @version 2026.02.09.02
  */
 enum TgMethods:string{
   /**
@@ -96,6 +96,10 @@ enum TgMethods:string{
    * @link https://core.telegram.org/bots/api#poststory
    */
   case BusinessStoryPost = 'postStory';
+  /**
+   * @link https://core.telegram.org/bots/api#repoststory
+   */
+  case BusinessStoryRepost = 'repostStory';
   /**
    * @link https://core.telegram.org/bots/api#answercallbackquery
    */
