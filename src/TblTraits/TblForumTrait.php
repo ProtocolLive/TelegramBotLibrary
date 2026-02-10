@@ -3,15 +3,17 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TblTraits;
+use ProtocolLive\TelegramBotLibrary\TblEnums\TblError;
 use ProtocolLive\TelegramBotLibrary\TblObjects\TblException;
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgMethods;
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgForumTopic,
+  TgLimits,
   TgSticker
 };
 
 /**
- * @version 2026.01.05.00
+ * @version 2026.02.10.00
  */
 trait TblForumTrait{
   /**
@@ -32,27 +34,35 @@ trait TblForumTrait{
   }
 
   /**
-   * Use this method to create a topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights.
-   * @param int $Chat Unique identifier for the target chat
+   * Use this method to create a topic in a forum supergroup chat or a private chat with a user. In the case of a supergroup chat the bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator right.
+   * @param int|string $Chat Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
    * @param string $Name Topic name, 1-128 characters
-   * @param string $Color Color of the topic icon in RGB format. Currently, must be one of 0x6FB9F0, 0xFFD67E, 0xCB86DB, 0x8EEE98, 0xFF93B2, or 0xFB6F5F
+   * @param string $Color Color of the topic icon in RGB format. Currently, must be one of 7322096 (0x6FB9F0), 16766590 (0xFFD67E), 13338331 (0xCB86DB), 9367192 (0x8EEE98), 16749490 (0xFF93B2), or 16478047 (0xFB6F5F)
    * @param string $Emoji Unique identifier of the custom emoji shown as the topic icon. Use getForumTopicIconStickers to get all allowed custom emoji identifiers.
    * @return TgForumTopic Returns information about the created topic as a ForumTopic object.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#createforumtopic
    */
   public function ForumCreate(
-    int $Chat,
+    int|string $Chat,
     string $Name,
     string|null $Color = null,
     string|null $Emoji = null
   ):TgForumTopic{
+    if(empty($Chat)
+    or $Chat < 0):
+      throw new TblException(TblError::ChatEmpty, 'Chat is invalid');
+    endif;
+    if(empty($Name)
+    or mb_strlen($Name) > TgLimits::ForumName):
+      throw new TblException(TblError::LimitText, 'Name is too long');
+    endif;
     $param['chat_id'] = $Chat;
     $param['name'] = $Name;
-    if($Color !== null):
+    if(empty($Color) === false):
       $param['icon_color'] = $Color;
     endif;
-    if($Emoji !== null):
+    if(empty($Emoji) === false):
       $param['icon_custom_emoji_id'] = $Emoji;
     endif;
     $return = $this->ServerMethod(TgMethods::ForumCreate, $param);

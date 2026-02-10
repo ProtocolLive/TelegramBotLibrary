@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
- * @version 2025.07.04.02
+ * @version 2026.02.10.00
  */
 final class TgLimits{
   /**
@@ -49,6 +49,10 @@ final class TgLimits{
    * @link https://core.telegram.org/bots/api#setmyshortdescription
    */
   public const int DescriptionShort = 120;
+  /**
+   * @link https://core.telegram.org/bots/api#createforumtopic
+   */
+  public const int ForumName = 128;
   /**
    * @link https://core.telegram.org/bots/api#createchatsubscriptioninvitelink
    */

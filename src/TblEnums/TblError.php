@@ -5,9 +5,10 @@
 namespace ProtocolLive\TelegramBotLibrary\TblEnums;
 
 /**
- * @version 2025.07.04.00
+ * @version 2026.02.10.00
  */
 enum TblError{
+  case ChatEmpty;
   case Curl;
   case Custom;
   case ExtensionCurl;
@@ -25,6 +26,10 @@ enum TblError{
    * @link https://core.telegram.org/bots/api#inlinekeyboardbutton
    */
   case LimitCallbackData;
+  /**
+   * @link https://core.telegram.org/bots/api#createforumtopic
+   */
+  case LimitName;
   /**
    * @link https://core.telegram.org/bots/api#sendmessage
    */
