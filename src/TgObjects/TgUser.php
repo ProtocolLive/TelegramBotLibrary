@@ -3,10 +3,11 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
+use ProtocolLive\TelegramBotLibrary\TgAuxiliary\TgUserRating;
 
 /**
  * @link https://core.telegram.org/bots/api#user
- * @version 2026.01.01.00
+ * @version 2026.02.09.00
  */
 final readonly class TgUser{
   /**
@@ -86,6 +87,10 @@ final readonly class TgUser{
    * If the bot has forum topic mode enabled in private chats. Returned only in getMe.
    */
   public bool|null $Topics;
+  /**
+   * For private chats, the rating of the user if any
+   */
+  public TgUserRating|null $Rating;
 
   /**
    * @link https://core.telegram.org/bots/api#user
@@ -106,6 +111,7 @@ final readonly class TgUser{
     $this->Premium = $Data['is_premium'] ?? null;
     $this->Nicks = $Data['active_usernames'] ?? null;
     $this->AutoDel = $Data['message_auto_delete_time'] ?? 0;
+    $this->Topics = $Data['has_topics_enabled'] ?? false;
     if(isset($Data['photo'])):
       $this->Photo = new TgChatPhoto($Data['photo']);
     else:
@@ -131,10 +137,10 @@ final readonly class TgUser{
     else:
       $this->Channel = null;
     endif;
-    if(isset($Data['has_topics_enabled'])):
-      $this->Topics = $Data['has_topics_enabled'];
+    if(isset($Data['rating'])):
+      $this->Rating = new TgUserRating($Data['rating']);
     else:
-      $this->Topics = false;
+      $this->Rating = null;
     endif;
     if(isset($Data['birthdate'])):
       if(isset($Data['birthdate']['year'])):

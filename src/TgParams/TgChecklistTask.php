@@ -13,6 +13,7 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\{
   TgParseMode
 };
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
+  TgChat,
   TgLimits,
   TgUser
 };
@@ -21,20 +22,13 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
  * Describes a task in a checklist.
  * @link https://core.telegram.org/bots/api#checklisttask
  * @link https://core.telegram.org/bots/api#inputchecklisttask
- * @version 2025.07.04.01
+ * @version 2026.02.09.00
  */
 final class TgChecklistTask{
   /**
-   * @property int $Id Unique identifier of the task
-   * @property string $Text Text of the task
-   * @property TgParseMode $ParseMode Mode for parsing entities in the text. See formatting options for more details. Used in method ChecklistSend
-   * @property TgEntity[]|TblEntities Special entities that appear in the task text. TblEntities in case of use the method ChecklistSend
-   */
-
-  /**
-   * User that completed the task; omitted if the task wasn't completed
+   * User or chat that completed the task; omitted if the task wasn't completed
   */
-  public TgUser|null $CompleteUser;
+  public TgUser|TgChat|null $CompletedBy;
   /**
    * Point in time (Unix timestamp) when the task was completed; 0 if the task wasn't completed
   */
@@ -66,9 +60,11 @@ final class TgChecklistTask{
     $this->Id = $Data['id'];
     $this->Text = $Data['text'];
     if(isset($Data['completed_by_user'])):
-      $this->CompleteUser = new TgUser($Data['completed_by_user']);
+      $this->CompletedBy = new TgUser($Data['completed_by_user']);
+    elseif(isset($Data['completed_by_chat'])):
+      $this->CompletedBy = new TgChat($Data['completed_by_chat']);
     else:
-      $this->CompleteUser = null;
+      $this->CompletedBy = null;
     endif;
     $this->CompletedDate = $Data['completed_date'] ?? null;
 

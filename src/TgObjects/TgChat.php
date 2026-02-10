@@ -5,13 +5,14 @@
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 use ProtocolLive\TelegramBotLibrary\TblObjects\TblBasics;
 use ProtocolLive\TelegramBotLibrary\TgAuxiliary\TgGiftAcceptedTypes;
+use ProtocolLive\TelegramBotLibrary\TgAuxiliary\TgGiftUniqueColors;
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgChatType;
 use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgMessageInterface;
 
 /**
  * @link https://core.telegram.org/bots/api#chat
  * @link https://core.telegram.org/bots/api#chatfullinfo
- * @version 2025.12.08.00
+ * @version 2026.02.09.00
  */
 final readonly class TgChat{
   /**
@@ -145,6 +146,14 @@ final readonly class TgChat{
    * Information about the corresponding channel chat; for direct messages chats only
    */
   public TgChat|null $DirectParent;
+  /**
+   * The number of Telegram Stars a general user have to pay to send a message to the chat
+   */
+  public int|null $MessagePrice;
+  /**
+   * The color scheme based on a unique gift that must be used for the chat's name, message replies and link previews
+   */
+  public TgGiftUniqueColors|null $GiftColor;
 
   public function __construct(
     array $Data
@@ -168,7 +177,14 @@ final readonly class TgChat{
     $this->Color = $Data['accent_color_id'] ?? null;
     $this->EmojiBackground = $Data['background_custom_emoji_id'] ?? null;
     $this->ColorBackground = $Data['profile_accent_color_id'] ?? null;
+    $this->MessagePrice = $Data['paid_message_star_count'] ?? null;
     $this->History = $Data['has_visible_history'] ?? $this->Type === TgChatType::Channel ? null : false;
+    $this->BoostCountUnrestrict = $Data['unrestrict_boost_count'] ?? 0;
+    $this->EmojiSet = $Data['custom_emoji_sticker_set_name'] ?? null;
+    $this->StickerSet = $Data['sticker_set_name'] ?? null;
+    $this->SetStickerSet = $Data['can_set_sticker_set'] ?? false;
+    $this->PaidMedia = $Data['can_send_paid_media'] ?? false;
+    $this->DirectMessages = $Data['is_direct_messages'] ?? false;
     if(isset($Data['permissions'])):
       $this->Permissions = new TgPermMember($Data['permissions']);
     else:
@@ -189,16 +205,15 @@ final readonly class TgChat{
     else:
       $this->DirectParent = null;
     endif;
-    $this->BoostCountUnrestrict = $Data['unrestrict_boost_count'] ?? 0;
-    $this->EmojiSet = $Data['custom_emoji_sticker_set_name'] ?? null;
-    $this->StickerSet = $Data['sticker_set_name'] ?? null;
-    $this->SetStickerSet = $Data['can_set_sticker_set'] ?? false;
-    $this->PaidMedia = $Data['can_send_paid_media'] ?? false;
-    $this->DirectMessages = $Data['is_direct_messages'] ?? false;
     if(isset($Data['accepted_gift_types'])):
       $this->Gifts = new TgGiftAcceptedTypes($Data['accepted_gift_types']);
     else:
       $this->Gifts = null;
+    endif;
+    if(isset($Data['unique_gift_colors'])):
+      $this->GiftColor = new TgGiftUniqueColors($Data['unique_gift_colors']);
+    else:
+      $this->GiftColor = null;
     endif;
 
     foreach($Data['available_reactions'] ?? [] as &$reaction):
