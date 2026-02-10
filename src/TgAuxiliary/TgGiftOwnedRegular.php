@@ -11,7 +11,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 /**
  * Describes a regular gift owned by a user or a chat.
  * @link https://core.telegram.org/bots/api#ownedgiftregular
- * @version 2026.02.09.00
+ * @version 2026.02.09.01
  */
 final readonly class TgGiftOwnedRegular{
   /**
@@ -67,6 +67,10 @@ final readonly class TgGiftOwnedRegular{
    * If the gift's upgrade was purchased after the gift was sent
    */
   public bool $UpgradeSeparate;
+  /**
+   * Unique number reserved for this gift when upgraded. See the number field in UniqueGift
+   */
+  public int|null $UniqueNumber;
 
   public function __construct(
     array $Data
@@ -87,7 +91,8 @@ final readonly class TgGiftOwnedRegular{
     $this->StarCount = $Data['convert_star_count'] ?? null;
     $this->PrepaidStars = $Data['prepaid_upgrade_star_count'] ?? null;
     $this->UpgradeSeparate = $Data['is_upgrade_separate'] ?? null;
-    
+    $this->UniqueNumber = $Data['unique_gift_number'] ?? null;
+
     foreach($Data['entities'] ?? [] as &$entity):
       $entity = new TgEntity($entity);
     endforeach;

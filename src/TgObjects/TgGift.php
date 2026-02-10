@@ -3,11 +3,12 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
+use ProtocolLive\TelegramBotLibrary\TgAuxiliary\TgGiftBackground;
 
 /**
  * This object represents a gift that can be sent by the bot.
  * @link https://core.telegram.org/bots/api#gift
- * @version 2026.02.09.00
+ * @version 2026.02.09.01
  */
 final readonly class TgGift{
   /**
@@ -50,6 +51,18 @@ final readonly class TgGift{
    * If the gift can only be purchased by Telegram Premium subscribers
    */
   public bool $PremiumOnly;
+  /**
+   * If the gift can be used (after being upgraded) to customize a user's appearance
+   */
+  public bool $Colors;
+  /**
+   * Background of the gift
+   */
+  public TgGiftBackground|null $Background;
+  /**
+   * The total number of different unique gifts that can be obtained by upgrading the gift
+   */
+  public int|null $VariantCount;
 
   public function __construct(
     array $Data
@@ -63,10 +76,17 @@ final readonly class TgGift{
     $this->BotCount = $Data['personal_total_count'] ?? null;
     $this->BotRemaining = $Data['personal_remaining_count'] ?? null;
     $this->PremiumOnly = $Data['is_premium'] ?? null;
-    if($Data['publisher_chat'] !== null):
+    $this->VariantCount = $Data['unique_gift_variant_count'] ?? null;
+    $this->Colors = $Data['has_colors'] ?? false;
+    if(isset($Data['publisher_chat'])):
       $this->Chat = new TgChat($Data['publisher_chat']);
     else:
       $this->Chat = null;
+    endif;
+    if(isset($Data['background'])):
+      $this->Background = new TgGiftBackground($Data['background']);
+    else:
+      $this->Background = null;
     endif;
   }
 }

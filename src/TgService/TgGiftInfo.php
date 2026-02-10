@@ -13,7 +13,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\TgGift;
 /**
  * Describes a service message about a regular gift that was sent or received.
  * @link https://core.telegram.org/bots/api#giftinfo
- * @version 2026.02.09.00
+ * @version 2026.02.09.01
  */
 final readonly class TgGiftInfo
 implements TgEventInterface,
@@ -55,6 +55,10 @@ TgServiceInterface{
    * If the gift's upgrade was purchased after the gift was sent
    */
   public bool $UpgradeSeparate;
+  /**
+   * Unique number reserved for this gift when upgraded. See the number field in UniqueGift
+   */
+  public int|null $UniqueNumber;
 
   public function __construct(
     array $Data
@@ -67,6 +71,7 @@ TgServiceInterface{
     $this->Message = $Data['text'] ?? null;
     $this->Private = $Data['is_private'] ?? false;
     $this->UpgradeSeparate = $Data['is_upgrade_separate'] ?? false;
+    $this->UniqueNumber = $Data['unique_gift_number'] ?? null;
 
     foreach($Data['entities'] ?? [] as &$entity):
       $entity = new TgEntity($entity);
