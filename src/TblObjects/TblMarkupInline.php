@@ -8,7 +8,7 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\TgInlineKeyboardStyle;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgLimits;
 
 /**
- * @version 2026.02.10.00
+ * @version 2026.02.16.00
  */
 class TblMarkupInline
 extends TblMarkup{
@@ -92,6 +92,7 @@ extends TblMarkup{
    * @param string $Data Data to be sent in a callback query to the bot when button is pressed, 1-64 bytes
    * @param string|null $Emoji Unique identifier of the custom emoji shown before the text of the button. Can only be used by bots that purchased additional usernames on Fragment or in the messages directly sent by the bot to private, group and supergroup chats if the owner of the bot has a Telegram Premium subscription.
    * @param TgInlineKeyboardStyle $Style Style of the button. Must be one of “danger” (red), “success” (green) or “primary” (blue). If omitted, then an app-specific style is used.
+   * @throws TblException
    * @link https://core.telegram.org/bots/api#inlinekeyboardbutton
    */
   public function ButtonCallback(
@@ -101,7 +102,7 @@ extends TblMarkup{
     string $Data,
     string|null $Emoji = null,
     TgInlineKeyboardStyle|null $Style = null
-  ):bool{
+  ):void{
     if(strlen($Data) > TgLimits::CallbackData):
       throw new TblException(
         TblError::LimitCallbackData,
@@ -116,7 +117,7 @@ extends TblMarkup{
     if(empty($Style) === false):
       $this->Pointer[$Line][$Column]['style'] = $Style->value;
     endif;
-    return true;
+    ksort($this->Pointer);
   }
 
   /**
