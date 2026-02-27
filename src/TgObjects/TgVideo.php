@@ -5,7 +5,8 @@
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 use ProtocolLive\TelegramBotLibrary\TgAuxiliary\{
   TgMessageData,
-  TgPhotoSize
+  TgPhotoSize,
+  TgVideoQuality
 };
 use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
   TgEventInterface,
@@ -15,7 +16,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 
 /**
  * @link https://core.telegram.org/bots/api#video
- * @version 2025.07.04.00
+ * @version 2026.02.27.00
  */
 readonly class TgVideo
 extends TgCaptionable
@@ -67,6 +68,10 @@ TgMessageInterface{
    * Timestamp in seconds from which the video will play in the message
    */
   public int $Start;
+  /**
+   * List of available qualities of the video
+   */
+  public array $Qualities;
 
   public function __construct(
     array $Data
@@ -96,5 +101,10 @@ TgMessageInterface{
       $cover = new TgPhotoSize($cover);
     endforeach;
     $this->Cover = $Data['video']['cover'] ?? [];
+
+    foreach($Data['video']['qualities'] ?? [] as &$quality):
+      $quality = new TgVideoQuality($quality);
+    endforeach;
+    $this->Qualities = $Data['video']['qualities'] ?? [];
   }
 }
