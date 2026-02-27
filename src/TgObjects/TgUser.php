@@ -7,7 +7,7 @@ use ProtocolLive\TelegramBotLibrary\TgAuxiliary\TgUserRating;
 
 /**
  * @link https://core.telegram.org/bots/api#user
- * @version 2026.02.09.00
+ * @version 2026.02.27.00
  */
 final readonly class TgUser{
   /**
@@ -91,6 +91,10 @@ final readonly class TgUser{
    * For private chats, the rating of the user if any
    */
   public TgUserRating|null $Rating;
+  /**
+   * For private chats, the first audio added to the profile of the user
+   */
+  public TgAudio|null $Audio;
 
   /**
    * @link https://core.telegram.org/bots/api#user
@@ -141,6 +145,11 @@ final readonly class TgUser{
       $this->Rating = new TgUserRating($Data['rating']);
     else:
       $this->Rating = null;
+    endif;
+    if(isset($Data['first_profile_audio'])):
+      $this->Audio = new TgAudio($Data['first_profile_audio']);
+    else:
+      $this->Audio = null;
     endif;
     if(isset($Data['birthdate'])):
       if(isset($Data['birthdate']['year'])):
