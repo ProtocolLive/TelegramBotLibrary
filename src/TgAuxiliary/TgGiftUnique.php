@@ -9,7 +9,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\TgChat;
 /**
  * This object describes a unique gift that was upgraded from a regular gift.
  * @link https://core.telegram.org/bots/api#uniquegift
- * @version 2026.02.09.02
+ * @version 2026.02.27.00
  */
 final readonly class TgGiftUnique{
   /**
@@ -56,6 +56,10 @@ final readonly class TgGiftUnique{
    * The color scheme that can be used by the gift's owner for the chat's name, replies to messages and link previews; for business account gifts and gifts that are currently on sale only
    */
   public TgGiftUniqueColors|null $Colors;
+  /**
+   * If the gift was used to craft another gift and isn't available anymore
+   */
+  public bool $Burned;
 
   public function __construct(
     array $Data
@@ -66,6 +70,7 @@ final readonly class TgGiftUnique{
     $this->Number = $Data['number'];
     $this->FromBlockchain = $Data['is_from_blockchain'] ?? false;
     $this->PremiumOnly = $Data['is_premium'] ?? false;
+    $this->Burned = $Data['is_burned'] ?? false;
     $this->Model = new TgGiftUniqueModel($Data['model']);
     $this->Symbol = new TgGiftUniqueSymbol($Data['symbol']);
     $this->Backdrop = new TgGiftUniqueBackdrop($Data['backdrop']);
