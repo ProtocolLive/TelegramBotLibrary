@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TgEnums;
 
 /**
- * @version 2026.02.10.00
+ * @version 2026.02.27.00
  */
 enum TgMethods:string{
   /**
@@ -492,6 +492,10 @@ enum TgMethods:string{
    * @link https://core.telegram.org/bots/api#savepreparedinlinemessage
    */
   case PreparedInlineMessageSave = 'savePreparedInlineMessage';
+  /**
+   * @link https://core.telegram.org/bots/api#getuserprofileaudios
+   */
+  case ProfileAudioGet = 'getUserProfileAudios';
   /**
    * @link https://core.telegram.org/bots/api#getmystarbalance
    */

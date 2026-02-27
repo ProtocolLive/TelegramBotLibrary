@@ -4,13 +4,38 @@
 
 namespace ProtocolLive\TelegramBotLibrary\TblTraits;
 use ProtocolLive\TelegramBotLibrary\TblObjects\TblException;
+use ProtocolLive\TelegramBotLibrary\TgAuxiliary\TgUserProfileAudios;
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgMethods;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgProfilePhoto;
 
 /**
- * @version 2024.11.23.00
+ * @version 2026.02.27.00
  */
 trait TblUserTrait{
+  /**
+   * Use this method to get a list of profile audios for a user. 
+   * @param int $User Unique identifier of the target user
+   * @param int|null $Offset Sequential number of the first audio to be returned. By default, all audios are returned.
+   * @param int|null $Limit Limits the number of audios to be retrieved. Values between 1-100 are accepted. Defaults to 100.
+   * @return TgUserProfileAudios Returns a UserProfileAudios object.
+   * @link https://core.telegram.org/bots/api#getuserprofileaudios
+   */
+  public function ProfileAudioGet(
+    int $User,
+    int|null $Offset = null,
+    int|null $Limit = 100
+  ):TgUserProfileAudios{
+    $param['user_id'] = $User;
+    if($Offset > 0):
+      $param['offset'] = $Offset;
+    endif;
+    if($Limit > 0 and $Limit < 100):
+      $param['limit'] = $Limit;
+    endif;
+    $return = $this->ServerMethod(TgMethods::ProfileAudioGet, $param);
+    return new TgUserProfileAudios($return);
+  }
+
   /**
    * Use this method to get a list of profile pictures for a user.
    * @param int $User Unique identifier of the target user
