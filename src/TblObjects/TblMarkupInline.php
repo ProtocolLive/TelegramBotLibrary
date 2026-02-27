@@ -8,7 +8,7 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\TgInlineKeyboardStyle;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgLimits;
 
 /**
- * @version 2026.02.16.00
+ * @version 2026.02.27.00
  */
 class TblMarkupInline
 extends TblMarkup{
@@ -114,7 +114,7 @@ extends TblMarkup{
     if(empty($Emoji) === false):
       $this->Pointer[$Line][$Column]['icon_custom_emoji_id'] = $Emoji;
     endif;
-    if(empty($Style) === false):
+    if($Style !== null):
       $this->Pointer[$Line][$Column]['style'] = $Style->value;
     endif;
     ksort($this->Pointer);
