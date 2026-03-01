@@ -29,7 +29,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2026.01.05.00
+ * @version 2026.03.01.00
  */
 trait TblTextTrait{
   /**
@@ -101,15 +101,16 @@ trait TblTextTrait{
   }
 
   /**
-   * Use this method to stream a partial message to a user while the message is being generated; supported only for bots with forum topic mode enabled.
+   * Use this method to stream a partial message to a user while the message is being generated
    * @param int $Chat Unique identifier for the target private chat
    * @param int $DaftId Unique identifier of the message draft; must be non-zero. Changes of drafts with the same identifier are animated
    * @param string $Text Text of the message to be sent, 1-4096 characters after entities parsing
-   * @param int|null $Thread Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
+   * @param int|null $Thread Unique identifier for the target message thread
    * @param TgParseMode|null $ParseMode Mode for parsing entities in the message text. See formatting options for more details.
    * @param TblEntities|null $Entities A JSON-serialized list of special entities that appear in message text, which can be specified instead of parse_mode
    * @return true
    * @throws TblException
+   * @link https://core.telegram.org/bots/api#sendmessagedraft
    */
   public function DraftSend(
     int $Chat,
