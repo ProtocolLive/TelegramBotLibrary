@@ -6,7 +6,7 @@ namespace ProtocolLive\TelegramBotLibrary\TgEnums;
 
 /**
  * @link https://core.telegram.org/bots/api#chatmemberadministrator
- * @version 2025.08.17.00
+ * @version 2026.03.01.00
  */
 enum TgPermAdmin:string{
   /**
@@ -69,4 +69,8 @@ enum TgPermAdmin:string{
    * If the administrator can manage direct messages of the channel and decline suggested posts; for channels only
    */
   case Direct = 'can_manage_direct_messages';
+  /**
+   * If the administrator can edit the tags of regular members; for groups and supergroups only
+   */
+  case Tag = 'can_manage_tags';
 }

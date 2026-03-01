@@ -8,7 +8,7 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\TgPermAdmin as TgPermAdminEnum;
 /**
  * Represents a chat member that has some additional privileges.
  * @link https://core.telegram.org/bots/api#chatmemberadministrator
- * @version 2025.08.17.00
+ * @version 2026.03.01.00
  */
 final class TgPermAdmin{
   /**
@@ -28,6 +28,7 @@ final class TgPermAdmin{
    * @param bool $StoryEdit If the administrator can edit stories posted by other users, post stories to the chat page, pin chat stories, and access the chat's story archive
    * @param bool $StoryDelete If the administrator can edit stories posted by other users; channels only
    * @param bool $Direct If the administrator can manage direct messages of the channel and decline suggested posts; for channels only
+   * @param bool $Tag If the administrator can edit the tags of regular members; for groups and supergroups only. If omitted defaults to the value of can_pin_messages.
    * @link https://core.telegram.org/bots/api#chatmemberadministrator
    */
   public function __construct(
@@ -47,7 +48,8 @@ final class TgPermAdmin{
     public bool $StoryCreate = false,
     public bool $StoryEdit = false,
     public bool $StoryDelete = false,
-    public bool $Direct = false
+    public bool $Direct = false,
+    public bool $Tag = false
   ){
     if($Data === null):
       return;
