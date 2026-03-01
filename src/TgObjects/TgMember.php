@@ -8,7 +8,7 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\TgMemberStatus;
 /**
  * This object contains information about one member of a chat. Currently, the following 6 types of chat members are supported: ChatMemberOwner, ChatMemberAdministrator, ChatMemberMember, ChatMemberRestricted, ChatMemberLeft, ChatMemberBanned
  * @link https://core.telegram.org/bots/api#chatmember
- * @version 2024.08.21.00
+ * @version 2026.03.01.00
  */
 final readonly class TgMember{
   /**
@@ -50,6 +50,10 @@ final readonly class TgMember{
    * @link https://core.telegram.org/bots/api#chatmembermember
    */
   public int|null $SubscriptionExpires;
+  /**
+   * Tag of the member
+   */
+  public string|null $Tag;
 
   public function __construct(
     array $Data
@@ -68,6 +72,7 @@ final readonly class TgMember{
     endif;
     $this->Anonymous = $Data['is_anonymous'] ?? false;
     $this->Title = $Data['custom_title'] ?? null;
+    $this->Tag = $Data['tag'] ?? null;
     if($this->Status === TgMemberStatus::Restricted
     or $this->Status === TgMemberStatus::Banned):
       $this->Expires = $Data['until_date'] ?? null;
@@ -96,7 +101,8 @@ final readonly class TgMember{
         Topics: true,
         StoryCreate: true,
         StoryEdit: true,
-        StoryDelete: true
+        StoryDelete: true,
+        Direct: true
       );
       $this->MemberPerms = new TgPermMember(
         Data: null,
@@ -109,7 +115,6 @@ final readonly class TgMember{
         VideoNote: true,
         VoiceNote: true,
         Poll: true,
-        Media2: true,
         Preview: true,
         Info: true,
         Invite: true,
