@@ -33,7 +33,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 
 /**
  * @link https://core.telegram.org/bots/api#message
- * @version 2026.01.05.00
+ * @version 2026.03.01.00
  */
 final readonly class TgMessageData{
   /**
@@ -130,6 +130,10 @@ final readonly class TgMessageData{
    * Information about suggested post parameters if the message is a suggested post in a channel direct messages chat. If the message is an approved or declined suggested post, then it can't be edited.
    */
   public TgSuggestedPostInfo|null $SuggestedPost;
+  /**
+   * Tag or custom title of the sender of the message; for supergroups only
+   */
+  public string|null $Tag;
 
   public function __construct(
     array $Data
@@ -258,5 +262,6 @@ final readonly class TgMessageData{
     $this->PaidAmount = $Data['paid_star_count'] ?? null;
     $this->Checklist = $Data['reply_to_checklist_task_id'] ?? null;
     $this->Paid = $Data['is_paid_post'] ?? false;
+    $this->Tag = $Data['sender_tag'] ?? null;
   }
 }
