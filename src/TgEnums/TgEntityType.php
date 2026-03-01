@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TgEnums;
 
 /**
- * @version 2024.05.28.00
+ * @version 2026.03.01.00
  */
 enum TgEntityType:string{
   case Bold = 'bold';
@@ -39,4 +39,5 @@ enum TgEntityType:string{
   case Strike = 'strikethrough';
   case Underline = 'underline';
   case Url = 'url';
+  case DateTime = 'date_time';
 }
