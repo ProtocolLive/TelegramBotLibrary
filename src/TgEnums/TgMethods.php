@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TgEnums;
 
 /**
- * @version 2026.02.27.00
+ * @version 2026.03.01.00
  */
 enum TgMethods:string{
   /**
@@ -404,6 +404,10 @@ enum TgMethods:string{
    * @link https://core.telegram.org/bots/api#editmessagemedia
    */
   case MediaEdit = 'editMessageMedia';
+  /**
+   * @link https://core.telegram.org/bots/api#setchatmembertag
+   */
+  case MemberTagSet = 'setChatMemberTag';
   /**
    * @link https://core.telegram.org/bots/api#copymessage
    */

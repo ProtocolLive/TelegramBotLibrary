@@ -65,7 +65,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2026.02.09.01
+ * @version 2026.03.01.00
  */
 final class TelegramBotLibrary
 extends TblBasics{
@@ -471,6 +471,27 @@ extends TblBasics{
       $param['button']['start_parameter'] = $StartParam;
     endif;
     return $this->ServerMethod(TgMethods::InlineQueryAnswer, $param);
+  }
+
+  /**
+   * se this method to set a tag for a regular member in a group or a supergroup. The bot must be an administrator in the chat for this to work and must have the can_manage_tags administrator right.
+   * @param int|string $Chat Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+   * @param int $User Unique identifier of the target user
+   * @param string|null $Tag New tag for the member; 0-16 characters, emoji are not allowed
+   * @return true Returns True on success.
+   * @link https://core.telegram.org/bots/api#setchatmembertag
+   */
+  public function MemberTagSet(
+    int|string $Chat,
+    int $User,
+    string|null $Tag = null
+  ):true{
+    $param['chat_id'] = $Chat;
+    $param['user_id'] = $User;
+    if($Tag !== null):
+      $param['tag'] = $Tag;
+    endif;
+    return $this->ServerMethod(TgMethods::MemberTagSet, $param);
   }
 
   /**
