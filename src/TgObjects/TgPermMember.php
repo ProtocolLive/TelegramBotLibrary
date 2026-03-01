@@ -8,7 +8,7 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\TgPermMember as TgPermMemberEnum;
 /**
  * Describes actions that a non-administrator user is allowed to take in a chat.
  * @link https://core.telegram.org/bots/api#chatmemberrestricted
- * @version 2025.07.02.00
+ * @version 2026.03.01.00
  */
 final class TgPermMember{
   /**
@@ -27,6 +27,7 @@ final class TgPermMember{
    * @param bool $Invite If the user is allowed to invite new users to the chat
    * @param bool $Pin If the user is allowed to pin messages. Ignored in public supergroups
    * @param bool $Topics If the user is allowed to create, rename, close, and reopen forum topics; supergroups only
+   * @param bool $Tag If the user is allowed to edit their own tag
    */
   public function __construct(
     array|null $Data = null,
@@ -43,7 +44,8 @@ final class TgPermMember{
     public bool $Info = false,
     public bool $Invite = false,
     public bool $Pin = false,
-    public bool $Topics = false
+    public bool $Topics = false,
+    public bool $Tag = false
   ){
     if($Data !== null):
       foreach(TgPermMemberEnum::cases() as $perm):
