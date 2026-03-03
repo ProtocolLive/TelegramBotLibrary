@@ -6,7 +6,7 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgError;
 
 /**
- * @version 2025.07.04.00
+ * @version 2026.03.01.00
  */
 abstract class TgErrors{
   public static function Search(string $Description):TgError|false{
@@ -84,6 +84,7 @@ abstract class TgErrors{
       'Bad Request: WEBDOCUMENT_URL_INVALID' => TgError::UrlInvalid,
       'Bad Request: wrong file identifier/HTTP URL specified' => TgError::FileId,
       'Bad Request: wrong remote file identifier specified: Wrong string length' => TgError::UrlShort,
+      'Draft id must be greater than 0' => TgError::DraftId,
       'Forbidden: bot can\'t initiate conversation with a user' => TgError::DontStart,
       'Forbidden: bot can\'t send messages to bots' => TgError::BotBot,
       'Forbidden: bot is not a member of the channel chat' => TgError::NotMember,
