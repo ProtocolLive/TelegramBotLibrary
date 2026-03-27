@@ -7,7 +7,7 @@ namespace ProtocolLive\TelegramBotLibrary\TgAuxiliary;
 /**
  * This object describes the types of gifts that can be gifted to a user or a chat.
  * @link https://core.telegram.org/bots/api#acceptedgifttypes
- * @version 2026.02.09.00
+ * @version 2026.03.26.00
  */
 final readonly class TgGiftAcceptedTypes{
   /**
@@ -38,6 +38,6 @@ final readonly class TgGiftAcceptedTypes{
     $this->Limited = $Data['limited_gifts'] ?? false;
     $this->Unique = $Data['unique_gifts'] ?? false;
     $this->Premium = $Data['premium_subscription'] ?? false;
-    $this->Premium = $Data['gifts_from_channels'] ?? false;
+    $this->Channel = $Data['gifts_from_channels'] ?? false;
   }
 }
