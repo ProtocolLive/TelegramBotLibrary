@@ -65,7 +65,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2026.03.01.00
+ * @version 2026.04.02.00
  */
 final class TelegramBotLibrary
 extends TblBasics{
@@ -348,7 +348,7 @@ extends TblBasics{
     string $Id,
   ):string{
     $info = $this->FileInfo($Id);
-    return $this->BotData->UrlFiles . '/' . $info->Path;
+    return $this->BotData->UrlFiles->getValue() . '/' . $info->Path;
   }
 
   /**
@@ -1003,8 +1003,9 @@ extends TblBasics{
    * @throws TblException
    */
   public function WebhookGet():object{
-    if($this->BotData->TokenWebhook !== null
-    and ($_SERVER['HTTP_X_TELEGRAM_BOT_API_SECRET_TOKEN'] ?? null) !== $this->BotData->TokenWebhook):
+    $token = $this->BotData->TokenWebhook->getValue();
+    if($token !== null
+    and ($_SERVER['HTTP_X_TELEGRAM_BOT_API_SECRET_TOKEN'] ?? null) !== $token):
       throw new TblException(TblError::TokenWebhook, 'Wrong webhook token');
     endif;
     $update = file_get_contents('php://input');

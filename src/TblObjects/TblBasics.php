@@ -110,7 +110,7 @@ use ProtocolLive\TelegramBotLibrary\TgService\{
 };
 
 /**
- * @version 2026.02.10.00
+ * @version 2026.04.02.00
  */
 abstract class TblBasics{
   protected TblData $BotData;
@@ -489,7 +489,7 @@ abstract class TblBasics{
     array|null $Params = null,
     bool $AsJson = true
   ):mixed{
-    $curl = $this->BotData->UrlApi . '/' . $Method->value;
+    $curl = $this->BotData->UrlApi->getValue() . '/' . $Method->value;
     if(in_array(TblLog::Send, $this->BotData->Log)):
       $log = 'Url: ' . $curl . PHP_EOL;
       $log .= 'Params: ' . json_encode(
@@ -522,7 +522,7 @@ abstract class TblBasics{
   ):array{
     $MultiLog = [];
     $mh = curl_multi_init();
-    $url = $this->BotData->UrlApi . '/' . $Method->value;
+    $url = $this->BotData->UrlApi->getValue() . '/' . $Method->value;
     foreach($Params as $id => &$params):
       if(in_array(TblLog::Send, $this->BotData->Log)):
         $log = 'Url: ' . $url . PHP_EOL;
