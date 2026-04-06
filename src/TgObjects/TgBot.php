@@ -6,7 +6,7 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
  * @link https://core.telegram.org/bots/api#user
- * @version 2026.02.10.00
+ * @version 2026.04.03.00
  */
 final readonly class TgBot{
   /**
@@ -45,6 +45,10 @@ final readonly class TgBot{
    * If the bot allows users to create and delete topics in private chats. Returned only in getMe.
    */
   public bool $Topics;
+  /**
+   * If other bots can be created to be controlled by the bot. Returned only in getMe.
+   */
+  public bool $ManageBots;
 
   public function __construct(
     array $Data
@@ -58,5 +62,6 @@ final readonly class TgBot{
     $this->Business = $Data['can_connect_to_business'] ?? false;
     $this->WebApp = $Data['has_main_web_app'] ?? false;
     $this->Topics = $Data['allows_users_to_create_topics'] ?? false;
+    $this->ManageBots = $Data['can_manage_bots'] ?? false;
   }
 }
