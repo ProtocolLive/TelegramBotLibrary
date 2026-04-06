@@ -6,20 +6,18 @@ namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgPollType;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgPermAdmin;
 
-/**
- * @version 2025.07.04.00
- */
-class TblMarkupKeyboard
-extends TblMarkup{
   /**
-   * This object represents a custom keyboard with reply options (see Introduction to bots for details and examples).
+   * This object represents a custom keyboard with reply options (see Introduction to bots for details and examples). Not supported in channels and for messages sent on behalf of a Telegram Business account.
    * @param bool $Persistent Requests clients to always show the keyboard when the regular keyboard is hidden. Defaults to false, in which case the custom keyboard can be hidden and opened with a keyboard icon.
    * @param bool $Resize Requests clients to resize the keyboard vertically for optimal fit (e.g., make the keyboard smaller if there are just two rows of buttons). Defaults to false, in which case the custom keyboard is always of the same height as the app's standard keyboard.
-   * @param bool $OneTime Requests clients to hide the keyboard as soon as it's been used. The keyboard will still be available, but clients will automatically display the usual letter-keyboard in the chat – the user can press a special button in the input field to see the custom keyboard again. Defaults to false.
+   * @param bool $OneTime Requests clients to hide the keyboard as soon as it's been used. The keyboard will still be available, but clients will automatically display the usual letter-keyboard in the chat - the user can press a special button in the input field to see the custom keyboard again. Defaults to false.
    * @param string $Placeholder The placeholder to be shown in the input field when the keyboard is active; 1-64 characters
-   * @param bool $Selective Optional. Use this parameter if you want to show the keyboard to specific users only. Targets: 1) users that are @mentioned in the text of the Message object; 2) if the bot's message is a reply to a message in the same chat and forum topic, sender of the original message. Example: A user requests to change the bot's language, bot replies to the request with a keyboard to select the new language. Other users in the group don't see the keyboard.
+   * @param bool $Selective Use this parameter if you want to show the keyboard to specific users only. Targets: 1) users that are @mentioned in the text of the Message object; 2) if the bot's message is a reply to a message in the same chat and forum topic, sender of the original message. Example: A user requests to change the bot's language, bot replies to the request with a keyboard to select the new language. Other users in the group don't see the keyboard.
    * @link https://core.telegram.org/bots/api#replykeyboardmarkup
+   * @version 2026.04.05.00
    */
+class TblMarkupKeyboardReply
+extends TblMarkup{
   public function __construct(
     bool $Persistent = false,
     bool $Resize = false,
@@ -38,55 +36,11 @@ extends TblMarkup{
     if($OneTime):
       $this->Markup['one_time_keyboard'] = true;
     endif;
-    if($Placeholder !== null):
+    if(empty($Placeholder) === false):
       $this->Markup['input_field_placeholder'] = $Placeholder;
     endif;
     if($Selective):
       $this->Markup['selective'] = true;
-    endif;
-  }
-
-  /**
-   * This object represents one button of the reply keyboard. For simple text buttons, String can be used instead of this object to specify the button text. The optional fields web_app, request_users, request_chat, request_contact, request_location, and request_poll are mutually exclusive.
-   * 
-   * Note: request_contact and request_location options will only work in Telegram versions released after 9 April, 2016. Older clients will display unsupported message.
-   * 
-   * Note: request_poll option will only work in Telegram versions released after 23 January, 2020. Older clients will display unsupported message.
-   * 
-   * Note: web_app option will only work in Telegram versions released after 16 April, 2022. Older clients will display unsupported message.
-   * 
-   * @param string $Text Label text on the button
-   * @param bool $RequestContact If True, the user's phone number will be sent as a contact when the button is pressed. Available in private chats only.
-   * @param bool $RequestLocation If True, the user's current location will be sent when the button is pressed. Available in private chats only.
-   * @param TgPollType $RequestPoll If specified, the user will be asked to create a poll and send it to the bot when the button is pressed. Available in private chats only.
-   * @param string $RequestWebapp If specified, the described Web App will be launched when the button is pressed. The Web App will be able to send a “web_app_data” service message. Available in private chats only.
-   * 
-   * An HTTPS URL of a Web App to be opened with additional data as specified in Initializing Web Apps
-   * @link https://core.telegram.org/bots/api#inlinekeyboardmarkup
-   * @link https://core.telegram.org/bots/api#keyboardbuttonpolltype
-   * @link https://core.telegram.org/bots/api#webappinfo
-   */
-  public function Button(
-    int $Line,
-    int $Column,
-    string $Text,
-    bool $RequestContact = false,
-    bool $RequestLocation = false,
-    TgPollType|null $RequestPoll = null,
-    string|null $RequestWebapp = null
-  ):void{
-    $this->Pointer[$Line][$Column]['text'] = $Text;
-    if($RequestContact):
-      $this->Pointer[$Line][$Column]['request_contact'] = true;
-    endif;
-    if($RequestLocation):
-      $this->Pointer[$Line][$Column]['request_location'] = true;
-    endif;
-    if($RequestPoll != null):
-      $this->Pointer[$Line][$Column]['request_poll']['type'] = $RequestPoll->value;
-    endif;
-    if($RequestWebapp != null):
-      $this->Pointer[$Line][$Column]['web_app']['url'] = $RequestWebapp;
     endif;
   }
 
@@ -103,7 +57,7 @@ extends TblMarkup{
    * @param bool $Member Pass True to request a chat with the bot as a member. Otherwise, no additional restrictions are applied.
    * @link https://core.telegram.org/bots/api#keyboardbuttonrequestchat
    */
-  public function ButtonRequestChat(
+  public function RequestChat(
     int $Line,
     int $Column,
     string $Text,
@@ -115,7 +69,7 @@ extends TblMarkup{
     TgPermAdmin|null $UserPerms = null,
     TgPermAdmin|null $BotPerms = null,
     bool $Member = false
-  ):void{
+  ):self{
     $this->Pointer[$Line][$Column]['text'] = $Text;
     $this->Pointer[$Line][$Column]['request_chat']['request_id'] = $Id;
     if($Channel):
@@ -139,6 +93,75 @@ extends TblMarkup{
     if($Member):
       $this->Pointer[$Line][$Column]['request_chat']['bot_is_member'] = true;
     endif;
+    return $this;
+  }
+
+  /**
+   * The user's phone number will be sent as a contact when the button is pressed. Available in private chats only.
+   */
+  public function RequestContact(
+    int $Line,
+    int $Column,
+    string $Text
+  ):self{
+    $this->Pointer[$Line][$Column]['text'] = $Text;
+    $this->Pointer[$Line][$Column]['request_contact'] = true;
+    return $this;
+  }
+
+  /**
+   * The user's current location will be sent when the button is pressed. Available in private chats only.
+   */
+  public function RequestLocation(
+    int $Line,
+    int $Column,
+    string $Text
+  ):self{
+    $this->Pointer[$Line][$Column]['text'] = $Text;
+    $this->Pointer[$Line][$Column]['request_location'] = true;
+    return $this;
+  }
+
+  /**
+   * If specified, pressing the button will ask the user to create and share a bot that will be managed by the current bot. Available for bots that enabled management of other bots in the @BotFather Mini App. Available in private chats only. This object defines the parameters for the creation of a managed bot. Information about the created bot will be shared with the bot using the update managed_bot and a Message with the field managed_bot_created.
+   * @param int $Id Signed 32-bit identifier of the request. Must be unique within the message
+   * @param string|null $Name Suggested name for the bot
+   * @param string|null $Username Suggested username for the bot
+   * @link https://core.telegram.org/bots/api#keyboardbuttonrequestmanagedbot
+   */
+  public function RequestManagedBot(
+    int $Line,
+    int $Column,
+    string $Text,
+    int $Id,
+    string|null $Name = null,
+    string|null $Username = null
+  ):self{
+    $this->Pointer[$Line][$Column]['text'] = $Text;
+    $this->Pointer[$Line][$Column]['request_managed_bot']['request_id'] = $Id;
+    if(empty($Name) === false):
+      $this->Pointer[$Line][$Column]['request_managed_bot']['suggested_name'] = $Name;
+    endif;
+    if(empty($Username) === false):
+      $this->Pointer[$Line][$Column]['request_managed_bot']['suggested_username'] = $Username;
+    endif;
+    return $this;
+  }
+
+  /**
+   * The user will be asked to create a poll and send it to the bot when the button is pressed. Available in private chats only. This object represents type of a poll, which is allowed to be created and sent when the corresponding button is pressed.
+   * @param TgPollType $RequestPoll If quiz is passed, the user will be allowed to create only polls in the quiz mode. If regular is passed, only regular polls will be allowed. Otherwise, the user will be allowed to create a poll of any type.
+   * @link https://core.telegram.org/bots/api#keyboardbuttonpolltype
+   */
+  public function RequestPoll(
+    int $Line,
+    int $Column,
+    string $Text,
+    TgPollType $RequestPoll
+  ):self{
+    $this->Pointer[$Line][$Column]['text'] = $Text;
+    $this->Pointer[$Line][$Column]['request_poll']['type'] = $RequestPoll->value;
+    return $this;
   }
 
   /**
@@ -149,7 +172,7 @@ extends TblMarkup{
    * @param bool|null $Premium Pass True to request a premium user, pass False to request a non-premium user. If not specified, no additional restrictions are applied.
    * @link https://core.telegram.org/bots/api#keyboardbuttonrequestusers
    */
-  public function ButtonRequestUser(
+  public function RequestUser(
     int $Line,
     int $Column,
     string $Text,
@@ -157,7 +180,7 @@ extends TblMarkup{
     int $Quantity = 1,
     bool|null $Bot = null,
     bool|null $Premium = null
-  ):void{
+  ):self{
     $this->Pointer[$Line][$Column]['text'] = $Text;
     $this->Pointer[$Line][$Column]['request_users']['request_id'] = $Id;
     if($Bot !== null):
@@ -169,5 +192,22 @@ extends TblMarkup{
     if($Quantity > 1):
       $this->Pointer[$Line][$Column]['request_users']['max_quantity'] = $Quantity;
     endif;
+    return $this;
+  }
+
+  /**
+   * The described Web App will be launched when the button is pressed. The Web App will be able to send a “web_app_data” service message. Available in private chats only.
+   * @param string|null $RequestWebapp An HTTPS URL of a Web App to be opened with additional data as specified in Initializing Web Apps
+   * @link https://core.telegram.org/bots/api#webappinfo
+   */
+  public function RequestWebApp(
+    int $Line,
+    int $Column,
+    string $Text,
+    string|null $RequestWebapp = null
+  ):self{
+    $this->Pointer[$Line][$Column]['text'] = $Text;
+    $this->Pointer[$Line][$Column]['web_app']['url'] = $RequestWebapp;
+    return $this;
   }
 }
