@@ -110,7 +110,7 @@ use ProtocolLive\TelegramBotLibrary\TgService\{
 };
 
 /**
- * @version 2026.04.02.00
+ * @version 2026.04.08.00
  */
 abstract class TblBasics{
   protected TblData $BotData;
@@ -195,24 +195,34 @@ abstract class TblBasics{
       return new TgAnimation($Data);
     elseif(isset($Data['audio'])):
       return new TgAudio($Data);
-    elseif(isset($Data['boost_added'])):
-      return new TgChatBoostAdded($Data['boost_added']);
     elseif(isset($Data['chat_background_set'])):
       return new TgBackground($Data['chat_background_set']);
+    elseif(isset($Data['message_auto_delete_timer_changed'])):
+      return new TgChatAutoDel($Data);
+    elseif(isset($Data['boost_added'])):
+      return new TgChatBoostAdded($Data['boost_added']);
+    elseif(isset($Data['migrate_from_chat_id'])):
+      return new TgChatMigrateFrom($Data);
+    elseif(isset($Data['migrate_to_chat_id'])):
+      return new TgChatMigrateTo($Data);
+    elseif(isset($Data['chat_owner_changed'])):
+      return new TgChatOwnerChanged($Data);
+    elseif(isset($Data['chat_owner_left'])):
+      return new TgChatOwnerLeft($Data);
+    elseif(isset($Data['new_chat_photo'])):
+      return new TgChatPhotoNew($Data);
     elseif(isset($Data['chat_shared'])):
       return new TgChatShared($Data);
+    elseif(isset($Data['new_chat_title'])):
+      return new TgChatTitle($Data);
     elseif(isset($Data['checklist'])):
       return new TgChecklist($Data);
     elseif(isset($Data['checklist_tasks_added'])):
       return new TgChecklistTasksAdded($Data);
     elseif(isset($Data['checklist_tasks_done'])):
       return new TgChecklistTasksDone($Data);
-    elseif(isset($Data['connected_website'])):
-      return new TgLogin($Data);
     elseif(isset($Data['contact'])):
       return new TgContact($Data);
-    elseif(isset($Data['delete_chat_photo'])):
-      return new TgPhotoDel($Data);
     elseif(isset($Data['dice'])):
       return new TgDice($Data);
     elseif(isset($Data['document'])):
@@ -223,48 +233,38 @@ abstract class TblBasics{
       return new TgForumCreated($Data);
     elseif(isset($Data['forum_topic_edited'])):
       return new TgForumEdited($Data);
+    elseif(isset($Data['general_forum_topic_hidden'])):
+      return new TgForumGeneralHidden($Data);
     elseif(isset($Data['forum_topic_reopened'])):
       return new TgForumReopened($Data);
     elseif(isset($Data['game'])):
       return new TgGame($Data);
-    elseif(isset($Data['general_forum_topic_hidden'])):
-      return new TgForumGeneralHidden($Data);
     elseif(isset($Data['gift_upgrade_sent'])):
       return new TgGiftInfo($Data);
     elseif(isset($Data['giveaway'])):
       return new TgGiveaway($Data);
-    elseif(isset($Data['giveaway_created'])):
-      return new TgGiveawayCreated($Data);
     elseif(isset($Data['giveaway_completed'])):
       return new TgGiveawayCompleted($Data);
+    elseif(isset($Data['giveaway_created'])):
+      return new TgGiveawayCreated($Data);
     elseif(isset($Data['giveaway_winners'])):
       return new TgGiveawayWinners($Data);
     elseif(isset($Data['group_chat_created'])):
       return new TgGroupCreated($Data);
     elseif(isset($Data['invoice'])):
       return new TgInvoice($Data);
-    elseif(isset($Data['left_chat_member'])):
-      return new TgMemberLeft($Data);
+    elseif(isset($Data['successful_payment'])):
+      return new TgInvoiceDone($Data);
     elseif(isset($Data['venue'])): //out of order because for priority above location
       return new TgVenue($Data);
     elseif(isset($Data['location'])):
       return new TgLocation($Data);
-    elseif(isset($Data['message_auto_delete_timer_changed'])):
-      return new TgChatAutoDel($Data);
-    elseif(isset($Data['migrate_from_chat_id'])):
-      return new TgChatMigrateFrom($Data);
-    elseif(isset($Data['migrate_to_chat_id'])):
-      return new TgChatMigrateTo($Data);
-    elseif(isset($Data['chat_owner_changed'])):
-      return new TgChatOwnerChanged($Data);
-    elseif(isset($Data['chat_owner_left'])):
-      return new TgChatOwnerLeft($Data);
+    elseif(isset($Data['connected_website'])):
+      return new TgLogin($Data);
+    elseif(isset($Data['left_chat_member'])):
+      return new TgMemberLeft($Data);
     elseif(isset($Data['new_chat_member'])):
       return new TgMemberNew($Data);
-    elseif(isset($Data['new_chat_photo'])):
-      return new TgChatPhotoNew($Data);
-    elseif(isset($Data['new_chat_title'])):
-      return new TgChatTitle($Data);
     elseif(isset($Data['paid_media'])):
       return new TgPaidMedia($Data);
     elseif(isset($Data['paid_message_price_changed'])):
@@ -273,36 +273,34 @@ abstract class TblBasics{
       return new TgPassport($Data);
     elseif(isset($Data['photo'])):
       return new TgPhoto($Data);
+    elseif(isset($Data['delete_chat_photo'])):
+      return new TgPhotoDel($Data);
     elseif(isset($Data['pinned_message'])):
       return new TgPinnedMsg($Data);
     elseif(isset($Data['poll'])):
       return new TgPoll($Data);
     elseif(isset($Data['refunded_payment'])):
       return new TgRefundedPayment($Data);
-    elseif(isset($Data['successful_payment'])):
-      return new TgInvoiceDone($Data);
-    elseif(isset($Data['suggested_post_approved'])):
-      return new TgSuggestedApproved($Data);
-    elseif(isset($Data['suggested_post_approval_failed'])):
-      return new TgSuggestedFailed($Data);
-    elseif(isset($Data['suggested_post_declined'])):
-      return new TgSuggestedDeclined($Data);
-    elseif(isset($Data['suggested_post_paid'])):
-      return new TgSuggestedPaid($Data);
-    elseif(isset($Data['suggested_post_refunded'])):
-      return new TgSuggestedRefunded($Data);
     elseif(isset($Data['sticker'])):
       return new TgSticker($Data);
     elseif(isset($Data['story'])):
       return new TgStory($Data);
+    elseif(isset($Data['suggested_post_approved'])):
+      return new TgSuggestedApproved($Data);
+    elseif(isset($Data['suggested_post_declined'])):
+      return new TgSuggestedDeclined($Data);
+    elseif(isset($Data['suggested_post_approval_failed'])):
+      return new TgSuggestedFailed($Data);
+    elseif(isset($Data['suggested_post_paid'])):
+      return new TgSuggestedPaid($Data);
+    elseif(isset($Data['suggested_post_refunded'])):
+      return new TgSuggestedRefunded($Data);
     elseif(isset($Data['text'])):
       return new TgText($Data);
     elseif(isset($Data['users_shared'])):
       return new TgUsersShared($Data);
     elseif(isset($Data['video'])):
       return new TgVideo($Data);
-    elseif(isset($Data['video_note'])):
-      return new TgVideoNote($Data);
     elseif(isset($Data['video_chat_ended'])):
       return new TgVideoChatEnded($Data);
     elseif(isset($Data['video_chat_participants_invited'])):
@@ -311,6 +309,8 @@ abstract class TblBasics{
       return new TgVideoChatScheduled($Data);
     elseif(isset($Data['video_chat_started'])):
       return new TgVideoChatStarted($Data);
+    elseif(isset($Data['video_note'])):
+      return new TgVideoNote($Data);
     elseif(isset($Data['voice'])):
       return new TgVoice($Data);
     elseif(isset($Data['web_app_data'])):
