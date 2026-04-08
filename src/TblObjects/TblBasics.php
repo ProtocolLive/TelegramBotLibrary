@@ -111,7 +111,7 @@ use ProtocolLive\TelegramBotLibrary\TgService\{
 };
 
 /**
- * @version 2026.04.08.01
+ * @version 2026.04.08.02
  */
 abstract class TblBasics{
   protected TblData $BotData;
@@ -407,6 +407,8 @@ abstract class TblBasics{
       return new TgReactionUpdate($Data['message_reaction_count']);
     elseif(isset($Data['my_chat_member'])):
       return new TgGroupStatusMy($Data['my_chat_member']);
+    elseif(isset($Data['managed_bot'])):
+      return new TgManagedBotCreated($Data['managed_bot']);
     elseif(isset($Data['paid_message_price_changed'])):
       return new TgPaidMessagePriceChanged($Data['paid_message_price_changed']);
     elseif(isset($Data['poll'])):
