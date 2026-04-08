@@ -53,6 +53,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgLocation,
   TgLocationEdited,
   TgLogin,
+  TgManagedBotCreated,
   TgMessageDeleted,
   TgPaidMedia,
   TgPaidMediaPurchased,
@@ -110,7 +111,7 @@ use ProtocolLive\TelegramBotLibrary\TgService\{
 };
 
 /**
- * @version 2026.04.08.00
+ * @version 2026.04.08.01
  */
 abstract class TblBasics{
   protected TblData $BotData;
@@ -261,6 +262,8 @@ abstract class TblBasics{
       return new TgLocation($Data);
     elseif(isset($Data['connected_website'])):
       return new TgLogin($Data);
+    elseif(isset($Data['managed_bot_created '])):
+      return new TgManagedBotCreated($Data);
     elseif(isset($Data['left_chat_member'])):
       return new TgMemberLeft($Data);
     elseif(isset($Data['new_chat_member'])):
