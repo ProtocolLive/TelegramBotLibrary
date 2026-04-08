@@ -18,6 +18,7 @@ use ProtocolLive\TelegramBotLibrary\TblObjects\{
 use ProtocolLive\TelegramBotLibrary\TblTraits\{
   TblAnimationTrait,
   TblAudioTrait,
+  TblBotTrait,
   TblBusinessTrait,
   TblChatTrait,
   TblEditTrait,
@@ -65,12 +66,13 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2026.04.02.00
+ * @version 2026.04.08.00
  */
 final class TelegramBotLibrary
 extends TblBasics{
   use TblAnimationTrait;
   use TblAudioTrait;
+  use TblBotTrait;
   use TblBusinessTrait;
   use TblChatTrait;
   use TblEditTrait;

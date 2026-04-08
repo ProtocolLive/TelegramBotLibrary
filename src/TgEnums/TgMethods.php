@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TgEnums;
 
 /**
- * @version 2026.03.01.00
+ * @version 2026.04.08.00
  */
 enum TgMethods:string{
   /**
@@ -396,6 +396,14 @@ enum TgMethods:string{
    * @link https://core.telegram.org/bots/api#editmessagelivelocation
    */
   case LocationStop = 'stopMessageLiveLocation';
+  /**
+   * @link https://core.telegram.org/bots/api#getmanagedbottoken
+   */
+  case ManagedBotTokenGet = 'getManagedBotToken';
+  /**
+   * @link https://core.telegram.org/bots/api#replacemanagedbottoken
+   */
+  case ManagedBotTokenReplace = 'replaceManagedBotToken';
   /**
    * @link https://core.telegram.org/bots/api#editmessagereplymarkup
    */
