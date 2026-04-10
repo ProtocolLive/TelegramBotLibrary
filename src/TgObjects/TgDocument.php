@@ -16,7 +16,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 /**
  * This object represents a general file (as opposed to photos, voice messages and audio files).
  * @link https://core.telegram.org/bots/api#document
- * @version 2025.07.05.00
+ * @version 2026.04.10.00
  */
 readonly class TgDocument
 extends TgCaptionable
@@ -71,7 +71,6 @@ TgMessageInterface{
     $this->Mime = $Data['document']['mime_type'] ?? $Data['mime_type'];
     $this->Size = $Data['document']['file_size'] ?? $Data['file_size'];
     $this->MediaGroup = $Data['media_group_id'] ?? null;
-    $this->Caption = $Data['caption'] ?? null;
     if(isset($Data['document']['thumbnail'])
     or isset($Data['thumbnail'])):
       $this->Thumbnail = new TgPhotoSize($Data['document']['thumbnail'] ?? $Data['thumbnail']);

@@ -14,7 +14,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 
 /**
  * @link https://core.telegram.org/bots/api#animation
- * @version 2025.07.05.00
+ * @version 2026.04.10.00
  */
 readonly class TgAnimation
 extends TgCaptionable
@@ -83,6 +83,5 @@ TgForwadableInterface{
     $this->Name = $Data['animation']['file_name'] ?? null;
     $this->Mime = $Data['animation']['mime_type'] ?? null;
     $this->Size = $Data['animation']['file_size'] ?? null;
-    $this->Caption = $Data['caption'] ?? null;
   }
 }

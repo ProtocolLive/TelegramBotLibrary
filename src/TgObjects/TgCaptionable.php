@@ -9,7 +9,7 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\TgError;
 
 /**
  * Messages who have a caption
- * @version 2025.07.04.00
+ * @version 2026.04.10.00
  */
 abstract readonly class TgCaptionable{
   /**
@@ -24,6 +24,11 @@ abstract readonly class TgCaptionable{
   public function __construct(
     array $Data
   ){
+    if(isset($Data['caption'])):
+      $this->Caption = $Data['caption'];
+    else:
+      $this->Caption = null;
+    endif;
     foreach($Data['caption_entities'] ?? [] as &$entity):
       $entity = new TgEntity($entity);
     endforeach;
