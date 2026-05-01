@@ -33,7 +33,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 
 /**
  * @link https://core.telegram.org/bots/api#message
- * @version 2026.03.01.00
+ * @version 2026.04.30.00
  */
 final readonly class TgMessageData{
   /**
@@ -134,6 +134,10 @@ final readonly class TgMessageData{
    * Tag or custom title of the sender of the message; for supergroups only
    */
   public string|null $Tag;
+  /**
+   * Persistent identifier of the specific poll option that is being replied to
+   */
+  public string|null $PollOption;
 
   public function __construct(
     array $Data
@@ -241,6 +245,11 @@ final readonly class TgMessageData{
       $this->SuggestedPost = new TgSuggestedPostInfo($Data['suggested_post_info']);
     else:
       $this->SuggestedPost = null;
+    endif;
+    if(isset($Data['reply_to_poll_option_id'])):
+      $this->PollOption = $Data['reply_to_poll_option_id'];
+    else:
+      $this->PollOption = null;
     endif;
 
     //$Data['id'] - Callback

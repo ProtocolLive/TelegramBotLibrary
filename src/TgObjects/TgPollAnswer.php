@@ -9,7 +9,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgEventInterface;
 /**
  * This object represents an answer of a user in a non-anonymous poll.
  * @link https://core.telegram.org/bots/api#pollanswer
- * @version 2024.07.04.00
+ * @version 2026.04.30.00
  */
 final readonly class TgPollAnswer
 implements TgEventInterface{
@@ -22,6 +22,10 @@ implements TgEventInterface{
    * 0-based identifiers of chosen answer options. May be empty if the vote was retracted.
    */
   public array $Options;
+  /**
+   * Persistent identifiers of the chosen answer options. May be empty if the vote was retracted.
+   */
+  public array $Ids;
 
   public function __construct(
     array $Data
@@ -29,5 +33,6 @@ implements TgEventInterface{
     $this->Data = new TgMessageData($Data);
     $this->Id = $Data['poll_id'];
     $this->Options = $Data['option_ids'];
+    $this->Ids = $Data['option_persistent_ids'];
   }
 }

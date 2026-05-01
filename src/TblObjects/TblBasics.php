@@ -63,6 +63,8 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
   TgPoll,
   TgPollAnswer,
   TgPollEdited,
+  TgPollOptionAdded,
+  TgPollOptionDeleted,
   TgReactionUpdate,
   TgRefundedPayment,
   TgSticker,
@@ -111,7 +113,7 @@ use ProtocolLive\TelegramBotLibrary\TgService\{
 };
 
 /**
- * @version 2026.04.08.02
+ * @version 2026.04.30.00
  */
 abstract class TblBasics{
   protected TblData $BotData;
@@ -282,6 +284,10 @@ abstract class TblBasics{
       return new TgPinnedMsg($Data);
     elseif(isset($Data['poll'])):
       return new TgPoll($Data);
+    elseif(isset($Data['poll_option_added'])):
+      return new TgPollOptionAdded($Data);
+    elseif(isset($Data['poll_option_deleted'])):
+      return new TgPollOptionDeleted($Data);
     elseif(isset($Data['refunded_payment'])):
       return new TgRefundedPayment($Data);
     elseif(isset($Data['sticker'])):

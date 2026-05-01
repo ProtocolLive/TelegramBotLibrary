@@ -22,7 +22,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2026.01.05.00
+ * @version 2026.04.30.00
  */
 trait TblPollTrait{
   /**
@@ -36,13 +36,13 @@ trait TblPollTrait{
    * @param TblInputPollOptions $Options A list of 2-10 answer options
    * @param bool $Anonymous If the poll needs to be anonymous, defaults to True
    * @param TgPollType $Type Poll type, “quiz” or “regular”, defaults to “regular”
-   * @param bool $MultipleAnswers If the poll allows multiple answers, ignored for polls in quiz mode, defaults to False
-   * @param int $CorrectOption 0-based identifier of the correct answer option, required for polls in quiz mode
+   * @param bool $MultipleAnswers If the poll allows multiple answers, defaults to False
+   * @param array $CorrectOptions A JSON-serialized list of monotonically increasing 0-based identifiers of the correct answer options, required for polls in quiz mode
    * @param string $Explanation Text that is shown when a user chooses an incorrect answer or taps on the lamp icon in a quiz-style poll, 0-200 characters with at most 2 line feeds after entities parsing
    * @param TgParseMode $ExplanationParseMode Mode for parsing entities in the explanation. See formatting options for more details.
    * @param TblEntities $ExplanationEntities A list of special entities that appear in the poll explanation. It can be specified instead of explanation_parse_mode
    * @param int $OpenPeriod Amount of time in seconds the poll will be active after creation, 5-600. Can't be used together with close_date.
-   * @param int $CloseDate Point in time (Unix timestamp) when the poll will be automatically closed. Must be at least 5 and no more than 600 seconds in the future. Can't be used together with open_period.
+   * @param int $CloseDate Point in time (Unix timestamp) when the poll will be automatically closed. Must be at least 5 and no more than 2628000 seconds in the future. Can't be used together with open_period.
    * @param bool $Closed If the poll needs to be immediately closed. This can be useful for poll preview.
    * @param bool $DisableNotification Sends the message silently. Users will receive a notification with no sound.
    * @param bool $Protect Protects the contents of the sent message from forwarding and saving
@@ -50,6 +50,11 @@ trait TblPollTrait{
    * @param TgReplyParams $Reply Description of the message to reply to
    * @param TblMarkup $Markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user
    * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+   * @param bool $Revote If the poll allows to change chosen answer options, defaults to False for quizzes and to True for regular polls
+   * @param bool $Shuffle If the poll options must be shown in random order
+   * @param bool $AddOptions If answer options can be added to the poll after creation; not supported for anonymous polls and quizzes
+   * @param bool $HideResultsUntilCloses If poll results must be shown only after the poll closes
+   * @param string $Description Description of the poll to be sent, 0-1024 characters after entities parsing
    * @return TgPoll The sent Message is returned.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#sendpoll
@@ -65,13 +70,20 @@ trait TblPollTrait{
     bool $Anonymous = true,
     TgPollType|null $Type = null,
     bool $MultipleAnswers = false,
-    int|null $CorrectOption = null,
+    array $CorrectOptions = [],
     string|null $Explanation = null,
     TgParseMode|null $ExplanationParseMode = null,
     TblEntities|null $ExplanationEntities = null,
     int|null $OpenPeriod = null,
     int|null $CloseDate = null,
     bool $Closed = false,
+    bool $Revote = false,
+    bool $Shuffle = false,
+    bool $AddOptions = false,
+    string|null $Description = null,
+    TgParseMode|null $DescriptionParseMode = null,
+    TblEntities|null $DescriptionEntities = null,
+    bool $HideResultsUntilCloses = false,
     bool $DisableNotification = false,
     bool $Protect = false,
     bool $AllowPaid = false,
@@ -96,6 +108,7 @@ trait TblPollTrait{
     $param['chat_id'] = $Chat;
     $param['question'] = $Question;
     $param['options'] = $Options->ToArray();
+    $param['allows_revoting'] = $Revote;
     if($Thread > 0):
       $param['message_thread_id'] = $Thread;
     endif;
@@ -120,8 +133,27 @@ trait TblPollTrait{
     if($AllowPaid):
       $param['allow_paid_broadcast'] = true;
     endif;
-    if($CorrectOption !== null):
-      $param['correct_option_id'] = $CorrectOption;
+    if($Shuffle):
+      $param['shuffle_options'] = true;
+    endif;
+    if(empty($Description) === false
+    and strlen($Description) <= TgLimits::PollDescription):
+      $param['description'] = $Description;
+      $param['description_parse_mode'] = $DescriptionParseMode->value ;
+      if($DescriptionEntities !== null):
+        $param['description_entities'] = $DescriptionEntities->ToArray();
+      endif;
+    endif;
+    if($AddOptions
+    and $Type !== TgPollType::Quiz
+    and $Anonymous === false):
+      $param['allow_adding_options'] = true;
+    endif;
+    if($HideResultsUntilCloses):
+      $param['hide_results_until_closes'] = true;
+    endif;
+    if($CorrectOptions !== []):
+      $param['correct_option_ids'] = $CorrectOptions;
     endif;
     if($Explanation !== null):
       $param['explanation'] = $Explanation;
@@ -135,7 +167,7 @@ trait TblPollTrait{
     if($OpenPeriod !== null):
       $param['open_period'] = $OpenPeriod;
     endif;
-    if($CloseDate !== null):
+    if($CloseDate >= 5 and $CloseDate <= 2628000):
       $param['close_date'] = $CloseDate;
     endif;
     if($Closed):

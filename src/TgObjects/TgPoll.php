@@ -17,9 +17,8 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
 
 /**
  * This object contains information about a poll.
- * Param Answer: 0-based identifier of the correct answer option. Available only for polls in the quiz mode, which are closed, or was sent (not forwarded) by the bot or to the private chat with the bot.
  * @link https://core.telegram.org/bots/api#poll
- * @version 2025.07.03.01
+ * @version 2026.04.30.00
  */
 readonly class TgPoll
 implements TgEventInterface,
@@ -59,9 +58,9 @@ TgMessageInterface{
    */
   public bool $Anonymous;
   /**
-   * 0-based identifier of the correct answer option. Available only for polls in the quiz mode, which are closed, or was sent (not forwarded) by the bot or to the private chat with the bot.
+   * Array of 0-based identifiers of the correct answer options. Available only for polls in quiz mode which are closed or were sent (not forwarded) by the bot or to the private chat with the bot.
    */
-  public int|null $Answer;
+  public array $Answers;
   /**
    * Text that is shown when a user chooses an incorrect answer or taps on the lamp icon in a quiz-style poll, 0-200 characters
   */
@@ -74,6 +73,18 @@ TgMessageInterface{
    * Special entities like usernames, URLs, bot commands, etc. that appear in the explanation
    */
   public array $ExplanationEntities;
+  /**
+   * If the poll allows to change the chosen answer options
+   */
+  public bool $Revote;
+  /**
+   * Description of the poll; for polls inside the Message object only
+   */
+  public string|null $Description;
+  /**
+   * Special entities like usernames, URLs, bot commands, etc. that appear in the description
+   */
+  public array $DescriptionEntities;
 
   public function __construct(
     array $Data
@@ -92,8 +103,10 @@ TgMessageInterface{
     $this->Votes = $pointer['total_voter_count'];
     $this->Closed = $pointer['is_closed'];
     $this->Anonymous = $pointer['is_anonymous'];
-    $this->Answer = $pointer['correct_option_id'] ?? null;
+    $this->Answers = $pointer['correct_option_ids'] ?? [];
     $this->Explanation = $pointer['explanation'] ?? null;
+    $this->Description = $pointer['description'] ?? null;
+    $this->Revote = $pointer['allows_revoting'] ?? false;
 
     foreach($pointer['options'] as &$option):
       $option = new TgPollOption($option);
@@ -109,5 +122,10 @@ TgMessageInterface{
       $entity = new TgEntity($entity);
     endforeach;
     $this->ExplanationEntities = $pointer['explanation_entities'] ?? [];
+
+    foreach($pointer['description_entities'] ?? [] as &$entity):
+      $entity = new TgEntity($entity);
+    endforeach;
+    $this->DescriptionEntities = $pointer['description_entities'] ?? [];
   }
 }

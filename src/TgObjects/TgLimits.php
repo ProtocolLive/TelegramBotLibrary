@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
- * @version 2026.02.10.00
+ * @version 2026.04.30.00
  */
 final class TgLimits{
   /**
@@ -78,6 +78,10 @@ final class TgLimits{
    * @link https://core.telegram.org/bots/api#sendpaidmedia
    */
   public const int Payload = 128;
+  /**
+   * @link https://core.telegram.org/bots/api#sendpoll
+   */
+  public const int PollDescription = 1024;
   /**
    * @link https://core.telegram.org/bots/api#sendpoll
    */

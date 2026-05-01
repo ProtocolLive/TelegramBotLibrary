@@ -14,7 +14,7 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\{
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgLimits;
 
 /**
- * @version 2025.08.15.00
+ * @version 2026.04.30.00
  */
 class TgReplyParams{
   /**
@@ -26,6 +26,7 @@ class TgReplyParams{
    * @param TblEntities $Entities A JSON-serialized list of special entities that appear in the quote. It can be specified instead of quote_parse_mode.
    * @param int $Position Position of the quote in the original message in UTF-16 code units
    * @param int $Checklist Identifier of the specific checklist task to be replied to
+   * @param string $PollOption Persistent identifier of the specific poll option to be replied to
    * @link https://core.telegram.org/bots/api#replyparameters
    */
   public function __construct(
@@ -35,6 +36,7 @@ class TgReplyParams{
     public int|null $Checklist = null,
     public string|null $Quote = null,
     public int|null $Position = null,
+    public string|null $PollOption = null,
     public TgParseMode|null $ParseMode = null,
     public TblEntities|null $Entities = null
   ){
@@ -69,6 +71,9 @@ class TgReplyParams{
     endif;
     if($this->Checklist !== null):
       $return['checklist_task_id'] = $this->Checklist;
+    endif;
+    if($this->PollOption !== null):
+      $return['poll_option_id'] = $this->PollOption;
     endif;
     return $return;
   }
