@@ -6,7 +6,7 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 use ProtocolLive\TelegramBotLibrary\TgEnums\TgError;
 
 /**
- * @version 2026.03.01.00
+ * @version 2026.05.08.00
  */
 abstract class TgErrors{
   public static function Search(string $Description):TgError|false{
@@ -89,6 +89,7 @@ abstract class TgErrors{
       'Forbidden: bot can\'t send messages to bots' => TgError::BotBot,
       'Forbidden: bot is not a member of the channel chat' => TgError::NotMember,
       'Forbidden: bot was blocked by the user' => TgError::Blocked,
+      'Forbidden: bot was kicked from the group chat' => TgError::Banned,
       'Forbidden: bot was kicked from the supergroup chat' => TgError::Banned,
       'Forbidden: user is deactivated' => TgError::Deleted,
       default => false
