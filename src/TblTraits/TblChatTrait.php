@@ -21,7 +21,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 };
 
 /**
- * @version 2026.05.08.00
+ * @version 2026.05.08.01
  */
 trait TblChatTrait{
   /**
@@ -459,6 +459,22 @@ trait TblChatTrait{
   }
 
   /**
+   * Use this method to change the title of a chat. Titles can't be changed for private chats. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights.
+   * @param int|string $Chat Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * @param string $Title New chat title, 1-128 characters
+   * @return true Returns True on success.
+   * @link https://core.telegram.org/bots/api#setchattitle
+   */
+  public function ChatName(
+    int|string $Chat,
+    string $Name
+  ):true{
+    $param['chat_id'] = $Chat;
+    $param['title'] = $Name;
+    return $this->ServerMethod(TgMethods::ChatTitle, $param);
+  }
+
+  /**
    * Use this method to set default chat permissions for all members. The bot must be an administrator in the group or a supergroup for this to work and must have the can_restrict_members administrator rights.
    * @param int|string $Chat Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
    * @param TgPermMember $Perms A JSON-serialized object for new default chat permissions
@@ -507,21 +523,5 @@ trait TblChatTrait{
     $param['chat_id'] = $Chat;
     $param['photo'] = new CURLFile($Photo);
     return $this->ServerMethod(TgMethods::ChatPhotoSet, $param, false);
-  }
-
-  /**
-   * Use this method to change the title of a chat. Titles can't be changed for private chats. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights.
-   * @param int|string $Chat Unique identifier for the target chat or username of the target channel (in the format @channelusername)
-   * @param string $Title New chat title, 1-128 characters
-   * @return true Returns True on success.
-   * @link https://core.telegram.org/bots/api#setchattitle
-   */
-  public function ChatName(
-    int|string $Chat,
-    string $Name
-  ):true{
-    $param['chat_id'] = $Chat;
-    $param['title'] = $Name;
-    return $this->ServerMethod(TgMethods::ChatTitle, $param);
   }
 }
