@@ -8,7 +8,7 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\TgPermMember as TgPermMemberEnum;
 /**
  * Describes actions that a non-administrator user is allowed to take in a chat.
  * @link https://core.telegram.org/bots/api#chatmemberrestricted
- * @version 2026.05.08.01
+ * @version 2026.05.08.02
  */
 final class TgPermMember{
   /**
@@ -49,11 +49,12 @@ final class TgPermMember{
     public bool $VideoNote = false,
     public bool $VoiceNote = false
   ){
-    if($Data !== null):
-      foreach(TgPermMemberEnum::cases() as $perm):
-        $this->{$perm->name} = $Data[$perm->value] ?? false;
-      endforeach;
+    if($Data === null):
+      return;
     endif;
+    foreach(TgPermMemberEnum::cases() as $perm):
+      $this->{$perm->name} = $Data[$perm->value] ?? false;
+    endforeach;
   }
 
   public function ToArray():array{
