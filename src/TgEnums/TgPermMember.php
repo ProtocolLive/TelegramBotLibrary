@@ -6,7 +6,7 @@ namespace ProtocolLive\TelegramBotLibrary\TgEnums;
 
 /**
  * @link https://core.telegram.org/bots/api#chatmemberrestricted
- * @version 2026.05.08.00
+ * @version 2026.05.08.01
  */
 enum TgPermMember:string{
   /**
@@ -49,6 +49,10 @@ enum TgPermMember:string{
    * If the user is allowed to add web page previews to their messages
    */
   case Preview = 'can_add_web_page_previews';
+  /**
+   * If the user is allowed to react to messages
+   */
+  case React = 'can_react_to_messages ';
   /**
    * If the user is allowed to edit their own tag
    */

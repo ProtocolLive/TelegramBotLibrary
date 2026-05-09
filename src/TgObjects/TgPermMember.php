@@ -8,7 +8,7 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\TgPermMember as TgPermMemberEnum;
 /**
  * Describes actions that a non-administrator user is allowed to take in a chat.
  * @link https://core.telegram.org/bots/api#chatmemberrestricted
- * @version 2026.05.08.00
+ * @version 2026.05.08.01
  */
 final class TgPermMember{
   /**
@@ -23,6 +23,7 @@ final class TgPermMember{
    * @param bool $Pin If the user is allowed to pin messages. Ignored in public supergroups
    * @param bool $Poll If the user is allowed to send polls, implies can_send_messages
    * @param bool $Preview If the user is allowed to add web page previews to their messages, implies $Media
+   * @param bool $React If the user is allowed to react to messages
    * @param bool $Tag If the user is allowed to edit their own tag
    * @param bool $Topics If the user is allowed to create, rename, close, and reopen forum topics; supergroups only
    * @param bool $Videos If the user is allowed to send videos
@@ -41,6 +42,7 @@ final class TgPermMember{
     public bool $Pin = false,
     public bool $Poll = false,
     public bool $Preview = false,
+    public bool $React = false,
     public bool $Tag = false,
     public bool $Topics = false,
     public bool $Videos = false,

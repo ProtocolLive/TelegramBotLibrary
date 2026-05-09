@@ -8,7 +8,7 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\TgMemberStatus;
 /**
  * This object contains information about one member of a chat. Currently, the following 6 types of chat members are supported: ChatMemberOwner, ChatMemberAdministrator, ChatMemberMember, ChatMemberRestricted, ChatMemberLeft, ChatMemberBanned
  * @link https://core.telegram.org/bots/api#chatmember
- * @version 2026.03.01.02
+ * @version 2026.05.08.00
  */
 final readonly class TgMember{
   /**
@@ -121,7 +121,8 @@ final readonly class TgMember{
         Invite: true,
         Pin: true,
         Topics: true,
-        Tag: true
+        Tag: true,
+        React: true
       );
     else:
       $this->AdminPerms = new TgPermAdmin($Data);
