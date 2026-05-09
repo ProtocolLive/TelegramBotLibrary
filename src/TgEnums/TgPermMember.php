@@ -6,7 +6,7 @@ namespace ProtocolLive\TelegramBotLibrary\TgEnums;
 
 /**
  * @link https://core.telegram.org/bots/api#chatmemberrestricted
- * @version 2026.03.01.00
+ * @version 2026.05.08.00
  */
 enum TgPermMember:string{
   /**
@@ -50,6 +50,10 @@ enum TgPermMember:string{
    */
   case Preview = 'can_add_web_page_previews';
   /**
+   * If the user is allowed to edit their own tag
+   */
+  case Tag = 'can_edit_tag';
+  /**
    * If the user is allowed to create forum topics
    */
   case Topics = 'can_manage_topics';
@@ -65,8 +69,4 @@ enum TgPermMember:string{
    * If the user is allowed to send voice notes
    */
   case VoiceNote = 'can_send_voice_notes';
-  /**
-   * If the user is allowed to edit their own tag
-   */
-  case Tag = 'can_edit_tag';
 }
