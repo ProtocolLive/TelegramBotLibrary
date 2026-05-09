@@ -66,7 +66,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2026.04.08.00
+ * @version 2026.05.08.00
  */
 final class TelegramBotLibrary
 extends TblBasics{
@@ -423,6 +423,25 @@ extends TblBasics{
     endif;
     $param['reply_parameters'] = $Reply->ToArray();
     $this->ServerMethod(TgMethods::GroupSend, $param);
+  }
+
+  /**
+   * Use this method to reply to a received guest message.
+   * @param string $Id Unique identifier for the query to be answered
+   * @param TgInlineQueryResults $Answer A JSON-serialized object describing the message to be sent
+   * @return string Identifier of the sent inline message
+   * @link https://core.telegram.org/bots/api#answerguestquery
+   */
+  public function GuestAnswer(
+    string $Id,
+    TgInlineQueryResults $Answer
+  ):string{
+    $param['guest_query_id'] = $Id;
+    $param['result'] = $Answer->ToArray();
+    $param['result'] = $param['result'][0];
+    $return = $this->ServerMethod(TgMethods::GuestAnswer, $param);
+    //https://core.telegram.org/bots/api#sentguestmessage
+    return $return['inline_message_id'];
   }
 
   /**

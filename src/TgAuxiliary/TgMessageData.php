@@ -3,6 +3,7 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgAuxiliary;
+use ProtocolLive\TelegramBotLibrary\TblObjects\TblGuest;
 use ProtocolLive\TelegramBotLibrary\TgEnums\{
   TgChatType,
   TgEffects
@@ -33,7 +34,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 
 /**
  * @link https://core.telegram.org/bots/api#message
- * @version 2026.04.30.00
+ * @version 2026.05.08.00
  */
 final readonly class TgMessageData{
   /**
@@ -138,6 +139,7 @@ final readonly class TgMessageData{
    * Persistent identifier of the specific poll option that is being replied to
    */
   public string|null $PollOption;
+  public TblGuest|null $Guest;
 
   public function __construct(
     array $Data
@@ -250,6 +252,15 @@ final readonly class TgMessageData{
       $this->PollOption = $Data['reply_to_poll_option_id'];
     else:
       $this->PollOption = null;
+    endif;
+    if(isset($Data['guest_query_id'])):
+      $this->Guest = new TblGuest(Id: $Data['guest_query_id']);
+    elseif(isset($Data['guest_bot_caller_user'])):
+      $this->Guest = new TblGuest(Origin: new TgUser($Data['guest_bot_caller_user']));
+    elseif(isset($Data['guest_bot_caller_chat'])):
+      $this->Guest = new TblGuest(Origin: new TgChat($Data['guest_bot_caller_chat']));
+    else:
+      $this->Guest = null;
     endif;
 
     //$Data['id'] - Callback

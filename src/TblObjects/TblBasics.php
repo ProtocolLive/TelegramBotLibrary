@@ -113,7 +113,7 @@ use ProtocolLive\TelegramBotLibrary\TgService\{
 };
 
 /**
- * @version 2026.04.30.00
+ * @version 2026.05.08.00
  */
 abstract class TblBasics{
   protected TblData $BotData;
@@ -373,6 +373,8 @@ abstract class TblBasics{
   ):object{
     if(isset($Data['message'])):
       return self::DetectMessage($Data['message']);
+    elseif(isset($Data['guest_message'])):
+      return self::DetectMessage($Data['guest_message']);
     elseif(isset($Data['edited_message'])):
       return self::DetectMessageEdited($Data['edited_message']);
     elseif(isset($Data['channel_post'])):

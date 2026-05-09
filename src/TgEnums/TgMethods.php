@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TgEnums;
 
 /**
- * @version 2026.04.08.00
+ * @version 2026.05.08.00
  */
 enum TgMethods:string{
   /**
@@ -332,6 +332,10 @@ enum TgMethods:string{
    * @link https://core.telegram.org/bots/api#sendgame
    */
   case GameSend = 'sendGame';
+  /**
+   * @link https://core.telegram.org/bots/api#answerguestquery
+   */
+  case GuestAnswer = 'answerGuestQuery';
   /**
    * @link https://core.telegram.org/bots/api#getavailablegifts
    */

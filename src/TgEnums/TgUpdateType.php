@@ -7,7 +7,7 @@ namespace ProtocolLive\TelegramBotLibrary\TgEnums;
 /**
  * Used in webhook set
  * https://core.telegram.org/bots/api#update
- * @version 2026.04.08.00
+ * @version 2026.05.08.00
  */
 enum TgUpdateType:string{
   case BusinessConnection = 'business_connection';
@@ -22,6 +22,7 @@ enum TgUpdateType:string{
   case ChatBoost = 'chat_boost';
   case ChatBoostRemoved = 'removed_chat_boost';
   case ChatJoinRequest = 'chat_join_request';
+  case Guest = 'guest_message';
   case InlineQuery = 'inline_query';
   case InlineQueryChosen = 'chosen_inline_result';
   case InvoiceShipping = 'shipping_query';
