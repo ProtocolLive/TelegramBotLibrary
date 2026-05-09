@@ -8,13 +8,13 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\TgMemberStatus;
 /**
  * This object contains information about one member of a chat. Currently, the following 6 types of chat members are supported: ChatMemberOwner, ChatMemberAdministrator, ChatMemberMember, ChatMemberRestricted, ChatMemberLeft, ChatMemberBanned
  * @link https://core.telegram.org/bots/api#chatmember
- * @version 2026.05.08.00
+ * @version 2026.05.08.01
  */
 final readonly class TgMember{
   /**
    * Information about the user
    */
-  public TgUser $Member;
+  public TgUser|TgBot $Member;
   /**
    * If the user is a member of the chat at the moment of the request
    * @link https://core.telegram.org/bots/api#chatmemberrestricted
@@ -58,7 +58,11 @@ final readonly class TgMember{
   public function __construct(
     array $Data
   ){
-    $this->Member = new TgUser($Data['user']);
+    if(isset($Data['user']['is_bot'])):
+      $this->Member = new TgBot($Data['user']);
+    else:
+      $this->Member = new TgUser($Data['user']);
+    endif;
     $this->Status = TgMemberStatus::tryFrom($Data['status']);
     if($this->Status === TgMemberStatus::Restricted):
       $this->In = $Data['is_member'];

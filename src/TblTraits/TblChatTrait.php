@@ -21,7 +21,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 };
 
 /**
- * @version 2026.04.10.00
+ * @version 2026.05.08.00
  */
 trait TblChatTrait{
   /**
@@ -53,20 +53,24 @@ trait TblChatTrait{
   }
 
   /**
-   * Use this method to get a list of administrators in a chat. On success
-   * @param int|string $Chat Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername)
-   * @return TgMember[] Returns an Array of ChatMember objects that contains information about all chat administrators except other bots.
+   * Use this method to get a list of administrators in a chat.
+   * @param int|string $Chat Unique identifier for the target chat or username of the target supergroup or channel in the format @username
+   * @param bool $Bots Pass True to additionally receive all bots that are administrators of the chat. By default, bots other than the current bot are omitted.
+   * @return TgMember[] Returns an Array of ChatMember objects.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#getchatadministrators
    */
   public function ChatAdmGet(
-    int|string $Chat
+    int|string $Chat,
+    bool $Bots = false
   ):array{
     $param['chat_id'] = $Chat;
-    $temp = $this->ServerMethod(TgMethods::ChatAdms, $param);
-    $return = [];
-    foreach($temp as $user):
-      $return[] = new TgMember($user);
+    if($Bots):
+      $param['include_bots'] = true;
+    endif;
+    $return = $this->ServerMethod(TgMethods::ChatAdms, $param);
+    foreach($return as &$user):
+      $user = new TgMember($user);
     endforeach;
     return $return;
   }
