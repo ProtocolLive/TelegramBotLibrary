@@ -21,7 +21,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 };
 
 /**
- * @version 2026.05.08.01
+ * @version 2026.05.08.02
  */
 trait TblChatTrait{
   /**
@@ -523,5 +523,56 @@ trait TblChatTrait{
     $param['chat_id'] = $Chat;
     $param['photo'] = new CURLFile($Photo);
     return $this->ServerMethod(TgMethods::ChatPhotoSet, $param, false);
+  }
+
+  /**
+   * Use this method to remove a reaction from a message in a group or a supergroup chat. The bot must have the 'can_delete_messages' administrator right in the chat
+   * @param int|string $Chat Unique identifier for the target chat or username of the target supergroup (in the format @username)
+   * @param int $Message Identifier of the target message
+   * @param int|null $User Identifier of the user whose reaction will be removed, if the reaction was added by a user
+   * @param int|null $ChatActor Identifier of the chat whose reaction will be removed, if the reaction was added by a chat
+   * @return true Returns True on success.
+   * @link https://core.telegram.org/bots/api#deletemessagereaction
+   * @throws TblException
+   */
+  public function ChatReactionDel(
+    int|string $Chat,
+    int $Message,
+    int|null $User = null,
+    int|null $ChatActor = null
+  ):true{
+    $param['chat_id'] = $Chat;
+    $param['message_id'] = $Message;
+    if($User !== null):
+      $param['user_id'] = $User;
+    endif;
+    if($ChatActor !== null):
+      $param['actor_chat_id'] = $ChatActor;
+    endif;
+    return $this->ServerMethod(TgMethods::ChatReactionDel, $param);
+  }
+
+  /**
+   * Use this method to remove up to 10000 recent reactions in a group or a supergroup chat added by a given user or chat. The bot must have the 'can_delete_messages' administrator right in the chat.
+   * @param int|string $Chat Unique identifier for the target chat or username of the target supergroup (in the format @username)
+   * @param int|null $User Identifier of the user whose reactions will be removed, if the reactions were added by a user
+   * @param int|null $ChatActor Identifier of the chat whose reactions will be removed, if the reactions were added by a chat
+   * @return true Returns True on success
+   * @link https://core.telegram.org/bots/api#deleteallmessagereactions
+   * @throws TblException
+   */
+  public function ChatReactionDelAll(
+    int|string $Chat,
+    int|null $User = null,
+    int|null $ChatActor = null
+  ):true{
+    $param['chat_id'] = $Chat;
+    if($User !== null):
+      $param['user_id'] = $User;
+    endif;
+    if($ChatActor !== null):
+      $param['actor_chat_id'] = $ChatActor;
+    endif;
+    return $this->ServerMethod(TgMethods::ChatReactionDelAll, $param);
   }
 }

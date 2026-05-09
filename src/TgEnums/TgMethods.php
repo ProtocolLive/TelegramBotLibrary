@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TgEnums;
 
 /**
- * @version 2026.05.08.00
+ * @version 2026.05.08.01
  */
 enum TgMethods:string{
   /**
@@ -212,6 +212,14 @@ enum TgMethods:string{
    * @link https://core.telegram.org/bots/api#setchatphoto
    */
   case ChatPhotoSet = 'setChatPhoto';
+  /**
+   * @link https://core.telegram.org/bots/api#deletemessagereaction
+   */
+  case ChatReactionDel = 'deleteMessageReaction';
+  /**
+   * @link https://core.telegram.org/bots/api#deleteallmessagereactions
+   */
+  case ChatReactionDelAll = 'deleteAllMessageReactions';
   /**
    * @link https://core.telegram.org/bots/api#setchattitle
    */
