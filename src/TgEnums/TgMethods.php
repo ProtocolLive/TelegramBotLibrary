@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TgEnums;
 
 /**
- * @version 2026.05.08.01
+ * @version 2026.06.11.00
  */
 enum TgMethods:string{
   /**
@@ -164,6 +164,14 @@ enum TgMethods:string{
    * @link https://core.telegram.org/bots/api#declinechatjoinrequest
    */
   case ChatJoinDecline = 'declineChatJoinRequest';
+  /**
+   * @link https://core.telegram.org/bots/api#answerchatjoinrequestquery
+   */
+  case ChatJoinQueryAnswer = 'answerChatJoinRequestQuery';
+  /**
+   * @link https://core.telegram.org/bots/api#sendchatjoinrequestwebapp
+   */
+  case ChatJoinQueryWebapp = 'sendChatJoinRequestWebApp';
   /**
    * @link https://core.telegram.org/bots/api#leavechat
    */

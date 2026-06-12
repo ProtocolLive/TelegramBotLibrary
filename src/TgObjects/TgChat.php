@@ -12,7 +12,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgMessageInterface;
 /**
  * @link https://core.telegram.org/bots/api#chat
  * @link https://core.telegram.org/bots/api#chatfullinfo
- * @version 2026.02.09.00
+ * @version 2026.06.11.00
  */
 final readonly class TgChat{
   /**
@@ -154,6 +154,10 @@ final readonly class TgChat{
    * The color scheme based on a unique gift that must be used for the chat's name, message replies and link previews
    */
   public TgGiftUniqueColors|null $GiftColor;
+  /**
+   * The bot that processes join request queries in the chat. The field is only available to chat administrators.
+   */
+  public TgBot|null $Guardian;
 
   public function __construct(
     array $Data
@@ -214,6 +218,11 @@ final readonly class TgChat{
       $this->GiftColor = new TgGiftUniqueColors($Data['unique_gift_colors']);
     else:
       $this->GiftColor = null;
+    endif;
+    if(isset($Data['guard_bot'])):
+      $this->Guardian = new TgBot($Data['guard_bot']);
+    else:
+      $this->Guardian = null;
     endif;
 
     foreach($Data['available_reactions'] ?? [] as &$reaction):

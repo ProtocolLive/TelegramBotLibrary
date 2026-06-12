@@ -8,6 +8,7 @@ use ProtocolLive\TelegramBotLibrary\TblObjects\TblException;
 use ProtocolLive\TelegramBotLibrary\TgEnums\{
   TgChatAction,
   TgChatType,
+  TgJoinQueryAnswerResult,
   TgMethods
 };
 use ProtocolLive\TelegramBotLibrary\TgObjects\{
@@ -21,7 +22,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\{
 };
 
 /**
- * @version 2026.05.08.02
+ * @version 2026.06.11.00
  */
 trait TblChatTrait{
   /**
@@ -397,6 +398,36 @@ trait TblChatTrait{
     $param['chat_id'] = $Chat;
     $param['user_id'] = $User;
     return $this->ServerMethod(TgMethods::ChatJoinDecline, $param);
+  }
+
+  /**
+   * Use this method to process a received chat join request query
+   * @param string $QueryId Unique identifier of the join request query
+   * @param TgJoinQueryAnswerResult $Result Result of the query. Must be either “approve” to allow the user to join the chat, “decline” to disallow the user to join the chat, or “queue” to leave the decision to other administrators.
+   * @return true Returns True on success
+   */
+  public function ChatJoinQueryAnswer(
+    string $QueryId,
+    TgJoinQueryAnswerResult $Result
+  ):true{
+    $param['chat_join_request_query_id'] = $QueryId;
+    $param['result'] = $Result->value;
+    return $this->ServerMethod(TgMethods::ChatJoinQueryAnswer, $param);
+  }
+
+  /**
+   * Use this method to process a received chat join request query by showing a Mini App to the user before deciding the outcome
+   * @param string $QueryId Unique identifier of the join request query
+   * @param string $Url The URL of the Mini App to be opened
+   * @return true Returns True on success
+   */
+  public function ChatJoinQueryWebapp(
+    string $QueryId,
+    string $Url
+  ):true{
+    $param['chat_join_request_query_id'] = $QueryId;
+    $param['web_app_url'] = $Url;
+    return $this->ServerMethod(TgMethods::ChatJoinQueryWebapp, $param);
   }
 
   /**

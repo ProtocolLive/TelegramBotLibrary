@@ -7,7 +7,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgEventInterface;
 
 /**
  * @link https://core.telegram.org/bots/api#chatjoinrequest
- * @version 2024.01.04.00
+ * @version 2026.06.11.00
  */
 final readonly class TgChatRequest
 implements TgEventInterface{
@@ -31,6 +31,10 @@ implements TgEventInterface{
    * Chat invite link that was used by the user to send the join request
    */
   public TgChatInviteLink|null $Link;
+  /**
+   * Identifier of the join request query. If present, then the bot must call sendChatJoinRequestWebApp or directly call answerChatJoinRequestQuery within 10 seconds.
+   */
+  public string|null $QueryId;
 
   public function __construct(
     array $Data
@@ -39,6 +43,7 @@ implements TgEventInterface{
     $this->User = new TgUser($Data['from']);
     $this->Date = $Data['date'];
     $this->Bio = $Data['bio'] ?? null;
+    $this->QueryId = $Data['query_id'] ?? null;
     if(isset($Data['invite_link'])):
       $this->Link = new TgChatInviteLink($Data['invite_link']);
     else:

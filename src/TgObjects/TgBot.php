@@ -6,7 +6,7 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
  * @link https://core.telegram.org/bots/api#user
- * @version 2026.06.11.00
+ * @version 2026.06.11.01
  */
 final readonly class TgBot{
   /**
@@ -53,6 +53,10 @@ final readonly class TgBot{
    * If the bot supports guest queries from chats it is not a member of. Returned only in getMe.
    */
   public bool $Guest;
+  /**
+   * If the bot supports join request queries and can be assigned to process them. Returned only in getMe.
+   */
+  public bool $Guardian;
 
   public function __construct(
     array $Data
@@ -68,5 +72,6 @@ final readonly class TgBot{
     $this->Topics = $Data['allows_users_to_create_topics'] ?? false;
     $this->ManageBots = $Data['can_manage_bots'] ?? false;
     $this->Guest = $Data['supports_guest_queries'] ?? false;
+    $this->Guardian = $Data['supports_join_request_queries'] ?? false;
   }
 }
