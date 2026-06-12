@@ -6,7 +6,7 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
  * @link https://core.telegram.org/bots/api#user
- * @version 2026.05.08.00
+ * @version 2026.06.11.00
  */
 final readonly class TgBot{
   /**
@@ -67,6 +67,6 @@ final readonly class TgBot{
     $this->WebApp = $Data['has_main_web_app'] ?? false;
     $this->Topics = $Data['allows_users_to_create_topics'] ?? false;
     $this->ManageBots = $Data['can_manage_bots'] ?? false;
-    $this->ManageBots = $Data['supports_guest_queries'] ?? false;
+    $this->Guest = $Data['supports_guest_queries'] ?? false;
   }
 }
