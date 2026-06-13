@@ -6,7 +6,7 @@ namespace ProtocolLive\TelegramBotLibrary\TgObjects;
 
 /**
  * @link https://core.telegram.org/bots/api#user
- * @version 2026.06.11.01
+ * @version 2026.06.13.00
  */
 final readonly class TgBot{
   /**
@@ -24,39 +24,39 @@ final readonly class TgBot{
   /**
    * If the bot can be invited to groups. Returned only in getMe.
    */
-  public bool $Groups;
+  public bool|null $Groups;
   /**
    * If privacy mode is disabled for the bot. Returned only in getMe.
    */
-  public bool $Read;
+  public bool|null $Read;
   /**
    * If the bot supports inline queries. Returned only in getMe.
    */
-  public bool $InlineQuery;
+  public bool|null $InlineQuery;
   /**
    * If the bot can be connected to a Telegram Business account to receive its messages. Returned only in getMe.
    */
-  public bool $Business;
+  public bool|null $Business;
   /**
    * If the bot has a main Web App. Returned only in getMe.
    */
-  public bool $WebApp;
+  public bool|null $WebApp;
   /**
    * If the bot allows users to create and delete topics in private chats. Returned only in getMe.
    */
-  public bool $Topics;
+  public bool|null $Topics;
   /**
    * If other bots can be created to be controlled by the bot. Returned only in getMe.
    */
-  public bool $ManageBots;
+  public bool|null $ManageBots;
   /**
    * If the bot supports guest queries from chats it is not a member of. Returned only in getMe.
    */
-  public bool $Guest;
+  public bool|null $Guest;
   /**
    * If the bot supports join request queries and can be assigned to process them. Returned only in getMe.
    */
-  public bool $Guardian;
+  public bool|null $Guardian;
 
   public function __construct(
     array $Data
@@ -64,14 +64,14 @@ final readonly class TgBot{
     $this->Id = $Data['id'];
     $this->Name = $Data['first_name'];
     $this->Nick = $Data['username'];
-    $this->Groups = $Data['can_join_groups'] ?? false;
-    $this->Read = $Data['can_read_all_group_messages'] ?? false;
-    $this->InlineQuery = $Data['supports_inline_queries'] ?? false;
-    $this->Business = $Data['can_connect_to_business'] ?? false;
-    $this->WebApp = $Data['has_main_web_app'] ?? false;
-    $this->Topics = $Data['allows_users_to_create_topics'] ?? false;
-    $this->ManageBots = $Data['can_manage_bots'] ?? false;
-    $this->Guest = $Data['supports_guest_queries'] ?? false;
-    $this->Guardian = $Data['supports_join_request_queries'] ?? false;
+    $this->Groups = $Data['can_join_groups'] ?? null;
+    $this->Read = $Data['can_read_all_group_messages'] ?? null;
+    $this->InlineQuery = $Data['supports_inline_queries'] ?? null;
+    $this->Business = $Data['can_connect_to_business'] ?? null;
+    $this->WebApp = $Data['has_main_web_app'] ?? null;
+    $this->Topics = $Data['allows_users_to_create_topics'] ?? null;
+    $this->ManageBots = $Data['can_manage_bots'] ?? null;
+    $this->Guest = $Data['supports_guest_queries'] ?? null;
+    $this->Guardian = $Data['supports_join_request_queries'] ?? null;
   }
 }
