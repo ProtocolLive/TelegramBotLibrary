@@ -12,7 +12,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgMessageInterface;
 /**
  * @link https://core.telegram.org/bots/api#chat
  * @link https://core.telegram.org/bots/api#chatfullinfo
- * @version 2026.06.11.00
+ * @version 2026.06.13.00
  */
 final readonly class TgChat{
   /**
@@ -118,10 +118,6 @@ final readonly class TgChat{
    */
   public TgChatPhoto|null $Photo;
   /**
-   * Default chat member permissions, for groups and supergroups. Returned only in getChat.
-   */
-  public TgPermMember|null $Permissions;
-  /**
    * If non-empty, the list of all active chat usernames; for private chats, supergroups and channels. Returned only in getChat.
    */
   public array $Nicks;
@@ -134,10 +130,6 @@ final readonly class TgChat{
    * @var TgReaction[]
    */
   public array $Reactions;
-  /**
-   * Information about types of gifts that are accepted by the chat or by the corresponding user for private chats
-   */
-  public TgGiftAcceptedTypes|null $Gifts;
   /**
    * If the chat is the direct messages chat of a channel
    */
@@ -158,6 +150,14 @@ final readonly class TgChat{
    * The bot that processes join request queries in the chat. The field is only available to chat administrators.
    */
   public TgBot|null $Guardian;
+  /**
+   * Information about types of gifts that are accepted by the chat or by the corresponding user for private chats
+   */
+  public TgGiftAcceptedTypes|null $Gifts;
+  /**
+   * Default chat member permissions, for groups and supergroups. Returned only in getChat.
+   */
+  public TgPermMember|null $Permissions;
 
   public function __construct(
     array $Data
