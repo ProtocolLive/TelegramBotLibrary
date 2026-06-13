@@ -3,22 +3,16 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TgObjects;
+use ProtocolLive\TelegramBotLibrary\TgAuxiliary\TgMessageData;
 use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgEventInterface;
 
 /**
  * @link https://core.telegram.org/bots/api#chatjoinrequest
- * @version 2026.06.11.00
+ * @version 2026.06.13.00
  */
 final readonly class TgChatRequest
 implements TgEventInterface{
-  /**
-   * Chat to which the request was sent
-   */
-  public TgChat $Chat;
-  /**
-   * User that sent the join request
-   */
-  public TgUser $User;
+  public TgMessageData $Data;
   /**
    * Date the request was sent in Unix time
    */
@@ -39,8 +33,7 @@ implements TgEventInterface{
   public function __construct(
     array $Data
   ){
-    $this->Chat = new TgChat($Data['chat']);
-    $this->User = new TgUser($Data['from']);
+    $this->Data = new TgMessageData($Data);
     $this->Date = $Data['date'];
     $this->Bio = $Data['bio'] ?? null;
     $this->QueryId = $Data['query_id'] ?? null;
