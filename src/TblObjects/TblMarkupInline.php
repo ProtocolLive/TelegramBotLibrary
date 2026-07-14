@@ -8,7 +8,7 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\TgInlineKeyboardStyle;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgLimits;
 
 /**
- * @version 2026.02.27.00
+ * @version 2026.07.14.00
  */
 class TblMarkupInline
 extends TblMarkup{
@@ -102,7 +102,7 @@ extends TblMarkup{
     string $Data,
     string|null $Emoji = null,
     TgInlineKeyboardStyle|null $Style = null
-  ):void{
+  ):self{
     if(strlen($Data) > TgLimits::CallbackData):
       throw new TblException(
         TblError::LimitCallbackData,
@@ -118,6 +118,7 @@ extends TblMarkup{
       $this->Pointer[$Line][$Column]['style'] = $Style->value;
     endif;
     ksort($this->Pointer);
+    return $this;
   }
 
   /**
