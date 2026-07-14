@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
 
 /**
- * @version 2026.07.14.00
+ * @version 2026.07.14.01
  */
 final class TblCommands{
   private array $Commands = [];
@@ -20,7 +20,7 @@ final class TblCommands{
       $this->Commands[$cmd['command']] = new TblCommand(
         $cmd['command'],
         $cmd['description'],
-        $cmd['is_ephemeral']
+        $cmd['is_ephemeral'] ?? false
       );
     endforeach;
   }
@@ -51,7 +51,13 @@ final class TblCommands{
   public function Get(
     string|null $Command = null
   ):array|TblCommand|null{
-    return clone $this->Commands[$Command] ?? clone $this->Commands ?? null;
+    if($Command === null):
+      return $this->Commands;
+    elseif(isset($this->Commands[$Command])):
+      return clone $this->Commands[$Command];
+    else:
+      return null;
+    endif;
   }
 
   public function Merge(
