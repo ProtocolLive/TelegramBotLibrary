@@ -11,18 +11,20 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\TgStickerType;
 use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
   TgEventInterface,
   TgForwadableInterface,
-  TgMessageInterface
+  TgMessageInterface,
+  TgPollMediaInterface
 };
 
 /**
  * This object represents a sticker.
  * @link https://core.telegram.org/bots/api#sticker
- * @version 2024.04.11.01
+ * @version 2026.06.13.00
  */
 readonly class TgSticker
 implements TgEventInterface,
 TgForwadableInterface,
-TgMessageInterface{
+TgMessageInterface,
+TgPollMediaInterface{
   public TgMessageData $Data;
   /**
    * Identifier for this file, which can be used to download or reuse the file

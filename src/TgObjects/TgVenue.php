@@ -7,18 +7,20 @@ use ProtocolLive\TelegramBotLibrary\TgAuxiliary\TgMessageData;
 use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
   TgEventInterface,
   TgForwadableInterface,
-  TgMessageInterface
+  TgMessageInterface,
+  TgPollMediaInterface
 };
 
 /**
  * This object represents a venue.
  * @link https://core.telegram.org/bots/api#venue
- * @version 2024.04.11.01
+ * @version 2026.06.13.00
  */
 final readonly class TgVenue
 implements TgEventInterface,
 TgForwadableInterface,
-TgMessageInterface{
+TgMessageInterface,
+TgPollMediaInterface{
   public TgMessageData $Data;
 
   /**

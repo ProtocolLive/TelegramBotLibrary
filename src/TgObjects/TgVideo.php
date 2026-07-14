@@ -11,18 +11,20 @@ use ProtocolLive\TelegramBotLibrary\TgAuxiliary\{
 use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
   TgEventInterface,
   TgForwadableInterface,
-  TgMessageInterface
+  TgMessageInterface,
+  TgPollMediaInterface
 };
 
 /**
  * @link https://core.telegram.org/bots/api#video
- * @version 2026.02.27.00
+ * @version 2026.06.13.00
  */
 readonly class TgVideo
 extends TgCaptionable
 implements TgEventInterface,
 TgForwadableInterface,
-TgMessageInterface{
+TgMessageInterface,
+TgPollMediaInterface{
   /**
    * Can be null in case of command or external reply
    */

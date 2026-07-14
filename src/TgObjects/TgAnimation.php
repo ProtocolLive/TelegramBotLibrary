@@ -9,17 +9,19 @@ use ProtocolLive\TelegramBotLibrary\TgAuxiliary\{
 };
 use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
   TgEventInterface,
-  TgForwadableInterface
+  TgForwadableInterface,
+  TgPollMediaInterface
 };
 
 /**
  * @link https://core.telegram.org/bots/api#animation
- * @version 2026.04.10.00
+ * @version 2026.06.13.00
  */
 readonly class TgAnimation
 extends TgCaptionable
 implements TgEventInterface,
-TgForwadableInterface{
+TgForwadableInterface,
+TgPollMediaInterface{
   /**
    * Can be null in case of command, external reply or game message with a animation inside
    */

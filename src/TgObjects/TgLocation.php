@@ -7,17 +7,19 @@ use ProtocolLive\TelegramBotLibrary\TgAuxiliary\TgMessageData;
 use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
   TgEventInterface,
   TgForwadableInterface,
-  TgMessageInterface
+  TgMessageInterface,
+  TgPollMediaInterface
 };
 
 /**
  * @link https://core.telegram.org/bots/api#location
- * @version 2024.04.11.01
+ * @version 2026.06.13.00
  */
 readonly class TgLocation
 implements TgEventInterface,
 TgForwadableInterface,
-TgMessageInterface{
+TgMessageInterface,
+TgPollMediaInterface{
   public TgMessageData|null $Data;
   /**
    * Latitude as defined by sender

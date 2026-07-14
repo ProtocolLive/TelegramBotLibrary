@@ -10,19 +10,21 @@ use ProtocolLive\TelegramBotLibrary\TgAuxiliary\{
 use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
   TgEventInterface,
   TgForwadableInterface,
-  TgMessageInterface
+  TgMessageInterface,
+  TgPollMediaInterface
 };
 
 /**
  * This object represents a general file (as opposed to photos, voice messages and audio files).
  * @link https://core.telegram.org/bots/api#document
- * @version 2026.04.10.00
+ * @version 2026.06.13.00
  */
 readonly class TgDocument
 extends TgCaptionable
 implements TgEventInterface,
 TgForwadableInterface,
-TgMessageInterface{
+TgMessageInterface,
+TgPollMediaInterface{
   /**
    * Can be null in case of command or external reply
    */

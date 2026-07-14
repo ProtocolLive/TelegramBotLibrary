@@ -10,18 +10,20 @@ use ProtocolLive\TelegramBotLibrary\TgAuxiliary\{
 use ProtocolLive\TelegramBotLibrary\TgInterfaces\{
   TgEventInterface,
   TgForwadableInterface,
-  TgMessageInterface
+  TgMessageInterface,
+  TgPollMediaInterface
 };
 
 /**
  * @link https://core.telegram.org/bots/api#audio
- * @version 2025.07.04.00
+ * @version 2026.06.13.00
  */
 readonly class TgAudio
 extends TgCaptionable
 implements TgEventInterface,
 TgForwadableInterface,
-TgMessageInterface{
+TgMessageInterface,
+TgPollMediaInterface{
   /**
    * Can be null in case of command or external reply
    */
