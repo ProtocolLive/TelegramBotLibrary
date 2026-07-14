@@ -3,11 +3,9 @@
 //https://github.com/ProtocolLive/TelegramBotLibrary
 
 namespace ProtocolLive\TelegramBotLibrary\TblObjects;
-use ProtocolLive\TelegramBotLibrary\TgEnums\TgError;
-use ProtocolLive\TelegramBotLibrary\TgObjects\TgLimits;
 
 /**
- * @version 2025.07.04.00
+ * @version 2026.07.14.00
  */
 final class TblCommands{
   private array $Commands = [];
@@ -15,11 +13,16 @@ final class TblCommands{
   public function __construct(
     array|null $Data = null
   ){
-    if($Data !== null):
-      foreach($Data as $cmd):
-        $this->Commands[$cmd['command']] = $cmd['description'];
-      endforeach;
+    if($Data === null):
+      return;
     endif;
+    foreach($Data as $cmd):
+      $this->Commands[$cmd['command']] = new TblCommand(
+        $cmd['command'],
+        $cmd['description'],
+        $cmd['is_ephemeral']
+      );
+    endforeach;
   }
 
   /**
@@ -27,21 +30,9 @@ final class TblCommands{
    * @throws TblException
    */
   public function Add(
-    string $Command,
-    string $Description
+    TblCommand $Command
   ):void{
-    if(strlen($Command) > TgLimits::Command):
-      throw new TblException(
-        TgError::LimitCommand,
-        'Command exceeds ' . TgLimits::Command . ' characters'
-      );
-    elseif(strlen($Description) > TgLimits::CmdDescription):
-      throw new TblException(
-        TgError::LimitCmdDescription,
-        'Description exceeds ' . TgLimits::CmdDescription . ' characters'
-      );
-    endif;
-    $this->Commands[$Command] = $Description;
+    $this->Commands[$Command->Command] = $Command;
   }
 
   public function Count():int{
@@ -59,26 +50,25 @@ final class TblCommands{
    */
   public function Get(
     string|null $Command = null
-  ):array|string|null{
-    if($Command === null):
-      return $this->Commands;
-    else:
-      return $this->Commands[$Command] ?? null;
-    endif;
+  ):array|TblCommand|null{
+    return clone $this->Commands[$Command] ?? clone $this->Commands ?? null;
   }
 
-  public function Merge(self $Commands):void{
-    foreach($Commands->Get() as $cmd => $description):
-      $this->Add($cmd, $description);
+  public function Merge(
+    self $Commands
+  ):void{
+    foreach($Commands->Get() as $data):
+      $this->Add(new TblCommand($data->Command, $data->Description, $data->Ephemeral));
     endforeach;
   }
 
   public function ToArray():array{
     $return = [];
-    foreach($this->Commands as $cmd => $description):
+    foreach($this->Commands as $data):
       $return[] = [
-        'command' => $cmd,
-        'description' => $description
+        'command' => $data->Command,
+        'description' => $data->Description,
+        'is_ephemeral' => $data->Ephemeral
       ];
     endforeach;
     return $return;
