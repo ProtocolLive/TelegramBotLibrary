@@ -66,7 +66,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2026.05.08.00
+ * @version 2026.07.14.00
  */
 final class TelegramBotLibrary
 extends TblBasics{
@@ -162,6 +162,7 @@ extends TblBasics{
    * @param TgReplyParams $Reply Description of the message to reply to
    * @param TblMarkup $Markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user
    * @param TgSuggestedPostParameters $SuggestedPost A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
+   * @param int $EphemeralUser For outgoing ephemeral messages, unique identifier of the user who will receive the message; for group and supergroup chats only. It is not guaranteed that the user will receive the message, especially if they are offline. See ephemeral message sending for more details.
    * @return TgContact The sent Message is returned.
    * @link https://core.telegram.org/bots/api#sendcontact
    */
@@ -180,7 +181,8 @@ extends TblBasics{
     string|null $Effect = null,
     TgSuggestedPostParameters|null $SuggestedPost = null,
     TgReplyParams|null $Reply = null,
-    TblMarkup|null $Markup = null
+    TblMarkup|null $Markup = null,
+    int|null $EphemeralUser = null
   ):TgContact{
     $param['chat_id'] = $Chat;
     $param['phone_number'] = $Phone;
@@ -221,6 +223,9 @@ extends TblBasics{
     if($SuggestedPost !== null):
       $param['suggested_post_parameters'] = $SuggestedPost->ToArray();
     endif;
+    if($EphemeralUser > 0):
+      $param['receiver_user_id'] = $EphemeralUser;
+    endif;
     return new TgContact($this->ServerMethod(TgMethods::ContactSend, $param));
   }
 
@@ -257,6 +262,7 @@ extends TblBasics{
    * @param int $Thread Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
    * @param int $DirectTopic Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
    * @param TgSuggestedPostParameters $SuggestedPost A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
+   * @param int $EphemeralUser For outgoing ephemeral messages, unique identifier of the user who will receive the message; for group and supergroup chats only. It is not guaranteed that the user will receive the message, especially if they are offline. See ephemeral message sending for more details.
    * @return TgDocument On success, the sent Message is returned.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#senddocument
@@ -278,7 +284,8 @@ extends TblBasics{
     bool $AllowPaid = false,
     TblMarkup|null $Markup = null,
     string|null $Effect = null,
-    TgSuggestedPostParameters|null $SuggestedPost = null
+    TgSuggestedPostParameters|null $SuggestedPost = null,
+    int|null $EphemeralUser = null
   ):TgDocument{
     $param['chat_id'] = $Chat;
     if(is_file($File)):
@@ -335,6 +342,9 @@ extends TblBasics{
     endif;
     if($SuggestedPost !== null):
       $param['suggested_post_parameters'] = $SuggestedPost->ToArray();
+    endif;
+    if($EphemeralUser > 0):
+      $param['receiver_user_id'] = $EphemeralUser;
     endif;
     $return = $this->ServerMethod(TgMethods::DocumentSend, $param);
     return new TgDocument($return);
@@ -966,6 +976,7 @@ extends TblBasics{
    * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
    * @param int $DirectTopic Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
    * @param TgSuggestedPostParameters $SuggestedPost A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
+   * @param int $EphemeralUser For outgoing ephemeral messages, unique identifier of the user who will receive the message; for group and supergroup chats only. It is not guaranteed that the user will receive the message, especially if they are offline. See ephemeral message sending for more details.
    * @return TgSticker The sent Message.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#sendsticker
@@ -982,7 +993,8 @@ extends TblBasics{
     bool $AllowPaid = false,
     TblMarkup|null $Markup = null,
     string|null $Effect = null,
-    TgSuggestedPostParameters|null $SuggestedPost = null
+    TgSuggestedPostParameters|null $SuggestedPost = null,
+    int|null $EphemeralUser = null
   ):TgSticker{
     $param['chat_id'] = $Chat;
     $param['sticker'] = $Sticker;
@@ -1015,6 +1027,9 @@ extends TblBasics{
     endif;
     if($SuggestedPost !== null):
       $param['suggested_post_parameters'] = $SuggestedPost->ToArray();
+    endif;
+    if($EphemeralUser > 0):
+      $param['receiver_user_id'] = $EphemeralUser;
     endif;
     $return = parent::ServerMethod(TgMethods::StickerSend, $param);
     return new TgSticker($return);

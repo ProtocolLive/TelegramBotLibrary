@@ -15,7 +15,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2026.01.05.00
+ * @version 2026.07.14.00
  */
 trait TblLocationTrait{
   /**
@@ -101,6 +101,7 @@ trait TblLocationTrait{
    * @param TblMarkup $Markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user
    * @param int $DirectTopic Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
    * @param TgSuggestedPostParameters $SuggestedPost A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
+   * @param int $EphemeralUser For outgoing ephemeral messages, unique identifier of the user who will receive the message; for group and supergroup chats only. It is not guaranteed that the user will receive the message, especially if they are offline. See ephemeral message sending for more details.
    * @return TgLocation On success, the sent Message is returned.
    * @link https://core.telegram.org/bots/api#sendlocation
    */
@@ -121,7 +122,8 @@ trait TblLocationTrait{
     string|null $Effect = null,
     TgSuggestedPostParameters|null $SuggestedPost = null,
     TgReplyParams|null $Reply = null,
-    TblMarkup|null $Markup = null
+    TblMarkup|null $Markup = null,
+    int|null $EphemeralUser = null
   ):TgLocation{
     $param['chat_id'] = $Chat;
     $param['latitude'] = $Latitude;
@@ -167,6 +169,9 @@ trait TblLocationTrait{
     endif;
     if($SuggestedPost !== null):
       $param['suggested_post_parameters'] = $SuggestedPost->ToArray();
+    endif;
+    if($EphemeralUser > 0):
+      $param['receiver_user_id'] = $EphemeralUser;
     endif;
     return new TgLocation($this->SendRequest(TgMethods::LocationSend, $param));
   }
@@ -228,6 +233,7 @@ trait TblLocationTrait{
    * @param TblMarkup $Markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user
    * @param int $DirectTopic Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
    * @param TgSuggestedPostParameters $SuggestedPost A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
+   * @param int $EphemeralUser For outgoing ephemeral messages, unique identifier of the user who will receive the message; for group and supergroup chats only. It is not guaranteed that the user will receive the message, especially if they are offline. See ephemeral message sending for more details.
    * @return TgVenue On success, the sent Message is returned.
    */
   public function VenueSend(
@@ -249,7 +255,8 @@ trait TblLocationTrait{
     string|null $Effect = null,
     TgSuggestedPostParameters|null $SuggestedPost = null,
     TgReplyParams|null $Reply = null,
-    TblMarkup|null $Markup = null
+    TblMarkup|null $Markup = null,
+    int|null $EphemeralUser = null
   ):TgVenue{
     $param['chat_id'] = $Chat;
     $param['latitude'] = $Latitude;
@@ -293,6 +300,9 @@ trait TblLocationTrait{
     endif;
     if($SuggestedPost !== null):
       $param['suggested_post_parameters'] = $SuggestedPost->ToArray();
+    endif;
+    if($EphemeralUser > 0):
+      $param['receiver_user_id'] = $EphemeralUser;
     endif;
     return new TgVenue($this->SendRequest(TgMethods::VenueSend, $param));
   }

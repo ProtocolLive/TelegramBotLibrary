@@ -29,7 +29,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2026.03.01.00
+ * @version 2026.07.14.00
  */
 trait TblTextTrait{
   /**
@@ -230,6 +230,7 @@ trait TblTextTrait{
    * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
    * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
    * @param int $DirectTopic Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
+   * @param int $EphemeralUser For outgoing ephemeral messages, unique identifier of the user who will receive the message; for group and supergroup chats only. It is not guaranteed that the user will receive the message, especially if they are offline. See ephemeral message sending for more details.
    * @return TgText On success, the sent Message is returned.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#sendmessage
@@ -248,7 +249,8 @@ trait TblTextTrait{
     bool $AllowPaid = false,
     TgReplyParams|null $Reply = null,
     TblMarkup|null $Markup = null,
-    string|null $Effect = null
+    string|null $Effect = null,
+    int|null $EphemeralUser = null
   ):TgText{
     $return = $this->ServerMethod(
       TgMethods::TextSend,
@@ -266,7 +268,8 @@ trait TblTextTrait{
         Markup: $Markup,
         Effect: $Effect,
         AllowPaid: $AllowPaid,
-        DirectTopic: $DirectTopic
+        DirectTopic: $DirectTopic,
+        EphemeralUser: $EphemeralUser
       )
     );
     return new TgText($return);

@@ -24,7 +24,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2026.01.05.00
+ * @version 2026.07.14.00
  */
 trait TblVideoTrait{
   /**
@@ -53,6 +53,7 @@ trait TblVideoTrait{
    * @param int $Start Start timestamp for the video in the message
    * @param int $DirectTopic Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
    * @param TgSuggestedPostParameters $SuggestedPost A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
+   * @param int $EphemeralUser For outgoing ephemeral messages, unique identifier of the user who will receive the message; for group and supergroup chats only. It is not guaranteed that the user will receive the message, especially if they are offline. See ephemeral message sending for more details.
    * @return TgVideo On success, the sent Message is returned.
    * @link https://core.telegram.org/bots/api#sendvideo
    * @throws TblException
@@ -81,7 +82,8 @@ trait TblVideoTrait{
     TgReplyParams|null $Reply = null,
     TblMarkup|null $Markup = null,
     string|null $Effect = null,
-    TgSuggestedPostParameters|null $SuggestedPost = null
+    TgSuggestedPostParameters|null $SuggestedPost = null,
+    int|null $EphemeralUser = null
   ):TgVideo|TgVideoNote{
     $param['chat_id'] = $Chat;
     if(empty($BusinessId) === false):
@@ -160,6 +162,9 @@ trait TblVideoTrait{
     if($SuggestedPost !== null):
       $param['suggested_post_parameters'] = $SuggestedPost->ToArray();
     endif;
+    if($EphemeralUser > 0):
+      $param['receiver_user_id'] = $EphemeralUser;
+    endif;
     return parent::DetectMessage($this->ServerMethod(TgMethods::VideoSend, $param, false));
   }
 
@@ -180,6 +185,7 @@ trait TblVideoTrait{
    * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
    * @param int $DirectTopic Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
    * @param TgSuggestedPostParameters $SuggestedPost A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
+   * @param int $EphemeralUser For outgoing ephemeral messages, unique identifier of the user who will receive the message; for group and supergroup chats only. It is not guaranteed that the user will receive the message, especially if they are offline. See ephemeral message sending for more details.
    * @return TgVideoNote The sent Message is returned.
    * @link https://core.telegram.org/bots/api#sendvideonote
    * @throws TblException
@@ -199,7 +205,8 @@ trait TblVideoTrait{
     TgReplyParams|null $Reply = null,
     TblMarkup|null $Markup = null,
     string|null $Effect = null,
-    TgSuggestedPostParameters|null $SuggestedPost = null
+    TgSuggestedPostParameters|null $SuggestedPost = null,
+    int|null $EphemeralUser = null
   ):TgVideoNote|TgVideo{
     $param['chat_id'] = $Chat;
     if(is_file($Video)):
@@ -248,6 +255,9 @@ trait TblVideoTrait{
     endif;
     if($SuggestedPost !== null):
       $param['suggested_post_parameters'] = $SuggestedPost->ToArray();
+    endif;
+    if($EphemeralUser > 0):
+      $param['receiver_user_id'] = $EphemeralUser;
     endif;
     return parent::DetectMessage($this->ServerMethod(TgMethods::VideoNoteSend, $param, false));
   }

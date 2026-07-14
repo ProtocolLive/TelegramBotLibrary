@@ -24,7 +24,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2026.01.05.00
+ * @version 2026.07.14.00
  */
 trait TblAudioTrait{
   /**
@@ -48,6 +48,7 @@ trait TblAudioTrait{
    * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
    * @param int $DirectTopic Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
    * @param TgSuggestedPostParameters $SuggestedPost A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
+   * @param int $EphemeralUser For outgoing ephemeral messages, unique identifier of the user who will receive the message; for group and supergroup chats only. It is not guaranteed that the user will receive the message, especially if they are offline. See ephemeral message sending for more details.
    * @return TgAudio On success, the sent Message is returned.
    * @link https://core.telegram.org/bots/api#sendaudio
    * @throws TblException
@@ -71,7 +72,8 @@ trait TblAudioTrait{
     TgReplyParams|null $Reply = null,
     TblMarkup|null $Markup = null,
     string|null $Effect = null,
-    TgSuggestedPostParameters|null $SuggestedPost = null
+    TgSuggestedPostParameters|null $SuggestedPost = null,
+    int|null $EphemeralUser = null
   ):TgAudio{
     $param['chat_id'] = $Chat;
     if(is_file($Audio)):
@@ -131,6 +133,9 @@ trait TblAudioTrait{
     if($SuggestedPost !== null):
       $param['suggested_post_parameters'] = $SuggestedPost->ToArray();
     endif;
+    if($EphemeralUser !== null):
+      $param['ephemeral_user_id'] = $EphemeralUser;
+    endif;
     return new TgAudio($this->ServerMethod(TgMethods::AudioSend, $param, false));
   }
 
@@ -152,6 +157,7 @@ trait TblAudioTrait{
    * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
    * @param int $DirectTopic Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
    * @param TgSuggestedPostParameters $SuggestedPost A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
+   * @param int $EphemeralUser For outgoing ephemeral messages, unique identifier of the user who will receive the message; for group and supergroup chats only. It is not guaranteed that the user will receive the message, especially if they are offline. See ephemeral message sending for more details.
    * @return TgVoice On success, the sent Message is returned.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#sendvoice
@@ -172,7 +178,8 @@ trait TblAudioTrait{
     TgReplyParams|null $Reply = null,
     TblMarkup|null $Markup = null,
     string|null $Effect = null,
-    TgSuggestedPostParameters|null $SuggestedPost = null
+    TgSuggestedPostParameters|null $SuggestedPost = null,
+    int|null $EphemeralUser = null
   ):TgVoice{
     $param['chat_id'] = $Chat;
     if(is_file($Voice)):
@@ -222,6 +229,9 @@ trait TblAudioTrait{
     endif;
     if($SuggestedPost !== null):
       $param['suggested_post_parameters'] = $SuggestedPost->ToArray();
+    endif;
+    if($EphemeralUser > 0):
+      $param['ephemeral_user_id'] = $EphemeralUser;
     endif;
     return new TgVoice($this->ServerMethod(TgMethods::VoiceSend, $param, false));
   }

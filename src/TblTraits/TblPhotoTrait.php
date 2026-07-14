@@ -18,7 +18,7 @@ use ProtocolLive\TelegramBotLibrary\TgObjects\TgPhoto;
 use ProtocolLive\TelegramBotLibrary\TgParams\TgReplyParams;
 
 /**
- * @version 2026.05.04.00
+ * @version 2026.07.14.00
  */
 trait TblPhotoTrait{
   /**
@@ -53,6 +53,7 @@ trait TblPhotoTrait{
    * @param string $Effect Unique identifier of the message effect to be added to the message; for private chats only
    * @param bool $CaptionAbove If the caption must be shown above the message media
    * @param bool $AllowPaid Allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+   * @param int $EphemeralUser For outgoing ephemeral messages, unique identifier of the user who will receive the message; for group and supergroup chats only. It is not guaranteed that the user will receive the message, especially if they are offline. See ephemeral message sending for more details.
    * @return TgPhoto On success, the sent Message is returned.
    * @throws TblException
    * @link https://core.telegram.org/bots/api#sendphoto
@@ -72,7 +73,8 @@ trait TblPhotoTrait{
     bool $AllowPaid = false,
     TgReplyParams|null $Reply = null,
     TblMarkup|null $Markup = null,
-    string|null $Effect = null
+    string|null $Effect = null,
+    int|null $EphemeralUser = null
   ):TgPhoto{
     $param = TblPhotoSendMulti::BuildArgs(
       Chat: $Chat,
@@ -89,7 +91,8 @@ trait TblPhotoTrait{
       Reply: $Reply,
       Markup: $Markup,
       Effect: $Effect,
-      AllowPaid: $AllowPaid
+      AllowPaid: $AllowPaid,
+      EphemeralUser: $EphemeralUser
     );
     $return = $this->ServerMethod(
       TgMethods::PhotoSend,
