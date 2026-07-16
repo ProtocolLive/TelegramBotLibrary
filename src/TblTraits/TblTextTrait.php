@@ -29,7 +29,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2026.07.14.00
+ * @version 2026.07.16.00
  */
 trait TblTextTrait{
   /**
@@ -190,6 +190,48 @@ trait TblTextTrait{
     else:
       return new TgText($return);
     endif;
+  }
+
+  /**
+   * Use this method to edit an ephemeral text message. Note that it is not guaranteed that the user will receive the message edit event, especially if they are offline
+   * @param int|string $Chat Unique identifier for the target chat or username of the target supergroup in the format @username
+   * @param int $User Identifier of the user who received the message
+   * @param int $Id Identifier of the ephemeral message to edit
+   * @param string $Text New text of the message, 1-4096 characters after entity parsing
+   * @param TgParseMode|null $ParseMode Mode for parsing entities in the message text. See formatting options for more details.
+   * @param TblEntities|null $Entities A JSON-serialized list of special entities that appear in message text, which can be specified instead of parse_mode
+   * @param TgLinkPreview|null $LinkPreview Link preview generation options for the message
+   * @param TblMarkup|null $Markup A JSON-serialized object for an inline keyboard
+   * @return true On success, True is returned
+   * @link https://core.telegram.org/bots/api#editephemeralmessagetext
+   */
+  public function TextEditEphemeral(
+    int|string $Chat,
+    int $User,
+    int $Id,
+    string $Text,
+    TgParseMode|null $ParseMode = null,
+    TblEntities|null $Entities = null,
+    TgLinkPreview|null $LinkPreview = null,
+    TblMarkup|null $Markup = null
+  ):true{
+    $param['chat_id'] = $Chat;
+    $param['receiver_user_id'] = $User;
+    $param['ephemeral_message_id'] = $Id;
+    $param['text'] = $Text;
+    if($ParseMode !== null):
+      $param['parse_mode'] = $ParseMode->value;
+    endif;
+    if($Entities !== null):
+      $param['entities'] = $Entities->ToArray();
+    endif;
+    if($LinkPreview !== null):
+      $param['link_preview_options'] = $LinkPreview->ToArray();
+    endif;
+    if($Markup !== null):
+      $param['reply_markup'] = $Markup->ToArray();
+    endif;
+    return $this->ServerMethod(TgMethods::TextEditEphemeral, $param);
   }
 
   /**

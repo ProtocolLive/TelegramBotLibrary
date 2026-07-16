@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TgEnums;
 
 /**
- * @version 2026.06.11.00
+ * @version 2026.07.16.00
  */
 enum TgMethods:string{
   /**
@@ -108,6 +108,10 @@ enum TgMethods:string{
    * @link https://core.telegram.org/bots/api#editmessagecaption
    */
   case CaptionEdit = 'editMessageCaption';
+  /**
+   * @link https://core.telegram.org/bots/api#editephemeralmessagecaption
+   */
+  case CaptionEditEphemeral = 'editEphemeralMessageCaption';
   /**
    * https://core.telegram.org/bots/api#getchat
    */
@@ -429,9 +433,17 @@ enum TgMethods:string{
    */
   case MarkupEdit = 'editMessageReplyMarkup';
   /**
+   * @link https://core.telegram.org/bots/api#editephemeralmessagereplymarkup
+   */
+  case MarkupEditEphemeral = 'editEphemeralMessageReplyMarkup';
+  /**
    * @link https://core.telegram.org/bots/api#editmessagemedia
    */
   case MediaEdit = 'editMessageMedia';
+  /**
+   * @link https://core.telegram.org/bots/api#editephemeralmessagemedia
+   */
+  case MediaEditEphemeral = 'editEphemeralMessageMedia';
   /**
    * @link https://core.telegram.org/bots/api#setchatmembertag
    */
@@ -564,6 +576,10 @@ enum TgMethods:string{
    * @link https://core.telegram.org/bots/api#editmessagetext
    */
   case TextEdit = 'editMessageText';
+  /**
+   * @link https://core.telegram.org/bots/api#editephemeralmessagetext
+   */
+  case TextEditEphemeral = 'editEphemeralMessageText';
   /**
    * @link https://core.telegram.org/bots/api#sendmessage
    */

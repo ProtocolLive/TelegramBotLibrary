@@ -17,7 +17,7 @@ use ProtocolLive\TelegramBotLibrary\TgInterfaces\TgEditedInterface;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgCaptionable;
 
 /**
- * @version 2025.07.04.00
+ * @version 2026.07.16.00
  */
 trait TblEditTrait{
   /**
@@ -74,6 +74,46 @@ trait TblEditTrait{
   }
 
   /**
+   * Use this method to edit the caption of an ephemeral message. Note that it is not guaranteed that the user will receive the message edit event, especially if they are offline
+   * @param int|string $Chat Unique identifier for the target chat or username of the target supergroup in the format @username
+   * @param int $User Identifier of the user who received the message
+   * @param int $Id Identifier of the ephemeral message to edit
+   * @param string|null $Caption New caption of the message, 0-1024 characters after entities parsing
+   * @param TgParseMode|null $ParseMode Mode for parsing entities in the message caption. See formatting options for more details.
+   * @param TblEntities|null $Entities A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
+   * @param TblMarkup|null $Markup A JSON-serialized object for an inline keyboard
+   * @return true On success, True is returned
+   * @link https://core.telegram.org/bots/api#editephemeralmessagecaption
+   */
+  public function CaptionEditEphemeral(
+    int|string $Chat,
+    int $User,
+    int $Id,
+    string|null $Caption = null,
+    TgParseMode|null $ParseMode = null,
+    TblEntities|null $Entities = null,
+    TblMarkup|null $Markup = null
+  ):true{
+    $param['chat_id'] = $Chat;
+    $param['receiver_user_id'] = $User;
+    $param['ephemeral_message_id'] = $Id;
+    if(empty($Caption) === false):
+      TgCaptionable::CheckLimitCaption($Caption);
+      $param['caption'] = $Caption;
+    endif;
+    if($ParseMode !== null):
+      $param['parse_mode'] = $ParseMode->value;
+    endif;
+    if($Entities !== null):
+      $param['caption_entities'] = $Entities->ToArray();
+    endif;
+    if($Markup !== null):
+      $param['reply_markup'] = $Markup->ToArray();
+    endif;
+    return parent::ServerMethod(TgMethods::CaptionEditEphemeral, $param);
+  }
+
+  /**
    * Use this method to edit only the reply markup of messages.
    * @param int $Chat Required if inline_message_id is not specified. Unique identifier for the target chat.
    * @param int $Id Required if inline_message_id is not specified. Identifier of the message to edit
@@ -109,6 +149,30 @@ trait TblEditTrait{
     else:
       return parent::DetectMessageEdited($return);
     endif;
+  }
+
+  /**
+   * Use this method to edit only the reply markup of an ephemeral message. Note that it is not guaranteed that the user will receive the message edit event, especially if they are offline
+   * @param int|string $Chat Unique identifier for the target chat or username of the target supergroup in the format @username
+   * @param int $User Identifier of the user who received the message
+   * @param int $Id Identifier of the ephemeral message to edit
+   * @param TblMarkup|null $Markup A JSON-serialized object for an inline keyboard
+   * @return true On success, True is returned
+   * @link https://core.telegram.org/bots/api#editephemeralmessagereplymarkup
+   */
+  public function MarkupEditEphemeral(
+    int|string $Chat,
+    int $User,
+    int $Id,
+    TblMarkup|null $Markup = null
+  ):true{
+    $param['chat_id'] = $Chat;
+    $param['user_id'] = $User;
+    $param['message_id'] = $Id;
+    if($Markup !== null):
+      $param['reply_markup'] = $Markup->ToArray();
+    endif;
+    return parent::ServerMethod(TgMethods::MarkupEditEphemeral, $param);
   }
 
   /**
@@ -150,5 +214,32 @@ trait TblEditTrait{
     else:
       return parent::DetectMessageEdited($return);
     endif;
+  }
+
+  /**
+   * Use this method to edit the media of an ephemeral message. Note that it is not guaranteed that the user will receive the message edit event, especially if they are offline
+   * @param int|string $Chat Unique identifier for the target chat or username of the target supergroup in the format @username
+   * @param int $User Identifier of the user who received the message
+   * @param int $Id Identifier of the ephemeral message to edit
+   * @param TblMedia $Media A JSON-serialized object for the new media content of the message. A new file can't be uploaded; use a previously uploaded file via its file_id or specify a URL.
+   * @param TblMarkup $Markup A JSON-serialized object for an inline keyboard
+   * @return true On success, True is returned
+   * @link https://core.telegram.org/bots/api#editephemeralmessagemedia
+   */
+  public function MediaEditEphemeral(
+    int|string $Chat,
+    int $User,
+    int $Id,
+    TblMedia $Media,
+    TblMarkup|null $Markup = null
+  ):true{
+    $param['chat_id'] = $Chat;
+    $param['user_id'] = $User;
+    $param['message_id'] = $Id;
+    $param['media'] = $Media->ToArray();
+    if($Markup !== null):
+      $param['reply_markup'] = $Markup->ToArray();
+    endif;
+    return parent::ServerMethod(TgMethods::MediaEditEphemeral, $param);
   }
 }
