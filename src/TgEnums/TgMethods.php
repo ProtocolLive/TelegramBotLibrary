@@ -5,7 +5,7 @@
 namespace ProtocolLive\TelegramBotLibrary\TgEnums;
 
 /**
- * @version 2026.07.16.00
+ * @version 2026.07.16.01
  */
 enum TgMethods:string{
   /**
@@ -456,6 +456,10 @@ enum TgMethods:string{
    * @link https://core.telegram.org/bots/api#deletemessage
    */
   case MessageDelete = 'deleteMessage';
+  /**
+   * @link https://core.telegram.org/bots/api#deleteephemeralmessage
+   */
+  case MessageDeleteEphemeral = 'deleteEphemeralMessage';
   /**
    * @link https://core.telegram.org/bots/api#forwardmessage
    */

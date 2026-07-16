@@ -66,7 +66,7 @@ use ProtocolLive\TelegramBotLibrary\TgParams\{
 };
 
 /**
- * @version 2026.07.14.00
+ * @version 2026.07.16.00
  */
 final class TelegramBotLibrary
 extends TblBasics{
@@ -640,6 +640,25 @@ extends TblBasics{
     $param['chat_id'] = $Chat;
     $param['message_id'] = $Id;
     return parent::ServerMethod(TgMethods::MessageDelete, $param);
+  }
+
+  /**
+   * Use this method to delete an ephemeral message. Note that it is not guaranteed that the user will receive the message deletion event, especially if they are offline
+   * @param int|string $Chat Unique identifier for the target chat or username of the target supergroup in the format @username
+   * @param int $User Identifier of the user who received the message
+   * @param int $Id Identifier of the ephemeral message to delete
+   * @return true Returns True on success
+   * @link https://core.telegram.org/bots/api#deleteephemeralmessage
+   */
+  public function MessageDeleteEphemeral(
+    int|string $Chat,
+    int $User,
+    int $Id
+  ):true{
+    $param['chat_id'] = $Chat;
+    $param['user_id'] = $User;
+    $param['message_id'] = $Id;
+    return parent::ServerMethod(TgMethods::MessageDeleteEphemeral, $param);
   }
 
   /**
