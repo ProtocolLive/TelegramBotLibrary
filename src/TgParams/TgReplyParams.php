@@ -14,7 +14,7 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\{
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgLimits;
 
 /**
- * @version 2026.07.18.00
+ * @version 2026.07.18.01
  */
 class TgReplyParams{
   /**
@@ -42,7 +42,7 @@ class TgReplyParams{
     public TblEntities|null $Entities = null,
     public int|null $EphemeralId = null
   ){
-    if($Quote !== null
+    if(empty($Quote) === false
     and mb_strlen(strip_tags($Quote)) > TgLimits::Quote):
       throw new TblException(
         TgError::LimitQuote,
@@ -55,10 +55,10 @@ class TgReplyParams{
     if($this->Message > 0):
       $return['message_id'] = $this->Message;
     endif;
-    if($this->Chat !== null):
+    if(empty($this->Chat) === false):
       $return['chat_id'] = $this->Chat;
     endif;
-    if($this->Quote !== null):
+    if(empty($this->Quote) === false):
       $return['quote'] = $this->Quote;
     endif;
     if($this->ParseMode !== null):
@@ -67,19 +67,19 @@ class TgReplyParams{
     if($this->Entities !== null):
       $return['entities'] = $this->Entities->ToArray();
     endif;
-    if($this->Position !== null):
+    if($this->Position >= 0):
       $return['quote_position'] = $this->Position;
     endif;
     if($this->SendWithoutReply):
       $return['allow_sending_without_reply'] = true;
     endif;
-    if($this->Checklist !== null):
+    if($this->Checklist > 0):
       $return['checklist_task_id'] = $this->Checklist;
     endif;
-    if($this->PollOption !== null):
+    if(empty($this->PollOption) === false):
       $return['poll_option_id'] = $this->PollOption;
     endif;
-    if($this->EphemeralId !== null):
+    if($this->EphemeralId > 0):
       $return['ephemeral_message_id'] = $this->EphemeralId;
     endif;
     return $return;
