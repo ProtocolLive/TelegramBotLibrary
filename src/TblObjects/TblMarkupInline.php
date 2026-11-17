@@ -8,7 +8,7 @@ use ProtocolLive\TelegramBotLibrary\TgEnums\TgInlineKeyboardStyle;
 use ProtocolLive\TelegramBotLibrary\TgObjects\TgLimits;
 
 /**
- * @version 2026.07.14.00
+ * @version 2026.11.17.00
  */
 class TblMarkupInline
 extends TblMarkup{
@@ -29,9 +29,11 @@ extends TblMarkup{
   public function ButtonCopy(
     int $Line,
     int $Column,
-    string $Text
+    string $ButtonText,
+    string $CopyText
   ):void{
-    $this->Pointer[$Line][$Column]['copy_text']['text'] = $Text;
+    $this->Pointer[$Line][$Column]['text'] = $ButtonText;
+    $this->Pointer[$Line][$Column]['copy_text']['text'] = $CopyText;
   }
 
   /**
